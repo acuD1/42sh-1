@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:41:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/07 16:17:34 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/07 18:44:13 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	init_ak_keycodes(void)
 	init_ak_ctrl_right();
 }
 
-//TODO: Secure the entire routine w/ debug logs
 void	init_line_edition(char **environ)
 {
 	char			*term_name;
@@ -75,7 +74,7 @@ void	init_line_edition(char **environ)
 	if ((tgetent(NULL, term_name)) == -1)
 		log_print(LOG_ERROR, "Tgetent failed.\n");
 
-	//TODO: fix I/O
+	//TODO: FIX I/O ?
 	if (isatty(STDIN_FILENO))
 	{
 		if ((tcgetattr(STDIN_FILENO, &t_term)) == -1)

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 11:22:41 by skuppers          #+#    #+#             */
-/*   Updated: 2019/01/31 08:32:06 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/07 18:44:46 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,12 @@ void	init_termcap_calls(void)
 		return ;
 	}
 	null_termcaps(termcp);
-
 	termcp->begin_insertion = ft_strdup(tgetstr("im", NULL));
 	if (termcp->begin_insertion != NULL)
 		++valid_termcaps;
 	termcp->end_insertion = ft_strdup(tgetstr("ei", NULL));
 	if (termcp->end_insertion != NULL)
 		++valid_termcaps;
-
 	termcp->cs_down = ft_strdup(tgetstr("do", NULL));
 	if (termcp->cs_down != NULL)
 		++valid_termcaps;
@@ -60,7 +58,6 @@ void	init_termcap_calls(void)
 	if (termcp->cs_right != NULL)
 		++valid_termcaps;
 	log_print(LOG_INFO, "%d/6 termcaps loaded.\n", valid_termcaps);
-//	termcp-> = ft_strdup(tgetstr("", NULL));
 	g_termcaps = termcp;
 }
 

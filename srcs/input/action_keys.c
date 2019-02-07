@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 11:19:21 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/07 17:39:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/07 18:40:38 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,11 @@ unsigned int handle_printable_char(char c[READ_SIZE],
 	tmp_idx = ws->cursor_index;
 	if (tmp_idx > (vector->current_size - 2))
 		vector_rescale(vector);
-
 	if (vector_last_char(vector) != tmp_idx)
 	{
 		tputs(g_termcaps->begin_insertion, 1, &ft_putc);
 		print_words(c, ws);
 		tputs(g_termcaps->end_insertion, 1, &ft_putc);
-//		print_words();
 		shift_content_right_once(vector, tmp_idx);
 		vector->buffer[tmp_idx] = c[0];
 		redraw_input_line(vector, ws);
@@ -58,9 +56,6 @@ unsigned int handle_printable_char(char c[READ_SIZE],
 		vector->buffer[tmp_idx] = c[0];
 		print_words(c, ws);
 	}
-
-	ft_printf_fd(2, "[PRINT_CHAR] - C=%s x:%d|y:%d|tmp:%d\n", c, ws->x, ws->y, tmp_idx);
-
 	return (ws->cursor_index);
 }
 

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:17:45 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/07 15:08:41 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/07 18:47:35 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ void vector_rescale(t_buffer *vector)
 	vector->buffer = new;
 }
 
-/**
- *	Be sure that str is big enough to store the string after shifting
- */
 static void		ft_strshift(char *str, unsigned int index, int shift)
 {
 	size_t last;

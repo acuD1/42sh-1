@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 07:30:12 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/07 17:06:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/07 18:43:02 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int		tc_ak_next_word(t_buffer *vector, t_winsize *ws)
 		return (ws->cursor_index);
 	else
 	{
-		while (ws->cursor_index < (int)vector_last_char(vector) && vector->buffer[ws->cursor_index] != ' ') //&& vector->buffer[cur_idx] != '\t')
+		while (ws->cursor_index < (int)vector_last_char(vector) && vector->buffer[ws->cursor_index] != ' ')
 			ws->cursor_index = tc_ak_arrow_right(vector, ws);
-		while (ws->cursor_index < (int)vector_last_char(vector) && (vector->buffer[ws->cursor_index] == ' '))// || vector->buffer[cur_idx] == '\t'))
+		while (ws->cursor_index < (int)vector_last_char(vector) && (vector->buffer[ws->cursor_index] == ' '))
 			ws->cursor_index = tc_ak_arrow_right(vector, ws);
 	}
 	return (ws->cursor_index);
@@ -36,9 +36,9 @@ int		tc_ak_prev_word(t_buffer *vector, t_winsize *ws)
 		return (0);
 	else
 	{
-		while (ws->cursor_index > 0 && vector->buffer[ws->cursor_index] != ' ') //&& vector->buffer[cur_idx] != '\t')
+		while (ws->cursor_index > 0 && vector->buffer[ws->cursor_index] != ' ')
 			ws->cursor_index = tc_ak_arrow_left(vector, ws);
-		while (ws->cursor_index > 0 && (vector->buffer[ws->cursor_index] == ' '))// || vector->buffer[cur_idx] == '\t'))
+		while (ws->cursor_index > 0 && (vector->buffer[ws->cursor_index] == ' '))
 			ws->cursor_index = tc_ak_arrow_left(vector, ws);
 	}
 	return (ws->cursor_index);
@@ -66,16 +66,11 @@ static int cut_buffer(t_buffer *vect, t_winsize *ws, int before)
 int		tc_ak_cut_before_cursor(t_buffer *vector, t_winsize *ws)
 {
 	ft_bzero(g_clipboard->buffer, g_clipboard->current_size);
-
 	while (g_clipboard->current_size < vector->current_size)
 		vector_rescale(g_clipboard);
-
 	g_clipboard->buffer = ft_strncpy(g_clipboard->buffer, vector->buffer, ws->cursor_index);
-
 	cut_buffer(vector, ws, 1);
-
 	redraw_input_line(vector, ws);
-
 	return (ws->cursor_index);
 }
 
@@ -84,34 +79,24 @@ int		tc_ak_cut_after_cursor(t_buffer *vector, t_winsize *ws)
 	char *tmp;
 
 	ft_bzero(g_clipboard->buffer, g_clipboard->current_size);
-
 	while (g_clipboard->current_size < vector->current_size)
 		vector_rescale(g_clipboard);
-
 	tmp = ft_strsub(vector->buffer, ws->cursor_index, vector_last_char(vector));
-
 	g_clipboard->buffer = ft_strcpy(g_clipboard->buffer, tmp);
 	ft_strdel(&tmp);
-
 	cut_buffer(vector, ws, -1);
 	redraw_input_line(vector, ws);
-
 	return (ws->cursor_index);
 }
 
-//CTRL+X
 int		tc_ak_cut_line(t_buffer *vector, t_winsize *ws)
 {
 	ft_bzero(g_clipboard->buffer, g_clipboard->current_size);
-
 	while (g_clipboard->current_size < vector->current_size)
 		vector_rescale(g_clipboard);
 	g_clipboard->buffer = ft_strcpy(g_clipboard->buffer, vector->buffer);
-
 	ft_bzero(vector->buffer, vector->current_size);
-
 	redraw_input_line(vector, ws);
-
 	return (ws->cursor_index);
 }
 
@@ -120,7 +105,6 @@ int		tc_ak_copy_before_cursor(t_buffer *vector, t_winsize *ws)
 	ft_bzero(g_clipboard->buffer, g_clipboard->current_size);
 	while (g_clipboard->current_size < vector->current_size)
 		vector_rescale(g_clipboard);
-
 	g_clipboard->buffer = ft_strncpy(g_clipboard->buffer, vector->buffer, ws->cursor_index);
 	return (ws->cursor_index);
 }
@@ -137,7 +121,7 @@ int		tc_ak_copy_after_cursor(t_buffer *vector, t_winsize *ws)
 	ft_strdel(&tmp);
 	return (ws->cursor_index);
 }
-//CTRL+B
+
 int		tc_ak_copy_line(t_buffer *vector, t_winsize *ws)
 {
 	ft_bzero(g_clipboard->buffer, g_clipboard->current_size);
@@ -154,19 +138,15 @@ int		tc_ak_paste_clipboard(t_buffer *vector, t_winsize *ws)
 
 	if (vector->current_size < (vector_last_char(vector) + vector_last_char(g_clipboard) + 1))
 		vector_rescale(vector);
-
 	if (vector->buffer[ws->cursor_index] != '\0')
 	{
 		before = ft_strsub(vector->buffer, 0, ws->cursor_index);
 		after = ft_strsub(vector->buffer, ws->cursor_index, vector_last_char(vector));
-
 		ft_bzero(vector->buffer, vector->current_size);
 		vector->buffer = ft_strcpy(vector->buffer, before);
 		vector->buffer = ft_strcat(vector->buffer, g_clipboard->buffer);
 		vector->buffer = ft_strcat(vector->buffer, after);
-
 		redraw_input_line(vector, ws);
-
 		ft_strdel(&after);
 		ft_strdel(&before);
 	}
