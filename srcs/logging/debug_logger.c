@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/20 15:13:50 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/21 15:01:12 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ static char		*log_fetch_importance(int imp)
 	return (str);
 }
 
-void			log_print(t_registry *reg, int importance,
-		char *message, ...)
+void			log_print(int importance, char *message, ...)
 {
 	va_list args;
 	char	*str;
@@ -56,10 +55,10 @@ void			log_print(t_registry *reg, int importance,
 	va_end(args);
 }
 
-void	init_debug_logger(struct s_registry registry)
+void	init_debug_logger(t_registry *reg)
 {
-	if ((registry->arguments & live_debug))
-		//debug to fd->2
+	if ((reg->arguments->opt_d == 1))
+		;//debug to fd->2
 	else
-		//debug to log file
+		;//debug to log file
 }

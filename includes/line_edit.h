@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/20 10:54:09 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/21 15:04:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "libft.h"
+#include "21sh.h"
 
 # define READ_SIZE 8
 # define AK_AMOUNT 23
@@ -140,7 +141,7 @@ int				tc_ak_arrow_down(t_vector *vector, t_winsize *ws);
 int				tc_ak_arrow_left(t_vector *vector, t_winsize *ws);
 int				tc_ak_arrow_right(t_vector *vector, t_winsize *ws);
 
-void			init_line_edition(char **environ);
+int				init_line_edition(t_registry *reg);
 void			init_termcap_actions(int (*tc_call[AK_AMOUNT])
 		(t_vector *vector, t_winsize *ws));
 

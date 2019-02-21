@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:32:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/20 15:12:49 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/21 12:57:52 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,28 @@ char			*get_env_node_value(t_environment_node *head, char *key)
 
 int							delete_env_node(t_environment_node *head, char *key)
 {
-
+	(void)head;
+	(void)key;
+	return (0);
 }
 
 int							overwrite_env_value(t_environment_node *head,
 		char *key, char *new_value)
 {
+	t_environment_node	*ptr;
 
+	ptr = head;
+	while (ptr->next != NULL)
+	{
+		if (ft_strequ(ptr->key, key))
+		{
+			ft_strdel(&(ptr->value));
+			ptr->value = ft_strdup(new_value);
+			return (0);
+		}
+		ptr = ptr->next;
+	}
+	return (-1);
 }
 
 static t_environment_node	*create_env_node(char *key, char *value)
@@ -56,7 +71,7 @@ static t_environment_node	*create_env_node(char *key, char *value)
 static void				ft_listappend(t_environment_node *head,
 		t_environment_node *new)
 {
-	t_environment_node tmp;
+	t_environment_node *tmp;
 
 	tmp = head;
 	while (tmp->next != NULL)
@@ -70,33 +85,25 @@ static void				ft_listappend(t_environment_node *head,
  */
 t_environment_node	*parse_environment(char **environment)
 {
-	/* TODO:
-	 *	check for environment
-	 *	and if it is not present
-	 *	check for /etc/paths.d/
-	 *	and /etc/manpaths
-	 *
-	 *	Add essential values if their not present
-	 */
-
 	t_environment_node		*head;
 	t_environment_node		*new;
 	unsigned int			separator;
 
+	//TODO: add internal nodes (SHLVL, etc...)
+
+	head = NULL;
 	if (environment == NULL)
 	{
-		//check /etc/paths.d
-		//		/etc/manpaths.d
-		//add internal nodes (SHLVL, PWD, _, etc...)
+
 	}
 	else
 	{
 		while (*environment)
 		{
-			separator = ft_strnchr(*environment, '=');
-			new = create_environment_node(ft_strsub(*environment, 0, separator),
+			separator = ft_strnchr(*environment, ENV_SEPARATOR);
+			new = create_env_node(ft_strsub(*environment, 0, separator),
 					ft_strsub(*environment, separator + 1,
-						ft_strlen(*environment) - (i + 1)));
+						ft_strlen(*environment) - (separator + 1)));
 			if (new == NULL)
 				continue ;
 			if (head == NULL)

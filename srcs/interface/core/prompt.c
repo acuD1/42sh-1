@@ -6,15 +6,14 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/19 16:15:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/21 15:10:11 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
-#include "libft.h"
 #include "ft_printf.h"
 #include "log.h"
-
+#include "21sh.h"
 #include <sys/ioctl.h>
 #include "history.h"
 
@@ -87,7 +86,7 @@ void	prompt(void)
 		log_print(LOG_CRITICAL, "Error creating line vector.\n");
 		return;
 	}
-
+	log_print(LOG_INFO, "Starting prompt.\n");
 	while (1)
 	{
 		ws = init_win_struct();
@@ -114,6 +113,14 @@ void	prompt(void)
 		//parsing
 		// ADD INPUT TO HISTORY (if QUOTING IS VALID)
 		//		push_history_entry(&g_history_head, create_history_entry(buffer_vector->buffer));
-		//execution
+		//executioni
+		if (ft_strequ(vector->buffer, "exit"))
+			return ;
 	}
+}
+
+void	launch_shell_prompt(t_registry *reg)
+{
+	(void)reg;
+	prompt();
 }

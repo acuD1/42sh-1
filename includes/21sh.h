@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 10:15:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/20 14:40:39 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/21 14:51:52 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,7 @@
 
 # define ENV_HOME_NAME "HOME"
 
-# define OPTIONS "cildvn"
-# define OPT_C 1
-# define OPT_I 2
-# define OPT_L 4
-# define OPT_D 8
-# define OPT_V 16
-# define OPT_N 32
+# define ENV_SEPARATOR '='
 
 typedef struct					s_environment_node
 {
@@ -41,20 +35,31 @@ typedef struct					s_environment_node
 	struct s_environment_node	*next;
 }								t_environment_node;
 
+typedef struct					s_arguments
+{
+	unsigned short				opt_c;
+	unsigned short				opt_i;
+	unsigned short				opt_l;
+	unsigned short				opt_d;
+	unsigned short				opt_v;
+	unsigned short				opt_n;
+	unsigned short				opt_h;
+	char						*c_param;
+}								t_arguments;
+
 typedef struct 					s_registry
 {
-	unsigned int				arguments;
-	unsigned int				live_debug;
-
+	t_arguments					*arguments;
 	unsigned int				workspace_avaible;
-	int							first_time_run;
-	
 	char						*home_path;
 	char						*workspace_path;
+
+	struct termios				*orig_term;
+	struct termios				*new_term;
 	
 	t_environment_node			*environment;
 }								t_registry;
 
 void	prompt(void);
-
+void	launch_shell_prompt(t_registry *reg);
 #endif
