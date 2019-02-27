@@ -6,55 +6,42 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 10:41:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/21 14:21:55 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/27 16:34:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "line_edit.h"
 #include "21sh.h"
 #include "log.h"
 #include "startup.h"
 
-//Initialise termcaps directives
-/*		if (init_line_edition() == -1)
-		{
-		log_print(LOG_CRITICAL,"Line edition setup failed. See logs for more info.\n");
-		return (-1);
-		}
-		else
-		log_print(LOG_OK, "Line edition succesfully initialised.\n");
-
-//Main prompt
-while (1)
+void				shell_invoke(t_registry *shell_registry)
 {
-char *user_input_string = prompt();
-start_execution_pipeline(user_input_string);
-}
-}*/
+	t_interface_registry *itf_registry;
 
-void				shell_invoke(t_registry *reg)
-{
-	char	*input_command;
-
-	if (reg->arguments->opt_c)
+	if (shell_registry->arguments->opt_c)
 	{
 //		execute_shell_command(reg->arguments->c_param);
 	}
-	else if (reg->arguments->opt_i)
+	else if (shell_registry->arguments->opt_i)
 	{
-		if (init_line_edition(reg) == 0)
-			launch_shell_prompt(reg);
+		itf_registry = init_line_edition(shell_registry);
+		if (itf_registry != NULL)
+		{
+			launch_shell_prompt(shell_registry, itf_registry);
+		}
 		else
 		{
-
+			log_print(shell_registry, LOG_CRITICAL, "Line edition failed, shuting down.\n");
 		}
 	}
-	else if (reg->arguments->opt_h)
+	else if (shell_registry->arguments->opt_h)
 	{
 //		print_shell_usage();
 	}
 	else
 	{
-		log_print(LOG_ERROR, "Shell invokation is incomplete.\n");
+		log_print(shell_registry, LOG_ERROR, "Shell invokation is incomplete.\n");
 	}
 }
 
@@ -87,16 +74,18 @@ int		main(int ac, char **av, char **environ)
 	//TODO: Code this function lol
 	load_config_files(shell_registry);
 
-	/* If workspace is not avaible, this returns 0,
+	/* If posix mode, dont use a workspace, only use bash default files.
 	 * default keymaps are used, history is not saved or loaded aswell as
 	 * hashtables and 42rc files */
-
-//	shell_registry->workspace_avaible = init_workspace(shell_registry);
+//	if (!shell_registry->arguments->opt_posix)
+//		shell_registry->workspace_avaible = init_workspace(shell_registry);
+//	else
+	shell_registry->workspace_avaible = 0;
 
 	/* debug to log file is default
 	 * if log file is not avaible, dont log
 	 * unless -d is specified so debug fd->2 */
-//	init_debug_logger(shell_registry);
+	init_debug_logger(shell_registry);
 
 	//	prepare_data_structures();
 

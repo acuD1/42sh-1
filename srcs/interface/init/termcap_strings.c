@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 11:22:41 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/21 14:19:50 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/27 15:09:42 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,18 @@
 #include "line_edit.h"
 #include "libft.h"
 
-t_termcaps	*g_termcaps;
-
-static void	null_termcaps(t_termcaps *tc)
+t_termcaps		*init_termcap_calls(t_registry *reg)
 {
-	tc->begin_insertion = NULL;
-	tc->end_insertion = NULL;
-	tc->cs_up = NULL;
-	tc->cs_down = NULL;
-	tc->cs_left = NULL;
-	tc->cs_right = NULL;
-}
-
-void	init_termcap_calls(void)
-{
-	t_termcaps *termcp;
-	unsigned int valid_termcaps;
+	t_termcaps		*termcp;
+	unsigned int	valid_termcaps;
 
 	valid_termcaps = 0;
 	if (!(termcp = malloc(sizeof(t_termcaps))))
 	{
-		g_termcaps = NULL;
-		log_print(LOG_CRITICAL, "Could not allocate memory for termcap structure.\n");
-		return ;
+		log_print(reg, LOG_CRITICAL, "Could not allocate memory for termcap structure.\n");
+		return (NULL);
 	}
-	null_termcaps(termcp);
+	ft_memset(termcp, 0, sizeof(t_termcaps));
 	termcp->begin_insertion = ft_strdup(tgetstr("im", NULL));
 	if (termcp->begin_insertion != NULL)
 		++valid_termcaps;
@@ -57,12 +44,12 @@ void	init_termcap_calls(void)
 	termcp->cs_right = ft_strdup(tgetstr("nd", NULL));
 	if (termcp->cs_right != NULL)
 		++valid_termcaps;
-	log_print(LOG_INFO, "%d/6 termcaps loaded.\n", valid_termcaps);
-	g_termcaps = termcp;
+	log_print(reg, LOG_INFO, "%d/6 termcaps loaded.\n", valid_termcaps);
+	return (termcp);
 }
 
 void	init_termcap_actions(
-		int (*tc_call[AK_AMOUNT])(t_vector *vector, t_winsize *ws))
+		int (*tc_call[AK_AMOUNT])(t_interface_registry *itf_reg))
 {
 	tc_call[AK_ENTER] = &tc_ak_enter;
 	tc_call[AK_ARROW_RIGHT] = &tc_ak_arrow_right;

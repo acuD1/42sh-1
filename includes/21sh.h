@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 10:15:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/21 14:51:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/27 15:43:44 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@ typedef struct					s_arguments
 	unsigned short				opt_v;
 	unsigned short				opt_n;
 	unsigned short				opt_h;
+	unsigned short				opt_posix;
+	unsigned short				opt_norc;
+	unsigned short				opt_rcfile;
+	char						*rcfile_path;
 	char						*c_param;
 }								t_arguments;
 
@@ -54,12 +58,13 @@ typedef struct 					s_registry
 	char						*home_path;
 	char						*workspace_path;
 
+	int							debug_fd;
+
 	struct termios				*orig_term;
 	struct termios				*new_term;
 	
 	t_environment_node			*environment;
 }								t_registry;
 
-void	prompt(void);
-void	launch_shell_prompt(t_registry *reg);
+char	*get_env_node_value(t_environment_node *head, char *key);
 #endif

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:32:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/21 12:57:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/25 10:43:31 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_environment_node	*parse_environment(char **environment)
 	head = NULL;
 	if (environment == NULL)
 	{
-
+		//handle NULL environment
 	}
 	else
 	{

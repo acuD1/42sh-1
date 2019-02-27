@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:32:15 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/21 11:44:45 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/25 10:44:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,17 @@ t_arguments		*parse_arguments(int ac, char **av)
 {
 	/*
 	 * Parsing args
+	 *  -- stops args parsing
 	 *  -c "string"
 	 *	-i      -> interactive (default)
-	 *	-l      -> login shell
-	 *	-d      -> live debug to tty
-	 *	-v      -> print version
-	 *	-n      -> noprofile login shell invokation
-	 *	-h      -> displays shell user info
+	 *	-l || --login     -> login shell
+	 *	-d || --debug     -> live debug to tty
+	 *	--version 	      -> print version
+	 *	--noprofile       -> noprofile login shell invokation
+	 *	--help            -> displays shell user info
+	 *	--posix           -> posix invokation
+	 *	--norc			  -> dont read .rc file
+	 *	--rcfile "file"   -> use file instead of standart rc file
 	 */
 
 	t_arguments		*args;

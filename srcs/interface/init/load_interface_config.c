@@ -6,32 +6,33 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/21 15:09:39 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/27 16:37:35 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 #include "log.h"
 #include "21sh.h"
+#include "line_edit.h"
 
 /*
  *		Retrieving the terminal type, to load the appropriate termcaps database.
  */
-int		init_termcaps_database(void)
+int		init_termcaps_database(t_registry *reg)
 {
 	char			*term_name;
 
 	if ((term_name = getenv("TERM")) == NULL)
 	{
-		log_print(LOG_ERROR, "Terminal not found.\n");
+		log_print(reg, LOG_ERROR, "Terminal not found.\n");
 		return(-1);
 	}
 	if ((tgetent(NULL, term_name)) == -1)
 	{
-		log_print(LOG_ERROR, "Tgetent failed.\n");
+		log_print(reg, LOG_ERROR, "Tgetent failed.\n");
 		return (-1);
 	}
-	log_print(LOG_OK, "Reached targeting terminal and termcaps database.\n");
+	log_print(reg, LOG_OK, "Reached targeting terminal and termcaps database.\n");
 	return (0);
 }
 
@@ -48,19 +49,19 @@ int		init_terminal_behavior(t_registry *reg)
 	{
 		if ((tcgetattr(STDIN_FILENO, &t_term)) == -1)
 		{
-			log_print(LOG_ERROR, "Tcgetattr failed fetching info.\n");
+			log_print(reg, LOG_ERROR, "Tcgetattr failed fetching info.\n");
 			return (-1);
 		}
 		else
 		{
 			ft_memcpy(&orig_term, &t_term, sizeof(t_term));
 			reg->orig_term = &orig_term;
-			log_print(LOG_OK, "Saved initial terminal behavior.\n");
+			log_print(reg, LOG_OK, "Saved initial terminal behavior.\n");
 		}
 	}
 	else
 	{
-		log_print(LOG_ERROR, "STDIN or STDOUT is not a valid tty.\n");
+		log_print(reg, LOG_ERROR, "STDIN or STDOUT is not a valid tty.\n");
 		return (-1);
 	}
 	t_term.c_lflag &= ~(ICANON);
@@ -70,7 +71,7 @@ int		init_terminal_behavior(t_registry *reg)
 
 	if (isatty(STDIN_FILENO))
 		if (tcsetattr(STDIN_FILENO, TCSANOW, &t_term) == -1)
-			log_print(LOG_ERROR, "Tcsetattr failed setting params.\n");
+			log_print(reg, LOG_ERROR, "Tcsetattr failed setting params.\n");
 	reg->new_term = &t_term;
 	return (0);
 }
@@ -79,12 +80,6 @@ int		init_terminal_behavior(t_registry *reg)
  *		Try to load all nessesary termcaps sequences and store them
  *		in the appropriate structure. Handle errors accordingly.
  */
-int		load_termcaps()
-{
-	//init_termcaps_calls
-	init_termcap_calls();
-	return (0);
-}
 
 /*
  *		Storing the corresponding keycodes for each used key.
@@ -106,32 +101,53 @@ int		link_actions_to_keys()
 	return (0);
 }
 
-
-int		init_line_edition(t_registry *reg)
+static t_interface_registry *create_interface_registry(t_registry *shell_registry)
 {
-	if (init_termcaps_database() != 0)
+	t_interface_registry *itf_reg;
+
+	if (!(itf_reg = malloc(sizeof(t_interface_registry))))
 	{
-		log_print(LOG_CRITICAL, "Termcap database not found!\n");
-		return (-1);
+		log_print(shell_registry, LOG_ERROR, "Interface registry could not be allocated.\n");
+		return (NULL);
+	}
+	ft_memset(itf_reg, 0, sizeof(t_interface_registry));
+	return (itf_reg);
+}
+
+t_interface_registry *init_line_edition(t_registry *reg)
+{
+	t_interface_registry *itf_reg;
+
+	if (init_termcaps_database(reg) != 0)
+	{
+		log_print(reg, LOG_CRITICAL, "Termcap database not found!\n");
+		return (NULL);
 	}
 	if (init_terminal_behavior(reg) != 0)
 	{
-		log_print(LOG_CRITICAL, "Terminal could not be initialised.\n");
-		return (-1);
+		log_print(reg, LOG_CRITICAL, "Terminal could not be initialised.\n");
+		return (NULL);
 	}
 
-	load_termcaps();
+	if ((itf_reg = create_interface_registry(reg)) == NULL)
+		return (NULL);
+	else
+		log_print(reg, LOG_OK, "Interface registry created.\n");
+
+	if ((itf_reg->termcaps = init_termcap_calls(reg)) == NULL)
+		return (NULL);
+	else
+		log_print(reg, LOG_OK, "Termcap registry created.\n");
+
 	setup_keycodes();
+
 	link_actions_to_keys();
 
-
 	if (!(g_clipboard = ft_vctnew(0)))
-		log_print(LOG_ERROR, "Clipboard failed.\n");
+		log_print(reg, LOG_ERROR, "Clipboard failed.\n");
 	else
-		log_print(LOG_INFO, "Clipboard initialized.\n");
+		log_print(reg, LOG_INFO, "Clipboard initialized.\n");
 
-
-
-	log_print(LOG_OK, "Line edition initialized.\n");
-	return (0);
+	log_print(reg, LOG_OK, "Line edition initialized.\n");
+	return (itf_reg);
 }

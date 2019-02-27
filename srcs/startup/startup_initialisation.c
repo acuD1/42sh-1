@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:33:03 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/21 13:22:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/25 11:44:44 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,37 @@
 	 * which can be inhibited with the '--norc' option or forces
 	 * the file to be read to be 'file' with the option '--rcfile a_file'
 	 *
-	 * Search and exec {/etc/profile, /etc/paths.d/,  /etc/manpaths
+	 * Search and exec /etc/profile (All Unix systems)
+	 *  /etc/paths.d/,  /etc/manpaths (Only MacOS)
 */
 void	load_config_files(t_registry *reg)
 {
  //TODO: load and exec file according to launch arguments
+	if (reg->arguments->opt_norc)
+		return ;
+	if (reg->arguments->opt_rcfile)
+	{
+		// read reg->arguments->rcfile_path;
+		return ;
+	}
+
+	if (reg->arguments->opt_posix)
+	{
+		//
+	}
+	else if (reg->arguments->opt_l)
+	{
+		// /etc/profile
+		// /etc/paths.d and /etc/manpaths (on MacOS only)
+		//.bash_profile ; .bash_login ; .profile ; .bash_logout
+	}
+
+	if (reg->arguments->opt_i)
+	{
+		// .bashrc
+	}
+	else if (reg->arguments->opt_c)
+	{
+		// non-interactive mode
+	}
 }

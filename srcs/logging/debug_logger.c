@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/21 15:01:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/25 11:47:11 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,33 @@ static char		*log_fetch_importance(int imp)
 	return (str);
 }
 
-void			log_print(int importance, char *message, ...)
+void			log_print(t_registry *reg, int importance, char *message, ...)
 {
 	va_list args;
 	char	*str;
 
+	if (reg->debug_fd < 1)
+		return ;
 	str = log_fetch_importance(importance);
-	ft_printf_fd(2, str);
+	ft_printf_fd(reg->debug_fd, str);
 	ft_strdel(&str);
 
-	//message
 	va_start(args, message);
-	ft_printf_va(2, message, args);
+	ft_printf_va(reg->debug_fd, message, args);
 	va_end(args);
 }
 
 void	init_debug_logger(t_registry *reg)
 {
-	if ((reg->arguments->opt_d == 1))
-		;//debug to fd->2
+	if (reg->arguments->opt_d)
+		reg->debug_fd = 2;//debug to fd->2
+	else if (reg->workspace_avaible)
+	{
+		reg->debug_fd = 2; // Temporary placeholder
+		//open file descriptor to std log file
+		//keep it open until shell exit
+		// registry->debug-fd = X;
+	}
 	else
-		;//debug to log file
+		reg->debug_fd = -1;
 }

@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handler.c                                   :+:      :+:    :+:   */
+/*   prompt_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/27 15:47:30 by skuppers         ###   ########.fr       */
+/*   Created: 2019/02/26 14:23:08 by skuppers          #+#    #+#             */
+/*   Updated: 2019/02/27 11:49:42 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "startup.h"
-#include "libft.h"
+#include "21sh.h"
+#include "line_edit.h"
+#include "log.h"
 
-int		prepare_runtime_signals(void)
+void	prompt_read_failed(t_registry *reg, t_vector *vect)
 {
-	/*
-	 *	Do some signals stuff here
-	 */
-	return (0);
+	log_print(reg, LOG_ERROR, "Prompt read() failed!\n");
+	ft_strdel(&(vect->buffer));
+	free(vect);
+	vect = NULL;
 }

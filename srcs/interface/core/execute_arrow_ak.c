@@ -6,92 +6,83 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:12:56 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/08 10:57:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/27 15:20:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 #include "ft_printf.h"
 #include "log.h"
-#include "history.h"
+//#include "history.h"
 
-//t_history *g_history_head;
-//t_history *g_history_selection;
 
-t_termcaps *g_termcaps;
-
-int tc_ak_arrow_right(t_vector *vector, t_winsize *ws)
+int tc_ak_arrow_right(t_interface_registry *itf_reg)
 {
-	int tmp_idx;
+	size_t	tmp_idx;
 
-	tmp_idx = ws->cursor_index;
+	tmp_idx = itf_reg->window->cursor_index;
 
-	if (tmp_idx < (int)ft_vctlen(vector))
+	if (tmp_idx < ft_vctlen(itf_reg->vector))
 	{
-		if (ws->x >= ws->cols - 1)
+		if (itf_reg->window->x >= itf_reg->window->cols - 1)
 		{
-			tputs(g_termcaps->cs_down, 1, &ft_putc);
-			tmp_idx = (tmp_idx + ws->cols);
-			ws->y++;
+			tputs(itf_reg->termcaps->cs_down, 1, &ft_putc);
+			tmp_idx = (tmp_idx + itf_reg->window->cols);
+			itf_reg->window->y++;
 
-			while (ws->x > 0)
+			while (itf_reg->window->x > 0)
 			{
 				--tmp_idx;
-				ws->x--;
+				itf_reg->window->x--;
 			}
 		}
 		else
 		{
-			tputs(g_termcaps->cs_right, 1 , &ft_putc);
+			tputs(itf_reg->termcaps->cs_right, 1 , &ft_putc);
 			++tmp_idx;
-			ws->x++;
+			itf_reg->window->x++;
 		}
 	}
 	return (tmp_idx);
 }
 
-int tc_ak_arrow_left(t_vector *vector, t_winsize *ws)
+int tc_ak_arrow_left(t_interface_registry *itf_reg)
 {
-	(void)vector;
-	int		tmp_idx;
+	size_t		tmp_idx;
 
-	tmp_idx = ws->cursor_index;
-
+	tmp_idx = itf_reg->window->cursor_index;
 	if (tmp_idx >= 1)
 	{
 
-		if (ws->x == 0 && ws->y >= 1)
+		if (itf_reg->window->x == 0 && itf_reg->window->y >= 1)
 		{
-			tputs(g_termcaps->cs_up, 1, &ft_putc);
-			ws->y--;
+			tputs(itf_reg->termcaps->cs_up, 1, &ft_putc);
+			itf_reg->window->y--;
 
-			while (ws->x < ws->cols)
+			while (itf_reg->window->x < itf_reg->window->cols)
 			{
-				tputs(g_termcaps->cs_right, 1, &ft_putc);
-				ws->x++;
+				tputs(itf_reg->termcaps->cs_right, 1, &ft_putc);
+				itf_reg->window->x++;
 			}
 			--tmp_idx;
-			ws->x--;
+			itf_reg->window->x--;
 		}
 		else
 		{
-			tputs(g_termcaps->cs_left, 1, &ft_putc);
+			tputs(itf_reg->termcaps->cs_left, 1, &ft_putc);
 			--tmp_idx;
-			ws->x--;
+			itf_reg->window->x--;
 		}
 	}
 	return (tmp_idx);
 }
 
-int tc_ak_arrow_up(t_vector *vector, t_winsize *ws)
+int tc_ak_arrow_up(t_interface_registry *itf_reg)
 {
-	(void)vector;
-	return (ws->cursor_index);
+	return (itf_reg->window->cursor_index);
 }
 
-int tc_ak_arrow_down(t_vector *vector, t_winsize *ws)
+int tc_ak_arrow_down(t_interface_registry *itf_reg)
 {
-	(void)vector;
-	return (ws->cursor_index);
+	return (itf_reg->window->cursor_index);
 }
-

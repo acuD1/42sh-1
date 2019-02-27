@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/21 15:04:09 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/27 16:31:48 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 
 # define PROMPT_TEXT "|42sh|-> "
 # define PROMPT_TEXT_LENGTH 9
+
+# define NEWLINE_KEYCODE 10
 
 enum action_keys {
 	AK_ENTER,
@@ -58,6 +60,7 @@ enum action_keys {
 	AK_CTRL_RIGHT,
 };
 
+
 typedef struct	s_termcaps
 {
 	char		*begin_insertion; //im
@@ -77,25 +80,41 @@ typedef struct s_winsize
 	unsigned int	cols;
 }				t_winsize;
 
+typedef struct	s_interface_registry
+{
+	//tc_call function pointers
 
-extern t_vector		*g_vector;
-extern t_winsize	*g_ws;
+//	int				ak_keycodes[AK_AMOUNT][READ_SIZE];
+//	t_vector		*clipboard;
 
-extern	t_termcaps	*g_termcaps;
-extern	int (*tc_call[AK_AMOUNT])(t_vector *vector, t_winsize *ws);
+	t_vector		*vector;
+	t_termcaps		*termcaps;
+	t_winsize		*window;
+
+}				t_interface_registry;
+
+extern	int (*tc_call[AK_AMOUNT])(t_interface_registry *itf_reg);
 extern	int	ak_keycodes[AK_AMOUNT][READ_SIZE];
 extern	t_vector	*g_clipboard;
 
-void			print_words(char *str, t_winsize *ws);
-int				redraw_input_line(t_vector *vector, t_winsize *ws);
+void			init_ak_keycodes(void);
 
-void			init_termcap_calls(void);
+void			launch_shell_prompt(t_registry *reg, t_interface_registry *itf_registry);
+char			*prompt(t_registry *shell_reg, t_interface_registry *itf_reg);
+
+void			prompt_read_failed(t_registry *reg, t_vector *vect);
+
+void			print_words(char *str, t_interface_registry *itf_reg);
+int				redraw_input_line(t_interface_registry *itf_reg);
+/////////////////////
+t_termcaps		*init_termcap_calls(t_registry *reg);
 
 void			init_ak_home(void);
 void			init_ak_end(void);
 void			init_ak_backspace(void);
 void			init_ak_delete(void);
 void			init_ak_enter(void);
+
 void			init_ak_arrow_up(void);
 void			init_ak_arrow_down(void);
 void			init_ak_arrow_left(void);
@@ -120,32 +139,32 @@ void			init_ak_ctrl_right(void);
 int				ft_putc(int c);
 //unsigned int	handle_printable_char(char c[READ_SIZE]);
 
-int				tc_ak_next_word(t_vector *vector, t_winsize *ws);
-int				tc_ak_prev_word(t_vector *vector, t_winsize *ws);
+void			init_termcap_actions(int (*tc_call[AK_AMOUNT])(t_interface_registry *itf_registry));
 
-int				tc_ak_cut_before_cursor(t_vector *vector, t_winsize *ws);
-int				tc_ak_cut_after_cursor(t_vector *vector, t_winsize *ws);
-int				tc_ak_copy_before_cursor(t_vector *vector, t_winsize *ws);
-int				tc_ak_copy_after_cursor(t_vector *vector, t_winsize *ws);
-int				tc_ak_cut_line(t_vector *vector, t_winsize *ws);
-int				tc_ak_copy_line(t_vector *vector, t_winsize *ws);
-int				tc_ak_paste_clipboard(t_vector *vector, t_winsize *ws);
-int				tc_ak_clear_screen(t_vector *vector, t_winsize *ws);
-int				tc_ak_enter(t_vector *vector, t_winsize *ws);
-int				tc_ak_home(t_vector *vector, t_winsize *ws);
-int				tc_ak_end(t_vector *vector, t_winsize *ws);
-int				tc_ak_delete(t_vector *vector, t_winsize *ws);
-int				tc_ak_backspace(t_vector *vector, t_winsize *ws);
-int				tc_ak_arrow_up(t_vector *vector, t_winsize *ws);
-int				tc_ak_arrow_down(t_vector *vector, t_winsize *ws);
-int				tc_ak_arrow_left(t_vector *vector, t_winsize *ws);
-int				tc_ak_arrow_right(t_vector *vector, t_winsize *ws);
+int				tc_ak_next_word(t_interface_registry *itf_registry);
+int				tc_ak_prev_word(t_interface_registry *itf_registry);
+int				tc_ak_cut_before_cursor(t_interface_registry *itf_registry);
+int				tc_ak_cut_after_cursor(t_interface_registry *itf_registry);
+int				tc_ak_copy_before_cursor(t_interface_registry *itf_registry);
+int				tc_ak_copy_after_cursor(t_interface_registry *itf_registry);
+int				tc_ak_cut_line(t_interface_registry *itf_registry);
+int				tc_ak_copy_line(t_interface_registry *itf_registry);
+int				tc_ak_paste_clipboard(t_interface_registry *itf_registry);
+int				tc_ak_clear_screen(t_interface_registry *itf_registry);
+int				tc_ak_enter(t_interface_registry *itf_registry);
+int				tc_ak_home(t_interface_registry *itf_registry);
+int				tc_ak_end(t_interface_registry *itf_registry);
+int				tc_ak_delete(t_interface_registry *itf_registry);
+int				tc_ak_backspace(t_interface_registry *itf_registry);
 
-int				init_line_edition(t_registry *reg);
-void			init_termcap_actions(int (*tc_call[AK_AMOUNT])
-		(t_vector *vector, t_winsize *ws));
+int				tc_ak_arrow_up(t_interface_registry *itf_registry);
+int				tc_ak_arrow_down(t_interface_registry *itf_registry);
+int				tc_ak_arrow_left(t_interface_registry *itf_registry);
+int				tc_ak_arrow_right(t_interface_registry *itf_registry);
 
-int				handle_input_key(char c[], t_vector *v_buffer, t_winsize *ws);
+t_interface_registry	*init_line_edition(t_registry *reg);
+
+int				handle_input_key(char c[], t_interface_registry *itf_reg);
 
 void			vector_rescale(t_vector *buffer);
 size_t			vector_last_char(t_vector *vector);

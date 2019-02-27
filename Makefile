@@ -15,7 +15,7 @@ OBJDIR = objs/
 INCDIR = includes/
 INCLIBDIR = libft/includes/
 
-VPATH = objs:srcs:srcs/startup:srcs/logging:srcs/signals:srcs/misc:srcs/interface:srcs/exec:srcs/interface/utils:srcs/interface/core:srcs/interface/init
+VPATH = objs:srcs:srcs/startup:srcs/logging:srcs/signals:srcs/misc:srcs/interface:srcs/exec:srcs/interface/utils:srcs/interface/core:srcs/interface/init:srcs/interface/misc
 
 # ------------------ #
 # Compiler and flags #
@@ -44,7 +44,8 @@ SRCS_NAMES = 21sh.c argument_parser.c environment_parser.c startup_initialisatio
 			 termcap_strings.c load_interface_config.c keymap_handler.c\
 			 init_special_ak.c init_ctrl_ak.c init_arrow_ak.c init_clipboard.c\
 			 action_keys.c execute_arrow_ak.c execute_ctrl_ak.c execute_special_ak.c\
-			 line_edition.c prompt.c redraw_prompt.c sub_shell.c validate_input.c
+			 line_edition.c prompt.c redraw_prompt.c sub_shell.c validate_input.c\
+			 prompt_errors.c handle_input_keys.c init_ak_keycodes.c
 
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)

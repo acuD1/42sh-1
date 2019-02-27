@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 10:15:15 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/20 12:57:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/25 11:25:46 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define COLOR_RED		"\x1b[31m"
 
 #include <time.h>
+#include "21sh.h"
 
 enum importance {
 	LOG_OK,
@@ -29,6 +30,6 @@ enum importance {
 	LOG_CRITICAL
 };
 
-void	log_print(int importance, char *message, ...);
+void	log_print(t_registry *reg, int importance, char *message, ...);
 
 #endif
