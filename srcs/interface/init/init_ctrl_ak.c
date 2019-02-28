@@ -6,13 +6,32 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 07:29:58 by skuppers          #+#    #+#             */
-/*   Updated: 2019/01/09 11:45:02 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/28 14:59:53 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 
 int		ak_keycodes[AK_AMOUNT][READ_SIZE];
+
+void	init_ak_ctrl_up(void)
+{
+	ak_keycodes[AK_CTRL_UP][0] = 27;
+	ak_keycodes[AK_CTRL_UP][1] = 91;
+	ak_keycodes[AK_CTRL_UP][2] = 49;
+	ak_keycodes[AK_CTRL_UP][3] = 59;
+	ak_keycodes[AK_CTRL_UP][4] = 53;
+	ak_keycodes[AK_CTRL_UP][5] = 65;
+}
+void	init_ak_ctrl_down(void)
+{
+	ak_keycodes[AK_CTRL_DOWN][0] = 27;
+	ak_keycodes[AK_CTRL_DOWN][1] = 91;
+	ak_keycodes[AK_CTRL_DOWN][2] = 49;
+	ak_keycodes[AK_CTRL_DOWN][3] = 59;
+	ak_keycodes[AK_CTRL_DOWN][4] = 53;
+	ak_keycodes[AK_CTRL_DOWN][5] = 66;
+}
 
 void	init_ak_ctrl_left(void)
 {

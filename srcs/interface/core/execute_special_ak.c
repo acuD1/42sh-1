@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:14:28 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/27 15:39:26 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/28 14:37:18 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ int	ft_putc(int c)
 {
 	write(1, &c, 1);
 	return (42);
+}
+
+int tc_ak_hightab(t_interface_registry *itf_reg)
+{
+	//Autocompletion
+	return (itf_reg->window->cursor_index);
 }
 
 int tc_ak_delete(t_interface_registry *itf_reg)

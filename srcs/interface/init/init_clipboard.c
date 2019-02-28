@@ -6,18 +6,27 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/27 15:40:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/28 10:29:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "21sh.h"
+#include "line_edit.h"
 #include "log.h"
 
 /*
  *		Initialise the clipboard vector.
  */
-int		prepare_clipboard(void)
+t_vector		*allocate_clipboard(t_registry *sh_reg)
 {
-	return (0);
+	t_vector *clipboard;
+
+	if ((clipboard = ft_vctnew(0)) == NULL)
+	{
+		log_print(sh_reg, LOG_ERROR, "Clipboard allocation failed.\n");
+		return (NULL);
+	}
+	return (clipboard);
 }
 

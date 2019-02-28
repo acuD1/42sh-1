@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/27 16:37:35 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/28 11:27:59 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		init_termcaps_database(t_registry *reg)
  *		Retrieving the terminal attributes and setting them to the desired parameters
  *		The original attributes have to be set back at exit.
  */
-int		init_terminal_behavior(t_registry *reg)
+int		init_terminal_behavior(t_registry *reg, t_interface_registry *itf_reg)
 {
 	struct termios	t_term;
 	struct termios	orig_term;
@@ -55,7 +55,7 @@ int		init_terminal_behavior(t_registry *reg)
 		else
 		{
 			ft_memcpy(&orig_term, &t_term, sizeof(t_term));
-			reg->orig_term = &orig_term;
+			itf_reg->orig_term = &orig_term;
 			log_print(reg, LOG_OK, "Saved initial terminal behavior.\n");
 		}
 	}
@@ -72,8 +72,14 @@ int		init_terminal_behavior(t_registry *reg)
 	if (isatty(STDIN_FILENO))
 		if (tcsetattr(STDIN_FILENO, TCSANOW, &t_term) == -1)
 			log_print(reg, LOG_ERROR, "Tcsetattr failed setting params.\n");
-	reg->new_term = &t_term;
+	itf_reg->new_term = &t_term;
 	return (0);
+}
+
+void	restore_original_term_behavior(t_registry *sh_reg, t_interface_registry *itf_reg)
+{
+	if (tcsetattr(STDIN_FILENO, TCSANOW, itf_reg->orig_term) == -1)
+		log_print(sh_reg, LOG_ERROR, "Failed to restore original term behavior.\n");
 }
 
 /*
@@ -118,21 +124,21 @@ t_interface_registry *init_line_edition(t_registry *reg)
 {
 	t_interface_registry *itf_reg;
 
+	if ((itf_reg = create_interface_registry(reg)) == NULL)
+		return (NULL);
+	else
+		log_print(reg, LOG_OK, "Interface registry created.\n");
+
 	if (init_termcaps_database(reg) != 0)
 	{
 		log_print(reg, LOG_CRITICAL, "Termcap database not found!\n");
 		return (NULL);
 	}
-	if (init_terminal_behavior(reg) != 0)
+	if (init_terminal_behavior(reg, itf_reg) != 0)
 	{
 		log_print(reg, LOG_CRITICAL, "Terminal could not be initialised.\n");
 		return (NULL);
 	}
-
-	if ((itf_reg = create_interface_registry(reg)) == NULL)
-		return (NULL);
-	else
-		log_print(reg, LOG_OK, "Interface registry created.\n");
 
 	if ((itf_reg->termcaps = init_termcap_calls(reg)) == NULL)
 		return (NULL);
@@ -143,10 +149,13 @@ t_interface_registry *init_line_edition(t_registry *reg)
 
 	link_actions_to_keys();
 
-	if (!(g_clipboard = ft_vctnew(0)))
-		log_print(reg, LOG_ERROR, "Clipboard failed.\n");
+	if ((itf_reg->clipboard = allocate_clipboard(reg)) == NULL)
+		return (NULL);
 	else
 		log_print(reg, LOG_INFO, "Clipboard initialized.\n");
+
+	if(itf_reg->clipboard == NULL)
+		log_print(reg, LOG_ERROR, "Clipboard failed.\n");
 
 	log_print(reg, LOG_OK, "Line edition initialized.\n");
 	return (itf_reg);

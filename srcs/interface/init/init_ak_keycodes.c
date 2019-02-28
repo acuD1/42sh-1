@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:48:38 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/26 14:51:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/28 14:51:11 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,7 @@ void	init_ak_keycodes(void)
 	init_ak_ctrl_f();
 	init_ak_ctrl_left();
 	init_ak_ctrl_right();
+	init_ak_hightab();
+	init_ak_ctrl_up();
+	init_ak_ctrl_down();
 }

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/27 16:37:13 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/27 17:01:57 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static t_winsize *init_win_struct(t_registry *reg, t_winsize *window)
 
 	return (window);
 }
-#include <stdio.h>
+
 char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
 {
 	char			character[READ_SIZE + 1];
@@ -87,22 +87,14 @@ char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
 		return (NULL);
 	}
 
-//	while (1);
-
-//	ft_bzero(vector->buffer, vector->size);
-	itf_registry->vector = vector;
-
-//	while (1);
-
 	if (!(init_win_struct(shell_reg, window)))
 		return (NULL);
 	itf_registry->window = window;
-
+	itf_registry->vector = vector;
 
 
 //TODO: refactor & signals
 //	init_signal_handler(shell_reg, vector, ws);
-
 
 
 	ft_bzero(character, READ_SIZE);
@@ -144,5 +136,4 @@ void	launch_shell_prompt(t_registry *shell_registry,
 	//	execute_shell_command(user_input_string);
 		ft_strdel(&user_input_string);
 	}
-	//free itf_registry & content
 }

@@ -6,14 +6,12 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 07:30:12 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/27 15:36:43 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:35:18 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 #include "ft_printf.h"
-
-t_vector	*g_clipboard;
 
 //TODO: HANDLE TABULATIONS
 int		tc_ak_next_word(t_interface_registry *itf_reg)
@@ -69,10 +67,10 @@ static int cut_vector(t_vector *vect, t_winsize *ws, int before)
 
 int		tc_ak_cut_before_cursor(t_interface_registry *itf_reg)
 {
-	ft_bzero(g_clipboard->buffer, g_clipboard->size);
-	while (g_clipboard->size < itf_reg->vector->size)
-		ft_vctrescale(g_clipboard);
-	g_clipboard->buffer = ft_strncpy(g_clipboard->buffer, itf_reg->vector->buffer, itf_reg->window->cursor_index);
+	ft_bzero(itf_reg->clipboard->buffer, itf_reg->clipboard->size);
+	while (itf_reg->clipboard->size < itf_reg->vector->size)
+		ft_vctrescale(itf_reg->clipboard);
+	itf_reg->clipboard->buffer = ft_strncpy(itf_reg->clipboard->buffer, itf_reg->vector->buffer, itf_reg->window->cursor_index);
 	cut_vector(itf_reg->vector, itf_reg->window, 1);
 	redraw_input_line(itf_reg);
 	return (itf_reg->window->cursor_index);
@@ -82,11 +80,11 @@ int		tc_ak_cut_after_cursor(t_interface_registry *itf_reg)
 {
 	char *tmp;
 
-	ft_bzero(g_clipboard->buffer, g_clipboard->size);
-	while (g_clipboard->size < itf_reg->vector->size)
-		ft_vctrescale(g_clipboard);
+	ft_bzero(itf_reg->clipboard->buffer, itf_reg->clipboard->size);
+	while (itf_reg->clipboard->size < itf_reg->vector->size)
+		ft_vctrescale(itf_reg->clipboard);
 	tmp = ft_strsub(itf_reg->vector->buffer, itf_reg->window->cursor_index, ft_vctlen(itf_reg->vector));
-	g_clipboard->buffer = ft_strcpy(g_clipboard->buffer, tmp);
+	itf_reg->clipboard->buffer = ft_strcpy(itf_reg->clipboard->buffer, tmp);
 	ft_strdel(&tmp);
 	cut_vector(itf_reg->vector, itf_reg->window, -1);
 	redraw_input_line(itf_reg);
@@ -95,10 +93,10 @@ int		tc_ak_cut_after_cursor(t_interface_registry *itf_reg)
 
 int		tc_ak_cut_line(t_interface_registry *itf_reg)
 {
-	ft_bzero(g_clipboard->buffer, g_clipboard->size);
-	while (g_clipboard->size < itf_reg->vector->size)
-		ft_vctrescale(g_clipboard);
-	g_clipboard->buffer = ft_strcpy(g_clipboard->buffer, itf_reg->vector->buffer);
+	ft_bzero(itf_reg->clipboard->buffer, itf_reg->clipboard->size);
+	while (itf_reg->clipboard->size < itf_reg->vector->size)
+		ft_vctrescale(itf_reg->clipboard);
+	itf_reg->clipboard->buffer = ft_strcpy(itf_reg->clipboard->buffer, itf_reg->vector->buffer);
 	ft_bzero(itf_reg->vector->buffer, itf_reg->vector->size);
 	redraw_input_line(itf_reg);
 	return (itf_reg->window->cursor_index);
@@ -106,10 +104,10 @@ int		tc_ak_cut_line(t_interface_registry *itf_reg)
 
 int		tc_ak_copy_before_cursor(t_interface_registry *itf_reg)
 {
-	ft_bzero(g_clipboard->buffer, g_clipboard->size);
-	while (g_clipboard->size < itf_reg->vector->size)
-		ft_vctrescale(g_clipboard);
-	g_clipboard->buffer = ft_strncpy(g_clipboard->buffer, itf_reg->vector->buffer, itf_reg->window->cursor_index);
+	ft_bzero(itf_reg->clipboard->buffer, itf_reg->clipboard->size);
+	while (itf_reg->clipboard->size < itf_reg->vector->size)
+		ft_vctrescale(itf_reg->clipboard);
+	itf_reg->clipboard->buffer = ft_strncpy(itf_reg->clipboard->buffer, itf_reg->vector->buffer, itf_reg->window->cursor_index);
 	return (itf_reg->window->cursor_index);
 }
 
@@ -117,21 +115,21 @@ int		tc_ak_copy_after_cursor(t_interface_registry *itf_reg)
 {
 	char	*tmp;
 
-	ft_bzero(g_clipboard->buffer, g_clipboard->size);
-	while (g_clipboard->size < itf_reg->vector->size)
-		ft_vctrescale(g_clipboard);
+	ft_bzero(itf_reg->clipboard->buffer, itf_reg->clipboard->size);
+	while (itf_reg->clipboard->size < itf_reg->vector->size)
+		ft_vctrescale(itf_reg->clipboard);
 	tmp = ft_strsub(itf_reg->vector->buffer, itf_reg->window->cursor_index, ft_vctlen(itf_reg->vector));
-	g_clipboard->buffer = ft_strcpy(g_clipboard->buffer, tmp);
+	itf_reg->clipboard->buffer = ft_strcpy(itf_reg->clipboard->buffer, tmp);
 	ft_strdel(&tmp);
 	return (itf_reg->window->cursor_index);
 }
 
 int		tc_ak_copy_line(t_interface_registry *itf_reg)
 {
-	ft_bzero(g_clipboard->buffer, g_clipboard->size);
-	while (g_clipboard->size < itf_reg->vector->size)
-		ft_vctrescale(g_clipboard);
-	g_clipboard->buffer = ft_strcpy(g_clipboard->buffer, itf_reg->vector->buffer);
+	ft_bzero(itf_reg->clipboard->buffer, itf_reg->clipboard->size);
+	while (itf_reg->clipboard->size < itf_reg->vector->size)
+		ft_vctrescale(itf_reg->clipboard);
+	itf_reg->clipboard->buffer = ft_strcpy(itf_reg->clipboard->buffer, itf_reg->vector->buffer);
 	return (itf_reg->window->cursor_index);
 }
 
@@ -141,16 +139,15 @@ int		tc_ak_paste_clipboard(t_interface_registry *itf_reg)
 	char			*before;
 
 	if (itf_reg->vector->size <
-			(ft_vctlen(itf_reg->vector) + ft_vctlen(g_clipboard) + 1))
+			(ft_vctlen(itf_reg->vector) + ft_vctlen(itf_reg->clipboard) + 1))
 		ft_vctrescale(itf_reg->vector);
-	//TODO: problem
 	if (itf_reg->vector->buffer[itf_reg->window->cursor_index] != '\0')
 	{
 		before = ft_strsub(itf_reg->vector->buffer, 0, itf_reg->window->cursor_index);
 		after = ft_strsub(itf_reg->vector->buffer, itf_reg->window->cursor_index, ft_vctlen(itf_reg->vector));
 		ft_bzero(itf_reg->vector->buffer, itf_reg->vector->size);
 		itf_reg->vector->buffer = ft_strcpy(itf_reg->vector->buffer, before);
-		itf_reg->vector->buffer = ft_strcat(itf_reg->vector->buffer, g_clipboard->buffer);
+		itf_reg->vector->buffer = ft_strcat(itf_reg->vector->buffer, itf_reg->clipboard->buffer);
 		itf_reg->vector->buffer = ft_strcat(itf_reg->vector->buffer, after);
 		redraw_input_line(itf_reg);
 		ft_strdel(&after);
@@ -158,9 +155,9 @@ int		tc_ak_paste_clipboard(t_interface_registry *itf_reg)
 	}
 	else
 	{
-		ft_printf_fd(2, "Pasting : %s\n", g_clipboard->buffer);
-		print_words(g_clipboard->buffer, itf_reg);
-		itf_reg->vector->buffer = ft_strcat(itf_reg->vector->buffer, g_clipboard->buffer);
+		ft_printf_fd(2, "Pasting : %s\n", itf_reg->clipboard->buffer);
+		print_words(itf_reg->clipboard->buffer, itf_reg);
+		itf_reg->vector->buffer = ft_strcat(itf_reg->vector->buffer, itf_reg->clipboard->buffer);
 	}
 	return (ft_vctlen(itf_reg->vector));
 }
@@ -168,5 +165,49 @@ int		tc_ak_paste_clipboard(t_interface_registry *itf_reg)
 int		tc_ak_clear_screen(t_interface_registry *itf_reg)
 {
 	(void)itf_reg;
+	return (itf_reg->window->cursor_index);
+}
+
+int		tc_ak_ctrl_down(t_interface_registry *itf_reg)
+{
+	size_t moves;
+	size_t line_length;
+	size_t lines_amount;
+
+	moves = 0;
+	line_length = (ft_vctlen(itf_reg->vector) - 1);
+	lines_amount = ((line_length + PROMPT_TEXT_LENGTH) / itf_reg->window->cols) + 1;
+	if (lines_amount > 1)
+	{
+		while (moves < itf_reg->window->cols)
+		{
+			itf_reg->window->cursor_index = tc_ak_arrow_right(itf_reg);
+			++moves;
+		}
+	}
+	return (itf_reg->window->cursor_index);
+}
+
+int		tc_ak_ctrl_up(t_interface_registry *itf_reg)
+{
+	size_t moves;
+	size_t line_length;
+	size_t lines_amount;
+	size_t cursor_line;
+
+	moves = 0;
+	line_length = (ft_vctlen(itf_reg->vector) - 1);
+	lines_amount = ((line_length + PROMPT_TEXT_LENGTH) / itf_reg->window->cols) + 1;
+	cursor_line = itf_reg->window->y;
+	if (cursor_line == 1 && itf_reg->window->x <= PROMPT_TEXT_LENGTH)
+		return (tc_ak_home(itf_reg));
+	if (lines_amount > 1 && cursor_line > 0)
+	{
+		while (moves < itf_reg->window->cols)
+		{
+			itf_reg->window->cursor_index = tc_ak_arrow_left(itf_reg);
+			++moves;
+		}
+	}
 	return (itf_reg->window->cursor_index);
 }

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 11:22:41 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/27 15:09:42 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/28 14:51:57 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,8 @@ void	init_termcap_actions(
 	tc_call[AK_CTRL_R] = &tc_ak_cut_after_cursor;
 	tc_call[AK_CTRL_LEFT] = &tc_ak_prev_word;
 	tc_call[AK_CTRL_RIGHT] = &tc_ak_next_word;
+	tc_call[AK_TABULATION] = &tc_ak_hightab;
+	tc_call[AK_CTRL_UP] = &tc_ak_ctrl_up;
+	tc_call[AK_CTRL_DOWN] = &tc_ak_ctrl_down;
+
 }

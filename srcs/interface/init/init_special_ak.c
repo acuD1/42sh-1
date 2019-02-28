@@ -6,13 +6,18 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:06:28 by skuppers          #+#    #+#             */
-/*   Updated: 2019/01/07 12:00:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/28 12:06:35 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 
 int		ak_keycodes[AK_AMOUNT][READ_SIZE];
+
+void	init_ak_hightab(void)
+{
+	ak_keycodes[AK_TABULATION][0] = 9;
+}
 
 void	init_ak_home(void)
 {

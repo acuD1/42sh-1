@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:33:03 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/25 11:44:44 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/28 18:03:10 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /* If invoked as interactive login shell or non-interactive login shell:
 	 * -> reads and executes /etc/profile if it exist.
 	 * -> reads ~/.bash_profile, ~/.bash_login, ~/.profile if exist.
+		print_words(' ', itf_reg);
 	 * '--noprofile' inhibits this behavior.
 	 *  At Exit() it reads and executes ~/.bash_logout, if it exist.
 	 *

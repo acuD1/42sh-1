@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/27 15:33:38 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/02/28 15:00:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static short is_same_keycode(char c[READ_SIZE], int kc[])
 	return (1);
 }
 
-unsigned int handle_printable_char(char c[READ_SIZE], t_interface_registry *itf_reg)
+static unsigned int handle_printable_char(char c[READ_SIZE], t_interface_registry *itf_reg)
 {
 	unsigned int 	tmp_index;
 	t_vector		*vector_ptr;
@@ -65,7 +65,6 @@ unsigned int handle_printable_char(char c[READ_SIZE], t_interface_registry *itf_
 	return (itf_reg->window->cursor_index);
 }
 
-	//		ft_prints_fd(1, "|%d|%d|%d|%d|%d|%d|%d|%d|\n", c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7]);
 
 int		handle_input_key(char c[READ_SIZE], t_interface_registry *itf_reg)
 {
@@ -75,6 +74,7 @@ int		handle_input_key(char c[READ_SIZE], t_interface_registry *itf_reg)
 		return (handle_printable_char(c, itf_reg));
 	else
 	{
+//ft_printf_fd(1, "|%d|%d|%d|%d|%d|%d|%d|%d|\n", c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7]);
 		i = 0;
 		while (i < AK_AMOUNT)
 		{
