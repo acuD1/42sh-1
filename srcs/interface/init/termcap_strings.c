@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 11:22:41 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 11:12:57 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 14:57:19 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,11 @@ t_termcaps		*init_termcap_calls(t_registry *reg)
 	termcp->cs_right = ft_strdup(tgetstr("nd", NULL));
 	if (termcp->cs_right != NULL)
 		++valid_termcaps;
-	log_print(reg, LOG_INFO, "%d/6 termcaps loaded.\n", valid_termcaps);
+	termcp->clear = ft_strdup(tgetstr("cl", NULL));
+	if (termcp->clear != NULL)
+		++valid_termcaps;
+
+	log_print(reg, LOG_INFO, "%d/7 termcaps loaded.\n", valid_termcaps);
 	return (termcp);
 }
 

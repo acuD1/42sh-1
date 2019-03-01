@@ -6,14 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 07:30:12 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/28 17:35:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:13:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 #include "ft_printf.h"
 
-//TODO: HANDLE TABULATIONS
 int		tc_ak_next_word(t_interface_registry *itf_reg)
 {
 	if (itf_reg->window->cursor_index == (int)ft_vctlen(itf_reg->vector))
@@ -164,7 +163,13 @@ int		tc_ak_paste_clipboard(t_interface_registry *itf_reg)
 
 int		tc_ak_clear_screen(t_interface_registry *itf_reg)
 {
-	(void)itf_reg;
+	tputs(itf_reg->termcaps->clear, itf_reg->window->rows, ft_putc);
+	itf_reg->window->x = 0;
+	itf_reg->window->y = 0;
+	print_words(PROMPT_TEXT, itf_reg);
+	itf_reg->window->cursor_index = 0;
+	itf_reg->window->cursor_index = redraw_input_line(itf_reg);
+	itf_reg->window->cursor_index = tc_ak_end(itf_reg);
 	return (itf_reg->window->cursor_index);
 }
 

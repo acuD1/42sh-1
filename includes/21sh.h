@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 10:15:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/28 18:03:10 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:35:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,5 @@ typedef struct 					s_registry
 }								t_registry;
 
 char	*get_env_node_value(t_environment_node *head, char *key);
+void	cleanup_shell_registry(t_registry *shell_reg);
 #endif

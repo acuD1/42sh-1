@@ -6,16 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 11:35:53 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 14:55:42 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include "line_edit.h"
 #include "log.h"
-
-int			(*tc_call[AK_AMOUNT])(t_interface_registry *itf_reg);
-int			ak_keycodes[AK_AMOUNT][READ_SIZE];
 
 static short 	is_printable(char c[READ_SIZE])
 {
@@ -56,7 +53,6 @@ static unsigned int handle_printable_char(char c[READ_SIZE], t_interface_registr
 		shift_content_right_once(vector_ptr, tmp_index);
 		vector_ptr->buffer[tmp_index] = c[0];
 		redraw_after_cursor(itf_reg);
-//		redraw_input_line(itf_reg);
 	}
 	else
 	{
@@ -66,6 +62,7 @@ static unsigned int handle_printable_char(char c[READ_SIZE], t_interface_registr
 	return (itf_reg->window->cursor_index);
 }
 
+//ft_printf_fd(1, "|%d|%d|%d|%d|%d|%d|%d|%d|\n", c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7]);
 
 int		handle_input_key(char c[READ_SIZE], t_interface_registry *itf_reg)
 {
@@ -75,14 +72,11 @@ int		handle_input_key(char c[READ_SIZE], t_interface_registry *itf_reg)
 		return (handle_printable_char(c, itf_reg));
 	else
 	{
-//ft_printf_fd(1, "|%d|%d|%d|%d|%d|%d|%d|%d|\n", c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7]);
 		i = 0;
 		while (i < AK_AMOUNT)
 		{
-			if (is_same_keycode(c, ak_keycodes[i]))
-			{
-				return (itf_reg->(*tc_call[i])(itf_reg));
-			}
+			if (is_same_keycode(c, itf_reg->ak_keycodes[i]))
+				return ((itf_reg->tc_call)[i](itf_reg));
 			++i;
 		}
 	}

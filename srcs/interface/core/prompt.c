@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/27 17:01:57 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 15:08:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void	launch_shell_prompt(t_registry *shell_registry,
 {
 	char					*user_input_string;
 
+	define_interface_signal_behavior(itf_registry, shell_registry);
 	while (1)
 	{
 		user_input_string = prompt(shell_registry, itf_registry);

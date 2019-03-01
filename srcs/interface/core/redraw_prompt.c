@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 09:08:59 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 10:50:51 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:13:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int		redraw_after_cursor(t_interface_registry *itf_reg)
 
 	initial_cursor_pos = itf_reg->window->cursor_index;
 	index = initial_cursor_pos;
-	ft_printf_fd(2, "Init: %d | Index: %d\n", initial_cursor_pos, index);
 	while (index < itf_reg->vector->size && itf_reg->vector->buffer[index] != '\0')
 	{
 		print_char(itf_reg->vector->buffer[index], itf_reg);
@@ -74,7 +73,6 @@ int		redraw_after_cursor(t_interface_registry *itf_reg)
 	}
 	print_char(' ', itf_reg);
 	++index;
-	ft_printf_fd(2, "Init: %d | Index: %d\n", initial_cursor_pos, index);
 	while (index > initial_cursor_pos)
 	{
 		itf_reg->window->cursor_index = tc_ak_arrow_left(itf_reg);

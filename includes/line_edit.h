@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 11:14:26 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:35:59 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ enum action_keys {
 
 typedef struct	s_termcaps
 {
+	char		*clear;
 	char		*begin_insertion; //im
 	char		*end_insertion; //ei
 	char		*cs_down; //do
@@ -97,6 +98,11 @@ typedef struct	s_interface_registry
 	struct termios		*new_term;
 }						t_interface_registry;
 
+extern	t_interface_registry *g_interface_registry_pointer;
+
+void					cleanup_interface_registry(t_interface_registry *itf_reg);
+
+void					define_interface_signal_behavior(t_interface_registry *itf_reg, t_registry *shell_reg);
 
 void					init_ak_keycodes(t_interface_registry *itf_reg);
 

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 10:41:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/28 11:28:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:35:05 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,12 @@ void				shell_invoke(t_registry *shell_registry)
 		if (itf_registry != NULL)
 		{
 			launch_shell_prompt(shell_registry, itf_registry);
-			restore_original_term_behavior(shell_registry, itf_registry);
-//			cleanup_interface_registry(shell_registry, itf_registry);
+//			restore_original_term_behavior(shell_registry, itf_registry);
+			cleanup_interface_registry(itf_registry);
 			free(itf_registry);
 		}
 		else
-		{
 			log_print(shell_registry, LOG_CRITICAL, "Line edition failed, shuting down.\n");
-		}
 	}
 	else if (shell_registry->arguments->opt_h)
 	{
@@ -96,5 +94,6 @@ int		main(int ac, char **av, char **environ)
 
 	shell_invoke(shell_registry);
 
+	cleanup_shell_registry(shell_registry);
 	return (0);
 }
