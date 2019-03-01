@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 15:08:41 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 18:10:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,14 @@ char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
 			return (NULL);
 		}
 		window->cursor_index = handle_input_key(character, itf_registry);
+
+		/* Ctrl+D EOF handling*/
+		if (vector->buffer[0] == 4)
+			return (ft_strdup(vector->buffer));
 	}
+
+	/* Anti-input overwrite */
+	window->cursor_index = tc_ak_end(itf_registry);
 
 	//check quoting
 	//invoke sub-shell until it is valid
@@ -132,7 +139,7 @@ void	launch_shell_prompt(t_registry *shell_registry,
 	while (1)
 	{
 		user_input_string = prompt(shell_registry, itf_registry);
-		if (ft_strequ(user_input_string, "exit"))
+		if (ft_strequ(user_input_string, "exit") || user_input_string[0] == 4)
 			return ;
 	//	execute_shell_command(user_input_string);
 		ft_strdel(&user_input_string);

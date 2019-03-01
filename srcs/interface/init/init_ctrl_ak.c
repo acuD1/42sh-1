@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 07:29:58 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 16:07:29 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 17:38:10 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,5 @@ void	init_ak_ctrl_l(t_interface_registry *itf_reg)
 }
 void	init_ak_ctrl_d(t_interface_registry *itf_reg)
 {
-	itf_reg->ak_keycodes[AK_CTRL_D][0] = 420;
-	itf_reg->ak_keycodes[AK_CTRL_D][1] = 420;
-	itf_reg->ak_keycodes[AK_CTRL_D][2] = 420;
-}
-void	init_ak_ctrl_c(t_interface_registry *itf_reg)
-{
-	itf_reg->ak_keycodes[AK_CTRL_C][0] = 420;
-	itf_reg->ak_keycodes[AK_CTRL_C][1] = 420;
-	itf_reg->ak_keycodes[AK_CTRL_C][2] = 420;
+	itf_reg->ak_keycodes[AK_CTRL_D][0] = 4;
 }

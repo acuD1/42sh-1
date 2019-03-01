@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 11:22:41 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 14:57:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 17:52:15 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	init_termcap_actions(
 	tc_call[AK_BACKSPACE] = &tc_ak_backspace;
 	tc_call[AK_DELETE] = &tc_ak_delete;
 	tc_call[AK_CTRL_A] = &tc_ak_home;
+	tc_call[AK_CTRL_D] = &tc_ak_ctrl_d;
 	tc_call[AK_CTRL_E] = &tc_ak_end;
 	tc_call[AK_CTRL_X] = &tc_ak_cut_line;
 	tc_call[AK_CTRL_B] = &tc_ak_copy_line;

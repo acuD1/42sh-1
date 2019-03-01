@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 16:10:28 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 17:30:35 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,23 @@
 #include <sys/ioctl.h>
 
 t_interface_registry	*g_interface_registry_pointer;
+
+static void				redraw_prompt(int signo)
+{
+	(void)signo;
+	t_interface_registry *itf_ptr;
+
+	itf_ptr = g_interface_registry_pointer;
+	itf_ptr->window->cursor_index = tc_ak_end(itf_ptr);
+
+	print_words("\n", itf_ptr);
+	itf_ptr->window->x = 0;
+	itf_ptr->window->y = 0;
+	print_words(PROMPT_TEXT, itf_ptr);
+	itf_ptr->window->cursor_index = 0;
+	itf_ptr->window->cursor_index = redraw_input_line(itf_ptr);
+	itf_ptr->window->cursor_index = tc_ak_end(itf_ptr);
+}
 
 static void				interface_resize_handler(int signo)
 {
@@ -57,10 +74,9 @@ void					define_interface_signal_behavior(t_interface_registry *itf_reg, t_regis
 {
 	g_interface_registry_pointer = itf_reg;
 	if (signal(SIGWINCH, interface_resize_handler) == SIG_ERR)
-	{
 		log_print(shell_registry, LOG_ERROR, "Error catching the resize signal.\n");
-		return ;
-	}
+	if (signal(SIGINT, redraw_prompt) == SIG_ERR)
+		log_print(shell_registry, LOG_ERROR, "Error catching C-c\n");
 }
 
 int		define_runtime_signals(void)

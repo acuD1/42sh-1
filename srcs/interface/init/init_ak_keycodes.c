@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:48:38 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 11:11:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 17:38:35 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	init_ak_keycodes(t_interface_registry *itf_reg)
 	init_ak_backspace(itf_reg);
 	init_ak_delete(itf_reg);
 	init_ak_ctrl_a(itf_reg);
-	init_ak_ctrl_c(itf_reg);
 	init_ak_ctrl_d(itf_reg);
 	init_ak_ctrl_e(itf_reg);
 	init_ak_ctrl_l(itf_reg);

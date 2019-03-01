@@ -6,12 +6,23 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 07:30:12 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 16:13:17 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 18:06:33 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 #include "ft_printf.h"
+
+int		tc_ak_ctrl_d(t_interface_registry *itf_reg)
+{
+	if (itf_reg->vector->buffer[0] == '\0')
+		itf_reg->vector->buffer[0] = 4;
+	else
+	{
+		itf_reg->window->cursor_index = tc_ak_delete(itf_reg);
+	}
+	return (itf_reg->window->cursor_index);
+}
 
 int		tc_ak_next_word(t_interface_registry *itf_reg)
 {

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 16:35:59 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 17:52:52 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #include "21sh.h"
 
 # define READ_SIZE 8
-# define AK_AMOUNT 26
+# define AK_AMOUNT 25
 
 # define LINE_BUFFER_SIZE 16
 # define CLIPBOARD_SIZE	256
@@ -45,10 +45,9 @@ enum action_keys {
 	AK_BACKSPACE,
 	AK_DELETE,
 	AK_CTRL_A,
-	AK_CTRL_C, // not impl.
-	AK_CTRL_D, //not impl.
+	AK_CTRL_D,
 	AK_CTRL_E,
-	AK_CTRL_L, //not impl.
+	AK_CTRL_L,
 	AK_CTRL_X, //cut all
 	AK_CTRL_B, //copy all
 	AK_CTRL_P, //paste clipboard
@@ -141,7 +140,6 @@ void			init_ak_arrow_down(t_interface_registry *itf_reg);
 void			init_ak_arrow_left(t_interface_registry *itf_reg);
 void			init_ak_arrow_right(t_interface_registry *itf_reg);
 void			init_ak_ctrl_a(t_interface_registry *itf_reg);
-void			init_ak_ctrl_c(t_interface_registry *itf_reg);
 void			init_ak_ctrl_d(t_interface_registry *itf_reg);
 void			init_ak_ctrl_e(t_interface_registry *itf_reg);
 void			init_ak_ctrl_l(t_interface_registry *itf_reg);
@@ -159,6 +157,7 @@ void			init_ak_hightab(t_interface_registry *itf_reg);
 void			init_ak_ctrl_up(t_interface_registry *itf_reg);
 void			init_ak_ctrl_down(t_interface_registry *itf_reg);
 
+int				tc_ak_ctrl_d(t_interface_registry *itf_registry);
 int				tc_ak_next_word(t_interface_registry *itf_registry);
 int				tc_ak_prev_word(t_interface_registry *itf_registry);
 int				tc_ak_cut_before_cursor(t_interface_registry *itf_registry);
