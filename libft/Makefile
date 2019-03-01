@@ -2,7 +2,7 @@
 # Debug mode #
 # ---------- #
 
-DEBUG = yes
+DEBUG = no
 
 # --------- #
 # Directory #
@@ -19,10 +19,10 @@ LIBDIR = libs/
 
 CC = clang
 ifeq ($(DEBUG), yes)
-	CFLAGS = -Wall -Wextra -Werror -g3
+	CFLAGS = -Wall -Wextra -fsanitize=address
 	LDFLAGS =
 else
-	CFLAGS = -Wall -Wextra
+	CFLAGS = -Wall -Wextra -Werror
 	LDFLAGS =
 endif
 CPPFLAGS = -I$(INCDIR)

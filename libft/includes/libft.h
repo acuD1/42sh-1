@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aleduc <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/13 16:33:26 by aleduc            #+#    #+#             */
-/*   Updated: 2019/02/08 11:51:16 by skuppers         ###   ########.fr       */
+/*   Created: 2019/03/01 10:12:59 by skuppers          #+#    #+#             */
+/*   Updated: 2019/03/01 10:14:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 
 # define VECTOR_BUFFER_SIZE 16
 # define VECTOR_SCALE_MULT 2
-
 
 typedef struct		s_list
 {
@@ -98,7 +97,6 @@ void				*ft_memalloc(size_t size);
 char				*ft_strnew(size_t size);
 void				ft_memdel(void **ap);
 void				ft_strdel(char **as);
-void				ft_strclr(char *s);
 void				ft_striter(char *s, void (*f)(char *));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 char				*ft_strmap(char const *s, char (*f)(char));
@@ -130,7 +128,4 @@ int					ft_isspace(char c);
 char				*ft_strrev(char *str);
 void				ft_swap(int *a, int *b);
 int					*ft_sort_integer_table(int *table, int size);
-void				ft_lsttail(t_list **alst, t_list *node);
-void				ft_fill_str(char *dst, char *src1, char *src2);
-char				**split_once(char *str, char c);
 #endif

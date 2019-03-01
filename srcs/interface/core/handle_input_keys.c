@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/28 15:00:04 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 11:35:53 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static unsigned int handle_printable_char(char c[READ_SIZE], t_interface_registr
 		tputs(itf_reg->termcaps->end_insertion, 1, &ft_putc);
 		shift_content_right_once(vector_ptr, tmp_index);
 		vector_ptr->buffer[tmp_index] = c[0];
-		redraw_input_line(itf_reg);
+		redraw_after_cursor(itf_reg);
+//		redraw_input_line(itf_reg);
 	}
 	else
 	{
@@ -79,7 +80,9 @@ int		handle_input_key(char c[READ_SIZE], t_interface_registry *itf_reg)
 		while (i < AK_AMOUNT)
 		{
 			if (is_same_keycode(c, ak_keycodes[i]))
-				return (*tc_call[i])(itf_reg); // TODO
+			{
+				return (itf_reg->(*tc_call[i])(itf_reg));
+			}
 			++i;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 09:08:59 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/28 16:33:14 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 10:50:51 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,29 @@ int		redraw_input_line(t_interface_registry *itf_reg)
 	while (i < initial_cursor_index && i++ < ft_vctlen(itf_reg->vector))
 		itf_reg->window->cursor_index =
 			tc_ak_arrow_right(itf_reg);
+	return (itf_reg->window->cursor_index);
+}
+
+int		redraw_after_cursor(t_interface_registry *itf_reg)
+{
+	size_t index;
+	size_t initial_cursor_pos;
+
+	initial_cursor_pos = itf_reg->window->cursor_index;
+	index = initial_cursor_pos;
+	ft_printf_fd(2, "Init: %d | Index: %d\n", initial_cursor_pos, index);
+	while (index < itf_reg->vector->size && itf_reg->vector->buffer[index] != '\0')
+	{
+		print_char(itf_reg->vector->buffer[index], itf_reg);
+		++index;
+	}
+	print_char(' ', itf_reg);
+	++index;
+	ft_printf_fd(2, "Init: %d | Index: %d\n", initial_cursor_pos, index);
+	while (index > initial_cursor_pos)
+	{
+		itf_reg->window->cursor_index = tc_ak_arrow_left(itf_reg);
+		--index;
+	}
 	return (itf_reg->window->cursor_index);
 }

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/28 14:52:57 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 11:14:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ typedef struct s_winsize
 
 typedef struct	s_interface_registry
 {
-//	tc_call function pointers
-//	int				ak_keycodes[AK_AMOUNT][READ_SIZE];
+	int					(*tc_call[AK_AMOUNT])(struct s_interface_registry *itf_reg);
+	int					ak_keycodes[AK_AMOUNT][READ_SIZE];
 
 	t_vector			*clipboard;
 	t_vector			*vector;
@@ -97,10 +97,8 @@ typedef struct	s_interface_registry
 	struct termios		*new_term;
 }						t_interface_registry;
 
-extern int				(*tc_call[AK_AMOUNT])(t_interface_registry *itf_reg);
-extern int				ak_keycodes[AK_AMOUNT][READ_SIZE];
 
-void					init_ak_keycodes(void);
+void					init_ak_keycodes(t_interface_registry *itf_reg);
 
 void					launch_shell_prompt(t_registry *reg, t_interface_registry *itf_registry);
 char					*prompt(t_registry *shell_reg, t_interface_registry *itf_reg);
@@ -109,6 +107,8 @@ void					prompt_read_failed(t_registry *reg, t_vector *vect);
 void					print_words(char *str, t_interface_registry *itf_reg);
 
 int						redraw_input_line(t_interface_registry *itf_reg);
+int						redraw_after_cursor(t_interface_registry *itf_reg);
+
 t_termcaps				*init_termcap_calls(t_registry *reg);
 t_interface_registry	*init_line_edition(t_registry *reg);
 int						handle_input_key(char c[], t_interface_registry *itf_reg);
@@ -125,33 +125,33 @@ void					restore_original_term_behavior(t_registry *sh_reg, t_interface_registry
 
 //unsigned int	handle_printable_char(char c[READ_SIZE]);
 
-void			init_ak_home(void);
-void			init_ak_end(void);
-void			init_ak_backspace(void);
-void			init_ak_delete(void);
-void			init_ak_enter(void);
-void			init_ak_arrow_up(void);
-void			init_ak_arrow_down(void);
-void			init_ak_arrow_left(void);
-void			init_ak_arrow_right(void);
-void			init_ak_ctrl_a(void);
-void			init_ak_ctrl_c(void);
-void			init_ak_ctrl_d(void);
-void			init_ak_ctrl_e(void);
-void			init_ak_ctrl_l(void);
-void			init_ak_ctrl_x(void);
-void			init_ak_ctrl_b(void);
-void			init_ak_ctrl_p(void);
-void			init_ak_escape(void);
-void			init_ak_ctrl_rb(void);
-void			init_ak_ctrl_lb(void);
-void			init_ak_ctrl_f(void);
-void			init_ak_ctrl_r(void);
-void			init_ak_ctrl_left(void);
-void			init_ak_ctrl_right(void);
-void			init_ak_hightab(void);
-void			init_ak_ctrl_up(void);
-void			init_ak_ctrl_down(void);
+void			init_ak_home(t_interface_registry *itf_reg);
+void			init_ak_end(t_interface_registry *itf_reg);
+void			init_ak_backspace(t_interface_registry *itf_reg);
+void			init_ak_delete(t_interface_registry *itf_reg);
+void			init_ak_enter(t_interface_registry *itf_reg);
+void			init_ak_arrow_up(t_interface_registry *itf_reg);
+void			init_ak_arrow_down(t_interface_registry *itf_reg);
+void			init_ak_arrow_left(t_interface_registry *itf_reg);
+void			init_ak_arrow_right(t_interface_registry *itf_reg);
+void			init_ak_ctrl_a(t_interface_registry *itf_reg);
+void			init_ak_ctrl_c(t_interface_registry *itf_reg);
+void			init_ak_ctrl_d(t_interface_registry *itf_reg);
+void			init_ak_ctrl_e(t_interface_registry *itf_reg);
+void			init_ak_ctrl_l(t_interface_registry *itf_reg);
+void			init_ak_ctrl_x(t_interface_registry *itf_reg);
+void			init_ak_ctrl_b(t_interface_registry *itf_reg);
+void			init_ak_ctrl_p(t_interface_registry *itf_reg);
+void			init_ak_escape(t_interface_registry *itf_reg);
+void			init_ak_ctrl_rb(t_interface_registry *itf_reg);
+void			init_ak_ctrl_lb(t_interface_registry *itf_reg);
+void			init_ak_ctrl_f(t_interface_registry *itf_reg);
+void			init_ak_ctrl_r(t_interface_registry *itf_reg);
+void			init_ak_ctrl_left(t_interface_registry *itf_reg);
+void			init_ak_ctrl_right(t_interface_registry *itf_reg);
+void			init_ak_hightab(t_interface_registry *itf_reg);
+void			init_ak_ctrl_up(t_interface_registry *itf_reg);
+void			init_ak_ctrl_down(t_interface_registry *itf_reg);
 
 int				tc_ak_next_word(t_interface_registry *itf_registry);
 int				tc_ak_prev_word(t_interface_registry *itf_registry);

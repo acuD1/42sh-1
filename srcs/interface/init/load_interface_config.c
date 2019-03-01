@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/28 11:27:59 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 11:14:53 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ void	restore_original_term_behavior(t_registry *sh_reg, t_interface_registry *it
 /*
  *		Storing the corresponding keycodes for each used key.
  */
-int		setup_keycodes()
+int		setup_keycodes(t_interface_registry *itf_reg)
 {
-	init_ak_keycodes();
+	init_ak_keycodes(itf_reg);
 	return (0);
 }
 
@@ -100,10 +100,10 @@ int		setup_keycodes()
  *		Linking the appropriate actions to the appropriate keys.
  *		Used at startup and when the keymap file is changed.
  */
-int		link_actions_to_keys()
+int		link_actions_to_keys(t_interface_registry *itf_reg)
 {
 	//init_termcap_actions
-	init_termcap_actions(tc_call);
+	init_termcap_actions(itf_reg->tc_call);
 	return (0);
 }
 
@@ -145,9 +145,9 @@ t_interface_registry *init_line_edition(t_registry *reg)
 	else
 		log_print(reg, LOG_OK, "Termcap registry created.\n");
 
-	setup_keycodes();
+	setup_keycodes(itf_reg);
 
-	link_actions_to_keys();
+	link_actions_to_keys(itf_reg);
 
 	if ((itf_reg->clipboard = allocate_clipboard(reg)) == NULL)
 		return (NULL);

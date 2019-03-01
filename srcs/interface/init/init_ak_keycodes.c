@@ -6,15 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:48:38 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/28 14:51:11 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/01 11:11:12 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 
-int			ak_keycodes[AK_AMOUNT][READ_SIZE];
-
-void	clean_ak_keycodes(void)
+void	clean_ak_keycodes(t_interface_registry *itf_reg)
 {
 	int y;
 	int x;
@@ -25,40 +23,40 @@ void	clean_ak_keycodes(void)
 		x = 0;
 		while (x < READ_SIZE)
 		{
-			ak_keycodes[y][x] = 0;
+			itf_reg->ak_keycodes[y][x] = 0;
 			++x;
 		}
 		++y;
 	}
 }
 
-void	init_ak_keycodes(void)
+void	init_ak_keycodes(t_interface_registry *itf_reg)
 {
-	clean_ak_keycodes();
-	init_ak_enter();
-	init_ak_arrow_right();
-	init_ak_arrow_left();
-	init_ak_arrow_up();
-	init_ak_arrow_down();
-	init_ak_home();
-	init_ak_end();
-	init_ak_backspace();
-	init_ak_delete();
-	init_ak_ctrl_a();
-	init_ak_ctrl_c();
-	init_ak_ctrl_d();
-	init_ak_ctrl_e();
-	init_ak_ctrl_l();
-	init_ak_ctrl_x();
-	init_ak_ctrl_b();
-	init_ak_ctrl_p();
-	init_ak_ctrl_lb();
-	init_ak_ctrl_rb();
-	init_ak_ctrl_r();
-	init_ak_ctrl_f();
-	init_ak_ctrl_left();
-	init_ak_ctrl_right();
-	init_ak_hightab();
-	init_ak_ctrl_up();
-	init_ak_ctrl_down();
+	clean_ak_keycodes(itf_reg);
+	init_ak_enter(itf_reg);
+	init_ak_arrow_right(itf_reg);
+	init_ak_arrow_left(itf_reg);
+	init_ak_arrow_up(itf_reg);
+	init_ak_arrow_down(itf_reg);
+	init_ak_home(itf_reg);
+	init_ak_end(itf_reg);
+	init_ak_backspace(itf_reg);
+	init_ak_delete(itf_reg);
+	init_ak_ctrl_a(itf_reg);
+	init_ak_ctrl_c(itf_reg);
+	init_ak_ctrl_d(itf_reg);
+	init_ak_ctrl_e(itf_reg);
+	init_ak_ctrl_l(itf_reg);
+	init_ak_ctrl_x(itf_reg);
+	init_ak_ctrl_b(itf_reg);
+	init_ak_ctrl_p(itf_reg);
+	init_ak_ctrl_lb(itf_reg);
+	init_ak_ctrl_rb(itf_reg);
+	init_ak_ctrl_r(itf_reg);
+	init_ak_ctrl_f(itf_reg);
+	init_ak_ctrl_left(itf_reg);
+	init_ak_ctrl_right(itf_reg);
+	init_ak_hightab(itf_reg);
+	init_ak_ctrl_up(itf_reg);
+	init_ak_ctrl_down(itf_reg);
 }
