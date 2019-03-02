@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 17:52:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/02 15:14:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <unistd.h>
 #include "libft.h"
 #include "21sh.h"
+#include "history.h"
 
 # define READ_SIZE 8
 # define AK_AMOUNT 25
@@ -92,12 +93,17 @@ typedef struct	s_interface_registry
 	t_vector			*vector;
 	t_termcaps			*termcaps;
 	t_winsize			*window;
-	
+
+	t_history			*history_head;
+	t_history			*history_ptr;
+
 	struct termios		*orig_term;
 	struct termios		*new_term;
 }						t_interface_registry;
 
 extern	t_interface_registry *g_interface_registry_pointer;
+
+int						replace_input_line(char *string, t_interface_registry *itf_reg);
 
 void					cleanup_interface_registry(t_interface_registry *itf_reg);
 

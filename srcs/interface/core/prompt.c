@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/02 11:05:04 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/02 18:01:03 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,40 +17,6 @@
 #include <sys/ioctl.h>
 #include "history.h"
 
-/*
-void	handle_resize(int signo)
-{
-	struct winsize w;
-
-	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == -1) ;
-	//log_print(LOG_ERROR, "Terminal size could not be updated.\n");
-	g_ws->cols = w.ws_col;
-	g_ws->rows = w.ws_row;
-	//	ft_printf_fd(2, "Changed term size to %d rows, %d cols.\n", g_ws->rows, g_ws->cols);
-	redraw_input_line(g_vector, g_ws);
-}
-
-static void	init_signal_handler(t_registry *reg, t_vector *vector, t_winsize *ws)
-{
-	g_vector = vector;
-	g_ws = ws;
-	if (signal(SIGWINCH, handle_resize) == SIG_ERR)
-	{
-		log_print(reg, LOG_CRITICAL, "Error catching the resize signal.\n");
-		exit (42);
-	}
-}
-
-
-void	reinit_variables(t_registry *reg, t_vector *vect, t_winsize *ws)
-{
-
-	ft_vctreset(vect);
-	free(ws);
-	ws = init_win_struct(reg);
-	g_ws = ws;
-}
-*/
 static t_winsize *init_win_struct(t_registry *reg, t_winsize *window)
 {
 	struct winsize	w;
@@ -77,6 +43,7 @@ char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
 	char			character[READ_SIZE + 1];
 	t_vector		*vector;
 	t_winsize		*window;
+	t_history		*history_node;
 
 	vector = NULL;
 	window = NULL;
@@ -92,14 +59,10 @@ char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
 	itf_registry->window = window;
 	itf_registry->vector = vector;
 
-
-//TODO: refactor & signals
-//	init_signal_handler(shell_reg, vector, ws);
-
-
 	ft_bzero(character, READ_SIZE);
-	log_print(shell_reg, LOG_INFO, "Starting prompt.\n");
 	ft_dprintf(STDOUT_FILENO, "\n%s", PROMPT_TEXT);
+
+	history_node = NULL;
 
 	while (character[0] != NEWLINE_KEYCODE)
 	{
@@ -113,7 +76,7 @@ char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
 
 		/* Ctrl+D EOF handling*/
 		if (vector->buffer[0] == 4)
-			return (ft_strdup(vector->buffer));
+			return (vector->buffer);
 	}
 
 	/* Anti-input overwrite */
@@ -123,11 +86,20 @@ char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
 	//invoke sub-shell until it is valid
 
 	// ADD INPUT TO HISTORY (if QUOTING IS VALID)
-	//push_history_entry(&g_history_head, create_history_entry(buffer_vector->buffer));
+	// Dont add if input is only  ' ' || '\n'
+	if ((history_node = create_history_entry(vector->buffer)) != NULL)
+	{
+		if (itf_registry->history_head == NULL)
+			itf_registry->history_head = history_node;
+		else
+			push_history_entry(&(itf_registry->history_head),
+					history_node);
+	}
+	itf_registry->history_ptr = NULL;
 
 	log_print(shell_reg, LOG_INFO, "Line edition sending: |%s|\n", vector->buffer);
 
-	return (ft_strdup(vector->buffer));
+	return (vector->buffer);
 }
 
 void	launch_shell_prompt(t_registry *shell_registry,
@@ -135,6 +107,7 @@ void	launch_shell_prompt(t_registry *shell_registry,
 {
 	char					*user_input_string;
 
+	log_print(shell_registry, LOG_INFO, "Starting prompt.\n");
 	define_interface_signal_behavior(itf_registry, shell_registry);
 	while (1)
 	{
@@ -142,6 +115,7 @@ void	launch_shell_prompt(t_registry *shell_registry,
 		if (ft_strequ(user_input_string, "exit") || user_input_string[0] == 4)
 			return ;
 	//	execute_shell_command(user_input_string);
-		ft_strdel(&user_input_string);
+		cleanup_interface_registry(itf_registry);
+	//	ft_strdel(&user_input_string);
 	}
 }

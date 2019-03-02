@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/02 11:03:37 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/02 16:50:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ static void				redraw_prompt(int signo)
 	itf_ptr->window->y = 0;
 	print_words(PROMPT_TEXT, itf_ptr);
 	itf_ptr->window->cursor_index = 0;
-	itf_ptr->window->cursor_index = redraw_input_line(itf_ptr);
-	itf_ptr->window->cursor_index = tc_ak_end(itf_ptr);
+	ft_vctreset(itf_ptr->vector);
 }
 
 static void				interface_resize_handler(int signo)

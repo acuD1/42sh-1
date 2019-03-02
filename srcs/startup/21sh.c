@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 10:41:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/02 11:12:42 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/02 12:08:49 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void				shell_invoke(t_registry *shell_registry)
 		{
 			launch_shell_prompt(shell_registry, itf_registry);
 //			restore_original_term_behavior(shell_registry, itf_registry);
-			cleanup_interface_registry(itf_registry);
 			free(itf_registry);
 		}
 		else

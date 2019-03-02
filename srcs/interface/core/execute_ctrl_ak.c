@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 07:30:12 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/02 11:01:50 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/02 12:08:46 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,31 +145,42 @@ int		tc_ak_copy_line(t_interface_registry *itf_reg)
 
 int		tc_ak_paste_clipboard(t_interface_registry *itf_reg)
 {
+	size_t			go_front;
 	char			*after;
 	char			*before;
+	char			*concat;
 
-	if (itf_reg->vector->size <
-			(ft_vctlen(itf_reg->vector) + ft_vctlen(itf_reg->clipboard) + 1))
+	while (itf_reg->vector->size <
+			(ft_vctlen(itf_reg->vector) + ft_vctlen(itf_reg->clipboard) + 2))
 		ft_vctrescale(itf_reg->vector);
+
 	if (itf_reg->vector->buffer[itf_reg->window->cursor_index] != '\0')
 	{
-		before = ft_strsub(itf_reg->vector->buffer, 0, itf_reg->window->cursor_index);
-		after = ft_strsub(itf_reg->vector->buffer, itf_reg->window->cursor_index, ft_vctlen(itf_reg->vector));
+		before = ft_strsub(itf_reg->vector->buffer,
+				0, itf_reg->window->cursor_index);
+		after = ft_strsub(itf_reg->vector->buffer,
+				itf_reg->window->cursor_index, ft_vctlen(itf_reg->vector));
+		itf_reg->window->cursor_index = tc_ak_home(itf_reg);
 		ft_bzero(itf_reg->vector->buffer, itf_reg->vector->size);
-		itf_reg->vector->buffer = ft_strcpy(itf_reg->vector->buffer, before);
-		itf_reg->vector->buffer = ft_strcat(itf_reg->vector->buffer, itf_reg->clipboard->buffer);
-		itf_reg->vector->buffer = ft_strcat(itf_reg->vector->buffer, after);
+		concat = NULL;
+		ft_asprintf(&concat, "%s%s%s",
+				before, itf_reg->clipboard->buffer, after);
+		ft_strncpy(itf_reg->vector->buffer, concat, ft_strlen(concat));
 		redraw_input_line(itf_reg);
+		go_front = ft_strlen(before) + ft_strlen(itf_reg->clipboard->buffer);
+		while (go_front-- > 0)
+			itf_reg->window->cursor_index = tc_ak_arrow_right(itf_reg);
 		ft_strdel(&after);
 		ft_strdel(&before);
+		ft_strdel(&concat);
 	}
 	else
 	{
-		ft_dprintf(2, "Pasting : %s\n", itf_reg->clipboard->buffer);
+//		ft_dprintf(2, "Pasting : %s\n", itf_reg->clipboard->buffer);
 		print_words(itf_reg->clipboard->buffer, itf_reg);
 		itf_reg->vector->buffer = ft_strcat(itf_reg->vector->buffer, itf_reg->clipboard->buffer);
 	}
-	return (ft_vctlen(itf_reg->vector));
+	return (itf_reg->window->cursor_index);
 }
 
 int		tc_ak_clear_screen(t_interface_registry *itf_reg)

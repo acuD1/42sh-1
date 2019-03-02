@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 11:14:53 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/02 18:14:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "log.h"
 #include "21sh.h"
 #include "line_edit.h"
+#include "history.h"
 
 /*
  *		Retrieving the terminal type, to load the appropriate termcaps database.
@@ -120,6 +121,36 @@ static t_interface_registry *create_interface_registry(t_registry *shell_registr
 	return (itf_reg);
 }
 
+/* HARDCODED FILE PATH */
+#define HISTORY_PATH "/Users/skuppers/.sh_history"
+int	load_history_file(t_registry *shell_reg, t_interface_registry *itf_reg)
+{
+	int		fd;
+	char	*history_line;
+	char	delim;
+
+	(void)shell_reg;
+	history_line = NULL;
+	delim = '\n';
+	itf_reg->history_head = NULL;
+	itf_reg->history_ptr = NULL;
+	if ((fd = open(HISTORY_PATH, O_RDONLY)) < 0)
+		return (-1);
+	while (ft_getdelim(fd, &history_line, delim) > 0)
+	{
+		t_history *new = create_history_entry(history_line);
+		if (new)
+		{
+			if (itf_reg->history_head == NULL)
+				itf_reg->history_head = new;
+			else
+				push_history_entry(&(itf_reg->history_head), new);
+		}
+	}
+	close(fd);
+	return (0);
+}
+
 t_interface_registry *init_line_edition(t_registry *reg)
 {
 	t_interface_registry *itf_reg;
@@ -158,5 +189,14 @@ t_interface_registry *init_line_edition(t_registry *reg)
 		log_print(reg, LOG_ERROR, "Clipboard failed.\n");
 
 	log_print(reg, LOG_OK, "Line edition initialized.\n");
+
+	/*
+	 * search in home variable for DEFAULT_HISTORY_FILE_NAME
+	 * open file
+	 * get_next_line () on this fd
+	 * every line gets strored in the history list
+	 * last line read is the history_head
+	 */
+	load_history_file(reg, itf_reg);
 	return (itf_reg);
 }

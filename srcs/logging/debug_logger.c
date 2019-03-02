@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/02 11:14:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/02 11:26:19 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static char		*log_fetch_importance(int imp)
 {
 	char		*str;
 	char		*msg;
+	char		*tmp;
 	clock_t		time;
 
 	time = clock();
@@ -35,7 +36,9 @@ static char		*log_fetch_importance(int imp)
 	else
 		str = ft_strjoin("[DEBUG]","[UNDEFINED]");
 	msg = NULL;
-	ft_asprintf(&msg, "%s%s[%s]", str, COLOR_WHITE, ft_itoa((int)time));
+	tmp = ft_itoa((int)time);
+	ft_asprintf(&msg, "%s%s[%s]", str, COLOR_WHITE, tmp);
+	ft_strdel(&(tmp));
 	ft_strdel(&(str));
 	return (msg);
 }

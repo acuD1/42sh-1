@@ -6,25 +6,24 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 16:06:08 by skuppers          #+#    #+#             */
-/*   Updated: 2018/12/18 16:15:04 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/02 13:42:12 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HISTORY_H
 # define HISTORY_H
 
-# define DEFAULT_HISTORY_FILENAME ".42sh_history"
+# define DEFAULT_HISTORY_FILENAME ".sh_history"
 
 typedef struct			s_history
 {
-	unsigned int		ID;
 	char				*command;
 	struct s_history 	*next;
 	struct s_history 	*prev;
 }						t_history;
 
-extern	t_history		*g_history_head;
-extern	t_history		*g_history_selection;
+//extern	t_history		*g_history_head;
+//extern	t_history		*g_history_selection;
 
 t_history				*create_history_entry(char *command);
 t_history				*get_history_entry();

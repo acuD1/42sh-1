@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 09:08:59 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 16:13:32 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/02 17:18:33 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,30 @@ int		redraw_input_line(t_interface_registry *itf_reg)
 		itf_reg->window->cursor_index =
 			tc_ak_arrow_right(itf_reg);
 	return (itf_reg->window->cursor_index);
+}
+
+int		replace_input_line(char	*string, t_interface_registry *itf_registry)
+{
+	size_t index;
+
+	index = 0;
+	while (itf_registry->vector->buffer[index] != '\0')
+	{
+		itf_registry->vector->buffer[index] = ' ';
+		++index;
+	}
+	itf_registry->window->cursor_index = redraw_input_line(itf_registry);
+	ft_bzero(itf_registry->vector->buffer, itf_registry->vector->size);
+	while (itf_registry->vector->size <= ft_strlen(string))
+		ft_vctrescale(itf_registry->vector);
+
+	itf_registry->vector->buffer = ft_strncpy(itf_registry->vector->buffer,
+			string, ft_strlen(string));
+
+	itf_registry->window->cursor_index = tc_ak_home(itf_registry);
+	print_words(string, itf_registry);
+
+	return (itf_registry->window->cursor_index);
 }
 
 int		redraw_after_cursor(t_interface_registry *itf_reg)

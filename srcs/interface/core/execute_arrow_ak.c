@@ -6,14 +6,14 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:12:56 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/28 14:37:38 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/02 17:22:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 #include "ft_printf.h"
 #include "log.h"
-//#include "history.h"
+#include "history.h"
 
 
 int tc_ak_arrow_right(t_interface_registry *itf_reg)
@@ -79,10 +79,33 @@ int tc_ak_arrow_left(t_interface_registry *itf_reg)
 
 int tc_ak_arrow_up(t_interface_registry *itf_reg)
 {
-	return (itf_reg->window->cursor_index);
+	if (itf_reg->history_head != NULL && itf_reg->history_ptr == NULL)
+	{
+		itf_reg->history_ptr = itf_reg->history_head;
+		return (replace_input_line(itf_reg->history_ptr->command, itf_reg));
+	}
+	else
+	{
+		if (itf_reg->history_ptr != NULL && itf_reg->history_ptr->prev != NULL)
+		{
+			itf_reg->history_ptr = itf_reg->history_ptr->prev;
+			return (replace_input_line(itf_reg->history_ptr->command, itf_reg));
+		}
+		return (itf_reg->window->cursor_index);
+	}
 }
 
 int tc_ak_arrow_down(t_interface_registry *itf_reg)
 {
+	if (itf_reg->history_ptr != NULL && itf_reg->history_ptr->next != NULL)
+	{
+		itf_reg->history_ptr = itf_reg->history_ptr->next;
+		return (replace_input_line(itf_reg->history_ptr->command, itf_reg));
+	}
+	else if (itf_reg->history_ptr != NULL && itf_reg->history_ptr->next == NULL)
+	{
+		itf_reg->history_ptr = NULL;
+		return (replace_input_line("", itf_reg));
+	}
 	return (itf_reg->window->cursor_index);
 }
