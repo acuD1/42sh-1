@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/25 11:47:11 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/02 11:14:18 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 static char		*log_fetch_importance(int imp)
 {
 	char		*str;
+	char		*msg;
 	clock_t		time;
 
 	time = clock();
@@ -33,27 +34,26 @@ static char		*log_fetch_importance(int imp)
 		str = ft_strjoin(COLOR_RED, "[CRITICAL]");
 	else
 		str = ft_strjoin("[DEBUG]","[UNDEFINED]");
-	str = ft_strjoinfree(str, COLOR_WHITE, 1);
-	str = ft_strjoinfree(str, "[", 1);
-	str = ft_strjoinfree(str, ft_itoa((int)time), 3);
-	str = ft_strjoinfree(str, "] - ", 1);
-	return (str);
+	msg = NULL;
+	ft_asprintf(&msg, "%s%s[%s]", str, COLOR_WHITE, ft_itoa((int)time));
+	ft_strdel(&(str));
+	return (msg);
 }
 
 void			log_print(t_registry *reg, int importance, char *message, ...)
 {
-	va_list args;
+//	va_list args;
 	char	*str;
 
 	if (reg->debug_fd < 1)
 		return ;
 	str = log_fetch_importance(importance);
-	ft_printf_fd(reg->debug_fd, str);
+	ft_dprintf(reg->debug_fd, "%s", str);
 	ft_strdel(&str);
 
-	va_start(args, message);
-	ft_printf_va(reg->debug_fd, message, args);
-	va_end(args);
+//	va_start(args, message);
+	ft_dprintf(reg->debug_fd, "%s", message);
+//	va_end(args);
 }
 
 void	init_debug_logger(t_registry *reg)

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:32:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/25 10:43:31 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/02 11:13:29 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char			*get_env_node_value(t_environment_node *head, char *key)
 	}
 	return (NULL);
 }
-
+/*
 int							delete_env_node(t_environment_node *head, char *key)
 {
 	(void)head;
@@ -67,24 +67,16 @@ static t_environment_node	*create_env_node(char *key, char *value)
 	new->next = NULL;
 	return (new);
 }
-
-static void				ft_listappend(t_environment_node *head,
-		t_environment_node *new)
-{
-	t_environment_node *tmp;
-
-	tmp = head;
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = new;
-}
-
+*/
 /*
  *	Returns the head from linked list with the entire environment.
  *	With the syntax: key = value.
  */
+
 t_environment_node	*parse_environment(char **environment)
 {
+	(void)environment;
+	/*
 	t_environment_node		*head;
 	t_environment_node		*new;
 	unsigned int			separator;
@@ -100,7 +92,7 @@ t_environment_node	*parse_environment(char **environment)
 	{
 		while (*environment)
 		{
-			separator = ft_strnchr(*environment, ENV_SEPARATOR);
+			separator = ft_(*environment, ENV_SEPARATOR);
 			new = create_env_node(ft_strsub(*environment, 0, separator),
 					ft_strsub(*environment, separator + 1,
 						ft_strlen(*environment) - (separator + 1)));
@@ -112,6 +104,6 @@ t_environment_node	*parse_environment(char **environment)
 				ft_listappend(head, new);
 			++environment;
 		}
-	}
-	return (head);
+	}*/
+	return (NULL);
 }

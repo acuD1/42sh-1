@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:31:41 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/27 15:46:49 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/02 11:09:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,12 @@ char		*search_home_directory(t_registry *reg)
 
 unsigned int		init_workspace(t_registry *registry)
 {
-	char	*tmp;
-
 	registry->home_path = search_home_directory(registry);
 	if (registry->home_path != NULL)
 	{
-		log_print(registry, LOG_INFO, "Home path: |%s|\n", registry->home_path);
-		tmp = ft_strjoin(registry->home_path, "/");
-		registry->workspace_path = ft_strjoinfree(tmp, WORKSPACE_NAME, 1);
+		registry->workspace_path = NULL;
+//		log_print(registry, LOG_INFO, "Home path: |%s|\n", registry->home_path);
+		ft_asprintf(&(registry->workspace_path), "%s/%s", registry->home_path, WORKSPACE_NAME);
 	}
 	else
 	{

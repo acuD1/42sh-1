@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 07:30:12 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 18:06:33 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/02 11:01:50 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int		tc_ak_paste_clipboard(t_interface_registry *itf_reg)
 	}
 	else
 	{
-		ft_printf_fd(2, "Pasting : %s\n", itf_reg->clipboard->buffer);
+		ft_dprintf(2, "Pasting : %s\n", itf_reg->clipboard->buffer);
 		print_words(itf_reg->clipboard->buffer, itf_reg);
 		itf_reg->vector->buffer = ft_strcat(itf_reg->vector->buffer, itf_reg->clipboard->buffer);
 	}

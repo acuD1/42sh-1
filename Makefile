@@ -9,7 +9,7 @@ DEBUG = no
 # --------- #
 
 LIBDIR = libft/
-PATHLIBDIR = libft/libs/
+PATHLIBDIR = libft/
 SRCDIR = srcs/
 OBJDIR = objs/
 INCDIR = includes/

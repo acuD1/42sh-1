@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 17:30:35 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/02 11:03:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void				interface_resize_handler(int signo)
 	(void)signo;
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == -1)
 	{
-		ft_printf_fd(2, "[ERROR ]Terminal size could not be updated.\n");
+		ft_dprintf(2, "[ERROR ]Terminal size could not be updated.\n");
 		return ;
 	}
 	itf_ptr = g_interface_registry_pointer;

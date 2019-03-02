@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 18:10:04 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/02 11:05:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
 
 	ft_bzero(character, READ_SIZE);
 	log_print(shell_reg, LOG_INFO, "Starting prompt.\n");
-	ft_printf_fd(1, "\n%s", PROMPT_TEXT);
+	ft_dprintf(STDOUT_FILENO, "\n%s", PROMPT_TEXT);
 
 	while (character[0] != NEWLINE_KEYCODE)
 	{

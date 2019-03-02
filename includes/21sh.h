@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 10:15:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 16:35:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/02 11:08:53 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include <stdlib.h>
+# include <unistd.h>
 
 # define WORKSPACE_NAME 	".42sh"
 # define KEY_DIRECTORY 		"keymaps"
