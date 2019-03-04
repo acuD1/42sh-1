@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/02 15:14:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/04 16:26:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define PROMPT_TEXT_LENGTH 9
 
 # define NEWLINE_KEYCODE 10
+# define ESCAPE_CHAR '\\'
 
 enum action_keys {
 	AK_ENTER,
@@ -102,6 +103,8 @@ typedef struct	s_interface_registry
 }						t_interface_registry;
 
 extern	t_interface_registry *g_interface_registry_pointer;
+
+void					validate_input_quoting(t_registry *sh_reg, t_interface_registry *itf_reg);
 
 int						replace_input_line(char *string, t_interface_registry *itf_reg);
 

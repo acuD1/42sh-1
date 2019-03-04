@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/02 18:14:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/04 09:51:18 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,8 @@ t_interface_registry *init_line_edition(t_registry *reg)
 		log_print(reg, LOG_ERROR, "Clipboard failed.\n");
 
 	log_print(reg, LOG_OK, "Line edition initialized.\n");
+
+	log_print(reg, LOG_INFO, "Esc: |%c|\n", ESCAPE_CHAR);
 
 	/*
 	 * search in home variable for DEFAULT_HISTORY_FILE_NAME

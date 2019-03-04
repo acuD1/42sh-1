@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/02 18:01:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/04 16:49:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_winsize *init_win_struct(t_registry *reg, t_winsize *window)
 	window->cols = w.ws_col;
 	window->rows = w.ws_row;
 
-	log_print(reg, LOG_INFO, "Term size is %d rows ans %d columns.\n", window->rows, window->cols);
+//	log_print(reg, LOG_INFO, "Term size is %d rows ans %d columns.\n", window->rows, window->cols);
 
 	return (window);
 }
@@ -84,6 +84,7 @@ char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
 
 	//check quoting
 	//invoke sub-shell until it is valid
+	validate_input_quoting(shell_reg, itf_registry);
 
 	// ADD INPUT TO HISTORY (if QUOTING IS VALID)
 	// Dont add if input is only  ' ' || '\n'
