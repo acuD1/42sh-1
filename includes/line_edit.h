@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/04 16:26:25 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/05 15:04:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@
 
 # define PROMPT_TEXT "|42sh|-> "
 # define PROMPT_TEXT_LENGTH 9
+# define PS2_TEXT "=> "
+# define PS2_TEXT_LENGTH 3
 
-# define NEWLINE_KEYCODE 10
+# define IFS_CHARACTER 10
 # define ESCAPE_CHAR '\\'
 
 enum action_keys {
@@ -104,6 +106,7 @@ typedef struct	s_interface_registry
 
 extern	t_interface_registry *g_interface_registry_pointer;
 
+int						invoke_ps2_prompt(t_registry *sh, t_interface_registry *itf);
 void					validate_input_quoting(t_registry *sh_reg, t_interface_registry *itf_reg);
 
 int						replace_input_line(char *string, t_interface_registry *itf_reg);

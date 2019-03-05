@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/04 16:49:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/05 13:15:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
 
 	history_node = NULL;
 
-	while (character[0] != NEWLINE_KEYCODE)
+	while (character[0] != IFS_CHARACTER)
 	{
 		ft_bzero(character, READ_SIZE);
 		if (read(0, character, READ_SIZE) == -1)
@@ -88,7 +88,7 @@ char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
 
 	// ADD INPUT TO HISTORY (if QUOTING IS VALID)
 	// Dont add if input is only  ' ' || '\n'
-	if ((history_node = create_history_entry(vector->buffer)) != NULL)
+	if ((history_node = create_history_entry(itf_registry->vector->buffer)) != NULL)
 	{
 		if (itf_registry->history_head == NULL)
 			itf_registry->history_head = history_node;
@@ -98,9 +98,9 @@ char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
 	}
 	itf_registry->history_ptr = NULL;
 
-	log_print(shell_reg, LOG_INFO, "Line edition sending: |%s|\n", vector->buffer);
+	log_print(shell_reg, LOG_INFO, "Line edition sending: |%s|\n", itf_registry->vector->buffer);
 
-	return (vector->buffer);
+	return (itf_registry->vector->buffer);
 }
 
 void	launch_shell_prompt(t_registry *shell_registry,
