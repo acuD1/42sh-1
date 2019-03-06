@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 10:41:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/02 12:08:49 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/06 16:17:27 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,6 @@ int		main(int ac, char **av, char **environ)
 
 	shell_invoke(shell_registry);
 
-	cleanup_shell_registry(shell_registry);
+//	cleanup_shell_registry(shell_registry);
 	return (0);
 }

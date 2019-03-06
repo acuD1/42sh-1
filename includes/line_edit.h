@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/05 15:04:37 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/06 15:18:24 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,18 @@
 # define CLIPBOARD_SIZE	256
 # define BUFFER_SCALE_MULT 2
 
-# define PROMPT_TEXT "|42sh|-> "
-# define PROMPT_TEXT_LENGTH 9
-# define PS2_TEXT "=> "
-# define PS2_TEXT_LENGTH 3
+# define PROMPT_TEXT "[21sh] -> "
+# define PROMPT_TEXT_LENGTH 10
+# define PS2_TEXT "quote> "
+# define PS2_TEXT_LENGTH 7
 
 # define IFS_CHARACTER 10
 # define ESCAPE_CHAR '\\'
+
+enum interface_states {
+	PS1,
+	PS2,
+};
 
 enum action_keys {
 	AK_ENTER,
@@ -89,9 +94,6 @@ typedef struct s_winsize
 
 typedef struct	s_interface_registry
 {
-	int					(*tc_call[AK_AMOUNT])(struct s_interface_registry *itf_reg);
-	int					ak_keycodes[AK_AMOUNT][READ_SIZE];
-
 	t_vector			*clipboard;
 	t_vector			*vector;
 	t_termcaps			*termcaps;
@@ -102,6 +104,10 @@ typedef struct	s_interface_registry
 
 	struct termios		*orig_term;
 	struct termios		*new_term;
+
+	int					interface_state;
+	int					ak_keycodes[AK_AMOUNT][READ_SIZE];
+	int					(*tc_call[AK_AMOUNT])(struct s_interface_registry *itf_reg);
 }						t_interface_registry;
 
 extern	t_interface_registry *g_interface_registry_pointer;

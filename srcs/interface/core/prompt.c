@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/05 13:15:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/06 19:06:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,41 @@
 #include "21sh.h"
 #include <sys/ioctl.h>
 #include "history.h"
+
+char	*trim_ifs(const char *str, char *ifs)
+{
+	char	**words;
+	char	*ret;
+	size_t 	i;
+
+	i = 0;
+	ret = NULL;
+
+	if (str == NULL || ft_strlen(str) == 0)
+		return (NULL);
+
+	words = ft_strsplit(str, ifs);
+
+	if (words[0] != NULL && words[1] == NULL)
+		return (ft_strdup(words[0]));
+
+	while (words[i] != NULL && words[1] != NULL)
+	{
+		if (ret == NULL)
+		{
+			ret = ft_strjoin(words[0], " ");
+			ret = ft_strjoin(ret, words[1]);
+			++i;
+		}
+		else
+		{
+			ret = ft_strjoin(ret, " ");
+			ret = ft_strjoin(ret, words[i]);
+		}
+		++i;
+	}
+	return (ret);
+}
 
 static t_winsize *init_win_struct(t_registry *reg, t_winsize *window)
 {
@@ -32,8 +67,6 @@ static t_winsize *init_win_struct(t_registry *reg, t_winsize *window)
 	window->y = 0;
 	window->cols = w.ws_col;
 	window->rows = w.ws_row;
-
-//	log_print(reg, LOG_INFO, "Term size is %d rows ans %d columns.\n", window->rows, window->cols);
 
 	return (window);
 }
@@ -53,6 +86,8 @@ char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
 		log_print(shell_reg, LOG_CRITICAL, "Error allocating interface memory.\n");
 		return (NULL);
 	}
+
+	itf_registry->interface_state = PS1;
 
 	if (!(init_win_struct(shell_reg, window)))
 		return (NULL);
@@ -88,8 +123,12 @@ char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
 
 	// ADD INPUT TO HISTORY (if QUOTING IS VALID)
 	// Dont add if input is only  ' ' || '\n'
-	if ((history_node = create_history_entry(itf_registry->vector->buffer)) != NULL)
+	if ((history_node = create_history_entry(
+					trim_ifs(itf_registry->vector->buffer, "\n"))) != NULL)
 	{
+		log_print(shell_reg, LOG_OK, "Created history entry with data: |%s|\n",
+			history_node->command);
+
 		if (itf_registry->history_head == NULL)
 			itf_registry->history_head = history_node;
 		else

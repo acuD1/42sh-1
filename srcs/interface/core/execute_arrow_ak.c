@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:12:56 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/02 17:22:37 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/06 17:49:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int tc_ak_arrow_left(t_interface_registry *itf_reg)
 	if (tmp_idx >= 1)
 	{
 
-		if (itf_reg->window->x == 0 && itf_reg->window->y >= 1)
+		if ((itf_reg->window->x == 0 && itf_reg->window->y >= 1))// ||
+//			itf_reg->vector->buffer[tmp_idx] == '\n')
 		{
 			tputs(itf_reg->termcaps->cs_up, 1, &ft_putc);
 			itf_reg->window->y--;

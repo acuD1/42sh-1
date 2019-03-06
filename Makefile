@@ -2,7 +2,7 @@
 # Debug mode #
 # ---------- #
 
-DEBUG = yes
+DEBUG = no
 
 # --------- #
 # Directory #
@@ -39,13 +39,17 @@ LFLAGS = -ltermcap
 
 NAME = 21sh
 
-SRCS_NAMES = 21sh.c argument_parser.c environment_parser.c startup_initialisation.c workspace.c\
-			 file_logger.c debug_logger.c vector_tools.c\
-			 termcap_strings.c load_interface_config.c keymap_handler.c\
-			 init_special_ak.c init_ctrl_ak.c init_arrow_ak.c init_clipboard.c\
-			 action_keys.c execute_arrow_ak.c execute_ctrl_ak.c execute_special_ak.c\
-			 signal_handler.c prompt.c redraw_prompt.c sub_shell.c validate_input.c\
-			 prompt_errors.c handle_input_keys.c init_ak_keycodes.c command_history.c cleanup.c
+SRCS_NAMES = execute_arrow_ak.c execute_ctrl_ak.c execute_special_ak.c\
+			 handle_input_keys.c prompt.c redraw_prompt.c sub_shell.c\
+			 validate_quoting.c\
+			 command_history.c\
+			 init_special_ak.c init_ctrl_ak.c init_arrow_ak.c init_clipboard.c init_ak_keycodes.c\
+			 load_termcap_strings.c load_interface_config.c keymap_handler.c\
+			 prompt_errors.c\
+			 debug_logger.c file_logger.c\
+			 clean_registry.c shift_tools.c\
+			21sh.c argument_parser.c environment_parser.c startup_initialisation.c workspace.c\
+			 signal_handler.c
 
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)

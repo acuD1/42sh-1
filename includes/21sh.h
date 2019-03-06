@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 10:15:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/02 11:08:53 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/06 16:17:01 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,9 @@ typedef struct 					s_registry
 
 	int							debug_fd;
 
-	
+
 	t_environment_node			*environment;
 }								t_registry;
 
 char	*get_env_node_value(t_environment_node *head, char *key);
-void	cleanup_shell_registry(t_registry *shell_reg);
 #endif

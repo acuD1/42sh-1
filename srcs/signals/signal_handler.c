@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/04 13:20:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/06 15:36:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,13 @@ static void				redraw_prompt(int signo)
 	itf_ptr->window->cursor_index = tc_ak_end(itf_ptr);
 
 	print_words("\n", itf_ptr);
+
 	itf_ptr->window->x = 0;
 	itf_ptr->window->y = 0;
-	print_words(PROMPT_TEXT, itf_ptr);
+	if (itf_ptr->interface_state == PS2)
+		print_words(PS2_TEXT, itf_ptr);
+	else
+		print_words(PROMPT_TEXT, itf_ptr);
 	itf_ptr->window->cursor_index = 0;
 	ft_vctreset(itf_ptr->vector);
 }
