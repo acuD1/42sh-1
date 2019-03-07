@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/05 13:21:33 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/07 18:41:03 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,24 @@ static unsigned int handle_printable_char(char c[READ_SIZE], t_interface_registr
 
 	vector_ptr = itf_reg->vector;
 	tmp_index = itf_reg->window->cursor_index;
+
 	if (tmp_index > (vector_ptr->size - 2))
 		ft_vctrescale(itf_reg->vector);
+
 	vector_ptr = itf_reg->vector;
+
 	if (ft_vctlen(vector_ptr) != tmp_index)
 	{
-		tputs(itf_reg->termcaps->begin_insertion, 1, &ft_putc);
-		print_words(c, itf_reg);
-		tputs(itf_reg->termcaps->end_insertion, 1, &ft_putc);
 		shift_content_right_once(vector_ptr, tmp_index);
 		vector_ptr->buffer[tmp_index] = c[0];
-		redraw_after_cursor(itf_reg);
+		redraw_input_line(itf_reg);
+		itf_reg->window->cursor_index = tc_ak_arrow_right(itf_reg);
 	}
 	else
 	{
-		vector_ptr->buffer[tmp_index] = c[0];
-		print_words(c, itf_reg);
+		vector_ptr->buffer[ft_vctlen(vector_ptr)] = c[0];
+		itf_reg->window->cursor_index = tc_ak_arrow_right(itf_reg);
+		redraw_input_line(itf_reg);
 	}
 	return (itf_reg->window->cursor_index);
 }

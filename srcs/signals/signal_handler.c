@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/06 15:36:26 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/07 17:28:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static void				interface_resize_handler(int signo)
 	itf_ptr->window->cols = w.ws_col;
 	itf_ptr->window->x = 0;
 	itf_ptr->window->y = 0;
+	itf_ptr->window->max_line_len =
+		((itf_ptr->window->cols * itf_ptr->window->rows) - (PROMPT_TEXT_LENGTH + 3));
 
 	tputs(itf_ptr->termcaps->clear, w.ws_row - 1, ft_putc);
 	line_len = (ft_vctlen(itf_ptr->vector) - 1);

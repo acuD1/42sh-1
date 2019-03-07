@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 13:44:00 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/06 15:43:23 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/07 11:23:15 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "history.h"
 #include "libft.h"
 #include "log.h"
-
+/*
 t_history	*create_history_entry(char	*entry)
 {
 	char		*cmd;
@@ -41,3 +41,4 @@ void	push_history_entry(t_history **head, t_history *new)
 	new->prev = *head;
 	*head = new;
 }
+*/

@@ -6,12 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:14:28 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 18:04:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/07 16:51:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 #include "ft_printf.h"
+#include "libft.h"
 
 int	ft_putc(int c)
 {
@@ -29,7 +30,7 @@ int tc_ak_delete(t_interface_registry *itf_reg)
 {
 	shift_content_left_once(itf_reg->vector,
 			itf_reg->window->cursor_index);
-	itf_reg->window->cursor_index = redraw_after_cursor(itf_reg);
+	itf_reg->window->cursor_index = redraw_input_line(itf_reg);
 	return (itf_reg->window->cursor_index);
 }
 
@@ -39,7 +40,7 @@ int tc_ak_backspace(t_interface_registry *itf_reg)
 	{
 		itf_reg->window->cursor_index = tc_ak_arrow_left(itf_reg);
 		shift_content_left_once(itf_reg->vector, itf_reg->window->cursor_index);
-		itf_reg->window->cursor_index = redraw_after_cursor(itf_reg);
+		itf_reg->window->cursor_index = redraw_input_line(itf_reg);//redraw_after_cursor(itf_reg);
 	}
 	return (itf_reg->window->cursor_index);
 }

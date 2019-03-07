@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/06 15:39:01 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/07 11:23:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ static t_interface_registry *create_interface_registry(t_registry *shell_registr
 }
 
 /* HARDCODED FILE PATH */
+/*
 #define HISTORY_PATH "/Users/skuppers/.sh_history"
 int	load_history_file(t_registry *shell_reg, t_interface_registry *itf_reg)
 {
@@ -150,7 +151,7 @@ int	load_history_file(t_registry *shell_reg, t_interface_registry *itf_reg)
 	close(fd);
 	return (0);
 }
-
+*/
 t_interface_registry *init_line_edition(t_registry *reg)
 {
 	t_interface_registry *itf_reg;
@@ -199,6 +200,6 @@ t_interface_registry *init_line_edition(t_registry *reg)
 	 * every line gets strored in the history list
 	 * last line read is the history_head
 	 */
-	load_history_file(reg, itf_reg);
+//	load_history_file(reg, itf_reg);
 	return (itf_reg);
 }

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:22:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/06 15:23:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/07 15:01:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ int		invoke_ps2_prompt(t_registry *sh_reg, t_interface_registry *itf_reg)
 	char	character[READ_SIZE + 1];
 
 	concat = NULL;
+	new_vect = NULL;
+	old_vect = NULL;
+	ft_bzero(character, READ_SIZE + 1);
 	if ((new_vect = ft_vctnew(0)) == NULL)
 		return (-1);
 
@@ -38,6 +41,9 @@ int		invoke_ps2_prompt(t_registry *sh_reg, t_interface_registry *itf_reg)
 	while (character[0] != IFS_CHARACTER)
 	{
 		ft_bzero(character, READ_SIZE);
+//		ft_dprintf(2, "Waiting for input |%s| |x:%d| |y:%d| |CI:%d|\n",
+//				itf_reg->vector->buffer, itf_reg->window->x, itf_reg->window->y,
+//				itf_reg->window->cursor_index);
 		if (read(0, character, READ_SIZE) == -1)
 		{
 			prompt_read_failed(sh_reg, new_vect);
@@ -54,8 +60,8 @@ int		invoke_ps2_prompt(t_registry *sh_reg, t_interface_registry *itf_reg)
 		}
 	}
 	ft_asprintf(&concat, "%s%s", old_vect->buffer, new_vect->buffer);
-//	ft_strdel(&(old_vect->buffer));
-//	free(old_vect);
+	ft_strdel(&(old_vect->buffer));
+	free(old_vect);
 	ft_strdel(&(itf_reg->vector->buffer));
 	itf_reg->vector->buffer = concat;
 	itf_reg->vector->size = ft_strlen(concat);

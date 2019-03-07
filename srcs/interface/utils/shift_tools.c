@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:57:01 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/06 15:57:02 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/07 13:43:34 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 static void		ft_strshift(char *str, unsigned int index, int shift)
 {
-	size_t last;
+	int last;
 
 	last = ft_strlen(str);
 	if (shift == 0)
 		return ;
 	if (shift > 0)
 	{
-		while (last >= 1 && last >= index)
+		while (last >= 0 && last >= (int)index)
 		{
 			str[last + 1] = str[last];
 			--last;
@@ -30,7 +30,7 @@ static void		ft_strshift(char *str, unsigned int index, int shift)
 	}
 	else
 	{
-		while (index < last)
+		while ((int)index < last)
 		{
 			str[index] = str[index + 1];
 			++index;

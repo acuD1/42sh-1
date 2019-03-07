@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/06 15:18:24 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/07 19:27:47 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,13 @@
 
 # define PROMPT_TEXT "[21sh] -> "
 # define PROMPT_TEXT_LENGTH 10
+
 # define PS2_TEXT "quote> "
 # define PS2_TEXT_LENGTH 7
+
+# define START_OVERSIZE ">..."
+# define END_OVERSIZE   "<..."
+# define OVERSIZE_LENGTH 4
 
 # define IFS_CHARACTER 10
 # define ESCAPE_CHAR '\\'
@@ -85,11 +90,12 @@ typedef struct	s_termcaps
 
 typedef struct s_winsize
 {
-	int				cursor_index;
 	unsigned int	x;
 	unsigned int	y;
 	unsigned int	rows;
 	unsigned int	cols;
+	int				max_line_len;
+	int				cursor_index;
 }				t_winsize;
 
 typedef struct	s_interface_registry
@@ -112,6 +118,8 @@ typedef struct	s_interface_registry
 
 extern	t_interface_registry *g_interface_registry_pointer;
 
+void					free_interface_registry(t_interface_registry *itf_reg);
+
 int						invoke_ps2_prompt(t_registry *sh, t_interface_registry *itf);
 void					validate_input_quoting(t_registry *sh_reg, t_interface_registry *itf_reg);
 
@@ -130,7 +138,7 @@ void					prompt_read_failed(t_registry *reg, t_vector *vect);
 void					print_words(char *str, t_interface_registry *itf_reg);
 
 int						redraw_input_line(t_interface_registry *itf_reg);
-int						redraw_after_cursor(t_interface_registry *itf_reg);
+//int						redraw_after_cursor(t_interface_registry *itf_reg);
 
 t_termcaps				*init_termcap_calls(t_registry *reg);
 t_interface_registry	*init_line_edition(t_registry *reg);

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/06 19:06:32 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/07 17:29:11 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "21sh.h"
 #include <sys/ioctl.h>
 #include "history.h"
-
+/*
 char	*trim_ifs(const char *str, char *ifs)
 {
 	char	**words;
@@ -51,7 +51,7 @@ char	*trim_ifs(const char *str, char *ifs)
 	}
 	return (ret);
 }
-
+*/
 static t_winsize *init_win_struct(t_registry *reg, t_winsize *window)
 {
 	struct winsize	w;
@@ -67,6 +67,8 @@ static t_winsize *init_win_struct(t_registry *reg, t_winsize *window)
 	window->y = 0;
 	window->cols = w.ws_col;
 	window->rows = w.ws_row;
+
+	window->max_line_len = ((window->cols * window->rows) - (PROMPT_TEXT_LENGTH + 3));
 
 	return (window);
 }
@@ -123,7 +125,7 @@ char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
 
 	// ADD INPUT TO HISTORY (if QUOTING IS VALID)
 	// Dont add if input is only  ' ' || '\n'
-	if ((history_node = create_history_entry(
+/*	if ((history_node = create_history_entry(
 					trim_ifs(itf_registry->vector->buffer, "\n"))) != NULL)
 	{
 		log_print(shell_reg, LOG_OK, "Created history entry with data: |%s|\n",
@@ -135,7 +137,7 @@ char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
 			push_history_entry(&(itf_registry->history_head),
 					history_node);
 	}
-	itf_registry->history_ptr = NULL;
+	itf_registry->history_ptr = NULL;*/
 
 	log_print(shell_reg, LOG_INFO, "Line edition sending: |%s|\n", itf_registry->vector->buffer);
 
