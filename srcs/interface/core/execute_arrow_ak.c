@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:12:56 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/07 19:08:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/17 14:55:14 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int tc_ak_arrow_right(t_interface_registry *itf_reg)
 	tmp_idx = itf_reg->window->cursor_index;
 
 	if (tmp_idx < ft_vctlen(itf_reg->vector))
-//			&& (int)tmp_idx < itf_reg->window->max_line_len - 2)
 	{
 		if (itf_reg->window->x >= itf_reg->window->cols - 1)
 		{
@@ -59,7 +58,6 @@ int tc_ak_arrow_left(t_interface_registry *itf_reg)
 	{
 
 		if ((itf_reg->window->x == 0 && itf_reg->window->y >= 1))// ||
-//			itf_reg->vector->buffer[tmp_idx] == '\n')
 		{
 			tputs(itf_reg->termcaps->cs_up, 1, &ft_putc);
 			itf_reg->window->y--;

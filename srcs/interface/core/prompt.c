@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/07 17:29:11 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/17 15:24:52 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,42 +16,7 @@
 #include "21sh.h"
 #include <sys/ioctl.h>
 #include "history.h"
-/*
-char	*trim_ifs(const char *str, char *ifs)
-{
-	char	**words;
-	char	*ret;
-	size_t 	i;
 
-	i = 0;
-	ret = NULL;
-
-	if (str == NULL || ft_strlen(str) == 0)
-		return (NULL);
-
-	words = ft_strsplit(str, ifs);
-
-	if (words[0] != NULL && words[1] == NULL)
-		return (ft_strdup(words[0]));
-
-	while (words[i] != NULL && words[1] != NULL)
-	{
-		if (ret == NULL)
-		{
-			ret = ft_strjoin(words[0], " ");
-			ret = ft_strjoin(ret, words[1]);
-			++i;
-		}
-		else
-		{
-			ret = ft_strjoin(ret, " ");
-			ret = ft_strjoin(ret, words[i]);
-		}
-		++i;
-	}
-	return (ret);
-}
-*/
 static t_winsize *init_win_struct(t_registry *reg, t_winsize *window)
 {
 	struct winsize	w;

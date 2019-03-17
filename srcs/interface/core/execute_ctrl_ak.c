@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 07:30:12 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/07 17:54:37 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/17 15:26:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,10 @@ int		tc_ak_paste_clipboard(t_interface_registry *itf_reg)
 	char			*before;
 	char			*concat;
 
+	if ((ft_vctlen(itf_reg->clipboard) + ft_vctlen(itf_reg->vector))
+			>= (size_t)itf_reg->window->max_line_len)
+		return (itf_reg->window->cursor_index);
+
 	while (itf_reg->vector->size <
 			(ft_vctlen(itf_reg->vector) + ft_vctlen(itf_reg->clipboard) + 2))
 		ft_vctrescale(itf_reg->vector);
@@ -176,10 +180,9 @@ int		tc_ak_paste_clipboard(t_interface_registry *itf_reg)
 	}
 	else
 	{
-//		ft_dprintf(2, "Pasting : %s\n", itf_reg->clipboard->buffer);
-//		print_words(itf_reg->clipboard->buffer, itf_reg);
 		itf_reg->vector->buffer = ft_strcat(itf_reg->vector->buffer, itf_reg->clipboard->buffer);
 		itf_reg->window->cursor_index = redraw_input_line(itf_reg);
+		itf_reg->window->cursor_index = tc_ak_end(itf_reg);
 	}
 	return (itf_reg->window->cursor_index);
 }
@@ -187,10 +190,7 @@ int		tc_ak_paste_clipboard(t_interface_registry *itf_reg)
 int		tc_ak_clear_screen(t_interface_registry *itf_reg)
 {
 	tputs(itf_reg->termcaps->clear, itf_reg->window->rows, ft_putc);
-	itf_reg->window->x = 0;
-	itf_reg->window->y = 0;
-	print_words(PROMPT_TEXT, itf_reg);
-	itf_reg->window->cursor_index = 0;
+	redraw_prompt(MAGIC_NUMBER);
 	itf_reg->window->cursor_index = redraw_input_line(itf_reg);
 	itf_reg->window->cursor_index = tc_ak_end(itf_reg);
 	return (itf_reg->window->cursor_index);

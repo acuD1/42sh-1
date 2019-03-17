@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/07 19:27:47 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/17 15:23:34 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@
 
 # define IFS_CHARACTER 10
 # define ESCAPE_CHAR '\\'
+
+# define MAGIC_NUMBER 42424242
 
 enum interface_states {
 	PS1,
@@ -118,6 +120,8 @@ typedef struct	s_interface_registry
 
 extern	t_interface_registry *g_interface_registry_pointer;
 
+void					redraw_prompt(int signo);
+
 void					free_interface_registry(t_interface_registry *itf_reg);
 
 int						invoke_ps2_prompt(t_registry *sh, t_interface_registry *itf);
@@ -138,7 +142,7 @@ void					prompt_read_failed(t_registry *reg, t_vector *vect);
 void					print_words(char *str, t_interface_registry *itf_reg);
 
 int						redraw_input_line(t_interface_registry *itf_reg);
-//int						redraw_after_cursor(t_interface_registry *itf_reg);
+int						redraw_after_cursor(t_interface_registry *itf_reg);
 
 t_termcaps				*init_termcap_calls(t_registry *reg);
 t_interface_registry	*init_line_edition(t_registry *reg);
