@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/17 15:23:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/20 09:27:10 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void				redraw_prompt(int signo)
 	itf_ptr = g_interface_registry_pointer;
 	itf_ptr->window->cursor_index = tc_ak_end(itf_ptr);
 
+	print_words("\n", itf_ptr);
 	print_words("\n", itf_ptr);
 
 	itf_ptr->window->x = 0;

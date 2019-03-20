@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 10:15:15 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/25 11:25:46 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/20 13:51:20 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ enum importance {
 };
 
 void	log_print(t_registry *reg, int importance, char *message, ...);
-
+void	init_debug_logger(t_registry *reg);
 #endif

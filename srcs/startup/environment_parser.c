@@ -6,12 +6,12 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:32:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/02 11:13:29 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/20 13:45:46 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "startup.h"
-
+/*
 char			*get_env_node_value(t_environment_node *head, char *key)
 {
 	t_environment_node *ptr;
@@ -25,6 +25,7 @@ char			*get_env_node_value(t_environment_node *head, char *key)
 	}
 	return (NULL);
 }
+*/
 /*
 int							delete_env_node(t_environment_node *head, char *key)
 {
@@ -72,11 +73,10 @@ static t_environment_node	*create_env_node(char *key, char *value)
  *	Returns the head from linked list with the entire environment.
  *	With the syntax: key = value.
  */
-
+/*
 t_environment_node	*parse_environment(char **environment)
 {
 	(void)environment;
-	/*
 	t_environment_node		*head;
 	t_environment_node		*new;
 	unsigned int			separator;
@@ -104,6 +104,8 @@ t_environment_node	*parse_environment(char **environment)
 				ft_listappend(head, new);
 			++environment;
 		}
-	}*/
+	}
 	return (NULL);
+
 }
+*/

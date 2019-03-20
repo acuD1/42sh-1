@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:33:03 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/28 18:03:10 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/20 13:46:00 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 	 *
 	 * Search and exec /etc/profile (All Unix systems)
 	 *  /etc/paths.d/,  /etc/manpaths (Only MacOS)
-*/
+
 void	load_config_files(t_registry *reg)
 {
  //TODO: load and exec file according to launch arguments
@@ -58,3 +58,4 @@ void	load_config_files(t_registry *reg)
 		// non-interactive mode
 	}
 }
+*/

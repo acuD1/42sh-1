@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 09:08:59 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/17 14:23:45 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/20 13:21:12 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,14 @@ void	print_words(char *str, t_interface_registry *itf_reg)
 
 static int clean_screen(t_interface_registry *itf_reg)
 {
-	int	offset;
+	size_t offset;
+	size_t clear_size;
 
 	offset = 0;
 	itf_reg->window->cursor_index = tc_ak_home(itf_reg);
-	while (offset++ < itf_reg->window->max_line_len + 1)
+	clear_size = ((size_t)itf_reg->window->max_line_len < itf_reg->vector->size)
+		? itf_reg->window->max_line_len : itf_reg->vector->size;
+	while (offset++ < clear_size)
 		print_char(' ', itf_reg);
 	itf_reg->window->cursor_index = tc_ak_home(itf_reg);
 	return (itf_reg->window->cursor_index);

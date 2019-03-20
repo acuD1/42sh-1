@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:31:41 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/02 11:09:37 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/20 13:46:19 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "startup.h"
 #include "log.h"
-
+/*
 int		file_exist(char *path)
 {
 	return (access(path, F_OK));
@@ -22,7 +22,7 @@ int		file_got_permissions(char *path)
 {
 	return (access(path, R_OK | W_OK | X_OK));
 }
-/*
+
 static inline DIR		*get_directory(char *path)
 {
 	DIR	*dir;
@@ -31,7 +31,7 @@ static inline DIR		*get_directory(char *path)
 		return (dir);
 	return (NULL);
 }
-*/
+
 char		*search_home_directory(t_registry *reg)
 {
 	return (get_env_node_value(reg->environment, ENV_HOME_NAME));
@@ -80,3 +80,4 @@ unsigned int		init_workspace(t_registry *registry)
 	}
 	return (1);
 }
+*/

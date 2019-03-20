@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/04 09:46:11 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/20 13:55:19 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,28 +48,24 @@ void			log_print(t_registry *reg, int importance, char *message, ...)
 	va_list args;
 	char	*str;
 
-	if (reg->debug_fd < 1)
-		return ;
+//	if (reg == NULL || reg->debug_fd < 1)
+//		return ;
+	(void)reg;
 	str = log_fetch_importance(importance);
-	ft_dprintf(reg->debug_fd, "%s", str);
+	ft_dprintf(2, "%s", str);
 	ft_strdel(&str);
 
 	va_start(args, message);
-	ft_vdprintf(message, args, reg->debug_fd);
+	ft_vdprintf(message, args, 2);
 	va_end(args);
 }
 
 void	init_debug_logger(t_registry *reg)
 {
-	if (reg->arguments->opt_d)
-		reg->debug_fd = 2;//debug to fd->2
-	else if (reg->workspace_avaible)
-	{
-		reg->debug_fd = 2; // Temporary placeholder
-		//open file descriptor to std log file
-		//keep it open until shell exit
-		// registry->debug-fd = X;
-	}
-	else
-		reg->debug_fd = -1;
+	(void)reg;
+	/*
+	 * Check if -d is activated
+	 * Check if path is accessible.
+	 * Debug only to log file.
+	 */
 }
