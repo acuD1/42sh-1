@@ -6,7 +6,7 @@
 #    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/03/26 22:01:22 by cempassi         ###   ########.fr        #
+#    Updated: 2019/03/26 23:04:36 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,16 @@
 #								 Build Targets                                 #
 # ---------------------------------------------------------------------------- #
 
-NAME = 42sh
-NAMEDB = 42shdb
+21SH = 21sh
+21SHDB = 21shdb
+LEXER = Lexer_test
+LEXERDB = Lexerdb
 LIBFT = libft.a
 LIBFTDB = libftdb.a
-OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS))
-OBJD = $(patsubst %.c, $(OPATH)db%.o, $(SRCS))
+21OBJS = $(patsubst %.c, $(OPATH)%.o, $(LINE))
+21OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINE))
+LEXOBJS = $(patsubst %.c, $(OPATH)%.o, $(LEX_SRCS))
+LEXOBJD = $(patsubst %.c, $(OPATH)db%.o, $(LEX_SRCS))
 LIB = $(addprefix $(LPATH), $(LIBFT))
 LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 SRCS += $(LINE)
@@ -69,16 +73,17 @@ LPATH = libft/
 OPATH = objs/
 IPATH += includes/
 IPATH += libft/includes/
-_SPATH += interface
-_SPATH += interface/core
-_SPATH += interface/history
-_SPATH += interface/init
-_SPATH += interface/misc
-_SPATH += interface/utils
-_SPATH += logging
-_SPATH += signals
-_SPATH += startup
-SPATH += $(addprefix srcs/, $(_SPATH))
+LINE_PATH += line_edition/interface
+LINE_PATH += line_edition/interface/core
+LINE_PATH += line_edition/interface/history
+LINE_PATH += line_edition/interface/init
+LINE_PATH += line_edition/interface/misc
+LINE_PATH += line_edition/interface/utils
+LINE_PATH += line_edition/logging
+LINE_PATH += line_edition/signals
+LINE_PATH += line_edition/startup
+LEXER_PATH += lexer/
+SPATH += $(addprefix srcs/, $(LINE_PATH) $(LEXER_PATH))
 
 # ---------------------------------------------------------------------------- #
 #									 vpath                                     #
@@ -111,6 +116,7 @@ INCS += line_edit.h
 INCS += log.h
 INCS += history.h
 INCS += startup.h
+INCS += lexer.h
 
 # ---------------------------------------------------------------------------- #
 #									Sources                                    #
@@ -147,36 +153,63 @@ LINE += startup_initialisation.c
 LINE += workspace.c
 LINE += signal_handler.c
 
+#						   - - - - - Lexer - - - - -                           #
+
+LEX_SRCS += lexer.c
+LEX_SRCS += state_machine.c
+
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #
 # ---------------------------------------------------------------------------- #
 
-all : $(NAME)
+all : 21 lexer
 
-debug : $(NAMEDB)
+21 : $(21SH)
+
+21debug : $(21SHDB)
+
+lexer : $(LEXER)
+	
+lexerdb : $(LEXERDB)
 
 #					 - - - - - Normal Compilation - - - - -                    #
 
-$(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) 
-	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@ $(OBJS)
-	$(PRINT) "$(GREEN)$@ is ready $(NC)"
+$(21SH) : $(CLEAR) $(LIB) $(OPATH) $(21OBJS) 
+	$(LINK) $(CFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@ $(21OBJS)
+	$(PRINT) "$(GREEN)$@ is ready \n$(NC)"
 
-$(OBJS) : $(OPATH)%.o : %.c $(INCS) 
+$(21OBJS) : $(OPATH)%.o : %.c $(INCS) 
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<             $(NC)\n"
 	
+$(LEXER) : $(CLEAR) $(LIB) $(OPATH) $(LEXOBJS) 
+	$(LINK) $(CFLAGS) $(LDFLAGS) $(LDLIBN) -o $(LEXER) $(LEXOBJS)
+	$(PRINT) "$(GREEN)$@ is ready \n$(NC)"
+
+$(LEXOBJS) : $(OPATH)%.o : %.c $(INCS) 
+	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
+	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<             $(NC)\n"
+
 $(LIB) : FORCE
 	$(MAKE) -C $(LPATH)
 
 #					 - - - - - Debug Compilation - - - - -                     #
 
-$(NAMEDB) : $(CLEAR) $(LIBDB) $(OPATH) $(OBJD) 
-	$(LINKD) $(DFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBD) $(LFLAGS) -o $@ $(OBJD)
-	$(PRINT) "$(GREEN)$@ is ready $(NC)"
+$(21SHDB) : $(CLEAR) $(LIBDB) $(OPATH) $(OBJD) 
+	$(LINKD) $(DFLAGS) $(LDFLAGS) $(LDLIBD) $(LFLAGS) -o $@ $(OBJD)
+	$(PRINT) "$(GREEN)$@ is ready \n$(NC)"
 
-$(OBJD) : $(OPATH)db%.o : %.c $(INCS) 
+$(21OBJD) : $(OPATH)db%.o : %.c $(INCS) 
 	$(DEBUG) $(DFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $< for debug            $(NC)\n"
+
+$(LEXERDB) : $(CLEAR) $(LIB) $(OPATH) $(LEXOBJD) 
+	$(LINKD) $(DFLAGS) $(LDFLAGS) $(LDLIBN) -o $(LEXERDB) $(LEXOBJD)
+	$(PRINT) "$(GREEN)$@ is ready \n$(NC)"
+
+$(LEXOBJD) : $(OPATH)db%.o : %.c $(INCS) 
+	$(DEBUG) $(DFLAGS) $(CPPFLAGS) $< -o $@
+	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<             $(NC)\n"
 
 $(LIBDB) : FORCE
 	$(MAKE) -C $(LPATH) debug
@@ -194,8 +227,10 @@ clean :
 
 fclean : clean
 	$(MAKE) -C $(LPATH) fclean
-	$(CLEANUP) $(NAME)
-	$(CLEANUP) $(NAMEDB)
+	$(CLEANUP) $(21SH)
+	$(CLEANUP) $(21SHDB)
+	$(CLEANUP) $(LEXER)
+	$(CLEANUP) $(LEXERDB)
 	$(PRINT) "Executables destroyed\n"
 
 re : fclean all
@@ -205,5 +240,5 @@ help :
 
 FORCE:
 
-.PHONY : all clean fclean re help FORCE
+.PHONY : all 21 21debug lexer lexerdb clean fclean re help FORCE
 .SILENT:
