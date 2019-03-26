@@ -1,119 +1,209 @@
-# ---------- #
-# Debug mode #
-# ---------- #
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
+#    Updated: 2019/03/26 22:01:22 by cempassi         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-DEBUG = yes
+# ---------------------------------------------------------------------------- #
+#								 Build Targets                                 #
+# ---------------------------------------------------------------------------- #
 
-# --------- #
-# Directory #
-# --------- #
+NAME = 42sh
+NAMEDB = 42shdb
+LIBFT = libft.a
+LIBFTDB = libftdb.a
+OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS))
+OBJD = $(patsubst %.c, $(OPATH)db%.o, $(SRCS))
+LIB = $(addprefix $(LPATH), $(LIBFT))
+LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
+SRCS += $(LINE)
 
-LIBDIR = libft/
-PATHLIBDIR = libft/
-SRCDIR = srcs/
-OBJDIR = objs/
-INCDIR = includes/
-INCLIBDIR = libft/includes/
+# ---------------------------------------------------------------------------- #
+#									Compiler                                   #
+# ---------------------------------------------------------------------------- #
 
-VPATH = objs:srcs:srcs/startup:srcs/logging:srcs/signals:srcs/misc:srcs/interface:srcs/exec:srcs/interface/utils:srcs/interface/core:srcs/interface/init:srcs/interface/misc:srcs/interface/history:srcs/interface/misc
+CC = Clang
+LINK = $(CC)
+LINKD = $(CC) -g3
+COMPILE = $(CC) -c
+DEBUG = $(CC) -g3 -c
 
-# ------------------ #
-# Compiler and flags #
-# ------------------ #
+# ---------------------------------------------------------------------------- #
+#									Commands                                   #
+# ---------------------------------------------------------------------------- #
 
-CC = gcc
-ifeq ($(DEBUG), yes)
-	CFLAGS = -Wall -Wextra -fsanitize=address #-Werror
-else
-	CFLAGS = -Wall -Wextra -Werror
-endif
-CPPFLAGS = -I $(INCDIR) -I $(INCLIBDIR)
-LDLIBS = -lft
-LDFLAGS = -L $(PATHLIBDIR)
+MKDIR = mkdir -p
+CLEANUP = rm -rf
+PRINT = printf
+CLEAR = clear
 
+# ---------------------------------------------------------------------------- #
+#									 Output                                    #
+# ---------------------------------------------------------------------------- #
+
+# One Line 
+ONELINE =\e[1A\r
+
+# Colors
+NC = \033[0m
+BLACK = \033[0;30m
+RED = \033[0;31m
+GREEN = \033[32m
+YELLOW = \033[0;33m
+BLUE = \033[0;34m
+PURPLE = \033[0;35m
+CYAN = \033[0;36m
+WHITE = \033[0;37m
+
+# ---------------------------------------------------------------------------- #
+#								  Directories                                  #
+# ---------------------------------------------------------------------------- #
+
+LPATH = libft/
+OPATH = objs/
+IPATH += includes/
+IPATH += libft/includes/
+_SPATH += interface
+_SPATH += interface/core
+_SPATH += interface/history
+_SPATH += interface/init
+_SPATH += interface/misc
+_SPATH += interface/utils
+_SPATH += logging
+_SPATH += signals
+_SPATH += startup
+SPATH += $(addprefix srcs/, $(_SPATH))
+
+# ---------------------------------------------------------------------------- #
+#									 vpath                                     #
+# ---------------------------------------------------------------------------- #
+
+vpath %.c $(SPATH)
+vpath %.h $(IPATH)
+
+# ---------------------------------------------------------------------------- #
+#							   Compilation Flags                               #
+# ---------------------------------------------------------------------------- #
+
+IFLAGS = $(addprefix -I, $(IPATH))
+LDLIBN = -lft
+LDLIBD = -lftdb
+LDFLAGS = -L $(LPATH)
+CFLAGS += -Wall
+CFLAGS += -Wextra
+CFLAGS += -Werror
+CFLAGS += $(IFLAGS)
+DFLAGS = $(CFLAGS) -fsanitize=address
 LFLAGS = -ltermcap
 
-# --------------- #
-# Different names #
-# --------------- #
+# ---------------------------------------------------------------------------- #
+#									Includes                                   #
+# ---------------------------------------------------------------------------- #
 
-NAME = 21sh
+INCS += 21sh.h
+INCS += line_edit.h
+INCS += log.h
+INCS += history.h
+INCS += startup.h
 
-SRCS_NAMES = execute_arrow_ak.c execute_ctrl_ak.c execute_special_ak.c\
-			 handle_input_keys.c prompt.c redraw_prompt.c sub_shell.c\
-			 validate_quoting.c\
-			 command_history.c\
-			 init_special_ak.c init_ctrl_ak.c init_arrow_ak.c init_clipboard.c init_ak_keycodes.c\
-			 load_termcap_strings.c load_interface_config.c keymap_handler.c\
-			 prompt_errors.c\
-			 debug_logger.c file_logger.c\
-			 clean_registry.c shift_tools.c\
-			21sh.c argument_parser.c environment_parser.c startup_initialisation.c workspace.c\
-			 signal_handler.c
+# ---------------------------------------------------------------------------- #
+#									Sources                                    #
+# ---------------------------------------------------------------------------- #
 
+#						- - - - - Line edtion - - - - -                        #
 
-OBJS_NAMES = $(SRCS_NAMES:.c=.o)
-HEADERS_NAMES = 21sh.h line_edit.h log.h history.h startup.h
-LIBS_NAMES = libft.a
+LINE += execute_arrow_ak.c
+LINE += execute_ctrl_ak.c
+LINE += execute_special_ak.c
+LINE += handle_input_keys.c
+LINE += prompt.c
+LINE += redraw_prompt.c
+LINE += sub_shell.c
+LINE += validate_quoting.c
+LINE += command_history.c
+LINE += init_special_ak.c
+LINE += init_ctrl_ak.c
+LINE += init_arrow_ak.c
+LINE += init_clipboard.c
+LINE += init_ak_keycodes.c
+LINE += load_termcap_strings.c
+LINE += load_interface_config.c
+LINE += keymap_handler.c
+LINE += prompt_errors.c
+LINE += debug_logger.c
+LINE += file_logger.c
+LINE += clean_registry.c
+LINE += shift_tools.c
+LINE += 21sh.c
+LINE += argument_parser.c
+LINE += environment_parser.c
+LINE += startup_initialisation.c
+LINE += workspace.c
+LINE += signal_handler.c
 
-OBJ = $(addprefix $(OBJDIR), $(OBJS_NAMES))
-HEADERS = $(addprefix $(INCDIR), $(HEADERS_NAMES))
-LIBS = $(addprefix $(PATHLIBDIR), $(LIBS_NAMES))
+# ---------------------------------------------------------------------------- #
+#									 Rules                                     #
+# ---------------------------------------------------------------------------- #
 
-# ----------------- #
-# Command variables #
-# ----------------- #
+all : $(NAME)
 
-CREATE = mkdir -p
-DEL = /bin/rm -rf
-PRINT = echo
-PHONY = all clean cleans fclean re libs cleanlibs fcleanlibs help
+debug : $(NAMEDB)
 
-# ----- #
-# Rules #
-# ----- #
+#					 - - - - - Normal Compilation - - - - -                    #
 
-all : libs $(NAME)
+$(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) 
+	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@ $(OBJS)
+	$(PRINT) "$(GREEN)$@ is ready $(NC)"
 
-ifeq ($(DEBUG), yes)
-	@$(PRINT) "Debug mode : on\n"
-else
-	@$(PRINT) "Debug mode : off\n"
-endif
+$(OBJS) : $(OPATH)%.o : %.c $(INCS) 
+	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
+	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<             $(NC)\n"
+	
+$(LIB) : FORCE
+	$(MAKE) -C $(LPATH)
 
-$(NAME) : $(OBJS_NAMES) $(LIBS)
-	@$(CC) -o $@ $(OBJ) $(LDFLAGS) $(LDLIBS) $(LFLAGS) $(CFLAGS) $(CPPFLAGS)
-	@$(PRINT) "Executable built"
+#					 - - - - - Debug Compilation - - - - -                     #
 
-libs :
-	@$(MAKE) -C $(LIBDIR)
+$(NAMEDB) : $(CLEAR) $(LIBDB) $(OPATH) $(OBJD) 
+	$(LINKD) $(DFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBD) $(LFLAGS) -o $@ $(OBJD)
+	$(PRINT) "$(GREEN)$@ is ready $(NC)"
 
-%.o : %.c $(HEADER)
-	@$(CREATE) $(OBJDIR)
-	@$(CC) -o $(OBJDIR)$@ -c $< $(CFLAGS) $(CPPFLAGS)
-	@$(PRINT) ".o created"
+$(OBJD) : $(OPATH)db%.o : %.c $(INCS) 
+	$(DEBUG) $(DFLAGS) $(CPPFLAGS) $< -o $@
+	$(PRINT) "$(ONELINE)$(BLUE)Compiling $< for debug            $(NC)\n"
 
-clean : cleanlibs
-	@$(DEL) $(OBJDIR)
-	@$(PRINT) ".o file deleted"
+$(LIBDB) : FORCE
+	$(MAKE) -C $(LPATH) debug
 
-cleans : 
-	@$(DEL) $(OBJDIR)
-	@$(PRINT) ".o file deleted"
+$(CLEAR):
+	$@
 
-fclean : cleans fcleanlibs
-	@$(DEL) $(NAME)
-	@$(PRINT) "Executable destroyed"
+$(OPATH) :
+	$(MKDIR) $(OPATH)
 
-cleanlibs :
-	@$(MAKE) -C $(LIBDIR) clean
+clean :
+	$(MAKE) -C $(LPATH) clean
+	$(CLEANUP) $(OPATH)
+	$(PRINT) ".o file deleted\n"
 
-fcleanlibs :
-	@$(MAKE) -C $(LIBDIR) fclean
+fclean : clean
+	$(MAKE) -C $(LPATH) fclean
+	$(CLEANUP) $(NAME)
+	$(CLEANUP) $(NAMEDB)
+	$(PRINT) "Executables destroyed\n"
 
 re : fclean all
 
 help :
-	@$(PRINT) "Rules available : all, clean, cleans, fclean, re, libs, cleanlibs, fcleanlibs and help"
+	@$(PRINT) "Rules available : all, clean,  fclean, re, and help\n"
 
-.PHONY : $(PHONY)
+FORCE:
+
+.PHONY : all clean fclean re help FORCE
+.SILENT:
