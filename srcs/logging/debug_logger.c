@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/20 13:55:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/26 15:27:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,5 @@ void	init_debug_logger(t_registry *reg)
 	 * Check if path is accessible.
 	 * Debug only to log file.
 	 */
+
 }

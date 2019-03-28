@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:13:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/07 14:34:02 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/20 14:04:18 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	cleanup_interface_registry(t_interface_registry *itf_reg)
 	ft_strdel(&(itf_reg->vector->buffer));
 	free(itf_reg->vector);
 	free(itf_reg->window);
-
 
 //	free(itf_reg->window);
 }
@@ -44,10 +43,4 @@ void	free_interface_registry(t_interface_registry *itf_reg)
 	free(itf_reg->window);
 	ft_strdel(&(itf_reg->vector->buffer));
 	free(itf_reg->vector);
-}
-
-void	cleanup_shell_registry(t_registry *shell)
-{
-	free(shell->arguments);
-
 }

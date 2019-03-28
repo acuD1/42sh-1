@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 07:30:12 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/20 09:24:13 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/20 15:27:06 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,8 @@ int		tc_ak_paste_clipboard(t_interface_registry *itf_reg)
 		ft_asprintf(&concat, "%s%s%s",
 				before, itf_reg->clipboard->buffer, after);
 		ft_strncpy(itf_reg->vector->buffer, concat, ft_strlen(concat));
-		redraw_input_line(itf_reg);
+//		redraw_input_line(itf_reg);
+		itf_reg->window->cursor_index = redraw_after_cursor(itf_reg);
 		go_front = ft_strlen(before) + ft_strlen(itf_reg->clipboard->buffer);
 		while (go_front-- > 0)
 			itf_reg->window->cursor_index = tc_ak_arrow_right(itf_reg);
@@ -181,7 +182,8 @@ int		tc_ak_paste_clipboard(t_interface_registry *itf_reg)
 	else
 	{
 		itf_reg->vector->buffer = ft_strcat(itf_reg->vector->buffer, itf_reg->clipboard->buffer);
-		itf_reg->window->cursor_index = redraw_input_line(itf_reg);
+//		itf_reg->window->cursor_index = redraw_input_line(itf_reg);
+		itf_reg->window->cursor_index = redraw_after_cursor(itf_reg);
 		itf_reg->window->cursor_index = tc_ak_end(itf_reg);
 	}
 	return (itf_reg->window->cursor_index);

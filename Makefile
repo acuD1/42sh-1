@@ -23,7 +23,7 @@ VPATH = objs:srcs:srcs/startup:srcs/logging:srcs/signals:srcs/misc:srcs/interfac
 
 CC = gcc
 ifeq ($(DEBUG), yes)
-	CFLAGS = -Wall -Wextra -fsanitize=address #-Werror
+	CFLAGS = -Wall -Wextra -fsanitize=address
 else
 	CFLAGS = -Wall -Wextra -Werror
 endif
@@ -48,8 +48,7 @@ SRCS_NAMES = execute_arrow_ak.c execute_ctrl_ak.c execute_special_ak.c\
 			 prompt_errors.c\
 			 debug_logger.c file_logger.c\
 			 clean_registry.c shift_tools.c\
-			21sh.c argument_parser.c environment_parser.c startup_initialisation.c workspace.c\
-			 signal_handler.c
+			 main.c signal_handler.c
 
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)
@@ -91,7 +90,7 @@ libs :
 %.o : %.c $(HEADER)
 	@$(CREATE) $(OBJDIR)
 	@$(CC) -o $(OBJDIR)$@ -c $< $(CFLAGS) $(CPPFLAGS)
-	@$(PRINT) ".o created"
+	@printf "$< compiled.    \n"
 
 clean : cleanlibs
 	@$(DEL) $(OBJDIR)

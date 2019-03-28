@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/20 13:54:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/26 15:29:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
 	window->cursor_index = tc_ak_end(itf_registry);
 
 	//check quoting
-	//invoke sub-shell until it is valid
+	//invoke sub-prompt until it is valid
 	validate_input_quoting(shell_reg, itf_registry);
 
 	// ADD INPUT TO HISTORY (if QUOTING IS VALID)
@@ -121,8 +121,26 @@ void	launch_shell_prompt(t_registry *shell_registry,
 		user_input_string = prompt(shell_registry, itf_registry);
 		if (ft_strequ(user_input_string, "exit") || user_input_string[0] == 4)
 			return ;
+//		if (ft_strequ == '\n') continue;
 	//	execute_shell_command(user_input_string);
 		cleanup_interface_registry(itf_registry);
 	//	ft_strdel(&user_input_string);
 	}
 }
+
+void				shell_invoke_interactive(t_registry *shell_registry)
+{
+	t_interface_registry *itf_registry;
+
+	itf_registry = init_line_edition(shell_registry);
+	if (itf_registry != NULL)
+	{
+		launch_shell_prompt(shell_registry, itf_registry);
+		//restore_original_term_behavior(shell_registry, itf_registry);
+		free_interface_registry(itf_registry);
+		free(itf_registry);
+	}
+	else
+		log_print(shell_registry, LOG_CRITICAL, "Line edition failed, shuting down.\n");
+}
+

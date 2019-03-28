@@ -1,16 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   startup.h                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/19 14:36:38 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/20 13:59:40 by skuppers         ###   ########.fr       */
+/*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
+/*   Updated: 2019/03/26 16:31:31 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef H_STARTUP_H
-# define H_STARTUP_H
+#include "libft.h"
+#include "21sh.h"
 
-#endif
+int		main(int ac, char **av, char **env)
+{
+	(void)ac;
+	(void)av;
+	(void)env;
+	shell_invoke_interactive(NULL);
+	return (0);
+}

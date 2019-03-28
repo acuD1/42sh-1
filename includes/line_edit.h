@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/17 15:23:34 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/26 16:34:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,6 @@
 
 # define PS2_TEXT "quote> "
 # define PS2_TEXT_LENGTH 7
-
-# define START_OVERSIZE ">..."
-# define END_OVERSIZE   "<..."
-# define OVERSIZE_LENGTH 4
 
 # define IFS_CHARACTER 10
 # define ESCAPE_CHAR '\\'
