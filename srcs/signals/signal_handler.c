@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/26 16:40:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/28 18:40:12 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void				redraw_prompt(int signo)
 	itf_ptr = g_interface_registry_pointer;
 	itf_ptr->window->cursor_index = tc_ak_end(itf_ptr);
 
-	print_words("\n", itf_ptr);
-	print_words("\n", itf_ptr);
+	if (signo != MAGIC_NUMBER)
+		print_words("\n", itf_ptr);
 
 	itf_ptr->window->x = 0;
 	itf_ptr->window->y = 0;
@@ -65,7 +65,6 @@ static void				interface_resize_handler(int signo)
 
 	if ((itf_ptr->window->cols<PROMPT_TEXT_LENGTH*2 || itf_ptr->window->rows<3)
 			|| ft_vctlen(itf_ptr->vector) > (size_t)itf_ptr->window->max_line_len)
-
 		print_words("Terminal window size too small :-(", itf_ptr);
 	else
 	{

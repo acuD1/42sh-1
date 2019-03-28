@@ -6,9 +6,17 @@
 #    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/03/28 11:05:15 by skuppers         ###   ########.fr        #
+#    Updated: 2019/03/28 17:26:05 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+# ---------------------------------------------------------------------------- #
+#								    Version                                    #
+# ---------------------------------------------------------------------------- #
+VERSION_RELEASE = alpha
+VERSION_MAJOR = 0 
+VERSION_MINOR = 1
+VERSION_PATCH = 1
 
 # ---------------------------------------------------------------------------- #
 #								 Build Targets                                 #
@@ -97,7 +105,7 @@ LDLIBD = -lftdb
 LDFLAGS = -L $(LPATH)
 CFLAGS += -Wall
 CFLAGS += -Wextra
-CFLAGS += -Werror
+#CFLAGS += -Werror
 CFLAGS += $(IFLAGS)
 DFLAGS = $(CFLAGS) -fsanitize=address
 LFLAGS = -ltermcap
@@ -110,7 +118,6 @@ INCS += 21sh.h
 INCS += line_edit.h
 INCS += log.h
 INCS += history.h
-INCS += startup.h
 
 # ---------------------------------------------------------------------------- #
 #									Sources                                    #
@@ -140,12 +147,8 @@ LINE += debug_logger.c
 LINE += file_logger.c
 LINE += clean_registry.c
 LINE += shift_tools.c
-LINE += 21sh.c
-LINE += argument_parser.c
-LINE += environment_parser.c
-LINE += startup_initialisation.c
-LINE += workspace.c
 LINE += signal_handler.c
+LINE += main.c
 
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #

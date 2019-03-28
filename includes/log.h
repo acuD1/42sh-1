@@ -6,18 +6,12 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 10:15:15 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/20 13:51:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/28 18:42:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LOG_H
 # define LOG_H
-
-# define COLOR_WHITE 	"\x1b[0m"
-# define COLOR_GREEN 	"\x1b[92m"
-# define COLOR_YELLOW 	"\x1b[93m"
-# define COLOR_ORANGE	"\x1b[35m"
-# define COLOR_RED		"\x1b[31m"
 
 #include <time.h>
 #include "21sh.h"

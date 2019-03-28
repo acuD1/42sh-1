@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/26 15:29:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/28 18:31:31 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ void				shell_invoke_interactive(t_registry *shell_registry)
 		free(itf_registry);
 	}
 	else
+	{
 		log_print(shell_registry, LOG_CRITICAL, "Line edition failed, shuting down.\n");
+		ft_dprintf(2, "\n");
+	}
 }
-

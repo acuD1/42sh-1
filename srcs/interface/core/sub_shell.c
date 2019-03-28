@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:22:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/07 15:01:22 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/28 18:43:11 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@ int		invoke_ps2_prompt(t_registry *sh_reg, t_interface_registry *itf_reg)
 	while (character[0] != IFS_CHARACTER)
 	{
 		ft_bzero(character, READ_SIZE);
-//		ft_dprintf(2, "Waiting for input |%s| |x:%d| |y:%d| |CI:%d|\n",
-//				itf_reg->vector->buffer, itf_reg->window->x, itf_reg->window->y,
-//				itf_reg->window->cursor_index);
 		if (read(0, character, READ_SIZE) == -1)
 		{
 			prompt_read_failed(sh_reg, new_vect);

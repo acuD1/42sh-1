@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/26 16:34:09 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/28 18:46:57 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,25 @@
 # define READ_SIZE 8
 # define AK_AMOUNT 25
 
-# define LINE_BUFFER_SIZE 16
-# define CLIPBOARD_SIZE	256
-# define BUFFER_SCALE_MULT 2
+/*  A RAJOUTER */
+# define LINE_BUFFER_SIZE 16 // Taille du buffer pour la lecture du clavier, en characteres
+# define CLIPBOARD_SIZE	256  // Taille du presse-papier interne, en characteres
+# define BUFFER_SCALE_MULT 2 // Multiplicateur pour le resize des vecteurs LINE_BUFFER ET CLIPBOARD
 
-# define PROMPT_TEXT "[21sh] -> "
-# define PROMPT_TEXT_LENGTH 10
+# define PROMPT_TEXT "[21sh] -> " // Texte PS1
 
-# define PS2_TEXT "quote> "
-# define PS2_TEXT_LENGTH 7
+# define PROMPT_TEXT_LENGTH 10    // Definis la taille du PS1 - DOIT ETRE CORRECTE
+							      // Doit etre recalculer si PROMPT_TEXT change
 
-# define IFS_CHARACTER 10
-# define ESCAPE_CHAR '\\'
+# define PS2_TEXT "quote> "       // TEXTE PS2
+# define PS2_TEXT_LENGTH 7		  // Definis la taille du PS2 - DOIT ETRE CORRECTE
+								  // Doit etre recalculer si PS2_TEXT change
 
-# define MAGIC_NUMBER 42424242
+# define IFS_CHARACTER 10		// Charactere de separation (10 = \n) // Preferable de la mettre en READ-ONLY
+# define ESCAPE_CHAR '\\'       // Character d'echapement (Non-implemente encore) // A voir si on la met en READ-ONLY ou pas
+
+# define MAGIC_NUMBER 42424242  // Numero magique pour la gestion de certain cas specifique aux
+								// signaux et l'edition de ligne quand PS2 est actif
 
 enum interface_states {
 	PS1,
