@@ -6,7 +6,7 @@
 #    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/03/28 17:26:05 by skuppers         ###   ########.fr        #
+#    Updated: 2019/03/31 13:53:03 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -125,6 +125,8 @@ INCS += history.h
 
 #						- - - - - Line edtion - - - - -                        #
 
+LINE += invoke_interactive.c
+LINE += window.c
 LINE += execute_arrow_ak.c
 LINE += execute_ctrl_ak.c
 LINE += execute_special_ak.c

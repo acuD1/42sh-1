@@ -6,66 +6,58 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/28 18:31:31 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/31 16:41:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
-#include "ft_printf.h"
 #include "log.h"
-#include "21sh.h"
-#include <sys/ioctl.h>
-#include "history.h"
+#include "ft_printf.h"
 
-static t_winsize *init_win_struct(t_registry *reg, t_winsize *window)
+static int	allocate_data_structures(t_registry *sh_reg,
+		t_vector **vect, t_winsize **ws)
 {
-	struct winsize	w;
-
-	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == -1)
+	if ((*vect = ft_vctnew(0)) == NULL)
 	{
-		log_print(reg, LOG_ERROR, "Terminal size could not be determined!\n");
-		return (NULL);
+		log_print(sh_reg, LOG_CRITICAL,
+				"Error allocating vector memory.\n");
+		return (-1);
 	}
-
-	window->cursor_index = 0;
-	window->x = PROMPT_TEXT_LENGTH;
-	window->y = 0;
-	window->cols = w.ws_col;
-	window->rows = w.ws_row;
-
-	window->max_line_len = ((window->cols * window->rows) - (PROMPT_TEXT_LENGTH + 3));
-
-	return (window);
+	if ((*ws = malloc(sizeof(t_winsize))) == NULL)
+	{
+		log_print(sh_reg, LOG_CRITICAL,
+				"Error allocating window memory.\n");
+		free(vect);
+		return (-1);
+	}
+	return (0);
 }
 
-char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
+static int	fill_interface_data(t_registry *shell_reg,
+		t_interface_registry *itf, t_vector *vector, t_winsize *window)
+{
+	if (allocate_data_structures(shell_reg, &vector, &window) != 0)
+		return (-1);
+	if ((init_win_struct(shell_reg, window)) == NULL)
+		return (-1);
+	itf->window = window;
+	itf->vector = vector;
+	itf->interface_state = PS1;
+	return (0);
+}
+
+char	*prompt(t_registry *shell_reg, t_interface_registry *itf_reg)
 {
 	char			character[READ_SIZE + 1];
 	t_vector		*vector;
 	t_winsize		*window;
-	t_history		*history_node;
 
 	vector = NULL;
 	window = NULL;
-	if ((vector = ft_vctnew(0)) == NULL
-			|| ((window = malloc(sizeof(t_winsize))) == NULL))
-	{
-		log_print(shell_reg, LOG_CRITICAL, "Error allocating interface memory.\n");
+	if (fill_interface_data(shell_reg, itf_reg, vector, window) != 0)
 		return (NULL);
-	}
-
-	itf_registry->interface_state = PS1;
-
-	if (!(init_win_struct(shell_reg, window)))
-		return (NULL);
-	itf_registry->window = window;
-	itf_registry->vector = vector;
-
 	ft_bzero(character, READ_SIZE);
 	ft_dprintf(STDOUT_FILENO, "\n%s", PROMPT_TEXT);
-
-	history_node = NULL;
-
 	while (character[0] != IFS_CHARACTER)
 	{
 		ft_bzero(character, READ_SIZE);
@@ -74,75 +66,13 @@ char	*prompt(t_registry *shell_reg, t_interface_registry *itf_registry)
 			prompt_read_failed(shell_reg, vector);
 			return (NULL);
 		}
-		window->cursor_index = handle_input_key(character, itf_registry);
-
+		itf_reg->window->cursor_index = handle_input_key(character, itf_reg);
 		/* Ctrl+D EOF handling*/
-		if (vector->buffer[0] == 4)
-			return (vector->buffer);
+		if (itf_reg->vector->buffer[0] == 4)
+			return (itf_reg->vector->buffer);
 	}
-
-	/* Anti-input overwrite */
-	window->cursor_index = tc_ak_end(itf_registry);
-
-	//check quoting
-	//invoke sub-prompt until it is valid
-	validate_input_quoting(shell_reg, itf_registry);
-
-	// ADD INPUT TO HISTORY (if QUOTING IS VALID)
-	// Dont add if input is only  ' ' || '\n'
-/*	if ((history_node = create_history_entry(
-					trim_ifs(itf_registry->vector->buffer, "\n"))) != NULL)
-	{
-		log_print(shell_reg, LOG_OK, "Created history entry with data: |%s|\n",
-			history_node->command);
-
-		if (itf_registry->history_head == NULL)
-			itf_registry->history_head = history_node;
-		else
-			push_history_entry(&(itf_registry->history_head),
-					history_node);
-	}
-	itf_registry->history_ptr = NULL;*/
-
-	log_print(shell_reg, LOG_INFO, "Line edition sending: |%s|\n", itf_registry->vector->buffer);
-
-	return (itf_registry->vector->buffer);
-}
-
-void	launch_shell_prompt(t_registry *shell_registry,
-		t_interface_registry *itf_registry)
-{
-	char					*user_input_string;
-
-	log_print(shell_registry, LOG_INFO, "Starting prompt.\n");
-	define_interface_signal_behavior(itf_registry, shell_registry);
-	while (1)
-	{
-		user_input_string = prompt(shell_registry, itf_registry);
-		if (ft_strequ(user_input_string, "exit") || user_input_string[0] == 4)
-			return ;
-//		if (ft_strequ == '\n') continue;
-	//	execute_shell_command(user_input_string);
-		cleanup_interface_registry(itf_registry);
-	//	ft_strdel(&user_input_string);
-	}
-}
-
-void				shell_invoke_interactive(t_registry *shell_registry)
-{
-	t_interface_registry *itf_registry;
-
-	itf_registry = init_line_edition(shell_registry);
-	if (itf_registry != NULL)
-	{
-		launch_shell_prompt(shell_registry, itf_registry);
-		//restore_original_term_behavior(shell_registry, itf_registry);
-		free_interface_registry(itf_registry);
-		free(itf_registry);
-	}
-	else
-	{
-		log_print(shell_registry, LOG_CRITICAL, "Line edition failed, shuting down.\n");
-		ft_dprintf(2, "\n");
-	}
+	itf_reg->window->cursor_index = tc_ak_end(itf_reg);
+	validate_input_quoting(shell_reg, itf_reg);
+	// Handle history here
+	return (itf_reg->vector->buffer);
 }

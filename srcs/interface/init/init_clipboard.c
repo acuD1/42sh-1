@@ -6,14 +6,12 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/02/28 10:29:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/31 15:16:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "21sh.h"
-#include "line_edit.h"
 #include "log.h"
+#include "line_edit.h"
 
 /*
  *		Initialise the clipboard vector.

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/28 18:32:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/31 13:28:00 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void			log_print(t_registry *reg, int importance, char *message, ...)
 	str = log_fetch_importance(importance);
 	if (reg->debug_fd < 0)
 	{
-		if (ft_strbeginswith(str, "[CRITICAL]") || ft_strbeginswith(str, "[ERROR]"))
+		if (ft_strbeginswith(str, "[CRITICAL]")
+				|| ft_strbeginswith(str, "[ERROR]"))
 		{
 			ft_dprintf(2, "%s\t- ", str);
 			ft_strdel(&str);

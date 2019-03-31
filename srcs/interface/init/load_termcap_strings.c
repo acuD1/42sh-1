@@ -6,48 +6,62 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:49:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/06 15:49:24 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/31 17:40:00 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "line_edit.h"
-#include "libft.h"
+
+static int	load_termcap(t_termcaps *termcp, char *str)
+{
+	char *cpy;
+
+	if ((cpy = ft_strdup(tgetstr(str, NULL))) == NULL)
+		return (0);
+
+	if (ft_strequ(str, "im"))
+		termcp->begin_insertion = cpy;
+	else if (ft_strequ(str, "ei"))
+		termcp->end_insertion = cpy;
+	else if (ft_strequ(str, "do"))
+		termcp->cs_down = cpy;
+	else if (ft_strequ(str, "up"))
+		termcp->cs_up = cpy;
+	else if (ft_strequ(str, "le"))
+		termcp->cs_left = cpy;
+	else if (ft_strequ(str, "nd"))
+		termcp->cs_right = cpy;
+	else if (ft_strequ(str, "cl"))
+		termcp->clear = cpy;
+	else
+	{
+		ft_strdel(&cpy);
+		return (0);
+	}
+	return (1);
+}
 
 t_termcaps		*init_termcap_calls(t_registry *reg)
 {
-	t_termcaps		*termcp;
 	unsigned int	valid_termcaps;
+	t_termcaps		*termcp;
 
-	valid_termcaps = 0;
 	if (!(termcp = malloc(sizeof(t_termcaps))))
 	{
-		log_print(reg, LOG_CRITICAL, "Could not allocate memory for termcap structure.\n");
+		log_print(reg, LOG_CRITICAL,
+				"Could not allocate memory for termcap structure.\n");
 		return (NULL);
 	}
 	ft_memset(termcp, 0, sizeof(t_termcaps));
-	termcp->begin_insertion = ft_strdup(tgetstr("im", NULL));
-	if (termcp->begin_insertion != NULL)
-		++valid_termcaps;
-	termcp->end_insertion = ft_strdup(tgetstr("ei", NULL));
-	if (termcp->end_insertion != NULL)
-		++valid_termcaps;
-	termcp->cs_down = ft_strdup(tgetstr("do", NULL));
-	if (termcp->cs_down != NULL)
-		++valid_termcaps;
-	termcp->cs_up = ft_strdup(tgetstr("up", NULL));
-	if (termcp->cs_up != NULL)
-		++valid_termcaps;
-	termcp->cs_left = ft_strdup(tgetstr("le", NULL));
-	if (termcp->cs_left != NULL)
-		++valid_termcaps;
-	termcp->cs_right = ft_strdup(tgetstr("nd", NULL));
-	if (termcp->cs_right != NULL)
-		++valid_termcaps;
-	termcp->clear = ft_strdup(tgetstr("cl", NULL));
-	if (termcp->clear != NULL)
-		++valid_termcaps;
-
+	valid_termcaps = 0;
+	valid_termcaps += load_termcap(termcp, "im");
+	valid_termcaps += load_termcap(termcp, "ei");
+	valid_termcaps += load_termcap(termcp, "do");
+	valid_termcaps += load_termcap(termcp, "up");
+	valid_termcaps += load_termcap(termcp, "le");
+	valid_termcaps += load_termcap(termcp, "nd");
+	valid_termcaps += load_termcap(termcp, "cl");
 	log_print(reg, LOG_INFO, "%d/7 termcaps loaded.\n", valid_termcaps);
 	return (termcp);
 }
@@ -80,5 +94,4 @@ void	init_termcap_actions(
 	tc_call[AK_TABULATION] = &tc_ak_hightab;
 	tc_call[AK_CTRL_UP] = &tc_ak_ctrl_up;
 	tc_call[AK_CTRL_DOWN] = &tc_ak_ctrl_down;
-
 }

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:48:38 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/01 17:38:35 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/31 15:15:47 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,16 @@ void	clean_ak_keycodes(t_interface_registry *itf_reg)
 	}
 }
 
-void	init_ak_keycodes(t_interface_registry *itf_reg)
+void	init_arrow_ak(t_interface_registry *itf_reg)
 {
-	clean_ak_keycodes(itf_reg);
-	init_ak_enter(itf_reg);
 	init_ak_arrow_right(itf_reg);
 	init_ak_arrow_left(itf_reg);
 	init_ak_arrow_up(itf_reg);
 	init_ak_arrow_down(itf_reg);
-	init_ak_home(itf_reg);
-	init_ak_end(itf_reg);
-	init_ak_backspace(itf_reg);
-	init_ak_delete(itf_reg);
+}
+
+void	init_ctrl_ak(t_interface_registry *itf_reg)
+{
 	init_ak_ctrl_a(itf_reg);
 	init_ak_ctrl_d(itf_reg);
 	init_ak_ctrl_e(itf_reg);
@@ -55,7 +53,24 @@ void	init_ak_keycodes(t_interface_registry *itf_reg)
 	init_ak_ctrl_f(itf_reg);
 	init_ak_ctrl_left(itf_reg);
 	init_ak_ctrl_right(itf_reg);
-	init_ak_hightab(itf_reg);
 	init_ak_ctrl_up(itf_reg);
 	init_ak_ctrl_down(itf_reg);
+}
+
+void	init_special_ak(t_interface_registry *itf_reg)
+{
+	init_ak_enter(itf_reg);
+	init_ak_home(itf_reg);
+	init_ak_end(itf_reg);
+	init_ak_backspace(itf_reg);
+	init_ak_delete(itf_reg);
+	init_ak_hightab(itf_reg);
+}
+
+void	init_ak_keycodes(t_interface_registry *itf_reg)
+{
+	clean_ak_keycodes(itf_reg);
+	init_arrow_ak(itf_reg);
+	init_ctrl_ak(itf_reg);
+	init_special_ak(itf_reg);
 }

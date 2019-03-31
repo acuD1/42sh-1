@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/28 18:46:57 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/03/31 16:35:03 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/ioctl.h>
+
 #include "libft.h"
 #include "21sh.h"
-#include "history.h"
 
 # define READ_SIZE 8
 # define AK_AMOUNT 25
@@ -108,8 +109,8 @@ typedef struct	s_interface_registry
 	t_termcaps			*termcaps;
 	t_winsize			*window;
 
-	t_history			*history_head;
-	t_history			*history_ptr;
+//	t_history			*history_head;
+//	t_history			*history_ptr;
 
 	struct termios		*orig_term;
 	struct termios		*new_term;
@@ -120,6 +121,8 @@ typedef struct	s_interface_registry
 }						t_interface_registry;
 
 extern	t_interface_registry *g_interface_registry_pointer;
+
+t_winsize *init_win_struct(t_registry *reg, t_winsize *window);
 
 void					redraw_prompt(int signo);
 
