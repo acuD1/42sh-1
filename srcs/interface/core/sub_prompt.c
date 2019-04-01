@@ -13,7 +13,7 @@
 #include "log.h"
 #include "line_edit.h"
 
-static void	print_ps2_prompt(t_interface_registry *itf_reg)
+static void		print_ps2_prompt(t_interface_registry *itf_reg)
 {
 	itf_reg->window->x = 0;
 	itf_reg->window->y = 0;
@@ -22,7 +22,7 @@ static void	print_ps2_prompt(t_interface_registry *itf_reg)
 	itf_reg->window->cursor_index = 0;
 }
 
-static t_vector *create_ps2_vect(t_interface_registry *itf_reg)
+static t_vector	*create_ps2_vect(t_interface_registry *itf_reg)
 {
 	t_vector	*new_vect;
 	t_vector	*old_vect;
@@ -36,8 +36,8 @@ static t_vector *create_ps2_vect(t_interface_registry *itf_reg)
 	return (old_vect);
 }
 
-static int ps2_prompt_loop(t_registry *sh_reg, t_interface_registry *itf_reg,
-		t_vector *old_vect)
+static int		ps2_prompt_loop(t_registry *sh_reg,
+				t_interface_registry *itf_reg, t_vector *old_vect)
 {
 	char		character[READ_SIZE + 1];
 
@@ -62,7 +62,8 @@ static int ps2_prompt_loop(t_registry *sh_reg, t_interface_registry *itf_reg,
 	return (0);
 }
 
-int		invoke_ps2_prompt(t_registry *sh_reg, t_interface_registry *itf_reg)
+int				invoke_ps2_prompt(t_registry *sh_reg,
+				t_interface_registry *itf_reg)
 {
 	char		*concat;
 	t_vector	*old_vect;

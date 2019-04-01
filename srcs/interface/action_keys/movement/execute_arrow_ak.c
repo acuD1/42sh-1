@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:12:56 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/31 16:37:53 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/01 10:39:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ft_printf.h"
 #include "log.h"
 
-int	tc_ak_arrow_right(t_interface_registry *itf_reg)
+int				tc_ak_arrow_right(t_interface_registry *itf_reg)
 {
 	size_t	tmp_idx;
 
@@ -42,7 +42,7 @@ int	tc_ak_arrow_right(t_interface_registry *itf_reg)
 	return (tmp_idx);
 }
 
-static void	go_to_end_of_line(t_interface_registry *itf_reg)
+static void		go_to_end_of_line(t_interface_registry *itf_reg)
 {
 	while (itf_reg->window->x < itf_reg->window->cols)
 	{
@@ -52,7 +52,7 @@ static void	go_to_end_of_line(t_interface_registry *itf_reg)
 	itf_reg->window->x--;
 }
 
-int	tc_ak_arrow_left(t_interface_registry *itf_reg)
+int				tc_ak_arrow_left(t_interface_registry *itf_reg)
 {
 	size_t		prompt_length;
 	size_t		tmp_idx;
@@ -80,14 +80,20 @@ int	tc_ak_arrow_left(t_interface_registry *itf_reg)
 	return (tmp_idx);
 }
 
-int	tc_ak_arrow_up(t_interface_registry *itf_reg)
+/*
+** History placeholder
+*/
+
+int				tc_ak_arrow_up(t_interface_registry *itf_reg)
 {
-	/* History placeholder */
 	return (itf_reg->window->cursor_index);
 }
 
-int	tc_ak_arrow_down(t_interface_registry *itf_reg)
+/*
+** History placeholder
+*/
+
+int				tc_ak_arrow_down(t_interface_registry *itf_reg)
 {
-	/* History placeholder */
 	return (itf_reg->window->cursor_index);
 }

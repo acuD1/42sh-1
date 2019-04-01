@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/31 16:35:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/01 19:36:29 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,38 @@
 # define MAGIC_NUMBER 42424242  // Numero magique pour la gestion de certain cas specifique aux
 								// signaux et l'edition de ligne quand PS2 est actif
 
+
+#define AK_ARROW_UP_MASK	0x1b5b410000000000
+#define AK_ARROW_DOWN_MASK 	0x1b5b420000000000
+#define AK_ARROW_RIGHT_MASK 0x1b5b430000000000
+#define AK_ARROW_LEFT_MASK 	0x1b5b440000000000
+#define AK_HOME_MASK 		0x1b5b480000000000
+#define AK_END_MASK 		0x1b5b460000000000
+#define AK_CTRL_A_MASK 		0x100000000000000
+#define AK_CTRL_E_MASK	    0x500000000000000
+#define AK_DELETE_MASK	    0x1b5b337e00000000
+#define AK_BACKSPACE_MASK 	0x7f00000000000000
+#define AK_CTRL_D_MASK 		0x400000000000000
+#define AK_CTRL_L_MASK		0xc00000000000000
+#define AK_CTRL_X_MASK		0x1800000000000000
+#define AK_CTRL_B_MASK		0x2000000000000000
+#define AK_CTRL_P_MASK		0x1000000000000000
+#define AK_CTRL_LB_MASK		0x1b00000000000000
+#define AK_CTRL_RB_MASK		0x1d00000000000000
+#define AK_CTRL_F_MASK		0x600000000000000
+#define AK_CTRL_R_MASK		0x1200000000000000
+#define AK_CTRL_UP_MASK		0x1b5b313b35410000
+#define AK_CTRL_DOWN_MASK	0x1b5b313b35420000
+#define AK_CTRL_RIGHT_MASK	0x1b5b313b35430000
+#define AK_CTRL_LEFT_MASK	0x1b5b313b35440000
+#define AK_TAB_MASK			0x900000000000000
+
 enum interface_states {
 	PS1,
 	PS2,
 };
 
 enum action_keys {
-	AK_ENTER,
 	AK_ARROW_RIGHT,
 	AK_ARROW_LEFT,
 	AK_ARROW_UP,
@@ -78,6 +103,7 @@ enum action_keys {
 	AK_TABULATION,
 	AK_CTRL_DOWN,
 	AK_CTRL_UP,
+	AK_ENTER
 };
 
 
@@ -104,6 +130,8 @@ typedef struct s_winsize
 
 typedef struct	s_interface_registry
 {
+	unsigned long				ak_masks[AK_AMOUNT];
+
 	t_vector			*clipboard;
 	t_vector			*vector;
 	t_termcaps			*termcaps;
@@ -124,6 +152,14 @@ extern	t_interface_registry *g_interface_registry_pointer;
 
 t_winsize *init_win_struct(t_registry *reg, t_winsize *window);
 
+void					define_interface_default_signals(t_registry *sh_reg);
+
+int						setup_keycodes(t_interface_registry *itf_reg);
+int						link_actions_to_keys(t_interface_registry *itf_reg);
+char					set_quote(char c);
+int						clean_screen(t_interface_registry *itf_reg);
+void					print_char(char c, t_interface_registry *itf_reg);
+void					print_words(char *str, t_interface_registry *itf_reg);
 void					redraw_prompt(int signo);
 
 void					free_interface_registry(t_interface_registry *itf_reg);
@@ -142,8 +178,6 @@ void					init_ak_keycodes(t_interface_registry *itf_reg);
 void					launch_shell_prompt(t_registry *reg, t_interface_registry *itf_registry);
 char					*prompt(t_registry *shell_reg, t_interface_registry *itf_reg);
 void					prompt_read_failed(t_registry *reg, t_vector *vect);
-
-void					print_words(char *str, t_interface_registry *itf_reg);
 
 int						redraw_input_line(t_interface_registry *itf_reg);
 int						redraw_after_cursor(t_interface_registry *itf_reg);

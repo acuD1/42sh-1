@@ -13,7 +13,7 @@
 #include "log.h"
 #include "line_edit.h"
 
-t_winsize *init_win_struct(t_registry *reg, t_winsize *window)
+t_winsize	*init_win_struct(t_registry *reg, t_winsize *window)
 {
 	struct winsize	w;
 

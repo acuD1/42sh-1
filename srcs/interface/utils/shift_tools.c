@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:57:01 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/07 13:43:34 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/01 13:39:01 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static void		ft_strshift(char *str, unsigned int index, int shift)
 
 void	shift_content_right_once(t_vector *vector, unsigned int cursor_index)
 {
-	if (cursor_index >= (vector->size - 2) || ft_strlen(vector->buffer) >= vector->size - 2)
+	if (cursor_index >= (vector->size - 2)
+					|| ft_strlen(vector->buffer) >= vector->size - 2)
 		ft_vctrescale(vector);
 	ft_strshift(vector->buffer, cursor_index, 1);
 }

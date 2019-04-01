@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 09:08:59 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/31 16:42:17 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/01 13:16:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,10 @@
 #include "line_edit.h"
 #include "ft_printf.h"
 
-int	ft_putc(int c)
-{
-	write(1, &c, 1);
-	return (42);
-}
-
-static void	print_char(char d, t_interface_registry *itf_reg)
+void	print_char(char d, t_interface_registry *itf_reg)
 {
 	write(1, &d, 1);
 	itf_reg->window->cursor_index++;
-
 	itf_reg->window->x++;
 	if (itf_reg->window->x == itf_reg->window->cols)
 	{
@@ -34,7 +27,6 @@ static void	print_char(char d, t_interface_registry *itf_reg)
 	}
 }
 
-/* ONLY USE FOR PRINTING THE PS1 TEXT */
 void	print_words(char *str, t_interface_registry *itf_reg)
 {
 	size_t i;
@@ -42,21 +34,6 @@ void	print_words(char *str, t_interface_registry *itf_reg)
 	i = 0;
 	while (i < ft_strlen(str))
 		print_char(str[i++], itf_reg);
-}
-
-static int clean_screen(t_interface_registry *itf_reg)
-{
-	size_t offset;
-	size_t clear_size;
-
-	offset = 0;
-	itf_reg->window->cursor_index = tc_ak_home(itf_reg);
-	clear_size = ((size_t)itf_reg->window->max_line_len < itf_reg->vector->size)
-		? itf_reg->window->max_line_len : itf_reg->vector->size;
-	while (offset++ < clear_size)
-		print_char(' ', itf_reg);
-	itf_reg->window->cursor_index = tc_ak_home(itf_reg);
-	return (itf_reg->window->cursor_index);
 }
 
 int		redraw_input_line(t_interface_registry *itf_reg)
@@ -99,7 +76,7 @@ int		redraw_after_cursor(t_interface_registry *itf_reg)
 	return (itf_reg->window->cursor_index);
 }
 
-int		replace_input_line(char	*string, t_interface_registry *itf_registry)
+int		replace_input_line(char *string, t_interface_registry *itf_registry)
 {
 	size_t index;
 

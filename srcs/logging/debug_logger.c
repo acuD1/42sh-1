@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/31 13:28:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/01 15:19:33 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void			log_print(t_registry *reg, int importance, char *message, ...)
 	va_list args;
 	char	*str;
 
+	if (reg == NULL)
+			return ;
 	str = log_fetch_importance(importance);
 	if (reg->debug_fd < 0)
 	{
@@ -102,6 +104,7 @@ void	init_debug_logger(t_registry *reg)
 			return ;
 		reg->debug_fd = debug_fd;
 		ft_dprintf(reg->debug_fd, "---------------------------------\n");
+		ft_strdel(&log_path);
 	}
 	else
 		reg->debug_fd = -1;

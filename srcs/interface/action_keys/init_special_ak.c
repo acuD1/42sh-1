@@ -6,31 +6,11 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:06:28 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/31 15:17:01 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/01 14:00:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
-
-
-void	init_ak_hightab(t_interface_registry *itf_reg)
-{
-	itf_reg->ak_keycodes[AK_TABULATION][0] = 9;
-}
-
-void	init_ak_home(t_interface_registry *itf_reg)
-{
-	itf_reg->ak_keycodes[AK_HOME][0] = 27;
-	itf_reg->ak_keycodes[AK_HOME][1] = 91;
-	itf_reg->ak_keycodes[AK_HOME][2] = 72;
-}
-
-void	init_ak_end(t_interface_registry *itf_reg)
-{
-	itf_reg->ak_keycodes[AK_END][0] = 27;
-	itf_reg->ak_keycodes[AK_END][1] = 91;
-	itf_reg->ak_keycodes[AK_END][2] = 70;
-}
 
 void	init_ak_backspace(t_interface_registry *itf_reg)
 {
@@ -48,4 +28,9 @@ void	init_ak_delete(t_interface_registry *itf_reg)
 void	init_ak_enter(t_interface_registry *itf_reg)
 {
 	itf_reg->ak_keycodes[AK_ENTER][0] = 10;
+}
+
+void	init_ak_hightab(t_interface_registry *itf_reg)
+{
+	itf_reg->ak_keycodes[AK_TABULATION][0] = 9;
 }

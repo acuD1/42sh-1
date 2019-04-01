@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/31 16:41:22 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/01 13:17:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static int	fill_interface_data(t_registry *shell_reg,
 	return (0);
 }
 
-char	*prompt(t_registry *shell_reg, t_interface_registry *itf_reg)
+char		*prompt(t_registry *shell_reg,
+				t_interface_registry *itf_reg)
 {
 	char			character[READ_SIZE + 1];
 	t_vector		*vector;
@@ -63,11 +64,11 @@ char	*prompt(t_registry *shell_reg, t_interface_registry *itf_reg)
 		ft_bzero(character, READ_SIZE);
 		if (read(0, character, READ_SIZE) == -1)
 		{
-			prompt_read_failed(shell_reg, vector);
+			prompt_read_failed(shell_reg, itf_reg->vector);
 			return (NULL);
 		}
 		itf_reg->window->cursor_index = handle_input_key(character, itf_reg);
-		/* Ctrl+D EOF handling*/
+		// Ctrl+D EOF handling
 		if (itf_reg->vector->buffer[0] == 4)
 			return (itf_reg->vector->buffer);
 	}

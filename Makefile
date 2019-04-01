@@ -6,7 +6,7 @@
 #    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/03/31 13:53:03 by skuppers         ###   ########.fr        #
+#    Updated: 2019/04/01 15:04:54 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,10 +78,13 @@ OPATH = objs/
 IPATH += includes/
 IPATH += libft/includes/
 _SPATH += interface
+_SPATH += interface/action_keys
+_SPATH += interface/action_keys/clipboard
+_SPATH += interface/action_keys/movement
 _SPATH += interface/core
-_SPATH += interface/history
 _SPATH += interface/init
 _SPATH += interface/misc
+_SPATH += interface/redraw
 _SPATH += interface/utils
 _SPATH += logging
 _SPATH += signals
@@ -115,42 +118,71 @@ LFLAGS = -ltermcap
 # ---------------------------------------------------------------------------- #
 
 INCS += 21sh.h
-INCS += line_edit.h
 INCS += log.h
-INCS += history.h
+INCS += line_edit.h
 
 # ---------------------------------------------------------------------------- #
 #									Sources                                    #
 # ---------------------------------------------------------------------------- #
 
+#						- - - - -   Startup   - - - - -
+
+LINE += main.c
+
+#						- - - - -  Debug Log  - - - - -
+
+LINE += debug_logger.c
+
 #						- - - - - Line edtion - - - - -                        #
 
+#Signals
+LINE += signal_handler.c
+
+#Utilities
+LINE += clean_registry.c
+LINE += ft_putc.c
+LINE += set_quote.c
+LINE += shift_tools.c
+
+#Misc
+LINE += prompt_errors.c
+
+#Redraw
+LINE += clean_screen.c
+LINE += redraw_prompt.c
+
+#Initialization
+LINE += load_interface_config.c
+LINE += load_termcap_strings.c
+
+#Core 
 LINE += invoke_interactive.c
+LINE += prompt.c
+LINE += sub_prompt.c
+LINE += validate_quoting.c
+LINE += handle_input_keys.c
 LINE += window.c
+
+#Action keys
+LINE += init_clipboard.c
+LINE += init_clipboard_ak.c
+LINE += init_clipboard_cut_ak.c
+LINE += init_clipboard_copy_ak.c
+LINE += init_arrow_ak.c
+LINE += init_ctrl_arrow_ak.c
+LINE += init_he_ak.c
+LINE += init_ak_keycodes.c
+LINE += init_ctrl_ak.c
+LINE += init_special_ak.c
+
+LINE += execute_clipboard_copy_ak.c
+LINE += execute_clipboard_cut_ak.c
+LINE += execute_clipboard_paste.c
 LINE += execute_arrow_ak.c
+LINE += execute_he_ak.c
+LINE += execute_word_jumping_ak.c
 LINE += execute_ctrl_ak.c
 LINE += execute_special_ak.c
-LINE += handle_input_keys.c
-LINE += prompt.c
-LINE += redraw_prompt.c
-LINE += sub_shell.c
-LINE += validate_quoting.c
-LINE += command_history.c
-LINE += init_special_ak.c
-LINE += init_ctrl_ak.c
-LINE += init_arrow_ak.c
-LINE += init_clipboard.c
-LINE += init_ak_keycodes.c
-LINE += load_termcap_strings.c
-LINE += load_interface_config.c
-LINE += keymap_handler.c
-LINE += prompt_errors.c
-LINE += debug_logger.c
-LINE += file_logger.c
-LINE += clean_registry.c
-LINE += shift_tools.c
-LINE += signal_handler.c
-LINE += main.c
 
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #
@@ -168,7 +200,7 @@ $(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS)
 
 $(OBJS) : $(OPATH)%.o : %.c $(INCS) 
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
-	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<             $(NC)\n"
+	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
 	
 $(LIB) : FORCE
 	$(MAKE) -C $(LPATH)
@@ -181,7 +213,7 @@ $(NAMEDB) : $(CLEAR) $(LIBDB) $(OPATH) $(OBJD)
 
 $(OBJD) : $(OPATH)db%.o : %.c $(INCS) 
 	$(DEBUG) $(DFLAGS) $(CPPFLAGS) $< -o $@
-	$(PRINT) "$(ONELINE)$(BLUE)Compiling $< for debug            $(NC)\n"
+	$(PRINT) "$(ONELINE)$(BLUE)Compiling $< for debug                   $(NC)\n"
 
 $(LIBDB) : FORCE
 	$(MAKE) -C $(LPATH) debug

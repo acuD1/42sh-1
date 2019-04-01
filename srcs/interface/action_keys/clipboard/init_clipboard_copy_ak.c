@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_clipboard.c                                   :+:      :+:    :+:   */
+/*   init_clipboard_copy_ak.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/19 00:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/31 15:16:25 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/01 13:25:01 by skuppers          #+#    #+#             */
+/*   Updated: 2019/04/01 13:26:08 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "log.h"
 #include "line_edit.h"
 
-/*
- *		Initialise the clipboard vector.
- */
-t_vector		*allocate_clipboard(t_registry *sh_reg)
+void	init_ak_ctrl_b(t_interface_registry *itf_reg)
 {
-	t_vector *clipboard;
-
-	if ((clipboard = ft_vctnew(0)) == NULL)
-	{
-		log_print(sh_reg, LOG_ERROR, "Clipboard allocation failed.\n");
-		return (NULL);
-	}
-	return (clipboard);
+	itf_reg->ak_keycodes[AK_CTRL_B][0] = 2;
+	itf_reg->ak_keycodes[AK_CTRL_B][1] = 0;
 }
 
+void	init_ak_ctrl_rb(t_interface_registry *itf_reg)
+{
+	itf_reg->ak_keycodes[AK_CTRL_RB][0] = 27;
+	itf_reg->ak_keycodes[AK_CTRL_RB][1] = 0;
+}
+
+void	init_ak_ctrl_lb(t_interface_registry *itf_reg)
+{
+	itf_reg->ak_keycodes[AK_CTRL_LB][0] = 29;
+	itf_reg->ak_keycodes[AK_CTRL_LB][1] = 0;
+}

@@ -6,20 +6,19 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:49:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/31 17:40:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/01 19:25:53 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "line_edit.h"
 
-static int	load_termcap(t_termcaps *termcp, char *str)
+static int		load_termcap(t_termcaps *termcp, char *str)
 {
 	char *cpy;
 
 	if ((cpy = ft_strdup(tgetstr(str, NULL))) == NULL)
 		return (0);
-
 	if (ft_strequ(str, "im"))
 		termcp->begin_insertion = cpy;
 	else if (ft_strequ(str, "ei"))
@@ -66,10 +65,9 @@ t_termcaps		*init_termcap_calls(t_registry *reg)
 	return (termcp);
 }
 
-void	init_termcap_actions(
+void			init_termcap_actions(
 		int (*tc_call[AK_AMOUNT])(t_interface_registry *itf_reg))
 {
-	tc_call[AK_ENTER] = &tc_ak_enter;
 	tc_call[AK_ARROW_RIGHT] = &tc_ak_arrow_right;
 	tc_call[AK_ARROW_LEFT] = &tc_ak_arrow_left;
 	tc_call[AK_ARROW_UP] = &tc_ak_arrow_up;
@@ -94,4 +92,17 @@ void	init_termcap_actions(
 	tc_call[AK_TABULATION] = &tc_ak_hightab;
 	tc_call[AK_CTRL_UP] = &tc_ak_ctrl_up;
 	tc_call[AK_CTRL_DOWN] = &tc_ak_ctrl_down;
+	tc_call[AK_ENTER] = &tc_ak_enter;
+}
+
+int				setup_keycodes(t_interface_registry *itf_reg)
+{
+	init_ak_keycodes(itf_reg);
+	return (0);
+}
+
+int				link_actions_to_keys(t_interface_registry *itf_reg)
+{
+	init_termcap_actions(itf_reg->tc_call);
+	return (0);
 }

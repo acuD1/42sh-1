@@ -6,15 +6,12 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/28 18:40:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/01 15:22:45 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "ft_printf.h"
-#include "line_edit.h"
 #include "log.h"
-#include <sys/ioctl.h>
+#include "line_edit.h"
 
 t_interface_registry	*g_interface_registry_pointer;
 
@@ -59,11 +56,12 @@ static void				interface_resize_handler(int signo)
 	itf_ptr->window->x = 0;
 	itf_ptr->window->y = 0;
 	itf_ptr->window->max_line_len =
-		((itf_ptr->window->cols * itf_ptr->window->rows) - (PROMPT_TEXT_LENGTH + 3));
+		((itf_ptr->window->cols * itf_ptr->window->rows)
+		 - (PROMPT_TEXT_LENGTH + 3));
 
 	tputs(itf_ptr->termcaps->clear, w.ws_row - 1, ft_putc);
 
-	if ((itf_ptr->window->cols<PROMPT_TEXT_LENGTH*2 || itf_ptr->window->rows<3)
+	if ((itf_ptr->window->cols < (PROMPT_TEXT_LENGTH * 2) || itf_ptr->window->rows < 3)
 			|| ft_vctlen(itf_ptr->vector) > (size_t)itf_ptr->window->max_line_len)
 		print_words("Terminal window size too small :-(", itf_ptr);
 	else
@@ -74,19 +72,26 @@ static void				interface_resize_handler(int signo)
 	}
 }
 
-void					define_interface_signal_behavior(t_interface_registry *itf_reg, t_registry *shell_registry)
+void					define_interface_default_signals(t_registry *sh_reg)
+{
+	if (signal(SIGWINCH, SIG_DFL) == SIG_ERR)
+		log_print(sh_reg, LOG_ERROR, "Error catching the resize signal.\n");
+	if (signal(SIGINT, SIG_DFL) == SIG_ERR)
+		log_print(sh_reg, LOG_ERROR, "Error catching C-c\n");
+}
+
+void					define_interface_signal_behavior(
+				t_interface_registry *itf_reg, t_registry *shell_registry)
 {
 	g_interface_registry_pointer = itf_reg;
 	if (signal(SIGWINCH, interface_resize_handler) == SIG_ERR)
-		log_print(shell_registry, LOG_ERROR, "Error catching the resize signal.\n");
+		log_print(shell_registry, LOG_ERROR,
+						"Error catching the resize signal.\n");
 	if (signal(SIGINT, redraw_prompt) == SIG_ERR)
 		log_print(shell_registry, LOG_ERROR, "Error catching C-c\n");
 }
 
 int		define_runtime_signals(void)
 {
-	/*
-	 *	Do some signals stuff here
-	 */
 	return (0);
 }

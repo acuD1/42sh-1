@@ -6,30 +6,21 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:54:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/31 18:04:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/01 13:18:23 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
 #include "line_edit.h"
 #include "log.h"
 
-static char set_quote(char c)
-{
-	if (c == '\'' || c == '\"' || c == '`')
-		return (c);
-	return (0);
-}
-
-static void set_ifs_char(t_interface_registry *itf_reg)
+static void		set_ifs_char(t_interface_registry *itf_reg)
 {
 	itf_reg->window->cursor_index = tc_ak_end(itf_reg);
-	itf_reg->vector->buffer[itf_reg->window->cursor_index]
-		 = IFS_CHARACTER;
+	itf_reg->vector->buffer[itf_reg->window->cursor_index] = IFS_CHARACTER;
 	itf_reg->window->cursor_index++;
 }
 
-static void prepare_for_ps2(t_interface_registry *itf_reg)
+static void		prepare_for_ps2(t_interface_registry *itf_reg)
 {
 	if (itf_reg->window->cursor_index
 			> (int)itf_reg->vector->size - 2)
@@ -38,7 +29,7 @@ static void prepare_for_ps2(t_interface_registry *itf_reg)
 	itf_reg->interface_state = PS2;
 }
 
-int		goto_next_quote(char *string, char quote, size_t index)
+int				goto_next_quote(char *string, char quote, size_t index)
 {
 	int		found_matching_quote;
 
@@ -51,7 +42,8 @@ int		goto_next_quote(char *string, char quote, size_t index)
 	return (-1);
 }
 
-static void call_ps2_prompt(t_registry *sh_reg, t_interface_registry *itf_reg)
+static void		call_ps2_prompt(t_registry *sh_reg,
+				t_interface_registry *itf_reg)
 {
 	if (invoke_ps2_prompt(sh_reg, itf_reg) != 0)
 		log_print(sh_reg, LOG_ERROR, "PS2 prompt failed1\n");
@@ -59,7 +51,7 @@ static void call_ps2_prompt(t_registry *sh_reg, t_interface_registry *itf_reg)
 		validate_input_quoting(sh_reg, itf_reg);
 }
 
-void	validate_input_quoting(t_registry *sh_reg,
+void			validate_input_quoting(t_registry *sh_reg,
 		t_interface_registry *itf_reg)
 {
 	int			index;
