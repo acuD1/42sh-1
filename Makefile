@@ -6,7 +6,7 @@
 #    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/03/26 23:04:36 by cempassi         ###   ########.fr        #
+#    Updated: 2019/04/01 20:21:04 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -156,7 +156,9 @@ LINE += signal_handler.c
 #						   - - - - - Lexer - - - - -                           #
 
 LEX_SRCS += lexer.c
-LEX_SRCS += state_machine.c
+LEX_SRCS += machine_interface.c
+LEX_SRCS += states.c
+LEX_SRCS += generate_token.c
 
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #

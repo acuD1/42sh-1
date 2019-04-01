@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/03/15 19:46:56 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/01 20:46:10 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # define BUFFER 1024
+# define OFFSET 24
 
 # define PIPE "|"
 # define QUOTE "\'"
@@ -41,7 +42,7 @@
 # define PERCENT "%"
 # define BACKSLASH "\\"
 
-# define ALLCHAR "|\'\"() ><;`&$~{}[]*?!#=%\\"
+# define ALLCHAR "$ \\\'\"|()><;`&~{}[]*?!#=%"
 
 # define CASE "case"
 # define DO "do"
@@ -69,24 +70,26 @@ enum	e_state
 	SIGN,
 	SPACE,
 	EXP,
+	BSL,
 	OUT,
 	END
 };
 
 enum	e_type
 {
-	E_PIPE,
+	E_EXP,
+	E_SPACE,
+	E_BACKSLASH,
 	E_QUOTE,
 	E_DB_QUOTE,
+	E_PIPE,
 	E_PARENT_OPEN,
 	E_PARENT_CLOSE,
-	E_SPACE,
 	E_FORWARD,
 	E_BACKWARD,
 	E_SEMICOLON,
 	E_BACKQUOTE,
 	E_AND,
-	E_EXP,
 	E_TILDE,
 	E_HOOK_OPEN,
 	E_HOOK_CLOSE,
@@ -98,7 +101,6 @@ enum	e_type
 	E_HASH,
 	E_EQUAL,
 	E_PERCENT,
-	E_BACKSLASH,
 	E_CASE,
 	E_DO,
     E_DONE,
@@ -113,15 +115,15 @@ enum	e_type
     E_UNTIL,
     E_WHILE,
 	E_STRING,
-};	
+};
 
 struct	s_state
 {
 	enum e_state	state;
 	enum e_state	last_state;
-	int				quote;
 	char			*input;
 	char			buffer[BUFFER];
+	enum e_type		duplicate[3];
 	t_list			*lst;
 	t_process		process;
 };
@@ -139,6 +141,7 @@ void	space_machine(t_state *machine);
 void	letter_machine(t_state *machine);
 void	sign_machine(t_state *machine);
 void	expansion_machine(t_state *machine);
+void	quote_machine(t_state *machine);
 
 t_token generate_token(t_state *machine);
 
