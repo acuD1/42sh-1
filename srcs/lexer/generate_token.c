@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 20:19:38 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/02 13:51:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/02 14:02:41 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,16 @@ int		define_type(t_state *machine)
 {
 	int		result;
 
-	if ((result = check_char(machine)))
+	if (machine->last_state == EXP)
+		return (E_EXP);
+	else if (machine->last_state == BSL)
+		return (E_BACKSLASH);
+	else if ((result = check_char(machine)))
 		return (result);
-	if ((result = check_script(machine)))
+	else if ((result = check_script(machine)))
 		return (result);
 	return (E_STRING);
 }
-
 
 t_token generate_token(t_state *machine)
 {
@@ -62,13 +65,8 @@ t_token generate_token(t_state *machine)
 	int				i;
 
 	i = 0;
+	token.type = define_type(machine);
 	token.data = NULL;
-	if (machine->last_state == EXP)
-		token.type = E_EXP;
-	else if (machine->last_state == BSL)
-		token.type = E_BACKSLASH;
-	else
-		token.type = define_type(machine);
 	while (i <= 3)
 	{
 		if (token.type == machine->duplicate[i++])
