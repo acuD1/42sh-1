@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/01 15:22:45 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:39:18 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ void				redraw_prompt(int signo)
 	itf_ptr = g_interface_registry_pointer;
 	itf_ptr->window->cursor_index = tc_ak_end(itf_ptr);
 
-	if (signo != MAGIC_NUMBER)
+	if (signo != ft_atoi(INT_MAGIC_NUMBER))
 		print_words("\n", itf_ptr);
 
 	itf_ptr->window->x = 0;
 	itf_ptr->window->y = 0;
-	if (signo != MAGIC_NUMBER)
+	if (signo != ft_atoi(INT_MAGIC_NUMBER))
 		ft_vctreset(itf_ptr->vector);
 
 	if (itf_ptr->interface_state == PS2)
-		print_words(PS2_TEXT, itf_ptr);
+		print_words(get_itf_intern_var(itf_ptr, INT_PS2_NAME), itf_ptr);
 	else
-		print_words(PROMPT_TEXT, itf_ptr);
+		print_words(get_itf_intern_var(itf_ptr, INT_PS1_NAME), itf_ptr);
 
 	itf_ptr->window->cursor_index = 0;
 }
@@ -57,16 +57,16 @@ static void				interface_resize_handler(int signo)
 	itf_ptr->window->y = 0;
 	itf_ptr->window->max_line_len =
 		((itf_ptr->window->cols * itf_ptr->window->rows)
-		 - (PROMPT_TEXT_LENGTH + 3));
+		 - (ft_atoi(get_itf_intern_var(itf_ptr, INT_PS1_L_NAME)) + 3));
 
 	tputs(itf_ptr->termcaps->clear, w.ws_row - 1, ft_putc);
 
-	if ((itf_ptr->window->cols < (PROMPT_TEXT_LENGTH * 2) || itf_ptr->window->rows < 3)
+	if ((itf_ptr->window->cols < (size_t)(ft_atoi(get_itf_intern_var(itf_ptr, INT_PS1_L_NAME)) * 2) || itf_ptr->window->rows < 3)
 			|| ft_vctlen(itf_ptr->vector) > (size_t)itf_ptr->window->max_line_len)
 		print_words("Terminal window size too small :-(", itf_ptr);
 	else
 	{
-		redraw_prompt(MAGIC_NUMBER);
+		redraw_prompt(ft_atoi(INT_MAGIC_NUMBER));
 		redraw_input_line(itf_ptr);
 		itf_ptr->window->cursor_index = tc_ak_end(itf_ptr);
 	}

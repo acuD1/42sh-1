@@ -6,17 +6,27 @@
 #    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/02 13:29:33 by skuppers         ###   ########.fr        #
+#    Updated: 2019/04/02 19:07:38 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# ! UNUSED !
 # ---------------------------------------------------------------------------- #
 #								    Version                                    #
 # ---------------------------------------------------------------------------- #
 VERSION_RELEASE = alpha
 VERSION_MAJOR = 0 
-VERSION_MINOR = 1
-VERSION_PATCH = 1
+VERSION_MINOR = 0
+VERSION_PATCH = 0
+
+# ---------------------------------------------------------------------------- #
+#								     Build                                     #
+# ---------------------------------------------------------------------------- #
+
+BUILD_NUMBER_FILE = "./.build-number"
+BUILD_NUMBER = `cat $(BUILD_NUMBER_FILE)`
+
+NUMBER_INC = $(shell echo "$(BUILD_NUMBER) + 1 "| bc)
 
 # ---------------------------------------------------------------------------- #
 #								 Build Targets                                 #
@@ -50,6 +60,7 @@ MKDIR = mkdir -p
 CLEANUP = rm -rf
 PRINT = printf
 CLEAR = clear
+TOUCH = touch
 
 # ---------------------------------------------------------------------------- #
 #									 Output                                    #
@@ -128,6 +139,10 @@ INCS += line_edit.h
 #						- - - - -   Startup   - - - - -
 
 LINE += main.c
+LINE += launch.c
+LINE += free.c
+LINE += utils.c
+LINE += internals.c
 
 #						- - - - -  Debug Log  - - - - -
 
@@ -187,8 +202,10 @@ debug : $(NAMEDB)
 #					 - - - - - Normal Compilation - - - - -                    #
 
 $(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) 
-	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@ $(OBJS)
-	$(PRINT) "$(GREEN)$@ is ready $(NC)"
+	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
+	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
+	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -DBUILD=$(BUILD_NUMBER) -o  $@ $(OBJS)
+	$(PRINT) "$(GREEN)$@ build $(BUILD_NUMBER) is ready $(NC)"
 
 $(OBJS) : $(OPATH)%.o : %.c $(INCS) 
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@

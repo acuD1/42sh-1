@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/02 13:28:33 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/02 19:04:59 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,8 @@
 #include "libft.h"
 
 # define READ_SIZE 8
+
 # define AK_AMOUNT 24
-
-# define LINE_BUFFER_SIZE 16 // Taille du buffer pour la lecture du clavier, en characteres
-# define CLIPBOARD_SIZE	256  // Taille du presse-papier interne, en characteres
-# define BUFFER_SCALE_MULT 2 // Multiplicateur pour le resize des vecteurs LINE_BUFFER ET CLIPBOARD
-
-# define PROMPT_TEXT "[21sh] -> " // Texte PS1
-# define PROMPT_TEXT_LENGTH 10    // Definis la taille du PS1 - DOIT ETRE CORRECTE
-							      // Doit etre recalculer si PROMPT_TEXT change
-# define PS2_TEXT "quote> "       // TEXTE PS2
-# define PS2_TEXT_LENGTH 7		  // Definis la taille du PS2 - DOIT ETRE CORRECTE
-								  // Doit etre recalculer si PS2_TEXT change
-# define IFS_CHARACTER 10		// Charactere de separation (10 = \n) // Preferable de la mettre en READ-ONLY
-# define ESCAPE_CHAR '\\'       // Character d'echapement (Non-implemente encore)
-								// A voir si on la met en READ-ONLY ou pas
-# define MAGIC_NUMBER 42424242  // Numero magique pour la gestion de certain cas specifique aux
-								// signaux et l'edition de ligne quand PS2 est actif
-
 #define AK_ARROW_UP_MASK	0x1b5b410000000000
 #define AK_ARROW_DOWN_MASK 	0x1b5b420000000000
 #define AK_ARROW_RIGHT_MASK 0x1b5b430000000000
@@ -132,8 +116,11 @@ typedef struct				s_interface_registry
 	struct termios			*orig_term;
 	struct termios			*new_term;
 	int						interface_state;
+	t_list					*intern;
 	int						(*tc_call[AK_AMOUNT])(struct s_interface_registry *itf_reg);
 }							t_interface_registry;
+
+char						*get_itf_intern_var(t_interface_registry *itf_reg, char *name);
 
 extern t_interface_registry	*g_interface_registry_pointer;
 
@@ -175,10 +162,6 @@ int							get_next_char(char *str, int index, char direction);
 void						shift_content_right_once(t_vector *vect, unsigned int cursor_index);
 void						shift_content_left_once(t_vector *vect, unsigned int cursor_index);
 int							ft_putc(int c);
-
-//void					vector_rescale(t_vector *buffer);
-//size_t					vector_last_char(t_vector *vector);
-
 
 int							tc_ak_ctrl_d(t_interface_registry *itf_registry);
 int							tc_ak_next_word(t_interface_registry *itf_registry);

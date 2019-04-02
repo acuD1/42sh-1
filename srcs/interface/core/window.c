@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:38:46 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/31 14:41:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:29:51 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_winsize	*init_win_struct(t_registry *reg, t_winsize *window)
 		return (NULL);
 	}
 	window->cursor_index = 0;
-	window->x = PROMPT_TEXT_LENGTH;
+	window->x = ft_atoi(get_intern_var(reg, INT_PS1_NAME));
 	window->y = 0;
 	if (w.ws_col < 0)
 		window->cols = 0;
@@ -34,6 +34,7 @@ t_winsize	*init_win_struct(t_registry *reg, t_winsize *window)
 	else
 		window->rows = w.ws_row;
 	window->max_line_len =
-		((window->cols * window->rows) - (PROMPT_TEXT_LENGTH + 3));
+		((window->cols * window->rows)
+		 - (ft_atoi(get_intern_var(reg, INT_PS1_NAME)) + 3));
 	return (window);
 }

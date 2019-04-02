@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:54:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/01 13:18:23 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:49:43 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 
 static void		set_ifs_char(t_interface_registry *itf_reg)
 {
+	char ifs_char;
+
+	ifs_char = ft_atoi(get_itf_intern_var(itf_reg, INT_IFS_NAME));
 	itf_reg->window->cursor_index = tc_ak_end(itf_reg);
-	itf_reg->vector->buffer[itf_reg->window->cursor_index] = IFS_CHARACTER;
+	itf_reg->vector->buffer[itf_reg->window->cursor_index] = ifs_char;
 	itf_reg->window->cursor_index++;
 }
 

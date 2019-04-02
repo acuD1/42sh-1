@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 11:33:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/02 13:27:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:46:18 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,17 @@ int		tc_ak_prev_word(t_interface_registry *itf_reg)
 
 int		tc_ak_ctrl_down(t_interface_registry *itf_reg)
 {
+	size_t prompt_length;
 	size_t moves;
 	size_t line_length;
 	size_t lines_amount;
 
+	prompt_length = (itf_reg->interface_state == PS1)
+		? ft_strlen(get_itf_intern_var(itf_reg, INT_PS1_NAME))
+		: ft_strlen(get_itf_intern_var(itf_reg, INT_PS2_NAME));
 	moves = 0;
 	line_length = (ft_vctlen(itf_reg->vector) - 1);
-	lines_amount = ((line_length + PROMPT_TEXT_LENGTH)
+	lines_amount = ((line_length + prompt_length)
 			/ itf_reg->window->cols) + 1;
 	if (lines_amount > 1)
 	{
@@ -69,16 +73,21 @@ int		tc_ak_ctrl_down(t_interface_registry *itf_reg)
 int		tc_ak_ctrl_up(t_interface_registry *itf_reg)
 {
 	size_t moves;
+	size_t prompt_length;
 	size_t line_length;
 	size_t lines_amount;
 	size_t cursor_line;
 
 	moves = 0;
+	prompt_length = (itf_reg->interface_state == PS1)
+		? ft_strlen(get_itf_intern_var(itf_reg, INT_PS1_NAME))
+		: ft_strlen(get_itf_intern_var(itf_reg, INT_PS2_NAME));
+
 	line_length = (ft_vctlen(itf_reg->vector) - 1);
-	lines_amount = ((line_length + PROMPT_TEXT_LENGTH)
+	lines_amount = ((line_length + prompt_length)
 			/ itf_reg->window->cols) + 1;
 	cursor_line = itf_reg->window->y;
-	if (cursor_line == 1 && itf_reg->window->x <= PROMPT_TEXT_LENGTH)
+	if (cursor_line == 1 && itf_reg->window->x <= prompt_length)
 		return (tc_ak_home(itf_reg));
 	if (lines_amount > 1 && cursor_line > 0)
 	{

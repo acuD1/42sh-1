@@ -6,25 +6,41 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/01 15:26:51 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/02 19:12:03 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "21sh.h"
 #include "log.h"
-#include <stdlib.h>
+#include "line_edit.h"
+
+
+void 	print_opt(t_registry *reg)
+{
+	log_print(reg, LOG_INFO, "Options: \n");
+	log_print(reg, LOG_INFO, "| h=%d | v=%d | d=%d | norc=%d |\n",
+			reg->option.h, reg->option.v, reg->option.d, reg->option.norc);
+	log_print(reg, LOG_INFO, "| c=%d | cmd=%s | rcfile=%d | path=%s |\n",
+			reg->option.c, reg->option.cmd, reg->option.rcfile, reg->option.path);
+}
 
 int		main(int ac, char **av, char **env)
 {
-	(void)ac;
-	(void)av;
-	(void)env;
-	t_registry *registry;
+	t_registry	registry;
 
-	registry = malloc(sizeof(t_registry));
+	if (!launch_sh(ac, av, env, &registry))
+		return (0);
 
-	init_debug_logger(registry);
-	shell_invoke_interactive(registry);
+	init_debug_logger(&registry);
+
+	print_opt(&registry);
+
+	shell_invoke_interactive(&registry);
+
+	ft_strdel(&(registry.option.cmd));
+	ft_strdel(&(registry.option.path));
+	free_lst(&(registry.env));
+	free_lst(&(registry.intern));
 	return (0);
 }

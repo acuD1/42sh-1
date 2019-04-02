@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_clipboard.c                                   :+:      :+:    :+:   */
+/*   internals.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/19 00:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/02 18:06:36 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/02 17:15:49 by skuppers          #+#    #+#             */
+/*   Updated: 2019/04/02 18:48:13 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "line_edit.h"
 
-/*
-**		Initialise the clipboard vector.
-*/
-
-t_vector	*allocate_clipboard(t_registry *sh_reg)
+int		add_internal(t_registry *reg, char *name, char *data)
 {
-	t_vector	*clipboard;
-	int			size;
+	if (get_data(&(reg->intern), name) == NULL)
+		return (s_create_node(&(reg->intern), name, data));
+	return (change_node(&(reg->intern), name, data));
+}
 
-	size = 0;
-	size = ft_atoi(get_intern_var(sh_reg, INT_CLIPBOARD_SZ_NAME));
-	if ((clipboard = ft_vctnew(size)) == NULL)
-	{
-		log_print(sh_reg, LOG_ERROR, "Clipboard allocation failed.\n");
-		return (NULL);
-	}
-	return (clipboard);
+char	*get_intern_var(t_registry *reg, char *name)
+{
+	return (get_data(&(reg->intern), name));
+}
+
+char	*get_itf_intern_var(t_interface_registry *reg, char *name)
+{
+	return (get_data(&(reg->intern), name));
 }

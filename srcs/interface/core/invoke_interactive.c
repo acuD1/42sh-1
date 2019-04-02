@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/01 15:24:13 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:17:15 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	launch_shell_prompt(t_registry *shell_registry,
 		log_print(shell_registry, LOG_INFO, "Sending: |%s|\n", user_input_string);
 		// Call execution here
 		cleanup_interface_registry(itf_registry);
-		//	ft_strdel(&user_input_string);
+		//ft_strdel(&user_input_string);
 	}
 	define_interface_default_signals(shell_registry);
 }
@@ -39,12 +39,13 @@ void	shell_invoke_interactive(t_registry *shell_registry)
 {
 	t_interface_registry *itf_registry;
 
+	log_print(shell_registry, LOG_INFO, "Starting interactive mode.\n");
 	itf_registry = init_line_edition(shell_registry);
 	if (itf_registry != NULL)
 	{
 		launch_shell_prompt(shell_registry, itf_registry);
 		log_print(shell_registry, LOG_INFO, "Shell is now shutting down.\n");
-		close(shell_registry->debug_fd);
+		close(ft_atoi(get_intern_var(shell_registry, INT_DBG_FD_NAME)));
 		log_print(shell_registry, LOG_INFO, "Restoring original shell behavior.\n");
 		restore_original_term_behavior(shell_registry, itf_registry);
 		log_print(shell_registry, LOG_INFO, "Releasing memory.\n");

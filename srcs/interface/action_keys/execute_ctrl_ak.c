@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 07:30:12 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/02 10:33:29 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:15:53 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		tc_ak_clear_screen(t_interface_registry *itf_reg)
 	initial_cursor_pos = itf_reg->window->cursor_index;
 	itf_reg->window->cursor_index = tc_ak_end(itf_reg);
 	tputs(itf_reg->termcaps->clear, itf_reg->window->rows, ft_putc);
-	redraw_prompt(MAGIC_NUMBER);
+	redraw_prompt(ft_atoi(INT_MAGIC_NUMBER));
 	itf_reg->window->cursor_index = redraw_input_line(itf_reg);
 	while (itf_reg->window->cursor_index < initial_cursor_pos)
 			itf_reg->window->cursor_index = tc_ak_arrow_right(itf_reg);

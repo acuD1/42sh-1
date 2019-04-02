@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:22:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/02 11:21:47 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:26:02 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void		print_ps2_prompt(t_interface_registry *itf_reg)
 	itf_reg->window->x = 0;
 	itf_reg->window->y = 0;
 	ft_printf("\n");
-	print_words(PS2_TEXT, itf_reg);
+	print_words(get_itf_intern_var(itf_reg, INT_PS2_NAME), itf_reg);
 	itf_reg->window->cursor_index = 0;
 }
 
@@ -39,10 +39,13 @@ static t_vector	*create_ps2_vect(t_interface_registry *itf_reg)
 static int		ps2_prompt_loop(t_registry *sh_reg,
 				t_interface_registry *itf_reg, t_vector *old_vect)
 {
+	char		ifs_char;
 	char		character[READ_SIZE + 1];
 
+	ifs_char = 0;
+	ifs_char = ft_atoi(get_intern_var(sh_reg, INT_IFS_NAME));
 	ft_bzero(character, READ_SIZE + 1);
-	while (character[0] != IFS_CHARACTER)
+	while (character[0] != ifs_char)
 	{
 		ft_bzero(character, READ_SIZE);
 		if (read(0, character, READ_SIZE) == -1)
