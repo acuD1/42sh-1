@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 17:03:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/01 20:27:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/02 13:38:12 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,4 @@ void	expansion_machine(t_state *machine)
 		machine->state = OUT;
 		machine->process = out_machine;
 	}
-}
-
-void	quote_machine(t_state *machine)
-{
-	if (*machine->input && *machine->input == '\\')
-		machine->input++;
-	ft_strncat(machine->buffer, machine->input, 1);
-	machine->state = OUT;
-	machine->process = out_machine;
-	machine->input++;
 }

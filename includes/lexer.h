@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/01 20:46:10 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/02 13:41:14 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,22 +117,22 @@ enum	e_type
 	E_STRING,
 };
 
+typedef struct	s_token
+{
+	enum e_type	type;
+	char		*data;
+}				t_token;
+
 struct	s_state
 {
 	enum e_state	state;
 	enum e_state	last_state;
 	char			*input;
 	char			buffer[BUFFER];
-	enum e_type		duplicate[3];
+	enum e_type		duplicate[4];
 	t_list			*lst;
 	t_process		process;
 };
-
-typedef struct	s_token
-{
-	enum e_type	type;
-	char		*data;
-}				t_token;
 
 void	start_machine(t_state *machine);
 void	end_machine(t_state *machine);
