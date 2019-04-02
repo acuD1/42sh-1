@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:14:28 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/31 16:38:08 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/02 09:38:15 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,5 @@ int	tc_ak_backspace(t_interface_registry *itf_reg)
 		shift_content_left_once(itf_reg->vector, itf_reg->window->cursor_index);
 		itf_reg->window->cursor_index = redraw_after_cursor(itf_reg);
 	}
-	return (itf_reg->window->cursor_index);
-}
-
-/*
-**	OVERRIDING PROMPT CONDITION
-*/
-
-int	tc_ak_enter(t_interface_registry *itf_reg)
-{
 	return (itf_reg->window->cursor_index);
 }

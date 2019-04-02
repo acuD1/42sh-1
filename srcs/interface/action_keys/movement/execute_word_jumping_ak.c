@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 11:33:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/01 11:33:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/02 13:27:52 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 
 int		tc_ak_next_word(t_interface_registry *itf_reg)
 {
+	int	next_char;
+
 	if (itf_reg->window->cursor_index == (int)ft_vctlen(itf_reg->vector))
 		return (itf_reg->window->cursor_index);
 	else
 	{
-		while (itf_reg->window->cursor_index < (int)ft_vctlen(itf_reg->vector)
-			&& itf_reg->vector->buffer[itf_reg->window->cursor_index] != ' ')
-			itf_reg->window->cursor_index = tc_ak_arrow_right(itf_reg);
-		while (itf_reg->window->cursor_index < (int)ft_vctlen(itf_reg->vector)
-			&& (itf_reg->vector->buffer[itf_reg->window->cursor_index] == ' '))
+		next_char = 0;
+		next_char = get_next_char(itf_reg->vector->buffer, itf_reg->window->cursor_index, 1);
+		while (itf_reg->window->cursor_index != next_char)
 			itf_reg->window->cursor_index = tc_ak_arrow_right(itf_reg);
 	}
 	return (itf_reg->window->cursor_index);
@@ -31,15 +31,15 @@ int		tc_ak_next_word(t_interface_registry *itf_reg)
 
 int		tc_ak_prev_word(t_interface_registry *itf_reg)
 {
+	int prev_char;
+
 	if (itf_reg->window->cursor_index == 0)
 		return (0);
 	else
 	{
-		while (itf_reg->window->cursor_index > 0
-		&& itf_reg->vector->buffer[itf_reg->window->cursor_index] != ' ')
-			itf_reg->window->cursor_index = tc_ak_arrow_left(itf_reg);
-		while (itf_reg->window->cursor_index > 0
-		&& (itf_reg->vector->buffer[itf_reg->window->cursor_index] == ' '))
+		prev_char = 0;
+		prev_char = get_next_char(itf_reg->vector->buffer, itf_reg->window->cursor_index, -1);
+		while (itf_reg->window->cursor_index != prev_char)
 			itf_reg->window->cursor_index = tc_ak_arrow_left(itf_reg);
 	}
 	return (itf_reg->window->cursor_index);

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:22:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/31 18:05:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/02 11:21:47 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ static int		ps2_prompt_loop(t_registry *sh_reg,
 		{
 			ft_strdel(&(itf_reg->vector->buffer));
 			free(itf_reg->vector);
-			itf_reg->vector = old_vect;
+			ft_strdel(&(old_vect->buffer));
+			free(old_vect);
+			itf_reg->vector = ft_vctnew(0);
 			return (-4);
 		}
 	}

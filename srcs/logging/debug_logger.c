@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/01 15:19:33 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/02 11:23:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,8 @@
 static char		*log_fetch_importance(int imp)
 {
 	char		*str;
-	char		*msg;
-	char		*tmp;
-	clock_t		time;
 
 	str = ft_strnew(16);
-	time = clock();
 	if (imp == LOG_OK)
 		ft_strcpy(str, "[OK]");
 	else if (imp == LOG_INFO)
@@ -38,12 +34,7 @@ static char		*log_fetch_importance(int imp)
 		ft_strcpy(str, "[CRITICAL]");
 	else
 		ft_strcpy(str, "[UNDEFINED]");
-	msg = NULL;
-	tmp = ft_itoa((int)time);
-	ft_asprintf(&msg, "%s[%s]", str, tmp);
-	ft_strdel(&(tmp));
-	ft_strdel(&(str));
-	return (msg);
+	return (str);
 }
 
 void			log_print(t_registry *reg, int importance, char *message, ...)

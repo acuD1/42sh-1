@@ -6,7 +6,7 @@
 #    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/01 15:04:54 by skuppers         ###   ########.fr        #
+#    Updated: 2019/04/02 13:29:33 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -139,6 +139,7 @@ LINE += debug_logger.c
 LINE += signal_handler.c
 
 #Utilities
+LINE += move_tools.c
 LINE += clean_registry.c
 LINE += ft_putc.c
 LINE += set_quote.c
@@ -165,16 +166,7 @@ LINE += window.c
 
 #Action keys
 LINE += init_clipboard.c
-LINE += init_clipboard_ak.c
-LINE += init_clipboard_cut_ak.c
-LINE += init_clipboard_copy_ak.c
-LINE += init_arrow_ak.c
-LINE += init_ctrl_arrow_ak.c
-LINE += init_he_ak.c
 LINE += init_ak_keycodes.c
-LINE += init_ctrl_ak.c
-LINE += init_special_ak.c
-
 LINE += execute_clipboard_copy_ak.c
 LINE += execute_clipboard_cut_ak.c
 LINE += execute_clipboard_paste.c
