@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 20:19:38 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/02 14:02:41 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/02 15:51:34 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int		define_type(t_state *machine)
 		return (E_EXP);
 	else if (machine->last_state == BSL)
 		return (E_BACKSLASH);
+	else if (machine->last_state == SQTE)
+		return (E_QUOTE);
 	else if ((result = check_char(machine)))
 		return (result);
 	else if ((result = check_script(machine)))
@@ -67,7 +69,7 @@ t_token generate_token(t_state *machine)
 	i = 0;
 	token.type = define_type(machine);
 	token.data = NULL;
-	while (i <= 3)
+	while (i <= 4)
 	{
 		if (token.type == machine->duplicate[i++])
 			token.data = ft_strdup(machine->buffer);

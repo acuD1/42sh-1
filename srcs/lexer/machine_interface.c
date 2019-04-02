@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/01 20:33:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/02 14:07:58 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@ void	end_machine(t_state *machine)
 		machine->state = END;
 		machine->process = NULL;
 	}
+}
+
+void	fill_buffer_output(t_state *machine)
+{
+	ft_strncat(machine->buffer, machine->input, 1);
+	machine->state = OUT;
+	machine->process = out_machine;
 }
 
 void	out_machine(t_state *machine)

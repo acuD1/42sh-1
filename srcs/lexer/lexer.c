@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/02 13:51:11 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/02 15:43:31 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		init_machine(t_state *machine)
 	machine->duplicate[1] = E_BACKSLASH;
 	machine->duplicate[2] = E_STRING;
 	machine->duplicate[3] = E_BACKSLASH;
-
+	machine->duplicate[4] = E_QUOTE;
 }
 
 t_list		*lexer(char *input)

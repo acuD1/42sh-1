@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 17:03:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/02 13:38:12 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/02 15:49:22 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,13 @@ void	sign_machine(t_state *machine)
 	if (*machine->input == '\\')
 	{
 		machine->state = BSL;
-		machine->process = quote_machine;
+		machine->process = backslash_machine;
+	}
+	else if (*machine->input == '\'')
+	{
+		machine->state = SQTE;
+		machine->process = single_quote_machine;
+
 	}
 	else if (*machine->input == '$')
 	{
@@ -44,21 +50,15 @@ void	sign_machine(t_state *machine)
 		machine->process = expansion_machine;
 	}
 	else
-	{
-		ft_strncat(machine->buffer, machine->input, 1);
-		machine->state = OUT;
-		machine->process = out_machine;
-	}
+		fill_buffer_output(machine);
 	machine->input++;
 }
 
 void	space_machine(t_state *machine)
 {
-	ft_strncat(machine->buffer, machine->input, 1);
+	fill_buffer_output(machine);
 	while (*machine->input == ' ' || *machine->input == '\t')
 		machine->input++;
-	machine->state = OUT;
-	machine->process = out_machine;
 }
 
 void	expansion_machine(t_state *machine)

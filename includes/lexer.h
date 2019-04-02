@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/02 13:41:14 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/02 15:42:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ enum	e_state
 	SPACE,
 	EXP,
 	BSL,
+	SQTE,
 	OUT,
 	END
 };
@@ -115,6 +116,14 @@ enum	e_type
     E_UNTIL,
     E_WHILE,
 	E_STRING,
+	E_QSTRING,
+};
+
+enum	e_quote
+{
+	NO_QUOTE,
+	SQUOTE_ON,
+	DQUOTE_ON
 };
 
 typedef struct	s_token
@@ -125,12 +134,13 @@ typedef struct	s_token
 
 struct	s_state
 {
-	enum e_state	state;
-	enum e_state	last_state;
 	char			*input;
 	char			buffer[BUFFER];
-	enum e_type		duplicate[4];
+	enum e_type		duplicate[5];
 	t_list			*lst;
+	enum e_quote	quote;
+	enum e_state	state;
+	enum e_state	last_state;
 	t_process		process;
 };
 
@@ -141,8 +151,10 @@ void	space_machine(t_state *machine);
 void	letter_machine(t_state *machine);
 void	sign_machine(t_state *machine);
 void	expansion_machine(t_state *machine);
-void	quote_machine(t_state *machine);
+void	backslash_machine(t_state *machine);
+void	single_quote_machine(t_state *machine);
 
+void	fill_buffer_output(t_state *machine);
 t_token generate_token(t_state *machine);
 
 #endif
