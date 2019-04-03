@@ -6,15 +6,38 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 20:19:38 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/03 19:44:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/03 23:33:45 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
+int		check_last_machine(t_machine *machine)
+{
+	int		i;
+
+	i = 0;
+	while (i < TOKEN_WITH_DATA)
+	{
+		if (machine->last_machine == machine->duplicate[i])
+			return (machine->duplicate[i]);
+		i++;
+	}
+	i = 0;
+	while (i < SPECIAL_SIGNS)
+	{
+		if (machine->last_machine == machine->special_signs[i])
+			return (machine->special_signs[i]);
+		i++;
+	}
+	if (machine->last_machine == E_IO_NUMBER)
+		return (E_IO_NUMBER);
+	return (0);
+}
+
 int		check_char(t_machine *machine)
 {
-	int i;
+	int		i;
 	char	*s;
 
 	i = 0;
@@ -48,14 +71,8 @@ int		define_type(t_machine *machine)
 {
 	int		result;
 
-	if (machine->last_machine == EXP)
-		return (E_EXP);
-	else if (machine->last_machine == BSL)
-		return (E_BACKSLASH);
-	else if (machine->last_machine == SQTE)
-		return (E_QUOTE);
-	else if (machine->last_machine == SAND)
-		return (E_DAND);
+	if ((result = check_last_machine(machine)))
+		return (result);
 	else if ((result = check_char(machine)))
 		return (result);
 	else if ((result = check_script(machine)))
@@ -71,12 +88,12 @@ t_token generate_token(t_machine *machine)
 	i = 0;
 	token.type = define_type(machine);
 	token.data = NULL;
-	while (i <= TOKEN_WITH_DATA)
+	while (i < TOKEN_WITH_DATA)
 	{
 		if (token.type == machine->duplicate[i++])
 			token.data = ft_strdup(machine->buffer);
 	}
 	ft_bzero(machine->buffer, BUFFER);
-	machine->last_machine = START;
+	machine->last_machine = E_DEFAULT;
 	return (token);
 }

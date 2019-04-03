@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/03 20:02:34 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/04 00:49:04 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 # define LEXER_H
 
 # include "libft.h"
-# define STATENBR 10
-# define TOKEN_WITH_DATA 4
+# define STATENBR 13
+# define TOKEN_WITH_DATA 5
 # define BUFFER 1024
 # define SINGLE_SIGNS 24
-# define DOUBLE_SIGNS 1
-# define SIGNS DOUBLE_SIGNS + SINGLE_SIGNS
+# define SPECIAL_SIGNS 10
+# define SIGNS SPECIAL_SIGNS + SINGLE_SIGNS
 
 # define ALLCHAR "$ \\\'\"|()><;`&~{}[]*?!#=%"
+# define DOUBLE_SIGN "&|;"
 
-# define DAND "&&"
 # define CASE "case"
 # define DO "do"
 # define DONE "done"
@@ -47,8 +47,11 @@ enum	e_state
 {
 	START,
 	LETTER,
-	SAND,
+	IO_NUMBER,
 	SIGN,
+	DSIGN,
+	GREATER,
+	LESSER,
 	SPACE,
 	EXP,
 	BSL,
@@ -84,6 +87,15 @@ enum	e_type
 	E_EQUAL,
 	E_PERCENT,
 	E_DAND,
+	E_OR,
+	E_DSEMI,
+	E_DLESS,
+	E_DGREAT,
+	E_LESSAND,
+	E_GREATAND,
+	E_LESSGREAT,
+	E_DLESSDASH,
+	E_CLOBBER,
 	E_CASE,
 	E_DO,
     E_DONE,
@@ -97,8 +109,10 @@ enum	e_type
     E_THEN,
     E_UNTIL,
     E_WHILE,
+	E_IO_NUMBER,
 	E_STRING,
 	E_QSTRING,
+	E_DEFAULT,
 };
 
 enum	e_quote
@@ -125,14 +139,13 @@ struct	s_machine
 {
 	char			*input;
 	char			buffer[BUFFER];
-	t_state			states[STATENBR];
-	enum e_type		duplicate[TOKEN_WITH_DATA + 1];
+	t_process		process[STATENBR];
+	enum e_type		duplicate[TOKEN_WITH_DATA];
+	enum e_type		special_signs[SPECIAL_SIGNS];
 	t_list			*tokens;
-	t_state			current_state;
-	enum e_quote	quote;
 	enum e_state	state;
-	enum e_state	last_machine;
-	t_process		process;
+	enum e_quote	quote;
+	enum e_type		last_machine;
 };
 
 void	start_machine(t_machine *machine);
@@ -140,11 +153,14 @@ void	end_machine(t_machine *machine);
 void	out_machine(t_machine *machine);
 void	space_machine(t_machine *machine);
 void	letter_machine(t_machine *machine);
+void	number_machine(t_machine *machine);
 void	sign_machine(t_machine *machine);
 void	expansion_machine(t_machine *machine);
 void	backslash_machine(t_machine *machine);
 void	single_quote_machine(t_machine *machine);
-void	and_machine(t_machine *machine);
+void	double_sign_machine(t_machine *machine);
+void	greater_machine(t_machine *machine);
+void	lesser_machine(t_machine *machine);
 
 void	fill_buffer_output(t_machine *machine);
 t_token generate_token(t_machine *machine);

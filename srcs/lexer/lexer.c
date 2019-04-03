@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/03 20:04:56 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/04 00:53:00 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,46 +14,55 @@
 
 static void	state_handler(t_machine *machine)
 {
-	if (machine->state == END)
+	if (!*machine->buffer && machine->state == END)
 		return ;
-	machine->process(machine);
+	machine->process[machine->state](machine);
 	return (state_handler(machine));
 }
 
-void		intit_states(t_machine *machine)
+void		init_process(t_machine *machine)
 {
-	machine->states[START].state = START;
-	machine->states[START].process = start_machine;
-	machine->states[LETTER].state = LETTER;
-	machine->states[LETTER].process = letter_machine;
-	machine->states[SAND].state = SAND;
-	machine->states[SAND].process = and_machine;
-	machine->states[SIGN].state = SIGN;
-	machine->states[SIGN].process = sign_machine;
-	machine->states[SPACE].state = SPACE;
-	machine->states[SPACE].process = space_machine;
-	machine->states[EXP].state = EXP;
-	machine->states[EXP].process = expansion_machine;
-	machine->states[BSL].state = BSL;
-	machine->states[BSL].process = backslash_machine;
-	machine->states[SQTE].state = SQTE;
-	machine->states[SQTE].process = single_quote_machine;
-	machine->states[OUT].state = OUT;
-	machine->states[OUT].process = out_machine;
-	machine->states[END].state = END;
-	machine->states[END].process = end_machine;
+	machine->process[START] = start_machine;
+	machine->process[LETTER] = letter_machine;
+	machine->process[IO_NUMBER] = number_machine;
+	machine->process[SIGN] = sign_machine;
+	machine->process[DSIGN] = double_sign_machine;
+	machine->process[GREATER] = greater_machine;
+	machine->process[LESSER] = lesser_machine;
+	machine->process[SPACE] = space_machine;
+	machine->process[EXP] = expansion_machine;
+	machine->process[BSL] = backslash_machine;
+	machine->process[SQTE] = single_quote_machine;
+	machine->process[OUT] = out_machine;
+	machine->process[END] = end_machine;
 }
+
+void		init_special(t_machine *machine)
+{
+	machine->special_signs[0] = E_DAND;
+	machine->special_signs[1] = E_OR;
+	machine->special_signs[2] = E_DSEMI;
+	machine->special_signs[3] = E_DLESS;
+	machine->special_signs[4] = E_DGREAT;
+	machine->special_signs[5] = E_LESSAND;
+	machine->special_signs[6] = E_GREATAND;
+	machine->special_signs[7] = E_LESSGREAT;
+	machine->special_signs[8] = E_DLESSDASH;
+	machine->special_signs[9] = E_CLOBBER;
+}
+
 void		init_machine(t_machine *machine)
 {
 	ft_bzero(machine, sizeof(t_machine));
-	machine->current_state = machine->states[START];
-	machine->process = start_machine;
 	machine->state = START;
+	machine->last_machine = E_DEFAULT;
+	init_process(machine);
+	init_special(machine);
 	machine->duplicate[0] = E_EXP;
-	machine->duplicate[1] = E_BACKSLASH;
-	machine->duplicate[2] = E_STRING;
-	machine->duplicate[3] = E_BACKSLASH;
-	machine->duplicate[4] = E_QUOTE;
+	machine->duplicate[1] = E_STRING;
+	machine->duplicate[2] = E_BACKSLASH;
+	machine->duplicate[3] = E_QUOTE;
+	machine->duplicate[4] = E_IO_NUMBER;
 }
 
 t_list		*lexer(char *input)
@@ -77,7 +86,8 @@ void		print_list(t_list *list)
 {
 	t_token *token;
 	token = list->data;
-	const static char *signs[14] = {DAND,};
+	const static char *signs[14] = {"&&", "OR", ";;", "<<", ">>", "<&", ">&"
+									, "<>", "<<-", ">|"};
 	const static char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
 									, IF, IN, THEN, UNTIL, WHILE};
 
@@ -94,10 +104,15 @@ void		print_list(t_list *list)
 				token->type, signs[token->type - SINGLE_SIGNS], token->data);
 
 	}
-	else
+	else if (token->type >= SIGNS && token->type < SIGNS + 13)
 	{
 		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
 				token->type, script[token->type - SIGNS], token->data);
+	}
+	else
+	{
+		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
+				token->type, "IO", token->data);
 	}
 }
 
@@ -113,7 +128,7 @@ int		main(int ac, char **av)
 {
 	t_list *lst;
 
-	ft_printf("E_STRING = %d\n", E_STRING);
+	ft_printf("E_IO_NUMBER = %d\n", E_IO_NUMBER);
 	if (ac > 1)
 	{
 		lst = lexer(av[1]);

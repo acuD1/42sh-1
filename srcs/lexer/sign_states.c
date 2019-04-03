@@ -6,45 +6,112 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/03 19:44:29 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/04 01:17:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-void	and_machine(t_machine *machine)
+void	double_sign_machine(t_machine *machine)
 {
-	if (*machine->input == '&')
+	int		checker;
+
+	checker = 0;
+	if (ft_strchr(DOUBLE_SIGN, *machine->input))
 	{
-		machine->last_machine = SAND;
-		machine->input++;
+		if (*machine->buffer == '|' && *machine->input == '|' && ++checker)
+			machine->last_machine = E_OR;
+		else if (*machine->buffer == ';' && *machine->input == ';' && ++checker)
+			machine->last_machine = E_DSEMI;
+		else if (*machine->buffer == '&' && *machine->input == '&' && ++checker)
+			machine->last_machine = E_DAND;
+		if (checker)
+			machine->input++;
 	}
 	machine->state = OUT;
-	machine->process = out_machine;
+}
+
+void	lesser_machine(t_machine *machine)
+{
+	int		checker;
+
+	checker = 0;
+	if (machine->last_machine == E_DLESS && *machine->input == '-' && ++checker)
+		machine->last_machine = E_DLESSDASH;
+	else if (*machine->buffer == '<' && *machine->input == '<')
+	{
+		if (machine->last_machine != E_DLESS)
+		{
+			machine->last_machine = E_DLESS;
+			ft_strncat(machine->buffer, machine->input, 1);
+			machine->input++;
+			return;
+		}
+	}
+	else if (*machine->input == '>' || *machine->input == '&')
+	{
+		if (*machine->buffer == '<' && *machine->input == '&' && ++checker)
+			machine->last_machine = E_LESSAND;
+		else if (*machine->buffer == '<' && *machine->input == '>' && ++checker)
+			machine->last_machine = E_LESSGREAT;
+	}
+	if (checker)
+		machine->input++;
+	machine->state = OUT;
+}
+
+void	greater_machine(t_machine *machine)
+{
+	int		checker;
+
+	checker = 0;
+	if (ft_strchr(">&|", *machine->input))
+	{
+		if (*machine->buffer == '>' && *machine->input == '>' && ++checker)
+			machine->last_machine = E_DGREAT;
+		else if (*machine->buffer == '>' && *machine->input == '&' && ++checker)
+			machine->last_machine = E_GREATAND;
+		else if (*machine->buffer == '>' && *machine->input == '|' && ++checker)
+			machine->last_machine = E_CLOBBER;
+		if (checker)
+			machine->input++;
+	}
+	machine->state = OUT;
+}
+
+int		double_dispatcher(t_machine *machine)
+{
+	int		checker;
+
+	checker = 0;
+	if (*machine->input == '>')
+	{
+		checker++;
+		machine->state = GREATER;
+	}
+	else if (*machine->input == '<')
+	{
+		checker++;
+		machine->state = LESSER;
+	}
+	else if (ft_strchr(DOUBLE_SIGN, *machine->input))
+	{
+		checker++;
+		machine->state = DSIGN;
+	}
+	return (checker);
 }
 
 void	sign_machine(t_machine *machine)
 {
 	if (*machine->input == '\\')
-	{
 		machine->state = BSL;
-		machine->process = backslash_machine;
-	}
-	else if (*machine->input == '&')
-	{
-		machine->state = SAND;
-		machine->process = and_machine;
-	}
 	else if (*machine->input == '\'')
-	{
 		machine->state = SQTE;
-		machine->process = single_quote_machine;
-	}
 	else if (*machine->input == '$')
-	{
 		machine->state = EXP;
-		machine->process = expansion_machine;
-	}
+	else if (double_dispatcher(machine))
+		ft_strncat(machine->buffer, machine->input, 1);
 	else
 		fill_buffer_output(machine);
 	machine->input++;
