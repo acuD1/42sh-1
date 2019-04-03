@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/02 19:04:59 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/03 11:15:01 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@
 #define AK_CTRL_LEFT_MASK	0x1b5b313b35440000
 #define AK_TAB_MASK			0x900000000000000
 
-enum interface_states {
-	PS1,
-	PS2,
-};
+//enum interface_states {
+//	PS1,
+//	PS2,
+//};
 
 enum action_keys {
 	AK_ARROW_RIGHT,
@@ -108,19 +108,24 @@ typedef struct				s_winsize
 
 typedef struct				s_interface_registry
 {
+	t_registry				*sh_reg;
 	unsigned long			ak_masks[AK_AMOUNT];
+
 	t_vector				*clipboard;
 	t_vector				*vector;
 	t_termcaps				*termcaps;
 	t_winsize				*window;
+
 	struct termios			*orig_term;
 	struct termios			*new_term;
-	int						interface_state;
-	t_list					*intern;
-	int						(*tc_call[AK_AMOUNT])(struct s_interface_registry *itf_reg);
+
+	char					*interface_state;
+
+	int						(*tc_call[AK_AMOUNT])
+							(struct s_interface_registry *itf_reg);
 }							t_interface_registry;
 
-char						*get_itf_intern_var(t_interface_registry *itf_reg, char *name);
+//char						*get_itf_intern_var(t_interface_registry *itf_reg, char *name);
 
 extern t_interface_registry	*g_interface_registry_pointer;
 

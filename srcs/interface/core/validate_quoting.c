@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:54:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/02 18:49:43 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/03 11:16:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void		set_ifs_char(t_interface_registry *itf_reg)
 {
 	char ifs_char;
 
-	ifs_char = ft_atoi(get_itf_intern_var(itf_reg, INT_IFS_NAME));
+	ifs_char = ft_atoi(get_intern_var(itf_reg->sh_reg, INT_IFS));
 	itf_reg->window->cursor_index = tc_ak_end(itf_reg);
 	itf_reg->vector->buffer[itf_reg->window->cursor_index] = ifs_char;
 	itf_reg->window->cursor_index++;
@@ -29,7 +29,7 @@ static void		prepare_for_ps2(t_interface_registry *itf_reg)
 			> (int)itf_reg->vector->size - 2)
 		ft_vctrescale(itf_reg->vector);
 	set_ifs_char(itf_reg);
-	itf_reg->interface_state = PS2;
+	itf_reg->interface_state = INT_PS2;
 }
 
 int				goto_next_quote(char *string, char quote, size_t index)
@@ -75,7 +75,7 @@ void			validate_input_quoting(t_registry *sh_reg,
 			{
 				prepare_for_ps2(itf_reg);
 				call_ps2_prompt(sh_reg, itf_reg);
-				itf_reg->interface_state = PS1;
+				itf_reg->interface_state = INT_PS1;
 				return ;
 			}
 			else

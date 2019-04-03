@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/02 19:12:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/03 11:15:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void			log_print(t_registry *reg, int importance, char *message, ...)
 	if (reg == NULL)
 			return ;
 	fd = -1;
-	fd = ft_atoi(get_data(&(reg->intern), INT_DBG_FD_NAME));
+	fd = ft_atoi(get_intern_var((reg), INT_DBG_FD));
 	if (!fd)
 			fd = -1;
 	str = log_fetch_importance(importance);
@@ -83,23 +83,21 @@ void	init_debug_logger(t_registry *reg)
 	{
 		if ((home_path = get_data(&(reg->env), "HOME")) == NULL)
 		{
-			s_create_node(&(reg->intern), INT_DBG_FD_NAME, ft_itoa(-1));
+			add_internal(reg, INT_DBG_FD, ft_itoa(-1));
 			ft_dprintf(2, "[ERROR] - Could not fetch home variable.\n");
 			return ;
 		}
 
-		// reg->intern->debug_file_name = ".42sh.log"
 		ft_asprintf(&log_path, "%s/%s", home_path, INT_DBG_FILE);
 		debug_fd = open(log_path, O_RDWR | O_APPEND | O_CREAT | O_NOFOLLOW, 0600);
 		if (debug_fd < 0)
 			return ;
-		if (s_create_node(&(reg->intern), INT_DBG_FD_NAME,
-					ft_itoa(debug_fd)) == -1)
+		if (add_internal(reg, INT_DBG_FD, ft_itoa(debug_fd)) == -1)
 				return ;
 		ft_dprintf(debug_fd, "---------------------------------\n");
 		ft_dprintf(debug_fd, "[INFO] - Starting shell\n");
 		ft_strdel(&log_path);
 	}
 	else
-		s_create_node(&(reg->intern), INT_DBG_FD_NAME, ft_itoa(-1));
+		add_internal(reg, INT_DBG_FD, ft_itoa(-1));
 }

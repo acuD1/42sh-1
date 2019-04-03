@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 11:33:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/02 18:46:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/03 11:18:35 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ int		tc_ak_ctrl_down(t_interface_registry *itf_reg)
 	size_t line_length;
 	size_t lines_amount;
 
-	prompt_length = (itf_reg->interface_state == PS1)
-		? ft_strlen(get_itf_intern_var(itf_reg, INT_PS1_NAME))
-		: ft_strlen(get_itf_intern_var(itf_reg, INT_PS2_NAME));
+	prompt_length = ft_strlen(get_intern_var(itf_reg->sh_reg, itf_reg->interface_state));
 	moves = 0;
 	line_length = (ft_vctlen(itf_reg->vector) - 1);
 	lines_amount = ((line_length + prompt_length)
@@ -79,10 +77,7 @@ int		tc_ak_ctrl_up(t_interface_registry *itf_reg)
 	size_t cursor_line;
 
 	moves = 0;
-	prompt_length = (itf_reg->interface_state == PS1)
-		? ft_strlen(get_itf_intern_var(itf_reg, INT_PS1_NAME))
-		: ft_strlen(get_itf_intern_var(itf_reg, INT_PS2_NAME));
-
+	prompt_length = ft_strlen(get_intern_var(itf_reg->sh_reg, itf_reg->interface_state));
 	line_length = (ft_vctlen(itf_reg->vector) - 1);
 	lines_amount = ((line_length + prompt_length)
 			/ itf_reg->window->cols) + 1;

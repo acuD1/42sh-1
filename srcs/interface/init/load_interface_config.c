@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/02 18:42:31 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/03 12:01:28 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,16 +93,12 @@ static t_interface_registry	*create_interface_registry(
 
 int		fill_interface_related_internals(t_registry *reg)
 {
-	add_internal(reg, INT_ROWS_NAME, INT_ROWS);
-	add_internal(reg, INT_COLS_NAME, INT_COLS);
-	add_internal(reg, INT_READ_SZ_NAME, INT_READ_SZ);
-	add_internal(reg, INT_CLIPBOARD_SZ_NAME, INT_CLIPBOARD_SZ);
-	add_internal(reg, INT_PS1_NAME, INT_PS1);
-	add_internal(reg, INT_PS1_L_NAME, INT_PS1_LENGTH);
-	add_internal(reg, INT_PS2_NAME, INT_PS2);
-	add_internal(reg, INT_PS2_L_NAME, INT_PS2_LENGTH);
-	add_internal(reg, INT_IFS_NAME, INT_IFS);
-	add_internal(reg, INT_ESCAPE_NAME, INT_ESCAPE);
+	add_internal(reg, INT_READ_SZ, INT_READ_SZ_VALUE);
+	add_internal(reg, INT_CLIPBOARD_SZ, INT_CLIPBOARD_SZ_VALUE);
+	add_internal(reg, INT_PS1, INT_PS1_VALUE);
+	add_internal(reg, INT_PS2, INT_PS2_VALUE);
+	add_internal(reg, INT_IFS, INT_IFS_VALUE);
+	add_internal(reg, INT_ESCAPE_SEQ, INT_ESCAPE_SEQ_VALUE);
 	return (0);
 }
 
@@ -122,7 +118,7 @@ t_interface_registry		*init_line_edition(t_registry *reg)
 	link_actions_to_keys(itf_reg);
 
 	fill_interface_related_internals(reg);
-	itf_reg->intern = reg->intern;
+	itf_reg->sh_reg = reg;
 	if ((itf_reg->clipboard = allocate_clipboard(reg)) == NULL)
 		return (NULL);
 	log_print(reg, LOG_OK, "Line edition initialized.\n");

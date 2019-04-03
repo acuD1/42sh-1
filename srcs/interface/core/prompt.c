@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/02 18:34:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/03 11:16:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	fill_interface_data(t_registry *shell_reg,
 		return (-1);
 	itf->window = window;
 	itf->vector = vector;
-	itf->interface_state = PS1;
+	itf->interface_state = INT_PS1;
 	return (0);
 }
 
@@ -56,11 +56,13 @@ char		*prompt(t_registry *shell_reg,
 
 	vector = NULL;
 	window = NULL;
-	ifs_char = ft_atoi(get_intern_var(shell_reg, INT_IFS_NAME));
+	ifs_char = ft_atoi(get_intern_var(shell_reg, INT_IFS));
+
 	if (fill_interface_data(shell_reg, itf_reg, vector, window) != 0)
 		return (NULL);
+
 	ft_bzero(character, READ_SIZE);
-	ft_dprintf(STDOUT_FILENO, "\n%s", get_intern_var(shell_reg, INT_PS1_NAME));
+	ft_dprintf(STDOUT_FILENO, "\n%s", get_intern_var(shell_reg, INT_PS1));
 	while (character[0] != ifs_char)
 	{
 		ft_bzero(character, READ_SIZE);

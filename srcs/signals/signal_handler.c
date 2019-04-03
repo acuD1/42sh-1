@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/02 18:39:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/03 11:15:16 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ void				redraw_prompt(int signo)
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
 		ft_vctreset(itf_ptr->vector);
 
-	if (itf_ptr->interface_state == PS2)
-		print_words(get_itf_intern_var(itf_ptr, INT_PS2_NAME), itf_ptr);
-	else
-		print_words(get_itf_intern_var(itf_ptr, INT_PS1_NAME), itf_ptr);
+	print_words(get_intern_var(itf_ptr->sh_reg, itf_ptr->interface_state), itf_ptr);
 
 	itf_ptr->window->cursor_index = 0;
 }
@@ -57,11 +54,13 @@ static void				interface_resize_handler(int signo)
 	itf_ptr->window->y = 0;
 	itf_ptr->window->max_line_len =
 		((itf_ptr->window->cols * itf_ptr->window->rows)
-		 - (ft_atoi(get_itf_intern_var(itf_ptr, INT_PS1_L_NAME)) + 3));
+		 - (ft_strlen(get_intern_var(itf_ptr->sh_reg, INT_PS1)) + 3));
 
 	tputs(itf_ptr->termcaps->clear, w.ws_row - 1, ft_putc);
 
-	if ((itf_ptr->window->cols < (size_t)(ft_atoi(get_itf_intern_var(itf_ptr, INT_PS1_L_NAME)) * 2) || itf_ptr->window->rows < 3)
+	if ((itf_ptr->window->cols
+		< (size_t)(ft_strlen(get_intern_var(itf_ptr->sh_reg, INT_PS1)) * 2)
+		|| itf_ptr->window->rows < 3)
 			|| ft_vctlen(itf_ptr->vector) > (size_t)itf_ptr->window->max_line_len)
 		print_words("Terminal window size too small :-(", itf_ptr);
 	else

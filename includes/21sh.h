@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/02 19:05:32 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/03 12:02:53 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct		s_registry
 void			shell_invoke_interactive(t_registry *shell_registry);
 
 int				add_internal(t_registry *sh_reg, char *name, char *data);
+int				add_internal_nbr(t_registry *reg, char *name, int data);
 char			*get_intern_var(t_registry  *sh_reg, char *name);
 
 

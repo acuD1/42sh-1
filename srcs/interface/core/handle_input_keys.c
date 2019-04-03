@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/02 18:16:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/03 11:17:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ unsigned long		compute_mask(char c[READ_SIZE])
 	return (value);
 }
 
+//	ft_dprintf(1, "|%d|%d|%d|%d|%d|%d|%d|%d|\n",c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7]);
 int					handle_input_key(char c[READ_SIZE],
 				t_interface_registry *itf_reg)
 {
-//	ft_dprintf(1, "|%d|%d|%d|%d|%d|%d|%d|%d|\n",c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7]);
 	int 			index;
 	unsigned long	value;
 

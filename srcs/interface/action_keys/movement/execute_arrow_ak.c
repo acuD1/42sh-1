@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:12:56 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/02 18:41:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/03 11:22:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ int				tc_ak_arrow_left(t_interface_registry *itf_reg)
 	size_t		prompt_length;
 	size_t		tmp_idx;
 
-	prompt_length = (itf_reg->interface_state == PS1)
-			? ft_atoi(get_itf_intern_var(itf_reg, INT_PS1_L_NAME))
-			: ft_atoi(get_itf_intern_var(itf_reg, INT_PS2_L_NAME));
+	prompt_length = ft_strlen(get_intern_var(itf_reg->sh_reg, itf_reg->interface_state));
 
 	tmp_idx = itf_reg->window->cursor_index;
 	if (tmp_idx >= 1)

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:22:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/02 18:26:02 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/03 13:04:21 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void		print_ps2_prompt(t_interface_registry *itf_reg)
 	itf_reg->window->x = 0;
 	itf_reg->window->y = 0;
 	ft_printf("\n");
-	print_words(get_itf_intern_var(itf_reg, INT_PS2_NAME), itf_reg);
+	print_words(get_intern_var(itf_reg->sh_reg, INT_PS2), itf_reg);
 	itf_reg->window->cursor_index = 0;
 }
 
@@ -43,7 +43,7 @@ static int		ps2_prompt_loop(t_registry *sh_reg,
 	char		character[READ_SIZE + 1];
 
 	ifs_char = 0;
-	ifs_char = ft_atoi(get_intern_var(sh_reg, INT_IFS_NAME));
+	ifs_char = ft_atoi(get_intern_var(sh_reg, INT_IFS));
 	ft_bzero(character, READ_SIZE + 1);
 	while (character[0] != ifs_char)
 	{
@@ -80,11 +80,12 @@ int				invoke_ps2_prompt(t_registry *sh_reg,
 	print_ps2_prompt(itf_reg);
 	if (ps2_prompt_loop(sh_reg, itf_reg, old_vect) != 0)
 		return (-1);
+	log_print(sh_reg, LOG_INFO, "|%s|%s|\n-----\n", old_vect->buffer, itf_reg->vector->buffer);
 	ft_asprintf(&concat, "%s%s", old_vect->buffer, itf_reg->vector->buffer);
 	ft_strdel(&(old_vect->buffer));
 	free(old_vect);
 	ft_strdel(&(itf_reg->vector->buffer));
 	itf_reg->vector->buffer = concat;
-	itf_reg->vector->size = ft_strlen(concat);
+//	itf_reg->vector->size = ft_strlen(concat);
 	return (0);
 }
