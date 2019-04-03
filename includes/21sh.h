@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh21.h                                             :+:      :+:    :+:   */
+/*   21sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/03 12:02:53 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/03 17:24:49 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,14 @@ typedef struct	s_node
 	char *data;
 }				t_node;
 
-
-
-
 typedef struct		s_registry
 {
-	unsigned long	buildno;
 	t_opt			option;
 	t_list			*env;
 	t_list			*intern;
+	t_hash			bin_hashmap;
+	t_hash			bltin_hashmap;
 }					t_registry;
-
-
 
 void			shell_invoke_interactive(t_registry *shell_registry);
 
@@ -53,6 +49,7 @@ int				add_internal(t_registry *sh_reg, char *name, char *data);
 int				add_internal_nbr(t_registry *reg, char *name, int data);
 char			*get_intern_var(t_registry  *sh_reg, char *name);
 
+int				hash_bltin(t_registry *reg);
 
 int				launch_sh(int ac, char **av, char **env, t_registry *registry);
 int				parse_arg(int index, char **av, t_opt *option);

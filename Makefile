@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
+#    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/02 19:07:38 by skuppers         ###   ########.fr        #
+#    Updated: 2019/04/03 15:52:27 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 #								    Version                                    #
 # ---------------------------------------------------------------------------- #
 VERSION_RELEASE = alpha
-VERSION_MAJOR = 0 
+VERSION_MAJOR = 0
 VERSION_MINOR = 0
 VERSION_PATCH = 0
 
@@ -66,7 +66,7 @@ TOUCH = touch
 #									 Output                                    #
 # ---------------------------------------------------------------------------- #
 
-# One Line 
+# One Line
 ONELINE =\e[1A\r
 
 # Colors
@@ -143,6 +143,7 @@ LINE += launch.c
 LINE += free.c
 LINE += utils.c
 LINE += internals.c
+LINE += hashmap_gen.c
 
 #						- - - - -  Debug Log  - - - - -
 
@@ -171,7 +172,7 @@ LINE += redraw_prompt.c
 LINE += load_interface_config.c
 LINE += load_termcap_strings.c
 
-#Core 
+#Core
 LINE += invoke_interactive.c
 LINE += prompt.c
 LINE += sub_prompt.c
@@ -201,26 +202,26 @@ debug : $(NAMEDB)
 
 #					 - - - - - Normal Compilation - - - - -                    #
 
-$(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) 
+$(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS)
 	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
 	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
 	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -DBUILD=$(BUILD_NUMBER) -o  $@ $(OBJS)
 	$(PRINT) "$(GREEN)$@ build $(BUILD_NUMBER) is ready $(NC)"
 
-$(OBJS) : $(OPATH)%.o : %.c $(INCS) 
+$(OBJS) : $(OPATH)%.o : %.c $(INCS)
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
-	
+
 $(LIB) : FORCE
 	$(MAKE) -C $(LPATH)
 
 #					 - - - - - Debug Compilation - - - - -                     #
 
-$(NAMEDB) : $(CLEAR) $(LIBDB) $(OPATH) $(OBJD) 
+$(NAMEDB) : $(CLEAR) $(LIBDB) $(OPATH) $(OBJD)
 	$(LINKD) $(DFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBD) $(LFLAGS) -o $@ $(OBJD)
 	$(PRINT) "$(GREEN)$@ is ready $(NC)"
 
-$(OBJD) : $(OPATH)db%.o : %.c $(INCS) 
+$(OBJD) : $(OPATH)db%.o : %.c $(INCS)
 	$(DEBUG) $(DFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $< for debug                   $(NC)\n"
 
