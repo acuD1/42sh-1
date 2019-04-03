@@ -6,7 +6,7 @@
 #    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/02 13:36:36 by cempassi         ###   ########.fr        #
+#    Updated: 2019/04/03 18:57:34 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -160,6 +160,7 @@ LEX_SRCS += machine_interface.c
 LEX_SRCS += states.c
 LEX_SRCS += generate_token.c
 LEX_SRCS += quotes_states.c
+LEX_SRCS += sign_states.c
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #
 # ---------------------------------------------------------------------------- #

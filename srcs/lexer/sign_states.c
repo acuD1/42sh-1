@@ -1,37 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quotes_states.c                                    :+:      :+:    :+:   */
+/*   sign_states.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/02 13:34:28 by cempassi          #+#    #+#             */
+/*   Created: 2019/04/03 18:56:27 by cempassi          #+#    #+#             */
 /*   Updated: 2019/04/03 19:44:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-void	backslash_machine(t_machine *machine)
+void	and_machine(t_machine *machine)
 {
-	machine->last_machine = machine->state;
-	fill_buffer_output(machine);
-	if (*machine->input)
+	if (*machine->input == '&')
+	{
+		machine->last_machine = SAND;
 		machine->input++;
+	}
+	machine->state = OUT;
+	machine->process = out_machine;
 }
 
-void	single_quote_machine(t_machine *machine)
+void	sign_machine(t_machine *machine)
 {
-	if (*machine->input == '\'')
+	if (*machine->input == '\\')
 	{
-		machine->last_machine = machine->state;
-		machine->state = OUT;
-		machine->process = out_machine;
+		machine->state = BSL;
+		machine->process = backslash_machine;
+	}
+	else if (*machine->input == '&')
+	{
+		machine->state = SAND;
+		machine->process = and_machine;
+	}
+	else if (*machine->input == '\'')
+	{
+		machine->state = SQTE;
+		machine->process = single_quote_machine;
+	}
+	else if (*machine->input == '$')
+	{
+		machine->state = EXP;
+		machine->process = expansion_machine;
 	}
 	else
-	{
-		machine->last_machine = SQTE;
-		ft_strncat(machine->buffer, machine->input, 1);
-	}
+		fill_buffer_output(machine);
 	machine->input++;
 }

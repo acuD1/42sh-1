@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/02 15:42:01 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/03 20:02:34 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,16 @@
 # define LEXER_H
 
 # include "libft.h"
+# define STATENBR 10
+# define TOKEN_WITH_DATA 4
 # define BUFFER 1024
-# define OFFSET 24
-
-# define PIPE "|"
-# define QUOTE "\'"
-# define DB_QUOTE "\""
-# define PARENT_OPEN "("
-# define PARENT_CLOSE ")"
-# define SP " "
-# define FORWARD ">"
-# define BACKWARD "<"
-# define SEMICOLON ";"
-# define BACKQUOTE "`"
-# define AND "&"
-# define DOLLAR "$"
-# define TILDE "~"
-# define HOOK_OPEN "{"
-# define HOOK_CLOSE "}"
-# define BRACKET_OPEN "["
-# define BRACKET_CLOSE "]"
-# define STAR "*"
-# define INTERROGATION "?"
-# define EXCLAMATION "!"
-# define HASH "#"
-# define EQUAL "="
-# define PERCENT "%"
-# define BACKSLASH "\\"
+# define SINGLE_SIGNS 24
+# define DOUBLE_SIGNS 1
+# define SIGNS DOUBLE_SIGNS + SINGLE_SIGNS
 
 # define ALLCHAR "$ \\\'\"|()><;`&~{}[]*?!#=%"
 
+# define DAND "&&"
 # define CASE "case"
 # define DO "do"
 # define DONE "done"
@@ -60,13 +40,14 @@
 
 # define FINALCHAR " \t<>|;\'\"`()$&!?{}[]*%\\=" ///MISS OPERATORS
 
-typedef struct s_state t_state;
-typedef  void (*t_process)(t_state *);
+typedef struct s_machine t_machine;
+typedef  void (*t_process)(t_machine *);
 
 enum	e_state
 {
 	START,
 	LETTER,
+	SAND,
 	SIGN,
 	SPACE,
 	EXP,
@@ -102,6 +83,7 @@ enum	e_type
 	E_HASH,
 	E_EQUAL,
 	E_PERCENT,
+	E_DAND,
 	E_CASE,
 	E_DO,
     E_DONE,
@@ -132,29 +114,39 @@ typedef struct	s_token
 	char		*data;
 }				t_token;
 
-struct	s_state
+typedef struct	s_state
+{
+	enum e_state state;
+	t_process	process;
+
+}				t_state;
+
+struct	s_machine
 {
 	char			*input;
 	char			buffer[BUFFER];
-	enum e_type		duplicate[5];
-	t_list			*lst;
+	t_state			states[STATENBR];
+	enum e_type		duplicate[TOKEN_WITH_DATA + 1];
+	t_list			*tokens;
+	t_state			current_state;
 	enum e_quote	quote;
 	enum e_state	state;
-	enum e_state	last_state;
+	enum e_state	last_machine;
 	t_process		process;
 };
 
-void	start_machine(t_state *machine);
-void	end_machine(t_state *machine);
-void	out_machine(t_state *machine);
-void	space_machine(t_state *machine);
-void	letter_machine(t_state *machine);
-void	sign_machine(t_state *machine);
-void	expansion_machine(t_state *machine);
-void	backslash_machine(t_state *machine);
-void	single_quote_machine(t_state *machine);
+void	start_machine(t_machine *machine);
+void	end_machine(t_machine *machine);
+void	out_machine(t_machine *machine);
+void	space_machine(t_machine *machine);
+void	letter_machine(t_machine *machine);
+void	sign_machine(t_machine *machine);
+void	expansion_machine(t_machine *machine);
+void	backslash_machine(t_machine *machine);
+void	single_quote_machine(t_machine *machine);
+void	and_machine(t_machine *machine);
 
-void	fill_buffer_output(t_state *machine);
-t_token generate_token(t_state *machine);
+void	fill_buffer_output(t_machine *machine);
+t_token generate_token(t_machine *machine);
 
 #endif

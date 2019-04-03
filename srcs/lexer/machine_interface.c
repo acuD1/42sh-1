@@ -6,13 +6,13 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/02 14:07:58 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/03 19:44:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-void	start_machine(t_state *machine)
+void	start_machine(t_machine *machine)
 {
 	if (!*machine->input)
 		machine->process = end_machine;
@@ -33,7 +33,7 @@ void	start_machine(t_state *machine)
 	}
 }
 
-void	end_machine(t_state *machine)
+void	end_machine(t_machine *machine)
 {
 	if (*machine->buffer)
 	{
@@ -47,14 +47,14 @@ void	end_machine(t_state *machine)
 	}
 }
 
-void	fill_buffer_output(t_state *machine)
+void	fill_buffer_output(t_machine *machine)
 {
 	ft_strncat(machine->buffer, machine->input, 1);
 	machine->state = OUT;
 	machine->process = out_machine;
 }
 
-void	out_machine(t_state *machine)
+void	out_machine(t_machine *machine)
 {
 	t_list	*node;
 	t_token	token;
@@ -62,8 +62,8 @@ void	out_machine(t_state *machine)
 	token = generate_token(machine);
 	if (!(node = ft_lstnew(&token, sizeof(token))))
 		return ;
-	ft_lstaddback(&machine->lst, node);
+	ft_lstaddback(&machine->tokens, node);
 	machine->state = START;
-	machine->last_state = START;
+	machine->last_machine = START;
 	machine->process = start_machine;
 }
