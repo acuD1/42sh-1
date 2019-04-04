@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/04 15:08:30 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/04 16:04:49 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	print_opt(t_registry *reg)
 
 int		main(int ac, char **av, char **env)
 {
-//	t_builtin	blt;
+	t_builtin	blt;
 	t_registry	registry;
 
 	ft_bzero(&registry, sizeof(t_registry));
@@ -36,12 +36,9 @@ int		main(int ac, char **av, char **env)
 	init_debug_logger(&registry);
 	print_opt(&registry);
 	shell_invoke_interactive(&registry);
-//	blt = (t_builtin)ft_hmap_getdata(&(registry.blt_hashmap), "hash");
-//	if (blt)
-//	{
-//		if (!blt(&registry))
-//			return (0);
-//	}
-	exit_blt(&registry);
+	blt = (t_builtin)ft_hmap_getdata(&(registry.blt_hashmap), "exit");
+	if (blt)
+		if (!blt(&registry))
+			return (0);
 	return (0);
 }
