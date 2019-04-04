@@ -11,6 +11,7 @@ void		set_string_token(t_graph *start, t_graph **tab)
 	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_IF], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_FI], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_BRACKET_CLOSE], sizeof(t_graph **)));
 }
 
 void		set_if_token(t_graph *start, t_graph **tab)
@@ -24,6 +25,7 @@ void		set_if_token(t_graph *start, t_graph **tab)
 void		set_fi_token(t_graph *start, t_graph **tab)
 {
 	(void)start;
+	tab[E_FI]->event = RECALL;
 	ft_lstadd(&tab[E_FI]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_FI]->lst, ft_lstnew(&tab[E_FI], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_FI]->lst, ft_lstnew(&tab[E_IF], sizeof(t_graph **)));
@@ -40,8 +42,10 @@ void		set_bracket_open_token(t_graph *start, t_graph **tab)
 void		set_bracket_close_token(t_graph *start, t_graph **tab)
 {
 	(void)start;
+	tab[E_BRACKET_CLOSE]->event = BACK;
 	ft_lstadd(&tab[E_BRACKET_CLOSE]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_BRACKET_CLOSE]->lst, ft_lstnew(&tab[E_IF], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_BRACKET_CLOSE]->lst, ft_lstnew(&tab[E_FI], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_BRACKET_CLOSE]->lst, ft_lstnew(&tab[E_BRACKET_OPEN], sizeof(t_graph **)));
 }
 

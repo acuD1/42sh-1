@@ -161,8 +161,10 @@ LEX_SRCS += machine_interface.c
 LEX_SRCS += states.c
 LEX_SRCS += generate_token.c
 LEX_SRCS += quotes_states.c
+
 LEX_SRCS += parser.c
 LEX_SRCS += set_parser_token.c
+LEX_SRCS += generate_graph.c
 LEX_SRCS += parser_debug.c
 
 # ---------------------------------------------------------------------------- #
