@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hashmap_gen.c                                      :+:      :+:    :+:   */
+/*   hash.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:27:08 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/03 17:18:22 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/04 10:59:24 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,20 @@ int		hash_bltin(t_registry *reg)
 				asp = NULL;
 				ft_asprintf(&asp, "%s/%s", tab[i],dit->d_name);
 				if (asp)
+				{
 					if (dit->d_name[0] != '.')
-						ft_hmap_insert(&(reg->bin_hashmap), dit->d_name, asp);
+					{
+						if (!ft_hmap_insert(&(reg->bin_hashmap), dit->d_name, asp))
+							free(asp);
+					}
+					else
+						free(asp);
+				}
 			}
 		}
 		closedir(dip);
 		i++;
 	}
-
+	ft_freetab(&tab);
 	return (1);
 }

@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/03 15:52:27 by nrechati         ###   ########.fr        #
+#    Updated: 2019/04/04 11:06:27 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -143,7 +143,8 @@ LINE += launch.c
 LINE += free.c
 LINE += utils.c
 LINE += internals.c
-LINE += hashmap_gen.c
+LINE += hash.c
+LINE += exit.c
 
 #						- - - - -  Debug Log  - - - - -
 
@@ -237,12 +238,14 @@ $(OPATH) :
 clean :
 	$(MAKE) -C $(LPATH) clean
 	$(CLEANUP) $(OPATH)
+	rm -rf $(NAME).dSYM
 	$(PRINT) ".o file deleted\n"
 
 fclean : clean
 	$(MAKE) -C $(LPATH) fclean
 	$(CLEANUP) $(NAME)
 	$(CLEANUP) $(NAMEDB)
+	rm -rf $(NAME).dSYM
 	$(PRINT) "Executables destroyed\n"
 
 re : fclean all

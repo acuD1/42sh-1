@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/03 10:21:08 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/04 10:46:15 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		main(int ac, char **av, char **env)
 {
 	t_registry	registry;
 
+	ft_bzero(&registry, sizeof(t_registry));
 	if (!launch_sh(ac, av, env, &registry))
 		return (0);
 
@@ -38,9 +39,6 @@ int		main(int ac, char **av, char **env)
 
 	shell_invoke_interactive(&registry);
 
-	ft_strdel(&(registry.option.cmd));
-	ft_strdel(&(registry.option.path));
-	free_lst(&(registry.env));
-	free_lst(&(registry.intern));
+	exit_bltin(&registry);
 	return (0);
 }
