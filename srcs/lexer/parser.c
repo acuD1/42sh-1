@@ -47,6 +47,8 @@ void		set_fi_token(t_graph *start, t_graph **tab)
 {
 	(void)start;
 	ft_lstadd(&tab[E_FI]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_FI]->lst, ft_lstnew(&tab[E_FI], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_FI]->lst, ft_lstnew(&tab[E_IF], sizeof(t_graph **)));
 }
 
 
@@ -61,7 +63,9 @@ void		set_bracket_open_token(t_graph *start, t_graph **tab)
 void		set_bracket_close_token(t_graph *start, t_graph **tab)
 {
 	(void)start;
-	ft_lstadd(&tab[E_FI]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_BRACKET_CLOSE]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_BRACKET_CLOSE]->lst, ft_lstnew(&tab[E_IF], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_BRACKET_CLOSE]->lst, ft_lstnew(&tab[E_BRACKET_OPEN], sizeof(t_graph **)));
 }
 
 t_graph		*generate_graph(void)
@@ -141,7 +145,9 @@ int			parse_tokens(t_list **lst, t_graph *graph, enum e_type ref)
 			print_token(token->type);
 			return (TRUE);
 		}
-		if (token->type != E_SPACE)
+		else if (token->type == E_SPACE)
+			*lst = (*lst)->next;
+		else
 		{
 			if (!(node_is_ok(token, &graph)))
 			{
@@ -150,18 +156,18 @@ int			parse_tokens(t_list **lst, t_graph *graph, enum e_type ref)
 			}
 			if (graph->event == RECALL)
 			{
-				ft_printf("\033[36m            ||\n            up\n            ||\n            vv\n\033[0m");
+				ft_printf("\033[34m            ||\n            up\n            ||\n            vv\n\033[0m");
 				*lst = (*lst)->next;
 				if (!(parse_tokens(lst, graph, graph->type_end)))
 					return (FALSE);
 				ft_printf("\033[36m            ||\n           down\n            ||\n            vv\n\033[0m");
-				*lst = (*lst)->next;
 			}
 			else
+			{
 				ft_printf("\033[33m            ||\n            vv\n\033[0m");
-		}
-		if (*lst)
+			}
 			*lst = (*lst)->next;
+		}
 	}
 	if (ref != NB_OF_TOKENS + 1)
 	{
@@ -176,7 +182,7 @@ void		parser(t_list *lst)
 {
 	t_graph	*graph;
 
-	ft_printf("------ | PARSER | ------\n\n");
+	ft_printf("------- | PARSER | -------\n\n");
 	graph = generate_graph();
 	if (parse_tokens(&lst, graph, NB_OF_TOKENS + 1))
 		ft_printf("\033[32m         --------\n         |  OK  |\n         --------\n\n\033[0m");
