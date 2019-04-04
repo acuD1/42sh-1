@@ -32,7 +32,7 @@ SRCS += $(LINE)
 #									Compiler                                   #
 # ---------------------------------------------------------------------------- #
 
-CC = Clang
+CC = clang
 LINK = $(CC)
 LINKD = $(CC) -g3
 COMPILE = $(CC) -c
@@ -104,7 +104,7 @@ CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
 CFLAGS += $(IFLAGS)
-DFLAGS = $(CFLAGS) -fsanitize=address
+DFLAGS = $(CFLAGS) -fsanitize=address,undefined
 LFLAGS = -ltermcap
 
 # ---------------------------------------------------------------------------- #
@@ -156,10 +156,12 @@ LINE += signal_handler.c
 #						   - - - - - Lexer - - - - -                           #
 
 LEX_SRCS += lexer.c
+LEX_SRCS += parser.c
 LEX_SRCS += machine_interface.c
 LEX_SRCS += states.c
 LEX_SRCS += generate_token.c
 LEX_SRCS += quotes_states.c
+
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #
 # ---------------------------------------------------------------------------- #
@@ -185,7 +187,7 @@ $(21OBJS) : $(OPATH)%.o : %.c $(INCS)
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<             $(NC)\n"
 	
 $(LEXER) : $(CLEAR) $(LIB) $(OPATH) $(LEXOBJS) 
-	$(LINK) $(CFLAGS) $(LDFLAGS) $(LDLIBN) -o $(LEXER) $(LEXOBJS)
+	$(LINK) $(LEXOBJS) $(CFLAGS) $(LDFLAGS) $(LDLIBN) -o $(LEXER)
 	$(PRINT) "$(GREEN)$@ is ready \n$(NC)"
 
 $(LEXOBJS) : $(OPATH)%.o : %.c $(INCS) 
@@ -206,7 +208,7 @@ $(21OBJD) : $(OPATH)db%.o : %.c $(INCS)
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $< for debug            $(NC)\n"
 
 $(LEXERDB) : $(CLEAR) $(LIB) $(OPATH) $(LEXOBJD) 
-	$(LINKD) $(DFLAGS) $(LDFLAGS) $(LDLIBN) -o $(LEXERDB) $(LEXOBJD)
+	$(LINKD) $(LEXOBJD) $(DFLAGS) $(LDFLAGS) $(LDLIBN) -o $(LEXERDB)
 	$(PRINT) "$(GREEN)$@ is ready \n$(NC)"
 
 $(LEXOBJD) : $(OPATH)db%.o : %.c $(INCS) 

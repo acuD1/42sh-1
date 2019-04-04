@@ -157,4 +157,6 @@ void	single_quote_machine(t_state *machine);
 void	fill_buffer_output(t_state *machine);
 t_token generate_token(t_state *machine);
 
+void		parser(t_list *lst);
+
 #endif

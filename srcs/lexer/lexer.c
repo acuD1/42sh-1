@@ -87,6 +87,8 @@ int		main(int ac, char **av)
 	{
 		lst = lexer(av[1]);
 		ft_lstiter(lst, print_list);
+		ft_putendl("\n");
+		parser(lst);
 	}
 	return (0);
 }
