@@ -24,7 +24,28 @@ int			node_is_ok(t_token *token, t_graph **graph)
 	return (FALSE);
 }
 
-int			parse_tokens(t_list **lst, t_graph **graph, enum e_type ref)
+int			ref_end_is_ok(t_list *lst_ref, enum e_type token_ref)
+{
+	enum e_type ref;
+	t_list		*tmp;
+
+
+	tmp = lst_ref;
+	while (lst_ref)
+	{
+		ref = *(enum e_type *)(lst_ref->data);
+		if (token_ref == ref)
+		{
+			lst_ref = tmp;
+			return (TRUE);
+		}
+		lst_ref = lst_ref->next;
+	}
+	lst_ref = tmp;
+	return (FALSE);
+}
+
+int			parse_tokens(t_list **lst, t_graph **graph, t_list *ref)
 {
 	t_token *token;
 
@@ -39,36 +60,39 @@ int			parse_tokens(t_list **lst, t_graph **graph, enum e_type ref)
 				(*graph)->event = ERROR_GRAPH;
 				return (FALSE);
 			}
-			if (ref == token->type)
+			if (ref_end_is_ok(ref, token->type))
 				return (TRUE);
 			else if ((*graph)->event == BACK)
 			{
 				token = (t_token *)(*lst)->data;
 				*lst = (*lst)->next;
-				if (ref == NB_OF_TOKENS + 1)
+				if (!ref)
 					print_error_debug(0, 2);
-				return (ref == token->type);
+				return (ref_end_is_ok(ref, token->type));
 			}
 			else if ((*graph)->event == RECALL)
 			{
-				print_arrow_debug(1);
-				*lst = (*lst)->next;
-				if (!(parse_tokens(lst, graph, (*graph)->type_end)))
+				while ((*graph)->event == RECALL)
 				{
-					if ((*graph)->event != ERROR_GRAPH)
-						print_error_debug(0, 2);
-					return (FALSE);
+					print_arrow_debug(1);
+					*lst = (*lst)->next;
+					if (!(parse_tokens(lst, graph, (*graph)->type_end)))
+					{
+						if ((*graph)->event != ERROR_GRAPH)
+							print_error_debug(0, 2);
+						return (FALSE);
+					}
+					print_arrow_debug(2);
 				}
-				print_arrow_debug(2);
 			}
 			else
 				print_arrow_debug(0);
 		}
 		*lst = (*lst)->next;
 	}
-	if (ref != NB_OF_TOKENS + 1)
+	if (ref)
 	{
-		print_error_debug(ref, 1);
+		print_error_debug(*(enum e_type *)(ref->data), 1);
 		(*graph)->event = ERROR_GRAPH;
 		return (FALSE);
 	}
@@ -81,7 +105,7 @@ void		parser(t_list *lst)
 
 	ft_printf("------- | PARSER | -------\n\n");
 	graph = generate_graph();
-	if (parse_tokens(&lst, &graph, NB_OF_TOKENS + 1))
+	if (parse_tokens(&lst, &graph, NULL))
 		print_result_debug(0);
 	else
 		print_result_debug(1);

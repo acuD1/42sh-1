@@ -10,16 +10,57 @@ void		set_string_token(t_graph *start, t_graph **tab)
 	(void)start;
 	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_IF], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_ELIF], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_ELSE], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_FI], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_BRACKET_CLOSE], sizeof(t_graph **)));
 }
 
 void		set_if_token(t_graph *start, t_graph **tab)
 {
+	enum e_type	type_end;
+
 	(void)start;
 	tab[E_IF]->event = RECALL;
-	tab[E_IF]->type_end = E_FI;
+
+	type_end = E_FI;
+	ft_lstadd(&tab[E_IF]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
+	type_end = E_ELIF;
+	ft_lstadd(&tab[E_IF]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
+	type_end = E_ELSE;
+	ft_lstadd(&tab[E_IF]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
+
 	ft_lstadd(&tab[E_IF]->lst, ft_lstnew(&tab[E_BRACKET_OPEN], sizeof(t_graph **)));
+}
+
+void		set_elif_token(t_graph *start, t_graph **tab)
+{
+	enum e_type	type_end;
+
+	(void)start;
+	tab[E_IF]->event = RECALL;
+
+	type_end = E_FI;
+	ft_lstadd(&tab[E_ELIF]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
+	type_end = E_ELIF;
+	ft_lstadd(&tab[E_IF]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
+	type_end = E_ELSE;
+	ft_lstadd(&tab[E_ELIF]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
+
+	ft_lstadd(&tab[E_ELIF]->lst, ft_lstnew(&tab[E_BRACKET_OPEN], sizeof(t_graph **)));
+}
+
+void		set_else_token(t_graph *start, t_graph **tab)
+{
+	enum e_type	type_end;
+
+	(void)start;
+	tab[E_ELSE]->event = RECALL;
+
+	type_end = E_FI;
+	ft_lstadd(&tab[E_ELSE]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
+
+	ft_lstadd(&tab[E_ELSE]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
 }
 
 void		set_fi_token(t_graph *start, t_graph **tab)
@@ -33,9 +74,14 @@ void		set_fi_token(t_graph *start, t_graph **tab)
 
 void		set_bracket_open_token(t_graph *start, t_graph **tab)
 {
+	enum e_type	type_end;
+
 	(void)start;
 	tab[E_BRACKET_OPEN]->event = RECALL;
-	tab[E_BRACKET_OPEN]->type_end = E_BRACKET_CLOSE;
+
+	type_end = E_BRACKET_CLOSE;
+	ft_lstadd(&tab[E_BRACKET_OPEN]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
+
 	ft_lstadd(&tab[E_BRACKET_OPEN]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
 }
 
