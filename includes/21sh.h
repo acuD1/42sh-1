@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/03 12:02:53 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/03 16:35:34 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct	s_node
 
 typedef struct		s_registry
 {
-	unsigned long	buildno;
 	t_opt			option;
 	t_list			*env;
 	t_list			*intern;

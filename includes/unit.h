@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_clipboard.c                                   :+:      :+:    :+:   */
+/*   unit.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/19 00:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/04 13:48:36 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/03 13:27:44 by skuppers          #+#    #+#             */
+/*   Updated: 2019/04/03 14:08:18 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef UNIT_21_SH
+# define UNIT_21_SH
+
+#include "libft.h"
+#include "21sh.h"
 #include "log.h"
 #include "line_edit.h"
+#include "internals.h"
+#include <stdlib.h>
+#define BLUE "39"
+#define TRUE 0
+#define FALSE -1
+#define T_CHMOD 766
+#define HOME "/Users/skuppers"
 
-/*
-**		Initialise the clipboard vector.
-*/
+int	test_clipboard(void);
 
-t_vector	*allocate_clipboard(t_registry *sh_reg)
-{
-	t_vector	*clipboard;
-	int			size;
-
-	size = 0;
-	size = ft_atoi(get_intern_var(sh_reg, INT_CLIPBOARD_SZ));
-	if ((clipboard = ft_vctnew(size)) == NULL)
-	{
-		log_print(sh_reg, LOG_ERROR, "Clipboard allocation failed.\n");
-		return (NULL);
-	}
-	return (clipboard);
-}
+#endif

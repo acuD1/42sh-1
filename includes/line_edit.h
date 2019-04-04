@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/03 11:15:01 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/04 13:29:11 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,6 @@
 #define AK_CTRL_RIGHT_MASK	0x1b5b313b35430000
 #define AK_CTRL_LEFT_MASK	0x1b5b313b35440000
 #define AK_TAB_MASK			0x900000000000000
-
-//enum interface_states {
-//	PS1,
-//	PS2,
-//};
 
 enum action_keys {
 	AK_ARROW_RIGHT,
@@ -126,13 +121,16 @@ typedef struct				s_interface_registry
 }							t_interface_registry;
 
 //char						*get_itf_intern_var(t_interface_registry *itf_reg, char *name);
+/*  CHANGE THIS FO UNIT TEST */
+int	fill_interface_data(t_registry *sh, t_interface_registry *itf_reg);
+
 
 extern t_interface_registry	*g_interface_registry_pointer;
 
 t_termcaps					*init_termcap_calls(t_registry *reg);
 t_interface_registry		*init_line_edition(t_registry *reg);
 t_vector					*allocate_clipboard(t_registry *sh_reg);
-t_winsize 					*init_win_struct(t_registry *reg, t_winsize *window);
+t_winsize 					*init_win_struct(t_registry *reg, t_interface_registry *itf_reg);
 
 void						define_interface_default_signals(t_registry *sh_reg);
 void						define_interface_signal_behavior(t_interface_registry *itf_reg, t_registry *shell_reg);

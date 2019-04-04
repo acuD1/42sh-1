@@ -6,7 +6,7 @@
 #    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/02 19:07:38 by skuppers         ###   ########.fr        #
+#    Updated: 2019/04/04 11:46:09 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,14 +34,14 @@ NUMBER_INC = $(shell echo "$(BUILD_NUMBER) + 1 "| bc)
 
 NAME = 42sh
 NAMEDB = 42shdb
+NAMET = unit
 LIBFT = libft.a
 LIBFTDB = libftdb.a
-OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS))
-OBJD = $(patsubst %.c, $(OPATH)db%.o, $(SRCS))
+OBJL = $(patsubst %.c, $(OPATH)%.o, $(LINE) $(LINEM))
+OBJT = $(patsubst %.c, $(OPATH)%.o, $(LINE) $(UNIT) $(UNITM))
+OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINE) $(LINEM))
 LIB = $(addprefix $(LPATH), $(LIBFT))
 LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
-SRCS += $(LINE)
-
 # ---------------------------------------------------------------------------- #
 #									Compiler                                   #
 # ---------------------------------------------------------------------------- #
@@ -88,6 +88,7 @@ LPATH = libft/
 OPATH = objs/
 IPATH += includes/
 IPATH += libft/includes/
+TPATH = unit-tests
 _SPATH += interface
 _SPATH += interface/action_keys
 _SPATH += interface/action_keys/clipboard
@@ -106,7 +107,7 @@ SPATH += $(addprefix srcs/, $(_SPATH))
 #									 vpath                                     #
 # ---------------------------------------------------------------------------- #
 
-vpath %.c $(SPATH)
+vpath %.c $(SPATH) $(TPATH)
 vpath %.h $(IPATH)
 
 # ---------------------------------------------------------------------------- #
@@ -132,13 +133,21 @@ INCS += 21sh.h
 INCS += log.h
 INCS += line_edit.h
 
+INCS += unit.h
+
 # ---------------------------------------------------------------------------- #
 #									Sources                                    #
 # ---------------------------------------------------------------------------- #
 
+#							- - - - - Main - - - - -                           #
+UNITM = unit.c
+LINEM = main.c
+
+#						- - - - -  Unit-test  - - - - -
+UNIT += clipboard_tests.c
+
 #						- - - - -   Startup   - - - - -
 
-LINE += main.c
 LINE += launch.c
 LINE += free.c
 LINE += utils.c
@@ -199,20 +208,35 @@ all : $(NAME)
 
 debug : $(NAMEDB)
 
+test : $(NAMET)
+	./$<
+
 #					 - - - - - Normal Compilation - - - - -                    #
 
-$(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) 
+$(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJL) 
 	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
 	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
-	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -DBUILD=$(BUILD_NUMBER) -o  $@ $(OBJS)
+	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -DBUILD=$(BUILD_NUMBER) -o  $@ $(OBJL)
 	$(PRINT) "$(GREEN)$@ build $(BUILD_NUMBER) is ready $(NC)"
 
-$(OBJS) : $(OPATH)%.o : %.c $(INCS) 
+$(OBJL) : $(OPATH)%.o : %.c $(INCS) 
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
 	
 $(LIB) : FORCE
 	$(MAKE) -C $(LPATH)
+
+#					 - - - - Unit test Compilation - - - -                     #
+
+$(NAMET) : $(CLEAR) $(LIB) $(OPATH) $(OBJT) 
+	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
+	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
+	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address -o  $@ $(OBJT)
+	$(PRINT) "$(GREEN)$@ build $(BUILD_NUMBER) is ready $(NC)"
+
+$(OBJT) : $(OPATH)%.o : %.c $(INCS) 
+	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
+	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
 
 #					 - - - - - Debug Compilation - - - - -                     #
 

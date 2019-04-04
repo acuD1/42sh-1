@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/03 11:16:41 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/04 13:31:13 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,19 @@ static int	allocate_data_structures(t_registry *sh_reg,
 	return (0);
 }
 
-static int	fill_interface_data(t_registry *shell_reg,
-		t_interface_registry *itf, t_vector *vector, t_winsize *window)
+int	fill_interface_data(t_registry *shell_reg,
+		t_interface_registry *itf)
 {
+	t_vector *vector;
+	t_winsize *window;
+
 	if (allocate_data_structures(shell_reg, &vector, &window) != 0)
 		return (-1);
-	if ((init_win_struct(shell_reg, window)) == NULL)
-		return (-1);
 	itf->window = window;
-	itf->vector = vector;
 	itf->interface_state = INT_PS1;
+	if ((init_win_struct(shell_reg, itf)) == NULL)
+		return (-1);
+	itf->vector = vector;
 	return (0);
 }
 
@@ -51,14 +54,9 @@ char		*prompt(t_registry *shell_reg,
 {
 	char			ifs_char;
 	char			character[READ_SIZE + 1];
-	t_vector		*vector;
-	t_winsize		*window;
 
-	vector = NULL;
-	window = NULL;
 	ifs_char = ft_atoi(get_intern_var(shell_reg, INT_IFS));
-
-	if (fill_interface_data(shell_reg, itf_reg, vector, window) != 0)
+	if (fill_interface_data(shell_reg, itf_reg) != 0)
 		return (NULL);
 
 	ft_bzero(character, READ_SIZE);

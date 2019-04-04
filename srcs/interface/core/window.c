@@ -6,14 +6,14 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:38:46 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/03 12:46:21 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/04 13:30:16 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "line_edit.h"
 
-t_winsize	*init_win_struct(t_registry *reg, t_winsize *window)
+t_winsize	*init_win_struct(t_registry *reg, t_interface_registry *itf)
 {
 	struct winsize	w;
 
@@ -22,25 +22,25 @@ t_winsize	*init_win_struct(t_registry *reg, t_winsize *window)
 		log_print(reg, LOG_ERROR, "Terminal size could not be determined!\n");
 		return (NULL);
 	}
-	window->cursor_index = 0;
-	window->x = ft_strlen(get_intern_var(reg, INT_PS1));
-	window->y = 0;
+	itf->window->cursor_index = 0;
+	itf->window->x = ft_strlen(get_intern_var(reg, itf->interface_state));
+	itf->window->y = 0;
 	if (w.ws_col < 0)
-		window->cols = 0;
+		itf->window->cols = 0;
 	else
-		window->cols = w.ws_col;
+		itf->window->cols = w.ws_col;
 
-	add_internal_nbr(reg, INT_COLS, window->cols);
+	add_internal_nbr(reg, INT_COLS, itf->window->cols);
 
 	if (w.ws_row < 0)
-		window->rows = 0;
+		itf->window->rows = 0;
 	else
-		window->rows = w.ws_row;
+		itf->window->rows = w.ws_row;
 
-	add_internal_nbr(reg, INT_ROWS, window->rows);
+	add_internal_nbr(reg, INT_ROWS, itf->window->rows);
 
-	window->max_line_len =
-		((window->cols * window->rows)
+	itf->window->max_line_len =
+		((itf->window->cols * itf->window->rows)
 		 - (ft_atoi(get_intern_var(reg, INT_PS1)) + 3));
-	return (window);
+	return (itf->window);
 }
