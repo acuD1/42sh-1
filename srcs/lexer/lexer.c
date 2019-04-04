@@ -6,19 +6,12 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/04 00:53:00 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/04 05:28:50 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-
-static void	state_handler(t_machine *machine)
-{
-	if (!*machine->buffer && machine->state == END)
-		return ;
-	machine->process[machine->state](machine);
-	return (state_handler(machine));
-}
+#include <stdlib.h>
 
 void		init_process(t_machine *machine)
 {
@@ -33,6 +26,7 @@ void		init_process(t_machine *machine)
 	machine->process[EXP] = expansion_machine;
 	machine->process[BSL] = backslash_machine;
 	machine->process[SQTE] = single_quote_machine;
+	machine->process[DQTE] = double_quote_machine;
 	machine->process[OUT] = out_machine;
 	machine->process[END] = end_machine;
 }
@@ -61,8 +55,9 @@ void		init_machine(t_machine *machine)
 	machine->duplicate[0] = E_EXP;
 	machine->duplicate[1] = E_STRING;
 	machine->duplicate[2] = E_BACKSLASH;
-	machine->duplicate[3] = E_QUOTE;
-	machine->duplicate[4] = E_IO_NUMBER;
+	machine->duplicate[3] = E_IO_NUMBER;
+	machine->duplicate[4] = E_QUOTE;
+	machine->duplicate[5] = E_DB_QUOTE;
 }
 
 t_list		*lexer(char *input)
@@ -75,10 +70,10 @@ t_list		*lexer(char *input)
 		input++;
 	init_machine(&machine);
 	machine.input = input;
-	state_handler(&machine);
+	while (*machine.buffer || machine.state != END)
+		machine.process[machine.state](&machine);
 	return (machine.tokens);
 }
-
 
 /////////////////////////////////////////////////////////
 
@@ -87,16 +82,16 @@ void		print_list(t_list *list)
 	t_token *token;
 	token = list->data;
 	const static char *signs[14] = {"&&", "OR", ";;", "<<", ">>", "<&", ">&"
-									, "<>", "<<-", ">|"};
+		, "<>", "<<-", ">|"};
 	const static char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
-									, IF, IN, THEN, UNTIL, WHILE};
+		, IF, IN, THEN, UNTIL, WHILE};
 
 	if (token->type < SINGLE_SIGNS || token->type == E_STRING )
 	{
-	ft_printf("type_id = [ %2d ] | type_name = [ %5.1c ] | data = [ %s ]\n",
-			token->type,
-			token->type < 25 ? ALLCHAR[token->type] : 'S'
-			, token->data);
+		ft_printf("type_id = [ %2d ] | type_name = [ %5.1c ] | data = [ %s ]\n",
+				token->type,
+				token->type < SINGLE_SIGNS ? ALLCHAR[token->type] : 'S'
+				, token->data);
 	}
 	else if (token->type >= SINGLE_SIGNS && token->type < SIGNS)
 	{
@@ -124,13 +119,13 @@ void	del_list(t_list *list)
 	ft_strdel(&tmp->data);
 }
 
-int		main(int ac, char **av)
+int		main(int ac, char *av[])
 {
 	t_list *lst;
 
-	ft_printf("E_IO_NUMBER = %d\n", E_IO_NUMBER);
 	if (ac > 1)
 	{
+		ft_printf("E_IO_NUMBER = %d\n", E_IO_NUMBER);
 		lst = lexer(av[1]);
 		ft_lstiter(lst, print_list);
 	}

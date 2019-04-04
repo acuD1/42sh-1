@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/04 01:17:38 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/04 04:10:11 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ void	sign_machine(t_machine *machine)
 		machine->state = BSL;
 	else if (*machine->input == '\'')
 		machine->state = SQTE;
+	else if (*machine->input == '\"')
+		machine->state = DQTE;
 	else if (*machine->input == '$')
 		machine->state = EXP;
 	else if (double_dispatcher(machine))

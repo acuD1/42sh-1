@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/03 22:40:37 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/04 03:14:14 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	start_machine(t_machine *machine)
 {
 	if (!*machine->input)
 		machine->state = END;
+	else if (machine->quote)
+		machine->state = DQTE;
 	else if (*machine->input == ' ' || *machine->input == '\t')
 		machine->state = SPACE;
 	else if (ft_strchr(FINALCHAR, *machine->input) || *machine->input == '~')

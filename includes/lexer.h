@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/04 00:49:04 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/04 05:47:14 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 # define LEXER_H
 
 # include "libft.h"
-# define STATENBR 13
-# define TOKEN_WITH_DATA 5
+# define STATENBR 15
+# define TOKEN_WITH_DATA 6
 # define BUFFER 1024
-# define SINGLE_SIGNS 24
+# define SINGLE_SIGNS 25
 # define SPECIAL_SIGNS 10
 # define SIGNS SPECIAL_SIGNS + SINGLE_SIGNS
 
-# define ALLCHAR "$ \\\'\"|()><;`&~{}[]*?!#=%"
+# define ALLCHAR "$ \\\'\"|()><;`&~{}[]*?!#=%N"
+# define QUOTE_INTERUPT "\\\"`$"
+# define EXP_INTERUPT " \t\'\"`"
 # define DOUBLE_SIGN "&|;"
 
 # define CASE "case"
@@ -56,6 +58,8 @@ enum	e_state
 	EXP,
 	BSL,
 	SQTE,
+	DQTE,
+	BQTE,
 	OUT,
 	END
 };
@@ -86,6 +90,7 @@ enum	e_type
 	E_HASH,
 	E_EQUAL,
 	E_PERCENT,
+	E_NEWLINE,
 	E_DAND,
 	E_OR,
 	E_DSEMI,
@@ -117,9 +122,9 @@ enum	e_type
 
 enum	e_quote
 {
-	NO_QUOTE,
-	SQUOTE_ON,
-	DQUOTE_ON
+	QUOTE_OFF,
+	QUOTE_ON,
+	QUOTE_INT,
 };
 
 typedef struct	s_token
@@ -158,6 +163,7 @@ void	sign_machine(t_machine *machine);
 void	expansion_machine(t_machine *machine);
 void	backslash_machine(t_machine *machine);
 void	single_quote_machine(t_machine *machine);
+void	double_quote_machine(t_machine *machine);
 void	double_sign_machine(t_machine *machine);
 void	greater_machine(t_machine *machine);
 void	lesser_machine(t_machine *machine);

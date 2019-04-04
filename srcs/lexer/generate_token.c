@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 20:19:38 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/03 23:33:45 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/04 05:30:35 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ int		check_last_machine(t_machine *machine)
 	}
 	if (machine->last_machine == E_IO_NUMBER)
 		return (E_IO_NUMBER);
-	return (0);
+	if (machine->last_machine == E_NEWLINE)
+		return (E_NEWLINE);
+	return (-1);
 }
 
 int		check_char(t_machine *machine)
@@ -71,12 +73,14 @@ int		define_type(t_machine *machine)
 {
 	int		result;
 
-	if ((result = check_last_machine(machine)))
+	if ((result = check_last_machine(machine)) >= 0)
 		return (result);
 	else if ((result = check_char(machine)))
 		return (result);
 	else if ((result = check_script(machine)))
 		return (result);
+	else if (machine->last_machine == E_DB_QUOTE || machine->quote == QUOTE_ON)
+		return (E_DB_QUOTE);
 	return (E_STRING);
 }
 
@@ -90,7 +94,7 @@ t_token generate_token(t_machine *machine)
 	token.data = NULL;
 	while (i < TOKEN_WITH_DATA)
 	{
-		if (token.type == machine->duplicate[i++])
+		if (token.type == machine->duplicate[i++] && *machine->buffer)
 			token.data = ft_strdup(machine->buffer);
 	}
 	ft_bzero(machine->buffer, BUFFER);

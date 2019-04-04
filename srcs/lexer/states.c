@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 17:03:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/04 01:20:52 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/04 04:14:16 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,7 @@ void	letter_machine(t_machine *machine)
 
 void	space_machine(t_machine *machine)
 {
+	fill_buffer_output(machine);
 	while (*machine->input == ' ' || *machine->input == '\t')
 		machine->input++;
-	machine->state = START;
-}
-
-void	expansion_machine(t_machine *machine)
-{
-	if ((machine->last_machine != EXP && *machine->input == '$')
-			|| (!ft_strchr(FINALCHAR, *machine->input) && *machine->input))
-	{
-		machine->last_machine = E_EXP;
-		ft_strncat(machine->buffer, machine->input, 1);
-		if (!ft_isalnum(*machine->input) && *machine->input != '~')
-			machine->state = OUT;
-		machine->input++;
-	}
-	else
-	{
-		machine->last_machine = E_EXP;
-		machine->state = OUT;
-	}
 }
