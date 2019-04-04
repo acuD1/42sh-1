@@ -1,72 +1,4 @@
-#include "lexer.h"
-
-#define NB_OF_TOKENS 39
-#define TRUE 1
-#define FALSE 0
-
-enum	e_event
-{
-	NO_EVENT,
-	START_GRAPH,
-	END_GRAPH,
-	RECALL
-};
-
-typedef struct s_graph	t_graph;
-
-struct s_graph
-{
-	enum	e_event	event;
-	enum	e_type	type;
-	enum	e_type	type_end;
-	t_list 			*lst;
-};
-
-void		set_start_token(t_graph *start, t_graph **tab)
-{
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-}
-
-void		set_string_token(t_graph *start, t_graph **tab)
-{
-	(void)start;
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_IF], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_FI], sizeof(t_graph **)));
-}
-
-void		set_if_token(t_graph *start, t_graph **tab)
-{
-	(void)start;
-	tab[E_IF]->event = RECALL;
-	tab[E_IF]->type_end = E_FI;
-	ft_lstadd(&tab[E_IF]->lst, ft_lstnew(&tab[E_BRACKET_OPEN], sizeof(t_graph **)));
-}
-
-void		set_fi_token(t_graph *start, t_graph **tab)
-{
-	(void)start;
-	ft_lstadd(&tab[E_FI]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_FI]->lst, ft_lstnew(&tab[E_FI], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_FI]->lst, ft_lstnew(&tab[E_IF], sizeof(t_graph **)));
-}
-
-
-void		set_bracket_open_token(t_graph *start, t_graph **tab)
-{
-	(void)start;
-	tab[E_BRACKET_OPEN]->event = RECALL;
-	tab[E_BRACKET_OPEN]->type_end = E_BRACKET_CLOSE;
-	ft_lstadd(&tab[E_BRACKET_OPEN]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-}
-
-void		set_bracket_close_token(t_graph *start, t_graph **tab)
-{
-	(void)start;
-	ft_lstadd(&tab[E_BRACKET_CLOSE]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_BRACKET_CLOSE]->lst, ft_lstnew(&tab[E_IF], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_BRACKET_CLOSE]->lst, ft_lstnew(&tab[E_BRACKET_OPEN], sizeof(t_graph **)));
-}
+#include "parser.h"
 
 t_graph		*generate_graph(void)
 {
@@ -94,18 +26,7 @@ t_graph		*generate_graph(void)
 	set_fi_token(start, tab);
 	set_bracket_open_token(start, tab);
 	set_bracket_close_token(start, tab);
-	return (start);	
-}
-
-
-void		print_token(enum e_type type)
-{
-	const static char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
-									, IF, IN, THEN, UNTIL, WHILE};
-	if (type < 24 || type == E_STRING)
-		ft_printf("\033[37m         --------\n         |   %c  |\n         --------\n", type < 25 ? ALLCHAR[type] : 'S');
-	else
-		ft_printf("\033[37m         --------\n         |  %-3s |\n         --------\n", script[type - 24]);
+	return (start);
 }
 
 
@@ -171,7 +92,6 @@ int			parse_tokens(t_list **lst, t_graph *graph, enum e_type ref)
 	}
 	if (ref != NB_OF_TOKENS + 1)
 	{
-
 		ft_printf("\033[31m ==> ERROR: miss token type %d\n\033[0m", ref);
 		return (FALSE);
 	}
