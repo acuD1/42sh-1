@@ -12,7 +12,8 @@ enum	e_event
 	START_GRAPH,
 	END_GRAPH,
 	RECALL,
-	BACK
+	BACK,
+	ERROR_GRAPH
 };
 
 typedef struct s_graph	t_graph;

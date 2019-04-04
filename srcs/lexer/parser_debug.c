@@ -24,8 +24,10 @@ void		print_error_debug(enum e_type type, int which)
 {
 	if (which == 0)
 		ft_printf("\033[31m ==> ERROR: token type %d is not possible\n\033[0m", type);
-	else
+	else if (which == 1)
 		ft_printf("\033[31m ==> ERROR: miss token type %d\n\033[0m", type);
+	else
+		ft_printf("\033[31m ==> ERROR: parsing error\n\033[0m");
 }
 
 void		print_result_debug(int which)

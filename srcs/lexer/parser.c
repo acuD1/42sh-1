@@ -36,23 +36,30 @@ int			parse_tokens(t_list **lst, t_graph **graph, enum e_type ref)
 			if (!(node_is_ok(token, graph)))
 			{
 				print_error_debug(token->type, 0);
+				(*graph)->event = ERROR_GRAPH;
 				return (FALSE);
 			}
 			if (ref == token->type)
 				return (TRUE);
-			if ((*graph)->event == RECALL)
-			{
-				print_arrow_debug(1);
-				*lst = (*lst)->next;
-				if (!(parse_tokens(lst, graph, (*graph)->type_end)))
-					return (FALSE);
-				print_arrow_debug(2);
-			}
 			else if ((*graph)->event == BACK)
 			{
 				token = (t_token *)(*lst)->data;
 				*lst = (*lst)->next;
-				return (ref == token->type || ref == NB_OF_TOKENS + 1);
+				if (ref == NB_OF_TOKENS + 1)
+					print_error_debug(0, 2);
+				return (ref == token->type);
+			}
+			else if ((*graph)->event == RECALL)
+			{
+				print_arrow_debug(1);
+				*lst = (*lst)->next;
+				if (!(parse_tokens(lst, graph, (*graph)->type_end)))
+				{
+					if ((*graph)->event != ERROR_GRAPH)
+						print_error_debug(0, 2);
+					return (FALSE);
+				}
+				print_arrow_debug(2);
 			}
 			else
 				print_arrow_debug(0);
@@ -62,6 +69,7 @@ int			parse_tokens(t_list **lst, t_graph **graph, enum e_type ref)
 	if (ref != NB_OF_TOKENS + 1)
 	{
 		print_error_debug(ref, 1);
+		(*graph)->event = ERROR_GRAPH;
 		return (FALSE);
 	}
 	return (TRUE);
