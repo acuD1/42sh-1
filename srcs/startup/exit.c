@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 09:37:06 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/04 11:13:13 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/04 13:43:19 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	free_registry(t_registry *reg)
 	free_lst(&(reg->env));
 	free_lst(&(reg->intern));
 	free_hash(reg->bin_hashmap, free);
-	free_hash(reg->bltin_hashmap, NULL);
+	free_hash(reg->blt_hashmap, NULL);
 }
 
-int		exit_bltin(t_registry *reg)
+int		exit_blt(t_registry *reg)
 {
 	free_registry(reg);
 	return (1);
