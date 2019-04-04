@@ -23,6 +23,7 @@ struct s_graph
 	enum	e_event	event;
 	enum	e_type	type;
 	t_list			*type_end;
+	t_list			*type_parent;
 	t_list 			*lst;
 };
 

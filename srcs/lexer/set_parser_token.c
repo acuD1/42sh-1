@@ -36,6 +36,7 @@ void		set_if_token(t_graph *start, t_graph **tab)
 void		set_elif_token(t_graph *start, t_graph **tab)
 {
 	enum e_type	type_end;
+	enum e_type	type_parent;
 
 	(void)start;
 	tab[E_IF]->event = RECALL;
@@ -47,18 +48,25 @@ void		set_elif_token(t_graph *start, t_graph **tab)
 	type_end = E_ELSE;
 	ft_lstadd(&tab[E_ELIF]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
 
+	type_parent = E_IF;
+	ft_lstadd(&tab[E_ELIF]->type_parent, ft_lstnew(&type_parent, sizeof(enum e_type *)));
+
 	ft_lstadd(&tab[E_ELIF]->lst, ft_lstnew(&tab[E_BRACKET_OPEN], sizeof(t_graph **)));
 }
 
 void		set_else_token(t_graph *start, t_graph **tab)
 {
 	enum e_type	type_end;
+	enum e_type	type_parent;
 
 	(void)start;
 	tab[E_ELSE]->event = RECALL;
 
 	type_end = E_FI;
 	ft_lstadd(&tab[E_ELSE]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
+
+	type_parent = E_IF;
+	ft_lstadd(&tab[E_ELSE]->type_parent, ft_lstnew(&type_parent, sizeof(enum e_type *)));
 
 	ft_lstadd(&tab[E_ELSE]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
 }
