@@ -21,13 +21,14 @@ t_graph		*generate_graph(void)
 		return (NULL);
 	ft_bzero(start, sizeof(t_graph));
 	set_start_token(start, tab);
-	set_string_token(start, tab);
-	set_if_token(start, tab);
-	set_else_token(start, tab);
-	set_elif_token(start, tab);
-	set_then_token(start, tab);
-	set_fi_token(start, tab);
-	set_bracket_open_token(start, tab);
-	set_bracket_close_token(start, tab);
+	set_string_token(tab);
+	set_if_token(tab);
+	set_else_token(tab);
+	set_elif_token(tab);
+	set_then_token(tab);
+	set_fi_token(tab);
+	set_bracket_open_token(tab);
+	set_bracket_close_token(tab);
+	set_pipe_token(tab);
 	return (start);
 }

@@ -62,6 +62,11 @@ int			parse_tokens(t_list **lst, t_graph **graph, t_list *ref, enum e_type start
 			}
 			if (ref_end_is_ok(ref, token->type))
 				return (TRUE);
+			if ((*graph)->event == START_GRAPH && start != NB_OF_TOKENS + 1)
+			{
+				print_error_debug(0, 2);
+				return (FALSE);
+			}
 			else if ((*graph)->event == BACK)
 			{
 				token = (t_token *)(*lst)->data;
@@ -101,7 +106,10 @@ int			parse_tokens(t_list **lst, t_graph **graph, t_list *ref, enum e_type start
 		(*graph)->event = ERROR_GRAPH;
 		return (FALSE);
 	}
-	return (TRUE);
+	if ((*graph)->end)
+		return (TRUE);
+	ft_printf("\033[31m ==> ERROR: bad last token (type %d)\033[0m\n", (*graph)->type);
+	return (FALSE);
 }
 
 void		parser(t_list *lst)

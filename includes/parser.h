@@ -22,6 +22,7 @@ struct s_graph
 {
 	enum	e_event	event;
 	enum	e_type	type;
+	int				end;
 	t_list			*type_end;
 	t_list			*type_parent;
 	t_list 			*lst;
@@ -45,14 +46,15 @@ void		print_result_debug(int which);
 */
 
 void		set_start_token(t_graph *start, t_graph **tab);
-void		set_string_token(t_graph *start, t_graph **tab);
-void		set_if_token(t_graph *start, t_graph **tab);
-void		set_elif_token(t_graph *start, t_graph **tab);
-void		set_else_token(t_graph *start, t_graph **tab);
-void		set_then_token(t_graph *start, t_graph **tab);
-void		set_fi_token(t_graph *start, t_graph **tab);
-void		set_bracket_open_token(t_graph *start, t_graph **tab);
-void		set_bracket_close_token(t_graph *start, t_graph **tab);
+void		set_string_token(t_graph **tab);
+void		set_if_token(t_graph **tab);
+void		set_elif_token(t_graph **tab);
+void		set_else_token(t_graph **tab);
+void		set_then_token(t_graph **tab);
+void		set_fi_token(t_graph **tab);
+void		set_bracket_open_token(t_graph **tab);
+void		set_bracket_close_token(t_graph **tab);
+void		set_pipe_token(t_graph **tab);
 
 /*
 ************************
