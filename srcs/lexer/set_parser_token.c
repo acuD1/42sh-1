@@ -3,6 +3,7 @@
 void		set_start_token(t_graph *start, t_graph **tab)
 {
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
+	ft_lstadd(&start->lst, ft_lstnew(&tab[E_IF], sizeof(t_graph **)));
 }
 
 void		set_string_token(t_graph *start, t_graph **tab)
@@ -23,14 +24,31 @@ void		set_if_token(t_graph *start, t_graph **tab)
 	(void)start;
 	tab[E_IF]->event = RECALL;
 
-	type_end = E_FI;
-	ft_lstadd(&tab[E_IF]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
-	type_end = E_ELIF;
-	ft_lstadd(&tab[E_IF]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
-	type_end = E_ELSE;
+	type_end = E_THEN;
 	ft_lstadd(&tab[E_IF]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
 
 	ft_lstadd(&tab[E_IF]->lst, ft_lstnew(&tab[E_BRACKET_OPEN], sizeof(t_graph **)));
+}
+
+void		set_then_token(t_graph *start, t_graph **tab)
+{
+	enum e_type	type_end;
+	enum e_type	type_parent;
+
+	(void)start;
+	tab[E_THEN]->event = RECALL;
+
+	type_end = E_FI;
+	ft_lstadd(&tab[E_THEN]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
+	type_end = E_ELIF;
+	ft_lstadd(&tab[E_THEN]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
+	type_end = E_ELSE;
+	ft_lstadd(&tab[E_THEN]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
+
+	type_parent = E_IF;
+	ft_lstadd(&tab[E_THEN]->type_parent, ft_lstnew(&type_parent, sizeof(enum e_type *)));
+
+	ft_lstadd(&tab[E_THEN]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
 }
 
 void		set_elif_token(t_graph *start, t_graph **tab)
@@ -39,13 +57,9 @@ void		set_elif_token(t_graph *start, t_graph **tab)
 	enum e_type	type_parent;
 
 	(void)start;
-	tab[E_IF]->event = RECALL;
+	tab[E_ELIF]->event = RECALL;
 
-	type_end = E_FI;
-	ft_lstadd(&tab[E_ELIF]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
-	type_end = E_ELIF;
-	ft_lstadd(&tab[E_IF]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
-	type_end = E_ELSE;
+	type_end = E_THEN;
 	ft_lstadd(&tab[E_ELIF]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
 
 	type_parent = E_IF;
@@ -97,8 +111,7 @@ void		set_bracket_close_token(t_graph *start, t_graph **tab)
 {
 	(void)start;
 	tab[E_BRACKET_CLOSE]->event = BACK;
-	ft_lstadd(&tab[E_BRACKET_CLOSE]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_BRACKET_CLOSE]->lst, ft_lstnew(&tab[E_IF], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_BRACKET_CLOSE]->lst, ft_lstnew(&tab[E_THEN], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_BRACKET_CLOSE]->lst, ft_lstnew(&tab[E_BRACKET_OPEN], sizeof(t_graph **)));
 }
 

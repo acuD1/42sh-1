@@ -1,13 +1,31 @@
 #include "parser.h"
 
-void		print_token_debug(enum e_type type)
+void		print_token_debug(t_token *token)
 {
+	static int	legacy = -1;
 	const static char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
 									, IF, IN, THEN, UNTIL, WHILE};
-	if (type < 24 || type == E_STRING)
-		ft_printf("\033[37m         --------\n         |   %c  |\n         --------\n", type < 25 ? ALLCHAR[type] : 'S');
+	const static char *leg_type[3] = {"Command", "Option", "Argument" };
+
+	if (token->type == E_STRING)
+	{
+		if (legacy == -1)
+			legacy = 0;
+		else if (legacy == 0)
+			legacy = *token->data == '-' ? 1 : 2;
+		else if (legacy == 1 && (*token->data != '-'))
+			legacy = 2;
+	}
 	else
-		ft_printf("\033[37m         --------\n         |  %-3s |\n         --------\n", script[type - 24]);
+		legacy = -1;
+	if (token->type == E_STRING)
+		ft_printf("\033[37m         --------\n         |   %c  | data [%s] | type [%s]\n         --------\n", 'S', token->data, leg_type[legacy]);
+	else if (token->type < 24)
+		ft_printf("\033[37m         --------\n         |   %c  |\n         --------\n", 		ALLCHAR[token->type]);
+	else
+		ft_printf("\033[37m         --------\n         | %-5s|\n         --------\n", script[token->type - 24]);
+	if (ft_strequ(token->data, "--"))
+		legacy = 2;
 }
 
 void		print_arrow_debug(int which)

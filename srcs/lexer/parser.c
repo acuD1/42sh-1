@@ -14,7 +14,7 @@ int			node_is_ok(t_token *token, t_graph **graph)
 		if (node->type == token->type)
 		{
 			*graph = node;
-			print_token_debug(node->type);
+			print_token_debug(token);
 			tmp->lst = tmp_lst;
 			return (TRUE);
 		}

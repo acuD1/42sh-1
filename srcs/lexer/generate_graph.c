@@ -25,6 +25,7 @@ t_graph		*generate_graph(void)
 	set_if_token(start, tab);
 	set_else_token(start, tab);
 	set_elif_token(start, tab);
+	set_then_token(start, tab);
 	set_fi_token(start, tab);
 	set_bracket_open_token(start, tab);
 	set_bracket_close_token(start, tab);

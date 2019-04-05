@@ -33,7 +33,7 @@ struct s_graph
 ************************
 */
 
-void		print_token_debug(enum e_type type);
+void		print_token_debug(t_token *token);
 void		print_arrow_debug(int which);
 void		print_error_debug(enum e_type type, int which);
 void		print_result_debug(int which);
@@ -49,6 +49,7 @@ void		set_string_token(t_graph *start, t_graph **tab);
 void		set_if_token(t_graph *start, t_graph **tab);
 void		set_elif_token(t_graph *start, t_graph **tab);
 void		set_else_token(t_graph *start, t_graph **tab);
+void		set_then_token(t_graph *start, t_graph **tab);
 void		set_fi_token(t_graph *start, t_graph **tab);
 void		set_bracket_open_token(t_graph *start, t_graph **tab);
 void		set_bracket_close_token(t_graph *start, t_graph **tab);
