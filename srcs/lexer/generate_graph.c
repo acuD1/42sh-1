@@ -30,5 +30,7 @@ t_graph		*generate_graph(void)
 	set_bracket_open_token(tab);
 	set_bracket_close_token(tab);
 	set_pipe_token(tab);
+	set_quote_token(tab);
+	set_dbquote_token(tab);
 	return (start);
 }

@@ -7,7 +7,7 @@ void		print_token_debug(t_token *token)
 									, IF, IN, THEN, UNTIL, WHILE};
 	const static char *leg_type[3] = {"Command", "Option", "Argument" };
 
-	if (token->type == E_STRING)
+	if (token->type == E_STRING || token->type == E_QUOTE || token->type == E_DB_QUOTE)
 	{
 		if (legacy == -1)
 			legacy = 0;
@@ -18,8 +18,9 @@ void		print_token_debug(t_token *token)
 	}
 	else
 		legacy = -1;
-	if (token->type == E_STRING)
-		ft_printf("\033[37m         --------\n         |   %c  | data [%s] | type [%s]\n         --------\n", 'S', token->data, leg_type[legacy]);
+	if (token->type == E_STRING || token->type == E_QUOTE 
+		|| token->type == E_DB_QUOTE)
+		ft_printf("\033[37m         --------\n         |   %c  | data [%s] | type [%s]\n         --------\n", token->type == E_STRING ? 'S' : ALLCHAR[token->type], token->data, leg_type[legacy]);
 	else if (token->type < 24)
 		ft_printf("\033[37m         --------\n         |   %c  |\n         --------\n", 		ALLCHAR[token->type]);
 	else

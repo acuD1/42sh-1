@@ -55,6 +55,8 @@ void		set_fi_token(t_graph **tab);
 void		set_bracket_open_token(t_graph **tab);
 void		set_bracket_close_token(t_graph **tab);
 void		set_pipe_token(t_graph **tab);
+void		set_quote_token(t_graph **tab);
+void		set_dbquote_token(t_graph **tab);
 
 /*
 ************************
