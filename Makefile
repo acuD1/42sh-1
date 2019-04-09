@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
+#    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/09 19:17:52 by skuppers         ###   ########.fr        #
+#    Updated: 2019/04/09 19:54:42 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 #								    Version                                    #
 # ---------------------------------------------------------------------------- #
 VERSION_RELEASE = alpha
-VERSION_MAJOR = 0 
+VERSION_MAJOR = 0
 VERSION_MINOR = 0
 VERSION_PATCH = 0
 
@@ -66,7 +66,7 @@ TOUCH = touch
 #									 Output                                    #
 # ---------------------------------------------------------------------------- #
 
-# One Line 
+# One Line
 ONELINE =\e[1A\r
 
 # Colors
@@ -158,6 +158,8 @@ LINE += launch.c
 LINE += free.c
 LINE += utils.c
 LINE += internals.c
+LINE += hash.c
+LINE += exit.c
 
 #						- - - - -  Debug Log  - - - - -
 
@@ -186,7 +188,7 @@ LINE += redraw_prompt.c
 LINE += load_interface_config.c
 LINE += load_termcap_strings.c
 
-#Core 
+#Core
 LINE += invoke_interactive.c
 LINE += prompt.c
 LINE += sub_prompt.c
@@ -228,7 +230,7 @@ $(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJL)
 $(OBJL) : $(OPATH)%.o : %.c $(INCS) 
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
-	
+
 $(LIB) : FORCE
 	$(MAKE) -C $(LPATH)
 
@@ -246,11 +248,11 @@ $(OBJT) : $(OPATH)%.o : %.c $(INCS)
 
 #					 - - - - - Debug Compilation - - - - -                     #
 
-$(NAMEDB) : $(CLEAR) $(LIBDB) $(OPATH) $(OBJD) 
+$(NAMEDB) : $(CLEAR) $(LIBDB) $(OPATH) $(OBJD)
 	$(LINKD) $(DFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBD) $(LFLAGS) -o $@ $(OBJD)
 	$(PRINT) "$(GREEN)$@ is ready $(NC)"
 
-$(OBJD) : $(OPATH)db%.o : %.c $(INCS) 
+$(OBJD) : $(OPATH)db%.o : %.c $(INCS)
 	$(DEBUG) $(DFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $< for debug                   $(NC)\n"
 
@@ -266,12 +268,14 @@ $(OPATH) :
 clean :
 	$(MAKE) -C $(LPATH) clean
 	$(CLEANUP) $(OPATH)
+	rm -rf $(NAME).dSYM
 	$(PRINT) ".o file deleted\n"
 
 fclean : clean
 	$(MAKE) -C $(LPATH) fclean
 	$(CLEANUP) $(NAME)
 	$(CLEANUP) $(NAMEDB)
+	rm -rf $(NAME).dSYM
 	$(PRINT) "Executables destroyed\n"
 
 re : fclean all
