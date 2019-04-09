@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 13:26:12 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 15:53:26 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 16:30:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,9 @@ int main(void)
 
 	test_deletion();
 	print_separator();
+
+	test_wjump();
+	print_separator();
+
 	return (result);
 }

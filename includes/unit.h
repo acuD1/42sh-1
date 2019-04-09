@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 13:27:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 15:53:29 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 16:30:27 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #define T_CHMOD 766
 #define HOME "/Users/skuppers"
 
+int test_wjump(void);
 int test_insertion(void);
 int test_deletion(void);
 int	test_clipboard(void);

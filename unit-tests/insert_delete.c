@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 15:31:43 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 16:02:54 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 16:16:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,11 +134,11 @@ int test_delete_end(void)
 		return (FALSE);
 
 	itf->vector = ft_vctnew(8);
-	itf->window->cursor_index = 0;
+	itf->window->cursor_index = 4;
 	ft_memset(itf->vector->buffer, 97, 4);
 
 	tc_ak_delete(itf);
-	if (!ft_strequ("aaa", itf->vector->buffer) || itf->window->cursor_index != 0)
+	if (!ft_strequ("aaaa", itf->vector->buffer) || itf->window->cursor_index != 4)
 		return (FALSE);
 	return (TRUE);
 }
@@ -151,53 +151,98 @@ int test_delete_between(void)
 		return (FALSE);
 
 	itf->vector = ft_vctnew(8);
-	itf->window->cursor_index = 0;
+	itf->window->cursor_index = 2;
 	ft_memset(itf->vector->buffer, 97, 4);
 
 	tc_ak_delete(itf);
-	if (!ft_strequ("aaa", itf->vector->buffer) || itf->window->cursor_index != 0)
+	if (!ft_strequ("aaa", itf->vector->buffer) || itf->window->cursor_index != 2)
 		return (FALSE);
 	return (TRUE);
-
 }
 
 int test_backspace_easy(void)
 {
+	t_registry *sh;
+	t_interface_registry *itf;
+	if (create_virtual_registry(&sh, &itf) != 0)
+		return (FALSE);
 
+	itf->vector = ft_vctnew(8);
+	itf->window->cursor_index = 1;
+	ft_memset(itf->vector->buffer, 97, 4);
 
+	tc_ak_backspace(itf);
+	if (!ft_strequ("aaa", itf->vector->buffer) || itf->window->cursor_index != 0)
+		return (FALSE);
+	return (TRUE);
 }
 
 int test_backspace_start(void)
 {
+	t_registry *sh;
+	t_interface_registry *itf;
+	if (create_virtual_registry(&sh, &itf) != 0)
+		return (FALSE);
 
+	itf->vector = ft_vctnew(8);
+	itf->window->cursor_index = 0;
+	ft_memset(itf->vector->buffer, 97, 4);
+
+	tc_ak_backspace(itf);
+	if (!ft_strequ("aaaa", itf->vector->buffer) || itf->window->cursor_index != 0)
+		return (FALSE);
+	return (TRUE);
 }
 
 int test_backspace_end(void)
 {
+	t_registry *sh;
+	t_interface_registry *itf;
+	if (create_virtual_registry(&sh, &itf) != 0)
+		return (FALSE);
 
+	itf->vector = ft_vctnew(8);
+	itf->window->cursor_index = 4;
+	ft_memset(itf->vector->buffer, 97, 4);
 
+	tc_ak_backspace(itf);
+	if (!ft_strequ("aaa", itf->vector->buffer) || itf->window->cursor_index != 3)
+		return (FALSE);
+	return (TRUE);
 }
 
 int test_backspace_between(void)
 {
+	t_registry *sh;
+	t_interface_registry *itf;
+	if (create_virtual_registry(&sh, &itf) != 0)
+		return (FALSE);
 
+	itf->vector = ft_vctnew(8);
+	itf->window->cursor_index = 2;
+	ft_memset(itf->vector->buffer, 97, 4);
+
+	tc_ak_backspace(itf);
+	if (!ft_strequ("aaa", itf->vector->buffer) || itf->window->cursor_index != 1)
+		return (FALSE);
+	return (TRUE);
 }
 
 
-int test_deletion()
+int test_deletion(void)
 {
 	t_stack tests;
 	ft_stckinit(&tests);
 
-	load_test(&tests, "Delete easy", test_delete_easy);
-	load_test(&tests, "Delete start", test_delete_start);
-	load_test(&tests, "Delete end", test_delete_end);
-	load_test(&tests, "Delete between", test_delete_between);
+	load_test(&tests, "Delete end			|", test_delete_end);
+	load_test(&tests, "Delete between		|", test_delete_between);
+	load_test(&tests, "Delete start			|", test_delete_start);
+	load_test(&tests, "Delete easy			|", test_delete_easy);
 
-	load_test(&tests, "Backspace easy", test_backspace_easy);
-	load_test(&tests, "Backspace start", test_backspace_start);
-	load_test(&tests, "Backspace end", test_backspace_end);
-	load_test(&tests, "Backspace between", test_backspace_between);
+	load_test(&tests, "Backspace end			|", test_backspace_end);
+	load_test(&tests, "Backspace between		|", test_backspace_between);
+	load_test(&tests, "Backspace start		|", test_backspace_start);
+	load_test(&tests, "Backspace easy		|", test_backspace_easy);
 
 	return (run_test(&tests));
 }
