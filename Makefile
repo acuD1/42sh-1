@@ -6,7 +6,7 @@
 #    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/09 16:30:23 by skuppers         ###   ########.fr        #
+#    Updated: 2019/04/09 18:24:22 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,7 +88,8 @@ LPATH = libft/
 OPATH = objs/
 IPATH += includes/
 IPATH += libft/includes/
-TPATH = unit-tests
+TPATH += unit-tests
+TPATH += unit-tests/interface
 _SPATH += interface
 _SPATH += interface/action_keys
 _SPATH += interface/action_keys/clipboard
