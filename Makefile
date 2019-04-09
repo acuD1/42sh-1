@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/09 19:54:42 by cempassi         ###   ########.fr        #
+#    Updated: 2019/04/09 20:31:53 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,10 @@ NAMEDB = 42shdb
 NAMET = unit
 LIBFT = libft.a
 LIBFTDB = libftdb.a
-OBJL = $(patsubst %.c, $(OPATH)%.o, $(LINE) $(LINEM))
+OBJS = $(patsubst %.c, $(OPATH)%.o, $(LINE) $(LEX_SRCS) $(LINEM))
 OBJT = $(patsubst %.c, $(OPATH)%.o, $(LINE) $(UNIT) $(UNITM))
-OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINE) $(LINEM))
+OBJDLIN = $(patsubst %.c, $(OPATH)db%.o, $(LINE) $(LINEM))
+OBJDLEX = $(patsubst %.c, $(OPATH)db%.o, $(LEXS) $(LEXM))
 LIB = $(addprefix $(LPATH), $(LIBFT))
 LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 # ---------------------------------------------------------------------------- #
@@ -90,19 +91,20 @@ IPATH += includes/
 IPATH += libft/includes/
 TPATH += unit-tests
 TPATH += unit-tests/interface
-_SPATH += interface
-_SPATH += interface/action_keys
-_SPATH += interface/action_keys/clipboard
-_SPATH += interface/action_keys/movement
-_SPATH += interface/core
-_SPATH += interface/init
-_SPATH += interface/misc
-_SPATH += interface/redraw
-_SPATH += interface/utils
-_SPATH += logging
-_SPATH += signals
-_SPATH += startup
-SPATH += $(addprefix srcs/, $(_SPATH))
+LINE_PATH += interface
+LINE_PATH += interface/action_keys
+LINE_PATH += interface/action_keys/clipboard
+LINE_PATH += interface/action_keys/movement
+LINE_PATH += interface/core
+LINE_PATH += interface/init
+LINE_PATH += interface/misc
+LINE_PATH += interface/redraw
+LINE_PATH += interface/utils
+LINE_PATH += logging
+LINE_PATH += signals
+LINE_PATH += startup
+LEXER_PATH += lexer/
+SPATH += $(addprefix srcs/, $(LINE_PATH) $(LEXER_PATH))
 
 # ---------------------------------------------------------------------------- #
 #									 vpath                                     #
@@ -133,8 +135,8 @@ LFLAGS = -ltermcap
 INCS += 21sh.h
 INCS += log.h
 INCS += line_edit.h
-
 INCS += unit.h
+INCS += lexer.h
 
 # ---------------------------------------------------------------------------- #
 #									Sources                                    #
@@ -208,29 +210,45 @@ LINE += execute_word_jumping_ak.c
 LINE += execute_ctrl_ak.c
 LINE += execute_special_ak.c
 
+#						   - - - - - Lexer - - - - -                           #
+
+LEX_SRCS += lexer.c
+LEX_SRCS += machine_interface.c
+LEX_SRCS += states.c
+LEX_SRCS += generate_token.c
+LEX_SRCS += quotes_states.c
+LEX_SRCS += sign_states.c
+LEX_SRCS += expansion_states.c
+
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #
 # ---------------------------------------------------------------------------- #
 
-all : $(NAME)
+all : 21 lexer
 
-debug : $(NAMEDB)
+21 : $(21SH)
+
+21debug : $(21SHDB)
+
+lexer : $(LEXER)
+	
+lexerdb : $(LEXERDB)
 
 test : $(NAMET)
 	./$<
 
 #					 - - - - - Normal Compilation - - - - -                    #
 
-$(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJL) 
+$(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) 
 	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
 	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
-	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -DBUILD=$(BUILD_NUMBER) -o  $@ $(OBJL)
+	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -DBUILD=$(BUILD_NUMBER) -o  $@ $(OBJS)
 	$(PRINT) "$(GREEN)$@ build $(BUILD_NUMBER) is ready $(NC)"
 
-$(OBJL) : $(OPATH)%.o : %.c $(INCS) 
+$(OBJS) : $(OPATH)%.o : %.c $(INCS) 
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
-
+	
 $(LIB) : FORCE
 	$(MAKE) -C $(LPATH)
 
@@ -252,7 +270,7 @@ $(NAMEDB) : $(CLEAR) $(LIBDB) $(OPATH) $(OBJD)
 	$(LINKD) $(DFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBD) $(LFLAGS) -o $@ $(OBJD)
 	$(PRINT) "$(GREEN)$@ is ready $(NC)"
 
-$(OBJD) : $(OPATH)db%.o : %.c $(INCS)
+$(OBJD) : $(OPATH)db%.o : %.c $(INCS) 
 	$(DEBUG) $(DFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $< for debug                   $(NC)\n"
 
@@ -268,14 +286,14 @@ $(OPATH) :
 clean :
 	$(MAKE) -C $(LPATH) clean
 	$(CLEANUP) $(OPATH)
-	rm -rf $(NAME).dSYM
+	$(CLEANUP) $(NAME).dSYM
 	$(PRINT) ".o file deleted\n"
 
 fclean : clean
 	$(MAKE) -C $(LPATH) fclean
 	$(CLEANUP) $(NAME)
 	$(CLEANUP) $(NAMEDB)
-	rm -rf $(NAME).dSYM
+	$(CLEANUP) $(NAMET)
 	$(PRINT) "Executables destroyed\n"
 
 re : fclean all
@@ -285,5 +303,5 @@ help :
 
 FORCE:
 
-.PHONY : all clean fclean re help FORCE
-.SILENT:
+.PHONY : all 21 21debug lexer lexerdb clean fclean re help FORCE
+#.SILENT:
