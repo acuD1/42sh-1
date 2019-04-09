@@ -1,0 +1,12 @@
+Build x
+
+Known bugs:
+	[Interface]
+		IN PS2 PROMPT:
+			- Segfaults when spamming return
+			- Word jumping is not done correctly when going back to the first word
+
+TODO:
+	[Interface]
+		- Optimise intern variable handling - Iteration.2
+		- Make unit tests
