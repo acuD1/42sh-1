@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/08 16:19:46 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 19:10:36 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	fill_interface_data(t_registry *shell_reg,
 	itf->interface_state = INT_PS1_VALUE;
 	if ((init_win_struct(shell_reg, itf)) == NULL)
 		return (-1);
-	itf->vector = vector;
+	itf->line = vector;
 	return (0);
 }
 
@@ -66,16 +66,16 @@ char		*prompt(t_registry *shell_reg,
 		ft_bzero(character, READ_SIZE);
 		if (read(0, character, READ_SIZE) == -1)
 		{
-			prompt_read_failed(shell_reg, itf_reg->vector);
+			prompt_read_failed(shell_reg, itf_reg->line);
 			return (NULL);
 		}
-		itf_reg->window->cursor_index = handle_input_key(character, itf_reg);
+		handle_input_key(character, itf_reg);
 		// Ctrl+D EOF handling
-		if (itf_reg->vector->buffer[0] == 4)
-			return (itf_reg->vector->buffer);
+		if (itf_reg->line->buffer[0] == 4)
+			return (itf_reg->line->buffer);
 	}
-	itf_reg->window->cursor_index = tc_ak_end(itf_reg);
+	tc_ak_end(itf_reg);
 	validate_input_quoting(shell_reg, itf_reg);
 	// Handle history here
-	return (itf_reg->vector->buffer);
+	return (itf_reg->line->buffer);
 }

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:14:28 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/02 09:38:15 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 19:19:48 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,33 @@
 **	Autocompletion
 */
 
-int	tc_ak_hightab(t_interface_registry *itf_reg)
+int		tc_ak_hightab(t_interface_registry *itf)
 {
-	return (itf_reg->window->cursor_index);
+	(void)itf;
+	return (0);
 }
 
-int	tc_ak_delete(t_interface_registry *itf_reg)
+int		tc_ak_delete(t_interface_registry *itf)
 {
-	shift_content_left_once(itf_reg->vector,
-			itf_reg->window->cursor_index);
-	itf_reg->window->cursor_index = redraw_after_cursor(itf_reg);
-	return (itf_reg->window->cursor_index);
+	if (validate_interface_content(itf) != 0)
+		return (-1);
+
+	shift_content_left_once(itf->line,
+			itf->window->cursor);
+	redraw_after_cursor(itf);
+	return (0);
 }
 
-int	tc_ak_backspace(t_interface_registry *itf_reg)
+int		tc_ak_backspace(t_interface_registry *itf)
 {
-	if (itf_reg->window->cursor_index >= 1)
+	if (validate_interface_content(itf) != 0)
+		return (-1);
+
+	if (itf->window->cursor >= 1)
 	{
-		itf_reg->window->cursor_index = tc_ak_arrow_left(itf_reg);
-		shift_content_left_once(itf_reg->vector, itf_reg->window->cursor_index);
-		itf_reg->window->cursor_index = redraw_after_cursor(itf_reg);
+		tc_ak_arrow_left(itf);
+		shift_content_left_once(itf->line, itf->window->cursor);
+		redraw_after_cursor(itf);
 	}
-	return (itf_reg->window->cursor_index);
+	return (0);
 }

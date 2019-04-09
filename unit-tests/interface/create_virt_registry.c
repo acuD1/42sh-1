@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 11:42:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/08 12:05:23 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 19:21:52 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int create_virtual_registry(t_registry **sh, t_interface_registry **itf)
 	if (fill_interface_data(*sh, *itf) != 0)
 		return (-1);
 	(*itf)->window->max_line_len = 65535;
-	(*itf)->window->cursor_index = 0;
+	(*itf)->window->cursor = 0;
 	return (0);
 }
 

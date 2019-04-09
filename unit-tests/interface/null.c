@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 11:45:17 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/08 14:12:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 19:27:05 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static int test0_cl(void)
 {
-	unsigned int cursor_pos = 0;
+	int c_pos = 0;
 
-	cursor_pos = tc_ak_cut_line(NULL);
-	if (cursor_pos != 0)
+	c_pos = tc_ak_cut_line(NULL);
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -28,12 +28,12 @@ static int test1_cl(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->clipboard = NULL;
+	itf->clip = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_cut_line(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -44,12 +44,12 @@ static int test2_cl(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = NULL;
+	itf->line = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_cut_line(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -60,12 +60,12 @@ static int test3_cl(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->clipboard->buffer = NULL;
+	itf->clip->buffer = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_cut_line(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -76,12 +76,12 @@ static int test4_cl(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector->buffer = NULL;
+	itf->line->buffer = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_cut_line(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -90,10 +90,10 @@ static int test4_cl(void)
 
 static int test0_cl_bf(void)
 {
-	unsigned int cursor_pos = 0;
+	int c_pos = 0;
 
-	cursor_pos = tc_ak_cut_before_cursor(NULL);
-	if (cursor_pos != 0)
+	c_pos = tc_ak_cut_before_cursor(NULL);
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -104,12 +104,12 @@ static int test1_cl_bf(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->clipboard = NULL;
+	itf->clip = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_cut_before_cursor(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -120,12 +120,12 @@ static int test2_cl_bf(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = NULL;
+	itf->line = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_cut_before_cursor(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -136,12 +136,12 @@ static int test3_cl_bf(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->clipboard->buffer = NULL;
+	itf->clip->buffer = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_cut_before_cursor(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -152,12 +152,12 @@ static int test4_cl_bf(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector->buffer = NULL;
+	itf->line->buffer = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_cut_before_cursor(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -166,10 +166,10 @@ static int test4_cl_bf(void)
 
 static int test0_cl_af(void)
 {
-	unsigned int cursor_pos = 0;
+	int c_pos = 0;
 
-	cursor_pos = tc_ak_cut_after_cursor(NULL);
-	if (cursor_pos != 0)
+	c_pos = tc_ak_cut_after_cursor(NULL);
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -180,12 +180,12 @@ static int test1_cl_af(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->clipboard = NULL;
+	itf->clip = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_cut_after_cursor(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -196,12 +196,12 @@ static int test2_cl_af(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = NULL;
+	itf->line = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_cut_after_cursor(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -212,12 +212,12 @@ static int test3_cl_af(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->clipboard->buffer = NULL;
+	itf->clip->buffer = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_cut_after_cursor(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -228,12 +228,12 @@ static int test4_cl_af(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector->buffer = NULL;
+	itf->line->buffer = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_cut_after_cursor(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -242,10 +242,10 @@ static int test4_cl_af(void)
 
 static int test0_cp(void)
 {
-	unsigned int cursor_pos = 0;
+	int c_pos = 0;
 
-	cursor_pos = tc_ak_copy_line(NULL);
-	if (cursor_pos != 0)
+	c_pos = tc_ak_copy_line(NULL);
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -256,12 +256,12 @@ static int test1_cp(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->clipboard = NULL;
+	itf->clip = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_copy_line(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -272,12 +272,12 @@ static int test2_cp(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = NULL;
+	itf->line = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_copy_line(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -288,12 +288,12 @@ static int test3_cp(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->clipboard->buffer = NULL;
+	itf->clip->buffer = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_copy_line(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -304,12 +304,12 @@ static int test4_cp(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector->buffer = NULL;
+	itf->line->buffer = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_copy_line(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -318,10 +318,10 @@ static int test4_cp(void)
 
 static int test0_cp_bf(void)
 {
-	unsigned int cursor_pos = 0;
+	int c_pos = 0;
 
-	cursor_pos = tc_ak_copy_before_cursor(NULL);
-	if (cursor_pos != 0)
+	c_pos = tc_ak_copy_before_cursor(NULL);
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -332,12 +332,12 @@ static int test1_cp_bf(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->clipboard = NULL;
+	itf->clip = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_copy_before_cursor(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -348,12 +348,12 @@ static int test2_cp_bf(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = NULL;
+	itf->line = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_copy_before_cursor(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -364,12 +364,12 @@ static int test3_cp_bf(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->clipboard->buffer = NULL;
+	itf->clip->buffer = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_copy_before_cursor(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -380,12 +380,12 @@ static int test4_cp_bf(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector->buffer = NULL;
+	itf->line->buffer = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_copy_before_cursor(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -394,10 +394,10 @@ static int test4_cp_bf(void)
 
 static int test0_cp_af(void)
 {
-	unsigned int cursor_pos = 0;
+	int c_pos = 0;
 
-	cursor_pos = tc_ak_copy_after_cursor(NULL);
-	if (cursor_pos != 0)
+	c_pos = tc_ak_copy_after_cursor(NULL);
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -408,12 +408,12 @@ static int test1_cp_af(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->clipboard = NULL;
+	itf->clip = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_copy_after_cursor(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -424,12 +424,12 @@ static int test2_cp_af(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = NULL;
+	itf->line = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_copy_after_cursor(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -440,12 +440,12 @@ static int test3_cp_af(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->clipboard->buffer = NULL;
+	itf->clip->buffer = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_copy_after_cursor(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -456,21 +456,21 @@ static int test4_cp_af(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector->buffer = NULL;
+	itf->line->buffer = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_copy_after_cursor(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
 // --------------------------------------------------------------
 static int test_paste1(void)
 {
-	size_t c_pos = 0;
+	int c_pos = 0;
 	c_pos = tc_ak_paste_clipboard(NULL);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -481,12 +481,12 @@ static int test_paste2(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->clipboard = NULL;
+	itf->clip = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_paste_clipboard(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -497,12 +497,12 @@ static int test_paste3(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = NULL;
+	itf->line = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_paste_clipboard(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -513,12 +513,12 @@ static int test_paste4(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->clipboard->buffer = NULL;
+	itf->clip->buffer = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_paste_clipboard(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -529,12 +529,12 @@ static int test_paste5(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector->buffer = NULL;
+	itf->line->buffer = NULL;
 
-	size_t c_pos = 0;
-	itf->window->cursor_index = 0;
+	int c_pos = 0;
+	itf->window->cursor = 0;
 	c_pos = tc_ak_paste_clipboard(itf);
-	if (c_pos != 0)
+	if (c_pos != -1)
 		return (FALSE);
 	return (TRUE);
 }

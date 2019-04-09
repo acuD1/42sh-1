@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/03 11:15:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 19:15:49 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void				redraw_prompt(int signo)
 	t_interface_registry *itf_ptr;
 
 	itf_ptr = g_interface_registry_pointer;
-	itf_ptr->window->cursor_index = tc_ak_end(itf_ptr);
+	tc_ak_end(itf_ptr);
 
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
 		print_words("\n", itf_ptr);
@@ -29,11 +29,11 @@ void				redraw_prompt(int signo)
 	itf_ptr->window->x = 0;
 	itf_ptr->window->y = 0;
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
-		ft_vctreset(itf_ptr->vector);
+		ft_vctreset(itf_ptr->line);
 
 	print_words(get_intern_var(itf_ptr->sh_reg, itf_ptr->interface_state), itf_ptr);
 
-	itf_ptr->window->cursor_index = 0;
+	itf_ptr->window->cursor = 0;
 }
 
 static void				interface_resize_handler(int signo)
@@ -61,13 +61,13 @@ static void				interface_resize_handler(int signo)
 	if ((itf_ptr->window->cols
 		< (size_t)(ft_strlen(get_intern_var(itf_ptr->sh_reg, INT_PS1)) * 2)
 		|| itf_ptr->window->rows < 3)
-			|| ft_vctlen(itf_ptr->vector) > (size_t)itf_ptr->window->max_line_len)
+			|| ft_vctlen(itf_ptr->line) > (size_t)itf_ptr->window->max_line_len)
 		print_words("Terminal window size too small :-(", itf_ptr);
 	else
 	{
 		redraw_prompt(ft_atoi(INT_MAGIC_NUMBER));
 		redraw_input_line(itf_ptr);
-		itf_ptr->window->cursor_index = tc_ak_end(itf_ptr);
+		tc_ak_end(itf_ptr);
 	}
 }
 
@@ -80,9 +80,9 @@ void					define_interface_default_signals(t_registry *sh_reg)
 }
 
 void					define_interface_signal_behavior(
-				t_interface_registry *itf_reg, t_registry *shell_registry)
+				t_interface_registry *itf, t_registry *shell_registry)
 {
-	g_interface_registry_pointer = itf_reg;
+	g_interface_registry_pointer = itf;
 	if (signal(SIGWINCH, interface_resize_handler) == SIG_ERR)
 		log_print(shell_registry, LOG_ERROR,
 						"Error catching the resize signal.\n");

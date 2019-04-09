@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:49:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/03 11:15:42 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 19:13:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_termcaps		*init_termcap_calls(t_registry *reg)
 }
 
 void			init_termcap_actions(
-		int (*tc_call[AK_AMOUNT])(t_interface_registry *itf_reg))
+		int (*tc_call[AK_AMOUNT])(t_interface_registry *itf))
 {
 	tc_call[AK_ARROW_RIGHT] = &tc_ak_arrow_right;
 	tc_call[AK_ARROW_LEFT] = &tc_ak_arrow_left;
@@ -94,14 +94,14 @@ void			init_termcap_actions(
 	tc_call[AK_CTRL_DOWN] = &tc_ak_ctrl_down;
 }
 
-int				setup_keycodes(t_interface_registry *itf_reg)
+int				setup_keycodes(t_interface_registry *itf)
 {
-	init_ak_keycodes(itf_reg);
+	init_ak_keycodes(itf);
 	return (0);
 }
 
-int				link_actions_to_keys(t_interface_registry *itf_reg)
+int				link_actions_to_keys(t_interface_registry *itf)
 {
-	init_termcap_actions(itf_reg->tc_call);
+	init_termcap_actions(itf->tc_call);
 	return (0);
 }

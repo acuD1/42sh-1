@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:54:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/03 11:16:22 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 19:12:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ static void		set_ifs_char(t_interface_registry *itf_reg)
 	char ifs_char;
 
 	ifs_char = ft_atoi(get_intern_var(itf_reg->sh_reg, INT_IFS));
-	itf_reg->window->cursor_index = tc_ak_end(itf_reg);
-	itf_reg->vector->buffer[itf_reg->window->cursor_index] = ifs_char;
-	itf_reg->window->cursor_index++;
+	itf_reg->window->cursor = tc_ak_end(itf_reg);
+	itf_reg->line->buffer[itf_reg->window->cursor] = ifs_char;
+	itf_reg->window->cursor++;
 }
 
 static void		prepare_for_ps2(t_interface_registry *itf_reg)
 {
-	if (itf_reg->window->cursor_index
-			> (int)itf_reg->vector->size - 2)
-		ft_vctrescale(itf_reg->vector);
+	if (itf_reg->window->cursor
+			> itf_reg->line->size - 2)
+		ft_vctrescale(itf_reg->line);
 	set_ifs_char(itf_reg);
 	itf_reg->interface_state = INT_PS2;
 }
@@ -64,7 +64,7 @@ void			validate_input_quoting(t_registry *sh_reg,
 
 	index = -1;
 	quote = 0;
-	string = itf_reg->vector->buffer;
+	string = itf_reg->line->buffer;
 	length = (int)ft_strlen(string);
 	while (index < length && string[++index] != '\0')
 	{

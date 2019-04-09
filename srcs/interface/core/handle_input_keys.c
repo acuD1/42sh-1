@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 15:36:50 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 19:10:20 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@ static short		is_printable(char c[READ_SIZE])
 	return (0);
 }
 
-unsigned int	handle_printable_char(char c,
+void	handle_printable_char(char c,
 		t_interface_registry *itf_reg)
 {
 	unsigned int	tmp_index;
 	t_vector		*vector_ptr;
 
-	vector_ptr = itf_reg->vector;
-	tmp_index = itf_reg->window->cursor_index;
-	if (ft_vctlen(itf_reg->vector) >= (size_t)itf_reg->window->max_line_len)
-		return (itf_reg->window->cursor_index);
+	vector_ptr = itf_reg->line;
+	tmp_index = itf_reg->window->cursor;
+	if (ft_vctlen(itf_reg->line) >= (size_t)itf_reg->window->max_line_len)
+		return ;
 	if (tmp_index > (vector_ptr->size - 2))
-		ft_vctrescale(itf_reg->vector);
-	vector_ptr = itf_reg->vector;
+		ft_vctrescale(itf_reg->line);
+	vector_ptr = itf_reg->line;
 	if (tmp_index != ft_vctlen(vector_ptr))
 	{
 		shift_content_right_once(vector_ptr, tmp_index);
@@ -41,8 +41,7 @@ unsigned int	handle_printable_char(char c,
 	else
 		vector_ptr->buffer[ft_vctlen(vector_ptr)] = c;
 	redraw_after_cursor(itf_reg);
-	itf_reg->window->cursor_index = tc_ak_arrow_right(itf_reg);
-	return (itf_reg->window->cursor_index);
+	tc_ak_arrow_right(itf_reg);
 }
 
 unsigned long		compute_mask(char c[READ_SIZE])
@@ -67,14 +66,15 @@ unsigned long		compute_mask(char c[READ_SIZE])
 }
 
 //	ft_dprintf(1, "|%d|%d|%d|%d|%d|%d|%d|%d|\n",c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7]);
-int					handle_input_key(char c[READ_SIZE],
+
+void				handle_input_key(char c[READ_SIZE],
 				t_interface_registry *itf_reg)
 {
 	int 			index;
 	unsigned long	value;
 
 	if (is_printable(c))
-		return (handle_printable_char(c[0], itf_reg));
+		handle_printable_char(c[0], itf_reg);
 	else
 	{
 		index = 0;
@@ -82,9 +82,8 @@ int					handle_input_key(char c[READ_SIZE],
 		while (index < AK_AMOUNT)
 		{
 			if (value == itf_reg->ak_masks[index])
-					return ((itf_reg->tc_call)[index](itf_reg));
+					(itf_reg->tc_call)[index](itf_reg);
 			++index;
 		}
 	}
-	return (itf_reg->window->cursor_index);
 }

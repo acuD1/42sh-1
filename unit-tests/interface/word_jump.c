@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 16:19:27 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 16:51:07 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 19:33:19 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ int	test_next_word_easy(void)
 	t_interface_registry *itf;
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
-	copy_lorem_to_buffer(itf->vector, 32);
-//	ft_printf("x: %s| s:%d\n", itf->vector->buffer,ft_strlen(itf->vector->buffer));
-	itf->window->cursor_index = 0;
-	itf->window->cursor_index = tc_ak_next_word(itf);
+	copy_lorem_to_buffer(itf->line, 32);
+//	ft_printf("x: %s| s:%d\n", itf->line->buffer,ft_strlen(itf->line->buffer));
+	itf->window->cursor = 0;
+	tc_ak_next_word(itf);
 
-	if (itf->vector->buffer[itf->window->cursor_index] != 'i'
-		|| itf->window->cursor_index != 7)
+	if (itf->line->buffer[itf->window->cursor] != 'i'
+		|| itf->window->cursor != 7)
 		return (FALSE);
-	itf->window->cursor_index = tc_ak_prev_word(itf);
+	tc_ak_prev_word(itf);
 	return (TRUE);
 }
 
@@ -45,18 +45,18 @@ int	test_next_word_medium(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	copy_lorem_to_buffer(itf->vector, 32);
-	itf->window->cursor_index = 0;
-	itf->window->cursor_index = tc_ak_next_word(itf);
-	itf->window->cursor_index = tc_ak_next_word(itf);
-	itf->window->cursor_index = tc_ak_next_word(itf);
+	copy_lorem_to_buffer(itf->line, 32);
+	itf->window->cursor = 0;
+	tc_ak_next_word(itf);
+	tc_ak_next_word(itf);
+	tc_ak_next_word(itf);
 
-	if (itf->vector->buffer[itf->window->cursor_index] != 's'
-		|| itf->window->cursor_index != 19)
+	if (itf->line->buffer[itf->window->cursor] != 's'
+		|| itf->window->cursor != 19)
 		return (FALSE);
-	itf->window->cursor_index = tc_ak_prev_word(itf);
-	itf->window->cursor_index = tc_ak_prev_word(itf);
-	itf->window->cursor_index = tc_ak_prev_word(itf);
+	tc_ak_prev_word(itf);
+	tc_ak_prev_word(itf);
+	tc_ak_prev_word(itf);
 	return (TRUE);
 }
 
@@ -67,12 +67,12 @@ int	test_prev_word_easy(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	copy_lorem_to_buffer(itf->vector, 32);
-	itf->window->cursor_index = 27;
-	itf->window->cursor_index = tc_ak_prev_word(itf);
+	copy_lorem_to_buffer(itf->line, 32);
+	itf->window->cursor = 27;
+	tc_ak_prev_word(itf);
 
-	if (itf->vector->buffer[itf->window->cursor_index] != 's'
-		|| itf->window->cursor_index != 19)
+	if (itf->line->buffer[itf->window->cursor] != 's'
+		|| itf->window->cursor != 19)
 		return (FALSE);
 	return (TRUE);
 }
@@ -84,14 +84,14 @@ int	test_prev_word_medium(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	copy_lorem_to_buffer(itf->vector, 32);
-	itf->window->cursor_index = 32;
-	itf->window->cursor_index = tc_ak_prev_word(itf);
-	itf->window->cursor_index = tc_ak_prev_word(itf);
-	itf->window->cursor_index = tc_ak_prev_word(itf);
+	copy_lorem_to_buffer(itf->line, 32);
+	itf->window->cursor = 32;
+	tc_ak_prev_word(itf);
+	tc_ak_prev_word(itf);
+	tc_ak_prev_word(itf);
 
-	if (itf->vector->buffer[itf->window->cursor_index] != 'd'
-		|| itf->window->cursor_index != 13)
+	if (itf->line->buffer[itf->window->cursor] != 'd'
+		|| itf->window->cursor != 13)
 		return (FALSE);
 	return (TRUE);
 }
@@ -102,13 +102,13 @@ int	test_prev_word_edge(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	copy_lorem_to_buffer(itf->vector, 32);
-	itf->window->cursor_index = 7;
-	itf->window->cursor_index = tc_ak_prev_word(itf);
-	itf->window->cursor_index = tc_ak_prev_word(itf);
+	copy_lorem_to_buffer(itf->line, 32);
+	itf->window->cursor = 7;
+	tc_ak_prev_word(itf);
+	tc_ak_prev_word(itf);
 
-	if (itf->vector->buffer[itf->window->cursor_index] != 'L'
-		|| itf->window->cursor_index != 0)
+	if (itf->line->buffer[itf->window->cursor] != 'L'
+		|| itf->window->cursor != 0)
 		return (FALSE);
 	return (TRUE);
 }
@@ -119,13 +119,13 @@ int	test_next_word_edge(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	copy_lorem_to_buffer(itf->vector, 32);
-	itf->window->cursor_index = 25;
-	itf->window->cursor_index = tc_ak_prev_word(itf);
-	itf->window->cursor_index = tc_ak_prev_word(itf);
+	copy_lorem_to_buffer(itf->line, 32);
+	itf->window->cursor = 25;
+	tc_ak_prev_word(itf);
+	tc_ak_prev_word(itf);
 
-	if (itf->vector->buffer[itf->window->cursor_index] != 'c'
-		|| itf->window->cursor_index != 29)
+	if (itf->line->buffer[itf->window->cursor] != 'c'
+		|| itf->window->cursor != 29)
 		return (FALSE);
 	return (TRUE);
 }

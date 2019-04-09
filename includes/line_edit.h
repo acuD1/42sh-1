@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 15:37:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 19:15:12 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct				s_winsize
 	unsigned int			rows;
 	unsigned int			cols;
 	int						max_line_len;
-	int						cursor_index;
+	size_t					cursor;
 }							t_winsize;
 
 typedef struct				s_interface_registry
@@ -106,8 +106,8 @@ typedef struct				s_interface_registry
 	t_registry				*sh_reg;
 	unsigned long			ak_masks[AK_AMOUNT];
 
-	t_vector				*clipboard;
-	t_vector				*vector;
+	t_vector				*clip;
+	t_vector				*line;
 	t_termcaps				*termcaps;
 	t_winsize				*window;
 
@@ -116,13 +116,24 @@ typedef struct				s_interface_registry
 
 	char					*interface_state;
 
-	int						(*tc_call[AK_AMOUNT])
-							(struct s_interface_registry *itf_reg);
+	int					(*tc_call[AK_AMOUNT])(struct s_interface_registry *itf);
 }							t_interface_registry;
+
+
+
+//Refacto functions
+int	validate_interface_content(t_interface_registry *itf);
+void	forge_vector(t_vector *dest, t_vector *source);
+
+
+
+
+
+
 
 //char						*get_itf_intern_var(t_interface_registry *itf_reg, char *name);
 /*  CHANGE THIS FO UNIT TEST */
-unsigned int handle_printable_char(char c, t_interface_registry *itf_reg);
+void handle_printable_char(char c, t_interface_registry *itf_reg);
 int	fill_interface_data(t_registry *sh, t_interface_registry *itf_reg);
 int	prepare_clipboard(t_vector *clipboard, t_vector *vct);
 void move_buffer(char *dest, t_vector *source);
@@ -147,7 +158,7 @@ void						init_ak_keycodes(t_interface_registry *itf_reg);
 int							link_actions_to_keys(t_interface_registry *itf_reg);
 void						init_termcap_actions(int (*tc_call[AK_AMOUNT])(t_interface_registry *itf_registry));
 
-int							handle_input_key(char c[], t_interface_registry *itf_reg);
+void						handle_input_key(char c[], t_interface_registry *itf_reg);
 char						set_quote(char c);
 void						validate_input_quoting(t_registry *sh_reg, t_interface_registry *itf_reg);
 
@@ -157,7 +168,7 @@ void						print_words(char *str, t_interface_registry *itf_reg);
 void						redraw_prompt(int signo);
 int							replace_input_line(char *string, t_interface_registry *itf_reg);
 int							redraw_input_line(t_interface_registry *itf_reg);
-int							redraw_after_cursor(t_interface_registry *itf_reg);
+void						redraw_after_cursor(t_interface_registry *itf_reg);
 
 void						free_interface_registry(t_interface_registry *itf_reg);
 void						cleanup_interface_registry(t_interface_registry *itf_reg);
@@ -165,30 +176,30 @@ void						restore_original_term_behavior(t_registry *sh_reg, t_interface_registr
 
 void						prompt_read_failed(t_registry *reg, t_vector *vect);
 int							get_next_char(char *str, int index, char direction);
-void						shift_content_right_once(t_vector *vect, unsigned int cursor_index);
-void						shift_content_left_once(t_vector *vect, unsigned int cursor_index);
+void						shift_content_right_once(t_vector *vect, unsigned int cursor);
+void						shift_content_left_once(t_vector *vect, unsigned int cursor);
 int							ft_putc(int c);
 
-int							tc_ak_ctrl_d(t_interface_registry *itf_registry);
-int							tc_ak_next_word(t_interface_registry *itf_registry);
-int							tc_ak_prev_word(t_interface_registry *itf_registry);
-int							tc_ak_cut_before_cursor(t_interface_registry *itf_registry);
-int							tc_ak_cut_after_cursor(t_interface_registry *itf_registry);
-int							tc_ak_copy_before_cursor(t_interface_registry *itf_registry);
-int							tc_ak_copy_after_cursor(t_interface_registry *itf_registry);
-int							tc_ak_cut_line(t_interface_registry *itf_registry);
-int							tc_ak_copy_line(t_interface_registry *itf_registry);
-int							tc_ak_paste_clipboard(t_interface_registry *itf_registry);
-int							tc_ak_clear_screen(t_interface_registry *itf_registry);
-int							tc_ak_home(t_interface_registry *itf_registry);
-int							tc_ak_end(t_interface_registry *itf_registry);
-int							tc_ak_delete(t_interface_registry *itf_registry);
-int							tc_ak_backspace(t_interface_registry *itf_registry);
-int							tc_ak_arrow_up(t_interface_registry *itf_registry);
-int							tc_ak_arrow_down(t_interface_registry *itf_registry);
-int							tc_ak_arrow_left(t_interface_registry *itf_registry);
-int							tc_ak_arrow_right(t_interface_registry *itf_registry);
-int							tc_ak_hightab(t_interface_registry *itf_registry);
-int							tc_ak_ctrl_down(t_interface_registry *itf_registry);
+int							tc_ak_ctrl_d(t_interface_registry *itf);
+int							tc_ak_next_word(t_interface_registry *itf);
+int							tc_ak_prev_word(t_interface_registry *itf);
+int							tc_ak_cut_before_cursor(t_interface_registry *itf);
+int							tc_ak_cut_after_cursor(t_interface_registry *itf);
+int							tc_ak_copy_before_cursor(t_interface_registry *itf);
+int							tc_ak_copy_after_cursor(t_interface_registry *itf);
+int							tc_ak_cut_line(t_interface_registry *itf);
+int							tc_ak_copy_line(t_interface_registry *itf);
+int							tc_ak_paste_clipboard(t_interface_registry *itf);
+int							tc_ak_clear_screen(t_interface_registry *itf);
+int							tc_ak_home(t_interface_registry *itf);
+int							tc_ak_end(t_interface_registry *itf);
+int							tc_ak_delete(t_interface_registry *itf);
+int							tc_ak_backspace(t_interface_registry *itf);
+int							tc_ak_arrow_up(t_interface_registry *itf);
+int							tc_ak_arrow_down(t_interface_registry *itf);
+int							tc_ak_arrow_left(t_interface_registry *itf);
+int							tc_ak_arrow_right(t_interface_registry *itf);
+int							tc_ak_hightab(t_interface_registry *itf);
+int							tc_ak_ctrl_down(t_interface_registry *itf);
 int							tc_ak_ctrl_up(t_interface_registry *itf_registry);
 #endif

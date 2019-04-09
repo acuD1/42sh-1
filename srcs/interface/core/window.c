@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:38:46 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/08 16:20:04 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 19:12:33 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_winsize	*init_win_struct(t_registry *reg, t_interface_registry *itf)
 		log_print(reg, LOG_ERROR, "Terminal size could not be determined!\n");
 		return (NULL);
 	}
-	itf->window->cursor_index = 0;
+	itf->window->cursor = 0;
 	itf->window->x = ft_strlen(get_intern_var(reg, itf->interface_state));
 	itf->window->y = 0;
 	if (w.ws_col < 0)

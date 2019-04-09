@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 15:31:43 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 16:16:25 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 19:22:03 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int test_insert_easy(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = ft_vctnew(4);
-	itf->window->cursor_index = 0;
+	itf->line = ft_vctnew(4);
+	itf->window->cursor = 0;
 
 	handle_printable_char('x', itf);
-	if (!ft_strequ("x", itf->vector->buffer) || itf->window->cursor_index != 1)
+	if (!ft_strequ("x", itf->line->buffer) || itf->window->cursor != 1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -34,12 +34,12 @@ int test_insert_append(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = ft_vctnew(8);
-	itf->window->cursor_index = 3;
-	ft_memset(itf->vector->buffer, 97, 3);
+	itf->line = ft_vctnew(8);
+	itf->window->cursor = 3;
+	ft_memset(itf->line->buffer, 97, 3);
 
 	handle_printable_char('x', itf);
-	if (!ft_strequ("aaax", itf->vector->buffer) || itf->window->cursor_index != 4)
+	if (!ft_strequ("aaax", itf->line->buffer) || itf->window->cursor != 4)
 		return (FALSE);
 	return (TRUE);
 }
@@ -50,12 +50,12 @@ int test_insert_between(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = ft_vctnew(8);
-	itf->window->cursor_index = 4;
-	ft_memset(itf->vector->buffer, 97, 7);
+	itf->line = ft_vctnew(8);
+	itf->window->cursor = 4;
+	ft_memset(itf->line->buffer, 97, 7);
 
 	handle_printable_char('x', itf);
-	if (!ft_strequ("aaaaxaaa", itf->vector->buffer) || itf->window->cursor_index != 5)
+	if (!ft_strequ("aaaaxaaa", itf->line->buffer) || itf->window->cursor != 5)
 		return (FALSE);
 	return (TRUE);
 }
@@ -66,12 +66,12 @@ int test_insert_start(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = ft_vctnew(8);
-	itf->window->cursor_index = 0;
-	ft_memset(itf->vector->buffer, 97, 6);
+	itf->line = ft_vctnew(8);
+	itf->window->cursor = 0;
+	ft_memset(itf->line->buffer, 97, 6);
 
 	handle_printable_char('x', itf);
-	if (!ft_strequ("xaaaaaa", itf->vector->buffer) || itf->window->cursor_index != 1)
+	if (!ft_strequ("xaaaaaa", itf->line->buffer) || itf->window->cursor != 1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -99,12 +99,12 @@ int test_delete_easy(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = ft_vctnew(8);
-	itf->window->cursor_index = 0;
-	ft_memset(itf->vector->buffer, 97, 4);
+	itf->line = ft_vctnew(8);
+	itf->window->cursor = 0;
+	ft_memset(itf->line->buffer, 97, 4);
 
 	tc_ak_delete(itf);
-	if (!ft_strequ("aaa", itf->vector->buffer) || itf->window->cursor_index != 0)
+	if (!ft_strequ("aaa", itf->line->buffer) || itf->window->cursor != 0)
 		return (FALSE);
 	return (TRUE);
 }
@@ -116,12 +116,12 @@ int test_delete_start(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = ft_vctnew(8);
-	itf->window->cursor_index = 0;
-	ft_memset(itf->vector->buffer, 97, 4);
+	itf->line = ft_vctnew(8);
+	itf->window->cursor = 0;
+	ft_memset(itf->line->buffer, 97, 4);
 
 	tc_ak_delete(itf);
-	if (!ft_strequ("aaa", itf->vector->buffer) || itf->window->cursor_index != 0)
+	if (!ft_strequ("aaa", itf->line->buffer) || itf->window->cursor != 0)
 		return (FALSE);
 	return (TRUE);
 }
@@ -133,12 +133,12 @@ int test_delete_end(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = ft_vctnew(8);
-	itf->window->cursor_index = 4;
-	ft_memset(itf->vector->buffer, 97, 4);
+	itf->line = ft_vctnew(8);
+	itf->window->cursor = 4;
+	ft_memset(itf->line->buffer, 97, 4);
 
 	tc_ak_delete(itf);
-	if (!ft_strequ("aaaa", itf->vector->buffer) || itf->window->cursor_index != 4)
+	if (!ft_strequ("aaaa", itf->line->buffer) || itf->window->cursor != 4)
 		return (FALSE);
 	return (TRUE);
 }
@@ -150,12 +150,12 @@ int test_delete_between(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = ft_vctnew(8);
-	itf->window->cursor_index = 2;
-	ft_memset(itf->vector->buffer, 97, 4);
+	itf->line = ft_vctnew(8);
+	itf->window->cursor = 2;
+	ft_memset(itf->line->buffer, 97, 4);
 
 	tc_ak_delete(itf);
-	if (!ft_strequ("aaa", itf->vector->buffer) || itf->window->cursor_index != 2)
+	if (!ft_strequ("aaa", itf->line->buffer) || itf->window->cursor != 2)
 		return (FALSE);
 	return (TRUE);
 }
@@ -167,12 +167,12 @@ int test_backspace_easy(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = ft_vctnew(8);
-	itf->window->cursor_index = 1;
-	ft_memset(itf->vector->buffer, 97, 4);
+	itf->line = ft_vctnew(8);
+	itf->window->cursor = 1;
+	ft_memset(itf->line->buffer, 97, 4);
 
 	tc_ak_backspace(itf);
-	if (!ft_strequ("aaa", itf->vector->buffer) || itf->window->cursor_index != 0)
+	if (!ft_strequ("aaa", itf->line->buffer) || itf->window->cursor != 0)
 		return (FALSE);
 	return (TRUE);
 }
@@ -184,12 +184,12 @@ int test_backspace_start(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = ft_vctnew(8);
-	itf->window->cursor_index = 0;
-	ft_memset(itf->vector->buffer, 97, 4);
+	itf->line = ft_vctnew(8);
+	itf->window->cursor = 0;
+	ft_memset(itf->line->buffer, 97, 4);
 
 	tc_ak_backspace(itf);
-	if (!ft_strequ("aaaa", itf->vector->buffer) || itf->window->cursor_index != 0)
+	if (!ft_strequ("aaaa", itf->line->buffer) || itf->window->cursor != 0)
 		return (FALSE);
 	return (TRUE);
 }
@@ -201,12 +201,12 @@ int test_backspace_end(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = ft_vctnew(8);
-	itf->window->cursor_index = 4;
-	ft_memset(itf->vector->buffer, 97, 4);
+	itf->line = ft_vctnew(8);
+	itf->window->cursor = 4;
+	ft_memset(itf->line->buffer, 97, 4);
 
 	tc_ak_backspace(itf);
-	if (!ft_strequ("aaa", itf->vector->buffer) || itf->window->cursor_index != 3)
+	if (!ft_strequ("aaa", itf->line->buffer) || itf->window->cursor != 3)
 		return (FALSE);
 	return (TRUE);
 }
@@ -218,12 +218,12 @@ int test_backspace_between(void)
 	if (create_virtual_registry(&sh, &itf) != 0)
 		return (FALSE);
 
-	itf->vector = ft_vctnew(8);
-	itf->window->cursor_index = 2;
-	ft_memset(itf->vector->buffer, 97, 4);
+	itf->line = ft_vctnew(8);
+	itf->window->cursor = 2;
+	ft_memset(itf->line->buffer, 97, 4);
 
 	tc_ak_backspace(itf);
-	if (!ft_strequ("aaa", itf->vector->buffer) || itf->window->cursor_index != 1)
+	if (!ft_strequ("aaa", itf->line->buffer) || itf->window->cursor != 1)
 		return (FALSE);
 	return (TRUE);
 }

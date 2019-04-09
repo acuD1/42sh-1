@@ -6,12 +6,12 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:15:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/03 13:21:50 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 17:48:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "log.h"
 #include "line_edit.h"
+#include "log.h"
 
 char	*get_intern_var(t_registry *reg, char *name)
 {
