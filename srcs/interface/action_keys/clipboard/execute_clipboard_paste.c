@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 10:45:51 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/03 11:08:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/08 15:44:59 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@ static int	insert_clipboard(t_interface_registry *itf_reg)
 int			tc_ak_paste_clipboard(t_interface_registry *itf_reg)
 {
 	size_t			go_front;
+
+	if (itf_reg == NULL
+			|| itf_reg->clipboard == NULL
+			|| itf_reg->vector == NULL
+			|| itf_reg->clipboard->buffer == NULL
+			|| itf_reg->vector->buffer == NULL)
+		return (0);
 
 	if ((ft_vctlen(itf_reg->clipboard) + ft_vctlen(itf_reg->vector))
 			>= (size_t)itf_reg->window->max_line_len)

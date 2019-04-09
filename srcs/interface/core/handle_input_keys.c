@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/03 11:17:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 15:36:50 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static short		is_printable(char c[READ_SIZE])
 	return (0);
 }
 
-static unsigned int	handle_printable_char(char c[READ_SIZE],
+unsigned int	handle_printable_char(char c,
 		t_interface_registry *itf_reg)
 {
 	unsigned int	tmp_index;
@@ -36,10 +36,10 @@ static unsigned int	handle_printable_char(char c[READ_SIZE],
 	if (tmp_index != ft_vctlen(vector_ptr))
 	{
 		shift_content_right_once(vector_ptr, tmp_index);
-		vector_ptr->buffer[tmp_index] = c[0];
+		vector_ptr->buffer[tmp_index] = c;
 	}
 	else
-		vector_ptr->buffer[ft_vctlen(vector_ptr)] = c[0];
+		vector_ptr->buffer[ft_vctlen(vector_ptr)] = c;
 	redraw_after_cursor(itf_reg);
 	itf_reg->window->cursor_index = tc_ak_arrow_right(itf_reg);
 	return (itf_reg->window->cursor_index);
@@ -74,7 +74,7 @@ int					handle_input_key(char c[READ_SIZE],
 	unsigned long	value;
 
 	if (is_printable(c))
-		return (handle_printable_char(c, itf_reg));
+		return (handle_printable_char(c[0], itf_reg));
 	else
 	{
 		index = 0;

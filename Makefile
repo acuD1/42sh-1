@@ -6,7 +6,7 @@
 #    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/04 11:46:09 by skuppers         ###   ########.fr        #
+#    Updated: 2019/04/09 15:52:56 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -144,7 +144,11 @@ UNITM = unit.c
 LINEM = main.c
 
 #						- - - - -  Unit-test  - - - - -
+UNIT += null.c
+UNIT += create_virt_registry.c
 UNIT += clipboard_tests.c
+UNIT += arrows.c
+UNIT += insert_delete.c
 
 #						- - - - -   Startup   - - - - -
 

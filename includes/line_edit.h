@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/04 13:29:11 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 15:37:52 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,11 @@ typedef struct				s_interface_registry
 
 //char						*get_itf_intern_var(t_interface_registry *itf_reg, char *name);
 /*  CHANGE THIS FO UNIT TEST */
+unsigned int handle_printable_char(char c, t_interface_registry *itf_reg);
 int	fill_interface_data(t_registry *sh, t_interface_registry *itf_reg);
-
+int	prepare_clipboard(t_vector *clipboard, t_vector *vct);
+void move_buffer(char *dest, t_vector *source);
+void copy_buffer_part(t_vector *clipboard, t_vector *source, t_winsize *ws, int direction);
 
 extern t_interface_registry	*g_interface_registry_pointer;
 

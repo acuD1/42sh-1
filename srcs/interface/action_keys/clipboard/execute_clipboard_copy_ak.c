@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 10:40:38 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/04 14:54:04 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/08 12:24:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 int		tc_ak_copy_before_cursor(t_interface_registry *itf_reg)
 {
+	if (itf_reg == NULL
+			|| itf_reg->clipboard == NULL
+			|| itf_reg->vector == NULL
+			|| itf_reg->clipboard->buffer == NULL
+			|| itf_reg->vector->buffer == NULL)
+		return (0);
+
 	if (!itf_reg || itf_reg->clipboard == NULL || itf_reg->vector == NULL)
 		return (0);
 	ft_bzero(itf_reg->clipboard->buffer, itf_reg->clipboard->size);
@@ -29,8 +36,13 @@ int		tc_ak_copy_after_cursor(t_interface_registry *itf_reg)
 {
 	char	*tmp;
 
-	if (!itf_reg || itf_reg->clipboard == NULL || itf_reg->vector == NULL)
+	if (itf_reg == NULL
+			|| itf_reg->clipboard == NULL
+			|| itf_reg->vector == NULL
+			|| itf_reg->clipboard->buffer == NULL
+			|| itf_reg->vector->buffer == NULL)
 		return (0);
+
 	ft_bzero(itf_reg->clipboard->buffer, itf_reg->clipboard->size);
 	while (itf_reg->clipboard->size < itf_reg->vector->size)
 		ft_vctrescale(itf_reg->clipboard);
@@ -43,8 +55,13 @@ int		tc_ak_copy_after_cursor(t_interface_registry *itf_reg)
 
 int		tc_ak_copy_line(t_interface_registry *itf_reg)
 {
-	if (!itf_reg || itf_reg->clipboard == NULL || itf_reg->vector == NULL)
+	if (itf_reg == NULL
+			|| itf_reg->clipboard == NULL
+			|| itf_reg->vector == NULL
+			|| itf_reg->clipboard->buffer == NULL
+			|| itf_reg->vector->buffer == NULL)
 		return (0);
+
 	ft_bzero(itf_reg->clipboard->buffer, itf_reg->clipboard->size);
 	while (itf_reg->clipboard->size < itf_reg->vector->size)
 		ft_vctrescale(itf_reg->clipboard);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/03 10:21:08 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/07 13:38:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ int		main(int ac, char **av, char **env)
 
 	if (!launch_sh(ac, av, env, &registry))
 		return (0);
+
+	while (*env)
+		ft_printf("%s\n", *env++);
 
 	init_debug_logger(&registry);
 

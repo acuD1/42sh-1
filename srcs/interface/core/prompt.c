@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/04 13:31:13 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/08 16:19:46 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	fill_interface_data(t_registry *shell_reg,
 	if (allocate_data_structures(shell_reg, &vector, &window) != 0)
 		return (-1);
 	itf->window = window;
-	itf->interface_state = INT_PS1;
+	itf->interface_state = INT_PS1_VALUE;
 	if ((init_win_struct(shell_reg, itf)) == NULL)
 		return (-1);
 	itf->vector = vector;
