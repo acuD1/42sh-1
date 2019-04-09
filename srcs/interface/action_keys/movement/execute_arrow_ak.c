@@ -6,12 +6,11 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:12:56 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 19:08:13 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 21:10:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
-#include "ft_printf.h"
 #include "log.h"
 
 int			tc_ak_arrow_right(t_interface_registry *itf)

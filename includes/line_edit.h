@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 19:15:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 21:24:30 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,11 +126,6 @@ int	validate_interface_content(t_interface_registry *itf);
 void	forge_vector(t_vector *dest, t_vector *source);
 
 
-
-
-
-
-
 //char						*get_itf_intern_var(t_interface_registry *itf_reg, char *name);
 /*  CHANGE THIS FO UNIT TEST */
 void handle_printable_char(char c, t_interface_registry *itf_reg);
@@ -162,8 +157,8 @@ void						handle_input_key(char c[], t_interface_registry *itf_reg);
 char						set_quote(char c);
 void						validate_input_quoting(t_registry *sh_reg, t_interface_registry *itf_reg);
 
-int							clean_screen(t_interface_registry *itf_reg);
 void						print_char(char c, t_interface_registry *itf_reg);
+int							clean_screen(t_interface_registry *itf_reg);
 void						print_words(char *str, t_interface_registry *itf_reg);
 void						redraw_prompt(int signo);
 int							replace_input_line(char *string, t_interface_registry *itf_reg);

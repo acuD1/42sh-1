@@ -6,12 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 20:02:47 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/09 21:33:25 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 #include "log.h"
+#include "lexer.h"
 
 void	launch_shell_prompt(t_registry *shell_registry,
 		t_interface_registry *itf_registry)
@@ -29,6 +30,7 @@ void	launch_shell_prompt(t_registry *shell_registry,
 			return ;
 		log_print(shell_registry, LOG_INFO, "Sending: |%s|\n", user_input_string);
 		// Call execution here
+		lexer(user_input_string);
 		cleanup_interface_registry(itf_registry);
 		//ft_strdel(&user_input_string);
 	}

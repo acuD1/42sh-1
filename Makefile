@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/09 20:31:53 by cempassi         ###   ########.fr        #
+#    Updated: 2019/04/09 21:35:01 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,10 +37,10 @@ NAMEDB = 42shdb
 NAMET = unit
 LIBFT = libft.a
 LIBFTDB = libftdb.a
-OBJS = $(patsubst %.c, $(OPATH)%.o, $(LINE) $(LEX_SRCS) $(LINEM))
-OBJT = $(patsubst %.c, $(OPATH)%.o, $(LINE) $(UNIT) $(UNITM))
-OBJDLIN = $(patsubst %.c, $(OPATH)db%.o, $(LINE) $(LINEM))
-OBJDLEX = $(patsubst %.c, $(OPATH)db%.o, $(LEXS) $(LEXM))
+OBJM = $(patsubst %.c, $(OPATH)%.o, $(LINEM))
+OBJS = $(patsubst %.c, $(OPATH)%.o, $(LINE) $(LEX_SRCS))
+OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM))
+#OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINE) $(LINEM))
 LIB = $(addprefix $(LPATH), $(LIBFT))
 LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 # ---------------------------------------------------------------------------- #
@@ -90,19 +90,19 @@ OPATH = objs/
 IPATH += includes/
 IPATH += libft/includes/
 TPATH += unit-tests
-TPATH += unit-tests/interface
-LINE_PATH += interface
-LINE_PATH += interface/action_keys
-LINE_PATH += interface/action_keys/clipboard
-LINE_PATH += interface/action_keys/movement
-LINE_PATH += interface/core
-LINE_PATH += interface/init
-LINE_PATH += interface/misc
-LINE_PATH += interface/redraw
-LINE_PATH += interface/utils
-LINE_PATH += logging
-LINE_PATH += signals
-LINE_PATH += startup
+TPATH += unit-tests/interface/
+LINE_PATH += interface/
+LINE_PATH += interface/action_keys/
+LINE_PATH += interface/action_keys/clipboard/
+LINE_PATH += interface/action_keys/movement/
+LINE_PATH += interface/core/
+LINE_PATH += interface/init/
+LINE_PATH += interface/misc/
+LINE_PATH += interface/redraw/
+LINE_PATH += interface/utils/
+LINE_PATH += logging/
+LINE_PATH += signals/
+LINE_PATH += startup/
 LEXER_PATH += lexer/
 SPATH += $(addprefix srcs/, $(LINE_PATH) $(LEXER_PATH))
 
@@ -224,27 +224,23 @@ LEX_SRCS += expansion_states.c
 #									 Rules                                     #
 # ---------------------------------------------------------------------------- #
 
-all : 21 lexer
-
-21 : $(21SH)
-
-21debug : $(21SHDB)
-
-lexer : $(LEXER)
-	
-lexerdb : $(LEXERDB)
+all : $(NAME)
 
 test : $(NAMET)
 	./$<
 
 #					 - - - - - Normal Compilation - - - - -                    #
 
-$(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) 
+$(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJM)
 	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
 	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
-	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -DBUILD=$(BUILD_NUMBER) -o  $@ $(OBJS)
+	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -DBUILD=$(BUILD_NUMBER) -o  $@ $(OBJS) $(OBJM)
 	$(PRINT) "$(GREEN)$@ build $(BUILD_NUMBER) is ready $(NC)"
 
+$(OBJM) : $(OPATH)%.o : %.c $(INCS) 
+	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
+	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
+	
 $(OBJS) : $(OPATH)%.o : %.c $(INCS) 
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
@@ -260,9 +256,9 @@ $(NAMET) : $(CLEAR) $(LIB) $(OPATH) $(OBJT)
 	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address -o  $@ $(OBJT)
 	$(PRINT) "$(GREEN)$@ build $(BUILD_NUMBER) is ready $(NC)"
 
-$(OBJT) : $(OPATH)%.o : %.c $(INCS) 
-	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
-	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
+#$(OBJT) : $(OPATH)%.o : %.c $(INCS) 
+#	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
+#	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
 
 #					 - - - - - Debug Compilation - - - - -                     #
 
@@ -304,4 +300,4 @@ help :
 FORCE:
 
 .PHONY : all 21 21debug lexer lexerdb clean fclean re help FORCE
-#.SILENT:
+.SILENT: 

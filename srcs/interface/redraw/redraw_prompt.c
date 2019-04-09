@@ -6,13 +6,12 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 09:08:59 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 19:13:29 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/09 21:24:34 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "line_edit.h"
-#include "ft_printf.h"
 
 void	print_char(char d, t_interface_registry *itf)
 {
