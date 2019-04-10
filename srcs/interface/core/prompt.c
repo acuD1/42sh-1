@@ -52,6 +52,8 @@ int	fill_interface_data(t_registry *shell_reg,
 char		*prompt(t_registry *shell_reg,
 				t_interface_registry *itf_reg)
 {
+	//delete ifs char from internal variables
+	//move fill_interface_data to invoke_interactive
 	char			ifs_char;
 	char			character[READ_SIZE + 1];
 

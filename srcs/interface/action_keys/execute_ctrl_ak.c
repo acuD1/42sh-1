@@ -17,6 +17,7 @@ int		tc_ak_ctrl_d(t_interface_registry *itf)
 {
 	if (itf->line->buffer[0] == '\0')
 		itf->line->buffer[0] = 4;
+	//[1] = '\0';
 	else
 		tc_ak_delete(itf);
 	return (0);
@@ -32,8 +33,9 @@ int		tc_ak_clear_screen(t_interface_registry *itf)
 	initial_cursor_pos = itf->window->cursor;
 	tc_ak_end(itf);
 	tputs(itf->termcaps->clear, itf->window->rows, ft_putc);
+	//magic nbr
 	redraw_prompt(ft_atoi(INT_MAGIC_NUMBER));
-	itf->window->cursor = redraw_input_line(itf);
+	itf->window-> cursor = redraw_input_line(itf);
 	while (itf->window->cursor < initial_cursor_pos)
 			tc_ak_arrow_right(itf);
 	return (0);

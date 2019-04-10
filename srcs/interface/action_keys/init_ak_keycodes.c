@@ -32,6 +32,7 @@ static void	clean_ak_keycodes(t_interface_registry *itf_reg)
 
 void	init_ak_keycodes(t_interface_registry *itf_reg)
 {
+	//bzero sur la size
 	clean_ak_keycodes(itf_reg);
 	itf_reg->ak_masks[AK_ARROW_RIGHT] = AK_ARROW_RIGHT_MASK;
 	itf_reg->ak_masks[AK_ARROW_LEFT] = AK_ARROW_LEFT_MASK;

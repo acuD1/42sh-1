@@ -59,9 +59,12 @@ int		tc_ak_ctrl_down(t_interface_registry *itf)
 
 	if (validate_interface_content(itf) != 0)
 		return (-1);
+	//get_prompt_len(itf)
 	prompt_length = ft_strlen(get_intern_var(itf->sh_reg, itf->interface_state));
 	moves = 0;
+	// put these in t_window
 	line_length = (ft_vctlen(itf->line) - 1);
+	// WTF? use t_window->rows instead ?
 	lines_amount = ((line_length + prompt_length)
 			/ itf->window->cols) + 1;
 	if (lines_amount > 1)
@@ -86,8 +89,10 @@ int		tc_ak_ctrl_up(t_interface_registry *itf)
 	if (validate_interface_content(itf) != 0)
 		return (-1);
 	moves = 0;
+	//rebellote
 	prompt_length = ft_strlen(get_intern_var(itf->sh_reg, itf->interface_state));
 	line_length = (ft_vctlen(itf->line) - 1);
+	//rebellote
 	lines_amount = ((line_length + prompt_length)
 			/ itf->window->cols) + 1;
 	cursor_line = itf->window->y;

@@ -39,11 +39,11 @@ int		tc_ak_backspace(t_interface_registry *itf)
 	if (validate_interface_content(itf) != 0)
 		return (-1);
 
-	if (itf->window->cursor >= 1)
-	{
-		tc_ak_arrow_left(itf);
-		shift_content_left_once(itf->line, itf->window->cursor);
-		redraw_after_cursor(itf);
-	}
+	if (itf->window->cursor == 0)
+		return (0);
+
+	tc_ak_arrow_left(itf);
+	shift_content_left_once(itf->line, itf->window->cursor);
+	redraw_after_cursor(itf);
 	return (0);
 }

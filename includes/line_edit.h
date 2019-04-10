@@ -90,15 +90,26 @@ typedef struct	s_termcaps
 	char					*cs_left;
 	char					*cs_up;
 }							t_termcaps;
+/*
+typedef struct s_cursor
+ {
+	uint32t		index;
+	uint32t		x;
+	uint32t		y;
+}		t_cursor;
+ */
+
 
 typedef struct				s_winsize
 {
+	// ca degage
+	size_t					cursor;
 	unsigned int			x;
 	unsigned int			y;
+// change all to uint32t   
 	unsigned int			rows;
 	unsigned int			cols;
 	int						max_line_len;
-	size_t					cursor;
 }							t_winsize;
 
 typedef struct				s_interface_registry
@@ -109,8 +120,11 @@ typedef struct				s_interface_registry
 	t_vector				*clip;
 	t_vector				*line;
 	t_termcaps				*termcaps;
+	//t_window
 	t_winsize				*window;
+	//t_cursor				*cursor
 
+	//ca degage
 	struct termios			*orig_term;
 	struct termios			*new_term;
 

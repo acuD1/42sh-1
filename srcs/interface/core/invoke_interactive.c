@@ -21,6 +21,8 @@ void	launch_shell_prompt(t_registry *shell_registry,
 
 	log_print(shell_registry, LOG_INFO, "Starting prompt.\n");
 	define_interface_signal_behavior(itf_registry, shell_registry);
+	// call all init functions here
+	// 
 	while (1)
 	{
 		user_input_string = prompt(shell_registry, itf_registry);
