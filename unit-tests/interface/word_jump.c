@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 16:19:27 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 19:33:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/10 15:48:35 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	test_prev_word_medium(void)
 		return (FALSE);
 	return (TRUE);
 }
+
 int	test_prev_word_edge(void)
 {
 	t_registry *sh;
@@ -112,6 +113,7 @@ int	test_prev_word_edge(void)
 		return (FALSE);
 	return (TRUE);
 }
+
 int	test_next_word_edge(void)
 {
 	t_registry *sh;
@@ -130,7 +132,7 @@ int	test_next_word_edge(void)
 	return (TRUE);
 }
 
-int	test_wjump()
+t_result	test_wjump()
 {
 	t_stack tests;
 	ft_stckinit(&tests);
@@ -145,5 +147,5 @@ int	test_wjump()
 	load_test(&tests, "Test next word medium	|", test_next_word_medium);
 
 
-	return (run_test(&tests));
+	return (run_test(&tests, "Word Jump"));
 }

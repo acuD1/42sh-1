@@ -6,21 +6,11 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 13:26:12 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 19:22:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/10 15:21:07 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "unit.h"
-
-void	print_header(void)
-{
-	ft_printf("\n  -------------------TEST RESULTS-------------------\n");
-}
-
-void	print_separator(void)
-{
-	ft_printf("  --------------------------------------------------\n");
-}
 
 void gen_test_dir(void)
 {
@@ -37,21 +27,20 @@ int main(void)
 
 	result = 0;
 
-	print_header();
+	print_test_header();
 	test_virt_registry();
-	print_separator();
+	print_test_separator();
 	test_null_value();
-	print_separator();
+	print_test_separator();
 	test_clipboard();
-	print_separator();
+	print_test_separator();
 	test_arrow_keys();
-	print_separator();
+	print_test_separator();
 	test_insertion();
-	print_separator();
+	print_test_separator();
 	test_deletion();
-	print_separator();
+	print_test_separator();
 	test_wjump();
-	print_separator();
-
+	print_test_separator();
 	return (result);
 }

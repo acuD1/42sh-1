@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/10 14:54:34 by cempassi         ###   ########.fr        #
+#    Updated: 2019/04/10 15:06:48 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ LIBFT = libft.a
 LIBFTDB = libftdb.a
 OBJM = $(patsubst %.c, $(OPATH)%.o, $(LINEM))
 OBJS = $(patsubst %.c, $(OPATH)%.o, $(LINE) $(LEX_SRCS))
-OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM))
+OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM) $(LINE) $(LEX_SRCS))
 OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINE) $(LINEM) $(LEX_SRCS))
 LIB = $(addprefix $(LPATH), $(LIBFT))
 LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
@@ -89,7 +89,7 @@ LPATH = libft/
 OPATH = objs/
 IPATH += includes/
 IPATH += libft/includes/
-TPATH += unit-tests
+TPATH += unit-tests/
 TPATH += unit-tests/interface/
 LINE_PATH += interface/
 LINE_PATH += interface/action_keys/
@@ -123,7 +123,7 @@ LDLIBD = -lftdb
 LDFLAGS = -L $(LPATH)
 CFLAGS += -Wall
 CFLAGS += -Wextra
-#CFLAGS += -Werror
+CFLAGS += -Werror
 CFLAGS += $(IFLAGS)
 DFLAGS = $(CFLAGS) -fsanitize=address
 LFLAGS = -ltermcap
@@ -259,12 +259,12 @@ $(LIB) : FORCE
 $(NAMET) : $(CLEAR) $(LIB) $(OPATH) $(OBJT) 
 	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
 	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
-	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address -o  $@ $(OBJT)
+	$(LINK) $(CFLAGS)  $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address -o  $@ $(OBJT)
 	$(PRINT) "$(GREEN)$@ build $(BUILD_NUMBER) is ready $(NC)"
 
-#$(OBJT) : $(OPATH)%.o : %.c $(INCS) 
-#	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
-#	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
+$(OBJT) : $(OPATH)%.o : %.c $(INCS) 
+	$(COMPILE) $(CFLAGS)  $< -o $@
+	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
 
 #					 - - - - - Debug Compilation - - - - -                     #
 
