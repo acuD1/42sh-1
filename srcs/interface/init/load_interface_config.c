@@ -13,15 +13,18 @@
 #include "log.h"
 #include "line_edit.h"
 
+//fetch_terminal_and_tcentries
 int							init_termcaps_database(t_registry *reg)
 {
 	char			*term_name;
 
 	if ((term_name = getenv("TERM")) == NULL)
 	{
+		// set default term to xterm-256color
 		log_print(reg, LOG_ERROR, "Terminal not found.\n");
 		return (-1);
 	}
+	// man tgetent return 0 and -1 on error
 	if ((tgetent(NULL, term_name)) == -1)
 	{
 		log_print(reg, LOG_ERROR, "Tgetent failed.\n");
@@ -35,9 +38,11 @@ int							init_termcaps_database(t_registry *reg)
 int							init_terminal_behavior(
 				t_registry *reg, t_interface_registry *itf)
 {
+	// s_term or term
 	struct termios	t_term;
 	struct termios	*orig_term;
-
+	
+	// move this earlier?
 	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO))
 	{
 		log_print(reg, LOG_ERROR, "STDIN or STDOUT is not a valid tty.\n");
@@ -48,26 +53,34 @@ int							init_terminal_behavior(
 		log_print(reg, LOG_ERROR, "Tcgetattr failed fetching info.\n");
 		return (-1);
 	}
+	// forget saving orig. state
 	if ((orig_term = malloc(sizeof(struct termios))) == NULL)
 	{
 		log_print(reg, LOG_CRITICAL, "Could not allocate memory for saving termIOS structure.\n");
 		return (-1);
 	}
+	//forget this too
 	ft_memcpy(orig_term, &t_term, sizeof(t_term));
 
 	itf->orig_term = orig_term;
 	log_print(reg, LOG_OK, "Saved initial terminal behavior.\n");
+	
+	// set modes here and simply substract them on exit
+	// man termios: ISIG | ICRNL | IXON ??
 	t_term.c_lflag &= ~(ICANON);
 	t_term.c_lflag &= ~(ECHO);
 	t_term.c_cc[VMIN] = 1;
 	t_term.c_cc[VTIME] = 0;
+
+	// useless condition
 	if (isatty(STDIN_FILENO))
 		if (tcsetattr(STDIN_FILENO, TCSANOW, &t_term) == -1)
 			log_print(reg, LOG_ERROR, "Tcsetattr failed setting params.\n");
+	//no need to save terminal
 	itf->new_term = &t_term;
 	return (0);
 }
-
+//ca degage
 void						restore_original_term_behavior(
 				t_registry *sh_reg, t_interface_registry *itf)
 {
