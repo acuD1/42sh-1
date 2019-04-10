@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/09 21:35:56 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/10 12:29:15 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ void		print_list(t_list *list)
 	}
 }
 
-void	del_list(t_list *list)
+void	del_list(void *token)
 {
 	t_token *tmp;
 
-	tmp = list->data;
+	tmp = token;
 	ft_strdel(&tmp->data);
 }
 
@@ -116,5 +116,6 @@ t_list		*lexer(char *input)
 	while (*machine.buffer || machine.state != END)
 		machine.process[machine.state](&machine);
 	ft_lstiter(machine.tokens, print_list);
+	ft_lstdel(&machine.tokens, del_list);
 	return (machine.tokens);
 }

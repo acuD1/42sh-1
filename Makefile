@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/09 21:35:01 by cempassi         ###   ########.fr        #
+#    Updated: 2019/04/10 14:54:34 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ LIBFTDB = libftdb.a
 OBJM = $(patsubst %.c, $(OPATH)%.o, $(LINEM))
 OBJS = $(patsubst %.c, $(OPATH)%.o, $(LINE) $(LEX_SRCS))
 OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM))
-#OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINE) $(LINEM))
+OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINE) $(LINEM) $(LEX_SRCS))
 LIB = $(addprefix $(LPATH), $(LIBFT))
 LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 # ---------------------------------------------------------------------------- #
@@ -225,6 +225,12 @@ LEX_SRCS += expansion_states.c
 # ---------------------------------------------------------------------------- #
 
 all : $(NAME)
+
+run : $(NAME)
+	./$<
+
+debug : $(NAMEDB)
+	./$<
 
 test : $(NAMET)
 	./$<

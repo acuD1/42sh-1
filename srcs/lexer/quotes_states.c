@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 13:34:28 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/09 19:22:30 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/10 15:00:43 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	double_quote_machine(t_machine *machine)
 {
 	if (machine->quote && *machine->input == '\"')
 		close_double_quote(machine);
-	if (machine->quote == QUOTE_INT)
+	else if (machine->quote == QUOTE_INT)
 		quote_dispatcher(machine);
 	else if (ft_strchr(QUOTE_INTERUPT, *machine->input))
 	{
