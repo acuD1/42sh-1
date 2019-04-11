@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   null_checker.c                                     :+:      :+:    :+:   */
+/*   null.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 11:45:17 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 19:27:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/11 17:48:13 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -541,7 +541,7 @@ static int test_paste5(void)
 
 
 
-int test_null_value(void)
+t_result test_null_value(int print_on)
 {
 	t_stack tests;
 
@@ -588,6 +588,5 @@ int test_null_value(void)
 	load_test(&tests, "cut line | NULL vector    |", test2_cl);
 	load_test(&tests, "cut line | NULL c buffer  |", test3_cl);
 	load_test(&tests, "cut line | NULL v buffer  |", test4_cl);
-	ft_printf("Clipboard null value protection : \n");
-	return (run_test(&tests));
+	return (run_test(&tests, "NULL Protection", print_on));
 }

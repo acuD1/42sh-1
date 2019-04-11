@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 11:42:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 19:21:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/11 17:25:44 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int test_creation(void)
 	return (TRUE);
 }
 
-int test_virt_registry(void)
+t_result test_virt_registry(int print_on)
 {
 	t_stack tests;
 
@@ -55,5 +55,5 @@ int test_virt_registry(void)
 
 	load_test(&tests, "Virtual registry creation", test_creation);
 
-	return (run_test(&tests));
+	return (run_test(&tests, "Virtual registry", print_on));
 }

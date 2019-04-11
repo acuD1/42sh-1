@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/10 14:54:34 by cempassi         ###   ########.fr        #
+#    Updated: 2019/04/11 16:36:06 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,7 @@ LPATH = libft/
 OPATH = objs/
 IPATH += includes/
 IPATH += libft/includes/
-TPATH += unit-tests
+TPATH += unit-tests/
 TPATH += unit-tests/interface/
 LINE_PATH += interface/
 LINE_PATH += interface/action_keys/
@@ -123,7 +123,7 @@ LDLIBD = -lftdb
 LDFLAGS = -L $(LPATH)
 CFLAGS += -Wall
 CFLAGS += -Wextra
-#CFLAGS += -Werror
+CFLAGS += -Werror
 CFLAGS += $(IFLAGS)
 DFLAGS = $(CFLAGS) -fsanitize=address
 LFLAGS = -ltermcap
@@ -256,15 +256,15 @@ $(LIB) : FORCE
 
 #					 - - - - Unit test Compilation - - - -                     #
 
-$(NAMET) : $(CLEAR) $(LIB) $(OPATH) $(OBJT) 
+$(NAMET) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJT) 
 	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
 	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
-	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address -o  $@ $(OBJT)
+	$(LINK) $(CFLAGS)  $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address -o  $@ $(OBJT) $(OBJS)
 	$(PRINT) "$(GREEN)$@ build $(BUILD_NUMBER) is ready $(NC)"
 
-#$(OBJT) : $(OPATH)%.o : %.c $(INCS) 
-#	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
-#	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
+$(OBJT) : $(OPATH)%.o : %.c $(INCS) 
+	$(COMPILE) $(CFLAGS)  $< -o $@
+	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
 
 #					 - - - - - Debug Compilation - - - - -                     #
 

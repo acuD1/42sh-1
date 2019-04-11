@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:47:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 19:31:50 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/11 17:15:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	test_aw_left_easy(void)
 
 	return (TRUE);
 }
+
 int	test_aw_right_easy(void)
 {
 	t_registry *sh;
@@ -94,6 +95,7 @@ ft_memset(itf->line->buffer, 65, 60);
 
 	return (TRUE);
 }
+
 int	test_aw_left_multiline(void)
 {
 	t_registry *sh;
@@ -162,7 +164,7 @@ int test_end(void)
 	return (TRUE);
 }
 
-int test_arrow_keys(void)
+t_result test_arrow_keys(int print_on)
 {
 	t_stack tests;
 
@@ -176,5 +178,5 @@ int test_arrow_keys(void)
 	load_test(&tests, "Left ak test easy", test_aw_left_easy);
 	load_test(&tests, "Right ak test easy", test_aw_right_easy);
 
-	return (run_test(&tests));
+	return (run_test(&tests, "Arrow Keys", print_on));
 }

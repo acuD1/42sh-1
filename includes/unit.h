@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 13:27:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 16:30:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/11 17:13:24 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 #define T_CHMOD 766
 #define HOME "/Users/skuppers"
 
-int test_wjump(void);
-int test_insertion(void);
-int test_deletion(void);
-int	test_clipboard(void);
-int	test_null_value(void);
-int	test_arrow_keys(void);
-int test_virt_registry(void);
-int	create_virtual_registry(t_registry **sh, t_interface_registry **itf);
+t_result	test_wjump(int print_on);
+t_result	test_insertion(int print_on);
+t_result	test_deletion(int print_on);
+t_result	test_clipboard(int print_on);
+t_result	test_null_value(int print_on);
+t_result	test_arrow_keys(int print_on);
+t_result	test_virt_registry(int print_on);
+int			create_virtual_registry(t_registry **sh, t_interface_registry **itf);
 
 #endif
