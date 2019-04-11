@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 11:45:17 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/10 15:51:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/11 17:48:13 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -541,7 +541,7 @@ static int test_paste5(void)
 
 
 
-t_result test_null_value(void)
+t_result test_null_value(int print_on)
 {
 	t_stack tests;
 
@@ -588,6 +588,5 @@ t_result test_null_value(void)
 	load_test(&tests, "cut line | NULL vector    |", test2_cl);
 	load_test(&tests, "cut line | NULL c buffer  |", test3_cl);
 	load_test(&tests, "cut line | NULL v buffer  |", test4_cl);
-	ft_printf("Clipboard null value protection : \n");
-	return (run_test(&tests, "NULL Protection"));
+	return (run_test(&tests, "NULL Protection", print_on));
 }

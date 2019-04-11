@@ -559,7 +559,7 @@ static int test_cut_af512(void)
 
 
 
-t_result		test_clipboard(void)
+t_result		test_clipboard(int print_on)
 {
 	t_stack tests;
 
@@ -603,5 +603,5 @@ t_result		test_clipboard(void)
 	load_test(&tests, "Copy line nothing", test_copy);
 
 
-	return (run_test(&tests, "Clipboard"));
+	return (run_test(&tests, "Clipboard", print_on));
 }

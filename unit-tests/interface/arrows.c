@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:47:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/10 15:46:41 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/11 17:15:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ int test_end(void)
 	return (TRUE);
 }
 
-t_result test_arrow_keys(void)
+t_result test_arrow_keys(int print_on)
 {
 	t_stack tests;
 
@@ -178,5 +178,5 @@ t_result test_arrow_keys(void)
 	load_test(&tests, "Left ak test easy", test_aw_left_easy);
 	load_test(&tests, "Right ak test easy", test_aw_right_easy);
 
-	return (run_test(&tests, "Arrow Keys Tests"));
+	return (run_test(&tests, "Arrow Keys", print_on));
 }

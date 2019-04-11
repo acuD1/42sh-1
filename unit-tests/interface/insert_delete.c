@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 15:31:43 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/10 15:49:48 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/11 17:16:47 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int test_insert_start(void)
 
 
 
-t_result test_insertion(void)
+t_result test_insertion(int print_on)
 {
 	t_stack tests;
 	ft_stckinit(&tests);
@@ -89,7 +89,7 @@ t_result test_insertion(void)
 	load_test(&tests, "Insertion between", test_insert_between);
 
 
-	return (run_test(&tests, "Insertion"));
+	return (run_test(&tests, "Insertion", print_on));
 }
 
 int test_delete_easy(void)
@@ -229,7 +229,7 @@ int test_backspace_between(void)
 }
 
 
-t_result test_deletion(void)
+t_result test_deletion(int print_on)
 {
 	t_stack tests;
 	ft_stckinit(&tests);
@@ -244,5 +244,5 @@ t_result test_deletion(void)
 	load_test(&tests, "Backspace start		|", test_backspace_start);
 	load_test(&tests, "Backspace easy		|", test_backspace_easy);
 
-	return (run_test(&tests, "Deletion"));
+	return (run_test(&tests, "Deletion", print_on));
 }

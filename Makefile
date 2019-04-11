@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/10 15:06:48 by cempassi         ###   ########.fr        #
+#    Updated: 2019/04/11 16:36:06 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ LIBFT = libft.a
 LIBFTDB = libftdb.a
 OBJM = $(patsubst %.c, $(OPATH)%.o, $(LINEM))
 OBJS = $(patsubst %.c, $(OPATH)%.o, $(LINE) $(LEX_SRCS))
-OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM) $(LINE) $(LEX_SRCS))
+OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM))
 OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINE) $(LINEM) $(LEX_SRCS))
 LIB = $(addprefix $(LPATH), $(LIBFT))
 LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
@@ -256,10 +256,10 @@ $(LIB) : FORCE
 
 #					 - - - - Unit test Compilation - - - -                     #
 
-$(NAMET) : $(CLEAR) $(LIB) $(OPATH) $(OBJT) 
+$(NAMET) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJT) 
 	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
 	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
-	$(LINK) $(CFLAGS)  $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address -o  $@ $(OBJT)
+	$(LINK) $(CFLAGS)  $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address -o  $@ $(OBJT) $(OBJS)
 	$(PRINT) "$(GREEN)$@ build $(BUILD_NUMBER) is ready $(NC)"
 
 $(OBJT) : $(OPATH)%.o : %.c $(INCS) 
