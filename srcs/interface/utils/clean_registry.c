@@ -6,21 +6,19 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 11:03:36 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 17:27:39 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/11 18:47:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include "line_edit.h"
 
-void	cleanup_interface_registry(t_interface *itf)
+void	cleanup_interface(t_interface *itf)
 {
-	//ft_strdel(&(itf->clip->buffer));
-	//free(itf->clip);
-	ft_strdel(&(itf->line->buffer));
-	free(itf->line);
-	free(itf->window);
-	//free(itf->window);
+	ft_vctreset(itf->line);
+	itf->cursor->x = get_prompt_len(itf);
+	itf->cursor->y = 0;
+	itf->cursor->index = 0;
 }
 
 void	free_interface_registry(t_interface *itf)

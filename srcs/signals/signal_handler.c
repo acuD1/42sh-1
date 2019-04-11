@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 18:23:46 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/11 19:06:42 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void				redraw_prompt(int signo)
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
 		ft_vctreset(itf->line);
 
-	print_words(get_intern_var(itf->shell, itf->interface_state), itf);
+	print_words(get_intern_var(itf->shell, itf->state), itf);
 
 	itf->cursor->index = 0;
 }

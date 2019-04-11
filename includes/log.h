@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 10:15:15 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/28 18:42:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/11 18:54:20 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@
 #include <time.h>
 #include "21sh.h"
 
-enum importance {
-	LOG_OK,
-	LOG_INFO,
-	LOG_WARNING,
-	LOG_ERROR,
-	LOG_CRITICAL
-};
+#define LOG_OK "[OK]"
+#define	LOG_INFO "[INFO]"
+#define	LOG_WARNING "[WARNING]"
+#define	LOG_ERROR "[ERROR]"
+#define	LOG_CRITICAL "[CRITICAL]"
 
-void	log_print(t_registry *reg, int importance, char *message, ...);
+void	log_print(t_registry *reg, char *importance, char *message, ...);
 void	init_debug_logger(t_registry *reg);
 #endif

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 18:17:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/11 19:11:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	fill_interface_data(t_registry *shell, t_interface *itf)
 	itf->line = vector;
 	itf->window = window;
 	itf->cursor = cursor;
-	itf->interface_state = get_intern_var(shell, INT_PS1);
+	itf->state = INT_PS1;
 
 	if (init_window(shell, itf) != 0)
 		return (-1);
@@ -77,10 +77,11 @@ void	launch_shell_prompt(t_registry *shell, t_interface *itf)
 	{
 		user_input_string = prompt(shell, itf);
 
-		if (is_input_valid(user_input_string))
+		if (is_input_valid(user_input_string) == 1)
 			lexer(user_input_string);
-
-		cleanup_interface_registry(itf);
+		else
+			break ;
+		cleanup_interface(itf);
 	}
 	define_interface_default_signals(shell);
 }

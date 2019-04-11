@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 18:15:37 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/11 19:03:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ typedef struct				s_interface
 	t_window				*window;
 	t_termcaps				*termcaps;
 
-	char					*interface_state;
+	char					*state;
 	unsigned long			ak_masks[AK_AMOUNT];
 
 	int					(*tc_call[AK_AMOUNT])(struct s_interface *itf);
@@ -124,7 +124,6 @@ typedef struct				s_interface
 void			forge_vector(t_vector *dest, t_vector *source);
 
 
-//char						*get_itf_intern_var(t_interface *itf, char *name);
 /*  CHANGE THIS FO UNIT TEST */
 void handle_printable_char(char c, t_interface *itf);
 int	fill_interface_data(t_registry *sh, t_interface *itf);
@@ -173,7 +172,7 @@ uint32_t						redraw_input_line(t_interface *itf);
 void						redraw_after_cursor(t_interface *itf);
 
 void						free_interface_registry(t_interface *itf);
-void						cleanup_interface_registry(t_interface *itf);
+void						cleanup_interface(t_interface *itf);
 
 void						prompt_read_failed(t_registry *shell, t_vector *vect);
 

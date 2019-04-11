@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 18:14:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/11 19:08:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char		*prompt(t_registry *shell_reg,
 	char			character[READ_SIZE + 1];
 
 	ft_bzero(character, READ_SIZE);
-	ft_dprintf(STDOUT_FILENO, "\n%s", get_intern_var(shell_reg, INT_PS1));
+	ft_dprintf(STDOUT_FILENO, "\n%s", get_intern_var(shell_reg, itf->state));
 
 	while (character[0] != IFS_CHAR)
 	{

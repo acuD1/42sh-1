@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 18:18:35 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/11 18:34:54 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ void	handle_printable_char(char c, t_interface *itf_reg)
 
 	//check if itf is valid
 
+
 	vector_ptr = itf_reg->line;
 
-	if ((uint32_t)ft_vctlen(itf_reg->line) >= itf_reg->window->max_chars)
+	if ((uint32_t)ft_vctlen(vector_ptr) >= itf_reg->window->max_chars)
 		return ;
 
 	if (itf_reg->cursor->index > (vector_ptr->size - 2))

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:54:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 17:59:15 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/11 19:05:31 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void		prepare_for_ps2(t_interface *itf)
 	if (itf->cursor->index > itf->line->size - 2)
 		ft_vctrescale(itf->line);
 	set_ifs_char(itf);
-	itf->interface_state = INT_PS2;
+	itf->state = INT_PS2;
 }
 
 int32_t		goto_next_quote(char *string, char quote, uint32_t index)
@@ -48,7 +48,7 @@ static void		call_ps2_prompt(t_registry *sh_reg, t_interface *itf_reg)
 		validate_input_quoting(sh_reg, itf_reg);
 }
 
-void			validate_input_quoting(t_registry *sh_reg, t_interface *itf_reg)
+void			validate_input_quoting(t_registry *sh_reg, t_interface *itf)
 {
 	int32_t			index;
 	int32_t		length;
@@ -57,7 +57,7 @@ void			validate_input_quoting(t_registry *sh_reg, t_interface *itf_reg)
 
 	index = -1;
 	quote = 0;
-	string = itf_reg->line->buffer;
+	string = itf->line->buffer;
 	length = (int)ft_strlen(string);
 	while (index < length && string[++index] != '\0')
 	{
@@ -66,9 +66,9 @@ void			validate_input_quoting(t_registry *sh_reg, t_interface *itf_reg)
 		{
 			if (goto_next_quote(string, quote, index + 1) == -1)
 			{
-				prepare_for_ps2(itf_reg);
-				call_ps2_prompt(sh_reg, itf_reg);
-				itf_reg->interface_state = INT_PS1;
+				prepare_for_ps2(itf);
+				call_ps2_prompt(sh_reg, itf);
+				itf->state = INT_PS1;
 				return ;
 			}
 			else
