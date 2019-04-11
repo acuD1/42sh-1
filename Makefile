@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/09 21:35:01 by cempassi         ###   ########.fr        #
+#    Updated: 2019/04/11 18:31:01 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -178,6 +178,8 @@ LINE += clean_registry.c
 LINE += ft_putc.c
 LINE += set_quote.c
 LINE += shift_tools.c
+LINE += validate_interface.c
+LINE += get_prompt_len.c
 
 #Misc
 LINE += prompt_errors.c
@@ -191,6 +193,8 @@ LINE += load_interface_config.c
 LINE += load_termcap_strings.c
 
 #Core
+LINE += cursor.c
+LINE += term_mode.c
 LINE += invoke_interactive.c
 LINE += prompt.c
 LINE += sub_prompt.c

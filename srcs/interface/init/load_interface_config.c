@@ -6,134 +6,88 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 19:12:50 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/11 18:28:13 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "line_edit.h"
 
-//fetch_terminal_and_tcentries
-int							init_termcaps_database(t_registry *reg)
+static uint8_t			fetch_terminal_info(t_registry *shell)
 {
 	char			*term_name;
 
 	if ((term_name = getenv("TERM")) == NULL)
+		add_internal(shell, INT_TERM, INT_TERM_DFLT_VALUE);
+	else
+		add_internal(shell, INT_TERM, term_name);
+
+	if ((tgetent(NULL, get_intern_var(shell, INT_TERM))) == -1)
 	{
-		// set default term to xterm-256color
-		log_print(reg, LOG_ERROR, "Terminal not found.\n");
+		log_print(shell, LOG_ERROR, "Tgetent failed.\n");
 		return (-1);
 	}
-	// man tgetent return 0 and -1 on error
-	if ((tgetent(NULL, term_name)) == -1)
-	{
-		log_print(reg, LOG_ERROR, "Tgetent failed.\n");
-		return (-1);
-	}
-	log_print(reg, LOG_OK,
+	log_print(shell, LOG_OK,
 			"Reached targeting terminal and termcaps database.\n");
 	return (0);
 }
 
-int							init_terminal_behavior(
-				t_registry *reg, t_interface_registry *itf)
+
+static t_interface	*create_interface(t_registry *shell)
 {
-	// s_term or term
-	struct termios	t_term;
-	struct termios	*orig_term;
-	
-	// move this earlier?
-	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO))
-	{
-		log_print(reg, LOG_ERROR, "STDIN or STDOUT is not a valid tty.\n");
-		return (-1);
-	}
-	if ((tcgetattr(STDIN_FILENO, &t_term)) == -1)
-	{
-		log_print(reg, LOG_ERROR, "Tcgetattr failed fetching info.\n");
-		return (-1);
-	}
-	// forget saving orig. state
-	if ((orig_term = malloc(sizeof(struct termios))) == NULL)
-	{
-		log_print(reg, LOG_CRITICAL, "Could not allocate memory for saving termIOS structure.\n");
-		return (-1);
-	}
-	//forget this too
-	ft_memcpy(orig_term, &t_term, sizeof(t_term));
+	t_interface *itf;
 
-	itf->orig_term = orig_term;
-	log_print(reg, LOG_OK, "Saved initial terminal behavior.\n");
-	
-	// set modes here and simply substract them on exit
-	// man termios: ISIG | ICRNL | IXON ??
-	t_term.c_lflag &= ~(ICANON);
-	t_term.c_lflag &= ~(ECHO);
-	t_term.c_cc[VMIN] = 1;
-	t_term.c_cc[VTIME] = 0;
-
-	// useless condition
-	if (isatty(STDIN_FILENO))
-		if (tcsetattr(STDIN_FILENO, TCSANOW, &t_term) == -1)
-			log_print(reg, LOG_ERROR, "Tcsetattr failed setting params.\n");
-	//no need to save terminal
-	itf->new_term = &t_term;
-	return (0);
-}
-//ca degage
-void						restore_original_term_behavior(
-				t_registry *sh_reg, t_interface_registry *itf)
-{
-	if (tcsetattr(STDIN_FILENO, TCSANOW, itf->orig_term) == -1)
-		log_print(sh_reg, LOG_ERROR,
-				"Failed to restore original term behavior.\n");
-}
-
-static t_interface_registry	*create_interface_registry(
-				t_registry *shell_registry)
-{
-	t_interface_registry *itf;
-
-	if (!(itf = malloc(sizeof(t_interface_registry))))
+	if (!(itf = malloc(sizeof(t_interface))))
 	{
-		log_print(shell_registry, LOG_ERROR,
+		log_print(shell, LOG_ERROR,
 				"Interface registry could not be allocated.\n");
 		return (NULL);
 	}
-	ft_memset(itf, 0, sizeof(t_interface_registry));
+	ft_memset(itf, 0, sizeof(t_interface));
 	return (itf);
 }
 
-int		fill_interface_related_internals(t_registry *reg)
+static int8_t		fill_interface_related_internals(t_registry *reg)
 {
-	add_internal(reg, INT_READ_SZ, INT_READ_SZ_VALUE);
-	add_internal(reg, INT_CLIPBOARD_SZ, INT_CLIPBOARD_SZ_VALUE);
 	add_internal(reg, INT_PS1, INT_PS1_VALUE);
 	add_internal(reg, INT_PS2, INT_PS2_VALUE);
-	add_internal(reg, INT_IFS, INT_IFS_VALUE);
-	add_internal(reg, INT_ESCAPE_SEQ, INT_ESCAPE_SEQ_VALUE);
+	add_internal(reg, INT_PS3, INT_PS3_VALUE);
+	add_internal(reg, INT_PS4, INT_PS4_VALUE);
+//handle errors here
 	return (0);
 }
 
-t_interface_registry		*init_line_edition(t_registry *reg)
-{
-	t_interface_registry *itf;
 
-	if ((itf = create_interface_registry(reg)) == NULL)
+// Handle errors woth memory unpmapping
+// setup memory leaking testings
+t_interface			*init_line_edition(t_registry *shell)
+{
+	t_interface	*itf;
+	int8_t		op_worked;
+
+	if ((itf = create_interface(shell)) == NULL)
 		return (NULL);
-	if (init_termcaps_database(reg) != 0)
+
+	if (fetch_terminal_info(shell) != 0)
 		return (NULL);
-	if (init_terminal_behavior(reg, itf) != 0)
+
+	if ((itf->termcaps = init_termcap_calls(shell)) == NULL)
 		return (NULL);
-	if ((itf->termcaps = init_termcap_calls(reg)) == NULL)
-		return (NULL);
+
 	setup_keycodes(itf);
 	link_actions_to_keys(itf);
+	fill_interface_related_internals(shell);
 
-	fill_interface_related_internals(reg);
-	itf->sh_reg = reg;
-	if ((itf->clip = allocate_clipboard(reg)) == NULL)
+	if ((op_worked = set_term_behavior(shell)) != 0)
+	{
+		if (op_worked == -2)
+			restore_term_behavior(shell);
 		return (NULL);
-	log_print(reg, LOG_OK, "Line edition initialized.\n");
+	}
+
+	itf->shell = shell;
+	if ((itf->clip = allocate_clipboard(shell)) == NULL)
+		return (NULL);
+	log_print(shell, LOG_OK, "Line edition initialized.\n");
 	return (itf);
 }

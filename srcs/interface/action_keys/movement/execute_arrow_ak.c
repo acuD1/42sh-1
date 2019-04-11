@@ -6,90 +6,74 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:12:56 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 21:10:38 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/11 17:06:50 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 #include "log.h"
 
-int			tc_ak_arrow_right(t_interface_registry *itf)
+static int		goto_endof_column(t_interface *itf)
 {
-	//ca degage on remplace par cursor->index
-	size_t	tmp_idx;
+	while (itf->cursor->x < itf->window->cols)
+	{
+		tputs(itf->termcaps->cs_right, 1, &ft_putc);
+		itf->cursor->x++;
+	}
+	itf->cursor->x--;
+	return (0);
+}
 
+int			tc_ak_arrow_right(t_interface *itf)
+{
 	if (validate_interface_content(itf) != 0)
 		return (-1);
-//
-//	tmp_idx = itf->window->cursor;
-//	if (tmp_idx < ft_vctlen(itf->line))
+	if (itf->cursor->index < ft_vctlen(itf->line))
 	{
-		if (itf->window->x >= itf->window->cols - 1)
+		if (itf->cursor->x >= itf->window->cols - 1)
 		{
 			tputs(itf->termcaps->cs_down, 1, &ft_putc);
-//			tmp_idx = (tmp_idx + itf->window->cols);
-			itf->window->y++;
-			while (itf->window->x > 0)
+			itf->cursor->index += itf->window->cols;
+			itf->cursor->y++;
+			while (itf->cursor->x > 0)
 			{
-//				--tmp_idx;
-				itf->window->x--;
+				itf->cursor->index--;
+				itf->cursor->x--;
 			}
 		}
 		else
 		{
 			tputs(itf->termcaps->cs_right, 1, &ft_putc);
-//			++tmp_idx;
-			itf->window->x++;
+			itf->cursor->index++;
+			itf->cursor->x++;
 		}
 	}
-//	itf->window->cursor = tmp_idx;
-	return (0);
-}
-//goto_end_of_column
-static int		go_to_end_of_line(t_interface_registry *itf)
-{
-	while (itf->window->x < itf->window->cols)
-	{
-		tputs(itf->termcaps->cs_right, 1, &ft_putc);
-		itf->window->x++;
-	}
-	itf->window->x--;
 	return (0);
 }
 
-//function get_prompt_len(interface)
-//	-> put it in the right file
-
-int			tc_ak_arrow_left(t_interface_registry *itf)
+int			tc_ak_arrow_left(t_interface *itf)
 {
-	size_t		prompt_length;
-	size_t		tmp_idx;
+	uint32_t		prompt_length;
 
 	if (validate_interface_content(itf) != 0)
 		return (-1);
-
-	//get_prompt_length(itf)
-	prompt_length = ft_strlen(get_intern_var(itf->sh_reg, itf->interface_state));
-
-	//ca aussi ca degage
-	tmp_idx = itf->window->cursor;
-	if (tmp_idx >= 1)
+	prompt_length = get_prompt_len(itf);
+	if (itf->cursor->index >= 1)
 	{
-		if ((itf->window->x == 0 && itf->window->y >= 1))
+		if ((itf->cursor->x == 0 && itf->cursor->y >= 1))
 		{
 			tputs(itf->termcaps->cs_up, 1, &ft_putc);
-			itf->window->y--;
-			go_to_end_of_line(itf);
-//			--tmp_idx;
+			itf->cursor->y--;
+			goto_endof_column(itf);
+			itf->cursor->index--;
 		}
 		else
 		{
 			tputs(itf->termcaps->cs_left, 1, &ft_putc);
-//			--tmp_idx;
-			itf->window->x--;
+			itf->cursor->index--;
+			itf->cursor->x--;
 		}
 	}
-//	itf->window->cursor = tmp_idx;
 	return (0);
 }
 
@@ -97,7 +81,7 @@ int			tc_ak_arrow_left(t_interface_registry *itf)
 ** History placeholder
 */
 
-int	tc_ak_arrow_up(t_interface_registry *itf)
+int	tc_ak_arrow_up(t_interface *itf)
 {
 	(void)itf;
 	return (0);
@@ -107,7 +91,7 @@ int	tc_ak_arrow_up(t_interface_registry *itf)
 ** History placeholder
 */
 
-int		tc_ak_arrow_down(t_interface_registry *itf)
+int		tc_ak_arrow_down(t_interface *itf)
 {
 	(void)itf;
 	return (0);

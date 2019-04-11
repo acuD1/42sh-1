@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_errors.c                                    :+:      :+:    :+:   */
+/*   cursor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/26 14:23:08 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 17:30:09 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/11 15:41:22 by skuppers          #+#    #+#             */
+/*   Updated: 2019/04/11 18:18:38 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "log.h"
 #include "line_edit.h"
 
-void	prompt_read_failed(t_registry *reg, t_vector *vect)
+int8_t	init_cursor(t_interface *itf)
 {
-	log_print(reg, LOG_ERROR, "Prompt read failed!\n");
-	ft_strdel(&(vect->buffer));
-	free(vect);
-	vect = NULL;
+	itf->cursor->index = 0;
+	itf->cursor->x = get_prompt_len(itf);
+	itf->cursor->y = 0;
+	return (0);
 }

@@ -6,14 +6,14 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 10:41:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 19:16:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/11 17:18:14 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 #include "ft_printf.h"
 
-static int	cut_vector(t_vector *vect, t_winsize *ws, int before)
+static int	cut_vector(t_vector *vect, t_cursor *cursor, int before)
 {
 	char	*tmp;
 	char	*foobar;
@@ -21,35 +21,32 @@ static int	cut_vector(t_vector *vect, t_winsize *ws, int before)
 	tmp = ft_strnew(vect->size);
 	if (before > 0)
 	{
-		foobar = ft_strsub(vect->buffer, ws->cursor, ft_vctlen(vect));
+		foobar = ft_strsub(vect->buffer, cursor->index, ft_vctlen(vect));
 		tmp = ft_strcpy(tmp, foobar);
 		ft_strdel(&foobar);
 	}
 	else
-		tmp = ft_strncpy(tmp, vect->buffer, ws->cursor);
+		tmp = ft_strncpy(tmp, vect->buffer, cursor->index);
 	ft_strdel(&(vect->buffer));
 	vect->buffer = tmp;
 	return (0);
 }
 
-void		copy_buffer_part(t_vector *clipboard, t_vector *source, t_winsize *window,
-				int before)
+static void		copy_buffer_part(t_interface *itf, int8_t before)
 {
 	char *tmp;
 
 	if (before > 0)
 	{
-		clipboard->buffer = ft_strncpy(clipboard->buffer,
-			source->buffer, window->cursor);
-
-		cut_vector(source, window, before);
+		itf->clip->buffer = ft_strncpy(itf->clip->buffer, itf->line->buffer, itf->cursor->index);
+		cut_vector(itf->line, itf->cursor, before);
 	}
 	else
 	{
-		tmp = ft_strsub(source->buffer, window->cursor, ft_vctlen(source));
-		clipboard->buffer = ft_strcpy(clipboard->buffer, tmp);
+		tmp = ft_strsub(itf->line->buffer, itf->cursor->index, ft_vctlen(itf->line));
+		itf->clip->buffer = ft_strcpy(itf->clip->buffer, tmp);
 		ft_strdel(&tmp);
-		cut_vector(source, window, before);
+		cut_vector(itf->line, itf->cursor, before);
 	}
 }
 
@@ -59,29 +56,29 @@ void move_buffer(char *dest, t_vector *source)
 	ft_bzero(source->buffer, source->size);
 }
 
-int			tc_ak_cut_before_cursor(t_interface_registry *itf)
+int			tc_ak_cut_before_cursor(t_interface *itf)
 {
 
 	if (validate_interface_content(itf) != 0)
 			return (-1);
 	forge_vector(itf->clip, itf->line);
-	copy_buffer_part(itf->clip, itf->line, itf->window, 1);
+	copy_buffer_part(itf, 1);
 	redraw_input_line(itf);
 	return (0);
 }
 
-int			tc_ak_cut_after_cursor(t_interface_registry *itf)
+int			tc_ak_cut_after_cursor(t_interface *itf)
 {
 
 	if (validate_interface_content(itf) != 0)
 			return (-1);
 	forge_vector(itf->clip, itf->line);
-	copy_buffer_part(itf->clip, itf->line, itf->window, 2);
+	copy_buffer_part(itf, 2);
 	redraw_input_line(itf);
 	return (0);
 }
 
-int			tc_ak_cut_line(t_interface_registry *itf)
+int			tc_ak_cut_line(t_interface *itf)
 {
 	if (validate_interface_content(itf) != 0)
 			return (-1);

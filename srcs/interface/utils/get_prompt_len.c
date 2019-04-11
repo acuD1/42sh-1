@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_errors.c                                    :+:      :+:    :+:   */
+/*   get_prompt_len.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/26 14:23:08 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 17:30:09 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/11 14:12:15 by skuppers          #+#    #+#             */
+/*   Updated: 2019/04/11 17:27:14 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "log.h"
 #include "line_edit.h"
 
-void	prompt_read_failed(t_registry *reg, t_vector *vect)
+uint32_t get_prompt_len(t_interface *itf)
 {
-	log_print(reg, LOG_ERROR, "Prompt read failed!\n");
-	ft_strdel(&(vect->buffer));
-	free(vect);
-	vect = NULL;
+	uint32_t	p_len;
+
+	p_len = 0;
+	p_len = (uint32_t)ft_strlen(get_intern_var(itf->shell, itf->interface_state));
+	return (p_len);
 }

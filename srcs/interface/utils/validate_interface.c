@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_errors.c                                    :+:      :+:    :+:   */
+/*   validate_interface.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/26 14:23:08 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 17:30:09 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/11 17:08:16 by skuppers          #+#    #+#             */
+/*   Updated: 2019/04/11 17:11:24 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "log.h"
 #include "line_edit.h"
 
-void	prompt_read_failed(t_registry *reg, t_vector *vect)
+int8_t		validate_interface_content(t_interface *itf)
 {
-	log_print(reg, LOG_ERROR, "Prompt read failed!\n");
-	ft_strdel(&(vect->buffer));
-	free(vect);
-	vect = NULL;
+	if (itf == NULL || itf->clip == NULL || itf->line == NULL
+		|| itf->clip->buffer == NULL
+		|| itf->line->buffer == NULL)
+		return (-1);
+	return (0);
 }
+
