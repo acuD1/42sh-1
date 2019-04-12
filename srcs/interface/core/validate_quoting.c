@@ -6,29 +6,15 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:54:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 19:05:31 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:28:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
+#include "interface_functions.h"
 #include "log.h"
 
-static void		set_ifs_char(t_interface *itf)
-{
-	itf->cursor->index = tc_ak_end(itf);
-	itf->line->buffer[itf->cursor->index] = IFS_CHAR;
-	itf->cursor->index++;
-}
-
-static void		prepare_for_ps2(t_interface *itf)
-{
-	if (itf->cursor->index > itf->line->size - 2)
-		ft_vctrescale(itf->line);
-	set_ifs_char(itf);
-	itf->state = INT_PS2;
-}
-
-int32_t		goto_next_quote(char *string, char quote, uint32_t index)
+static int32_t		goto_next_quote(char *string, char quote, uint32_t index)
 {
 	uint32_t		found_match;
 
@@ -40,39 +26,32 @@ int32_t		goto_next_quote(char *string, char quote, uint32_t index)
 	return (-1);
 }
 
-static void		call_ps2_prompt(t_registry *sh_reg, t_interface *itf_reg)
+int8_t	quoting_is_valid(char *str)
 {
-	if (invoke_ps2_prompt(sh_reg, itf_reg) != 0)
-		log_print(sh_reg, LOG_ERROR, "PS2 prompt failed1\n");
-	else
-		validate_input_quoting(sh_reg, itf_reg);
-}
-
-void			validate_input_quoting(t_registry *sh_reg, t_interface *itf)
-{
-	int32_t			index;
 	int32_t		length;
-	char			*string;
-	char			quote;
+	int32_t		index;
+	char		quote;
 
-	index = -1;
 	quote = 0;
-	string = itf->line->buffer;
-	length = (int)ft_strlen(string);
-	while (index < length && string[++index] != '\0')
+	index = 0;
+	length = ft_strlen(str);
+	while (index < length && str[index] != '\0')
 	{
-		quote = set_quote(string[index]);
+		quote = set_quote(str[index]);
 		if (quote != 0)
 		{
-			if (goto_next_quote(string, quote, index + 1) == -1)
-			{
-				prepare_for_ps2(itf);
-				call_ps2_prompt(sh_reg, itf);
-				itf->state = INT_PS1;
-				return ;
-			}
+			if (goto_next_quote(str, quote, index + 1) != -1)
+				index = goto_next_quote(str, quote, index + 1);
 			else
-				index = goto_next_quote(string, quote, index + 1);
+				return (-1);
 		}
+		++index;
 	}
+	return (1);
+}
+
+void			validate_input_quoting(t_registry *shell, t_interface *itf)
+{
+	if (quoting_is_valid(itf->line->buffer) == -1)
+		invoke_sub_prompt(shell, quoting_is_valid, INT_PS1, INT_PS2);
 }

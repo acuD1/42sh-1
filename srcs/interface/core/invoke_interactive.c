@@ -6,15 +6,16 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 19:11:17 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:27:47 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "interface_functions.h"
 #include "line_edit.h"
 #include "log.h"
 #include "lexer.h"
 
-static int	allocate_data_structures(t_vector **vector,
+static int8_t	allocate_data_structures(t_vector **vector,
 				t_window **window, t_cursor **cursor)
 {
 	if ((*vector = ft_vctnew(0)) == NULL)
@@ -35,14 +36,14 @@ static int	allocate_data_structures(t_vector **vector,
 	return (0);
 }
 
-int	fill_interface_data(t_registry *shell, t_interface *itf)
+int8_t	fill_interface_data(t_registry *shell, t_interface *itf)
 {
 	t_vector	*vector;
 	t_window	*window;
 	t_cursor	*cursor;
 
 	if (allocate_data_structures(&vector, &window, &cursor) != 0)
-		return (-2);
+		return (-3);
 
 	itf->line = vector;
 	itf->window = window;
@@ -50,19 +51,18 @@ int	fill_interface_data(t_registry *shell, t_interface *itf)
 	itf->state = INT_PS1;
 
 	if (init_window(shell, itf) != 0)
-		return (-1);
+		return (-2);
 	if (init_cursor(itf) != 0)
 		return (-1);
 	return (0);
 }
 
-static short is_input_valid(char *input_string)
+static int8_t is_input_valid(char *input_string)
 {
 	if (input_string == NULL)
 		return (-1);
 	if (ft_strequ(input_string, "exit") || input_string[0] == 4)
-		return (-1);
-
+		return (-2);
 	return (1);
 }
 
@@ -77,8 +77,8 @@ void	launch_shell_prompt(t_registry *shell, t_interface *itf)
 	{
 		user_input_string = prompt(shell, itf);
 
-		if (is_input_valid(user_input_string) == 1)
-			lexer(user_input_string);
+		if (is_input_valid(user_input_string) == 1) ;
+//			lexer(user_input_string);
 		else
 			break ;
 		cleanup_interface(itf);

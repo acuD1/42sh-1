@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cursor.c                                           :+:      :+:    :+:   */
+/*   is_eof.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 15:41:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 16:27:38 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/12 10:42:28 by skuppers          #+#    #+#             */
+/*   Updated: 2019/04/12 10:42:45 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
-#include "interface_functions.h"
 
-int8_t	init_cursor(t_interface *itf)
+uint8_t	is_EOF(char *buffer)
 {
-	itf->cursor->index = 0;
-	itf->cursor->x = get_prompt_len(itf);
-	itf->cursor->y = 0;
+	if (buffer[0] == 4 && buffer[1] == '\0')
+		return (1);
 	return (0);
 }

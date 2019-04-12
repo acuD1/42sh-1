@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 16:41:15 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 18:59:53 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/12 14:51:48 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@
 #define INT_PS2_VALUE "quote> "
 
 #define INT_PS3 "PS3"
-#define INT_PS3_VALUE "script>"
+#define INT_PS3_VALUE "script> "
 
 #define INT_PS4 "PS4"
-#define INT_PS4_VALUE "heredoc>"
+#define INT_PS4_VALUE "heredoc> "
 
 
 #define INT_ESCAPE_SEQ "ESC"

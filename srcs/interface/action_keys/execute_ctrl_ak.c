@@ -6,14 +6,15 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 07:30:12 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 16:47:34 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/12 15:57:18 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
+#include "interface_functions.h"
 #include "ft_printf.h"
 
-int		tc_ak_ctrl_d(t_interface *itf)
+int8_t		tc_ak_ctrl_d(t_interface *itf)
 {
 	if (itf->line->buffer[0] == '\0')
 	{
@@ -25,7 +26,7 @@ int		tc_ak_ctrl_d(t_interface *itf)
 	return (0);
 }
 
-int		tc_ak_clear_screen(t_interface *itf)
+int8_t		tc_ak_clear_screen(t_interface *itf)
 {
 	size_t initial_cursor_pos;
 

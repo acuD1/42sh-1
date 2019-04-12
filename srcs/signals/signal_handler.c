@@ -6,21 +6,22 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 19:06:42 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:34:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "line_edit.h"
+#include "interface_functions.h"
 
-t_interface	*g_interface_registry_pointer;
+t_registry	*g_shell_registry;
 
 void				redraw_prompt(int signo)
 {
 	(void)signo;
 	t_interface *itf;
 
-	itf = g_interface_registry_pointer;
+	itf = g_shell_registry->interface;
 	tc_ak_end(itf);
 
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
@@ -31,7 +32,7 @@ void				redraw_prompt(int signo)
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
 		ft_vctreset(itf->line);
 
-	print_words(get_intern_var(itf->shell, itf->state), itf);
+	print_words(get_intern_var(g_shell_registry, itf->state), itf);
 
 	itf->cursor->index = 0;
 }
@@ -47,13 +48,14 @@ static void				interface_resize_handler(int signo)
 		ft_dprintf(2, "[ERROR] Terminal size could not be updated.\n");
 		return ;
 	}
-	itf = g_interface_registry_pointer;
+	itf = g_shell_registry->interface;
 
-	init_window(itf->shell, itf);
+	init_window(g_shell_registry, itf);
 
 	tputs(itf->termcaps->clear, 1, ft_putc);
 
-	if ((itf->window->cols < (uint32_t)(ft_strlen(get_intern_var(itf->shell, INT_PS1)) * 2)
+	if ((itf->window->cols < (uint32_t)(ft_strlen(get_intern_var(g_shell_registry,
+												   	INT_PS1)) * 2)
 		|| itf->window->rows < 3) || ft_vctlen(itf->line) > (uint32_t)itf->window->max_chars)
 		print_words("Terminal window size too small :-(", itf);
 	else
@@ -73,9 +75,9 @@ void					define_interface_default_signals(t_registry *sh_reg)
 }
 
 void					define_interface_signal_behavior(
-				t_interface *itf, t_registry *shell_registry)
+				t_registry *shell_registry)
 {
-	g_interface_registry_pointer = itf;
+	g_shell_registry = shell_registry;
 	if (signal(SIGWINCH, interface_resize_handler) == SIG_ERR)
 		log_print(shell_registry, LOG_ERROR,
 						"Error catching the resize signal.\n");

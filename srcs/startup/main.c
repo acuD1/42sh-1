@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/11 18:24:33 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:29:42 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "21sh.h"
 #include "log.h"
 #include "line_edit.h"
+#include "interface_functions.h"
 
 void	print_opt(t_registry *reg)
 {

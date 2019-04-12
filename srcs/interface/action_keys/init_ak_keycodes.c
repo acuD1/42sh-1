@@ -6,35 +6,16 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:48:38 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 17:32:26 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:27:10 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 
-static void	clean_ak_keycodes(t_interface *itf)
-{
-	int y;
-	int x;
-
-	y = 0;
-	while (y < AK_AMOUNT)
-	{
-		x = 0;
-		while (x < READ_SIZE)
-		{
-			itf->ak_masks[y] = 0;
-			++x;
-		}
-		++y;
-	}
-}
-
 void	init_ak_keycodes(t_interface *itf)
 {
-	//bzero sur la size
-	//
-	clean_ak_keycodes(itf);
+//	clean_ak_keycodes(itf);
+	ft_memset(itf->ak_masks, 0, (sizeof(unsigned long) * AK_AMOUNT));
 	itf->ak_masks[AK_ARROW_RIGHT] = AK_ARROW_RIGHT_MASK;
 	itf->ak_masks[AK_ARROW_LEFT] = AK_ARROW_LEFT_MASK;
 	itf->ak_masks[AK_ARROW_UP] = AK_ARROW_UP_MASK;

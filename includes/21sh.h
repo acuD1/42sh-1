@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/09 19:55:07 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:33:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdlib.h>
 # include "libft.h"
 # include "internals.h"
+#include "line_edit.h"
 
 typedef struct s_opt
 {
@@ -41,6 +42,7 @@ typedef struct		s_registry
 	t_list			*intern;
 	t_hash			bin_hashmap;
 	t_hash			blt_hashmap;
+	struct s_interface		*interface;
 }					t_registry;
 
 typedef int 		(*t_builtin)(t_registry *);

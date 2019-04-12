@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/11 18:50:11 by skuppers         ###   ########.fr        #
+#    Updated: 2019/04/12 16:23:33 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -135,6 +135,7 @@ LFLAGS = -ltermcap
 INCS += 21sh.h
 INCS += log.h
 INCS += line_edit.h
+INCS += interface_functions.h
 INCS += unit.h
 INCS += lexer.h
 
@@ -173,13 +174,17 @@ LINE += debug_logger.c
 LINE += signal_handler.c
 
 #Utilities
-LINE += move_tools.c
-LINE += clean_registry.c
-LINE += ft_putc.c
-LINE += set_quote.c
-LINE += shift_tools.c
 LINE += validate_interface.c
 LINE += get_prompt_len.c
+LINE += input_tools.c
+LINE += shift_tools.c
+LINE += move_tools.c
+LINE += realloc_vector.c
+LINE += clean_registry.c
+LINE += set_quote.c
+LINE += ft_putc.c
+LINE += is_eof.c
+LINE += print.c
 
 #Misc
 LINE += prompt_errors.c
@@ -238,7 +243,7 @@ test : $(NAMET)
 $(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJM)
 	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
 	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
-	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o  $@ $(OBJS) $(OBJM)
+	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@ $(OBJS) $(OBJM)
 	$(PRINT) "$(GREEN)$@ build $(BUILD_NUMBER) is ready $(NC)"
 
 $(OBJM) : $(OPATH)%.o : %.c $(INCS) 

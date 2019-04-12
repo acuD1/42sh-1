@@ -6,12 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:38:46 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 17:36:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:28:13 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "line_edit.h"
+#include "interface_functions.h"
 
 int8_t	init_window(t_registry *shell, t_interface *itf)
 {

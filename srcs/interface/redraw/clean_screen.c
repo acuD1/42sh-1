@@ -6,11 +6,12 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 11:51:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 17:29:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:28:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
+#include "interface_functions.h"
 
 uint32_t	clean_screen(t_interface *itf)
 {

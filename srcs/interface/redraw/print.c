@@ -1,22 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cursor.c                                           :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 15:41:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 16:27:38 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/12 10:49:05 by skuppers          #+#    #+#             */
+/*   Updated: 2019/04/12 16:28:38 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "line_edit.h"
 #include "interface_functions.h"
+#include "line_edit.h"
 
-int8_t	init_cursor(t_interface *itf)
+void	print_char(char d, t_interface *itf)
 {
-	itf->cursor->index = 0;
-	itf->cursor->x = get_prompt_len(itf);
-	itf->cursor->y = 0;
-	return (0);
+	write(1, &d, 1);
+	itf->cursor->index++;
+	itf->cursor->x++;
+	if (itf->cursor->x == itf->window->cols)
+	{
+		tputs(itf->termcaps->cs_down, 1, &ft_putc);
+		itf->cursor->x = 0;
+		itf->cursor->y++;
+	}
+}
+
+void	print_words(char *str, t_interface *itf)
+{
+	uint32_t	i;
+
+	i = 0;
+	while (i < ft_strlen(str))
+		print_char(str[i++], itf);
 }
