@@ -47,7 +47,7 @@ LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 #									Compiler                                   #
 # ---------------------------------------------------------------------------- #
 
-CC = Clang
+CC = clang
 LINK = $(CC)
 LINKD = $(CC) -g3
 COMPILE = $(CC) -c

@@ -28,6 +28,6 @@ int8_t	init_window(t_registry *shell, t_interface *itf)
 	add_internal_nbr(shell, INT_COLS, itf->window->cols);
 	add_internal_nbr(shell, INT_ROWS, itf->window->rows);
 
-	itf->window->max_chars = ((itf->window->cols * itf->window->rows) - get_prompt_len(itf));
+	itf->window->max_chars = ((itf->window->cols * itf->window->rows) - get_prompt_len(shell));
 	return (0);
 }

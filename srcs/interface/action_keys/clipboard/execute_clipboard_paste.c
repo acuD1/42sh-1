@@ -22,8 +22,9 @@ static uint8_t	is_too_long(t_vector *a, t_vector *b, uint32_t max)
 	return (0);
 }
 
-static int	insert_clipboard(t_interface *itf)
+static int	insert_clipboard(t_registry *shell)
 {
+	t_interface		*itf;
 	uint32_t		length;
 	char			*after;
 	char			*before;
@@ -33,6 +34,7 @@ static int	insert_clipboard(t_interface *itf)
 	concat = NULL;
 	before = NULL;
 	after = NULL;
+	itf = shell->interface;
 
 	//we dont need before
 	before = ft_strsub(itf->line->buffer, 0, itf->cursor->index);
@@ -46,27 +48,32 @@ static int	insert_clipboard(t_interface *itf)
 
 	length = ft_strlen(before) + ft_strlen(itf->clip->buffer);
 
-log_print(itf->shell, LOG_INFO, "Inserting |%s| to line from clipboard.\n", itf->clip->buffer);
+log_print(shell, LOG_INFO, "Inserting |%s| to line from clipboard.\n", itf->clip->buffer);
 	ft_strdel(&concat);
 	ft_strdel(&after);
 	ft_strdel(&before);
 	return (length);
 }
 
-void	append_clipboard(t_interface *itf)
+void	append_clipboard(t_registry *shell)
 {
+	t_interface *itf;
+
+	itf = shell->interface;
 	itf->line->buffer = ft_strcat(itf->line->buffer,
 			itf->clip->buffer);
-	redraw_after_cursor(itf);
-	tc_ak_end(itf);
+	redraw_after_cursor(shell);
+	tc_ak_end(shell);
 
-log_print(itf->shell, LOG_INFO, "Appending |%s| to line from clipboard.\n", itf->clip->buffer);
+log_print(shell, LOG_INFO, "Appending |%s| to line from clipboard.\n", itf->clip->buffer);
 }
 
-int8_t		tc_ak_paste_clipboard(t_interface *itf)
+int8_t		tc_ak_paste_clipboard(t_registry *shell)
 {
+	t_interface			*itf;
 	uint32_t			go_front;
 
+	itf = shell->interface;
 	if (validate_interface_content(itf) != 0)
 		return (-1);
 	if (is_too_long(itf->line, itf->clip, itf->window->max_chars))
@@ -76,14 +83,14 @@ int8_t		tc_ak_paste_clipboard(t_interface *itf)
 
 	if (itf->line->buffer[itf->cursor->index] != '\0')
 	{
-		go_front = insert_clipboard(itf);
+		go_front = insert_clipboard(shell);
 		//full redraw?
-		tc_ak_home(itf);
-		redraw_after_cursor(itf);
+		tc_ak_home(shell);
+		redraw_after_cursor(shell);
 		while (go_front-- > 0)
-			tc_ak_arrow_right(itf);
+			tc_ak_arrow_right(shell);
 	}
 	else
-		append_clipboard(itf);
+		append_clipboard(shell);
 	return (0);
 }

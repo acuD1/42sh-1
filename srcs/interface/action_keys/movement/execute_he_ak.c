@@ -14,20 +14,20 @@
 #include "interface_functions.h"
 #include "ft_printf.h"
 
-int8_t	tc_ak_home(t_interface *itf)
+int8_t	tc_ak_home(t_registry *shell)
 {
-	if (validate_interface_content(itf) != 0)
+	if (validate_interface_content(shell->interface) != 0)
 		return (-1);
-	while (itf->cursor->index > 0)
-		tc_ak_arrow_left(itf);
+	while (shell->interface->cursor->index > 0)
+		tc_ak_arrow_left(shell);
 	return (0);
 }
 
-int8_t	tc_ak_end(t_interface *itf)
+int8_t	tc_ak_end(t_registry *shell)
 {
-	if (validate_interface_content(itf) != 0)
+	if (validate_interface_content(shell->interface) != 0)
 		return (-1);
-	while (itf->cursor->index < ft_vctlen(itf->line))
-		tc_ak_arrow_right(itf);
+	while (shell->interface->cursor->index < ft_vctlen(shell->interface->line))
+		tc_ak_arrow_right(shell);
 	return (0);
 }

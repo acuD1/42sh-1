@@ -14,12 +14,12 @@
 #include "line_edit.h"
 #include "interface_functions.h"
 
-void	cleanup_interface(t_interface *itf)
+void	cleanup_interface(t_registry *shell)
 {
-	ft_vctreset(itf->line);
-	itf->cursor->x = get_prompt_len(itf);
-	itf->cursor->y = 0;
-	itf->cursor->index = 0;
+	ft_vctreset(shell->interface->line);
+	shell->interface->cursor->x = get_prompt_len(shell);
+	shell->interface->cursor->y = 0;
+	shell->interface->cursor->index = 0;
 }
 
 void	free_interface_registry(t_interface *itf)

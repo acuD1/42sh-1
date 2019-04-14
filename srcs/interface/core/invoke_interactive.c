@@ -52,7 +52,7 @@ int8_t	fill_interface_data(t_registry *shell, t_interface *itf)
 
 	if (init_window(shell, itf) != 0)
 		return (-2);
-	if (init_cursor(itf) != 0)
+	if (init_cursor(shell) != 0)
 		return (-1);
 	return (0);
 }
@@ -71,7 +71,7 @@ void	launch_shell_prompt(t_registry *shell, t_interface *itf)
 	char	*user_input_string;
 
 	log_print(shell, LOG_INFO, "Starting prompt.\n");
-	define_interface_signal_behavior(itf, shell);
+	define_interface_signal_behavior(shell);
 
 	while (1)
 	{
@@ -81,7 +81,7 @@ void	launch_shell_prompt(t_registry *shell, t_interface *itf)
 //			lexer(user_input_string);
 		else
 			break ;
-		cleanup_interface(itf);
+		cleanup_interface(shell);
 	}
 	define_interface_default_signals(shell);
 }

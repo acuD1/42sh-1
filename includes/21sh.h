@@ -15,7 +15,6 @@
 # include <stdlib.h>
 # include "libft.h"
 # include "internals.h"
-#include "line_edit.h"
 
 typedef struct s_opt
 {
@@ -45,9 +44,11 @@ typedef struct		s_registry
 	struct s_interface		*interface;
 }					t_registry;
 
+#include "line_edit.h"
+
 typedef int 		(*t_builtin)(t_registry *);
 
-void			shell_invoke_interactive(t_registry *shell_registry);
+void			shell_invoke_interactive(t_registry *shell);
 
 int				add_internal(t_registry *sh_reg, char *name, char *data);
 int				add_internal_nbr(t_registry *reg, char *name, int data);

@@ -13,10 +13,13 @@
 #include "line_edit.h"
 #include "interface_functions.h"
 
-int8_t	init_cursor(t_interface *itf)
+int8_t	init_cursor(t_registry *shell)
 {
+	t_interface *itf;
+
+	itf = shell->interface;
 	itf->cursor->index = 0;
-	itf->cursor->x = get_prompt_len(itf);
+	itf->cursor->x = get_prompt_len(shell);
 	itf->cursor->y = 0;
 	return (0);
 }

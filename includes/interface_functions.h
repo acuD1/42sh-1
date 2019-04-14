@@ -37,7 +37,7 @@ short						set_term_behavior(t_registry *shell);
 short						restore_term_behavior(t_registry *shell);
 
 int8_t		 					init_window(t_registry *shell, t_interface *itf);
-int8_t							init_cursor(t_interface *itf);
+int8_t							init_cursor(t_registry *shell);
 
 void						define_interface_default_signals(t_registry *shell);
 void						define_interface_signal_behavior(t_registry *shell);
@@ -54,7 +54,7 @@ void							link_actions_to_keys(t_registry *shell);
 
 void	init_termcap_actions(int8_t (*tc_call[AK_AMOUNT])(struct s_registry *shell));
 
-void						handle_input_key(char c[], t_interface *itf);
+void						handle_input_key(char c[], t_registry *shell);
 char						set_quote(char c);
 void						validate_input_quoting(t_registry *shell, t_interface *itf);
 
@@ -62,14 +62,13 @@ void						print_char(char c, t_interface *itf);
 void						print_words(char *str, t_interface *itf);
 void						redraw_prompt(int signo);
 
-uint32_t						clean_screen(t_interface *itf);
-uint32_t						replace_input_line(char *string, t_interface *itf);
-uint32_t						redraw_input_line(t_interface *itf);
-
-uint32_t						redraw_after_cursor(t_interface *itf);
+uint32_t						clean_screen(t_registry *shell);
+uint32_t						replace_input_line(char *string, t_registry *shell);
+uint32_t						redraw_input_line(t_registry *shell);
+uint32_t						redraw_after_cursor(t_registry *shell);
 
 void						free_interface_registry(t_interface *itf);
-void						cleanup_interface(t_interface *itf);
+void						cleanup_interface(t_registry *shell);
 
 void						prompt_read_failed(t_registry *shell, t_vector *vect);
 

@@ -14,13 +14,13 @@
 #include "line_edit.h"
 #include "interface_functions.h"
 
-static void			print_sub_prompt(t_interface *itf)
+static void			print_sub_prompt(t_registry *shell)
 {
-	itf->cursor->x = 0;
-	itf->cursor->y = 0;
+	shell->interface->cursor->x = 0;
+	shell->interface->cursor->y = 0;
 	ft_printf("\n");
-	print_words(get_intern_var(itf->shell, itf->state), itf);
-	itf->cursor->index = 0;
+	print_words(get_intern_var(shell, shell->interface->state), shell->interface);
+	shell->interface->cursor->index = 0;
 }
 
 static t_vector		*copy_vector(t_vector *src)
@@ -47,7 +47,7 @@ static int8_t		sub_prompt_loop(t_registry *shell, t_interface *itf)
 			prompt_read_failed(shell, itf->line);
 			return (-2);
 		}
-		handle_input_key(character, itf);
+		handle_input_key(character, shell);
 		if (is_EOF(itf->line->buffer))
 		{
 			ft_strdel(&(itf->line->buffer));
@@ -77,14 +77,14 @@ int8_t			invoke_sub_prompt(t_registry *shell,
 	while (condition(old_vect->buffer) == -1)
 	{
 		reset_vector(itf->line);
-		print_sub_prompt(itf);
+		print_sub_prompt(shell);
 		if (sub_prompt_loop(shell, itf) != 0)
 			return (-3);
 		concat = NULL;
 		ft_asprintf(&concat, "%s%c%s", old_vect->buffer, '\n', itf->line->buffer);
 		move_vector(old_vect, concat);
 	}
-	replace_vector(itf->line, old_vect);
+//	replace_vector(itf->line, old_vect);
 	itf->state = current_state;
 	log_print(shell, LOG_INFO, "Sub-prompt concat:|%s|\n", itf->line->buffer);
 	return (0);

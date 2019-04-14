@@ -31,12 +31,12 @@ char		*prompt(t_registry *shell_reg, t_interface *itf)
 			prompt_read_failed(shell_reg, itf->line);
 			return (NULL);
 		}
-		handle_input_key(character, itf);
+		handle_input_key(character, shell_reg);
 
 		if (is_EOF(itf->line->buffer))
 			return (itf->line->buffer);
 	}
-	tc_ak_end(itf);
+	tc_ak_end(shell_reg);
 	validate_input_quoting(shell_reg, itf);
 
 	// Handle history here

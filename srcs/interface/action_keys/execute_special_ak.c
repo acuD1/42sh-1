@@ -19,35 +19,36 @@
 **	Autocompletion
 */
 
-int8_t		tc_ak_hightab(t_interface *itf)
+int8_t		tc_ak_hightab(t_registry *shell)
 {
-	(void)itf;
+	(void)shell;
 	return (0);
 }
 
-int8_t		tc_ak_delete(t_interface *itf)
+int8_t		tc_ak_delete(t_registry *shell)
 {
-	if (validate_interface_content(itf) != 0)
+	if (validate_interface_content(shell->interface) != 0)
 		return (-1);
 
-	shift_content_left_once(itf->line,
-			itf->cursor->index);
-	redraw_after_cursor(itf);
+	shift_content_left_once(shell->interface->line,
+			shell->interface->cursor->index);
+	redraw_after_cursor(shell);
 	return (0);
 }
 
-int8_t		tc_ak_backspace(t_interface *itf)
+int8_t		tc_ak_backspace(t_registry *shell)
 {
+	t_interface	*itf;
+
+	itf = shell->interface;
 	if (validate_interface_content(itf) != 0)
 		return (-1);
 
 	if (itf->cursor->index == 0)
 		return (0);
 
-	int8_t le = tc_ak_arrow_left(itf);
-	log_print(itf->shell, LOG_INFO, "left returned:%d\n", le);
-
+	tc_ak_arrow_left(shell);
 	shift_content_left_once(itf->line, itf->cursor->index);
-	redraw_after_cursor(itf);
+	redraw_after_cursor(shell);
 	return (0);
 }

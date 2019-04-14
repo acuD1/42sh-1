@@ -14,30 +14,35 @@
 #include "line_edit.h"
 #include "interface_functions.h"
 
-uint32_t		redraw_input_line(t_interface *itf)
+uint32_t		redraw_input_line(t_registry *shell)
 {
+	t_interface	*itf;
 	uint32_t	offset;
 	uint32_t	initial_cursor;
 
+	itf = shell->interface;
 	initial_cursor = itf->cursor->index;
 
-	itf->cursor->index = clean_screen(itf);
+	// do we need return value here?
+	itf->cursor->index = clean_screen(shell);
 
 	offset = 0;
 	while (offset < ft_vctlen(itf->line))
 		print_char(itf->line->buffer[offset++], itf);
 
 	offset = 0;
-	tc_ak_home(itf);
+	tc_ak_home(shell);
 	while (offset++ < initial_cursor)
-		tc_ak_arrow_right(itf);
+		tc_ak_arrow_right(shell);
 	return (itf->cursor->index);
 }
 
-uint32_t		redraw_after_cursor(t_interface *itf)
+uint32_t		redraw_after_cursor(t_registry *shell)
 {
+	t_interface	*itf;
 	uint32_t initial_cursor_pos;
 
+	itf = shell->interface;
 	initial_cursor_pos = itf->cursor->index;
 
 	while (itf->cursor->index < itf->line->size
@@ -46,24 +51,25 @@ uint32_t		redraw_after_cursor(t_interface *itf)
 	print_char(' ', itf);
 	while (itf->cursor->index > initial_cursor_pos
 				&& itf->cursor->index >= 1)
-		tc_ak_arrow_left(itf);
+		tc_ak_arrow_left(shell);
 	return (itf->cursor->index);
 }
 
-uint32_t	replace_input_line(char *string, t_interface *itf)
+uint32_t	replace_input_line(char *string, t_registry *shell)
 {
+	t_interface	*itf;
 	uint32_t	index;
 
 	index = 0;
-
-	itf->cursor->index = clean_screen(itf);
+	itf = shell->interface;
+	itf->cursor->index = clean_screen(shell);
 
 	ft_bzero(itf->line->buffer, itf->line->size);
 	while (itf->line->size <= ft_strlen(string))
 		ft_vctrescale(itf->line);
 	itf->line->buffer = ft_strncpy(itf->line->buffer,
 			string, ft_strlen(string));
-	tc_ak_home(itf);
+	tc_ak_home(shell);
 
 	print_words(string, itf);
 	return (itf->cursor->index);

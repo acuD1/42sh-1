@@ -76,7 +76,7 @@ t_interface			*init_line_edition(t_registry *shell)
 		return (NULL);
 
 	setup_keycodes(itf);
-	link_actions_to_keys(itf);
+	link_actions_to_keys(shell);
 	fill_interface_related_internals(shell);
 
 	if ((op_worked = set_term_behavior(shell)) != 0)

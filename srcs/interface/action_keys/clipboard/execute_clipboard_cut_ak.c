@@ -58,37 +58,44 @@ static void move_buffer(char *dest, t_vector *source)
 	ft_bzero(source->buffer, source->size);
 }
 
-int8_t			tc_ak_cut_before_cursor(t_interface *itf)
+int8_t			tc_ak_cut_before_cursor(t_registry *shell)
 {
+	t_interface	*itf;
 
+	itf = shell->interface;
 	if (validate_interface_content(itf) != 0)
 			return (-1);
 	realloc_vector(itf->clip, itf->line);
 	copy_buffer_part(itf, 1);
-	log_print(itf->shell, LOG_INFO, "Cut |%s| to clipboard.\n", itf->clip->buffer);
-	redraw_input_line(itf);
+	log_print(shell, LOG_INFO, "Cut |%s| to clipboard.\n", itf->clip->buffer);
+	redraw_input_line(shell);
 	return (0);
 }
 
-int8_t			tc_ak_cut_after_cursor(t_interface *itf)
+int8_t			tc_ak_cut_after_cursor(t_registry *shell)
 {
+	t_interface	*itf;
 
+	itf = shell->interface;
 	if (validate_interface_content(itf) != 0)
 			return (-1);
 	realloc_vector(itf->clip, itf->line);
 	copy_buffer_part(itf, -1);
-	log_print(itf->shell, LOG_INFO, "Cut |%s| to clipboard.\n", itf->clip->buffer);
-	redraw_input_line(itf);
+	log_print(shell, LOG_INFO, "Cut |%s| to clipboard.\n", itf->clip->buffer);
+	redraw_input_line(shell);
 	return (0);
 }
 
-int8_t			tc_ak_cut_line(t_interface *itf)
+int8_t			tc_ak_cut_line(t_registry *shell)
 {
+	t_interface	*itf;
+
+	itf = shell->interface;
 	if (validate_interface_content(itf) != 0)
 			return (-1);
 	realloc_vector(itf->clip, itf->line);
 	move_buffer(itf->clip->buffer, itf->line);
-	log_print(itf->shell, LOG_INFO, "Cut |%s| to clipboard.\n", itf->clip->buffer);
-	redraw_input_line(itf);
+	log_print(shell, LOG_INFO, "Cut |%s| to clipboard.\n", itf->clip->buffer);
+	redraw_input_line(shell);
 	return (0);
 }

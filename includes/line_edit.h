@@ -114,4 +114,5 @@ typedef struct				s_interface
 
 	int8_t					(*tc_call[AK_AMOUNT])(struct s_registry *shell);
 }							t_interface;
+
 #endif
