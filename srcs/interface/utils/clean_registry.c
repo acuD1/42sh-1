@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 11:03:36 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 16:28:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 10:52:12 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	reset_vector(t_vector *line)
 	line->size = 16;
 }
 
-void	replace_vetor(t_vector *dest, t_vector *src)
+void	replace_vector(t_vector *dest, t_vector *src)
 {
 	ft_strdel(&(dest->buffer));
 	dest->buffer = ft_strdup(src->buffer);

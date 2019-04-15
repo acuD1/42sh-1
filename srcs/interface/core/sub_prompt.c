@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:22:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 16:27:58 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 10:40:44 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int8_t			invoke_sub_prompt(t_registry *shell,
 		ft_asprintf(&concat, "%s%c%s", old_vect->buffer, '\n', itf->line->buffer);
 		move_vector(old_vect, concat);
 	}
-//	replace_vector(itf->line, old_vect);
+	replace_vector(itf->line, old_vect);
 	itf->state = current_state;
 	log_print(shell, LOG_INFO, "Sub-prompt concat:|%s|\n", itf->line->buffer);
 	return (0);

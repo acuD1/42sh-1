@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:49:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 16:51:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 10:50:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_termcaps		*init_termcap_calls(t_registry *reg)
 void			init_termcap_actions(int8_t (*tc_call[AK_AMOUNT])(t_registry *shell))
 {
 	tc_call[AK_ARROW_LEFT] = &tc_ak_arrow_left;
+	tc_call[AK_ARROW_RIGHT] = &tc_ak_arrow_right;
 	tc_call[AK_ARROW_UP] = &tc_ak_arrow_up;
 	tc_call[AK_ARROW_DOWN] = &tc_ak_arrow_down;
 	tc_call[AK_HOME] = &tc_ak_home;
@@ -69,6 +70,5 @@ void			setup_keycodes(t_interface *itf)
 
 void			link_actions_to_keys(t_registry *shell)
 {
-//	init_termcap_actions(&(shell->interface->tc_call));
-	shell->interface->tc_call[AK_ARROW_RIGHT] = &tc_ak_arrow_right;
+	init_termcap_actions((shell->interface->tc_call));
 }

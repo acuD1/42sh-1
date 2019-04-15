@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 16:36:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 10:37:48 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ t_interface			*init_line_edition(t_registry *shell)
 	if ((itf->termcaps = init_termcap_calls(shell)) == NULL)
 		return (NULL);
 
+	shell->interface = itf;
+
 	setup_keycodes(itf);
 	link_actions_to_keys(shell);
 	fill_interface_related_internals(shell);
@@ -88,7 +90,6 @@ t_interface			*init_line_edition(t_registry *shell)
 
 	if ((itf->clip = allocate_clipboard(shell)) == NULL)
 		return (NULL);
-	shell->interface = itf;
 	log_print(shell, LOG_OK, "Line edition initialized.\n");
 	return (itf);
 }
