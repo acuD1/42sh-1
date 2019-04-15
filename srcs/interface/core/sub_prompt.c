@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:22:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 10:40:44 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 14:03:46 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void			print_sub_prompt(t_registry *shell)
 	shell->interface->cursor->x = 0;
 	shell->interface->cursor->y = 0;
 	ft_printf("\n");
-	print_words(get_intern_var(shell, shell->interface->state), shell->interface);
+	print_words(get_intern_var(shell, shell->interface->state),
+					shell->interface);
 	shell->interface->cursor->index = 0;
 }
 
@@ -48,7 +49,7 @@ static int8_t		sub_prompt_loop(t_registry *shell, t_interface *itf)
 			return (-2);
 		}
 		handle_input_key(character, shell);
-		if (is_EOF(itf->line->buffer))
+		if (is_eof(itf->line->buffer))
 		{
 			ft_strdel(&(itf->line->buffer));
 			free(itf->line);
@@ -59,8 +60,7 @@ static int8_t		sub_prompt_loop(t_registry *shell, t_interface *itf)
 	return (0);
 }
 
-
-int8_t			invoke_sub_prompt(t_registry *shell,
+int8_t				invoke_sub_prompt(t_registry *shell,
 				int8_t (*condition)(char *),
 				char *current_state, char *prompt_state)
 {
@@ -79,7 +79,13 @@ int8_t			invoke_sub_prompt(t_registry *shell,
 		reset_vector(itf->line);
 		print_sub_prompt(shell);
 		if (sub_prompt_loop(shell, itf) != 0)
+		{
+			reset_vector(itf->line);
+			ft_strdel(&old_vect->buffer);
+			free(old_vect);
+			itf->state = current_state;
 			return (-3);
+		}
 		concat = NULL;
 		ft_asprintf(&concat, "%s%c%s", old_vect->buffer, '\n', itf->line->buffer);
 		move_vector(old_vect, concat);

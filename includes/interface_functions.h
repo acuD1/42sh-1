@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 11:15:17 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 14:09:27 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 # include "line_edit.h"
 # include "libft.h"
+
+/*
+**	Unit testing
+*/
+int8_t	fill_interface_data(t_registry *shell, t_interface *itf);
 
 extern t_registry	*g_shell_registry;
 
@@ -70,18 +75,16 @@ void						shift_content_left_once(t_vector *vect, unsigned int cursor);
 /*
 **		UTILS
 */
-
-void						reset_vector(t_vector *vect);
-void						replace_vector(t_vector *dest, t_vector *src);
-void			realloc_vector(t_vector *dest, t_vector *source);
-void						move_vector(t_vector *dest, char *src);
-
 int							ft_putc(int c);
 int8_t						validate_interface_content(t_interface *itf);
-uint8_t						is_EOF(char *buffer);
 uint8_t						is_printable(char c[READ_SIZE]);
+uint8_t						is_eof(char *buffer);
 uint32_t					get_prompt_len(t_registry *itf);
 uint64_t					compute_mask(char c[READ_SIZE]);
+void						reset_vector(t_vector *vect);
+void						replace_vector(t_vector *dest, t_vector *src);
+void						realloc_vector(t_vector *dest, t_vector *source);
+void						move_vector(t_vector *dest, char *src);
 
 /*
 **		ACTION KEYS

@@ -6,14 +6,14 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:57:01 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 12:27:31 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 13:41:50 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "line_edit.h"
 
-static void		ft_strshift(char *str, uint32_t index, int shift)
+static void	ft_strshift(char *str, uint32_t index, int shift)
 {
 	int32_t last;
 
@@ -39,7 +39,7 @@ static void		ft_strshift(char *str, uint32_t index, int shift)
 	}
 }
 
-void	shift_content_right_once(t_vector *vector, uint32_t idx)
+void		shift_content_right_once(t_vector *vector, uint32_t idx)
 {
 	if (idx >= (vector->size - 2)
 					|| ft_strlen(vector->buffer) >= vector->size - 2)
@@ -47,7 +47,7 @@ void	shift_content_right_once(t_vector *vector, uint32_t idx)
 	ft_strshift(vector->buffer, idx, 1);
 }
 
-void	shift_content_left_once(t_vector *vector, uint32_t idx)
+void		shift_content_left_once(t_vector *vector, uint32_t idx)
 {
 	ft_strshift(vector->buffer, idx, -1);
 }

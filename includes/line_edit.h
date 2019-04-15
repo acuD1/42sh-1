@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 16:50:44 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 13:35:48 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 #define AK_CTRL_D_MASK 		0x400000000000000
 #define AK_CTRL_L_MASK		0xc00000000000000
 #define AK_CTRL_X_MASK		0x1800000000000000
-#define AK_CTRL_B_MASK		0x2000000000000000
+#define AK_CTRL_B_MASK		0x200000000000000
 #define AK_CTRL_P_MASK		0x1000000000000000
 #define AK_CTRL_LB_MASK		0x1b00000000000000
 #define AK_CTRL_RB_MASK		0x1d00000000000000

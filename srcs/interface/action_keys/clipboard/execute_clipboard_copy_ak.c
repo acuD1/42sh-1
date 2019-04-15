@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 10:40:38 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 16:26:39 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 13:30:38 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int8_t	tc_ak_copy_line(t_registry *shell)
 	if (validate_interface_content(itf) != 0)
 		return (-1);
 	realloc_vector(itf->clip, itf->line);
-	itf->clip->buffer = ft_strcpy(itf->clip->buffer, itf->line->buffer);
+	ft_strcpy(itf->clip->buffer, itf->line->buffer);
 
 log_print(shell, LOG_INFO, "Copied |%s| to clipboard.\n", itf->clip->buffer);
 	return (0);
