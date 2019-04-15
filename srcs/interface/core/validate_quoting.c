@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:54:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 11:54:44 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 13:58:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "interface_functions.h"
 #include "log.h"
 
-static int32_t		goto_next_quote(char *string, char quote, uint32_t index)
+static int32_t	goto_next_quote(char *string, char quote, uint32_t index)
 {
 	uint32_t		found_match;
 
@@ -26,7 +26,7 @@ static int32_t		goto_next_quote(char *string, char quote, uint32_t index)
 	return (-1);
 }
 
-int8_t	quoting_is_valid(char *str)
+int8_t			quoting_is_valid(char *str)
 {
 	int32_t		length;
 	int32_t		index;

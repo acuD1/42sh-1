@@ -2,9 +2,12 @@ Build x
 
 Known bugs:
 	[Interface]
-		IN PS2 PROMPT:
-			- ak_cut_after is misconfigured
+
 TODO:
 	[Interface]
-		- Optimise intern variable handling - Iteration.2
 		- Make unit tests
+		- Leaking on C-d when in PS2
+		- Set up correct routines for termios handling
+	[Logging]
+		- check leaks
+		- Cleanup Logging function
