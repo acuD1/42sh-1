@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 10:52:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 11:57:48 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,9 @@
 # include "line_edit.h"
 # include "libft.h"
 
-
-//Refacto functions
 void			realloc_vector(t_vector *dest, t_vector *source);
 
-//void handle_printable_char(char c, t_interface *itf);
-//int8_t	fill_interface_data(t_registry *sh, t_interface *itf);
-//int	prepare_clipboard(t_vector *clipboard, t_vector *vct);
-//void move_buffer(char *dest, t_vector *source);
-//void copy_buffer_part(t_vector *clipboard, t_vector *source, t_window *ws, int direction);
-
 extern t_registry	*g_shell_registry;
-
 
 t_termcaps					*init_termcap_calls(t_registry *shell);
 t_interface					*init_line_edition(t_registry *shell);

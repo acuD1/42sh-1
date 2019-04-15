@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 13:26:46 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 17:26:46 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 11:57:39 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ uint32_t		get_next_char(char *str, uint32_t index, char direction)
 			--index;
 		while (index > 0 && str[index] == ' ')
 			--index;
-		while (index - 1 > 0 && str[index - 1] != ' ')
+		while (index > 0 && str[index - 1] != ' ')
 			--index;
 	}
 	return (index);
