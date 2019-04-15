@@ -6,13 +6,17 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:49:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 10:50:58 by skuppers         ###   ########.fr       */
+<<<<<<< HEAD
+/*   Updated: 2019/04/15 11:16:02 by skuppers         ###   ########.fr       */
+=======
+/*   Updated: 2019/04/15 13:57:45 by skuppers         ###   ########.fr       */
+>>>>>>> interface
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "log.h"
 #include "line_edit.h"
 #include "interface_functions.h"
+#include "log.h"
 
 t_termcaps		*init_termcap_calls(t_registry *reg)
 {
@@ -25,17 +29,16 @@ t_termcaps		*init_termcap_calls(t_registry *reg)
 		return (NULL);
 	}
 	ft_memset(termcp, 0, sizeof(t_termcaps));
-
 	termcp->cs_down = ft_strdup(tgetstr("do", NULL));
 	termcp->cs_up = ft_strdup(tgetstr("up", NULL));
 	termcp->cs_left = ft_strdup(tgetstr("le", NULL));
 	termcp->cs_right = ft_strdup(tgetstr("nd", NULL));
 	termcp->clear = ft_strdup(tgetstr("cl", NULL));
-
 	return (termcp);
 }
 
-void			init_termcap_actions(int8_t (*tc_call[AK_AMOUNT])(t_registry *shell))
+void			init_termcap_actions(
+				int8_t (*tc_call[AK_AMOUNT])(t_registry *shell))
 {
 	tc_call[AK_ARROW_LEFT] = &tc_ak_arrow_left;
 	tc_call[AK_ARROW_RIGHT] = &tc_ak_arrow_right;

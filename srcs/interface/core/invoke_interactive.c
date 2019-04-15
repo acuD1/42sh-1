@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 10:52:13 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 14:03:14 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "log.h"
 #include "lexer.h"
 
-static int8_t	allocate_data_structures(t_vector **vector,
+static int8_t		allocate_data_structures(t_vector **vector,
 				t_window **window, t_cursor **cursor)
 {
 	if ((*vector = ft_vctnew(0)) == NULL)
@@ -36,7 +36,7 @@ static int8_t	allocate_data_structures(t_vector **vector,
 	return (0);
 }
 
-int8_t	fill_interface_data(t_registry *shell, t_interface *itf)
+int8_t				fill_interface_data(t_registry *shell, t_interface *itf)
 {
 	t_vector	*vector;
 	t_window	*window;
@@ -44,12 +44,10 @@ int8_t	fill_interface_data(t_registry *shell, t_interface *itf)
 
 	if (allocate_data_structures(&vector, &window, &cursor) != 0)
 		return (-3);
-
 	itf->line = vector;
 	itf->window = window;
 	itf->cursor = cursor;
 	itf->state = INT_PS1;
-
 	if (init_window(shell, itf) != 0)
 		return (-2);
 	if (init_cursor(shell) != 0)
@@ -57,7 +55,7 @@ int8_t	fill_interface_data(t_registry *shell, t_interface *itf)
 	return (0);
 }
 
-static int8_t is_input_valid(char *input_string)
+static int8_t		is_input_valid(char *input_string)
 {
 	if (input_string == NULL)
 		return (-1);
@@ -72,12 +70,11 @@ void	launch_shell_prompt(t_registry *shell, t_interface *itf)
 
 	log_print(shell, LOG_INFO, "Starting prompt.\n");
 	define_interface_signal_behavior(shell);
-
 	while (1)
 	{
 		user_input_string = prompt(shell, itf);
-
-		if (is_input_valid(user_input_string) == 1) ;
+		if (is_input_valid(user_input_string) == 1)
+				;
 //			lexer(user_input_string);
 		else
 			break ;
@@ -96,7 +93,6 @@ void	shell_invoke_interactive(t_registry *shell)
 		return ;
 	}
 	log_print(shell, LOG_INFO, "Starting interactive mode.\n");
-
 	if ((itf = init_line_edition(shell)) == NULL)
 	{
 		//cleanup
@@ -114,10 +110,8 @@ void	shell_invoke_interactive(t_registry *shell)
 			//cleanup
 		}
 	}
-
 	log_print(shell, LOG_INFO, "Restoring original shell behavior.\n");
 	restore_term_behavior(shell);
-
 	log_print(shell, LOG_INFO, "Releasing interface memory.\n");
 	free_interface_registry(itf);
 	free(itf);

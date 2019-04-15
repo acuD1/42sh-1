@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/11 18:23:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 11:11:51 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,11 @@ int				launch_sh(int ac, char **av, char **env, t_registry *registry)
 	registry->env = env_lst;
 	registry->intern = var_lst;
 	registry->option = option;
-	registry->bin_hashmap = ft_hmap_init(2048);
-	registry->blt_hashmap = ft_hmap_init(16);
-	if (!hash_blt(registry))
-		return (0);
-	ft_print_hashmap_p(&(registry->blt_hashmap));
+//	registry->bin_hashmap = ft_hmap_init(2048);
+//	registry->blt_hashmap = ft_hmap_init(16);
+//	if (!hash_blt(registry))
+//		return (0);
+//	ft_print_hashmap_p(&(registry->blt_hashmap));
 	return (1);
 }
 

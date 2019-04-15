@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 12:45:03 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 16:29:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 13:44:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ uint8_t		is_printable(char c[READ_SIZE])
 
 uint64_t	compute_mask(char c[READ_SIZE])
 {
-	unsigned short 	shift;
-	unsigned short 	index;
-	unsigned long 	value;
-	unsigned long 	tmp;
+	unsigned short	shift;
+	unsigned short	index;
+	unsigned long	value;
+	unsigned long	tmp;
 
 	shift = 56;
 	index = 0;
@@ -40,4 +40,3 @@ uint64_t	compute_mask(char c[READ_SIZE])
 	}
 	return (value);
 }
-

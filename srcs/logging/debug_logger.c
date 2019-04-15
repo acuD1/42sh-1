@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 16:29:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 13:10:24 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,13 @@ void	init_debug_logger(t_registry *reg)
 		debug_fd = open(log_path, O_RDWR | O_APPEND | O_CREAT | O_NOFOLLOW, 0600);
 		if (debug_fd < 0)
 			return ;
-		if (add_internal(reg, INT_DBG_FD, ft_itoa(debug_fd)) == -1)
-				return ;
+		char *tmp = ft_itoa(debug_fd);
+		if (add_internal(reg, INT_DBG_FD, tmp) == -1)
+		{
+			ft_strdel(&tmp);
+			return ;
+		}
+		ft_strdel(&tmp);
 		ft_dprintf(debug_fd, "---------------------------------\n");
 		ft_dprintf(debug_fd, "[INFO] - Starting shell\n");
 		ft_strdel(&log_path);

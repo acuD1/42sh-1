@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:08:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 10:44:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 13:43:43 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,3 @@ int8_t		validate_interface_content(t_interface *itf)
 		return (-1);
 	return (0);
 }
-
