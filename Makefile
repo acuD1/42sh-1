@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/15 16:19:30 by cempassi         ###   ########.fr        #
+#    Updated: 2019/04/15 16:33:16 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,7 @@ IPATH += includes/
 IPATH += libft/includes/
 TPATH += unit-tests/
 TPATH += unit-tests/interface/
+TPATH += unit-tests/lexer/
 LINE_PATH += interface/
 LINE_PATH += interface/action_keys/
 LINE_PATH += interface/action_keys/clipboard/
@@ -149,6 +150,7 @@ LINEM = main.c
 
 #						- - - - -  Unit-test  - - - - -
 UNIT += create_virt_registry.c
+UNIT += 00-machine.c
 
 #						- - - - -   Startup   - - - - -
 

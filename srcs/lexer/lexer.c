@@ -6,14 +6,14 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/15 16:15:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/15 17:08:11 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include <stdlib.h>
 
-void		init_process(t_machine *machine)
+static void		init_process(t_machine *machine)
 {
 	machine->process[START] = start_machine;
 	machine->process[LETTER] = letter_machine;
@@ -31,7 +31,7 @@ void		init_process(t_machine *machine)
 	machine->process[END] = end_machine;
 }
 
-void		init_special(t_machine *machine)
+static void		init_special(t_machine *machine)
 {
 	machine->special_signs[0] = E_DAND;
 	machine->special_signs[1] = E_OR;
@@ -45,7 +45,7 @@ void		init_special(t_machine *machine)
 	machine->special_signs[9] = E_CLOBBER;
 }
 
-void		init_machine(t_machine *machine)
+static void		init_machine(t_machine *machine)
 {
 	ft_bzero(machine, sizeof(t_machine));
 	machine->state = START;
@@ -60,7 +60,7 @@ void		init_machine(t_machine *machine)
 	machine->duplicate[5] = E_DB_QUOTE;
 }
 
-t_list		*lexer(char *input)
+t_list			*lexer(char *input)
 {
 	t_machine	machine;
 
@@ -72,7 +72,5 @@ t_list		*lexer(char *input)
 	machine.input = input;
 	while (*machine.buffer || machine.state != END)
 		machine.process[machine.state](&machine);
-	ft_lstiter(machine.tokens, print_list);
-	ft_lstdel(&machine.tokens, del_token);
 	return (machine.tokens);
 }

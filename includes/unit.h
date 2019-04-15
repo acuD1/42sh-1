@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 13:27:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 15:30:24 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/15 16:35:50 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,9 @@
 t_result	test_virt_registry(int print_on);
 int			create_virtual_registry(t_registry **sh, t_interface **itf);
 
+/*
+** Lexer tests
+*/
+
+t_result		basic_lexer_test(int print_on);
 #endif

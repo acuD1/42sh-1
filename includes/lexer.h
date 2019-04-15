@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/15 16:15:14 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/15 18:17:04 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define BUFFER 1024
 # define SINGLE_SIGNS 25
 # define SPECIAL_SIGNS 10
-# define SIGNS SPECIAL_SIGNS + SINGLE_SIGNS
+# define SIGNS (SPECIAL_SIGNS + SINGLE_SIGNS)
 
 # define ALLCHAR "$ \\\'\"|()><;`&~{}[]*?!#=%N"
 # define QUOTE_INTERUPT "\\\"`$"

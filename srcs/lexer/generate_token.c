@@ -6,17 +6,35 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 20:19:38 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/15 16:18:33 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/15 18:03:20 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+
+int		check_script(t_machine *machine)
+{
+	int					index;
+	const static char	*script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
+									, IF, IN, THEN, UNTIL, WHILE};
+
+	index = 0;
+	while (index < 14)
+	{
+		if (ft_strequ(machine->buffer, script[index]))
+			return (index + SIGNS);
+		++index;
+	}
+	return (E_STRING);
+}
 
 int		check_last_machine(t_machine *machine)
 {
 	int		i;
 
 	i = 0;
+	if (machine->last_machine == E_STRING)
+		return (check_script(machine));
 	while (i < TOKEN_WITH_DATA)
 	{
 		if (machine->last_machine == machine->duplicate[i])
@@ -53,22 +71,6 @@ int		check_char(t_machine *machine)
 	return (0);
 }
 
-int		check_script(t_machine *machine)
-{
-	int					index;
-	const static char	*script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
-									, IF, IN, THEN, UNTIL, WHILE};
-
-	index = 0;
-	while (index < 14)
-	{
-		if (ft_strequ(machine->buffer, script[index]))
-			return (index + SIGNS);
-		++index;
-	}
-	return (0);
-}
-
 int		define_type(t_machine *machine)
 {
 	int		result;
@@ -76,8 +78,6 @@ int		define_type(t_machine *machine)
 	if ((result = check_last_machine(machine)) >= 0)
 		return (result);
 	else if ((result = check_char(machine)))
-		return (result);
-	else if ((result = check_script(machine)))
 		return (result);
 	else if (machine->last_machine == E_DB_QUOTE || machine->quote == QUOTE_ON)
 		return (E_DB_QUOTE);
