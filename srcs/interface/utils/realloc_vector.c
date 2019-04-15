@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   log.h                                              :+:      :+:    :+:   */
+/*   realloc_vector.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/17 10:15:15 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 18:54:20 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/12 10:13:07 by skuppers          #+#    #+#             */
+/*   Updated: 2019/04/12 10:14:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LOG_H
-# define LOG_H
+#include "line_edit.h"
 
-#include <time.h>
-#include "21sh.h"
-
-#define LOG_OK "[OK]"
-#define	LOG_INFO "[INFO]"
-#define	LOG_WARNING "[WARNING]"
-#define	LOG_ERROR "[ERROR]"
-#define	LOG_CRITICAL "[CRITICAL]"
-
-void	log_print(t_registry *reg, char *importance, char *message, ...);
-void	init_debug_logger(t_registry *reg);
-#endif
+void	realloc_vector(t_vector *dest, t_vector *source)
+{
+	while (dest->size < source->size)
+		ft_vctrescale(dest);
+	ft_bzero(dest->buffer, dest->size);
+}

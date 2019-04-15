@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   log.h                                              :+:      :+:    :+:   */
+/*   validate_interface.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/17 10:15:15 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 18:54:20 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/11 17:08:16 by skuppers          #+#    #+#             */
+/*   Updated: 2019/04/15 10:44:00 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LOG_H
-# define LOG_H
+#include "line_edit.h"
 
-#include <time.h>
-#include "21sh.h"
+int8_t		validate_interface_content(t_interface *itf)
+{
+	if (itf == NULL || itf->clip == NULL || itf->line == NULL
+		|| itf->clip->buffer == NULL
+		|| itf->line->buffer == NULL
+		|| itf->cursor == NULL
+		|| itf->window == NULL)
+		return (-1);
+	return (0);
+}
 
-#define LOG_OK "[OK]"
-#define	LOG_INFO "[INFO]"
-#define	LOG_WARNING "[WARNING]"
-#define	LOG_ERROR "[ERROR]"
-#define	LOG_CRITICAL "[CRITICAL]"
-
-void	log_print(t_registry *reg, char *importance, char *message, ...);
-void	init_debug_logger(t_registry *reg);
-#endif

@@ -6,15 +6,15 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 13:26:46 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/02 13:27:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/11 17:26:46 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 
-static short	only_whitespaces_after(char *str, int index, char direction)
+static int8_t	only_whitespaces_after(char *str, uint32_t index, char direction)
 {
-		int idx;
+		uint32_t idx;
 
 		idx = index;
 		if (direction > 0)
@@ -36,7 +36,7 @@ static short	only_whitespaces_after(char *str, int index, char direction)
 		return (1);
 }
 
-int				get_next_char(char *str, int index, char direction)
+uint32_t		get_next_char(char *str, uint32_t index, char direction)
 {
 	if (only_whitespaces_after(str, index, direction))
 		return (index);

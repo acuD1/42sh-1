@@ -6,91 +6,71 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 09:08:59 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 21:24:34 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:28:42 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "line_edit.h"
+#include "interface_functions.h"
 
-void	print_char(char d, t_interface_registry *itf)
+uint32_t		redraw_input_line(t_registry *shell)
 {
-	write(1, &d, 1);
-	itf->window->cursor++;
-	itf->window->x++;
-	if (itf->window->x == itf->window->cols)
-	{
-		tputs(itf->termcaps->cs_down, 1, &ft_putc);
-		itf->window->x = 0;
-		itf->window->y++;
-	}
-}
+	t_interface	*itf;
+	uint32_t	offset;
+	uint32_t	initial_cursor;
 
-void	print_words(char *str, t_interface_registry *itf)
-{
-	size_t i;
+	itf = shell->interface;
+	initial_cursor = itf->cursor->index;
 
-	i = 0;
-	while (i < ft_strlen(str))
-		print_char(str[i++], itf);
-}
+	// do we need return value here?
+	itf->cursor->index = clean_screen(shell);
 
-int		redraw_input_line(t_interface_registry *itf)
-{
-	size_t	offset;
-	size_t	initial_cursor;
-
-	initial_cursor = itf->window->cursor;
-	itf->window->cursor = clean_screen(itf);
 	offset = 0;
 	while (offset < ft_vctlen(itf->line))
 		print_char(itf->line->buffer[offset++], itf);
-	tc_ak_home(itf);
+
 	offset = 0;
+	tc_ak_home(shell);
 	while (offset++ < initial_cursor)
-		tc_ak_arrow_right(itf);
-	return (itf->window->cursor);
+		tc_ak_arrow_right(shell);
+	return (itf->cursor->index);
 }
 
-void		redraw_after_cursor(t_interface_registry *itf)
+uint32_t		redraw_after_cursor(t_registry *shell)
 {
-	size_t index;
-	size_t initial_cursor_pos;
+	t_interface	*itf;
+	uint32_t initial_cursor_pos;
 
-	initial_cursor_pos = itf->window->cursor;
-	index = initial_cursor_pos;
-	while (index < itf->line->size
-			&& itf->line->buffer[index] != '\0')
-	{
-		print_char(itf->line->buffer[index], itf);
-		++index;
-	}
+	itf = shell->interface;
+	initial_cursor_pos = itf->cursor->index;
+
+	while (itf->cursor->index < itf->line->size
+					&& itf->line->buffer[itf->cursor->index] != '\0')
+		print_char(itf->line->buffer[itf->cursor->index], itf);
 	print_char(' ', itf);
-	++index;
-	while (index > initial_cursor_pos)
-	{
-		tc_ak_arrow_left(itf);
-		--index;
-	}
+	while (itf->cursor->index > initial_cursor_pos
+				&& itf->cursor->index >= 1)
+		tc_ak_arrow_left(shell);
+	return (itf->cursor->index);
 }
 
-int		replace_input_line(char *string, t_interface_registry *itf)
+uint32_t	replace_input_line(char *string, t_registry *shell)
 {
-	size_t index;
+	t_interface	*itf;
+	uint32_t	index;
 
 	index = 0;
-	while (itf->line->buffer[index] != '\0')
-	{
-		itf->line->buffer[index] = ' ';
-		++index;
-	}
-	itf->window->cursor = redraw_input_line(itf);
+	itf = shell->interface;
+	itf->cursor->index = clean_screen(shell);
+
 	ft_bzero(itf->line->buffer, itf->line->size);
 	while (itf->line->size <= ft_strlen(string))
 		ft_vctrescale(itf->line);
 	itf->line->buffer = ft_strncpy(itf->line->buffer,
 			string, ft_strlen(string));
-	tc_ak_home(itf);
+	tc_ak_home(shell);
+
 	print_words(string, itf);
-	return (itf->window->cursor);
+	return (itf->cursor->index);
 }

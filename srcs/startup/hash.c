@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:27:08 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/04 14:04:37 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:19:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,18 @@ static void	hash_builtin(t_registry *reg)
 int			hash_blt(t_registry *reg)
 {
 	int				i;
-	char			**tab;
+	char			**tabs;
 
 	if (reg->bin_hashmap.used > 0)
 		ft_hmap_free_content(&(reg->bin_hashmap), free);
-	tab = ft_strsplit(get_data(&(reg->env), "PATH"), ":");
-	if (!tab)
+	tabs = ft_strsplit(get_data(&(reg->env), "PATH"), ":");
+	if (!tabs)
 		return (0);
 	i = 0;
-	while (tab[i])
-		hash_bin(reg, tab[i++]);
+	while (tabs[i])
+		hash_bin(reg, tabs[i++]);
 	hash_builtin(reg);
-	ft_freetab(&tab);
+	ft_freetab(&tabs);
 	return (1);
 }
 

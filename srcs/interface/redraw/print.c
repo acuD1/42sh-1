@@ -1,22 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_errors.c                                    :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/26 14:23:08 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 17:30:09 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/12 10:49:05 by skuppers          #+#    #+#             */
+/*   Updated: 2019/04/12 16:28:38 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "log.h"
+#include "interface_functions.h"
 #include "line_edit.h"
 
-void	prompt_read_failed(t_registry *reg, t_vector *vect)
+void	print_char(char d, t_interface *itf)
 {
-	log_print(reg, LOG_ERROR, "Prompt read failed!\n");
-	ft_strdel(&(vect->buffer));
-	free(vect);
-	vect = NULL;
+	write(1, &d, 1);
+	itf->cursor->index++;
+	itf->cursor->x++;
+	if (itf->cursor->x == itf->window->cols)
+	{
+		tputs(itf->termcaps->cs_down, 1, &ft_putc);
+		itf->cursor->x = 0;
+		itf->cursor->y++;
+	}
+}
+
+void	print_words(char *str, t_interface *itf)
+{
+	uint32_t	i;
+
+	i = 0;
+	while (i < ft_strlen(str))
+		print_char(str[i++], itf);
 }

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/09 19:55:07 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:33:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,14 @@ typedef struct		s_registry
 	t_list			*intern;
 	t_hash			bin_hashmap;
 	t_hash			blt_hashmap;
+	struct s_interface		*interface;
 }					t_registry;
+
+#include "line_edit.h"
 
 typedef int 		(*t_builtin)(t_registry *);
 
-void			shell_invoke_interactive(t_registry *shell_registry);
+void			shell_invoke_interactive(t_registry *shell);
 
 int				add_internal(t_registry *sh_reg, char *name, char *data);
 int				add_internal_nbr(t_registry *reg, char *name, int data);

@@ -1,34 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_screen.c                                     :+:      :+:    :+:   */
+/*   is_printable.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/01 11:51:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 16:28:32 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/12 12:45:03 by skuppers          #+#    #+#             */
+/*   Updated: 2019/04/12 16:29:00 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 #include "interface_functions.h"
 
-uint32_t	clean_screen(t_registry *shell)
+uint8_t		is_printable(char c[READ_SIZE])
 {
-	t_interface *itf;
-	uint32_t offset;
-	uint32_t clear_size;
-
-	offset = 0;
-	clear_size = 0;
-	itf = shell->interface;
-	clear_size = (itf->window->max_chars < itf->line->size)
-		? itf->window->max_chars : itf->line->size;
-
-	tc_ak_home(shell);
-	while (offset++ < clear_size)
-		print_char(' ', itf);
-	tc_ak_home(shell);
-
-	return (itf->cursor->index);
+	if (c[1] == 0 && ft_isprint(c[0]))
+		return (1);
+	return (0);
 }
+
+uint64_t	compute_mask(char c[READ_SIZE])
+{
+	unsigned short 	shift;
+	unsigned short 	index;
+	unsigned long 	value;
+	unsigned long 	tmp;
+
+	shift = 56;
+	index = 0;
+	value = 0;
+	tmp = 0;
+	while (index < 8 && c[index] != 0)
+	{
+		tmp = c[index++];
+		tmp <<= shift;
+		value |= tmp;
+		shift -= 8;
+	}
+	return (value);
+}
+

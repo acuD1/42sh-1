@@ -6,44 +6,16 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:49:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 19:13:09 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 10:50:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "line_edit.h"
-
-static int		load_termcap(t_termcaps *termcp, char *str)
-{
-	char *cpy;
-
-	if ((cpy = ft_strdup(tgetstr(str, NULL))) == NULL)
-		return (0);
-	if (ft_strequ(str, "im"))
-		termcp->begin_insertion = cpy;
-	else if (ft_strequ(str, "ei"))
-		termcp->end_insertion = cpy;
-	else if (ft_strequ(str, "do"))
-		termcp->cs_down = cpy;
-	else if (ft_strequ(str, "up"))
-		termcp->cs_up = cpy;
-	else if (ft_strequ(str, "le"))
-		termcp->cs_left = cpy;
-	else if (ft_strequ(str, "nd"))
-		termcp->cs_right = cpy;
-	else if (ft_strequ(str, "cl"))
-		termcp->clear = cpy;
-	else
-	{
-		ft_strdel(&cpy);
-		return (0);
-	}
-	return (1);
-}
+#include "interface_functions.h"
 
 t_termcaps		*init_termcap_calls(t_registry *reg)
 {
-	unsigned int	valid_termcaps;
 	t_termcaps		*termcp;
 
 	if (!(termcp = malloc(sizeof(t_termcaps))))
@@ -53,23 +25,20 @@ t_termcaps		*init_termcap_calls(t_registry *reg)
 		return (NULL);
 	}
 	ft_memset(termcp, 0, sizeof(t_termcaps));
-	valid_termcaps = 0;
-	valid_termcaps += load_termcap(termcp, "im");
-	valid_termcaps += load_termcap(termcp, "ei");
-	valid_termcaps += load_termcap(termcp, "do");
-	valid_termcaps += load_termcap(termcp, "up");
-	valid_termcaps += load_termcap(termcp, "le");
-	valid_termcaps += load_termcap(termcp, "nd");
-	valid_termcaps += load_termcap(termcp, "cl");
-	log_print(reg, LOG_INFO, "%d/7 termcaps loaded.\n", valid_termcaps);
+
+	termcp->cs_down = ft_strdup(tgetstr("do", NULL));
+	termcp->cs_up = ft_strdup(tgetstr("up", NULL));
+	termcp->cs_left = ft_strdup(tgetstr("le", NULL));
+	termcp->cs_right = ft_strdup(tgetstr("nd", NULL));
+	termcp->clear = ft_strdup(tgetstr("cl", NULL));
+
 	return (termcp);
 }
 
-void			init_termcap_actions(
-		int (*tc_call[AK_AMOUNT])(t_interface_registry *itf))
+void			init_termcap_actions(int8_t (*tc_call[AK_AMOUNT])(t_registry *shell))
 {
-	tc_call[AK_ARROW_RIGHT] = &tc_ak_arrow_right;
 	tc_call[AK_ARROW_LEFT] = &tc_ak_arrow_left;
+	tc_call[AK_ARROW_RIGHT] = &tc_ak_arrow_right;
 	tc_call[AK_ARROW_UP] = &tc_ak_arrow_up;
 	tc_call[AK_ARROW_DOWN] = &tc_ak_arrow_down;
 	tc_call[AK_HOME] = &tc_ak_home;
@@ -94,14 +63,12 @@ void			init_termcap_actions(
 	tc_call[AK_CTRL_DOWN] = &tc_ak_ctrl_down;
 }
 
-int				setup_keycodes(t_interface_registry *itf)
+void			setup_keycodes(t_interface *itf)
 {
 	init_ak_keycodes(itf);
-	return (0);
 }
 
-int				link_actions_to_keys(t_interface_registry *itf)
+void			link_actions_to_keys(t_registry *shell)
 {
-	init_termcap_actions(itf->tc_call);
-	return (0);
+	init_termcap_actions((shell->interface->tc_call));
 }

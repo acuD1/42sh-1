@@ -6,16 +6,16 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:57:01 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 19:13:51 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/12 12:27:31 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "line_edit.h"
 
-static void		ft_strshift(char *str, unsigned int index, int shift)
+static void		ft_strshift(char *str, uint32_t index, int shift)
 {
-	int last;
+	int32_t last;
 
 	last = ft_strlen(str);
 	if (shift == 0)
@@ -39,15 +39,15 @@ static void		ft_strshift(char *str, unsigned int index, int shift)
 	}
 }
 
-void	shift_content_right_once(t_vector *vector, unsigned int cursor_index)
+void	shift_content_right_once(t_vector *vector, uint32_t idx)
 {
-	if (cursor_index >= (vector->size - 2)
+	if (idx >= (vector->size - 2)
 					|| ft_strlen(vector->buffer) >= vector->size - 2)
 		ft_vctrescale(vector);
-	ft_strshift(vector->buffer, cursor_index, 1);
+	ft_strshift(vector->buffer, idx, 1);
 }
 
-void	shift_content_left_once(t_vector *vector, unsigned int cursor_index)
+void	shift_content_left_once(t_vector *vector, uint32_t idx)
 {
-	ft_strshift(vector->buffer, cursor_index, -1);
+	ft_strshift(vector->buffer, idx, -1);
 }

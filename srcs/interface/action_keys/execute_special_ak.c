@@ -6,44 +6,49 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:14:28 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 19:19:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/12 15:57:24 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
+#include "interface_functions.h"
 #include "ft_printf.h"
+#include "log.h"
 
 /*
 **	Autocompletion
 */
 
-int		tc_ak_hightab(t_interface_registry *itf)
+int8_t		tc_ak_hightab(t_registry *shell)
 {
-	(void)itf;
+	(void)shell;
 	return (0);
 }
 
-int		tc_ak_delete(t_interface_registry *itf)
+int8_t		tc_ak_delete(t_registry *shell)
 {
-	if (validate_interface_content(itf) != 0)
+	if (validate_interface_content(shell->interface) != 0)
 		return (-1);
 
-	shift_content_left_once(itf->line,
-			itf->window->cursor);
-	redraw_after_cursor(itf);
+	shift_content_left_once(shell->interface->line,
+			shell->interface->cursor->index);
+	redraw_after_cursor(shell);
 	return (0);
 }
 
-int		tc_ak_backspace(t_interface_registry *itf)
+int8_t		tc_ak_backspace(t_registry *shell)
 {
+	t_interface	*itf;
+
+	itf = shell->interface;
 	if (validate_interface_content(itf) != 0)
 		return (-1);
 
-	if (itf->window->cursor >= 1)
-	{
-		tc_ak_arrow_left(itf);
-		shift_content_left_once(itf->line, itf->window->cursor);
-		redraw_after_cursor(itf);
-	}
+	if (itf->cursor->index == 0)
+		return (0);
+
+	tc_ak_arrow_left(shell);
+	shift_content_left_once(itf->line, itf->cursor->index);
+	redraw_after_cursor(shell);
 	return (0);
 }

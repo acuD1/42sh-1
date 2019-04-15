@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   log.h                                              :+:      :+:    :+:   */
+/*   get_prompt_len.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/17 10:15:15 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 18:54:20 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/11 14:12:15 by skuppers          #+#    #+#             */
+/*   Updated: 2019/04/12 16:35:48 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LOG_H
-# define LOG_H
+#include "line_edit.h"
+#include "interface_functions.h"
 
-#include <time.h>
-#include "21sh.h"
+uint32_t get_prompt_len(t_registry *shell)
+{
+	uint32_t	p_len;
 
-#define LOG_OK "[OK]"
-#define	LOG_INFO "[INFO]"
-#define	LOG_WARNING "[WARNING]"
-#define	LOG_ERROR "[ERROR]"
-#define	LOG_CRITICAL "[CRITICAL]"
-
-void	log_print(t_registry *reg, char *importance, char *message, ...);
-void	init_debug_logger(t_registry *reg);
-#endif
+	p_len = 0;
+	p_len = (uint32_t)ft_strlen(get_intern_var(shell, shell->interface->state));
+	return (p_len);
+}

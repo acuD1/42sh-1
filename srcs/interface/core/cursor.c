@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   log.h                                              :+:      :+:    :+:   */
+/*   cursor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/17 10:15:15 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 18:54:20 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/11 15:41:22 by skuppers          #+#    #+#             */
+/*   Updated: 2019/04/12 16:27:38 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LOG_H
-# define LOG_H
+#include "line_edit.h"
+#include "interface_functions.h"
 
-#include <time.h>
-#include "21sh.h"
+int8_t	init_cursor(t_registry *shell)
+{
+	t_interface *itf;
 
-#define LOG_OK "[OK]"
-#define	LOG_INFO "[INFO]"
-#define	LOG_WARNING "[WARNING]"
-#define	LOG_ERROR "[ERROR]"
-#define	LOG_CRITICAL "[CRITICAL]"
-
-void	log_print(t_registry *reg, char *importance, char *message, ...);
-void	init_debug_logger(t_registry *reg);
-#endif
+	itf = shell->interface;
+	itf->cursor->index = 0;
+	itf->cursor->x = get_prompt_len(shell);
+	itf->cursor->y = 0;
+	return (0);
+}

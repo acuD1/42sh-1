@@ -6,36 +6,59 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 11:03:36 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 19:13:38 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 10:52:12 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include "line_edit.h"
+#include "interface_functions.h"
 
-void	cleanup_interface_registry(t_interface_registry *itf_reg)
+void	cleanup_interface(t_registry *shell)
 {
-	//ft_strdel(&(itf_reg->clip->buffer));
-	//free(itf_reg->clip);
-	ft_strdel(&(itf_reg->line->buffer));
-	free(itf_reg->line);
-	free(itf_reg->window);
-	//free(itf_reg->window);
+	ft_vctreset(shell->interface->line);
+	shell->interface->cursor->x = get_prompt_len(shell);
+	shell->interface->cursor->y = 0;
+	shell->interface->cursor->index = 0;
 }
 
-void	free_interface_registry(t_interface_registry *itf_reg)
+void	free_interface_registry(t_interface *itf)
 {
-	ft_strdel(&(itf_reg->clip->buffer));
-	free(itf_reg->clip);
-	ft_strdel(&(itf_reg->termcaps->clear));
-	ft_strdel(&(itf_reg->termcaps->begin_insertion));
-	ft_strdel(&(itf_reg->termcaps->end_insertion));
-	ft_strdel(&(itf_reg->termcaps->cs_down));
-	ft_strdel(&(itf_reg->termcaps->cs_up));
-	ft_strdel(&(itf_reg->termcaps->cs_right));
-	ft_strdel(&(itf_reg->termcaps->cs_left));
-	free(itf_reg->termcaps);
-	free(itf_reg->window);
-	ft_strdel(&(itf_reg->line->buffer));
-	free(itf_reg->line);
+	ft_strdel(&(itf->clip->buffer));
+	free(itf->clip);
+
+	ft_strdel(&(itf->termcaps->clear));
+	ft_strdel(&(itf->termcaps->cs_down));
+	ft_strdel(&(itf->termcaps->cs_up));
+	ft_strdel(&(itf->termcaps->cs_right));
+	ft_strdel(&(itf->termcaps->cs_left));
+	free(itf->termcaps);
+
+	free(itf->window);
+	ft_strdel(&(itf->line->buffer));
+	free(itf->line);
+}
+
+void	reset_vector(t_vector *line)
+{
+	free(line->buffer);
+	line->buffer = ft_strnew(16);
+	line->size = 16;
+}
+
+void	replace_vector(t_vector *dest, t_vector *src)
+{
+	ft_strdel(&(dest->buffer));
+	dest->buffer = ft_strdup(src->buffer);
+	dest->size = ft_strlen(src->buffer);
+	ft_strdel(&(src->buffer));
+	free(src);
+}
+
+void	move_vector(t_vector *dest, char *src)
+{
+	ft_strdel(&(dest->buffer));
+	dest->buffer = ft_strdup(src);
+	dest->size = ft_strlen(src);
+	free(src);
 }

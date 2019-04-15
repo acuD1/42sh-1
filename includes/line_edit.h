@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 21:24:30 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:50:44 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 
 #include "21sh.h"
 #include "libft.h"
-
-# define READ_SIZE 8
 
 # define AK_AMOUNT 24
 #define AK_ARROW_UP_MASK	0x1b5b410000000000
@@ -80,121 +78,41 @@ enum action_keys {
 };
 
 
-typedef struct	s_termcaps
+typedef struct				s_termcaps
 {
 	char					*clear;
-	char					*begin_insertion;
-	char					*end_insertion;
 	char					*cs_down;
 	char					*cs_right;
 	char					*cs_left;
 	char					*cs_up;
 }							t_termcaps;
 
-typedef struct				s_winsize
-{
-	unsigned int			x;
-	unsigned int			y;
-	unsigned int			rows;
-	unsigned int			cols;
-	int						max_line_len;
-	size_t					cursor;
-}							t_winsize;
+typedef struct				s_cursor
+ {
+	uint32_t				index;
+	uint32_t				x;
+	uint32_t				y;
+}							t_cursor;
 
-typedef struct				s_interface_registry
+typedef struct				s_window
 {
-	t_registry				*sh_reg;
+	uint32_t				rows;
+	uint32_t				cols;
+	uint32_t				max_chars;
+}							t_window;
+
+typedef struct				s_interface
+{
+	t_vector				*line;
+	t_vector				*clip;
+	t_cursor				*cursor;
+	t_window				*window;
+	t_termcaps				*termcaps;
+
+	char					*state;
 	unsigned long			ak_masks[AK_AMOUNT];
 
-	t_vector				*clip;
-	t_vector				*line;
-	t_termcaps				*termcaps;
-	t_winsize				*window;
+	int8_t					(*tc_call[AK_AMOUNT])(struct s_registry *shell);
+}							t_interface;
 
-	struct termios			*orig_term;
-	struct termios			*new_term;
-
-	char					*interface_state;
-
-	int					(*tc_call[AK_AMOUNT])(struct s_interface_registry *itf);
-}							t_interface_registry;
-
-
-
-//Refacto functions
-int	validate_interface_content(t_interface_registry *itf);
-void	forge_vector(t_vector *dest, t_vector *source);
-
-
-//char						*get_itf_intern_var(t_interface_registry *itf_reg, char *name);
-/*  CHANGE THIS FO UNIT TEST */
-void handle_printable_char(char c, t_interface_registry *itf_reg);
-int	fill_interface_data(t_registry *sh, t_interface_registry *itf_reg);
-int	prepare_clipboard(t_vector *clipboard, t_vector *vct);
-void move_buffer(char *dest, t_vector *source);
-void copy_buffer_part(t_vector *clipboard, t_vector *source, t_winsize *ws, int direction);
-
-extern t_interface_registry	*g_interface_registry_pointer;
-
-t_termcaps					*init_termcap_calls(t_registry *reg);
-t_interface_registry		*init_line_edition(t_registry *reg);
-t_vector					*allocate_clipboard(t_registry *sh_reg);
-t_winsize 					*init_win_struct(t_registry *reg, t_interface_registry *itf_reg);
-
-void						define_interface_default_signals(t_registry *sh_reg);
-void						define_interface_signal_behavior(t_interface_registry *itf_reg, t_registry *shell_reg);
-
-int							invoke_ps2_prompt(t_registry *sh, t_interface_registry *itf);
-void						launch_shell_prompt(t_registry *reg, t_interface_registry *itf_registry);
-char						*prompt(t_registry *shell_reg, t_interface_registry *itf_reg);
-
-int							setup_keycodes(t_interface_registry *itf_reg);
-void						init_ak_keycodes(t_interface_registry *itf_reg);
-int							link_actions_to_keys(t_interface_registry *itf_reg);
-void						init_termcap_actions(int (*tc_call[AK_AMOUNT])(t_interface_registry *itf_registry));
-
-void						handle_input_key(char c[], t_interface_registry *itf_reg);
-char						set_quote(char c);
-void						validate_input_quoting(t_registry *sh_reg, t_interface_registry *itf_reg);
-
-void						print_char(char c, t_interface_registry *itf_reg);
-int							clean_screen(t_interface_registry *itf_reg);
-void						print_words(char *str, t_interface_registry *itf_reg);
-void						redraw_prompt(int signo);
-int							replace_input_line(char *string, t_interface_registry *itf_reg);
-int							redraw_input_line(t_interface_registry *itf_reg);
-void						redraw_after_cursor(t_interface_registry *itf_reg);
-
-void						free_interface_registry(t_interface_registry *itf_reg);
-void						cleanup_interface_registry(t_interface_registry *itf_reg);
-void						restore_original_term_behavior(t_registry *sh_reg, t_interface_registry *itg_re);
-
-void						prompt_read_failed(t_registry *reg, t_vector *vect);
-int							get_next_char(char *str, int index, char direction);
-void						shift_content_right_once(t_vector *vect, unsigned int cursor);
-void						shift_content_left_once(t_vector *vect, unsigned int cursor);
-int							ft_putc(int c);
-
-int							tc_ak_ctrl_d(t_interface_registry *itf);
-int							tc_ak_next_word(t_interface_registry *itf);
-int							tc_ak_prev_word(t_interface_registry *itf);
-int							tc_ak_cut_before_cursor(t_interface_registry *itf);
-int							tc_ak_cut_after_cursor(t_interface_registry *itf);
-int							tc_ak_copy_before_cursor(t_interface_registry *itf);
-int							tc_ak_copy_after_cursor(t_interface_registry *itf);
-int							tc_ak_cut_line(t_interface_registry *itf);
-int							tc_ak_copy_line(t_interface_registry *itf);
-int							tc_ak_paste_clipboard(t_interface_registry *itf);
-int							tc_ak_clear_screen(t_interface_registry *itf);
-int							tc_ak_home(t_interface_registry *itf);
-int							tc_ak_end(t_interface_registry *itf);
-int							tc_ak_delete(t_interface_registry *itf);
-int							tc_ak_backspace(t_interface_registry *itf);
-int							tc_ak_arrow_up(t_interface_registry *itf);
-int							tc_ak_arrow_down(t_interface_registry *itf);
-int							tc_ak_arrow_left(t_interface_registry *itf);
-int							tc_ak_arrow_right(t_interface_registry *itf);
-int							tc_ak_hightab(t_interface_registry *itf);
-int							tc_ak_ctrl_down(t_interface_registry *itf);
-int							tc_ak_ctrl_up(t_interface_registry *itf_registry);
 #endif

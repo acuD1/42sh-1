@@ -6,40 +6,41 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/09 19:15:49 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:34:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "line_edit.h"
+#include "interface_functions.h"
+#include <signal.h>
 
-t_interface_registry	*g_interface_registry_pointer;
+t_registry	*g_shell;
 
 void				redraw_prompt(int signo)
 {
 	(void)signo;
-	t_interface_registry *itf_ptr;
+	t_interface *itf;
 
-	itf_ptr = g_interface_registry_pointer;
-	tc_ak_end(itf_ptr);
+	itf = g_shell->interface;
+	tc_ak_end(g_shell);
 
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
-		print_words("\n", itf_ptr);
+		print_words("\n", itf);
 
-	itf_ptr->window->x = 0;
-	itf_ptr->window->y = 0;
+	itf->cursor->x = 0;
+	itf->cursor->y = 0;
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
-		ft_vctreset(itf_ptr->line);
+		ft_vctreset(itf->line);
 
-	print_words(get_intern_var(itf_ptr->sh_reg, itf_ptr->interface_state), itf_ptr);
-
-	itf_ptr->window->cursor = 0;
+	print_words(get_intern_var(g_shell, itf->state), itf);
+	itf->cursor->index = 0;
 }
 
 static void				interface_resize_handler(int signo)
 {
 	struct 					winsize w;
-	t_interface_registry 	*itf_ptr;
+	t_interface				*itf;
 
 	(void)signo;
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == -1)
@@ -47,27 +48,21 @@ static void				interface_resize_handler(int signo)
 		ft_dprintf(2, "[ERROR] Terminal size could not be updated.\n");
 		return ;
 	}
-	itf_ptr = g_interface_registry_pointer;
-	itf_ptr->window->rows = w.ws_row;
-	itf_ptr->window->cols = w.ws_col;
-	itf_ptr->window->x = 0;
-	itf_ptr->window->y = 0;
-	itf_ptr->window->max_line_len =
-		((itf_ptr->window->cols * itf_ptr->window->rows)
-		 - (ft_strlen(get_intern_var(itf_ptr->sh_reg, INT_PS1)) + 3));
+	itf = g_shell->interface;
 
-	tputs(itf_ptr->termcaps->clear, w.ws_row - 1, ft_putc);
+	init_window(g_shell, itf);
 
-	if ((itf_ptr->window->cols
-		< (size_t)(ft_strlen(get_intern_var(itf_ptr->sh_reg, INT_PS1)) * 2)
-		|| itf_ptr->window->rows < 3)
-			|| ft_vctlen(itf_ptr->line) > (size_t)itf_ptr->window->max_line_len)
-		print_words("Terminal window size too small :-(", itf_ptr);
+	tputs(itf->termcaps->clear, 1, ft_putc);
+
+	if ((itf->window->cols < (uint32_t)(ft_strlen(get_intern_var(g_shell,
+												   	INT_PS1)) * 2)
+		|| itf->window->rows < 3) || ft_vctlen(itf->line) > (uint32_t)itf->window->max_chars)
+		print_words("Terminal window size too small :-(", itf);
 	else
 	{
 		redraw_prompt(ft_atoi(INT_MAGIC_NUMBER));
-		redraw_input_line(itf_ptr);
-		tc_ak_end(itf_ptr);
+		redraw_input_line(g_shell);
+		tc_ak_end(g_shell);
 	}
 }
 
@@ -80,14 +75,14 @@ void					define_interface_default_signals(t_registry *sh_reg)
 }
 
 void					define_interface_signal_behavior(
-				t_interface_registry *itf, t_registry *shell_registry)
+				t_registry *shell)
 {
-	g_interface_registry_pointer = itf;
+	g_shell = shell;
 	if (signal(SIGWINCH, interface_resize_handler) == SIG_ERR)
-		log_print(shell_registry, LOG_ERROR,
+		log_print(shell, LOG_ERROR,
 						"Error catching the resize signal.\n");
 	if (signal(SIGINT, redraw_prompt) == SIG_ERR)
-		log_print(shell_registry, LOG_ERROR, "Error catching C-c\n");
+		log_print(shell, LOG_ERROR, "Error catching C-c\n");
 }
 
 int		define_runtime_signals(void)
