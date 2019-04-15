@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 13:26:12 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 14:07:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 19:19:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,12 @@ void		interface(int print_on)
 	print_test_header();
 	set_test(&results, test_virt_registry(print_on));
 	print_test_separator(print_on);
-//	set_test(&results, test_null_value(print_on));
-//	print_test_separator(print_on);
-//	set_test(&results, test_clipboard(print_on));
-//	print_test_separator(print_on);
-//	set_test(&results, test_arrow_keys(print_on));
-//	print_test_separator(print_on);
-//	set_test(&results, test_insertion(print_on));
-//	print_test_separator(print_on);
-//	set_test(&results, test_deletion(print_on));
-//	print_test_separator(print_on);
-//	set_test(&results, test_wjump(print_on));
-//	print_test_separator(print_on);
-//	ft_lstiter(results, print_test_result);
+	set_test(&results, test_clipboard_copy(print_on));
+	print_test_separator(print_on);
+	set_test(&results, test_clipboard_cut(print_on));
+	print_test_separator(print_on);
+	set_test(&results, test_clipboard_paste(print_on));
+	print_test_separator(print_on);
 	return ;
 }
 

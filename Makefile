@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/15 14:08:40 by skuppers         ###   ########.fr        #
+#    Updated: 2019/04/15 19:20:26 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,10 +23,10 @@ VERSION_PATCH = 0
 #								     Build                                     #
 # ---------------------------------------------------------------------------- #
 
-BUILD_NUMBER_FILE = "./.build-number"
-BUILD_NUMBER = `cat $(BUILD_NUMBER_FILE)`
+#BUILD_NUMBER_FILE = "./.build-number"
+#BUILD_NUMBER = `cat $(BUILD_NUMBER_FILE)`
 
-NUMBER_INC = $(shell echo "$(BUILD_NUMBER) + 1 "| bc)
+#NUMBER_INC = $(shell echo "$(BUILD_NUMBER) + 1 "| bc)
 
 # ---------------------------------------------------------------------------- #
 #								 Build Targets                                 #
@@ -149,7 +149,9 @@ LINEM = main.c
 
 #						- - - - -  Unit-test  - - - - -
 UNIT += create_virt_registry.c
-
+UNIT += clipboard_copy.c
+UNIT += clipboard_cut.c
+UNIT += clipboard_paste.c
 #						- - - - -   Startup   - - - - -
 
 LINE += launch.c
@@ -242,10 +244,10 @@ test : $(NAMET)
 #					 - - - - - Normal Compilation - - - - -                    #
 
 $(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJM)
-	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
-	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
+#	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
+#	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
 	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@ $(OBJS) $(OBJM)
-	$(PRINT) "$(GREEN)$@ build $(BUILD_NUMBER) is ready $(NC)"
+	$(PRINT) "$(GREEN)$@ is ready $(NC)"
 
 $(OBJM) : $(OPATH)%.o : %.c $(INCS) 
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
@@ -261,10 +263,10 @@ $(LIB) : FORCE
 #					 - - - - Unit test Compilation - - - -                     #
 
 $(NAMET) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJT) 
-	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
-	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
+#	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
+#	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
 	$(LINK) $(CFLAGS)  $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address -o  $@ $(OBJT) $(OBJS)
-	$(PRINT) "$(GREEN)$@ build $(BUILD_NUMBER) is ready $(NC)"
+	$(PRINT) "$(GREEN)$@ is ready $(NC)"
 
 $(OBJT) : $(OPATH)%.o : %.c $(INCS) 
 	$(COMPILE) $(CFLAGS)  $< -o $@

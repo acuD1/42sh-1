@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 10:41:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 17:21:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 18:59:38 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static int8_t		cut_vector(t_vector *vect, t_cursor *cursor, int before)
 	vect->buffer = tmp;
 	return (0);
 }
-
-static void			copy_buffer_part(t_interface *itf, int8_t before)
+//	static
+void			copy_buffer_part(t_interface *itf, int8_t before)
 {
 	char *tmp;
 
@@ -53,8 +53,8 @@ static void			copy_buffer_part(t_interface *itf, int8_t before)
 		cut_vector(itf->line, itf->cursor, before);
 	}
 }
-
-static void			move_buffer(char *dest, t_vector *source)
+// static
+void			move_buffer(char *dest, t_vector *source)
 {
 	ft_strcpy(dest, source->buffer);
 	ft_bzero(source->buffer, source->size);

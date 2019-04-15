@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 13:27:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 14:09:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 19:19:55 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@
 #define HOME "/Users/skuppers"
 
 t_result	test_virt_registry(int print_on);
+t_result	test_clipboard_copy(int print_on);
+t_result	test_clipboard_cut(int print_on);
+t_result	test_clipboard_paste(int print_on);
+
 int			create_virtual_registry(t_registry **sh, t_interface **itf);
 
 #endif
