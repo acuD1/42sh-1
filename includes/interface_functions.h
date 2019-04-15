@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 11:11:25 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 11:15:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,7 @@
 # include "line_edit.h"
 # include "libft.h"
 
-
-
 extern t_registry	*g_shell_registry;
-
 
 t_termcaps					*init_termcap_calls(t_registry *shell);
 t_interface					*init_line_edition(t_registry *shell);
