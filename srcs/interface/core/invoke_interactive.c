@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 14:03:14 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 14:23:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int8_t		is_input_valid(char *input_string)
 	return (1);
 }
 
-void	launch_shell_prompt(t_registry *shell, t_interface *itf)
+void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 {
 	char	*user_input_string;
 
@@ -83,7 +83,7 @@ void	launch_shell_prompt(t_registry *shell, t_interface *itf)
 	define_interface_default_signals(shell);
 }
 
-void	shell_invoke_interactive(t_registry *shell)
+void				shell_invoke_interactive(t_registry *shell)
 {
 	t_interface *itf;
 
@@ -95,19 +95,19 @@ void	shell_invoke_interactive(t_registry *shell)
 	log_print(shell, LOG_INFO, "Starting interactive mode.\n");
 	if ((itf = init_line_edition(shell)) == NULL)
 	{
-		//cleanup
+// cleanup
 		return ;
 	}
 	else
 	{
 		if (fill_interface_data(shell, itf) == 0)
 		{
-			//exec
+//exec
 			launch_shell_prompt(shell, itf);
 		}
 		else
 		{
-			//cleanup
+//cleanup
 		}
 	}
 	log_print(shell, LOG_INFO, "Restoring original shell behavior.\n");

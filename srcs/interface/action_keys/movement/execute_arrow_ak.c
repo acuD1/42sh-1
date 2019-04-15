@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:12:56 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 10:44:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 14:18:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "interface_functions.h"
 #include "log.h"
 
-static void	goto_endof_column(t_interface *itf)
+static void			goto_endof_column(t_interface *itf)
 {
 	while (itf->cursor->x < itf->window->cols)
 	{
@@ -24,7 +24,7 @@ static void	goto_endof_column(t_interface *itf)
 	itf->cursor->x--;
 }
 
-int8_t		tc_ak_arrow_right(t_registry *shell)
+int8_t				tc_ak_arrow_right(t_registry *shell)
 {
 	if (validate_interface_content(shell->interface) != 0)
 		return (-1);
@@ -50,7 +50,7 @@ int8_t		tc_ak_arrow_right(t_registry *shell)
 	return (0);
 }
 
-int8_t			tc_ak_arrow_left(t_registry *shell)
+int8_t				tc_ak_arrow_left(t_registry *shell)
 {
 	if (validate_interface_content(shell->interface) != 0)
 		return (-1);
@@ -76,7 +76,7 @@ int8_t			tc_ak_arrow_left(t_registry *shell)
 ** History placeholder
 */
 
-int8_t	tc_ak_arrow_up(t_registry *shell)
+int8_t				tc_ak_arrow_up(t_registry *shell)
 {
 	(void)shell;
 	return (0);
@@ -86,7 +86,7 @@ int8_t	tc_ak_arrow_up(t_registry *shell)
 ** History placeholder
 */
 
-int8_t		tc_ak_arrow_down(t_registry *shell)
+int8_t				tc_ak_arrow_down(t_registry *shell)
 {
 	(void)shell;
 	return (0);
