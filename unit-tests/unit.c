@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 13:26:12 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 14:07:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 15:29:23 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "unit.h"
 
-void gen_test_dir(void)
+void	gen_test_dir(void)
 {
 	int fd;
 
@@ -21,7 +21,7 @@ void gen_test_dir(void)
 	close(fd);
 }
 
-void		interface(int print_on)
+void	interface(int print_on)
 {
 	t_list	*results;
 
@@ -45,7 +45,7 @@ void		interface(int print_on)
 	return ;
 }
 
-int main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	int		print_on;
 

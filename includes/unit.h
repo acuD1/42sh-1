@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 13:27:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 14:09:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 15:30:24 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include "log.h"
 #include "line_edit.h"
 #include "interface_functions.h"
-#include "internals.h"
 #include <stdlib.h>
 #define BLUE "39"
 #define TRUE 0
