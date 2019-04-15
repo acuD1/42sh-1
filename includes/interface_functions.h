@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 10:52:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 11:11:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,6 @@
 # include "libft.h"
 
 
-//Refacto functions
-void			realloc_vector(t_vector *dest, t_vector *source);
-
-//void handle_printable_char(char c, t_interface *itf);
-//int8_t	fill_interface_data(t_registry *sh, t_interface *itf);
-//int	prepare_clipboard(t_vector *clipboard, t_vector *vct);
-//void move_buffer(char *dest, t_vector *source);
-//void copy_buffer_part(t_vector *clipboard, t_vector *source, t_window *ws, int direction);
 
 extern t_registry	*g_shell_registry;
 
@@ -84,14 +76,15 @@ void						shift_content_left_once(t_vector *vect, unsigned int cursor);
 
 void						reset_vector(t_vector *vect);
 void						replace_vector(t_vector *dest, t_vector *src);
-
+void			realloc_vector(t_vector *dest, t_vector *source);
 void						move_vector(t_vector *dest, char *src);
-uint8_t						is_EOF(char *buffer);
+
 int							ft_putc(int c);
-uint32_t					get_prompt_len(t_registry *itf);
-uint8_t						is_printable(char c[READ_SIZE]);
-uint64_t					compute_mask(char c[READ_SIZE]);
 int8_t						validate_interface_content(t_interface *itf);
+uint8_t						is_EOF(char *buffer);
+uint8_t						is_printable(char c[READ_SIZE]);
+uint32_t					get_prompt_len(t_registry *itf);
+uint64_t					compute_mask(char c[READ_SIZE]);
 
 /*
 **		ACTION KEYS
