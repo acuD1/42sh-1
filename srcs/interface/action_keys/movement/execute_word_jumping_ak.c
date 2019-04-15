@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 11:33:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 15:57:14 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 14:19:27 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,9 @@ int8_t		tc_ak_ctrl_down(t_registry *shell)
 	if (validate_interface_content(itf) != 0)
 		return (-1);
 	moves = 0;
-
 	prompt_length = get_prompt_len(shell);
-
 	lines_amount = (((ft_vctlen(itf->line) - 1) + prompt_length)
 				/ itf->window->cols) + 1;
-
 	if (lines_amount > 1)
 	{
 		while (moves < itf->window->cols)
@@ -92,15 +89,11 @@ int8_t		tc_ak_ctrl_up(t_registry *shell)
 	itf = shell->interface;
 	if (validate_interface_content(itf) != 0)
 		return (-1);
-
 	prompt_length = get_prompt_len(shell);
-
 	lines_amount = (((ft_vctlen(itf->line) - 1) + prompt_length)
 			/ itf->window->cols + 1);
-
 	if (itf->cursor->y == 1 && itf->cursor->x <= prompt_length)
 		tc_ak_home(shell);
-
 	if (lines_amount > 1 && itf->cursor->y > 0)
 	{
 		moves = 0;

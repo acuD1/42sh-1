@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:05:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 13:58:45 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/15 14:22:14 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,3 @@ short						restore_term_behavior(t_registry *shell)
 	}
 	return (0);
 }
-
