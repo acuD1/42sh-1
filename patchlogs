@@ -3,10 +3,13 @@ Build x
 Known bugs:
 	[Interface]
 		IN PS2 PROMPT:
+			- ak_cut_after is misconfigured
+			- does not parse quotes correctly
 			- Segfaults when spamming return
 			- Word jumping is not done correctly when going back to the first word
 
 TODO:
 	[Interface]
+		- move all ints to int32_t
 		- Optimise intern variable handling - Iteration.2
 		- Make unit tests
