@@ -6,55 +6,12 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/10 12:29:15 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/15 16:15:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include <stdlib.h>
-
-void		print_list(t_list *list)
-{
-	t_token *token;
-	token = list->data;
-	const static char *signs[14] = {"&&", "OR", ";;", "<<", ">>", "<&", ">&"
-		, "<>", "<<-", ">|"};
-	const static char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
-		, IF, IN, THEN, UNTIL, WHILE};
-
-	ft_putchar('\n');
-	if (token->type < SINGLE_SIGNS || token->type == E_STRING )
-	{
-		ft_printf("type_id = [ %2d ] | type_name = [ %5.1c ] | data = [ %s ]\n",
-				token->type,
-				token->type < SINGLE_SIGNS ? ALLCHAR[token->type] : 'S'
-				, token->data);
-	}
-	else if (token->type >= SINGLE_SIGNS && token->type < SIGNS)
-	{
-		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
-				token->type, signs[token->type - SINGLE_SIGNS], token->data);
-
-	}
-	else if (token->type >= SIGNS && token->type < SIGNS + 13)
-	{
-		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
-				token->type, script[token->type - SIGNS], token->data);
-	}
-	else
-	{
-		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
-				token->type, "IO", token->data);
-	}
-}
-
-void	del_list(void *token)
-{
-	t_token *tmp;
-
-	tmp = token;
-	ft_strdel(&tmp->data);
-}
 
 void		init_process(t_machine *machine)
 {
@@ -116,6 +73,6 @@ t_list		*lexer(char *input)
 	while (*machine.buffer || machine.state != END)
 		machine.process[machine.state](&machine);
 	ft_lstiter(machine.tokens, print_list);
-	ft_lstdel(&machine.tokens, del_list);
+	ft_lstdel(&machine.tokens, del_token);
 	return (machine.tokens);
 }

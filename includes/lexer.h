@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/09 21:34:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/15 16:15:14 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,4 +172,12 @@ void	fill_buffer_output(t_machine *machine);
 t_token generate_token(t_machine *machine);
 
 t_list		*lexer(char *input);
+
+/*
+** Temporary display functions | REMOVE BEFOR PUSH
+*/
+
+void	print_list(t_list *list);
+void	del_token(void *token);
+
 #endif

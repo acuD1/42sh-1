@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 20:19:38 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/04 05:30:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/15 16:18:33 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int		check_char(t_machine *machine)
 
 int		check_script(t_machine *machine)
 {
-	int		index;
-	const static char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
+	int					index;
+	const static char	*script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
 									, IF, IN, THEN, UNTIL, WHILE};
 
 	index = 0;
@@ -84,10 +84,10 @@ int		define_type(t_machine *machine)
 	return (E_STRING);
 }
 
-t_token generate_token(t_machine *machine)
+t_token	generate_token(t_machine *machine)
 {
-	t_token 		token;
-	int				i;
+	t_token		token;
+	int			i;
 
 	i = 0;
 	token.type = define_type(machine);

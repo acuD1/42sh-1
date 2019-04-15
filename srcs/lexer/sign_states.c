@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/04 04:10:11 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/15 16:17:43 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	lesser_machine(t_machine *machine)
 			machine->last_machine = E_DLESS;
 			ft_strncat(machine->buffer, machine->input, 1);
 			machine->input++;
-			return;
+			return ;
 		}
 	}
 	else if (*machine->input == '>' || *machine->input == '&')
