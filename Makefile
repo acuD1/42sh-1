@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/16 11:35:42 by nrechati         ###   ########.fr        #
+#    Updated: 2019/04/16 17:54:39 by ffoissey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,9 @@ NAMET = unit
 LIBFT = libft.a
 LIBFTDB = libftdb.a
 OBJM = $(patsubst %.c, $(OPATH)%.o, $(LINEM))
-OBJS = $(patsubst %.c, $(OPATH)%.o, $(LINE) $(LEX_SRCS))
+OBJS = $(patsubst %.c, $(OPATH)%.o, $(LINE) $(LEX_SRCS) $(PARSER_SRCS))
 OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM))
-OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINE) $(LINEM) $(LEX_SRCS))
+OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINE) $(LINEM) $(LEX_SRCS) $(PARSER_SRCS))
 LIB = $(addprefix $(LPATH), $(LIBFT))
 LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 # ---------------------------------------------------------------------------- #
@@ -105,7 +105,8 @@ LINE_PATH += logging/
 LINE_PATH += signals/
 LINE_PATH += startup/
 LEXER_PATH += lexer/
-SPATH += $(addprefix srcs/, $(LINE_PATH) $(LEXER_PATH))
+PARSER_PATH += parser/
+SPATH += $(addprefix srcs/, $(LINE_PATH) $(LEXER_PATH) $(PARSER_PATH))
 
 # ---------------------------------------------------------------------------- #
 #									 vpath                                     #
@@ -126,7 +127,7 @@ CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
 CFLAGS += $(IFLAGS)
-DFLAGS = $(CFLAGS) -fsanitize=address
+DFLAGS = $(CFLAGS) -fsanitize=address,undefined
 LFLAGS = -ltermcap
 
 # ---------------------------------------------------------------------------- #
@@ -139,6 +140,7 @@ INCS += line_edit.h
 INCS += interface_functions.h
 INCS += unit.h
 INCS += lexer.h
+INCS += parser.h
 
 # ---------------------------------------------------------------------------- #
 #									Sources                                    #
@@ -227,6 +229,13 @@ LEX_SRCS += sign_states.c
 LEX_SRCS += expansion_states.c
 LEX_SRCS += tmp_display.c
 
+#						   - - - - - Parser - - - - -                          #
+#
+PARSER_SRCS += parser.c
+PARSER_SRCS += set_parser_token.c
+PARSER_SRCS += generate_graph.c
+PARSER_SRCS += parser_debug.c
+
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #
 # ---------------------------------------------------------------------------- #
@@ -247,13 +256,13 @@ test : $(NAMET)
 $(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJM)
 #	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
 #	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
-	$(LINK) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@ $(OBJS) $(OBJM)
+	$(LINK) $(OBJS) $(OBJM) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@ 
 	$(PRINT) "$(GREEN)$@ is ready $(NC)"
 
 $(OBJM) : $(OPATH)%.o : %.c $(INCS)
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
-
+	
 $(OBJS) : $(OPATH)%.o : %.c $(INCS)
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
@@ -276,7 +285,7 @@ $(OBJT) : $(OPATH)%.o : %.c $(INCS)
 #					 - - - - - Debug Compilation - - - - -                     #
 
 $(NAMEDB) : $(CLEAR) $(LIBDB) $(OPATH) $(OBJD)
-	$(LINKD) $(DFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBD) $(LFLAGS) -o $@ $(OBJD)
+	$(LINKD) $(OBJD) $(DFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBD) $(LFLAGS) -o $@ 
 	$(PRINT) "$(GREEN)$@ is ready $(NC)"
 
 $(OBJD) : $(OPATH)db%.o : %.c $(INCS)

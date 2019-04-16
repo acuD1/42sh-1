@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/15 18:17:04 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/16 17:50:04 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # define STATENBR 15
+# define NB_OF_TOKENS 52
 # define TOKEN_WITH_DATA 6
 # define BUFFER 1024
 # define SINGLE_SIGNS 25
@@ -179,5 +180,7 @@ t_list		*lexer(char *input);
 
 void	print_list(t_list *list);
 void	del_token(void *token);
+
+void		parser(t_list *lst);
 
 #endif
