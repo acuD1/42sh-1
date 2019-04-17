@@ -52,52 +52,49 @@ int			parse_tokens(t_list **lst, t_graph **graph, t_list *ref, enum e_type start
 	while (*lst)
 	{
 		token = (t_token *)(*lst)->data;
-		if (token->type != E_SPACE)
+		if (!(node_is_ok(token, graph)))
 		{
-			if (!(node_is_ok(token, graph)))
-			{
-				print_error_debug(token->type, 0);
-				(*graph)->event = ERROR_GRAPH;
-				return (FALSE);
-			}
-			if (ref_end_is_ok(ref, token->type))
-				return (TRUE);
-			if ((*graph)->event == START_GRAPH && start != NB_OF_TOKENS + 1)
+			print_error_debug(token->type, 0);
+			(*graph)->event = ERROR_GRAPH;
+			return (FALSE);
+		}
+		if (ref_end_is_ok(ref, token->type))
+			return (TRUE);
+		if ((*graph)->event == START_GRAPH && start != NB_OF_TOKENS + 1)
+		{
+			print_error_debug(0, 2);
+			return (FALSE);
+		}
+		else if ((*graph)->event == BACK)
+		{
+			token = (t_token *)(*lst)->data;
+			*lst = (*lst)->next;
+			if (!ref)
+				print_error_debug(0, 2);
+			return (ref_end_is_ok(ref, token->type));
+		}
+		else if ((*graph)->event == RECALL)
+		{
+			if ((*graph)->type_parent && !ref_end_is_ok((*graph)->type_parent, start))
 			{
 				print_error_debug(0, 2);
 				return (FALSE);
 			}
-			else if ((*graph)->event == BACK)
+			while ((*graph)->event == RECALL)
 			{
-				token = (t_token *)(*lst)->data;
+				print_arrow_debug(1);
 				*lst = (*lst)->next;
-				if (!ref)
-					print_error_debug(0, 2);
-				return (ref_end_is_ok(ref, token->type));
-			}
-			else if ((*graph)->event == RECALL)
-			{
-				if ((*graph)->type_parent && !ref_end_is_ok((*graph)->type_parent, start))
+				if (!(parse_tokens(lst, graph, (*graph)->type_end, (*graph)->type)))
 				{
-					print_error_debug(0, 2);
+					if ((*graph)->event != ERROR_GRAPH)
+						print_error_debug(0, 2);
 					return (FALSE);
 				}
-				while ((*graph)->event == RECALL)
-				{
-					print_arrow_debug(1);
-					*lst = (*lst)->next;
-					if (!(parse_tokens(lst, graph, (*graph)->type_end, (*graph)->type)))
-					{
-						if ((*graph)->event != ERROR_GRAPH)
-							print_error_debug(0, 2);
-						return (FALSE);
-					}
-					print_arrow_debug(2);
-				}
+				print_arrow_debug(2);
 			}
-			else
-				print_arrow_debug(0);
 		}
+		else
+			print_arrow_debug(0);
 		*lst = (*lst)->next;
 	}
 	if (ref)

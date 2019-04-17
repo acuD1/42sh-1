@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 17:03:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/18 15:17:33 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:23:02 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	letter_machine(t_lexer *machine)
 		machine->state = OUT;
 	else if (*machine->input)
 	{
+		machine->last_lexer = E_STRING;
 		ft_strncat(machine->buffer, machine->input, 1);
 		machine->input++;
 	}

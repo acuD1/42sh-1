@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 15:15:25 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:20:29 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define LETTER_INTERUPT " \t<>|;\'\"`()$&!?{}[]*%\\"
 # define QUOTE_INTERUPT "\\\"`$"
 # define EXP_INTERUPT " \t\'\"`"
-# define DOUBLE_SIGN "&|;"
+# define DOUBLE_SIGN "&|;=!"
 
 # define CASE "case"
 # define DO "do"
@@ -46,7 +46,7 @@
 
 # define FINALCHAR " \t<>|;\'\"`()$&!?{}[]*%\\=" ///MISS OPERATORS
 
-typedef struct s_machine t_lexer;
+typedef struct s_lexer t_lexer;
 typedef  void (*t_process)(t_lexer *);
 
 enum	e_state
@@ -90,7 +90,6 @@ enum	e_type
 	E_INTERROGATION,
 	E_EXCLAMATION,
 	E_HASH,
-	E_EQUAL,
 	E_PERCENT,
 	E_NEWLINE,
 	E_DAND,
@@ -103,6 +102,8 @@ enum	e_type
 	E_LESSGREAT,
 	E_DLESSDASH,
 	E_CLOBBER,
+	E_DEQ,
+	E_NOTEQ,
 	E_CASE,
 	E_DO,
     E_DONE,
@@ -119,6 +120,7 @@ enum	e_type
 	E_IO_NUMBER,
 	E_STRING,
 	E_QSTRING,
+	E_ASSIGN,
 	E_DEFAULT,
 };
 
@@ -142,7 +144,7 @@ typedef struct	s_state
 
 }				t_state;
 
-struct	s_machine
+struct	s_lexer
 {
 	char			*input;
 	char			buffer[BUFFER];
