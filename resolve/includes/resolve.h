@@ -6,13 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:10:39 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/17 13:20:43 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/17 14:38:48 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RESOLVE_H
 # define RESOLVE_H
 # include <stdlib.h>
+# include "21sh.h"
 
 typedef struct 		s_instr
 {
@@ -25,6 +26,9 @@ typedef struct 		s_instr
 	gid_t			gid;
 }					t_instr;
 
+			/*		Resolve 		*/
+int		resolve_stack(t_list **stack, t_registry *shell);
+
 			/*		Test bench 		*/
 int		add_to_test(t_list **test, void *fct);
 int		new_cmd(t_list **alst, char **env, int (*init)(t_instr *, char **));
@@ -35,22 +39,20 @@ int		print_test_stack(t_list **stack, char *test);
 			/*		Test 1 : ls -l | cat -e */
 t_list	*test1(void);
 int		test1_ls(t_instr *cmd, char **env);
-int		test1_cat(t_instr *cmd, char **env);
 
 // Basic test
 #define EXEC_TEST_1 "ls -la -h /home"
-#define EXEC_TEST_2 "mkdir canyouseeme ; ls -lh"
-#define EXEC_TEST_3 "cat -e"
+#define EXEC_TEST_2 "cat -e"
 
-#define EXEC_TEST_4 "echo \"Echo was here\" > echofile"
-#define EXEC_TEST_5 "echo \"Not anymore\" > echofile"
+#define EXEC_TEST_3 "echo \"Echo was here\" > echofile"
+#define EXEC_TEST_4 "echo \"Not anymore\" > echofile"
 
 // '>' tests
-#define EXEC_TEST_6 "ls -l > tempfile"
-#define EXEC_TEST_7 "ls -lai > tempfile"
-#define EXEC_TEST_8 "ls -la 404 2> errorfile"
+#define EXEC_TEST_5 "ls -l > tempfile"
+#define EXEC_TEST_6 "ls -lai > tempfile"
+#define EXEC_TEST_7 "ls -la 404 2> errorfile"
 
-#define EXEC_TEST_9 "ls -la Makefile 404 > tempfile 2>&1"
+#define EXEC_TEST_8 "ls -la Makefile 404 > tempfile 2>&1"
 #define EXEC_TEST_A "ls -la Makefile 404 2>&1 > tempfile"
 
 // '>>' tests

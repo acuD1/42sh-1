@@ -6,8 +6,8 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/17 09:10:48 by nrechati          #+#    #+#              #
-#    Updated: 2019/04/17 09:28:08 by nrechati         ###   ########.fr        #
+#    Updated: 2019/04/17 14:09:09 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-gcc -o resolve srcs/* -I ../libft/includes/ ../libft/libft.a -I includes
+gcc -o resolve srcs/* ../srcs/startup/exit.c ../srcs/startup/free.c ../srcs/startup/hash.c ../srcs/startup/launch.c ../srcs/startup/utils.c   -I ../libft/includes/ ../libft/libft.a -I includes -I../includes

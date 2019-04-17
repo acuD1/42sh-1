@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:11:04 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/17 13:18:35 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/17 16:24:00 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int 	fill_test_bank(t_hash *hashmap)
 int		print_test_stack(t_list **stack, char *test)
 {
 	int		i;
-	char	*asp;
 	t_list	*ptr;
 
 	i = 1;
@@ -81,11 +80,9 @@ int		print_test_stack(t_list **stack, char *test)
 	ft_dprintf(2, "\n\x1b[32m[PRINTING]: ********** %s **********\n\n\x1b[0m", test);
 	while (ptr)
 	{
-		asp = NULL;
-		ft_asprintf(&asp, "%s %s", ((t_instr *)ptr->data)->av[0], ((t_instr *)ptr->data)->av[1]);
 		if (((t_instr *)ptr->data)->env)
 			ft_printf("\x1b[93m CMD %d || ac = %d | av : %s | env : OK | IN = %d | OUT = %d | ERR = %d ||\n\x1b[0m"
-			, i, ((t_instr *)ptr->data)->ac, asp, ((t_instr *)ptr->data)->fd_in
+			, i, ((t_instr *)ptr->data)->ac, EXEC_TEST_1, ((t_instr *)ptr->data)->fd_in
 			,((t_instr *)ptr->data)->fd_out, ((t_instr *)ptr->data)->fd_err);
 		else
 			return (ft_dprintf(2, "\x1b[31m[ERROR]: %s ENV is empty\n\x1b[0m", ((t_instr *)ptr->data)->av) & 0);
@@ -95,27 +92,64 @@ int		print_test_stack(t_list **stack, char *test)
 	return (1);
 }
 
+static int get_env(t_list **alst, char **env)
+{
+	int i;
+
+	i = 0;
+	while (env[i] != NULL)
+	{
+		if (!f_create_node(alst, env[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int		main(int ac, char **av, char **env)
 {
-	t_list	*stack;
-	void 	*data;
-	t_hash 	hashmap;
+	t_list		*stack;
+	void 		*data;
+	t_hash 		hashmap;
+	t_list		*env_lst = NULL;
+	t_registry	registry;
 
+	/* Init Fake Registry */
+	ft_bzero(&registry, sizeof(t_registry));
+	get_env(&env_lst, env);
+	registry.env = env_lst;
+
+	/* Init Test bench hashmap */
 	hashmap = ft_hmap_init(16);
 	if (!hashmap.map)
 		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to malloc hashmap\n\x1b[0m") & 0);
 	if (!fill_test_bank(&hashmap))
 		return (0);
+
+	/* Init registry hashmaps */
+	registry.bin_hashmap = ft_hmap_init(2048);
+	registry.blt_hashmap = ft_hmap_init(16);
+	hash_blt(&registry);
+
+	/* Print Test Bench Hashmap */
 	ft_print_hashmap_p(&hashmap) ; ft_printf("\n\x1b[0m");
 	if (ac != 2)
 		return (ft_dprintf(2, "USAGE: ./resolve [test]\n\x1b[0m"));
+
+	/* Load test */
 	stack = NULL;
 	if (!test_to_bench(&hashmap, &stack, env, av[1]))
 		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to load %s\n\x1b[0m", av[1]));
 	ft_dprintf(2, "\x1b[32m[SUCCESS]: Test Bank INIT succeeded\n\x1b[0m");
 	ft_dprintf(2, "\x1b[32m[SUCCESS]: Test Bank LOAD succeeded\n\x1b[0m");
 	ft_dprintf(2, "\x1b[32m[SUCCESS]: %s INIT succeeded\n\x1b[0m", av[1]);
+
+	/*	Print test */
 	if (!print_test_stack(&stack, av[1]))
 		return (0);
+
+	/* Resolve test */
+	resolve_stack(&stack, &registry);
+
 	return (0);
 }
