@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:11:04 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/17 16:24:00 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/17 17:16:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int		main(int ac, char **av, char **env)
 	/*	Print test */
 	if (!print_test_stack(&stack, av[1]))
 		return (0);
-
+Resolve
 	/* Resolve test */
 	resolve_stack(&stack, &registry);
 

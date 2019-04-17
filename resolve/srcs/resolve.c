@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:10:32 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/17 16:37:09 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/17 17:12:24 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,31 +35,36 @@ int		resolve_stack(t_list **stack, t_registry *shell)
 */
 
 
-int		check_chevrons(ptr)
+int		check_chevrons(t_list *ptr)
 {
-	if (fd_in != 0)
-		dup2(IN, ptr->data->fd_in);
-	if (fd_out != 1)
-		dup2(OUT, ptr->data->fd_out);
-	if (fd_err != 2)
-		dup2(ERR, ptr->data->fd_err);
+	if (((t_instr*)ptr->data)->fd_in != 0)
+		dup2(STDIN_FILENO, ((t_instr*)ptr->data)->fd_in);
+	if (((t_instr*)ptr->data)->fd_out != 1)
+		dup2(STDOUT_FILENO, ((t_instr*)ptr->data)->fd_out);
+	if (((t_instr*)ptr->data)->fd_err != 2)
+		dup2(STDERR_FILENO, ((t_instr*)ptr->data)->fd_err);
+	return (0);
 }
 
 int *create_pipe(void)
 {
-	int fd_pipe[2];
+	int *fd_pipe;
 
+	fd_pipe = malloc(sizeof(int) * 2);
 	if (!pipe(fd_pipe))
 		return (fd_pipe);
-	return (ft_dprintf(2, "[ERROR]: pipe syscall failed\n") & 0);
+	ft_dprintf(2, "[ERROR]: pipe syscall failed\n");
+	return (NULL);
 }
 
-int		exec(t_list *ptr, t_list *head, int pipes[2])
+static int		exec(t_list *ptr, t_list *head, t_registry *shell,int pipes[2])
 {
+	pid_t	pid;
 	int		p_flag;
+	int		status;
 
 	if (pipes)
-		dup2( );
+		dup2(STDIN_FILENO, pipes[1]);
 	p_flag = 0;
 	if (ptr->next)
 	{
@@ -67,29 +72,42 @@ int		exec(t_list *ptr, t_list *head, int pipes[2])
 		p_flag = 1;
 	}
 
-	fork()
+	// Set signal behavior
+
+	if ((pid = fork()) == -1)
 	{
-		if (pid == 0)
-		{
-			check_chevrons();
-			if (p_flag == 1)
-				dup2(OUT, pipes[0]);
-			if ptr->next != NULL
-				exec(ptr->next);
-			execve(cmd);
-		}
-		else
-			if (ptr == head)
-				waitpid;
+			//erro
 	}
+	if (pid == 0)
+	{
+		check_chevrons(ptr);
+
+		if (p_flag == 1)
+			dup2(STDOUT_FILENO, pipes[0]);
+
+		if (ptr->next)
+			exec(ptr->next, head, shell, pipes);
+
+		execve(ft_hmap_getdata(&shell->bin_hashmap,((t_instr*)ptr->data)->av[0]),
+						((t_instr*)ptr->data)->av,
+						((t_instr*)ptr->data)->env);
+	}
+	else if (ptr == head)
+	{
+		ft_dprintf(2, "Parent waiting...\n");
+		waitpid(pid, &status, 0);
+	}
+	//restore signals
+	return (0);
 }
 
-int 	resolve(t_list **stack, t_registry shell)
+int 	resolve_stack(t_list **stack, t_registry *shell)
 {
 	t_list *ptr;
 	int pipes[2];
 
 	ft_memset(pipes, 0, sizeof(int) * 2);
 	ptr = *stack;
-	exec(ptr, *stack, NULL);
+	exec(ptr, *stack, shell, NULL);
+	return (0);
 }
