@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/04 03:14:14 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/17 14:29:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	start_machine(t_machine *machine)
 		machine->state = DQTE;
 	else if (*machine->input == ' ' || *machine->input == '\t')
 		machine->state = SPACE;
-	else if (ft_strchr(FINALCHAR, *machine->input) || *machine->input == '~')
+	else if (ft_strchr(SIGN_DETECT, *machine->input) || *machine->input == '~')
 		machine->state = SIGN;
 	else if (ft_isdigit(*machine->input))
 		machine->state = IO_NUMBER;

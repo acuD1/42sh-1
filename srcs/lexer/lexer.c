@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/15 17:08:11 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/17 14:05:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static void		init_special(t_machine *machine)
 	machine->special_signs[7] = E_LESSGREAT;
 	machine->special_signs[8] = E_DLESSDASH;
 	machine->special_signs[9] = E_CLOBBER;
+	machine->special_signs[10] = E_DEQ;
+	machine->special_signs[11] = E_NOTEQ;
 }
 
 static void		init_machine(t_machine *machine)
@@ -58,6 +60,7 @@ static void		init_machine(t_machine *machine)
 	machine->duplicate[3] = E_IO_NUMBER;
 	machine->duplicate[4] = E_QUOTE;
 	machine->duplicate[5] = E_DB_QUOTE;
+	machine->duplicate[6] = E_ASSIGN;
 }
 
 t_list			*lexer(char *input)

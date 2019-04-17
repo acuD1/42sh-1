@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/15 16:17:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/17 14:09:41 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,17 @@ void	double_sign_machine(t_machine *machine)
 			machine->last_machine = E_DSEMI;
 		else if (*machine->buffer == '&' && *machine->input == '&' && ++checker)
 			machine->last_machine = E_DAND;
+		else if (*machine->buffer == '=' && *machine->input == '=' && ++checker)
+			machine->last_machine = E_DEQ;
+		else if (*machine->buffer == '!' && *machine->input == '=' && ++checker)
+			machine->last_machine = E_NOTEQ;
 		if (checker)
 			machine->input++;
 	}
-	machine->state = OUT;
+	if (*machine->buffer == '=' && *machine->input != '=')
+		machine->state = LETTER;
+	else
+		machine->state = OUT;
 }
 
 void	lesser_machine(t_machine *machine)

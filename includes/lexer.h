@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/15 18:17:04 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/17 14:29:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,18 @@
 
 # include "libft.h"
 # define STATENBR 15
-# define TOKEN_WITH_DATA 6
+# define TOKEN_WITH_DATA 7
 # define BUFFER 1024
-# define SINGLE_SIGNS 25
-# define SPECIAL_SIGNS 10
+# define SINGLE_SIGNS 24
+# define SPECIAL_SIGNS 12
 # define SIGNS (SPECIAL_SIGNS + SINGLE_SIGNS)
 
-# define ALLCHAR "$ \\\'\"|()><;`&~{}[]*?!#=%N"
+# define ALLCHAR "$ \\\'\"|()><;`&~{}[]*?!#%N"
+# define SIGN_DETECT " \t<>|;\'\"`()$&!?{}[]*%\\="
+# define LETTER_INTERUPT " \t<>|;\'\"`()$&!?{}[]*%\\"
 # define QUOTE_INTERUPT "\\\"`$"
 # define EXP_INTERUPT " \t\'\"`"
-# define DOUBLE_SIGN "&|;"
+# define DOUBLE_SIGN "&|;=!"
 
 # define CASE "case"
 # define DO "do"
@@ -39,8 +41,6 @@
 # define THEN "then"
 # define UNTIL "until"
 # define WHILE "while"
-
-# define FINALCHAR " \t<>|;\'\"`()$&!?{}[]*%\\=" ///MISS OPERATORS
 
 typedef struct s_machine t_machine;
 typedef  void (*t_process)(t_machine *);
@@ -88,7 +88,6 @@ enum	e_type
 	E_INTERROGATION,
 	E_EXCLAMATION,
 	E_HASH,
-	E_EQUAL,
 	E_PERCENT,
 	E_NEWLINE,
 	E_DAND,
@@ -101,6 +100,8 @@ enum	e_type
 	E_LESSGREAT,
 	E_DLESSDASH,
 	E_CLOBBER,
+	E_DEQ,
+	E_NOTEQ,
 	E_CASE,
 	E_DO,
     E_DONE,
@@ -117,6 +118,7 @@ enum	e_type
 	E_IO_NUMBER,
 	E_STRING,
 	E_QSTRING,
+	E_ASSIGN,
 	E_DEFAULT,
 };
 
