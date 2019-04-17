@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/17 14:29:29 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/17 21:36:25 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LEXER_H
 
 # include "libft.h"
-# define STATENBR 15
+# define STATENBR 16
 # define TOKEN_WITH_DATA 7
 # define BUFFER 1024
 # define SINGLE_SIGNS 24
@@ -42,10 +42,10 @@
 # define UNTIL "until"
 # define WHILE "while"
 
-typedef struct s_machine t_machine;
-typedef  void (*t_process)(t_machine *);
+typedef struct s_lexer t_lexer;
+typedef  void (*t_process)(t_lexer *);
 
-enum	e_state
+enum	e_lexer_state
 {
 	START,
 	LETTER,
@@ -61,7 +61,8 @@ enum	e_state
 	DQTE,
 	BQTE,
 	OUT,
-	END
+	END,
+	FINISH
 };
 
 enum	e_type
@@ -119,6 +120,7 @@ enum	e_type
 	E_STRING,
 	E_QSTRING,
 	E_ASSIGN,
+	E_END,
 	E_DEFAULT,
 };
 
@@ -137,41 +139,41 @@ typedef struct	s_token
 
 typedef struct	s_state
 {
-	enum e_state state;
+	enum e_lexer_state state;
 	t_process	process;
 
 }				t_state;
 
-struct	s_machine
+struct	s_lexer
 {
-	char			*input;
-	char			buffer[BUFFER];
-	t_process		process[STATENBR];
-	enum e_type		duplicate[TOKEN_WITH_DATA];
-	enum e_type		special_signs[SPECIAL_SIGNS];
-	t_list			*tokens;
-	enum e_state	state;
-	enum e_quote	quote;
-	enum e_type		last_machine;
+	char				*input;
+	char				buffer[BUFFER];
+	t_process			process[STATENBR];
+	enum e_type			duplicate[TOKEN_WITH_DATA];
+	enum e_type			special_signs[SPECIAL_SIGNS];
+	t_list				*tokens;
+	enum e_lexer_state	state;
+	enum e_quote		quote;
+	enum e_type			last_state;
 };
 
-void	start_machine(t_machine *machine);
-void	end_machine(t_machine *machine);
-void	out_machine(t_machine *machine);
-void	space_machine(t_machine *machine);
-void	letter_machine(t_machine *machine);
-void	number_machine(t_machine *machine);
-void	sign_machine(t_machine *machine);
-void	expansion_machine(t_machine *machine);
-void	backslash_machine(t_machine *machine);
-void	single_quote_machine(t_machine *machine);
-void	double_quote_machine(t_machine *machine);
-void	double_sign_machine(t_machine *machine);
-void	greater_machine(t_machine *machine);
-void	lesser_machine(t_machine *machine);
+void	start_lexer(t_lexer *machine);
+void	end_machine(t_lexer *machine);
+void	out_lexer(t_lexer *machine);
+void	space_machine(t_lexer *machine);
+void	letter_machine(t_lexer *machine);
+void	number_machine(t_lexer *machine);
+void	sign_machine(t_lexer *machine);
+void	expansion_machine(t_lexer *machine);
+void	backslash_machine(t_lexer *machine);
+void	single_quote_machine(t_lexer *machine);
+void	double_quote_machine(t_lexer *machine);
+void	double_sign_machine(t_lexer *machine);
+void	greater_machine(t_lexer *machine);
+void	lesser_machine(t_lexer *machine);
 
-void	fill_buffer_output(t_machine *machine);
-t_token generate_token(t_machine *machine);
+void	fill_buffer_output(t_lexer *machine);
+t_token generate_token(t_lexer *machine);
 
 t_list		*lexer(char *input);
 

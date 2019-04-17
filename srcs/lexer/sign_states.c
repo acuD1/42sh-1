@@ -6,13 +6,13 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/17 14:09:41 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/17 21:36:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-void	double_sign_machine(t_machine *machine)
+void	double_sign_machine(t_lexer *machine)
 {
 	int		checker;
 
@@ -20,15 +20,15 @@ void	double_sign_machine(t_machine *machine)
 	if (ft_strchr(DOUBLE_SIGN, *machine->input))
 	{
 		if (*machine->buffer == '|' && *machine->input == '|' && ++checker)
-			machine->last_machine = E_OR;
+			machine->last_state = E_OR;
 		else if (*machine->buffer == ';' && *machine->input == ';' && ++checker)
-			machine->last_machine = E_DSEMI;
+			machine->last_state = E_DSEMI;
 		else if (*machine->buffer == '&' && *machine->input == '&' && ++checker)
-			machine->last_machine = E_DAND;
+			machine->last_state = E_DAND;
 		else if (*machine->buffer == '=' && *machine->input == '=' && ++checker)
-			machine->last_machine = E_DEQ;
+			machine->last_state = E_DEQ;
 		else if (*machine->buffer == '!' && *machine->input == '=' && ++checker)
-			machine->last_machine = E_NOTEQ;
+			machine->last_state = E_NOTEQ;
 		if (checker)
 			machine->input++;
 	}
@@ -38,18 +38,18 @@ void	double_sign_machine(t_machine *machine)
 		machine->state = OUT;
 }
 
-void	lesser_machine(t_machine *machine)
+void	lesser_machine(t_lexer *machine)
 {
 	int		checker;
 
 	checker = 0;
-	if (machine->last_machine == E_DLESS && *machine->input == '-' && ++checker)
-		machine->last_machine = E_DLESSDASH;
+	if (machine->last_state == E_DLESS && *machine->input == '-' && ++checker)
+		machine->last_state = E_DLESSDASH;
 	else if (*machine->buffer == '<' && *machine->input == '<')
 	{
-		if (machine->last_machine != E_DLESS)
+		if (machine->last_state != E_DLESS)
 		{
-			machine->last_machine = E_DLESS;
+			machine->last_state = E_DLESS;
 			ft_strncat(machine->buffer, machine->input, 1);
 			machine->input++;
 			return ;
@@ -58,16 +58,16 @@ void	lesser_machine(t_machine *machine)
 	else if (*machine->input == '>' || *machine->input == '&')
 	{
 		if (*machine->buffer == '<' && *machine->input == '&' && ++checker)
-			machine->last_machine = E_LESSAND;
+			machine->last_state = E_LESSAND;
 		else if (*machine->buffer == '<' && *machine->input == '>' && ++checker)
-			machine->last_machine = E_LESSGREAT;
+			machine->last_state = E_LESSGREAT;
 	}
 	if (checker)
 		machine->input++;
 	machine->state = OUT;
 }
 
-void	greater_machine(t_machine *machine)
+void	greater_machine(t_lexer *machine)
 {
 	int		checker;
 
@@ -75,18 +75,18 @@ void	greater_machine(t_machine *machine)
 	if (ft_strchr(">&|", *machine->input))
 	{
 		if (*machine->buffer == '>' && *machine->input == '>' && ++checker)
-			machine->last_machine = E_DGREAT;
+			machine->last_state = E_DGREAT;
 		else if (*machine->buffer == '>' && *machine->input == '&' && ++checker)
-			machine->last_machine = E_GREATAND;
+			machine->last_state = E_GREATAND;
 		else if (*machine->buffer == '>' && *machine->input == '|' && ++checker)
-			machine->last_machine = E_CLOBBER;
+			machine->last_state = E_CLOBBER;
 		if (checker)
 			machine->input++;
 	}
 	machine->state = OUT;
 }
 
-int		double_dispatcher(t_machine *machine)
+int		double_dispatcher(t_lexer *machine)
 {
 	int		checker;
 
@@ -109,7 +109,7 @@ int		double_dispatcher(t_machine *machine)
 	return (checker);
 }
 
-void	sign_machine(t_machine *machine)
+void	sign_machine(t_lexer *machine)
 {
 	if (*machine->input == '\\')
 		machine->state = BSL;
