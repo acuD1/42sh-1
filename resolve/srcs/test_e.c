@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_1.c                                           :+:      :+:    :+:   */
+/*   test_e.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/17 09:41:02 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/18 11:00:43 by nrechati         ###   ########.fr       */
+/*   Created: 2019/04/18 17:14:00 by nrechati          #+#    #+#             */
+/*   Updated: 2019/04/18 17:41:21 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "resolve.h"
 
-static int		test1_ls(t_instr *cmd, char **env)
+static int teste_cat(t_instr *cmd, char **env)
 {
-	cmd->ac = 4;
-	cmd->av = ft_strsplit(EXEC_TEST_1, " ");
+	cmd->ac = 2;
+	cmd->av = ft_strsplit("cat -e", " ");
 	cmd->env = env;
-	cmd->fd_in = 0;
+	cmd->fd_in = open("./file1", O_RDWR);
 	cmd->fd_out = 1;
 	cmd->fd_err = 2;
 	cmd->gid = 0;
@@ -27,11 +27,11 @@ static int		test1_ls(t_instr *cmd, char **env)
 	return (1);
 }
 
-t_list			*test1(void)
+t_list *test_e(void)
 {
-	t_list	*test;
+	t_list *test;
 
 	test = NULL;
-	add_to_test(&test, test1_ls);
+	add_to_test(&test, teste_cat);
 	return (test);
 }

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_1.c                                           :+:      :+:    :+:   */
+/*   test_c.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/17 09:41:02 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/18 11:00:43 by nrechati         ###   ########.fr       */
+/*   Created: 2019/04/18 16:43:46 by nrechati          #+#    #+#             */
+/*   Updated: 2019/04/18 17:14:08 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "resolve.h"
 
-static int		test1_ls(t_instr *cmd, char **env)
+static int testc_ls(t_instr *cmd, char **env)
 {
-	cmd->ac = 4;
-	cmd->av = ft_strsplit(EXEC_TEST_1, " ");
+	cmd->ac = 2;
+	cmd->av = ft_strsplit("ls -lhi", " ");
 	cmd->env = env;
 	cmd->fd_in = 0;
-	cmd->fd_out = 1;
+	cmd->fd_out = open("./newfile", O_RDWR | O_APPEND | O_CREAT, 0666);
 	cmd->fd_err = 2;
 	cmd->gid = 0;
 	if (!cmd->av)
@@ -27,11 +27,11 @@ static int		test1_ls(t_instr *cmd, char **env)
 	return (1);
 }
 
-t_list			*test1(void)
+t_list *test_c(void)
 {
-	t_list	*test;
+	t_list *test;
 
 	test = NULL;
-	add_to_test(&test, test1_ls);
+	add_to_test(&test, testc_ls);
 	return (test);
 }

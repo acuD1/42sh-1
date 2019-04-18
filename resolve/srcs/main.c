@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:11:04 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/17 17:16:17 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:18:07 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,6 @@ int		test_to_bench(t_hash *hashmap, t_list **stack, char **env, char *test)
 	return (1);
 }
 
-int 	fill_test_bank(t_hash *hashmap)
-{
-	if (!ft_hmap_insert(hashmap, "test1", test1()))
-		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 1 to hashmap\n\x1b[0m") & 0);
-	if (!ft_hmap_insert(hashmap, "test2", test1()))
-		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 2 to hashmap\n\x1b[0m") & 0);
-	if (!ft_hmap_insert(hashmap, "test3", test1()))
-		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 3 to hashmap\n\x1b[0m") & 0);
-	if (!ft_hmap_insert(hashmap, "test4", test1()))
-		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 4 to hashmap\n\x1b[0m") & 0);
-	if (!ft_hmap_insert(hashmap, "test5", test1()))
-		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 5 to hashmap\n\x1b[0m") & 0);
-	return (1);
-}
-
 int		print_test_stack(t_list **stack, char *test)
 {
 	int		i;
@@ -77,12 +62,12 @@ int		print_test_stack(t_list **stack, char *test)
 
 	i = 1;
 	ptr = *stack;
-	ft_dprintf(2, "\n\x1b[32m[PRINTING]: ********** %s **********\n\n\x1b[0m", test);
+	ft_dprintf(2, "\n\x1b[32m[PRINTING]: ********** %s **********\n\n\x1b[0m", get_line(test));
 	while (ptr)
 	{
 		if (((t_instr *)ptr->data)->env)
 			ft_printf("\x1b[93m CMD %d || ac = %d | av : %s | env : OK | IN = %d | OUT = %d | ERR = %d ||\n\x1b[0m"
-			, i, ((t_instr *)ptr->data)->ac, EXEC_TEST_1, ((t_instr *)ptr->data)->fd_in
+			, i, ((t_instr *)ptr->data)->ac, get_line(test), ((t_instr *)ptr->data)->fd_in
 			,((t_instr *)ptr->data)->fd_out, ((t_instr *)ptr->data)->fd_err);
 		else
 			return (ft_dprintf(2, "\x1b[31m[ERROR]: %s ENV is empty\n\x1b[0m", ((t_instr *)ptr->data)->av) & 0);
@@ -127,7 +112,7 @@ int		main(int ac, char **av, char **env)
 		return (0);
 
 	/* Init registry hashmaps */
-	registry.bin_hashmap = ft_hmap_init(2048);
+	registry.bin_hashmap = ft_hmap_init(4096);
 	registry.blt_hashmap = ft_hmap_init(16);
 	hash_blt(&registry);
 
@@ -142,14 +127,15 @@ int		main(int ac, char **av, char **env)
 		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to load %s\n\x1b[0m", av[1]));
 	ft_dprintf(2, "\x1b[32m[SUCCESS]: Test Bank INIT succeeded\n\x1b[0m");
 	ft_dprintf(2, "\x1b[32m[SUCCESS]: Test Bank LOAD succeeded\n\x1b[0m");
-	ft_dprintf(2, "\x1b[32m[SUCCESS]: %s INIT succeeded\n\x1b[0m", av[1]);
+	ft_dprintf(2, "\x1b[32m[SUCCESS]: \x1b[93m%s\x1b[32m INIT succeeded\n\x1b[0m", get_line(av[1]));
 
 	/*	Print test */
 	if (!print_test_stack(&stack, av[1]))
 		return (0);
-Resolve
+
 	/* Resolve test */
 	resolve_stack(&stack, &registry);
 
+	ft_dprintf(2, "\x1b[32m[SUCCESS]: Test \x1b[93m| %s |\x1b[32m finished with success\n\x1b[0m", get_line(av[1]));
 	return (0);
 }

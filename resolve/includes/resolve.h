@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:10:39 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/17 17:12:08 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:41:49 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,27 @@ int		new_cmd(t_list **alst, char **env, int (*init)(t_instr *, char **));
 int		test_to_bench(t_hash *hashmap, t_list **stack, char **env, char *test);
 int 	fill_test_bank(t_hash *hashmap);
 int		print_test_stack(t_list **stack, char *test);
+char	*get_line(char	*test);
 
-			/*		Test 1 : ls -l | cat -e */
+			/*		Tests */
 t_list	*test1(void);
-int		test1_ls(t_instr *cmd, char **env);
+t_list	*test2(void);
+t_list	*test3(void);
+t_list	*test4(void);
+t_list	*test5(void);
+t_list	*test6(void);
+t_list	*test7(void);
+t_list 	*test8(void);
+t_list 	*test_a(void);
+t_list 	*test_b(void);
+t_list 	*test_c(void);
+t_list 	*test_d(void);
+t_list 	*test_e(void);
+t_list 	*test_f(void);
+t_list 	*test_g(void);
 
 // Basic test
-#define EXEC_TEST_1 "ls -la -h /home"
+#define EXEC_TEST_1 "ls -l -h /Users/nrechati"
 #define EXEC_TEST_2 "cat -e"
 
 #define EXEC_TEST_3 "echo \"Echo was here\" > echofile"
@@ -61,9 +75,9 @@ int		test1_ls(t_instr *cmd, char **env);
 #define EXEC_TEST_D "ls -lhi 404 2>> errorfile"
 
 // '<' tests
-#define EXEC_TEST_E "cat < fichier"
-#define EXEC_TEST_F "cat < fichier fichier2 fichier3"
-#define EXEC_TEST_G "cat < 404"
+#define EXEC_TEST_E "cat -e < fichier"
+#define EXEC_TEST_F "cat < fichier fichier2 fichier3" /* Gerer via av */
+#define EXEC_TEST_G "cat < 404"						  /* Open fail */
 
 
 // '<<' tests (heredoc)
@@ -75,7 +89,6 @@ int		test1_ls(t_instr *cmd, char **env);
 
 // Hard tests
 #define EXEC_TEST_K "cat <<EOF > fichierEOF"
-
 
 // OPTIONEL VOIR DOCUMENTATION
 // Equivalent a     "ls -lh Makefile 404 >log 2>&1"
