@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 13:22:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/18 19:35:07 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,20 @@
 # include "libft.h"
 # define STATENBR 15
 # define TOKEN_WITH_DATA 7
+# define NB_OF_TOKENS 55
 # define BUFFER 1024
 # define SINGLE_SIGNS 23
 # define SPECIAL_SIGNS 12
 # define SIGNS (SPECIAL_SIGNS + SINGLE_SIGNS)
 
 # define ALLCHAR "$\\\'\"|()><;`&~{}[]*?!#%N"
-# define SIGN_DETECT " \t<>|;\'\"`()$&!?{}[]*%\\="
+# define SIGN_DETECT " \t<>|;\'\"$&\\"
 # define LETTER_TO_QUOTE "\"\'"
-# define LETTER_INTERUPT " \t<>|;\'\"`()$&!?{}[]*%\\"
+# define LETTER_INTERUPT " \t<>|;\'\"$&\\"
+///// 42sh
+///// # define LETTER_INTERUPT " \t<>|;\'\"`()$&!?{}[]*%\\"
+///// # define SIGN_DETECT " \t<>|;\'\"`()$&!?{}[]*%\\="
+/////
 # define QUOTE_INTERUPT "\\\"`$"
 # define EXP_INTERUPT " \t\'\"`"
 # define DOUBLE_SIGN "&|;=!"
@@ -74,8 +79,8 @@ enum	e_type
 	E_PIPE,
 	E_PARENT_OPEN,
 	E_PARENT_CLOSE,
-	E_FORWARD,
-	E_BACKWARD,
+	E_GREAT,
+	E_LESS,
 	E_SEMICOLON,
 	E_BACKQUOTE,
 	E_AND,
@@ -104,23 +109,24 @@ enum	e_type
 	E_NOTEQ,
 	E_CASE,
 	E_DO,
-    E_DONE,
-    E_ELIF,
-    E_ELSE,
-    E_ESAC,
-    E_FI,
-    E_FOR,
-    E_IF,
-    E_IN,
-    E_THEN,
-    E_UNTIL,
-    E_WHILE,
+	E_DONE,
+	E_ELIF,
+	E_ELSE,
+	E_ESAC,
+	E_FI,
+	E_FOR,
+	E_IF,
+	E_IN,
+	E_THEN,
+	E_UNTIL,
+	E_WHILE,
 	E_IO_NUMBER,
 	E_STRING,
 	E_QSTRING,
 	E_ASSIGN,
 	E_END,
 	E_DEFAULT,
+	E_ERROR,
 };
 
 enum	e_quote
@@ -140,7 +146,6 @@ typedef struct	s_state
 {
 	enum e_lexer_state state;
 	t_process	process;
-
 }				t_state;
 
 struct	s_lexer
@@ -153,7 +158,7 @@ struct	s_lexer
 	t_list				*tokens;
 	enum e_lexer_state	state;
 	enum e_quote		quote;
-	enum e_type			last_state;
+	enum e_type			last_lexer;
 };
 
 void	start_lexer(t_lexer *machine);
@@ -181,5 +186,7 @@ t_list		*lexer(char *input);
 
 void	print_list(t_list *list);
 void	del_token(void *token);
+
+void		parser(t_list *lst);
 
 #endif

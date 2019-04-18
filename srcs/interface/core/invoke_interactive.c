@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 18:21:30 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/16 17:19:34 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 		{
 			token_lst = lexer(user_input_string);
 			ft_lstiter(token_lst, print_list);
+			parser(token_lst);
 		}
 		else
 			break ;

@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 13:16:00 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/18 19:35:21 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void		init_lexer(t_lexer *machine)
 {
 	ft_bzero(machine, sizeof(t_lexer));
 	machine->state = START;
-	machine->last_state = E_DEFAULT;
+	machine->last_lexer = E_DEFAULT;
 	init_process(machine);
 	init_special(machine);
 	machine->duplicate[0] = E_EXP;

@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 13:18:02 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/18 19:35:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	end_machine(t_lexer *machine)
 {
 	if (*machine->buffer)
 		machine->state = OUT;
-	else if (machine->last_state != E_END)
+	else if (machine->last_lexer != E_END)
 	{
-		machine->last_state = E_END;
+		machine->last_lexer = E_END;
 		machine->state = OUT;
 	}
 	else

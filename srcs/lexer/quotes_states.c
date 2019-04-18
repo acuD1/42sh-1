@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 13:34:28 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/18 13:36:48 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/18 19:36:11 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	backslash_machine(t_lexer *machine)
 {
 	if (*machine->input == 'n')
 	{
-		machine->last_state = E_NEWLINE;
+		machine->last_lexer = E_NEWLINE;
 		machine->state = OUT;
 	}
 	else
 	{
-		machine->last_state = E_BACKSLASH;
+		machine->last_lexer = E_BACKSLASH;
 		fill_buffer_output(machine);
 	}
 	if (*machine->input)
@@ -34,7 +34,7 @@ void	single_quote_machine(t_lexer *machine)
 	{
 		if (machine->input[1] == '\0' || machine->input[1] == ' ')
 		{
-			machine->last_state = E_QUOTE;
+			machine->last_lexer = E_QUOTE;
 			machine->state = OUT;
 		}
 		else if (machine->input[1] == '\"')
@@ -44,7 +44,7 @@ void	single_quote_machine(t_lexer *machine)
 	}
 	else
 	{
-		machine->last_state = E_QUOTE;
+		machine->last_lexer = E_QUOTE;
 		ft_strncat(machine->buffer, machine->input, 1);
 	}
 	machine->input++;
@@ -65,7 +65,7 @@ void	quote_dispatcher(t_lexer *machine)
 
 void	close_double_quote(t_lexer *machine)
 {
-	machine->last_state = E_DB_QUOTE;
+	machine->last_lexer = E_DB_QUOTE;
 	machine->state = OUT;
 	machine->quote = QUOTE_OFF;
 	machine->input++;
@@ -81,7 +81,7 @@ void	double_quote_machine(t_lexer *machine)
 	else if (ft_strchr(QUOTE_INTERUPT, *machine->input))
 	{
 		machine->quote = QUOTE_INT;
-		machine->last_state = E_DB_QUOTE;
+		machine->last_lexer = E_DB_QUOTE;
 		machine->state = OUT;
 		return ;
 	}
