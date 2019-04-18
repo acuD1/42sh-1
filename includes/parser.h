@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/18 17:51:24 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/18 18:02:31 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # define TRUE 1
 # define FALSE 0
 # define PARSE_STATES 2
-# define FWRD E_STRING, E_EXP, E_QUOTE, E_DB_QUOTE
-# define WORD E_STRING, E_EXP, E_QUOTE, E_DB_QUOTE
-# define REDIRECT E_
+# define WORD E_STRING, E_EXP, E_QUOTE, E_DB_QUOTE,
+# define BASE_REDIRECT E_GREAT, E_LESS, E_DLESS, E_DGREAT,
+# define AND_REDIRECT E_GREATAND, E_LESSAND,
 
 typedef struct	s_exec
 {
