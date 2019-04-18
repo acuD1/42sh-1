@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 13:34:28 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/17 21:36:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/18 13:36:48 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,15 @@ void	single_quote_machine(t_lexer *machine)
 {
 	if (*machine->input == '\'')
 	{
-		machine->last_state = E_QUOTE;
-		machine->state = OUT;
+		if (machine->input[1] == '\0' || machine->input[1] == ' ')
+		{
+			machine->last_state = E_QUOTE;
+			machine->state = OUT;
+		}
+		else if (machine->input[1] == '\"')
+			machine->state = DQTE;
+		else
+			machine->state = LETTER;
 	}
 	else
 	{

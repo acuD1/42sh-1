@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/16 11:35:42 by nrechati         ###   ########.fr        #
+#    Updated: 2019/04/18 13:44:38 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -126,7 +126,7 @@ CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
 CFLAGS += $(IFLAGS)
-DFLAGS = $(CFLAGS) -fsanitize=address
+DFLAGS = $(CFLAGS) -fsanitize=address,undefined
 LFLAGS = -ltermcap
 
 # ---------------------------------------------------------------------------- #

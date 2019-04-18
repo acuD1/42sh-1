@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 17:03:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/17 21:36:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/18 13:16:23 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ void	letter_machine(t_lexer *machine)
 		machine->state = OUT;
 		machine->input++;
 	}
+	else if (ft_strchr(LETTER_TO_QUOTE, *machine->input))
+	{
+		machine->state = *machine->input == '\'' ? SQTE : DQTE;
+		machine->input++;
+	}
 	else if (ft_strchr(LETTER_INTERUPT, *machine->input))
 		machine->state = OUT;
 	else if (*machine->input)
@@ -42,11 +47,4 @@ void	letter_machine(t_lexer *machine)
 	}
 	else
 		machine->state = START;
-}
-
-void	space_machine(t_lexer *machine)
-{
-	fill_buffer_output(machine);
-	while (*machine->input == ' ' || *machine->input == '\t')
-		machine->input++;
 }

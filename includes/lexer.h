@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/17 21:36:25 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/18 13:22:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 # define LEXER_H
 
 # include "libft.h"
-# define STATENBR 16
+# define STATENBR 15
 # define TOKEN_WITH_DATA 7
 # define BUFFER 1024
-# define SINGLE_SIGNS 24
+# define SINGLE_SIGNS 23
 # define SPECIAL_SIGNS 12
 # define SIGNS (SPECIAL_SIGNS + SINGLE_SIGNS)
 
-# define ALLCHAR "$ \\\'\"|()><;`&~{}[]*?!#%N"
+# define ALLCHAR "$\\\'\"|()><;`&~{}[]*?!#%N"
 # define SIGN_DETECT " \t<>|;\'\"`()$&!?{}[]*%\\="
+# define LETTER_TO_QUOTE "\"\'"
 # define LETTER_INTERUPT " \t<>|;\'\"`()$&!?{}[]*%\\"
 # define QUOTE_INTERUPT "\\\"`$"
 # define EXP_INTERUPT " \t\'\"`"
@@ -54,7 +55,6 @@ enum	e_lexer_state
 	DSIGN,
 	GREATER,
 	LESSER,
-	SPACE,
 	EXP,
 	BSL,
 	SQTE,
@@ -68,7 +68,6 @@ enum	e_lexer_state
 enum	e_type
 {
 	E_EXP,
-	E_SPACE,
 	E_BACKSLASH,
 	E_QUOTE,
 	E_DB_QUOTE,
@@ -160,7 +159,6 @@ struct	s_lexer
 void	start_lexer(t_lexer *machine);
 void	end_machine(t_lexer *machine);
 void	out_lexer(t_lexer *machine);
-void	space_machine(t_lexer *machine);
 void	letter_machine(t_lexer *machine);
 void	number_machine(t_lexer *machine);
 void	sign_machine(t_lexer *machine);
