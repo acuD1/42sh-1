@@ -1,5 +1,35 @@
 #include "parser.h"
 
+
+void		set_start_token(t_graph *start, t_graph **tab)
+{
+	ft_lstadd(&start->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
+	ft_lstadd(&start->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
+	ft_lstadd(&start->lst, ft_lstnew(&tab[E_FORWARD], sizeof(t_graph **)));
+	ft_lstadd(&start->lst, ft_lstnew(&tab[E_DGREAT], sizeof(t_graph **)));
+	ft_lstadd(&start->lst, ft_lstnew(&tab[E_BACKWARD], sizeof(t_graph **)));
+	ft_lstadd(&start->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
+	ft_lstadd(&start->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
+	ft_lstadd(&start->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
+	ft_lstadd(&start->lst, ft_lstnew(&tab[E_SEMICOLON], sizeof(t_graph **)));
+	ft_lstadd(&start->lst, ft_lstnew(&tab[E_END], sizeof(t_graph **)));
+	//ft_lstadd(&start->lst, ft_lstnew(&tab[E_PIPE], sizeof(t_graph **)));
+}
+
+void		set_string_token(t_graph **tab)
+{
+	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_IF], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_ELIF], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_ELSE], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_FI], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_BRACKET_CLOSE], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_PIPE], sizeof(t_graph **)));
+}
+
+/*
 void		set_start_token(t_graph *start, t_graph **tab)
 {
 	start->end = 1;
@@ -158,4 +188,4 @@ void		set_bracket_close_token(t_graph **tab)
 	ft_lstadd(&tab[E_BRACKET_CLOSE]->lst, ft_lstnew(&tab[E_THEN], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_BRACKET_CLOSE]->lst, ft_lstnew(&tab[E_BRACKET_OPEN], sizeof(t_graph **)));
 }
-
+*/

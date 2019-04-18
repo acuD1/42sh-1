@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 15:47:07 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/18 16:05:02 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@
 # define UNTIL "until"
 # define WHILE "while"
 
-# define FINALCHAR " \t<>|;\'\"`()$&!?{}[]*%\\=" ///MISS OPERATORS
-
 typedef struct s_lexer t_lexer;
 typedef  void (*t_process)(t_lexer *);
 
@@ -64,7 +62,8 @@ enum	e_lexer_state
 	DQTE,
 	BQTE,
 	OUT,
-	END
+	END,
+	FINISH
 };
 
 enum	e_type
@@ -121,8 +120,8 @@ enum	e_type
 	E_STRING,
 	E_QSTRING,
 	E_ASSIGN,
-	E_DEFAULT,
 	E_END,
+	E_DEFAULT,
 };
 
 enum	e_quote
@@ -140,9 +139,8 @@ typedef struct	s_token
 
 typedef struct	s_state
 {
-	enum e_lexer_state	state;
-	t_process			process;
-
+	enum e_lexer_state state;
+	t_process	process;
 }				t_state;
 
 struct	s_lexer
