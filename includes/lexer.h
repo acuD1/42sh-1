@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 15:39:07 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:49:38 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 typedef struct s_lexer t_lexer;
 typedef  void (*t_process)(t_lexer *);
 
-enum	e_state
+enum	e_lexer_state
 {
 	START,
 	LETTER,
@@ -122,6 +122,7 @@ enum	e_type
 	E_QSTRING,
 	E_ASSIGN,
 	E_DEFAULT,
+	E_END
 };
 
 enum	e_quote
@@ -139,22 +140,22 @@ typedef struct	s_token
 
 typedef struct	s_state
 {
-	enum e_state state;
-	t_process	process;
+	enum e_lexer_state	state;
+	t_process			process;
 
 }				t_state;
 
 struct	s_lexer
 {
-	char			*input;
-	char			buffer[BUFFER];
-	t_process		process[STATENBR];
-	enum e_type		duplicate[TOKEN_WITH_DATA];
-	enum e_type		special_signs[SPECIAL_SIGNS];
-	t_list			*tokens;
-	enum e_state	state;
-	enum e_quote	quote;
-	enum e_type		last_lexer;
+	char				*input;
+	char				buffer[BUFFER];
+	t_process			process[STATENBR];
+	enum e_type			duplicate[TOKEN_WITH_DATA];
+	enum e_type			special_signs[SPECIAL_SIGNS];
+	t_list				*tokens;
+	enum e_lexer_state	state;
+	enum e_quote		quote;
+	enum e_type			last_lexer;
 };
 
 void	start_lexer(t_lexer *machine);

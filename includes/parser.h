@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/18 15:38:58 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:49:53 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct	s_exec
 	gid_t	gid;
 }				t_exec;
 
-
 enum	e_event
 {
 	NO_EVENT,
@@ -44,7 +43,6 @@ struct s_graph
 {
 	enum	e_event	event;
 	enum	e_type	type;
-	int				end;
 	t_list			*type_end;
 	t_list			*type_parent;
 	t_list 			*lst;

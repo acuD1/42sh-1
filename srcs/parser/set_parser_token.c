@@ -3,7 +3,6 @@
 
 void		set_start_token(t_graph *start, t_graph **tab)
 {
-	start->end = 1;
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_FORWARD], sizeof(t_graph **)));
@@ -19,7 +18,6 @@ void		set_start_token(t_graph *start, t_graph **tab)
 
 void		set_string_token(t_graph **tab)
 {
-	tab[E_STRING]->end = 1;
 	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
@@ -30,8 +28,6 @@ void		set_string_token(t_graph **tab)
 	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_BRACKET_CLOSE], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_PIPE], sizeof(t_graph **)));
 }
-
-
 
 /*
 void		set_start_token(t_graph *start, t_graph **tab)
