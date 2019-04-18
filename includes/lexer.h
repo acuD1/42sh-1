@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 15:20:29 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:38:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # define STATENBR 15
 # define TOKEN_WITH_DATA 7
-# define NB_OF_TOKENS 52
+# define NB_OF_TOKENS 54
 # define BUFFER 1024
 # define SINGLE_SIGNS 23
 # define SPECIAL_SIGNS 12
@@ -49,7 +49,7 @@
 typedef struct s_lexer t_lexer;
 typedef  void (*t_process)(t_lexer *);
 
-enum	e_state
+enum	e_lexer_state
 {
 	START,
 	LETTER,
@@ -139,22 +139,22 @@ typedef struct	s_token
 
 typedef struct	s_state
 {
-	enum e_state state;
-	t_process	process;
+	enum e_lexer_state	state;
+	t_process			process;
 
 }				t_state;
 
 struct	s_lexer
 {
-	char			*input;
-	char			buffer[BUFFER];
-	t_process		process[STATENBR];
-	enum e_type		duplicate[TOKEN_WITH_DATA];
-	enum e_type		special_signs[SPECIAL_SIGNS];
-	t_list			*tokens;
-	enum e_state	state;
-	enum e_quote	quote;
-	enum e_type		last_lexer;
+	char				*input;
+	char				buffer[BUFFER];
+	t_process			process[STATENBR];
+	enum e_type			duplicate[TOKEN_WITH_DATA];
+	enum e_type			special_signs[SPECIAL_SIGNS];
+	t_list				*tokens;
+	enum e_lexer_state	state;
+	enum e_quote		quote;
+	enum e_type			last_lexer;
 };
 
 void	start_lexer(t_lexer *machine);

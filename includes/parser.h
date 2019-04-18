@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/16 18:44:23 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:36:54 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct	s_exec
 	int		fderror;
 	gid_t	gid;
 }				t_exec;
-
 
 enum	e_event
 {
