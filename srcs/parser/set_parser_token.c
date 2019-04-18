@@ -6,9 +6,9 @@ void		set_start_token(t_graph *start, t_graph **tab)
 	//			DGREAT, E_BACKWARD, E_DLESS
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_FORWARD], sizeof(t_graph **)));
+	ft_lstadd(&start->lst, ft_lstnew(&tab[E_GREAT], sizeof(t_graph **)));
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_DGREAT], sizeof(t_graph **)));
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_BACKWARD], sizeof(t_graph **)));
+	ft_lstadd(&start->lst, ft_lstnew(&tab[E_LESS], sizeof(t_graph **)));
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
@@ -22,9 +22,9 @@ void		set_string_token(t_graph **tab)
 {
 	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_FORWARD], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_GREAT], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_DGREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_BACKWARD], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_LESS], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
@@ -39,9 +39,9 @@ void		set_exp_token(t_graph **tab)
 {
 	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_FORWARD], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_GREAT], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_DGREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_BACKWARD], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_LESS], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
@@ -56,9 +56,9 @@ void		set_quote_token(t_graph **tab)
 {
 	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_FORWARD], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_GREAT], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_DGREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_BACKWARD], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_LESS], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
@@ -73,9 +73,9 @@ void		set_dbquote_token(t_graph **tab)
 {
 	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_FORWARD], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_GREAT], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_DGREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_BACKWARD], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_LESS], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
@@ -88,18 +88,18 @@ void		set_dbquote_token(t_graph **tab)
 
 void		set_forward_token(t_graph **tab)
 {
-	ft_lstadd(&tab[E_FORWARD]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_FORWARD]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_FORWARD]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_FORWARD]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_GREAT]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_GREAT]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_GREAT]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_GREAT]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
 }
 
 void		set_backward_token(t_graph **tab)
 {
-	ft_lstadd(&tab[E_BACKWARD]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_BACKWARD]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_BACKWARD]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_BACKWARD]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_LESS]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_LESS]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_LESS]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_LESS]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
 }
 
 void		set_dgreat_token(t_graph **tab)
@@ -130,9 +130,9 @@ void		set_semicolon_token(t_graph **tab)
 {
 	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_FORWARD], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_GREAT], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_DGREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_BACKWARD], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_LESS], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
@@ -145,9 +145,9 @@ void		set_pipe_token(t_graph **tab)
 {
 	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_FORWARD], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_GREAT], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_DGREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_BACKWARD], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_LESS], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
@@ -157,8 +157,8 @@ void		set_pipe_token(t_graph **tab)
 
 void		set_ionumber_token(t_graph **tab)
 {
-	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_FORWARD], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_BACKWARD], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_GREAT], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_LESS], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_DGREAT], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
 }

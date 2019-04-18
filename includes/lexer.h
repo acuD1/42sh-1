@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 18:40:48 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 18:47:27 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ enum	e_type
 	E_PIPE,
 	E_PARENT_OPEN,
 	E_PARENT_CLOSE,
-	E_FORWARD,
-	E_BACKWARD,
+	E_GREAT,
+	E_LESS,
 	E_SEMICOLON,
 	E_BACKQUOTE,
 	E_AND,
