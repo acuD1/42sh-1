@@ -2,6 +2,8 @@
 
 void		set_start_token(t_graph *start, t_graph **tab)
 {
+	//static enum e_type tab[12] = {E_STRING, E_EXP, E_FORWARD,
+	//			DGREAT, E_BACKWARD, E_DLESS
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_FORWARD], sizeof(t_graph **)));
@@ -12,6 +14,7 @@ void		set_start_token(t_graph *start, t_graph **tab)
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_SEMICOLON], sizeof(t_graph **)));
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_IO_NUMBER], sizeof(t_graph **)));
+	ft_lstadd(&start->lst, ft_lstnew(&tab[E_ASSIGN], sizeof(t_graph **)));
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_END], sizeof(t_graph **)));
 }
 

@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 16:05:02 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/18 18:40:48 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,13 @@
 # define SIGNS (SPECIAL_SIGNS + SINGLE_SIGNS)
 
 # define ALLCHAR "$\\\'\"|()><;`&~{}[]*?!#%N"
-# define SIGN_DETECT " \t<>|;\'\"`()$&!?{}[]*%\\="
+# define SIGN_DETECT " \t<>|;\'\"$&\\"
 # define LETTER_TO_QUOTE "\"\'"
-# define LETTER_INTERUPT " \t<>|;\'\"`()$&!?{}[]*%\\"
+# define LETTER_INTERUPT " \t<>|;\'\"$&\\"
+///// 42sh
+///// # define LETTER_INTERUPT " \t<>|;\'\"`()$&!?{}[]*%\\"
+///// # define SIGN_DETECT " \t<>|;\'\"`()$&!?{}[]*%\\="
+/////
 # define QUOTE_INTERUPT "\\\"`$"
 # define EXP_INTERUPT " \t\'\"`"
 # define DOUBLE_SIGN "&|;=!"

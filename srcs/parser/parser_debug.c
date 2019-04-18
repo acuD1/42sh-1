@@ -21,7 +21,7 @@ void		print_token_debug(t_token *token)
 	else if (token->type == E_IO_NUMBER)
 		ft_printf("\033[37m         --------\n         |   IO   |\n         --------\n");
 	else if (token->type == E_ASSIGN)
-		ft_printf("\033[37m         --------\n         |ASSIGN|\n         --------\n");
+		ft_printf("\033[37m         --------\n         |ASSIGN| data [%s]\n         --------\n", token->data);
 	else
 		ft_printf("\033[37m         --------\n         |  END  |\n         --------\n");
 }
