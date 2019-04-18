@@ -7,23 +7,11 @@ void		print_token_debug(t_token *token)
 		, "<>", "<<-", ">|"};
 	const static char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
 									, IF, IN, THEN, UNTIL, WHILE};
-	const static char *leg_type[3] = {"Command", "Option", "Argument" };
 
-	if (token->type == E_STRING || token->type == E_QUOTE || token->type == E_DB_QUOTE)
-	{
-		if (legacy == -1)
-			legacy = 0;
-		else if (legacy == 0)
-			legacy = *token->data == '-' ? 1 : 2;
-		else if (legacy == 1 && (*token->data != '-'))
-			legacy = 2;
-	}
-	else
-		legacy = -1;
 	if (token->type == E_STRING || token->type == E_QUOTE 
 		|| token->type == E_DB_QUOTE)
-		ft_printf("\033[37m         --------\n         |   %c   | data [%s] | type [%s]\n         --------\n",
-				token->type < SINGLE_SIGNS ? ALLCHAR[token->type] : 'S', token->data, leg_type[legacy]);
+		ft_printf("\033[37m         --------\n         |   %c   | data [%s]\n         --------\n",
+				token->type < SINGLE_SIGNS ? ALLCHAR[token->type] : 'S', token->data);
 	else if (token->type < SINGLE_SIGNS)
 		ft_printf("\033[37m         --------\n         |   %c   |\n         --------\n",
 				ALLCHAR[token->type]);
