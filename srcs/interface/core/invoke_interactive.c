@@ -6,10 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/16 17:19:34 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 22:57:07 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parser.h"
 #include "interface_functions.h"
 #include "line_edit.h"
 #include "log.h"
@@ -79,6 +80,7 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 			token_lst = lexer(user_input_string);
 			ft_lstiter(token_lst, print_list);
 			parser(token_lst);
+			parser_state(token_lst);
 		}
 		else
 			break ;

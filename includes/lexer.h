@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 19:35:07 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/18 20:35:14 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # define STATENBR 15
 # define TOKEN_WITH_DATA 7
-# define NB_OF_TOKENS 55
+# define NB_OF_TOKENS 54
 # define BUFFER 1024
 # define SINGLE_SIGNS 23
 # define SPECIAL_SIGNS 12
@@ -50,6 +50,7 @@
 
 typedef struct s_lexer t_lexer;
 typedef  void (*t_process)(t_lexer *);
+typedef enum e_type t_type;
 
 enum	e_lexer_state
 {
@@ -122,7 +123,6 @@ enum	e_type
 	E_WHILE,
 	E_IO_NUMBER,
 	E_STRING,
-	E_QSTRING,
 	E_ASSIGN,
 	E_END,
 	E_DEFAULT,
