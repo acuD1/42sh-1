@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 15:20:29 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:39:07 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # define STATENBR 15
 # define TOKEN_WITH_DATA 7
-# define NB_OF_TOKENS 52
+# define NB_OF_TOKENS 54
 # define BUFFER 1024
 # define SINGLE_SIGNS 23
 # define SPECIAL_SIGNS 12

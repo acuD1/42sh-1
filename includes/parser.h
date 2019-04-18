@@ -6,14 +6,13 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/16 18:44:23 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:38:58 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 # include "lexer.h"
-# define NB_OF_TOKENS 52
 # define TRUE 1
 # define FALSE 0
 
