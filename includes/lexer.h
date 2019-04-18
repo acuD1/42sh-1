@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 18:01:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/18 18:51:47 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # define STATENBR 15
 # define TOKEN_WITH_DATA 7
-# define NB_OF_TOKENS 54
+# define NB_OF_TOKENS 55
 # define BUFFER 1024
 # define SINGLE_SIGNS 23
 # define SPECIAL_SIGNS 12
@@ -122,6 +122,7 @@ enum	e_type
 	E_ASSIGN,
 	E_END,
 	E_DEFAULT,
+	E_ERROR,
 };
 
 enum	e_quote
