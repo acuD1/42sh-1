@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/18 16:51:13 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 16:55:28 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,12 @@ enum	e_event
 	ERROR_GRAPH
 };
 
-typedef struct s_graph	t_graph;
+enum	e_parser_state
+{
+	P_START,
+};
 
+typedef struct s_graph	t_graph;
 struct s_graph
 {
 	enum	e_event	event;
