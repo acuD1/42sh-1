@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 15:38:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:47:07 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,22 +106,23 @@ enum	e_type
 	E_NOTEQ,
 	E_CASE,
 	E_DO,
-    E_DONE,
-    E_ELIF,
-    E_ELSE,
-    E_ESAC,
-    E_FI,
-    E_FOR,
-    E_IF,
-    E_IN,
-    E_THEN,
-    E_UNTIL,
-    E_WHILE,
+	E_DONE,
+	E_ELIF,
+	E_ELSE,
+	E_ESAC,
+	E_FI,
+	E_FOR,
+	E_IF,
+	E_IN,
+	E_THEN,
+	E_UNTIL,
+	E_WHILE,
 	E_IO_NUMBER,
 	E_STRING,
 	E_QSTRING,
 	E_ASSIGN,
 	E_DEFAULT,
+	E_END,
 };
 
 enum	e_quote

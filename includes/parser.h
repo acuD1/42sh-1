@@ -6,14 +6,13 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/18 15:36:54 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:47:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 # include "lexer.h"
-# define NB_OF_TOKENS 52
 # define TRUE 1
 # define FALSE 0
 
@@ -38,8 +37,12 @@ enum	e_event
 	ERROR_GRAPH
 };
 
-typedef struct s_graph	t_graph;
+enum	e_parser_state
+{
+	P_START,
+};
 
+typedef struct s_graph	t_graph;
 struct s_graph
 {
 	enum	e_event	event;
