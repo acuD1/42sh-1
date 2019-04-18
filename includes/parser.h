@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/18 16:05:13 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:50:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 # include "lexer.h"
 # define TRUE 1
 # define FALSE 0
+# define PARSE_STATES 2
+# define FWRD E_STRING, E_EXP, E_QUOTE, E_DB_QUOTE
+# define WORD E_STRING, E_EXP, E_QUOTE, E_DB_QUOTE
+# define REDIRECT E_
 
 typedef struct	s_exec
 {
@@ -39,14 +43,29 @@ enum	e_event
 
 enum	e_parser_state
 {
+	P_STRING,
 	P_START,
+	P_END,
 };
 
 typedef struct s_graph	t_graph;
+typedef struct s_parser	t_parser;
+typedef void (*t_parsing)(t_parser *);
+
+struct s_parser
+{
+	t_list				*token_list;
+	enum e_parser_state state;
+	t_exec				current_exec;
+	t_list				*parse_output;
+	t_token				*token;
+};
+
 struct s_graph
 {
-	enum	e_event	event;
-	enum	e_type	type;
+	t_parsing		parsing[PARSE_STATES];
+	enum e_event	event;
+	enum e_type		type;
 	t_list			*type_end;
 	t_list			*type_parent;
 	t_list 			*lst;
