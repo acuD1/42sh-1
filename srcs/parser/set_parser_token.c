@@ -2,20 +2,14 @@
 
 void		set_start_token(t_graph *start, t_graph **tab)
 {
-	//static enum e_type tab[12] = {E_STRING, E_EXP, E_FORWARD,
-	//			DGREAT, E_BACKWARD, E_DLESS
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_GREAT], sizeof(t_graph **)));
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_DGREAT], sizeof(t_graph **)));
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_LESS], sizeof(t_graph **)));
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_SEMICOLON], sizeof(t_graph **)));
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_IO_NUMBER], sizeof(t_graph **)));
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_ASSIGN], sizeof(t_graph **)));
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_END], sizeof(t_graph **)));
+	static enum e_type type[12] = {E_STRING, E_EXP, E_GREAT,
+				E_DGREAT, E_LESS, E_DLESS, E_QUOTE, E_DB_QUOTE, E_SEMICOLON,
+				E_IO_NUMBER, E_ASSIGN, E_END};
+	int		i;
+
+	i = 0;
+	while (i < 12)
+		ft_lstadd(&start->lst, ft_lstnew(&tab[type[i++]], sizeof(t_graph **)));
 }
 
 void		set_string_token(t_graph **tab)
