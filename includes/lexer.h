@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 15:10:35 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:15:25 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@
 
 # define FINALCHAR " \t<>|;\'\"`()$&!?{}[]*%\\=" ///MISS OPERATORS
 
-typedef struct s_machine t_machine;
-typedef  void (*t_process)(t_machine *);
+typedef struct s_machine t_lexer;
+typedef  void (*t_process)(t_lexer *);
 
 enum	e_state
 {
@@ -152,7 +152,7 @@ struct	s_machine
 	t_list			*tokens;
 	enum e_state	state;
 	enum e_quote	quote;
-	enum e_type		last_machine;
+	enum e_type		last_lexer;
 };
 
 void	start_lexer(t_lexer *machine);

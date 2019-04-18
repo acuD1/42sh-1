@@ -6,16 +6,16 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 15:11:25 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:15:24 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include <stdlib.h>
 
-static void		init_process(t_machine *machine)
+static void		init_process(t_lexer *machine)
 {
-	machine->process[START] = start_machine;
+	machine->process[START] = start_lexer;
 	machine->process[LETTER] = letter_machine;
 	machine->process[IO_NUMBER] = number_machine;
 	machine->process[SIGN] = sign_machine;
@@ -26,11 +26,11 @@ static void		init_process(t_machine *machine)
 	machine->process[BSL] = backslash_machine;
 	machine->process[SQTE] = single_quote_machine;
 	machine->process[DQTE] = double_quote_machine;
-	machine->process[OUT] = out_machine;
+	machine->process[OUT] = out_lexer;
 	machine->process[END] = end_machine;
 }
 
-static void		init_special(t_machine *machine)
+static void		init_special(t_lexer *machine)
 {
 	machine->special_signs[0] = E_DAND;
 	machine->special_signs[1] = E_OR;
@@ -44,11 +44,11 @@ static void		init_special(t_machine *machine)
 	machine->special_signs[9] = E_CLOBBER;
 }
 
-static void		init_machine(t_machine *machine)
+static void		init_lexer(t_lexer *machine)
 {
-	ft_bzero(machine, sizeof(t_machine));
+	ft_bzero(machine, sizeof(t_lexer));
 	machine->state = START;
-	machine->last_machine = E_DEFAULT;
+	machine->last_lexer = E_DEFAULT;
 	init_process(machine);
 	init_special(machine);
 	machine->duplicate[0] = E_EXP;
@@ -61,13 +61,13 @@ static void		init_machine(t_machine *machine)
 
 t_list			*lexer(char *input)
 {
-	t_machine	machine;
+	t_lexer	machine;
 
 	if (!input || !*input)
 		return (NULL);
 	while (*input == '\t' || *input == ' ')
 		input++;
-	init_machine(&machine);
+	init_lexer(&machine);
 	machine.input = input;
 	while (*machine.buffer || machine.state != END)
 		machine.process[machine.state](&machine);

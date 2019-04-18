@@ -6,13 +6,13 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 20:19:38 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/15 18:03:20 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:15:23 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int		check_script(t_machine *machine)
+int		check_script(t_lexer *machine)
 {
 	int					index;
 	const static char	*script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
@@ -28,34 +28,34 @@ int		check_script(t_machine *machine)
 	return (E_STRING);
 }
 
-int		check_last_machine(t_machine *machine)
+int		check_last_lexer(t_lexer *machine)
 {
 	int		i;
 
 	i = 0;
-	if (machine->last_machine == E_STRING)
+	if (machine->last_lexer == E_STRING)
 		return (check_script(machine));
 	while (i < TOKEN_WITH_DATA)
 	{
-		if (machine->last_machine == machine->duplicate[i])
+		if (machine->last_lexer == machine->duplicate[i])
 			return (machine->duplicate[i]);
 		i++;
 	}
 	i = 0;
 	while (i < SPECIAL_SIGNS)
 	{
-		if (machine->last_machine == machine->special_signs[i])
+		if (machine->last_lexer == machine->special_signs[i])
 			return (machine->special_signs[i]);
 		i++;
 	}
-	if (machine->last_machine == E_IO_NUMBER)
+	if (machine->last_lexer == E_IO_NUMBER)
 		return (E_IO_NUMBER);
-	if (machine->last_machine == E_NEWLINE)
+	if (machine->last_lexer == E_NEWLINE)
 		return (E_NEWLINE);
 	return (-1);
 }
 
-int		check_char(t_machine *machine)
+int		check_char(t_lexer *machine)
 {
 	int		i;
 	char	*s;
@@ -71,20 +71,20 @@ int		check_char(t_machine *machine)
 	return (0);
 }
 
-int		define_type(t_machine *machine)
+int		define_type(t_lexer *machine)
 {
 	int		result;
 
-	if ((result = check_last_machine(machine)) >= 0)
+	if ((result = check_last_lexer(machine)) >= 0)
 		return (result);
 	else if ((result = check_char(machine)))
 		return (result);
-	else if (machine->last_machine == E_DB_QUOTE || machine->quote == QUOTE_ON)
+	else if (machine->last_lexer == E_DB_QUOTE || machine->quote == QUOTE_ON)
 		return (E_DB_QUOTE);
 	return (E_STRING);
 }
 
-t_token	generate_token(t_machine *machine)
+t_token	generate_token(t_lexer *machine)
 {
 	t_token		token;
 	int			i;
@@ -98,6 +98,6 @@ t_token	generate_token(t_machine *machine)
 			token.data = ft_strdup(machine->buffer);
 	}
 	ft_bzero(machine->buffer, BUFFER);
-	machine->last_machine = E_DEFAULT;
+	machine->last_lexer = E_DEFAULT;
 	return (token);
 }

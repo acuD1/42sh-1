@@ -6,29 +6,29 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 13:34:28 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/18 15:12:24 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:15:24 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-void	backslash_machine(t_machine *machine)
+void	backslash_machine(t_lexer *machine)
 {
 	if (*machine->input == 'n')
 	{
-		machine->last_machine = E_NEWLINE;
+		machine->last_lexer = E_NEWLINE;
 		machine->state = OUT;
 	}
 	else
 	{
-		machine->last_machine = E_BACKSLASH;
+		machine->last_lexer = E_BACKSLASH;
 		fill_buffer_output(machine);
 	}
 	if (*machine->input)
 		machine->input++;
 }
 
-void	single_quote_machine(t_machine *machine)
+void	single_quote_machine(t_lexer *machine)
 {
 	if (*machine->input == '\'')
 	{
@@ -44,13 +44,13 @@ void	single_quote_machine(t_machine *machine)
 	}
 	else
 	{
-		machine->last_machine = E_QUOTE;
+		machine->last_lexer = E_QUOTE;
 		ft_strncat(machine->buffer, machine->input, 1);
 	}
 	machine->input++;
 }
 
-void	quote_dispatcher(t_machine *machine)
+void	quote_dispatcher(t_lexer *machine)
 {
 	if (*machine->input == '\\')
 		machine->state = BSL;
@@ -63,16 +63,16 @@ void	quote_dispatcher(t_machine *machine)
 	machine->input++;
 }
 
-void	close_double_quote(t_machine *machine)
+void	close_double_quote(t_lexer *machine)
 {
-	machine->last_machine = E_DB_QUOTE;
+	machine->last_lexer = E_DB_QUOTE;
 	machine->state = OUT;
 	machine->quote = QUOTE_OFF;
 	machine->input++;
 	return ;
 }
 
-void	double_quote_machine(t_machine *machine)
+void	double_quote_machine(t_lexer *machine)
 {
 	if (machine->quote && *machine->input == '\"')
 		close_double_quote(machine);
@@ -81,7 +81,7 @@ void	double_quote_machine(t_machine *machine)
 	else if (ft_strchr(QUOTE_INTERUPT, *machine->input))
 	{
 		machine->quote = QUOTE_INT;
-		machine->last_machine = E_DB_QUOTE;
+		machine->last_lexer = E_DB_QUOTE;
 		machine->state = OUT;
 		return ;
 	}

@@ -6,13 +6,13 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 15:11:52 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:15:24 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-void	start_machine(t_machine *machine)
+void	start_lexer(t_lexer *machine)
 {
 	if (!*machine->input)
 		machine->state = END;
@@ -31,7 +31,7 @@ void	start_machine(t_machine *machine)
 		machine->state = LETTER;
 }
 
-void	end_machine(t_machine *machine)
+void	end_machine(t_lexer *machine)
 {
 	if (*machine->buffer)
 		machine->state = OUT;
@@ -39,13 +39,13 @@ void	end_machine(t_machine *machine)
 		machine->state = END;
 }
 
-void	fill_buffer_output(t_machine *machine)
+void	fill_buffer_output(t_lexer *machine)
 {
 	ft_strncat(machine->buffer, machine->input, 1);
 	machine->state = OUT;
 }
 
-void	out_machine(t_machine *machine)
+void	out_lexer(t_lexer *machine)
 {
 	t_list	*node;
 	t_token	token;
