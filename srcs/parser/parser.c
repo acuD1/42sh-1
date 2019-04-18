@@ -117,7 +117,7 @@ void		parser(t_list *lst)
 
 	ft_printf("\n------- | PARSER | -------\n\n");
 	graph = generate_graph();
-	if (parse_tokens(&lst, &graph, NULL, E_END))
+	if (!lst || parse_tokens(&lst, &graph, NULL, E_END))
 		print_result_debug(0);
 	else
 		print_result_debug(1);
