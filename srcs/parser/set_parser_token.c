@@ -10,7 +10,7 @@ void		set_start_token(t_graph *start, t_graph **tab)
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_BACKWARD], sizeof(t_graph **)));
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_DBQUOTE], sizeof(t_graph **)));
+	ft_lstadd(&start->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_SEMICOLON], sizeof(t_graph **)));
 	ft_lstadd(&start->lst, ft_lstnew(&tab[E_END], sizeof(t_graph **)));
 	//ft_lstadd(&start->lst, ft_lstnew(&tab[E_PIPE], sizeof(t_graph **)));

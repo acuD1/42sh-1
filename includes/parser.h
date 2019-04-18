@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/18 15:49:53 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:53:55 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,4 @@ void		set_dbquote_token(t_graph **tab);
 */
 
 t_graph		*generate_graph(void);
-
 #endif

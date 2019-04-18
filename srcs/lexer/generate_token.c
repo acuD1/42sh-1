@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 20:19:38 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/18 15:15:23 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 16:02:24 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		check_last_lexer(t_lexer *machine)
 		return (E_IO_NUMBER);
 	if (machine->last_lexer == E_NEWLINE)
 		return (E_NEWLINE);
-	return (-1);
+	return (machine->last_lexer == E_END ? E_END : -1);
 }
 
 int		check_char(t_lexer *machine)
@@ -97,7 +97,10 @@ t_token	generate_token(t_lexer *machine)
 		if (token.type == machine->duplicate[i++] && *machine->buffer)
 			token.data = ft_strdup(machine->buffer);
 	}
-	ft_bzero(machine->buffer, BUFFER);
-	machine->last_lexer = E_DEFAULT;
+	if (machine->last_lexer != E_END)
+	{
+		ft_bzero(machine->buffer, BUFFER);
+		machine->last_lexer = E_DEFAULT;
+	}
 	return (token);
 }

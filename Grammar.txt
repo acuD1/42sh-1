@@ -6,13 +6,14 @@
 #    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/17 16:52:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/18 13:50:48 by cempassi         ###   ########.fr        #
+#    Updated: 2019/04/18 15:51:26 by ffoissey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 Pre-parser handeling:
 	- SINGLE_QUOTE -> STRING
 	- DOUBLE_QUOTE -> STRING
+	- SPACE -> /*empty*/
 
 Terminal tokens:
 	- SEMI_COLON

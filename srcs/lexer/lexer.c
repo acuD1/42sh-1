@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 15:20:44 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:57:20 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_list			*lexer(char *input)
 		input++;
 	init_lexer(&machine);
 	machine.input = input;
-	while (*machine.buffer || machine.state != END)
+	while (machine.state != FINISH)
 		machine.process[machine.state](&machine);
 	return (machine.tokens);
 }
