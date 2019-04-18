@@ -22,15 +22,16 @@ t_graph		*generate_graph(void)
 	ft_bzero(start, sizeof(t_graph));
 	set_start_token(start, tab);
 	set_string_token(tab);
-/*	set_if_token(tab);
-	set_else_token(tab);
-	set_elif_token(tab);
-	set_then_token(tab);
-	set_fi_token(tab);
-	set_bracket_open_token(tab);
-	set_bracket_close_token(tab);
-	set_pipe_token(tab);
+	set_exp_token(tab);
 	set_quote_token(tab);
-	set_dbquote_token(tab);*/
+	set_dbquote_token(tab);
+	set_forward_token(tab);
+	set_backward_token(tab);
+	set_dgreat_token(tab);
+	set_dless_token(tab);
+	set_semicolon_token(tab);
+	set_pipe_token(tab);
+	set_ionumber_token(tab);
+	set_assign_token(tab);
 	return (start);
 }

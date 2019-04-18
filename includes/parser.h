@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/18 15:53:55 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 16:51:13 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,19 @@ void		print_result_debug(int which);
 
 void		set_start_token(t_graph *start, t_graph **tab);
 void		set_string_token(t_graph **tab);
+void		set_exp_token(t_graph **tab);
+void		set_quote_token(t_graph **tab);
+void		set_dbquote_token(t_graph **tab);
+void		set_forward_token(t_graph **tab);
+void		set_backward_token(t_graph **tab);
+void		set_dgreat_token(t_graph **tab);
+void		set_dless_token(t_graph **tab);
+void		set_semicolon_token(t_graph **tab);
+void		set_pipe_token(t_graph **tab);
+void		set_ionumber_token(t_graph **tab);
+void		set_assign_token(t_graph **tab);
+
+/*
 void		set_if_token(t_graph **tab);
 void		set_elif_token(t_graph **tab);
 void		set_else_token(t_graph **tab);
@@ -75,8 +88,7 @@ void		set_fi_token(t_graph **tab);
 void		set_bracket_open_token(t_graph **tab);
 void		set_bracket_close_token(t_graph **tab);
 void		set_pipe_token(t_graph **tab);
-void		set_quote_token(t_graph **tab);
-void		set_dbquote_token(t_graph **tab);
+*/
 
 /*
 ************************
@@ -85,4 +97,5 @@ void		set_dbquote_token(t_graph **tab);
 */
 
 t_graph		*generate_graph(void);
+
 #endif

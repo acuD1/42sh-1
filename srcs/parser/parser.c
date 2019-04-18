@@ -49,6 +49,7 @@ int			parse_tokens(t_list **lst, t_graph **graph, t_list *ref, enum e_type start
 {
 	t_token *token;
 
+	(void)start;
 	while (*lst)
 	{
 		token = (t_token *)(*lst)->data;
@@ -58,9 +59,12 @@ int			parse_tokens(t_list **lst, t_graph **graph, t_list *ref, enum e_type start
 			(*graph)->event = ERROR_GRAPH;
 			return (FALSE);
 		}
-		if (ref_end_is_ok(ref, token->type))
+		else if (token->type == E_END)
 			return (TRUE);
-		if ((*graph)->event == START_GRAPH && start != NB_OF_TOKENS + 1)
+		else if (ref_end_is_ok(ref, token->type))
+			return (TRUE);
+		/*
+		if ((*graph)->event == START_GRAPH && start != E_END)
 		{
 			print_error_debug(0, 2);
 			return (FALSE);
@@ -92,7 +96,7 @@ int			parse_tokens(t_list **lst, t_graph **graph, t_list *ref, enum e_type start
 				}
 				print_arrow_debug(2);
 			}
-		}
+		}*/
 		else
 			print_arrow_debug(0);
 		*lst = (*lst)->next;
@@ -111,7 +115,7 @@ void		parser(t_list *lst)
 {
 	t_graph	*graph;
 
-	ft_printf("------- | PARSER | -------\n\n");
+	ft_printf("\n------- | PARSER | -------\n\n");
 	graph = generate_graph();
 	if (parse_tokens(&lst, &graph, NULL, E_END))
 		print_result_debug(0);

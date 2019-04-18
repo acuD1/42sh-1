@@ -2,14 +2,13 @@
 
 void		print_token_debug(t_token *token)
 {
-	static int	legacy = -1;
 	const static char *signs[14] = {"&&", "OR", ";;", "<<", ">>", "<&", ">&"
-		, "<>", "<<-", ">|"};
+		, "<>", "<<-", ">|", "==", "!="};
 	const static char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
 									, IF, IN, THEN, UNTIL, WHILE};
 
 	if (token->type == E_STRING || token->type == E_QUOTE 
-		|| token->type == E_DB_QUOTE)
+		|| token->type == E_DB_QUOTE || token->type == E_EXP)
 		ft_printf("\033[37m         --------\n         |   %c   | data [%s]\n         --------\n",
 				token->type < SINGLE_SIGNS ? ALLCHAR[token->type] : 'S', token->data);
 	else if (token->type < SINGLE_SIGNS)
@@ -19,10 +18,12 @@ void		print_token_debug(t_token *token)
 		ft_printf("\033[37m         --------\n         | %5s |\n         --------\n", signs[token->type - SINGLE_SIGNS]);
 	else if (token->type >= SIGNS && token->type < SIGNS + 13)
 		ft_printf("\033[37m         --------\n         | %5s |\n         --------\n", script[token->type - SIGNS]);
-	else
+	else if (token->type == E_IO_NUMBER)
 		ft_printf("\033[37m         --------\n         |   IO   |\n         --------\n");
-	if (ft_strequ(token->data, "--"))
-		legacy = 2;
+	else if (token->type == E_ASSIGN)
+		ft_printf("\033[37m         --------\n         |ASSIGN|\n         --------\n");
+	else
+		ft_printf("\033[37m         --------\n         |  END  |\n         --------\n");
 }
 
 void		print_arrow_debug(int which)
