@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/16 17:50:04 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:10:35 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,17 @@
 
 # include "libft.h"
 # define STATENBR 15
+# define TOKEN_WITH_DATA 7
 # define NB_OF_TOKENS 52
-# define TOKEN_WITH_DATA 6
 # define BUFFER 1024
-# define SINGLE_SIGNS 25
-# define SPECIAL_SIGNS 10
+# define SINGLE_SIGNS 23
+# define SPECIAL_SIGNS 12
 # define SIGNS (SPECIAL_SIGNS + SINGLE_SIGNS)
 
-# define ALLCHAR "$ \\\'\"|()><;`&~{}[]*?!#=%N"
+# define ALLCHAR "$\\\'\"|()><;`&~{}[]*?!#%N"
+# define SIGN_DETECT " \t<>|;\'\"`()$&!?{}[]*%\\="
+# define LETTER_TO_QUOTE "\"\'"
+# define LETTER_INTERUPT " \t<>|;\'\"`()$&!?{}[]*%\\"
 # define QUOTE_INTERUPT "\\\"`$"
 # define EXP_INTERUPT " \t\'\"`"
 # define DOUBLE_SIGN "&|;"
@@ -55,7 +58,6 @@ enum	e_state
 	DSIGN,
 	GREATER,
 	LESSER,
-	SPACE,
 	EXP,
 	BSL,
 	SQTE,
@@ -68,7 +70,6 @@ enum	e_state
 enum	e_type
 {
 	E_EXP,
-	E_SPACE,
 	E_BACKSLASH,
 	E_QUOTE,
 	E_DB_QUOTE,
@@ -154,23 +155,22 @@ struct	s_machine
 	enum e_type		last_machine;
 };
 
-void	start_machine(t_machine *machine);
-void	end_machine(t_machine *machine);
-void	out_machine(t_machine *machine);
-void	space_machine(t_machine *machine);
-void	letter_machine(t_machine *machine);
-void	number_machine(t_machine *machine);
-void	sign_machine(t_machine *machine);
-void	expansion_machine(t_machine *machine);
-void	backslash_machine(t_machine *machine);
-void	single_quote_machine(t_machine *machine);
-void	double_quote_machine(t_machine *machine);
-void	double_sign_machine(t_machine *machine);
-void	greater_machine(t_machine *machine);
-void	lesser_machine(t_machine *machine);
+void	start_lexer(t_lexer *machine);
+void	end_machine(t_lexer *machine);
+void	out_lexer(t_lexer *machine);
+void	letter_machine(t_lexer *machine);
+void	number_machine(t_lexer *machine);
+void	sign_machine(t_lexer *machine);
+void	expansion_machine(t_lexer *machine);
+void	backslash_machine(t_lexer *machine);
+void	single_quote_machine(t_lexer *machine);
+void	double_quote_machine(t_lexer *machine);
+void	double_sign_machine(t_lexer *machine);
+void	greater_machine(t_lexer *machine);
+void	lesser_machine(t_lexer *machine);
 
-void	fill_buffer_output(t_machine *machine);
-t_token generate_token(t_machine *machine);
+void	fill_buffer_output(t_lexer *machine);
+t_token generate_token(t_lexer *machine);
 
 t_list		*lexer(char *input);
 
