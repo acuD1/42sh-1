@@ -33,5 +33,7 @@ t_graph		*generate_graph(void)
 	set_pipe_token(tab);
 	set_ionumber_token(tab);
 	set_assign_token(tab);
+	set_greatand_token(tab);
+	set_lessand_token(tab);
 	return (start);
 }

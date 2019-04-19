@@ -153,6 +153,21 @@ void		set_ionumber_token(t_graph **tab)
 	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_LESS], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_DGREAT], sizeof(t_graph **)));
 	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_GREATAND], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_LESSAND], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_END], sizeof(t_graph **)));
+}
+
+void		set_greatand_token(t_graph **tab)
+{
+	ft_lstadd(&tab[E_GREATAND]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_GREATAND]->lst, ft_lstnew(&tab[E_IO_NUMBER], sizeof(t_graph **)));
+}
+
+void		set_lessand_token(t_graph **tab)
+{
+	ft_lstadd(&tab[E_LESSAND]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
+	ft_lstadd(&tab[E_LESSAND]->lst, ft_lstnew(&tab[E_IO_NUMBER], sizeof(t_graph **)));
 }
 
 /*

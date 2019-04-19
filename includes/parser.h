@@ -109,6 +109,8 @@ void		set_semicolon_token(t_graph **tab);
 void		set_pipe_token(t_graph **tab);
 void		set_ionumber_token(t_graph **tab);
 void		set_assign_token(t_graph **tab);
+void		set_greatand_token(t_graph **tab);
+void		set_lessand_token(t_graph **tab);
 
 /*
 void		set_if_token(t_graph **tab);
