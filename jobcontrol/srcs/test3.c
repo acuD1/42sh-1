@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 12:48:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/19 13:17:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:23:14 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,14 @@ static process_t	*ft_new_process()
 	ft_memset(head, 0, sizeof(process_t));
 
 	head->next = NULL;
-	head->ac = 3;
 	head->av = make_table("/bin/ls", "-Rla", "/Users/skuppers/42sh");
 	head->pid = -1;
 	head->completed = 0;
 	head->stopped = 0;
 	head->status = 0;
-	head->fdin = 0;
-	head->fdout = 1;
-	head->fderr = 2;
+//	head->fdin = 0;
+//	head->fdout = 1;
+//	head->fderr = 2;
 
 	return (head);
 }
@@ -62,11 +61,10 @@ static job_t	*ft_newjob(process_t *proc)
 	new->command = ft_strdup("/bin/ls -Rla /Users/skuppers/42sh");
 	new->first_process = proc;
 	new->pgid = -1;
-	new->notified = 0;
 	new->term_modes = NULL;
-	new->fdin = 0;
-	new->fdout = 1;
-	new->fderr = 2;
+//	new->fdin = 0;
+//	new->fdout = 1;
+//	new->fderr = 2;
 	return (new);
 }
 

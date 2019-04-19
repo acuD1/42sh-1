@@ -6,16 +6,18 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 09:42:37 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/19 14:13:10 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/19 17:31:05 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "jobs.h"
+#include <stdlib.h>
+#include <fcntl.h>
 
 /*
 **
-**	First test is ' ls -l | cat -e '
+**	First test is ' ls -l 1>file1 | cat -e '
 **
 */
 
@@ -71,8 +73,8 @@ static process_t	*ft_new_process()
 	head->status = 0;
 
 	head->fd = fd2;
-	fd2->std_in = 0;
-	fd2->std_out = 1;
+	fd2->std_in = 0;	//open("afile", O_RDONLY | O_CREAT, 0644);
+	fd2->std_out = open("afile", O_RDWR | O_TRUNC | O_CREAT, 0644);
 	fd2->std_err = 2;
 //---------------------------------------------------------------
 	return (head);

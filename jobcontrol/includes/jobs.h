@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 09:34:25 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/19 14:13:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:56:07 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,14 @@ typedef struct			job_s
 
 }						job_t;
 
-job_t	*get_job1(void); // 		'ls -l | cat -e'
-job_t	*get_job2(void); //			'cat -e | ls -l
-job_t	*get_job3(void); //			'/bin/ls -Rla /Users/skuppers '
+job_t	*get_job1(void); // 		'ls -l 1>file1 | cat -e'
+//job_t	*get_job2(void); //			'cat -e | ls -l
+//job_t	*get_job3(void); //			'/bin/ls -Rla /Users/skuppers '
 
 job_t	*g_job_head;
 
 
-
-void	launch_process(process_t *process, pid_t pid,
-				int infile, int outfile, int errfile,
-				char **env);
+void	fork_child(job_t *job, process_t *process, char **env, filedesc_t fd);
 
 job_t		*find_job(pid_t pgid);
 uint8_t		job_is_stopped(job_t *job);
