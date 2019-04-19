@@ -6,13 +6,13 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:01:44 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/19 14:45:49 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/19 17:02:27 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void	parse_error(t_parser *parse)
+void	error_parser(t_parser *parse)
 {
 	ft_printf("Error on token type %d\n",parse->token.type);
 	parse->state = P_ERROR;

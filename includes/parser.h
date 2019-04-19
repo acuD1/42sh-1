@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/19 14:44:32 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/19 17:17:31 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,14 @@
 # include "lexer.h"
 # define TRUE 1
 # define FALSE 0
-# define PARSE_STATES 8
+# define PARSE_STATES 10
 
 # define STARTING 14
 # define STRING_TOKENS 16
+
+typedef struct s_graph		t_graph;
+typedef struct s_parser		t_parser;
+typedef void (*t_parsing)(t_parser *);
 
 typedef struct	s_process
 {
@@ -39,6 +43,54 @@ typedef struct	s_job
 
 }				t_job;
 
+enum	e_parser_state
+{
+	P_START,
+	P_END,
+	P_STOP,
+	P_ERROR,
+	P_STRING,
+	P_QUOTE,
+	P_STRING_FLUSH,
+	P_SEPARATOR,
+	P_SUFFIX_REDIRECT,
+	P_FILENAME,
+	P_IO,
+	P_REDIRECT_FLUSH,
+};
+
+struct s_parser
+{
+	t_list				*token_list;
+	enum e_parser_state	last_state;
+	enum e_parser_state	state;
+	t_type				last_token;
+	t_process			process;
+	t_list				*job_list;
+	t_job				job;
+	t_stack				stack;
+	t_token				token;
+	int					oflags;
+	int					*fd;
+	t_parsing			parsing[PARSE_STATES][NB_OF_TOKENS];
+};
+
+void	separator_parser(t_parser *parse);
+void	init_parsing(t_parser *parse);
+void	get_token(t_parser *parse);
+void	start_parser(t_parser *parse);
+void	string_parser(t_parser *parse);
+void	flush_string(t_parser *parse);
+t_list	*parser_state(t_list *token_list);
+void	end_parser(t_parser *parse);
+void	error_parser(t_parser *parse);
+void	stop_parser(t_parser *parse);
+void	single_quote_parser(t_parser *parse);
+void	redirect_parser(t_parser *parse);
+void	filename_state(t_parser *parse);
+void	io_redirect_parser(t_parser *parse);
+void	flush_redirect(t_parser *parse);
+
 enum	e_event
 {
 	NO_EVENT,
@@ -48,46 +100,6 @@ enum	e_event
 	BACK,
 	ERROR_GRAPH
 };
-
-enum	e_parser_state
-{
-	P_START,
-	P_END,
-	P_ERROR,
-	P_STRING,
-	P_QUOTE,
-	P_STRING_FLUSH,
-	P_SEPARATOR,
-	P_STOP,
-};
-
-typedef struct s_graph		t_graph;
-typedef struct s_parser		t_parser;
-typedef void (*t_parsing)(t_parser *);
-
-struct s_parser
-{
-	t_list				*token_list;
-	enum e_parser_state	state;
-	t_process			process;
-	t_list				*job_list;
-	t_job				job;
-	t_stack				stack;
-	t_token				token;
-	t_parsing			parsing[PARSE_STATES][NB_OF_TOKENS];
-};
-
-void	separator_parser(t_parser *parse);
-void	init_parsing(t_parser *parse);
-void	get_token(t_parser *parse);
-void	start_parser(t_parser *parse);
-void	string_parser(t_parser *parse);
-void	parse_error(t_parser *parse);
-void	flush_string(t_parser *parse);
-t_list	*parser_state(t_list *token_list);
-void	end_parser(t_parser *parse);
-void	stop_parser(t_parser *parse);
-void	single_quote_parser(t_parser *parse);
 
 struct s_graph
 {

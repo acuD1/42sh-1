@@ -6,31 +6,44 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 21:57:35 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/19 14:44:06 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/19 17:20:27 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void	bzero_parsing(t_parser *parse)
-{
-	int		index;
-	int		state;
-
-	index = 0;
-	while (index < PARSE_STATES)
-	{
-		state = 0;
-		while (state < NB_OF_TOKENS)
-			parse->parsing[index][state++] = parse_error;
-		++index;
-	}
-}
-
 void	init_start(t_parser *parse)
 {
 	parse->parsing[P_START][E_STRING] = string_parser;
 	parse->parsing[P_START][E_QUOTE] = single_quote_parser;
+	parse->parsing[P_START][E_GREAT] = redirect_parser;
+	parse->parsing[P_START][E_LESS] = redirect_parser;
+	parse->parsing[P_START][E_DGREAT] = redirect_parser;
+	parse->parsing[P_START][E_IO_NUMBER] = io_redirect_parser;
+}
+
+void	init_string(t_parser *parse)
+{
+	parse->parsing[P_STRING][E_STRING] = string_parser;
+	parse->parsing[P_STRING][E_END] = flush_string;
+	parse->parsing[P_STRING][E_SEMICOLON] = flush_string;
+	parse->parsing[P_STRING][E_QUOTE] = single_quote_parser;
+	parse->parsing[P_STRING][E_GREAT] = redirect_parser;
+	parse->parsing[P_STRING][E_LESS] = redirect_parser;
+	parse->parsing[P_STRING][E_DGREAT] = redirect_parser;
+	parse->parsing[P_STRING][E_IO_NUMBER] = io_redirect_parser;
+}
+
+
+void	init_single_quote(t_parser *parse)
+{
+	parse->parsing[P_QUOTE][E_QUOTE] = single_quote_parser;
+	parse->parsing[P_QUOTE][E_GREAT] = redirect_parser;
+	parse->parsing[P_QUOTE][E_LESS] = redirect_parser;
+	parse->parsing[P_QUOTE][E_DGREAT] = redirect_parser;
+	parse->parsing[P_QUOTE][E_STRING] = string_parser;
+	parse->parsing[P_QUOTE][E_END] = flush_string;
+	parse->parsing[P_QUOTE][E_SEMICOLON] = flush_string;
 }
 
 void	init_flush_string(t_parser *parse)
@@ -46,27 +59,35 @@ void	init_separator(t_parser *parse)
 	parse->parsing[P_SEPARATOR][E_QUOTE] = stop_parser;
 }
 
-void	init_single_quote(t_parser *parse)
+
+void	init_suffix_redirect(t_parser *parse)
 {
-	parse->parsing[P_QUOTE][E_QUOTE] = single_quote_parser;
-	parse->parsing[P_QUOTE][E_STRING] = string_parser;
-	parse->parsing[P_QUOTE][E_END] = flush_string;
-	parse->parsing[P_QUOTE][E_SEMICOLON] = flush_string;
+	parse->parsing[P_SUFFIX_REDIRECT][E_STRING] = filename_state;
+	parse->parsing[P_SUFFIX_REDIRECT][E_QUOTE] = filename_state;
 }
 
-void	init_string(t_parser *parse)
+void	init_filename(t_parser *parse)
 {
-	parse->parsing[P_STRING][E_STRING] = string_parser;
-	parse->parsing[P_STRING][E_END] = flush_string;
-	parse->parsing[P_STRING][E_SEMICOLON] = flush_string;
-	parse->parsing[P_STRING][E_QUOTE] = single_quote_parser;
+	parse->parsing[P_FILENAME][E_SEMICOLON] = flush_redirect;
+	parse->parsing[P_FILENAME][E_STRING] = flush_redirect;
+	parse->parsing[P_FILENAME][E_END] = flush_redirect;
+	parse->parsing[P_FILENAME][E_QUOTE] = flush_redirect;
 }
 
+void	init_flush_redirect(t_parser *parse)
+{
+	parse->parsing[P_REDIRECT_FLUSH][E_STRING] = string_parser;
+	parse->parsing[P_REDIRECT_FLUSH][E_SEMICOLON] = flush_string;
+	parse->parsing[P_REDIRECT_FLUSH][E_QUOTE] = single_quote_parser;
+	parse->parsing[P_REDIRECT_FLUSH][E_END] = end_parser;
+}
 void	init_parsing(t_parser *parse)
 {
-	bzero_parsing(parse);
 	init_start(parse);
 	init_string(parse);
+	init_single_quote(parse);
 	init_flush_string(parse);
 	init_separator(parse);
+	init_suffix_redirect(parse);
+	init_filename(parse);
 }
