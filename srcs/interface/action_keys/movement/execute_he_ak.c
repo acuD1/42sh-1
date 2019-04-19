@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 11:32:21 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 15:57:09 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/20 01:28:55 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@
 
 int8_t	tc_ak_home(t_registry *shell)
 {
-	if (validate_interface_content(shell->interface) != 0)
+	if (validate_interface_content(&shell->interface) != 0)
 		return (-1);
-	while (shell->interface->cursor->index > 0)
+	while (shell->interface.cursor->index > 0)
 		tc_ak_arrow_left(shell);
 	return (0);
 }
 
 int8_t	tc_ak_end(t_registry *shell)
 {
-	if (validate_interface_content(shell->interface) != 0)
+	if (validate_interface_content(&shell->interface) != 0)
 		return (-1);
-	while (shell->interface->cursor->index < ft_vctlen(shell->interface->line))
+	while (shell->interface.cursor->index < ft_vctlen(shell->interface.line))
 		tc_ak_arrow_right(shell);
 	return (0);
 }

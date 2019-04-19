@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 10:41:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 17:21:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/20 01:21:12 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int8_t				tc_ak_cut_before_cursor(t_registry *shell)
 {
 	t_interface	*itf;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	if (validate_interface_content(itf) != 0)
 		return (-1);
 	realloc_vector(itf->clip, itf->line);
@@ -78,7 +78,7 @@ int8_t				tc_ak_cut_after_cursor(t_registry *shell)
 {
 	t_interface	*itf;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	if (validate_interface_content(itf) != 0)
 		return (-1);
 	realloc_vector(itf->clip, itf->line);
@@ -92,7 +92,7 @@ int8_t				tc_ak_cut_line(t_registry *shell)
 {
 	t_interface	*itf;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	if (validate_interface_content(itf) != 0)
 		return (-1);
 	realloc_vector(itf->clip, itf->line);

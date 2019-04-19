@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 11:33:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 14:19:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/20 01:29:35 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int8_t		tc_ak_next_word(t_registry *shell)
 	t_interface	*itf;
 	uint32_t	next_char;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	if (validate_interface_content(itf) != 0)
 		return (-1);
 	if (itf->cursor->index == ft_vctlen(itf->line))
@@ -39,7 +39,7 @@ int8_t		tc_ak_prev_word(t_registry *shell)
 	t_interface	*itf;
 	uint32_t	prev_char;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	if (validate_interface_content(itf) != 0)
 		return (-1);
 	if (itf->cursor->index == 0)
@@ -61,7 +61,7 @@ int8_t		tc_ak_ctrl_down(t_registry *shell)
 	uint32_t	moves;
 	uint32_t	lines_amount;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	if (validate_interface_content(itf) != 0)
 		return (-1);
 	moves = 0;
@@ -86,7 +86,7 @@ int8_t		tc_ak_ctrl_up(t_registry *shell)
 	uint32_t	prompt_length;
 	uint32_t	lines_amount;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	if (validate_interface_content(itf) != 0)
 		return (-1);
 	prompt_length = get_prompt_len(shell);

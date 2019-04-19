@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sub_shell.c                                        :+:      :+:    :+:   */
+/*   sub_prompt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:22:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 15:05:57 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/20 01:12:37 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 
 static void			print_sub_prompt(t_registry *shell)
 {
-	shell->interface->cursor->x = 0;
-	shell->interface->cursor->y = 0;
+	shell->interface.cursor->x = 0;
+	shell->interface.cursor->y = 0;
 	ft_printf("\n");
-	print_words(get_intern_var(shell, shell->interface->state),
-					shell->interface);
-	shell->interface->cursor->index = 0;
+	print_words(get_intern_var(shell, shell->interface.state),
+					&shell->interface);
+	shell->interface.cursor->index = 0;
 }
 
 static t_vector		*copy_vector(t_vector *src)
@@ -68,7 +68,7 @@ int8_t				invoke_sub_prompt(t_registry *shell,
 	t_vector		*old_vect;
 	t_interface		*itf;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	if (validate_interface_content(itf) != 0)
 		return (-1);
 	if ((old_vect = copy_vector(itf->line)) == NULL)

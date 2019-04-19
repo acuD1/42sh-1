@@ -6,11 +6,10 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/15 17:22:54 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/20 00:14:33 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "21sh.h"
 #include "log.h"
 #include "line_edit.h"
@@ -31,14 +30,14 @@ int		main(int ac, char **av, char **env)
 	t_builtin	blt;
 	t_registry	registry;
 
+	if (ac == 0)
+		;
 	ft_bzero(&registry, sizeof(t_registry));
-	if (!launch_sh(ac, av, env, &registry))
+	if (!launch_sh(av, env, &registry))
 		return (0);
-
 	init_debug_logger(&registry);
 	print_opt(&registry);
 	shell_invoke_interactive(&registry);
-
 	blt = (t_builtin)ft_hmap_getdata(&(registry.blt_hashmap), "exit");
 	if (blt)
 		if (!blt(&registry))

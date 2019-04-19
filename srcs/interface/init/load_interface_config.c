@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 13:56:44 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/20 00:44:13 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,6 @@ static uint8_t		fetch_terminal_info(t_registry *shell)
 	return (0);
 }
 
-static t_interface	*create_interface(t_registry *shell)
-{
-	t_interface *itf;
-
-	if (!(itf = malloc(sizeof(t_interface))))
-	{
-		log_print(shell, LOG_ERROR,
-				"Interface registry could not be allocated.\n");
-		return (NULL);
-	}
-	ft_memset(itf, 0, sizeof(t_interface));
-	return (itf);
-}
-
 static int8_t		fill_interface_related_internals(t_registry *reg)
 {
 	add_internal(reg, INT_PS1, INT_PS1_VALUE);
@@ -55,29 +41,25 @@ static int8_t		fill_interface_related_internals(t_registry *reg)
 	return (0);
 }
 
-t_interface			*init_line_edition(t_registry *shell)
+int					init_line_edition(t_registry *shell)
 {
-	t_interface	*itf;
 	int8_t		op_worked;
 
-	if ((itf = create_interface(shell)) == NULL)
-		return (NULL);
 	if (fetch_terminal_info(shell) != 0)
-		return (NULL);
-	if ((itf->termcaps = init_termcap_calls(shell)) == NULL)
-		return (NULL);
-	shell->interface = itf;
-	setup_keycodes(itf);
+		return (-1);
+	if ((shell->interface.termcaps = init_termcap_calls(shell)) == NULL)
+		return (-2);
+	setup_keycodes(&shell->interface);
 	link_actions_to_keys(shell);
 	fill_interface_related_internals(shell);
 	if ((op_worked = set_term_behavior(shell)) != 0)
 	{
 		if (op_worked == -2)
 			restore_term_behavior(shell);
-		return (NULL);
+		return (-3);
 	}
-	if ((itf->clip = allocate_clipboard(shell)) == NULL)
-		return (NULL);
+	if ((shell->interface.clip = allocate_clipboard(shell)) == NULL)
+		return (-4);
 	log_print(shell, LOG_OK, "Line edition initialized.\n");
-	return (itf);
+	return (0);
 }

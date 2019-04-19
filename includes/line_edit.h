@@ -6,51 +6,50 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 13:35:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/20 00:42:23 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LINE_EDIT_H
 # define LINE_EDIT_H
 
-#include <termcap.h>
-#include <term.h>
-#include <termios.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-
-#include "21sh.h"
-#include "libft.h"
+# include <termcap.h>
+# include <term.h>
+# include <termios.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/ioctl.h>
+# include "libft.h"
 
 # define AK_AMOUNT 24
-#define AK_ARROW_UP_MASK	0x1b5b410000000000
-#define AK_ARROW_DOWN_MASK 	0x1b5b420000000000
-#define AK_ARROW_RIGHT_MASK 0x1b5b430000000000
-#define AK_ARROW_LEFT_MASK 	0x1b5b440000000000
-#define AK_HOME_MASK 		0x1b5b480000000000
-#define AK_END_MASK 		0x1b5b460000000000
-#define AK_CTRL_A_MASK 		0x100000000000000
-#define AK_CTRL_E_MASK	    0x500000000000000
-#define AK_DELETE_MASK	    0x1b5b337e00000000
-#define AK_BACKSPACE_MASK 	0x7f00000000000000
-#define AK_CTRL_D_MASK 		0x400000000000000
-#define AK_CTRL_L_MASK		0xc00000000000000
-#define AK_CTRL_X_MASK		0x1800000000000000
-#define AK_CTRL_B_MASK		0x200000000000000
-#define AK_CTRL_P_MASK		0x1000000000000000
-#define AK_CTRL_LB_MASK		0x1b00000000000000
-#define AK_CTRL_RB_MASK		0x1d00000000000000
-#define AK_CTRL_F_MASK		0x600000000000000
-#define AK_CTRL_R_MASK		0x1200000000000000
-#define AK_CTRL_UP_MASK		0x1b5b313b35410000
-#define AK_CTRL_DOWN_MASK	0x1b5b313b35420000
-#define AK_CTRL_RIGHT_MASK	0x1b5b313b35430000
-#define AK_CTRL_LEFT_MASK	0x1b5b313b35440000
-#define AK_TAB_MASK			0x900000000000000
+# define AK_ARROW_UP_MASK		0x1b5b410000000000
+# define AK_ARROW_DOWN_MASK 	0x1b5b420000000000
+# define AK_ARROW_RIGHT_MASK	0x1b5b430000000000
+# define AK_ARROW_LEFT_MASK		0x1b5b440000000000
+# define AK_HOME_MASK			0x1b5b480000000000
+# define AK_END_MASK 			0x1b5b460000000000
+# define AK_CTRL_A_MASK 		0x0100000000000000
+# define AK_CTRL_E_MASK	    	0x0500000000000000
+# define AK_DELETE_MASK	    	0x1b5b337e00000000
+# define AK_BACKSPACE_MASK 		0x7f00000000000000
+# define AK_CTRL_D_MASK 		0x0400000000000000
+# define AK_CTRL_L_MASK			0x0c00000000000000
+# define AK_CTRL_X_MASK			0x1800000000000000
+# define AK_CTRL_B_MASK			0x0200000000000000
+# define AK_CTRL_P_MASK			0x1000000000000000
+# define AK_CTRL_LB_MASK		0x1b00000000000000
+# define AK_CTRL_RB_MASK		0x1d00000000000000
+# define AK_CTRL_F_MASK			0x0600000000000000
+# define AK_CTRL_R_MASK			0x1200000000000000
+# define AK_CTRL_UP_MASK		0x1b5b313b35410000
+# define AK_CTRL_DOWN_MASK		0x1b5b313b35420000
+# define AK_CTRL_RIGHT_MASK		0x1b5b313b35430000
+# define AK_CTRL_LEFT_MASK		0x1b5b313b35440000
+# define AK_TAB_MASK			0x0900000000000000
 
-enum action_keys {
+enum action_keys
+{
 	AK_ARROW_RIGHT,
 	AK_ARROW_LEFT,
 	AK_ARROW_UP,
@@ -100,19 +99,5 @@ typedef struct				s_window
 	uint32_t				cols;
 	uint32_t				max_chars;
 }							t_window;
-
-typedef struct				s_interface
-{
-	t_vector				*line;
-	t_vector				*clip;
-	t_cursor				*cursor;
-	t_window				*window;
-	t_termcaps				*termcaps;
-
-	char					*state;
-	unsigned long			ak_masks[AK_AMOUNT];
-
-	int8_t					(*tc_call[AK_AMOUNT])(struct s_registry *shell);
-}							t_interface;
 
 #endif

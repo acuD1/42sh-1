@@ -6,14 +6,14 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/19 14:19:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 00:52:43 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-# include "libft.h"
+#include "registry.h"
 # define STATENBR 15
 # define TOKEN_WITH_DATA 7
 # define NB_OF_TOKENS 54
@@ -182,5 +182,6 @@ void	print_list(t_list *list);
 void	del_token(void *token);
 
 void		parser(t_list *lst);
+t_list		*lexer_parser(t_registry *shell, char *input);
 
 #endif

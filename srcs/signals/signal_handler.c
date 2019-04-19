@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 16:34:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/20 01:00:00 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,24 @@ t_registry	*g_shell;
 void				redraw_prompt(int signo)
 {
 	(void)signo;
-	t_interface *itf;
+	t_interface itf;
 
 	itf = g_shell->interface;
 	tc_ak_end(g_shell);
-
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
-		print_words("\n", itf);
-
-	itf->cursor->x = 0;
-	itf->cursor->y = 0;
+		print_words("\n", &itf);
+	itf.cursor->x = 0;
+	itf.cursor->y = 0;
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
-		ft_vctreset(itf->line);
-
-	print_words(get_intern_var(g_shell, itf->state), itf);
-	itf->cursor->index = 0;
+		ft_vctreset(itf.line);
+	print_words(get_intern_var(g_shell, itf.state), &itf);
+	itf.cursor->index = 0;
 }
 
 static void				interface_resize_handler(int signo)
 {
 	struct 					winsize w;
-	t_interface				*itf;
+	t_interface				itf;
 
 	(void)signo;
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == -1)
@@ -49,15 +46,12 @@ static void				interface_resize_handler(int signo)
 		return ;
 	}
 	itf = g_shell->interface;
-
-	init_window(g_shell, itf);
-
-	tputs(itf->termcaps->clear, 1, ft_putc);
-
-	if ((itf->window->cols < (uint32_t)(ft_strlen(get_intern_var(g_shell,
+	init_window(g_shell, &itf);
+	tputs(itf.termcaps->clear, 1, ft_putc);
+	if ((itf.window->cols < (uint32_t)(ft_strlen(get_intern_var(g_shell,
 												   	INT_PS1)) * 2)
-		|| itf->window->rows < 3) || ft_vctlen(itf->line) > (uint32_t)itf->window->max_chars)
-		print_words("Terminal window size too small :-(", itf);
+		|| itf.window->rows < 3) || ft_vctlen(itf.line) > (uint32_t)itf.window->max_chars)
+		print_words("Terminal window size too small :-(", &itf);
 	else
 	{
 		redraw_prompt(ft_atoi(INT_MAGIC_NUMBER));

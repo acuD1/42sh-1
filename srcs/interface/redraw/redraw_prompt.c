@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 09:08:59 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 13:48:51 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/20 01:05:49 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ uint32_t		redraw_input_line(t_registry *shell)
 	uint32_t	offset;
 	uint32_t	initial_cursor;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	initial_cursor = itf->cursor->index;
 	itf->cursor->index = clean_screen(shell);
 	offset = 0;
@@ -38,7 +38,7 @@ uint32_t		redraw_after_cursor(t_registry *shell)
 	t_interface	*itf;
 	uint32_t	initial_cursor_pos;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	initial_cursor_pos = itf->cursor->index;
 	while (itf->cursor->index < itf->line->size
 					&& itf->line->buffer[itf->cursor->index] != '\0')
@@ -56,7 +56,7 @@ uint32_t		replace_input_line(char *string, t_registry *shell)
 	uint32_t	index;
 
 	index = 0;
-	itf = shell->interface;
+	itf = &shell->interface;
 	itf->cursor->index = clean_screen(shell);
 	ft_bzero(itf->line->buffer, itf->line->size);
 	while (itf->line->size <= ft_strlen(string))

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:15:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 11:01:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/20 00:00:22 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 char	*get_intern_var(t_registry *reg, char *name)
 {
-	return (get_data(&(reg->intern), name));
+	return (get_data((reg->intern), name));
 }
 
 int		add_internal(t_registry *reg, char *name, char *data)
 {
-	if (get_data(&(reg->intern), name) == NULL)
+	if (get_data(reg->intern, name) == NULL)
 		return (s_create_node(&(reg->intern), name, data));
 	return (change_node(&(reg->intern), name, ft_strdup(data)));
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_clipboard_ak.c                             :+:      :+:    :+:   */
+/*   execute_clipboard_paste.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 10:45:51 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 14:16:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/20 01:22:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int			insert_clipboard(t_registry *shell)
 	concat = NULL;
 	before = NULL;
 	after = NULL;
-	itf = shell->interface;
+	itf = &shell->interface;
 	before = ft_strsub(itf->line->buffer, 0, itf->cursor->index);
 	after = ft_strsub(itf->line->buffer, itf->cursor->index,
 					ft_vctlen(itf->line));
@@ -54,7 +54,7 @@ void				append_clipboard(t_registry *shell)
 {
 	t_interface *itf;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	itf->line->buffer = ft_strcat(itf->line->buffer,
 			itf->clip->buffer);
 	redraw_after_cursor(shell);
@@ -68,7 +68,7 @@ int8_t				tc_ak_paste_clipboard(t_registry *shell)
 	t_interface			*itf;
 	uint32_t			go_front;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	if (validate_interface_content(itf) != 0)
 		return (-1);
 	if (is_too_long(itf->line, itf->clip, itf->window->max_chars))

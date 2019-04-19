@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 13:10:24 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/20 00:02:35 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	init_debug_logger(t_registry *reg)
 
 	if (reg->option.d)
 	{
-		if ((home_path = get_data(&(reg->env), "HOME")) == NULL)
+		if ((home_path = get_data(reg->env, "HOME")) == NULL)
 		{
 			add_internal(reg, INT_DBG_FD, ft_itoa(-1));
 			ft_dprintf(2, "[ERROR] - Could not fetch home variable.\n");

@@ -6,25 +6,25 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 14:09:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/20 01:13:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # ifndef H_INTERFACE_FUNCTIONS
 # define H_INTERFACE_FUNCTIONS
 
-# include "line_edit.h"
-# include "libft.h"
+# include "21sh.h"
 
 /*
 **	Unit testing
 */
-int8_t	fill_interface_data(t_registry *shell, t_interface *itf);
+
+int8_t	fill_interface_data(t_registry *shell);
 
 extern t_registry	*g_shell_registry;
 
 t_termcaps					*init_termcap_calls(t_registry *shell);
-t_interface					*init_line_edition(t_registry *shell);
+int							init_line_edition(t_registry *shell);
 t_vector					*allocate_clipboard(t_registry *shell);
 
 short						set_term_behavior(t_registry *shell);
@@ -39,7 +39,7 @@ void						define_interface_signal_behavior(t_registry *shell);
 int8_t						invoke_sub_prompt(t_registry *shell,
 							int8_t (*condition)(char *), char *orig_state, char *p_state);
 
-void						launch_shell_prompt(t_registry *shell, t_interface *itf);
+void						launch_shell_prompt(t_registry *shelll);
 char						*prompt(t_registry *shell, t_interface *itf);
 
 void						setup_keycodes(t_interface *itf);

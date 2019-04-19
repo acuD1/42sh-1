@@ -6,11 +6,10 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/18 22:57:07 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 01:11:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
 #include "interface_functions.h"
 #include "line_edit.h"
 #include "log.h"
@@ -37,7 +36,7 @@ static int8_t		allocate_data_structures(t_vector **vector,
 	return (0);
 }
 
-int8_t				fill_interface_data(t_registry *shell, t_interface *itf)
+int8_t				fill_interface_data(t_registry *shell)
 {
 	t_vector	*vector;
 	t_window	*window;
@@ -45,11 +44,11 @@ int8_t				fill_interface_data(t_registry *shell, t_interface *itf)
 
 	if (allocate_data_structures(&vector, &window, &cursor) != 0)
 		return (-3);
-	itf->line = vector;
-	itf->window = window;
-	itf->cursor = cursor;
-	itf->state = INT_PS1;
-	if (init_window(shell, itf) != 0)
+	shell->interface.line = vector;
+	shell->interface.window = window;
+	shell->interface.cursor = cursor;
+	shell->interface.state = INT_PS1;
+	if (init_window(shell, &shell->interface) != 0)
 		return (-2);
 	if (init_cursor(shell) != 0)
 		return (-1);
@@ -65,23 +64,17 @@ static int8_t		is_input_valid(char *input_string)
 	return (1);
 }
 
-void				launch_shell_prompt(t_registry *shell, t_interface *itf)
+void				launch_shell_prompt(t_registry *shell)
 {
-	char	*user_input_string;
-	t_list	*token_lst;
+	char	*input;
 
 	log_print(shell, LOG_INFO, "Starting prompt.\n");
 	define_interface_signal_behavior(shell);
 	while (1)
 	{
-		user_input_string = prompt(shell, itf);
-		if (is_input_valid(user_input_string) == 1)
-		{
-			token_lst = lexer(user_input_string);
-			ft_lstiter(token_lst, print_list);
-			parser(token_lst);
-			parser_state(token_lst);
-		}
+		input = prompt(shell, &shell->interface);
+		if (is_input_valid(input) == 1)
+			lexer_parser(shell, input);
 		else
 			break ;
 		cleanup_interface(shell);
@@ -91,25 +84,22 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 
 void				shell_invoke_interactive(t_registry *shell)
 {
-	t_interface *itf;
-
 	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO))
 	{
 		log_print(shell, LOG_ERROR, "STDIN or STDOUT is not a valid tty.\n");
 		return ;
 	}
 	log_print(shell, LOG_INFO, "Starting interactive mode.\n");
-	if ((itf = init_line_edition(shell)) == NULL)
+	if ((init_line_edition(shell)))
 	{
 // cleanup
 		return ;
 	}
 	else
 	{
-		if (fill_interface_data(shell, itf) == 0)
+		if (fill_interface_data(shell) == 0)
 		{
-//exec
-			launch_shell_prompt(shell, itf);
+			launch_shell_prompt(shell);
 		}
 		else
 		{
@@ -119,6 +109,5 @@ void				shell_invoke_interactive(t_registry *shell)
 	log_print(shell, LOG_INFO, "Restoring original shell behavior.\n");
 	restore_term_behavior(shell);
 	log_print(shell, LOG_INFO, "Releasing interface memory.\n");
-	free_interface_registry(itf);
-	free(itf);
+	free_interface_registry(&shell->interface);
 }

@@ -6,25 +6,28 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/15 11:11:51 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/20 00:09:27 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "21sh.h"
 
-static int		get_env(t_list **alst, char **env)
+static t_list	*get_env(t_list **alst, char **env)
 {
-	int i;
+	t_list		*node;
+	t_variable	variable;
 
-	i = 0;
-	while (env[i] != NULL)
-	{
-		if (!f_create_node(alst, env[i]))
-			return (0);
-		i++;
-	}
-	return (1);
+	if (*env == NULL)
+		return (*alst);
+	variable.name = ft_strsub(*env, 0, ft_strcspn(*env, "="));
+	variable.data = ft_strdup(*env + (ft_strcspn(*env, "=") + 1));
+	if (variable.name == NULL || variable.data == NULL)
+		return (NULL);
+	if (!(node = ft_lstnew(&variable, sizeof(t_variable))))
+		return (NULL);
+	ft_lstaddback(alst, node);
+	return (get_env(alst, ++env));
 }
 
 int				fill_opt(int index, char **av, t_opt *option)
@@ -62,7 +65,7 @@ int				parse_arg(int index, char **av, t_opt *option)
 		return (1);
 	if (av[index][0] != '-')
 	{
-		ft_printf("USAGE ./21sh [-vdh][--help][--norc][--rcfile]PATH[-c]CMD\n");
+		ft_printf(USAGE);
 		return (0);
 	}
 	if (ft_strchr(av[index], 'h') || !ft_strcmp(av[index], "--help"))
@@ -82,15 +85,10 @@ int				parse_arg(int index, char **av, t_opt *option)
 	return (1);
 }
 
-int				launch_sh(int ac, char **av, char **env, t_registry *registry)
+int				launch_sh(char **av, char **env, t_registry *registry)
 {
 	t_opt		option;
-	t_list		*env_lst;
-	t_list		*var_lst;
 
-	(void)ac;
-	env_lst = NULL;
-	var_lst = NULL;
 	ft_bzero(&option, sizeof(t_opt));
 	if (!parse_arg(1, av, &option))
 	{
@@ -98,20 +96,8 @@ int				launch_sh(int ac, char **av, char **env, t_registry *registry)
 		ft_strdel(&(option.path));
 		return (0);
 	}
-	if (!get_env(&env_lst, env))
+	if (!get_env(&registry->env, env))
 		return (0);
-	registry->env = env_lst;
-	registry->intern = var_lst;
 	registry->option = option;
-//	registry->bin_hashmap = ft_hmap_init(2048);
-//	registry->blt_hashmap = ft_hmap_init(16);
-//	if (!hash_blt(registry))
-//		return (0);
-//	ft_print_hashmap_p(&(registry->blt_hashmap));
 	return (1);
 }
-
-/*
-**	ft_print_hashmap(&(registry->bin_hashmap));
-**	ft_print_hashmap_p(&(registry->blt_hashmap));
-*/

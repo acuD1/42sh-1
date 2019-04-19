@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:49:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 17:22:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/20 01:06:15 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,5 @@ void			setup_keycodes(t_interface *itf)
 
 void			link_actions_to_keys(t_registry *shell)
 {
-	init_termcap_actions((shell->interface->tc_call));
+	init_termcap_actions((shell->interface.tc_call));
 }

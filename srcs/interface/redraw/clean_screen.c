@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 11:51:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 13:48:38 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/20 01:03:21 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ uint32_t	clean_screen(t_registry *shell)
 
 	offset = 0;
 	clear_size = 0;
-	itf = shell->interface;
+	itf = &shell->interface;
 	clear_size = (itf->window->max_chars < itf->line->size)
 		? itf->window->max_chars : itf->line->size;
 	tc_ak_home(shell);
