@@ -2,232 +2,107 @@
 
 void		set_start_token(t_graph *start, t_graph **tab)
 {
-	static enum e_type type[14] = {ALL E_SEMICOLON, E_ASSIGN, E_END};
+	static enum e_type ty[12] = {ALL_END, E_ASSIGN};
 	int		i;
 
 	i = 0;
-	while (i < 14)
-		ft_lstadd(&start->lst, ft_lstnew(&tab[type[i++]], sizeof(t_graph **)));
+	while (i < 12)
+	{
+		ft_lstadd(&start->lst, ft_lstnew(&tab[ty[i]], sizeof(tab)));
+		i++;
+	}
 }
 
-void		set_string_token(t_graph **tab)
+void		set_word_token(t_graph **tab)
 {
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_GREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_DGREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_LESS], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_SEMICOLON], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_PIPE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_END], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_IO_NUMBER], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_ASSIGN], sizeof(t_graph **)));
+	static enum e_type ty[13] = {ALL_END, E_ASSIGN, PIPELINE};
+	int		i;
+
+	i = 0;
+	while (i < 13)
+	{
+		ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[ty[i]], sizeof(tab)));
+		ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[ty[i]], sizeof(tab)));
+		ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[ty[i]], sizeof(tab)));
+		ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[ty[i]], sizeof(tab)));
+		i++;
+	}
 }
 
-void		set_exp_token(t_graph **tab)
+void		set_redirect_token(t_graph **tab)
 {
-	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_GREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_DGREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_LESS], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_SEMICOLON], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_PIPE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_END], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_IO_NUMBER], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_EXP]->lst, ft_lstnew(&tab[E_ASSIGN], sizeof(t_graph **)));
-}
+	static enum e_type ty[5] = {WORD, IO};
+	int		i;
 
-void		set_quote_token(t_graph **tab)
-{
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_GREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_DGREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_LESS], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_SEMICOLON], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_PIPE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_END], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_IO_NUMBER], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_ASSIGN], sizeof(t_graph **)));
-}
-
-void		set_dbquote_token(t_graph **tab)
-{
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_GREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_DGREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_LESS], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_SEMICOLON], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_PIPE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_END], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_IO_NUMBER], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_ASSIGN], sizeof(t_graph **)));
-}
-
-void		set_forward_token(t_graph **tab)
-{
-	ft_lstadd(&tab[E_GREAT]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_GREAT]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_GREAT]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_GREAT]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
-}
-
-void		set_backward_token(t_graph **tab)
-{
-	ft_lstadd(&tab[E_LESS]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_LESS]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_LESS]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_LESS]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
-}
-
-void		set_dgreat_token(t_graph **tab)
-{
-	ft_lstadd(&tab[E_DGREAT]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DGREAT]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DGREAT]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DGREAT]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
-}
-
-void		set_dless_token(t_graph **tab)
-{
-	ft_lstadd(&tab[E_DLESS]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DLESS]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DLESS]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DLESS]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
+	i = 0;
+	while (i < 5)
+	{
+		ft_lstadd(&tab[E_GREAT]->lst, ft_lstnew(&tab[ty[i]], sizeof(tab)));
+		ft_lstadd(&tab[E_LESS]->lst, ft_lstnew(&tab[ty[i]], sizeof(tab)));
+		ft_lstadd(&tab[E_DGREAT]->lst, ft_lstnew(&tab[ty[i]], sizeof(tab)));
+		ft_lstadd(&tab[E_DLESS]->lst, ft_lstnew(&tab[ty[i]], sizeof(tab)));
+		ft_lstadd(&tab[E_GREATAND]->lst, ft_lstnew(&tab[ty[i]], sizeof(tab)));
+		ft_lstadd(&tab[E_LESSAND]->lst, ft_lstnew(&tab[ty[i]], sizeof(tab)));
+		i++;
+	}
 }
 
 void		set_assign_token(t_graph **tab)
 {
-	ft_lstadd(&tab[E_ASSIGN]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_ASSIGN]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_ASSIGN]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_ASSIGN]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
+	static enum e_type ty[4] = {WORD};
+	int		i;
+
+	i = 0;
+	while (i < 4)
+	{
+		ft_lstadd(&tab[E_ASSIGN]->lst, ft_lstnew(&tab[ty[i]], sizeof(tab)));
+		i++;
+	}
 }
 
 void		set_semicolon_token(t_graph **tab)
 {
-	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_GREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_DGREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_LESS], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_SEMICOLON], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_IO_NUMBER], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[E_END], sizeof(t_graph **)));
+	static enum e_type ty[11] = {ALL, E_END, E_ASSIGN};
+	int		i;
+
+	i = 0;
+	while (i < 11)
+	{
+		ft_lstadd(&tab[E_SEMICOLON]->lst, ft_lstnew(&tab[ty[i]], sizeof(tab)));
+		i++;
+	}
 }
 
 void		set_pipe_token(t_graph **tab)
 {
-	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_EXP], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_GREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_DGREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_LESS], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_IO_NUMBER], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_ASSIGN], sizeof(t_graph **)));
+	static enum e_type ty[10] = {ALL, E_ASSIGN};
+	int		i;
+
+	i = 0;
+	while (i < 10)
+	{
+		ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[ty[i]], sizeof(tab)));
+		i++;
+	}
 }
 
 void		set_ionumber_token(t_graph **tab)
 {
-	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_GREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_LESS], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_DGREAT], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_DLESS], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_GREATAND], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_LESSAND], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[E_END], sizeof(t_graph **)));
-}
+	static enum e_type ty[7] = {REDIRECT, E_END};
+	int		i;
 
-void		set_greatand_token(t_graph **tab)
-{
-	ft_lstadd(&tab[E_GREATAND]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_GREATAND]->lst, ft_lstnew(&tab[E_IO_NUMBER], sizeof(t_graph **)));
-}
-
-void		set_lessand_token(t_graph **tab)
-{
-	ft_lstadd(&tab[E_LESSAND]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_LESSAND]->lst, ft_lstnew(&tab[E_IO_NUMBER], sizeof(t_graph **)));
+	i = 0;
+	while (i < 7)
+	{
+		ft_lstadd(&tab[E_IO_NUMBER]->lst, ft_lstnew(&tab[ty[i]], sizeof(tab)));
+		i++;
+	}
 }
 
 /*
-void		set_start_token(t_graph *start, t_graph **tab)
-{
-	start->end = 1;
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_IF], sizeof(t_graph **)));
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&start->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
-}
-
-void		set_string_token(t_graph **tab)
-{
-	tab[E_STRING]->end = 1;
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_IF], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_ELIF], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_ELSE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_FI], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_BRACKET_CLOSE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_STRING]->lst, ft_lstnew(&tab[E_PIPE], sizeof(t_graph **)));
-}
-
-void		set_quote_token(t_graph **tab)
-{
-	tab[E_QUOTE]->end = 1;
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_IF], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_ELIF], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_ELSE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_FI], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_BRACKET_CLOSE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_QUOTE]->lst, ft_lstnew(&tab[E_PIPE], sizeof(t_graph **)));
-}
-
-void		set_dbquote_token(t_graph **tab)
-{
-	tab[E_DB_QUOTE]->end = 1;
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_IF], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_ELIF], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_ELSE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_FI], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_BRACKET_CLOSE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_DB_QUOTE]->lst, ft_lstnew(&tab[E_PIPE], sizeof(t_graph **)));
-}
-
 void		set_pipe_token(t_graph **tab)
 {
 	tab[E_PIPE]->event = START_GRAPH;
-	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_PIPE]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
 }
 
 void		set_if_token(t_graph **tab)
@@ -239,7 +114,6 @@ void		set_if_token(t_graph **tab)
 	type_end = E_THEN;
 	ft_lstadd(&tab[E_IF]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
 
-	ft_lstadd(&tab[E_IF]->lst, ft_lstnew(&tab[E_BRACKET_OPEN], sizeof(t_graph **)));
 }
 
 void		set_elif_token(t_graph **tab)
@@ -255,7 +129,6 @@ void		set_elif_token(t_graph **tab)
 	type_parent = E_IF;
 	ft_lstadd(&tab[E_ELIF]->type_parent, ft_lstnew(&type_parent, sizeof(enum e_type *)));
 
-	ft_lstadd(&tab[E_ELIF]->lst, ft_lstnew(&tab[E_BRACKET_OPEN], sizeof(t_graph **)));
 }
 
 void		set_else_token(t_graph **tab)
@@ -271,20 +144,11 @@ void		set_else_token(t_graph **tab)
 	type_parent = E_IF;
 	ft_lstadd(&tab[E_ELSE]->type_parent, ft_lstnew(&type_parent, sizeof(enum e_type *)));
 
-	ft_lstadd(&tab[E_ELSE]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_ELSE]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_ELSE]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
 }
 
 void		set_fi_token(t_graph **tab)
 {
-	tab[E_FI]->end = 1;
 	tab[E_FI]->event = BACK;
-	ft_lstadd(&tab[E_FI]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_FI]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_FI]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_FI]->lst, ft_lstnew(&tab[E_FI], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_FI]->lst, ft_lstnew(&tab[E_IF], sizeof(t_graph **)));
 }
 
 void		set_then_token(t_graph **tab)
@@ -304,9 +168,6 @@ void		set_then_token(t_graph **tab)
 	type_parent = E_IF;
 	ft_lstadd(&tab[E_THEN]->type_parent, ft_lstnew(&type_parent, sizeof(enum e_type *)));
 
-	ft_lstadd(&tab[E_THEN]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_THEN]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_THEN]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
 }
 
 void		set_bracket_open_token(t_graph **tab)
@@ -318,15 +179,11 @@ void		set_bracket_open_token(t_graph **tab)
 	type_end = E_BRACKET_CLOSE;
 	ft_lstadd(&tab[E_BRACKET_OPEN]->type_end, ft_lstnew(&type_end, sizeof(enum e_type *)));
 
-	ft_lstadd(&tab[E_BRACKET_OPEN]->lst, ft_lstnew(&tab[E_STRING], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_BRACKET_OPEN]->lst, ft_lstnew(&tab[E_QUOTE], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_BRACKET_OPEN]->lst, ft_lstnew(&tab[E_DB_QUOTE], sizeof(t_graph **)));
 }
 
 void		set_bracket_close_token(t_graph **tab)
 {
 	tab[E_BRACKET_CLOSE]->event = BACK;
 	ft_lstadd(&tab[E_BRACKET_CLOSE]->lst, ft_lstnew(&tab[E_THEN], sizeof(t_graph **)));
-	ft_lstadd(&tab[E_BRACKET_CLOSE]->lst, ft_lstnew(&tab[E_BRACKET_OPEN], sizeof(t_graph **)));
 }
 */
