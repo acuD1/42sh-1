@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 20:35:14 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:19:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 # define WHILE "while"
 
 typedef struct s_lexer t_lexer;
-typedef  void (*t_process)(t_lexer *);
+typedef  void (*t_lexing)(t_lexer *);
 typedef enum e_type t_type;
 
 enum	e_lexer_state
@@ -142,17 +142,11 @@ typedef struct	s_token
 	char		*data;
 }				t_token;
 
-typedef struct	s_state
-{
-	enum e_lexer_state state;
-	t_process	process;
-}				t_state;
-
 struct	s_lexer
 {
 	char				*input;
 	char				buffer[BUFFER];
-	t_process			process[STATENBR];
+	t_lexing			process[STATENBR];
 	enum e_type			duplicate[TOKEN_WITH_DATA];
 	enum e_type			special_signs[SPECIAL_SIGNS];
 	t_list				*tokens;

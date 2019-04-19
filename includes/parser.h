@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/19 01:44:36 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:44:32 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define STARTING 14
 # define STRING_TOKENS 16
 
-typedef struct	s_exec
+typedef struct	s_process
 {
 	int		ac;
 	char	**av;
@@ -28,8 +28,16 @@ typedef struct	s_exec
 	int		fdin;
 	int		fdout;
 	int		fderror;
-	gid_t	gid;
-}				t_exec;
+	pid_t	pid;
+}				t_process;
+
+typedef struct	s_job
+{
+	t_list			*process_list;
+	pid_t			pgid;
+	struct termios	*term_modes;
+
+}				t_job;
 
 enum	e_event
 {
@@ -61,10 +69,9 @@ struct s_parser
 {
 	t_list				*token_list;
 	enum e_parser_state	state;
-	t_exec				command;
-	t_list				*parse_output;
-	t_list				*av;
-	t_list				*env;
+	t_process			process;
+	t_list				*job_list;
+	t_job				job;
 	t_stack				stack;
 	t_token				token;
 	t_parsing			parsing[PARSE_STATES][NB_OF_TOKENS];

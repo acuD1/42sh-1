@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 21:17:49 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/19 01:43:07 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:29:47 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	flush_string(t_parser *parse)
 
 	parse->state = P_STRING_FLUSH;
 	index = ft_stcksize(&parse->stack);
-	parse->command.av = (char **)malloc(sizeof(char *) * (index + 1));
-	parse->command.av[index] = NULL;
+	parse->process.av = (char **)malloc(sizeof(char *) * (index + 1));
+	parse->process.av[index] = NULL;
 	while (--index >= 0)
 	{
 		token = ft_stckpop(&parse->stack);
-		parse->command.av[index] = token->data;
+		parse->process.av[index] = token->data;
 		free(token);
 	}
 }

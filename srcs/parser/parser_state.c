@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/19 01:17:02 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:37:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ void	init_parser(t_parser *parse)
 	get_token(parse);
 }
 
-void	init_command(t_exec *command)
+void	init_process(t_process *process)
 {
-	ft_bzero(command, sizeof(t_exec));
-	command->fdin = 0;
-	command->fdout = 1;
-	command->fderror = 2;
+	ft_bzero(process, sizeof(t_process));
+	process->fdin = 0;
+	process->fdout = 1;
+	process->fderror = 2;
 }
 
 t_list	*parser_state(t_list *token_list)
@@ -45,7 +45,7 @@ t_list	*parser_state(t_list *token_list)
 	parse.token_list = token_list;
 	init_parser(&parse);
 	ft_stckinit(&parse.stack);
-	init_command(&parse.command);
+	init_process(&parse.process);
 	while (parse.state != P_END && parse.state != P_ERROR)
 	{
 		if (parse.state == P_STOP)
@@ -56,5 +56,5 @@ t_list	*parser_state(t_list *token_list)
 	}
 	ft_printf("END ->>> parser state : [%d] | next token : [%d]\n"
 			, parse.state, parse.token.type);
-	return (parse.parse_output);
+	return (parse.job_list);
 }
