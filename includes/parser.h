@@ -74,10 +74,7 @@ void	parser_start(t_parser *machine);
 struct s_graph
 {
 	t_parsing		parsing[PARSE_STATES];
-	enum e_event	event;
 	enum e_type		type;
-	t_list			*type_end;
-	t_list			*type_parent;
 	t_list 			*lst;
 };
 
@@ -112,6 +109,7 @@ void		set_ionumber_token(t_graph **tab);
 ************************
 */
 
-t_graph		*generate_graph(void);
+t_graph		*generate_graph(t_graph *start, t_graph **tab);
+void		free_graph(t_graph *start, t_graph **tab);
 
 #endif

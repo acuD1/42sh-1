@@ -39,6 +39,7 @@
 
 # Executable
 42sh
+42shdb
 
 # test_files
 test*
