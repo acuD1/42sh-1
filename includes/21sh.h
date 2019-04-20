@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/20 04:21:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 06:46:03 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ typedef struct	t_variable
 
 void			shell_invoke_interactive(t_registry *shell);
 
-int				add_internal(t_registry *sh_reg, char *name, char *data);
-int				add_internal_nbr(t_registry *reg, char *name, int data);
-char			*get_intern_var(t_registry  *sh_reg, char *name);
+int				add_internal(t_registry *shell, char *name, char *data);
+int				add_internal_nbr(t_registry *shell, char *name, int data);
+char			*get_intern_var(t_registry  *shell, char *name);
 
-int				hash_blt(t_registry *reg);
-int				exit_blt(t_registry *reg);
+int				hash_blt(t_registry *shell);
+int				exit_blt(t_registry *shell);
 
 int				launch_sh(char **av, char **env, t_registry *registry);
 int				parse_arg(int index, char **av, t_opt *option);

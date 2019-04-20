@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:54:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 13:58:32 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/20 06:40:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int8_t			quoting_is_valid(char *str)
 	return (1);
 }
 
-void			validate_input_quoting(t_registry *shell, t_interface *itf)
+void			validate_input_quoting(t_registry *shell)
 {
-	if (quoting_is_valid(itf->line->buffer) == -1)
+	if (quoting_is_valid(shell->interface.line->buffer) == -1)
 		invoke_sub_prompt(shell, quoting_is_valid, INT_PS1, INT_PS2);
 }

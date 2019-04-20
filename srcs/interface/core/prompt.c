@@ -6,34 +6,33 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 14:00:37 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/20 06:43:37 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "line_edit.h"
+#include "21sh.h"
 #include "interface_functions.h"
 #include "log.h"
-#include "ft_printf.h"
 
-char		*prompt(t_registry *shell_reg, t_interface *itf)
+char		*prompt(t_registry *shell, t_interface *itf)
 {
 	char			character[READ_SIZE + 1];
 
 	ft_bzero(character, READ_SIZE);
-	ft_dprintf(STDOUT_FILENO, "\n%s", get_intern_var(shell_reg, itf->state));
+	ft_dprintf(STDOUT_FILENO, "\n%s", get_intern_var(shell, itf->state));
 	while (character[0] != IFS_CHAR)
 	{
 		ft_bzero(character, READ_SIZE);
 		if (read(0, character, READ_SIZE) == -1)
 		{
-			prompt_read_failed(shell_reg, itf->line);
+			prompt_read_failed(shell, itf->line);
 			return (NULL);
 		}
-		handle_input_key(character, shell_reg);
+		handle_input_key(character, shell);
 		if (is_eof(itf->line->buffer))
 			return (itf->line->buffer);
 	}
-	tc_ak_end(shell_reg);
-	validate_input_quoting(shell_reg, itf);
+	tc_ak_end(shell);
+	validate_input_quoting(shell);
 	return (itf->line->buffer);
 }

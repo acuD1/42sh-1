@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/20 06:22:13 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 06:49:37 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int8_t				fill_interface_data(t_registry *shell)
 
 static int8_t		is_input_valid(char *input_string)
 {
-	if (input_string == NULL)
-		return (0);
 	if (ft_strequ(input_string, "exit") || input_string[0] == 4)
 		return (0);
 	return (1);
@@ -42,7 +40,7 @@ int					launch_shell_prompt(t_registry *shell)
 
 	log_print(shell, LOG_INFO, "Starting prompt.\n");
 	input = prompt(shell, &shell->interface);
-	if (is_input_valid(input) == 1)
+	if (input && is_input_valid(input) == 1)
 	{
 		lexer_parser(shell, input);
 		return (1);

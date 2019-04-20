@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/20 06:18:17 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 06:40:44 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void						init_termcap_actions(t_registry *shell);
 
 void						handle_input_key(char c[], t_registry *shell);
 char						set_quote(char c);
-void						validate_input_quoting(t_registry *shell, t_interface *itf);
+void						validate_input_quoting(t_registry *shell);
 
 void						print_char(char c, t_interface *itf);
 void						print_words(char *str, t_interface *itf);
