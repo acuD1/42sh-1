@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 22:51:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/20 06:56:04 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 07:18:28 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 typedef struct s_interface	t_interface;
 typedef struct s_registry	t_registry;
-typedef unsigned long t_key_mask[AK_AMOUNT];
-typedef int8_t (*t_key_call)(t_registry *);
+typedef unsigned long		t_key_mask[AK_AMOUNT];
+typedef int8_t				(*t_key_call)(t_registry *);
 
 typedef struct s_opt
 {

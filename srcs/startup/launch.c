@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/20 00:09:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 07:20:42 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ static t_list	*get_env(t_list **alst, char **env)
 {
 	t_list		*node;
 	t_variable	variable;
+	size_t		pos;
 
 	if (*env == NULL)
 		return (*alst);
-	variable.name = ft_strsub(*env, 0, ft_strcspn(*env, "="));
-	variable.data = ft_strdup(*env + (ft_strcspn(*env, "=") + 1));
+	pos = ft_strcspn(*env, "=");
+	variable.name = ft_strsub(*env, 0, pos);
+	variable.data = ft_strdup(*env + pos + 1);
 	if (variable.name == NULL || variable.data == NULL)
 		return (NULL);
 	if (!(node = ft_lstnew(&variable, sizeof(t_variable))))
@@ -85,19 +87,14 @@ int				parse_arg(int index, char **av, t_opt *option)
 	return (1);
 }
 
-int				launch_sh(char **av, char **env, t_registry *registry)
+int				launch_sh(char **av, char **env, t_registry *shell)
 {
-	t_opt		option;
-
-	ft_bzero(&option, sizeof(t_opt));
-	if (!parse_arg(1, av, &option))
+	ft_bzero(&shell->option, sizeof(t_opt));
+	if (!parse_arg(1, av, &shell->option))
 	{
-		ft_strdel(&(option.cmd));
-		ft_strdel(&(option.path));
+		ft_strdel(&(shell->option.cmd));
+		ft_strdel(&(shell->option.path));
 		return (0);
 	}
-	if (!get_env(&registry->env, env))
-		return (0);
-	registry->option = option;
-	return (1);
+	return (get_env(&shell->env, env) ? 0 : -1);
 }

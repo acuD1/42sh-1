@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/20 07:01:07 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 07:13:48 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int		main(int ac, char **av, char **env)
 		return (0);
 	}
 	ft_bzero(&shell, sizeof(t_registry));
-	if (!launch_sh(av, env, &shell))
-		return (0);
+	if (launch_sh(av, env, &shell))
+		return (-1);
 	init_debug_logger(&shell);
 	print_opt(&shell);
 	if (ac == 1)
