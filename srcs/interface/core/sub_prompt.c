@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:22:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/20 01:12:37 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 06:25:27 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 
 static void			print_sub_prompt(t_registry *shell)
 {
-	shell->interface.cursor->x = 0;
-	shell->interface.cursor->y = 0;
+	shell->interface.cursor.x = 0;
+	shell->interface.cursor.y = 0;
 	ft_printf("\n");
 	print_words(get_intern_var(shell, shell->interface.state),
 					&shell->interface);
-	shell->interface.cursor->index = 0;
+	shell->interface.cursor.index = 0;
 }
 
 static t_vector		*copy_vector(t_vector *src)

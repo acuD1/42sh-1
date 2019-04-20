@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 22:31:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/20 01:33:11 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 06:36:46 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_list	*lexer_parser(t_registry *shell, char *input)
 		return (NULL);
 	init_parser(&parse);
 	parse.token_list = lexer(input);
+	ft_lstiter(parse.token_list, print_list);
 	parse.env = shell->env;
 	get_token(&parse);
 	parser(parse.token_list);

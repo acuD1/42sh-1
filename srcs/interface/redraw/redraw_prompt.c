@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 09:08:59 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/20 01:05:49 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 04:26:32 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ uint32_t		redraw_input_line(t_registry *shell)
 	uint32_t	initial_cursor;
 
 	itf = &shell->interface;
-	initial_cursor = itf->cursor->index;
-	itf->cursor->index = clean_screen(shell);
+	initial_cursor = itf->cursor.index;
+	itf->cursor.index = clean_screen(shell);
 	offset = 0;
 	while (offset < ft_vctlen(itf->line))
 		print_char(itf->line->buffer[offset++], itf);
@@ -30,7 +30,7 @@ uint32_t		redraw_input_line(t_registry *shell)
 	tc_ak_home(shell);
 	while (offset++ < initial_cursor)
 		tc_ak_arrow_right(shell);
-	return (itf->cursor->index);
+	return (itf->cursor.index);
 }
 
 uint32_t		redraw_after_cursor(t_registry *shell)
@@ -39,15 +39,15 @@ uint32_t		redraw_after_cursor(t_registry *shell)
 	uint32_t	initial_cursor_pos;
 
 	itf = &shell->interface;
-	initial_cursor_pos = itf->cursor->index;
-	while (itf->cursor->index < itf->line->size
-					&& itf->line->buffer[itf->cursor->index] != '\0')
-		print_char(itf->line->buffer[itf->cursor->index], itf);
+	initial_cursor_pos = itf->cursor.index;
+	while (itf->cursor.index < itf->line->size
+					&& itf->line->buffer[itf->cursor.index] != '\0')
+		print_char(itf->line->buffer[itf->cursor.index], itf);
 	print_char(' ', itf);
-	while (itf->cursor->index > initial_cursor_pos
-				&& itf->cursor->index >= 1)
+	while (itf->cursor.index > initial_cursor_pos
+				&& itf->cursor.index >= 1)
 		tc_ak_arrow_left(shell);
-	return (itf->cursor->index);
+	return (itf->cursor.index);
 }
 
 uint32_t		replace_input_line(char *string, t_registry *shell)
@@ -57,7 +57,7 @@ uint32_t		replace_input_line(char *string, t_registry *shell)
 
 	index = 0;
 	itf = &shell->interface;
-	itf->cursor->index = clean_screen(shell);
+	itf->cursor.index = clean_screen(shell);
 	ft_bzero(itf->line->buffer, itf->line->size);
 	while (itf->line->size <= ft_strlen(string))
 		ft_vctrescale(itf->line);
@@ -65,5 +65,5 @@ uint32_t		replace_input_line(char *string, t_registry *shell)
 			string, ft_strlen(string));
 	tc_ak_home(shell);
 	print_words(string, itf);
-	return (itf->cursor->index);
+	return (itf->cursor.index);
 }

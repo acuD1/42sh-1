@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:15:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/20 00:00:22 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 04:14:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ int		add_internal_nbr(t_registry *reg, char *name, int data)
 	int		success;
 	char	*data_copy;
 
-	success = 0;
-	data_copy = NULL;
 	data_copy = ft_itoa(data);
-	success = add_internal(reg, name, data_copy);
+	success = change_node(&reg->intern, name, data_copy);
 	ft_strdel(&data_copy);
 	return (success);
 }

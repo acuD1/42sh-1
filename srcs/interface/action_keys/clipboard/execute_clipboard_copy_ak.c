@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:12:59 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/20 01:15:16 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 06:26:30 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int8_t	tc_ak_copy_before_cursor(t_registry *shell)
 		return (-1);
 	realloc_vector(itf->clip, itf->line);
 	itf->clip->buffer = ft_strncpy(itf->clip->buffer,
-					itf->line->buffer, itf->cursor->index);
+					itf->line->buffer, itf->cursor.index);
 	log_print(shell, LOG_INFO, "Copied |%s| to clipboard.\n",
 					itf->clip->buffer);
 	return (0);
@@ -40,7 +40,7 @@ int8_t	tc_ak_copy_after_cursor(t_registry *shell)
 		return (-1);
 	realloc_vector(itf->clip, itf->line);
 	tmp = ft_strsub(itf->line->buffer,
-			itf->cursor->index, ft_vctlen(itf->line));
+			itf->cursor.index, ft_vctlen(itf->line));
 	itf->clip->buffer = ft_strcpy(itf->clip->buffer, tmp);
 	ft_strdel(&tmp);
 	log_print(shell, LOG_INFO, "Copied |%s| to clipboard.\n",

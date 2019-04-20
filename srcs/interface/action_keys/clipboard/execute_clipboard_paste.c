@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 10:45:51 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/20 01:22:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 06:29:12 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static int			insert_clipboard(t_registry *shell)
 	before = NULL;
 	after = NULL;
 	itf = &shell->interface;
-	before = ft_strsub(itf->line->buffer, 0, itf->cursor->index);
-	after = ft_strsub(itf->line->buffer, itf->cursor->index,
+	before = ft_strsub(itf->line->buffer, 0, itf->cursor.index);
+	after = ft_strsub(itf->line->buffer, itf->cursor.index,
 					ft_vctlen(itf->line));
 	ft_asprintf(&concat, "%s%s%s", before, itf->clip->buffer, after);
 	ft_bzero(itf->line->buffer, itf->line->size);
@@ -71,11 +71,11 @@ int8_t				tc_ak_paste_clipboard(t_registry *shell)
 	itf = &shell->interface;
 	if (validate_interface_content(itf) != 0)
 		return (-1);
-	if (is_too_long(itf->line, itf->clip, itf->window->max_chars))
+	if (is_too_long(itf->line, itf->clip, itf->window.max_chars))
 		return (-1);
 	while (itf->line->size < (ft_vctlen(itf->line) + ft_vctlen(itf->clip) + 2))
 		ft_vctrescale(itf->line);
-	if (itf->line->buffer[itf->cursor->index] != '\0')
+	if (itf->line->buffer[itf->cursor.index] != '\0')
 	{
 		go_front = insert_clipboard(shell);
 		tc_ak_home(shell);

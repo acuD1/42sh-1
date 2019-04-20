@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/20 00:03:01 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 05:12:02 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,6 @@ void			print_lst(t_list **alst)
 	}
 }
 
-int				f_create_node(t_list **alst, char *str)
-{
-	t_variable	variable;
-	t_list		*newdir;
-
-	if (str == NULL)
-		return (0);
-	variable.name = ft_strsub(str, 0, ft_strcspn(str, "="));
-	variable.data = ft_strdup(str + (ft_strcspn(str, "=") + 1));
-	if (variable.name == NULL || variable.data == NULL)
-		return (0);
-	if (!(newdir = ft_lstnew(&variable, sizeof(t_variable))))
-		return (0);
-	ft_lstaddback(alst, newdir);
-	return (1);
-}
-
 int				s_create_node(t_list **alst, char *name, char *data)
 {
 	t_variable variable;
@@ -62,28 +45,6 @@ int				s_create_node(t_list **alst, char *name, char *data)
 	return (1);
 }
 
-int				change_node(t_list **alst, char *name, char *data)
-{
-	t_list *ptr;
-
-	ptr = *alst;
-	if (name == NULL || data == NULL)
-		return (0);
-	while (ptr != NULL)
-	{
-		if (!ft_strcmp(((t_variable *)ptr->data)->name, name))
-		{
-			free(((t_variable *)ptr->data)->data);
-			((t_variable *)ptr->data)->data = data;
-			return (1);
-		}
-		ptr = ptr->next;
-	}
-	if (!s_create_node(alst, name, data))
-		return (0);
-	return (1);
-}
-
 char			*get_data(t_list *lst, char *name)
 {
 	while (lst != NULL)
@@ -94,3 +55,29 @@ char			*get_data(t_list *lst, char *name)
 	}
 	return (NULL);
 }
+
+int				find_data(void *searched, void *to_find)
+{
+	t_variable *tmp;
+
+	tmp = searched;
+	return (ft_strequ(tmp->data, (char *)to_find));
+}
+
+int				change_node(t_list **alst, char *name, char *data)
+{
+	t_list *ptr;
+
+	if (name == NULL || data == NULL)
+		return (0);
+	if ((ptr = ft_lstfind(*alst, name, find_data)))
+	{
+		ft_strdel(&((t_variable *)ptr->data)->data);
+		((t_variable *)ptr->data)->data = data;
+		return (1);
+	}
+	if (!s_create_node(alst, name, data))
+		return (0);
+	return (1);
+}
+

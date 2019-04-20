@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/20 01:13:34 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 06:25:58 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@ static void			handle_printable_char(char c, t_registry *shell)
 	itf = &shell->interface;
 	if (validate_interface_content(itf) != 0)
 		return ;
-	if ((uint32_t)ft_vctlen(itf->line) >= itf->window->max_chars)
+	if ((uint32_t)ft_vctlen(itf->line) >= itf->window.max_chars)
 		return ;
-	if (itf->cursor->index > (itf->line->size - 2))
+	if (itf->cursor.index > (itf->line->size - 2))
 		ft_vctrescale(itf->line);
-	if (itf->cursor->index != ft_vctlen(itf->line))
+	if (itf->cursor.index != ft_vctlen(itf->line))
 	{
-		shift_content_right_once(itf->line, itf->cursor->index);
-		itf->line->buffer[itf->cursor->index] = c;
+		shift_content_right_once(itf->line, itf->cursor.index);
+		itf->line->buffer[itf->cursor.index] = c;
 	}
 	else
 		itf->line->buffer[ft_vctlen(itf->line)] = c;
-	itf->cursor->index = redraw_after_cursor(shell);
+	itf->cursor.index = redraw_after_cursor(shell);
 	tc_ak_arrow_right(shell);
 }
 

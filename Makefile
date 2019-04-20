@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/19 23:55:16 by cempassi         ###   ########.fr        #
+#    Updated: 2019/04/20 05:01:47 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -207,7 +207,6 @@ LINE += handle_input_keys.c
 LINE += window.c
 
 #Action keys
-LINE += init_clipboard.c
 LINE += init_ak_keycodes.c
 LINE += execute_clipboard_copy_ak.c
 LINE += execute_clipboard_cut_ak.c

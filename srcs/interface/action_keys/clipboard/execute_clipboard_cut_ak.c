@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 10:41:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/20 01:21:12 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 06:28:30 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ static void			copy_buffer_part(t_interface *itf, int8_t before)
 	if (before > 0)
 	{
 		itf->clip->buffer = ft_strncpy(itf->clip->buffer, itf->line->buffer,
-						itf->cursor->index);
-		cut_vector(itf->line, itf->cursor, before);
+						itf->cursor.index);
+		cut_vector(itf->line, &itf->cursor, before);
 	}
 	else
 	{
-		tmp = ft_strsub(itf->line->buffer, itf->cursor->index,
+		tmp = ft_strsub(itf->line->buffer, itf->cursor.index,
 						ft_vctlen(itf->line));
 		itf->clip->buffer = ft_strcpy(itf->clip->buffer, tmp);
 		ft_strdel(&tmp);
-		cut_vector(itf->line, itf->cursor, before);
+		cut_vector(itf->line, &itf->cursor, before);
 	}
 }
 

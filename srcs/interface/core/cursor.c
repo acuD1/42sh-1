@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 15:41:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/20 01:06:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 05:11:17 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,8 @@
 
 int8_t	init_cursor(t_registry *shell)
 {
-	t_interface *itf;
-
-	itf = &shell->interface;
-	itf->cursor->index = 0;
-	itf->cursor->x = get_prompt_len(shell);
-	itf->cursor->y = 0;
+	shell->interface.cursor.index = 0;
+	shell->interface.cursor.x = get_prompt_len(shell);
+	shell->interface.cursor.y = 0;
 	return (0);
 }

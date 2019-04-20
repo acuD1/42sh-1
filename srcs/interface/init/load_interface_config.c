@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/20 00:44:13 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 04:59:24 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ int					init_line_edition(t_registry *shell)
 
 	if (fetch_terminal_info(shell) != 0)
 		return (-1);
-	if ((shell->interface.termcaps = init_termcap_calls(shell)) == NULL)
+	if (init_termcap_calls(shell))
 		return (-2);
-	setup_keycodes(&shell->interface);
-	link_actions_to_keys(shell);
+	init_ak_keycodes(&shell->interface);
+	init_termcap_actions(shell);
 	fill_interface_related_internals(shell);
 	if ((op_worked = set_term_behavior(shell)) != 0)
 	{
@@ -58,7 +58,7 @@ int					init_line_edition(t_registry *shell)
 			restore_term_behavior(shell);
 		return (-3);
 	}
-	if ((shell->interface.clip = allocate_clipboard(shell)) == NULL)
+	if ((shell->interface.clip = ft_vctnew(CLIPBOARD_SZ)) == NULL)
 		return (-4);
 	log_print(shell, LOG_OK, "Line edition initialized.\n");
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/20 01:00:00 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 05:06:06 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ void				redraw_prompt(int signo)
 	tc_ak_end(g_shell);
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
 		print_words("\n", &itf);
-	itf.cursor->x = 0;
-	itf.cursor->y = 0;
+	itf.cursor.x = 0;
+	itf.cursor.y = 0;
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
 		ft_vctreset(itf.line);
 	print_words(get_intern_var(g_shell, itf.state), &itf);
-	itf.cursor->index = 0;
+	itf.cursor.index = 0;
 }
 
 static void				interface_resize_handler(int signo)
@@ -47,10 +47,10 @@ static void				interface_resize_handler(int signo)
 	}
 	itf = g_shell->interface;
 	init_window(g_shell, &itf);
-	tputs(itf.termcaps->clear, 1, ft_putc);
-	if ((itf.window->cols < (uint32_t)(ft_strlen(get_intern_var(g_shell,
+	tputs(itf.termcaps.clear, 1, ft_putc);
+	if ((itf.window.cols < (uint32_t)(ft_strlen(get_intern_var(g_shell,
 												   	INT_PS1)) * 2)
-		|| itf.window->rows < 3) || ft_vctlen(itf.line) > (uint32_t)itf.window->max_chars)
+		|| itf.window.rows < 3) || ft_vctlen(itf.line) > (uint32_t)itf.window.max_chars)
 		print_words("Terminal window size too small :-(", &itf);
 	else
 	{
@@ -60,12 +60,12 @@ static void				interface_resize_handler(int signo)
 	}
 }
 
-void					define_interface_default_signals(t_registry *sh_reg)
+void					define_interface_default_signals(t_registry *shell)
 {
 	if (signal(SIGWINCH, SIG_DFL) == SIG_ERR)
-		log_print(sh_reg, LOG_ERROR, "Error catching the resize signal.\n");
+		log_print(shell, LOG_ERROR, "Error catching the resize signal.\n");
 	if (signal(SIGINT, SIG_DFL) == SIG_ERR)
-		log_print(sh_reg, LOG_ERROR, "Error catching C-c\n");
+		log_print(shell, LOG_ERROR, "Error catching C-c\n");
 }
 
 void					define_interface_signal_behavior(

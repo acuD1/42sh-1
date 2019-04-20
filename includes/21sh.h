@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/20 00:04:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 04:21:27 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int				launch_sh(char **av, char **env, t_registry *registry);
 int				parse_arg(int index, char **av, t_opt *option);
 int				fill_opt(int index, char **av, t_opt *option);
 void			print_lst(t_list **alst);
-int				f_create_node(t_list **alst, char *str);
 int				s_create_node(t_list **alst, char *name, char *data);
 int				change_node(t_list **alst, char *name, char *data);
 char			*get_data(t_list *lst, char *name);
