@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 22:51:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/20 04:55:04 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 06:56:04 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ struct		s_registry
 	t_opt			option;
 	t_list			*env;
 	t_list			*intern;
+	t_list			*job_list;
 	t_hash			bin_hashmap;
 	t_hash			blt_hashmap;
 	t_interface		interface;

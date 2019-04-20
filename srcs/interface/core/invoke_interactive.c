@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/20 06:49:37 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/20 07:05:59 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,15 @@ int8_t				fill_interface_data(t_registry *shell)
 	return (0);
 }
 
-static int8_t		is_input_valid(char *input_string)
-{
-	if (ft_strequ(input_string, "exit") || input_string[0] == 4)
-		return (0);
-	return (1);
-}
-
 int					launch_shell_prompt(t_registry *shell)
 {
 	char	*input;
 
 	log_print(shell, LOG_INFO, "Starting prompt.\n");
-	input = prompt(shell, &shell->interface);
-	if (input && is_input_valid(input) == 1)
+	if ((input = prompt(shell, &shell->interface)))
 	{
+		if (ft_strequ(input, "exit") || input[0] == 4)
+			return (0);
 		lexer_parser(shell, input);
 		return (1);
 	}
@@ -50,8 +44,8 @@ int					launch_shell_prompt(t_registry *shell)
 
 void				shell_invoke_interactive(t_registry *shell)
 {
-	define_interface_signal_behavior(shell);
 	log_print(shell, LOG_INFO, "Starting interactive mode.\n");
+	define_interface_signal_behavior(shell);
 	if (init_line_edition(shell) || fill_interface_data(shell))
 	{
 		//cleanup
