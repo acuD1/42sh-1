@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 09:41:27 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/19 17:31:49 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/22 13:28:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,44 @@ uint8_t is_default_io(filedesc_t *fd)
 	return (0);
 }
 
+void	setup_piping(filedesc_t *io_file, int mypipe[2], job_t *job, process_t *proc)
+{
+		io_file->std_out = proc->fd->std_out; // 1 or file
+//		io_file->std_err = proc->fd->std_err; // 2 or file
+
+		if (proc->next && io_file->std_out == STDOUT_FILENO)
+				// if we have another process in the job (pipe)
+		{
+			if (pipe(mypipe) < 0)
+				exit(-1);
+//			ft_dprintf(2, "Pipe created.\n");
+			io_file->std_out = mypipe[1]; //output of current job is piped
+		}
+		else if (io_file->std_out != STDOUT_FILENO)
+			io_file->std_out = proc->fd->std_out;
+		else
+			io_file->std_out = job->fd->std_out; // else set it to job_out
+
+}
+
+void	cleanup_pipes(filedesc_t *io_file, job_t *job)
+{
+	if (io_file->std_in != job->fd->std_in)
+		close(io_file->std_in);
+	if (io_file->std_out != job->fd->std_out)
+		close(io_file->std_out);
+}
+
+void	close_pipes(filedesc_t *io_file, int mypipe[2], process_t *proc)
+{
+	if (proc->next && io_file->std_out == mypipe[1])
+		io_file->std_in = mypipe[0]; // input of next process is pipe[0];
+	else if (io_file->std_out != STDOUT_FILENO)
+		close(io_file->std_in);
+	else
+		io_file->std_in = io_file->std_out;
+}
+
 void	launch_job(job_t *job, char **env)
 {
 	filedesc_t	io_file;
@@ -80,45 +118,18 @@ void	launch_job(job_t *job, char **env)
 
 	io_file.std_in = job->fd->std_in;
 	proc = job->first_process;
-	ft_dprintf(1, "Launching: %s.\n", job->command);
+	ft_dprintf(1, "Launching: (%s).\n", job->command);
 	while (proc)
 	{
-		//set default std_fd's into io_file
-//		io_file.std_in = proc->fd->std_in;   // 0
-		io_file.std_out = proc->fd->std_out; // 1
-		io_file.std_err = proc->fd->std_err; // 2
+		setup_piping(&io_file, mypipe, job, proc);
 
-		if (io_file.std_out == STDOUT_FILENO) //is_default_io ?
-		{
-			if (proc->next) // if we have another process in the job (pipe)
-			{
-				if (pipe(mypipe) < 0)
-					exit(-1);
-				ft_dprintf(2, "Pipe created.\n");
-				io_file.std_out = mypipe[1]; //output of current job is piped
-			}
-			else
-				io_file.std_out = job->fd->std_out; // else set it to job_out
-		}
+//---------------------------------------------|
+		fork_child(job, proc, env, io_file);// |
+//---------------------------------------------|
 
-		fork_child(job, proc, env, io_file);
+		cleanup_pipes(&io_file, job);
 
-		if (io_file.std_in != job->fd->std_in)
-			close(io_file.std_in);
-//		if (io_file.std_out != job->fd->std_out
-//		 || )
-			close(io_file.std_out);
-
-//		if (proc->next)
-		if (io_file.std_out == mypipe[1]  && proc->next)
-			io_file.std_in = mypipe[0]; // input of next process is pipe[0];
-		else
-			io_file.std_in = io_file.std_out;
-//		{
-//			if (proc->next->fd->std_in == STDIN_FILENO)
-//			else
-//				io_file.std_in = proc->next->fd->std_in;
-//		}
+		close_pipes(&io_file, mypipe, proc);
 
 		proc = proc->next;
 	}
@@ -130,23 +141,29 @@ int main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 
-	job_t *job_head;
-//	job_t *new1;
-//	job_t *new2;
+	job_t *job;
 
-	job_head = get_job1();
-//	new1 = get_job1();
-//	new2 = get_job2();
-	g_job_head = job_head;
-
-//	job_head->next = new1;
-//	new1->next = new2;
-
-	while (job_head)
+	if (ac < 2)
 	{
-		launch_job(job_head, env);
-		job_head = job_head->next;
+		ft_printf("Please enter a job to test. (1, 2, 3)\n");
+		exit(-1);
 	}
+	if (av[1][0] == 49)
+		job = get_job1();
+	if (av[1][0] == 50)
+		job = get_job2();
+	if (av[1][0] == 51)
+		job = get_job3();
+	if (av[1][0] == 52)
+		job = get_job4();
+	if (av[1][0] == 53)
+		job = get_job5();
+	g_job_head = job;
 
+	while (job)
+	{
+		launch_job(job, env);
+		job = job->next;
+	}
 	return (0);
 }

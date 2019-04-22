@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 09:34:25 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/19 14:56:07 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/22 13:24:05 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,11 @@ typedef struct			job_s
 
 }						job_t;
 
-job_t	*get_job1(void); // 		'ls -l 1>file1 | cat -e'
-//job_t	*get_job2(void); //			'cat -e | ls -l
-//job_t	*get_job3(void); //			'/bin/ls -Rla /Users/skuppers '
+job_t	*get_job1(void); // 		'ls -l | cat -e'
+job_t	*get_job2(void); //			'cat -e | ls -l
+job_t	*get_job3(void); //			'/bin/ls > job3file'
+job_t	*get_job4(void); //			'/bin/ls -l > file4 | cat -e'
+job_t	*get_job5(void); //			'/bin/ls 404 2>dbg | cat -e'
 
 job_t	*g_job_head;
 

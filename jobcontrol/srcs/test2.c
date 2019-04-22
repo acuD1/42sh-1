@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 12:35:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/19 14:22:58 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/22 07:07:42 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,16 @@ static process_t	*ft_new_process()
 {
 	process_t	*head;
 	process_t	*new;
+	filedesc_t	*fd1;
+	filedesc_t	*fd2;
 
 	new = malloc(sizeof(process_t));
 	ft_memset(new, 0, sizeof(process_t));
+
+	fd1 = malloc(sizeof(filedesc_t));
+	ft_memset(fd1, 0, sizeof(filedesc_t));
+	fd2 = malloc(sizeof(filedesc_t));
+	ft_memset(fd2, 0, sizeof(filedesc_t));
 
 	new->next = NULL;
 	new->av = make_table("/bin/ls", "-l");
@@ -44,9 +51,10 @@ static process_t	*ft_new_process()
 	new->completed = 0;
 	new->stopped = 0;
 	new->status = 0;
-//	new->fdin = 0;
-//	new->fdout = 1;
-//	new->fderr = 2;
+	fd1->std_in = 0;
+	fd1->std_out = 1;
+	fd1->std_err = 2;
+	new->fd = fd1;
 
 	head = malloc(sizeof(process_t));
 	ft_memset(head, 0, sizeof(process_t));
@@ -57,27 +65,33 @@ static process_t	*ft_new_process()
 	head->completed = 0;
 	head->stopped = 0;
 	head->status = 0;
-//	head->fdin = 0;
-//	head->fdout = 1;
-//	head->fderr = 2;
+	fd2->std_in = 0;
+	fd2->std_out = 1;
+	fd2->std_err = 2;
+	head->fd = fd2;
 
 	return (head);
 }
 
 static job_t	*ft_newjob(process_t *proc)
 {
-	job_t	*new;
+	job_t		*new;
+	filedesc_t	*fd;
 
 	new = malloc(sizeof(process_t));
 	ft_memset(new, 0, sizeof(process_t));
+	fd = malloc(sizeof(filedesc_t));
+	ft_memset(fd, 0, sizeof(filedesc_t));
+
 	new->next = NULL;
 	new->command = ft_strdup("/bin/cat -e | /bin/ls -l");
 	new->first_process = proc;
 	new->pgid = -1;
 	new->term_modes = NULL;
-//	new->fdin = 0;
-//	new->fdout = 1;
-//	new->fderr = 2;
+	new->fd = fd;
+	fd->std_in = 0;
+	fd->std_out = 1;
+	fd->std_err = 2;
 	return (new);
 }
 
