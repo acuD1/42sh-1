@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:10:39 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/19 16:55:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 13:22:07 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,29 @@
 # define RESOLVE_H
 # include <stdlib.h>
 # include "21sh.h"
+
+typedef struct 		s_process
+{
+	int				ac;
+	char			**av;
+	char			**env;
+	int				fd_in;
+	int				fd_out;
+	int				fd_err;
+	gid_t			gid;
+}					t_process;
+
+typedef struct			job_s
+{
+
+	struct job_s		*next;
+	char				*command; /* unused */
+	process_t			*first_process;
+	pid_t				pgid;
+	struct termios		*term_modes;
+	filedesc_t			*fd;
+
+}						job_t;
 
 typedef struct 		s_instr
 {
@@ -28,6 +51,12 @@ typedef struct 		s_instr
 
 			/*		Resolve 		*/
 int		resolve_stack(t_list **stack, t_registry *shell);
+
+
+
+
+
+
 
 			/*		Test bench 		*/
 int		add_to_test(t_list **test, void *fct);
