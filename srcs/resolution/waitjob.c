@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:02:11 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 17:02:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 19:21:05 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int8_t		update_process_status(pid_t pid, int status)
 	job = g_job_head;
 	while (job)
 	{
-		process = ((t_job*)job->data)->f_process;
+		process = ((t_job*)job->data)->process_list;
 		while (process)
 		{
 			if (((t_process*)process->data)->pid == pid)

@@ -6,14 +6,15 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 19:00:45 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 20:13:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interface_functions.h"
 #include "line_edit.h"
 #include "log.h"
-#include "lexer.h"
+#include "parser.h"
+#include "resolve.h"
 
 int8_t				fill_interface_data(t_registry *shell)
 {
@@ -29,14 +30,18 @@ int8_t				fill_interface_data(t_registry *shell)
 
 int					launch_shell_prompt(t_registry *shell)
 {
+	t_parser	parse;
 	char		*input;
 
 	log_print(shell, LOG_INFO, "Starting prompt.\n");
+	init_parser(&parse);
+	parse.env = shell->env;
 	if ((input = prompt(shell, &shell->interface)))
 	{
 		if (ft_strequ(input, "exit") || input[0] == 4)
 			return (0);
-		lexer_parser(shell, input);
+		lexer_parser(&parse, input);
+		launch_job(shell, parse.job_list);
 		return (1);
 	}
 	return (0);

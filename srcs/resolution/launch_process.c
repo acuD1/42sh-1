@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 18:20:04 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/23 19:19:47 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 
 char		**str_lst_to_tab(t_list *alst)
 {
-	int		i;
-	size_t	size;
-	t_node	*data;
-	char	*env;
-	char	**tabs;
+	int			i;
+	size_t		size;
+	t_variable	*variable;
+	char		*env;
+	char		**tabs;
 
 	i = 0;
 	size = ft_lstlen(alst);
@@ -28,9 +28,9 @@ char		**str_lst_to_tab(t_list *alst)
 		return (NULL);
 	while (alst != NULL)
 	{
-		data = (t_node *)alst->data;
+		variable = (t_variable *)alst->data;
 		env = NULL;
-		ft_asprintf(&env, "%s=%s", data->var, data->data);
+		ft_asprintf(&env, "%s=%s", variable->name, variable->data);
 		tabs[i] = env;
 		alst = alst->next;
 		i++;

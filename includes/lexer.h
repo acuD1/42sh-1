@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/23 18:18:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 19:34:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,8 +183,5 @@ t_list		*lexer(char *input);
 
 void	print_list(t_list *list);
 void	del_token(void *token);
-
-void		parser(t_list *lst);
-t_list		*lexer_parser(t_registry *shell, char *input);
 
 #endif

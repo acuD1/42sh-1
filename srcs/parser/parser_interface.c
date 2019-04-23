@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:01:44 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/23 15:34:25 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 20:11:49 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	stop_parser(t_parser *parse)
 	t_list		*node;
 
 	parse->state = P_STOP;
+	node = ft_lstnew(&parse->process, sizeof(t_process));
+	ft_lstaddback(&parse->job.process_list, node);
 	node = ft_lstnew(&parse->job, sizeof(t_job));
 	ft_lstaddback(&parse->job_list, node);
 }
@@ -38,6 +40,8 @@ void	end_parser(t_parser *parse)
 	t_list		*node;
 
 	parse->state = P_END;
+	node = ft_lstnew(&parse->process, sizeof(t_process));
+	ft_lstaddback(&parse->job.process_list, node);
 	node = ft_lstnew(&parse->job, sizeof(t_job));
 	ft_lstaddback(&parse->job_list, node);
 	++parse->valid;

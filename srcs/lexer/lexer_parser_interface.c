@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 22:31:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/20 06:36:46 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 19:45:51 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	bzero_parsing(t_parser *parse)
 void	init_process(t_process *process)
 {
 	ft_bzero(process, sizeof(t_process));
-	process->fdin = 0;
-	process->fdout = 1;
-	process->fderror = 2;
+	process->fd.in = 0;
+	process->fd.out = 1;
+	process->fd.err = 2;
 }
 
 void	init_parser(t_parser *parse)
@@ -45,18 +45,17 @@ void	init_parser(t_parser *parse)
 	init_process(&parse->process);
 }
 
-t_list	*lexer_parser(t_registry *shell, char *input)
+int		lexer_parser(t_parser *parse, char *input)
 {
-	t_parser	parse;
-
 	if (!*input)
-		return (NULL);
-	init_parser(&parse);
-	parse.token_list = lexer(input);
-	ft_lstiter(parse.token_list, print_list);
-	parse.env = shell->env;
-	get_token(&parse);
-	parser(parse.token_list);
-	parser_state(&parse);
-	return (parse.job_list);
+		return (0);
+	if (!parse->token_list)
+	{
+		parse->token_list = lexer(input);
+		parser(parse->token_list);
+	}
+	ft_lstiter(parse->token_list, print_list);
+	get_token(parse);
+	parser_state(parse);
+	return (parse->token_list && parse->job_list ? 1 : 0);
 }

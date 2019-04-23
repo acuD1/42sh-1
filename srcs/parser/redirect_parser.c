@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/23 18:11:10 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 19:44:15 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	flush_redirect(t_parser *parse)
 		*parse->fd = open(filename, parse->oflags, 0644);
 	}
 	else if (token->type == E_GREAT || token->type == E_DGREAT)
-			parse->process.fdout = open(filename, parse->oflags, 0644);
-	else if ((parse->process.fdin = open(filename, parse->oflags, 0644) < 0))
+			parse->process.fd.out = open(filename, parse->oflags, 0644);
+	else if ((parse->process.fd.in = open(filename, parse->oflags, 0644) < 0))
 			error_parser(parse);
 	free(token);
 }
@@ -85,11 +85,11 @@ void	io_redirect_parser(t_parser *parse)
 	{
 		parse->state = P_IO;
 		if (*parse->token.data == '0')
-			parse->fd = &parse->process.fdin;
+			parse->fd = &parse->process.fd.in;
 		else if (*parse->token.data == '1')
-			parse->fd = &parse->process.fdout;
+			parse->fd = &parse->process.fd.out;
 		else if (*parse->token.data == '2')
-			parse->fd = &parse->process.fderror;
+			parse->fd = &parse->process.fd.err;
 	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
 	get_token(parse);
 	}
