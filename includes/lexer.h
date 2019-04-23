@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/20 00:52:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 14:33:37 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define LEXER_H
 
 #include "registry.h"
-# define STATENBR 15
-# define TOKEN_WITH_DATA 7
+# define STATENBR 17
+# define TOKEN_WITH_DATA 8
 # define NB_OF_TOKENS 54
 # define BUFFER 1024
 # define SINGLE_SIGNS 23
@@ -61,6 +61,8 @@ enum	e_lexer_state
 	DSIGN,
 	GREATER,
 	LESSER,
+	GREATAND,
+	LESSAND,
 	EXP,
 	BSL,
 	SQTE,
@@ -168,6 +170,7 @@ void	double_quote_machine(t_lexer *machine);
 void	double_sign_machine(t_lexer *machine);
 void	greater_machine(t_lexer *machine);
 void	lesser_machine(t_lexer *machine);
+void	greatand_machine(t_lexer *machine);
 
 void	fill_buffer_output(t_lexer *machine);
 t_token generate_token(t_lexer *machine);

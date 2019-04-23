@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/19 22:29:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 15:40:51 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,17 @@ void	redirect_parser(t_parser *parse)
 	else if (parse->token.type == E_LESS)
 		parse->oflags = O_RDONLY;
 	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
+	get_token(parse);
+}
+
+void	pipe_parser(t_parser *parse)
+{
+	t_list		*node;
+
+	parse->state = P_PIPE;
+	node = ft_lstnew(&parse->process, sizeof(t_process));
+	ft_lstaddback(&parse->job.process_list, node);
+	init_process(&parse->process);
 	get_token(parse);
 }
 

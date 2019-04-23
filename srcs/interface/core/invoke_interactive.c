@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/20 07:05:59 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 15:22:48 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int8_t				fill_interface_data(t_registry *shell)
 
 int					launch_shell_prompt(t_registry *shell)
 {
-	char	*input;
+	char		*input;
 
 	log_print(shell, LOG_INFO, "Starting prompt.\n");
 	if ((input = prompt(shell, &shell->interface)))

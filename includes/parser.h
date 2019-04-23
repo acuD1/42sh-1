@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/20 00:51:32 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 15:40:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "lexer.h"
 # define TRUE 1
 # define FALSE 0
-# define PARSE_STATES 13
+# define PARSE_STATES 14
 
 # define STARTING 14
 # define STRING_TOKENS 16
@@ -58,6 +58,7 @@ enum	e_parser_state
 	P_REDIRECT,
 	P_FILENAME,
 	P_IO,
+	P_PIPE,
 	P_REDIRECT_FLUSH,
 	P_HEREDOC,
 };
@@ -80,6 +81,7 @@ struct s_parser
 	enum e_parser_state	state;
 };
 
+void	init_process(t_process *process);
 t_list	*parser_state(t_parser *parse);
 void	separator_parser(t_parser *parse);
 void	init_parsing(t_parser *parse);
@@ -92,6 +94,7 @@ void	error_parser(t_parser *parse);
 void	stop_parser(t_parser *parse);
 void	single_quote_parser(t_parser *parse);
 void	redirect_parser(t_parser *parse);
+void	pipe_parser(t_parser *parse);
 void	filename_state(t_parser *parse);
 void	io_redirect_parser(t_parser *parse);
 void	flush_redirect(t_parser *parse);

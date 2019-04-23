@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/18 15:59:38 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/23 14:32:53 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,14 @@ void	greater_machine(t_lexer *machine)
 		if (*machine->buffer == '>' && *machine->input == '>' && ++checker)
 			machine->last_lexer = E_DGREAT;
 		else if (*machine->buffer == '>' && *machine->input == '&' && ++checker)
-			machine->last_lexer = E_GREATAND;
+			machine->state = GREATAND;
 		else if (*machine->buffer == '>' && *machine->input == '|' && ++checker)
 			machine->last_lexer = E_CLOBBER;
-		if (checker)
-			machine->input++;
 	}
-	machine->state = OUT;
+	if (checker)
+		machine->input++;
+	if (machine->state != GREATAND)
+		machine->state = OUT;
 }
 
 int		double_dispatcher(t_lexer *machine)

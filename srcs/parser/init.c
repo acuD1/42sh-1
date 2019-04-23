@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 21:57:35 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/19 20:34:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 15:37:43 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	init_string(t_parser *parse)
 	parse->parsing[P_STRING][E_LESS] = redirect_parser;
 	parse->parsing[P_STRING][E_DGREAT] = redirect_parser;
 	parse->parsing[P_STRING][E_IO_NUMBER] = io_redirect_parser;
+	parse->parsing[P_STRING][E_PIPE] = flush_string;
 	parse->parsing[P_STRING][E_SEMICOLON] = flush_string;
 	parse->parsing[P_STRING][E_END] = flush_string;
 }
@@ -50,6 +51,7 @@ void	init_single_quote(t_parser *parse)
 
 void	init_flush_string(t_parser *parse)
 {
+	parse->parsing[P_STRING_FLUSH][E_PIPE] = pipe_parser;
 	parse->parsing[P_STRING_FLUSH][E_END] = end_parser;
 	parse->parsing[P_STRING_FLUSH][E_SEMICOLON] = separator_parser;
 }
@@ -63,6 +65,16 @@ void	init_separator(t_parser *parse)
 	parse->parsing[P_SEPARATOR][E_LESS] = stop_parser;
 	parse->parsing[P_SEPARATOR][E_SEMICOLON] = stop_parser;
 	parse->parsing[P_SEPARATOR][E_END] = end_parser;
+}
+
+void	init_pipe(t_parser *parse)
+{
+	parse->parsing[P_PIPE][E_STRING] = string_parser;
+	parse->parsing[P_PIPE][E_QUOTE] = single_quote_parser;
+	parse->parsing[P_PIPE][E_GREAT] = redirect_parser;
+	parse->parsing[P_PIPE][E_LESS] = redirect_parser;
+	parse->parsing[P_PIPE][E_DGREAT] = redirect_parser;
+	parse->parsing[P_PIPE][E_IO_NUMBER] = io_redirect_parser;
 }
 
 void	init_suffix_redirect(t_parser *parse)
@@ -97,4 +109,5 @@ void	init_parsing(t_parser *parse)
 	init_suffix_redirect(parse);
 	init_filename(parse);
 	init_flush_redirect(parse);
+	init_pipe(parse);
 }

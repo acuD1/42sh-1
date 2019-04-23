@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 19:35:21 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 14:33:58 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void		init_process(t_lexer *machine)
 	machine->process[DSIGN] = double_sign_machine;
 	machine->process[GREATER] = greater_machine;
 	machine->process[LESSER] = lesser_machine;
+	machine->process[GREATAND] = greatand_machine;
 	machine->process[EXP] = expansion_machine;
 	machine->process[BSL] = backslash_machine;
 	machine->process[SQTE] = single_quote_machine;
@@ -60,6 +61,7 @@ static void		init_lexer(t_lexer *machine)
 	machine->duplicate[4] = E_QUOTE;
 	machine->duplicate[5] = E_DB_QUOTE;
 	machine->duplicate[6] = E_ASSIGN;
+	machine->duplicate[6] = E_GREATAND;
 }
 
 t_list			*lexer(char *input)
