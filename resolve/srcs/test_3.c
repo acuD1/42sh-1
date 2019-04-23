@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_1.c                                           :+:      :+:    :+:   */
+/*   test_3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/17 09:41:02 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 17:40:37 by nrechati         ###   ########.fr       */
+/*   Created: 2019/04/23 17:45:37 by nrechati          #+#    #+#             */
+/*   Updated: 2019/04/23 17:48:42 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 #include "resolve.h"
 #include "reso.h"
 
-static int		test1_ls(t_process *cmd, char **env)
+static int		test3_ls(t_process *cmd, char **env)
 {
 	t_filedesc	fd;
 
 	ft_bzero(&fd, sizeof(t_filedesc));
 	fd.in = 0;
-	fd.out = open("./testfile", O_RDWR | O_TRUNC | O_CREAT, 0644);
-	fd.err = 2;
-	cmd->av = ft_strsplit("ls -l", " ");
+	fd.out = 1;
+	fd.err = open("/dev/null", O_WRONLY);
+	cmd->av = ft_strsplit("ls 404", " ");
 	cmd->env = env;
 	cmd->pid = 0;
 	cmd->completed = 0;
@@ -34,7 +34,7 @@ static int		test1_ls(t_process *cmd, char **env)
 	return (1);
 }
 
-int				init_job1(t_job *job)
+int				init_job3(t_job *job)
 {
 	t_filedesc	fd;
 	t_list		*alst;
@@ -53,11 +53,11 @@ int				init_job1(t_job *job)
 }
 
 
-t_list			*test1(void)
+t_list			*test3(void)
 {
 	t_list	*test;
 
 	test = NULL;
-	add_to_test(&test, test1_ls);
+	add_to_test(&test, test3_ls);
 	return (test);
 }

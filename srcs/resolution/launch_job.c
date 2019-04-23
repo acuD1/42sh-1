@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_job.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:51 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 17:07:33 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 18:16:34 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ void	launch_job(t_registry *shell, t_list *job_lst)
 //		ft_printf("execve\n");
 		launch_process(current_job, ((t_process*)process->data), shell, &io_file);
 
-		cleanup_pipes(current_job, &io_file);
-
-		link_pipes(process, &io_file, my_pipe);
-
+		if (process->next != NULL)
+		{
+			cleanup_pipes(current_job, &io_file);
+			link_pipes(process, &io_file, my_pipe);
+		}
 		process = process->next;
 	}
 	wait_for_job(current_job);

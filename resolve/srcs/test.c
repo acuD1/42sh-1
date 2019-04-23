@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 10:30:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 16:40:22 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 17:57:31 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,31 @@ int 	fill_test_bank(t_hash *hashmap)
 {
 	if (!ft_hmap_insert(hashmap, "test1", test1()))
 		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 1 to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "test2", test2()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 2 to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "test3", test3()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 3 to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "test4", test4()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 4 to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "test5", test5()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 5 to hashmap\n\x1b[0m") & 0);
+
+	return (1);
+}
+
+int		setup_job(t_job *job, char *test)
+{
+
+	if (!ft_strcmp(test, "test1"))
+		init_job1(job);
+	if (!ft_strcmp(test, "test2"))
+		init_job2(job);
+	if (!ft_strcmp(test, "test3"))
+		init_job3(job);
+	if (!ft_strcmp(test, "test4"))
+		init_job4(job);
+	if (!ft_strcmp(test, "test5"))
+		init_job5(job);
 	return (1);
 }
 

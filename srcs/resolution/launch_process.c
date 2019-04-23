@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_process.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 17:07:32 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 18:20:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void		execute_process(t_process *process,
 
 	ft_dprintf(2, "Launching %s | in:%d out:%d err:%d.\n",
 				process->av[0], io->in, io->out, io->err);
-
+	ft_dprintf(2, "\x1b[32m[OUTPUT]: _______________________\n\x1b[0m");
 	/*  Set up correct piping   */
 	if (io->in != STDIN_FILENO && io->in != STDOUT_FILENO && io->in != STDERR_FILENO)
 	{
@@ -66,12 +66,14 @@ static void		execute_process(t_process *process,
 	if (io->out != STDOUT_FILENO && io->out != STDIN_FILENO)
 	{
 		dup2(io->out, STDOUT_FILENO);
-		close(io->out);
+		if (io->out != STDERR_FILENO)
+			close(io->out);
 	}
 	if (io->err != STDERR_FILENO && io->err != STDIN_FILENO)
 	{
 		dup2(io->err, STDERR_FILENO);
-		close(io->err);
+		if (io->err != STDOUT_FILENO)
+			close(io->err);
 	}
 	char **environ = str_lst_to_tab(shell->env);
 	/*	Exec the new process	*/

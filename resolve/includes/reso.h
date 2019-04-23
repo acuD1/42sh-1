@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   resolve.h                                          :+:      :+:    :+:   */
+/*   reso.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:10:39 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 16:41:45 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 17:55:48 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,19 @@ int		test_to_bench(t_hash *hashmap, t_list **stack, char **env, char *test);
 int 	fill_test_bank(t_hash *hashmap);
 int		print_test_joblst(t_list **stack, char *test);
 char	*get_line(char	*test);
+int		setup_job(t_job *job, char *test);
 
 			/*		Tests */
 int init_job1(t_job *job);
 t_list *test1(void);
+int init_job2(t_job *job);
+t_list *test2(void);
+int init_job3(t_job *job);
+t_list *test3(void);
+int init_job4(t_job *job);
+t_list *test4(void);
+int init_job5(t_job *job);
+t_list *test5(void);
 
 // ">" test
 #define EXEC_TEST_1 "ls -l > testfile"

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:11:04 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 16:47:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 18:07:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,6 @@ int		new_cmd(t_list **alst, char **env, int (*init)(t_process *, char **))
 	if (!(newprocess = ft_lstnew(&cmd, sizeof(t_process))))
 		return (0);
 	ft_lstaddback(alst, newprocess);
-	return (1);
-}
-
-int		setup_job(t_job *job, char *test)
-{
-
-	if (!ft_strcmp(test, "test1"))
-		init_job1(job);
 	return (1);
 }
 
