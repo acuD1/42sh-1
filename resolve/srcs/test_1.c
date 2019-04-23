@@ -6,12 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:41:02 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 16:20:07 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/23 17:09:45 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "resolve.h"
+#include "reso.h"
 
 static int		test1_ls(t_process *cmd, char **env)
 {
@@ -19,7 +20,7 @@ static int		test1_ls(t_process *cmd, char **env)
 
 	ft_bzero(&fd, sizeof(t_filedesc));
 	fd.in = 0;
-	fd.out = open("./tempfile", O_RDWR | O_TRUNC | O_CREAT, 0666);
+	fd.out = open("./testfile", O_RDWR | O_TRUNC | O_CREAT, 0644);
 	fd.err = 2;
 	cmd->av = ft_strsplit("ls -l", " ");
 	cmd->env = env;

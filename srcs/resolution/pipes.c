@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 16:33:24 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 16:56:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 void	setup_pipes(t_job *job, t_list *process,
 				t_filedesc *io_file, int my_pipe[2])
 {
-	io_file->out = ((t_process*)process)->fd->out;
-	io_file->err = ((t_process*)process)->fd->err;
+	ft_printf("data: %d.\n", ((t_process*)process->data)->fd.out);
+	io_file->out = ((t_process*)process->data)->fd.out;
+	io_file->err = ((t_process*)process->data)->fd.err;
 
 	if (process->next && io_file->out == STDOUT_FILENO)
 	{
@@ -28,19 +29,19 @@ void	setup_pipes(t_job *job, t_list *process,
 	}
 	else if (io_file->out != STDOUT_FILENO)
 	{
-		io_file->out = ((t_process*)process)->fd->out;
+		io_file->out = ((t_process*)process->data)->fd.out;
 	}
 	else
 	{
-		io_file->out = job->fd->out;
+		io_file->out = job->fd.out;
 	}
 }
 
 void	cleanup_pipes(t_job *job, t_filedesc *io_file)
 {
-	if (io_file->in != job->fd->in)
+	if (io_file->in != job->fd.in)
 		close(io_file->in);
-	else if (io_file->out != job->fd->out)
+	else if (io_file->out != job->fd.out)
 		close(io_file->out);
 }
 

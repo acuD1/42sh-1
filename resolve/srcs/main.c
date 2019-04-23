@@ -6,12 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:11:04 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 16:31:59 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/23 16:47:20 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "resolve.h"
+#include "reso.h"
 
 int		add_to_test(t_list **test, void *fct)
 {
@@ -149,7 +150,7 @@ int		main(int ac, char **av, char **env)
 		return (0);
 
 	/* Resolve test */
-	launch_job(joblst, &registry);
+	launch_job(&registry, joblst);
 
 	ft_dprintf(2, "\x1b[32m[SUCCESS]: Test \x1b[93m| %s |\x1b[32m finished with success\n\x1b[0m", get_line(av[1]));
 	return (0);

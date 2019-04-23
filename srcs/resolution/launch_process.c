@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 16:18:49 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 17:07:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char		**str_lst_to_tab(t_list *alst)
 }
 
 static void		execute_process(t_process *process,
-			   	t_filedesc *io, t_list *ev)
+			   	t_filedesc *io, t_registry *shell)
 {
 //	pid_t	pid;
 
@@ -73,21 +73,21 @@ static void		execute_process(t_process *process,
 		dup2(io->err, STDERR_FILENO);
 		close(io->err);
 	}
-	char **environ = str_lst_to_tab(ev);
+	char **environ = str_lst_to_tab(shell->env);
 	/*	Exec the new process	*/
 //	ft_dprintf(2, "\n");
-	execve(process->av[0], process->av, environ);
+	execve(ft_hmap_getdata(&shell->bin_hashmap, process->av[0]), process->av, environ);
 	ft_dprintf(2, "[ERROR] - Execution failed: %s.\n", process->av[0]);
 	exit(-1);
 }
 
-void launch_process(t_job *job, t_process *process, t_list *env, t_filedesc *io)
+void launch_process(t_job *job, t_process *process, t_registry *shell, t_filedesc *io)
 {
 	pid_t		pid;
 
 	pid = fork();
 	if (pid == 0)
-	  execute_process(process, io, env);
+	  execute_process(process, io, shell);
 	else if (pid < 0)
 	{
 //		ft_dprintf(2, "Fork() failed.\n");

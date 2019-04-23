@@ -6,14 +6,15 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:10:32 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 16:33:05 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/23 16:45:27 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "resolve.h"
 #include "21sh.h"
-
+#include "reso.h"
+/*
 int 	launch_job(t_list *joblst, t_registry *shell)
 {
 	t_list *ptr;
@@ -30,4 +31,4 @@ int 	launch_job(t_list *joblst, t_registry *shell)
 	ft_printf("Resolving ....\n");
 	ft_printf(" DONE !!\n");
 	return (0);
-}
+}*/

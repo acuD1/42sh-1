@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:10:39 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 16:31:52 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/23 16:41:45 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,6 @@
 # define RESOLVE_H
 # include <stdlib.h>
 # include "21sh.h"
-
-
-typedef struct		filedesc_s
-{
-	int32_t			in;
-	int32_t			out;
-	int32_t			err;
-}					t_filedesc;
-
-typedef struct 		s_process
-{
-	char			**av;
-	char			**env;
-	pid_t			pid;
-	uint8_t			completed;
-	uint8_t			stopped;
-	int				status;
-	t_filedesc		fd;
-}					t_process;
-
-typedef struct		s_job
-{
-	char			*command; /* unused */
-	t_list			*f_process;
-	pid_t			pgid;
-	struct termios	*term_modes;
-	t_filedesc		fd;
-
-}					t_job;
-
-			/*		Resolve 		*/
-int 	launch_job(t_list *job, t_registry *shell);
 
 			/*		Test bench 		*/
 int		add_to_test(t_list **test, void *fct);

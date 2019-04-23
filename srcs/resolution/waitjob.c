@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:02:11 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 14:24:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 17:02:18 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int8_t		update_process_status(pid_t pid, int status)
 	job = g_job_head;
 	while (job)
 	{
-		process = ((t_job*)job)->f_process;
+		process = ((t_job*)job->data)->f_process;
 		while (process)
 		{
-			if (((t_process*)process)->pid == pid)
-				return (set_process_status((t_process*)process, pid, status));
+			if (((t_process*)process->data)->pid == pid)
+				return (set_process_status(((t_process*)process->data), pid, status));
 			process = process->next;
 		}
 		job = job->next;

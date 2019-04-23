@@ -6,12 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 10:30:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 14:11:22 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/23 16:40:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "resolve.h"
+#include "reso.h"
 
 int 	fill_test_bank(t_hash *hashmap)
 {
