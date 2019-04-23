@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 17:03:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/19 14:52:52 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 18:20:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ void	number_machine(t_lexer *machine)
 
 void	letter_machine(t_lexer *machine)
 {
-	if (*machine->input == '=' && machine->last_lexer == E_STRING)
+	if (ft_strchr(LETTER_INTERUPT, *machine->input))
+		machine->state = OUT;
+	else if (*machine->input == '=' && machine->last_lexer == E_STRING)
 	{
 		machine->last_lexer = E_ASSIGN;
 		machine->state = OUT;
@@ -40,10 +42,9 @@ void	letter_machine(t_lexer *machine)
 	else if (ft_strchr(LETTER_TO_QUOTE, *machine->input))
 	{
 		machine->state = *machine->input == '\'' ? SQTE : DQTE;
-		machine->input++;
+		if (*machine->input != '$')
+			machine->input++;
 	}
-	else if (ft_strchr(LETTER_INTERUPT, *machine->input))
-		machine->state = OUT;
 	else if (*machine->input)
 	{
 		machine->last_lexer = E_STRING;

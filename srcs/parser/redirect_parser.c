@@ -6,12 +6,13 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/23 15:40:51 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 18:11:10 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
 #include <fcntl.h>
+#include <unistd.h>
+#include "parser.h"
 
 void	flush_redirect(t_parser *parse)
 {
@@ -66,7 +67,16 @@ void	pipe_parser(t_parser *parse)
 
 void	heredoc_parser(t_parser *parse)
 {
+	int			fd[2];
+	char		*line;
+
+	line = NULL;
+	pipe(fd);
 	parse->state = P_HEREDOC;
+	while(!ft_strequ(line, parse->token.data))
+	{
+
+	}
 }
 
 void	io_redirect_parser(t_parser *parse)

@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/23 14:33:37 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 18:18:35 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 
 # define ALLCHAR "$\\\'\"|()><;`&~{}[]*?!#%N"
 # define SIGN_DETECT " \t<>|;\'\"$&\\"
-# define LETTER_TO_QUOTE "\"\'"
-# define LETTER_INTERUPT " \t<>|;\'\"$&\\"
+# define LETTER_TO_QUOTE "\"\'$"
+# define LETTER_INTERUPT " \t<>|;\'\"&\\"
 ///// 42sh
 ///// # define LETTER_INTERUPT " \t<>|;\'\"`()$&!?{}[]*%\\"
 ///// # define SIGN_DETECT " \t<>|;\'\"`()$&!?{}[]*%\\="
