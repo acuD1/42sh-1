@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 13:18:51 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/22 13:27:42 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 10:01:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static process_t	*ft_new_process()
 	head->status = 0;
 	fd2->std_in = 0;
 	fd2->std_out = 1;//open("file4", O_CREAT | O_TRUNC | O_RDWR, 0644);
-	fd2->std_err = open("file4", O_CREAT | O_TRUNC | O_RDWR, 0644);
+	fd2->std_err = open("dbg", O_CREAT | O_TRUNC | O_RDWR, 0644);
 
 	head->fd = fd2;
 

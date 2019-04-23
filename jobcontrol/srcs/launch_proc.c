@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 10:40:50 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/22 12:51:41 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 10:43:07 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static void		launch_process(process_t *process, int infile,
 /*	Since it herited its behavior from the shell  */
 	signal(SIGINT, SIG_DFL); // way more
 
-//	ft_dprintf(2, "Launching %s | in:%d out:%d err:%d.\n",
-//				process->av[0], infile, outfile, errfile);
+	ft_dprintf(2, "Launching %s | in:%d out:%d err:%d.\n",
+				process->av[0], infile, outfile, errfile);
 
 	/*  Set up correct piping   */
 	if (infile != STDIN_FILENO)
@@ -37,12 +37,12 @@ static void		launch_process(process_t *process, int infile,
 		dup2(infile, STDIN_FILENO);
 		close(infile);
 	}
-	if (outfile != STDOUT_FILENO)
+	if (outfile != STDOUT_FILENO && outfile != STDIN_FILENO)
 	{
 		dup2(outfile, STDOUT_FILENO);
 		close(outfile);
 	}
-	if (errfile != STDERR_FILENO)
+	if (errfile != STDERR_FILENO && errfile != STDIN_FILENO)
 	{
 		dup2(errfile, STDERR_FILENO);
 		close(errfile);
@@ -51,7 +51,7 @@ static void		launch_process(process_t *process, int infile,
 	/*	Exec the new process	*/
 //	ft_dprintf(2, "\n");
 	execve(process->av[0], process->av, env);
-//	ft_dprintf(2, "[ERROR] - Execution failed: %s.\n", process->av[0]);
+	ft_dprintf(2, "[ERROR] - Execution failed: %s.\n", process->av[0]);
 	exit(-1);
 }
 
@@ -78,4 +78,3 @@ void fork_child(job_t *job, process_t *process, char **env, filedesc_t fd)
 //		setpgid(pid, job->pgid);	// Set the child's pgid
 	}
 }
-

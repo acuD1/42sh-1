@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 09:41:27 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/22 13:28:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 10:45:23 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,9 @@ void	setup_piping(filedesc_t *io_file, int mypipe[2], job_t *job, process_t *pro
 //		io_file->std_err = proc->fd->std_err; // 2 or file
 
 		if (proc->next && io_file->std_out == STDOUT_FILENO)
-				// if we have another process in the job (pipe)
 		{
 			if (pipe(mypipe) < 0)
 				exit(-1);
-//			ft_dprintf(2, "Pipe created.\n");
 			io_file->std_out = mypipe[1]; //output of current job is piped
 		}
 		else if (io_file->std_out != STDOUT_FILENO)
@@ -123,9 +121,9 @@ void	launch_job(job_t *job, char **env)
 	{
 		setup_piping(&io_file, mypipe, job, proc);
 
-//---------------------------------------------|
-		fork_child(job, proc, env, io_file);// |
-//---------------------------------------------|
+//------------------------------------------------|
+		fork_child(job, proc, env, io_file);//    |
+//------------------------------------------------|
 
 		cleanup_pipes(&io_file, job);
 

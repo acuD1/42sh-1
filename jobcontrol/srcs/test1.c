@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 09:42:37 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/22 06:57:55 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 10:42:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ static char **make_table(char *av1, char *av2)
 static process_t	*ft_new_process()
 {
 	process_t	*head;
-	process_t	*new;
-	filedesc_t	*fd1;
+//	process_t	*new;
+//	filedesc_t	*fd1;
 	filedesc_t	*fd2;
 
-	fd1 = malloc(sizeof(filedesc_t));
-	ft_memset(fd1, 0, sizeof(filedesc_t));
+//	fd1 = malloc(sizeof(filedesc_t));
+//	ft_memset(fd1, 0, sizeof(filedesc_t));
 	fd2 = malloc(sizeof(filedesc_t));
 	ft_memset(fd2, 0, sizeof(filedesc_t));
 
 //----------------------------------------------------------------
-	new = malloc(sizeof(process_t));
+/*	new = malloc(sizeof(process_t));
 	ft_memset(new, 0, sizeof(process_t));
 
 	new->next = NULL;
@@ -59,13 +59,13 @@ static process_t	*ft_new_process()
 	new->fd = fd1;
 	fd1->std_in = 0;
 	fd1->std_out = 1;
-	fd1->std_err = 2;
+	fd1->std_err = 2;*/
 //---------------------------------------------------------------
 	head = malloc(sizeof(process_t));
 	ft_memset(head, 0, sizeof(process_t));
 
-	head->next = new;
-	head->av = make_table("/bin/ls", "-l");
+//	head->next = new;
+	head->av = make_table("/bin/cat", "-e");
 	head->pid = -1;
 
 	head->completed = 0;
@@ -74,7 +74,7 @@ static process_t	*ft_new_process()
 
 	head->fd = fd2;
 	fd2->std_in = 0;	// open("afile", O_RDONLY | O_CREAT, 0644);
-	fd2->std_out = 1;	// open("afile", O_RDWR | O_TRUNC | O_CREAT, 0644);
+	fd2->std_out = 0;	// open("afile", O_RDWR | O_TRUNC | O_CREAT, 0644);
 	fd2->std_err = 2;
 //---------------------------------------------------------------
 	return (head);
@@ -91,7 +91,7 @@ static job_t	*ft_newjob(process_t *proc)
 	new = malloc(sizeof(process_t));
 	ft_memset(new, 0, sizeof(process_t));
 	new->next = NULL;
-	new->command = ft_strdup("/bin/ls -l | /bin/cat -e");
+	new->command = ft_strdup("/bin/cat -e >&0");
 
 	new->first_process = proc;
 	new->pgid = -1;
