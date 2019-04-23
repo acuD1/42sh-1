@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/23 14:34:52 by cempassi         ###   ########.fr        #
+#    Updated: 2019/04/23 19:00:10 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,6 +101,7 @@ LINE_PATH += interface/init/
 LINE_PATH += interface/misc/
 LINE_PATH += interface/redraw/
 LINE_PATH += interface/utils/
+LINE_PATH += resolution/
 LINE_PATH += logging/
 LINE_PATH += signals/
 LINE_PATH += startup/
@@ -141,6 +142,7 @@ INCS += interface_functions.h
 INCS += unit.h
 INCS += lexer.h
 INCS += parser.h
+INCS += resolve.h
 
 # ---------------------------------------------------------------------------- #
 #									Sources                                    #
@@ -242,6 +244,15 @@ PARSER_SRCS += string_parser.c
 PARSER_SRCS += quote_parser.c
 PARSER_SRCS += redirect_parser.c
 PARSER_SRCS += lexer_parser_interface.c
+
+#						   - - - - Resolution - - - -                           #
+LINE += job_tools.c
+LINE += launch_job.c
+LINE += launch_process.c
+LINE += pipes.c
+LINE += waitjob.c
+
+
 
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #

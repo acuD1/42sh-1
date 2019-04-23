@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/20 07:20:42 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 19:09:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,9 @@ int				launch_sh(char **av, char **env, t_registry *shell)
 		ft_strdel(&(shell->option.path));
 		return (0);
 	}
+	shell->bin_hashmap = ft_hmap_init(2048);
+	shell->blt_hashmap = ft_hmap_init(16);
+	if (!hash_blt(shell))
+		return (0);
 	return (get_env(&shell->env, env) ? 0 : -1);
 }

@@ -4,9 +4,6 @@
 *.obj
 *.elf
 
-# Swap files
-.*.sw*
-
 # Precompiled Headers
 *.gch
 *.pch
@@ -23,9 +20,6 @@
 *.so.*
 *.dylib
 
-#Vim
-*.swp
-
 # Executables
 *.exe
 *.out
@@ -41,5 +35,4 @@
 *.json
 
 # Executable
-42sh
-
+resolve
