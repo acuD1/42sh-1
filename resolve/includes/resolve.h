@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:10:39 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 13:22:07 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/23 13:38:24 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,33 @@
 # include <stdlib.h>
 # include "21sh.h"
 
+
+typedef struct		filedesc_s
+{
+	int32_t			in;
+	int32_t			out;
+	int32_t			err;
+}					t_filedesc;
+
 typedef struct 		s_process
 {
 	int				ac;
 	char			**av;
 	char			**env;
-	int				fd_in;
-	int				fd_out;
-	int				fd_err;
+	t_filedesc		fd;
 	gid_t			gid;
 }					t_process;
 
-typedef struct			job_s
+typedef struct		job_t
 {
 
-	struct job_s		*next;
-	char				*command; /* unused */
-	process_t			*first_process;
-	pid_t				pgid;
-	struct termios		*term_modes;
-	filedesc_t			*fd;
+	char			*command; /* unused */
+	t_list			*f_process;
+	pid_t			pgid;
+	struct termios	*term_modes;
+	t_filedesc		*fd;
 
-}						job_t;
+}					t_job;
 
 typedef struct 		s_instr
 {
@@ -51,12 +56,6 @@ typedef struct 		s_instr
 
 			/*		Resolve 		*/
 int		resolve_stack(t_list **stack, t_registry *shell);
-
-
-
-
-
-
 
 			/*		Test bench 		*/
 int		add_to_test(t_list **test, void *fct);
@@ -83,48 +82,30 @@ t_list 	*test_e(void);
 t_list 	*test_f(void);
 t_list 	*test_g(void);
 
-// Basic test
-#define EXEC_TEST_1 "ls -l -h /Users/nrechati"
-#define EXEC_TEST_2 "cat -e"
+// ">" test
+#define EXEC_TEST_1 "ls -l > testfile"
+#define EXEC_TEST_2 "ls 404 2>errfile"
+#define EXEC_TEST_3 "ls 404 2>&-"
+#define EXEC_TEST_4 "ls 404 2>&1"
+#define EXEC_TEST_5 "ls -l 1>&2"
 
-#define EXEC_TEST_3 "echo \"Echo was here\" > echofile"
-#define EXEC_TEST_4 "echo \"Not anymore\" > echofile"
+// ">>" test
+#define EXEC_TEST_6 "ls -l >> testfile"
+#define EXEC_TEST_7 "ls 404 2>>errfile"
+#define EXEC_TEST_8 "ls 404 2>>&-"
+#define EXEC_TEST_9 "ls 404 2>>&1"
+#define EXEC_TEST_A "ls -l 1>>&2"
 
-// '>' tests
-#define EXEC_TEST_5 "ls -l > tempfile"
-#define EXEC_TEST_6 "ls -lai > tempfile"
-#define EXEC_TEST_7 "ls -la 404 2> errorfile"
+// "<" test
+#define EXEC_TEST_B "cat -e < file1"
+#define EXEC_TEST_C "cat -e <&2"
+#define EXEC_TEST_D "cat -e <&-"
+#define EXEC_TEST_E "cat -e 0<&-"
 
-#define EXEC_TEST_8 "ls -la Makefile 404 > tempfile 2>&1"
-#define EXEC_TEST_A "ls -la Makefile 404 2>&1 > tempfile"
-
-// '>>' tests
-#define EXEC_TEST_B "ls -lhi >> tempfile"
-#define EXEC_TEST_C "ls -lhi >> newfile"
-#define EXEC_TEST_D "ls -lhi 404 2>> errorfile"
-
-// '<' tests
-#define EXEC_TEST_E "cat -e < fichier"
-#define EXEC_TEST_F "cat < fichier fichier2 fichier3" /* Gerer via av */
-#define EXEC_TEST_G "cat < 404"						  /* Open fail */
-
-
-// '<<' tests (heredoc)
-#define EXEC_TEST_H "cat <<EOF"
-
-// Pipe tests
-#define EXEC_TEST_I "ls -l | cat -e"
-#define EXEC_TEST_J "cat -e | ls -l"
-
-// Hard tests
-#define EXEC_TEST_K "cat <<EOF > fichierEOF"
-
-// OPTIONEL VOIR DOCUMENTATION
-// Equivalent a     "ls -lh Makefile 404 >log 2>&1"
-#define EXEC_TEST_L "ls -lh Makefile 404 &> log" //redirige fd 1 et 2
-#define EXEC_TEST_M "ls -lh Makefile 404 &>> log" //redirige fd 1 et 2
-#define EXEC_TEST_N "ls -lh Makefile 404 &| cat -e" //redirige fd 1 et 2
-#define EXEC_TEST_O "ls -la > fileX"
-#define EXEC_TEST_P "ls -la >| fileX" //voir. NoClobber - Bash
+// "simple" pipe test
+#define EXEC_TEST_B "cat -e < file1"
+#define EXEC_TEST_C "cat -e <&2"
+#define EXEC_TEST_D "cat -e <&-"
+#define EXEC_TEST_E "cat -e 0<&-"
 
 #endif
