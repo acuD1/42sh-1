@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/15 11:21:03 by skuppers         ###   ########.fr        #
+#    Updated: 2019/04/23 15:27:57 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,6 +100,7 @@ LINE_PATH += interface/init/
 LINE_PATH += interface/misc/
 LINE_PATH += interface/redraw/
 LINE_PATH += interface/utils/
+LINE_PATH += resolution/
 LINE_PATH += logging/
 LINE_PATH += signals/
 LINE_PATH += startup/
@@ -138,6 +139,7 @@ INCS += line_edit.h
 INCS += interface_functions.h
 INCS += unit.h
 INCS += lexer.h
+INCS += resolve.h
 
 # ---------------------------------------------------------------------------- #
 #									Sources                                    #
@@ -228,6 +230,15 @@ LEX_SRCS += generate_token.c
 LEX_SRCS += quotes_states.c
 LEX_SRCS += sign_states.c
 LEX_SRCS += expansion_states.c
+
+#						   - - - - Resolution - - - -                           #
+LINE += job_tools.c
+LINE += launch_job.c
+LINE += launch_process.c
+LINE += pipes.c
+LINE += waitjob.c
+
+
 
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #

@@ -5,50 +5,53 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/19 11:04:41 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/19 11:33:43 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/23 14:18:25 by skuppers          #+#    #+#             */
+/*   Updated: 2019/04/23 15:29:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "jobs.h"
+#include "21sh.h"
+#include "log.h"
+#include "resolve.h"
 
-job_t	*find_job(pid_t pgid)
+t_list	*g_job_head;
+
+t_job	*find_job(pid_t pgid)
 {
-	job_t *job;
+	t_list *job;
 
 	job = g_job_head;
 	while (job)
 	{
-		if (job->pgid == pgid)
-			return (job);
+		if (((t_job*)job)->pgid == pgid)
+			return ((t_job*)job);
 		job = job->next;
 	}
 	return (NULL);
 }
 
-uint8_t	job_is_stopped(job_t *job)
+uint8_t	job_is_stopped(t_job *job)
 {
-	process_t	*process;
+	t_list		*process;
 
-	process = job->first_process;
+	process = job->f_process;
 	while (process)
 	{
-		if (!process->completed && !process->stopped)
+		if (!((t_process*)process)->completed && !((t_process*)process)->stopped)
 			return (0);
 		process = process->next;
 	}
 	return (1);
 }
 
-uint8_t	job_is_completed(job_t *job)
+uint8_t	job_is_completed(t_job *job)
 {
-	process_t *process;
+	t_list		*process;
 
-	process = job->first_process;
+	process = job->f_process;
 	while (process)
 	{
-		if (!process->completed)
+		if (!((t_process*)process)->completed)
 			return (0);
 		process = process->next;
 	}

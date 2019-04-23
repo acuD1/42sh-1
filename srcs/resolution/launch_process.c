@@ -1,20 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   launch_proc.c                                      :+:      :+:    :+:   */
+/*   launch_process.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/19 10:40:50 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 10:43:07 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
+/*   Updated: 2019/04/23 15:54:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "jobs.h"
+#include "21sh.h"
+#include "log.h"
+#include "resolve.h"
 
-static void		launch_process(process_t *process, int infile,
-			   	int outfile, int errfile, char **env)
+char		**str_lst_to_tab(t_list *alst)
+{
+	int		i;
+	size_t	size;
+	t_node	*data;
+	char	*env;
+	char	**tabs;
+
+	i = 0;
+	size = ft_lstlen(alst);
+	if (!(tabs = (char **)malloc(sizeof(char *) * (size + 1))))
+		return (NULL);
+	while (alst != NULL)
+	{
+		data = (t_node *)alst->data;
+		env = NULL;
+		ft_asprintf(&env, "%s=%s", data->var, data->data);
+		tabs[i] = env;
+		alst = alst->next;
+		i++;
+	}
+	tabs[i] = NULL;
+	return (tabs);
+}
+
+static void		execute_process(t_process *process,
+			   	t_filedesc *io, t_list *ev)
 {
 //	pid_t	pid;
 
@@ -29,39 +55,39 @@ static void		launch_process(process_t *process, int infile,
 	signal(SIGINT, SIG_DFL); // way more
 
 	ft_dprintf(2, "Launching %s | in:%d out:%d err:%d.\n",
-				process->av[0], infile, outfile, errfile);
+				process->av[0], io->in, io->out, io->err);
 
 	/*  Set up correct piping   */
-	if (infile != STDIN_FILENO)
+	if (io->in != STDIN_FILENO)
 	{
-		dup2(infile, STDIN_FILENO);
-		close(infile);
+		dup2(io->in, STDIN_FILENO);
+		close(io->in);
 	}
-	if (outfile != STDOUT_FILENO && outfile != STDIN_FILENO)
+	if (io->out != STDOUT_FILENO && io->out != STDIN_FILENO)
 	{
-		dup2(outfile, STDOUT_FILENO);
-		close(outfile);
+		dup2(io->out, STDOUT_FILENO);
+		close(io->out);
 	}
-	if (errfile != STDERR_FILENO && errfile != STDIN_FILENO)
+	if (io->err != STDERR_FILENO && io->err != STDIN_FILENO)
 	{
-		dup2(errfile, STDERR_FILENO);
-		close(errfile);
+		dup2(io->err, STDERR_FILENO);
+		close(io->err);
 	}
-
+	char **environ = str_lst_to_tab(ev);
 	/*	Exec the new process	*/
 //	ft_dprintf(2, "\n");
-	execve(process->av[0], process->av, env);
+	execve(process->av[0], process->av, environ);
 	ft_dprintf(2, "[ERROR] - Execution failed: %s.\n", process->av[0]);
 	exit(-1);
 }
 
-void fork_child(job_t *job, process_t *process, char **env, filedesc_t fd)
+void launch_process(t_job *job, t_process *process, t_list *env, t_filedesc *io)
 {
 	pid_t		pid;
 
 	pid = fork();
 	if (pid == 0)
-  launch_process(process, fd.std_in, fd.std_out, job->fd->std_err, env);
+	  execute_process(process, io, env);
 	else if (pid < 0)
 	{
 //		ft_dprintf(2, "Fork() failed.\n");
@@ -69,8 +95,6 @@ void fork_child(job_t *job, process_t *process, char **env, filedesc_t fd)
 	}
 	else
 	{
-					/* This is job control  */
-					/* Parent process 		*/
 		process->pid = pid; 		// Set the childs pid
 									// If shell is interactive
 		if (!job->pgid) 			// If no pgid is set, set it.
