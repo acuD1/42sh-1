@@ -67,11 +67,8 @@ int		parser(t_list *lst)
 {
 	static t_graph	*graph = NULL;
 
-	if (!graph && !(graph = generate_graph()))
-	{
-		print_result_debug(1);
-		return (FALSE);
-	}
+	if (!graph)
+		graph = generate_graph();
 	return (!lst || parse_tokens(lst, graph));
 }
 
