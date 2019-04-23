@@ -9,10 +9,10 @@ static void	set_graph_node(t_graph *node, enum e_type type, int nb_of_good_type,
 
 void		set_start_token(t_graph *tab)
 {
-	static enum	e_type tab_good_type[13] = {ALL_END, E_ASSIGN};
+	static enum	e_type tab_good_type[12] = {ALL, E_END, E_ASSIGN};
 	int			nb_of_good_type;
 	
-	nb_of_good_type = 13;
+	nb_of_good_type = 12;
 	set_graph_node(tab, START_TYPE, nb_of_good_type, tab_good_type);
 }
 

@@ -187,6 +187,6 @@ t_list		*lexer(char *input);
 void	print_list(t_list *list);
 void	del_token(void *token);
 
-void		parser(t_list *lst);
+int		parser(t_list *lst);
 
 #endif
