@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 15:54:37 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 16:18:49 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void		execute_process(t_process *process,
 				process->av[0], io->in, io->out, io->err);
 
 	/*  Set up correct piping   */
-	if (io->in != STDIN_FILENO)
+	if (io->in != STDIN_FILENO && io->in != STDOUT_FILENO && io->in != STDERR_FILENO)
 	{
 		dup2(io->in, STDIN_FILENO);
 		close(io->in);

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:51 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 15:52:42 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 16:33:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 
 t_list *g_job_head;
 
-void	launch_job(t_registry *shell, t_list *job)
+void	launch_job(t_registry *shell, t_list *job_lst)
 {
 	t_job			*current_job;
 	t_list			*process;
 	t_filedesc		io_file;
 	int				my_pipe[2];
 
-	g_job_head = job;
-	current_job = (t_job*)job;
+	g_job_head = job_lst;
+	current_job = (t_job*)job_lst->data;
 	process = current_job->f_process;
 	io_file.in = current_job->fd->in;
 
