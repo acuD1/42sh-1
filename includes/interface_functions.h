@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/20 06:40:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 20:32:48 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int8_t						init_cursor(t_registry *shell);
 void						define_interface_default_signals(t_registry *shell);
 void						define_interface_signal_behavior(t_registry *shell);
 
-int8_t						invoke_sub_prompt(t_registry *shell,
-							int8_t (*condition)(char *), char *orig_state, char *p_state);
+int8_t						invoke_sub_prompt(t_registry *shell, char **line,
+								char *prompt_state);
 
 int							launch_shell_prompt(t_registry *shelll);
 char						*prompt(t_registry *shell, t_interface *itf);
