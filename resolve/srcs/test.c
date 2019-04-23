@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tests.c                                            :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 10:30:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/18 17:16:07 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/23 13:27:19 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,6 @@ int 	fill_test_bank(t_hash *hashmap)
 {
 	if (!ft_hmap_insert(hashmap, "test1", test1()))
 		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 1 to hashmap\n\x1b[0m") & 0);
-	if (!ft_hmap_insert(hashmap, "test2", test2()))
-		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 2 to hashmap\n\x1b[0m") & 0);
-	if (!ft_hmap_insert(hashmap, "test3", test3()))
-		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 3 to hashmap\n\x1b[0m") & 0);
-	if (!ft_hmap_insert(hashmap, "test4", test4()))
-		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 4 to hashmap\n\x1b[0m") & 0);
-	if (!ft_hmap_insert(hashmap, "test5", test5()))
-		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 5 to hashmap\n\x1b[0m") & 0);
-	if (!ft_hmap_insert(hashmap, "test6", test6()))
-		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 6 to hashmap\n\x1b[0m") & 0);
-	if (!ft_hmap_insert(hashmap, "test7", test7()))
-		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 7 to hashmap\n\x1b[0m") & 0);
-
-	/*		test 8 et A 		*/
-
-	if (!ft_hmap_insert(hashmap, "testB", test_b()))
-		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST B to hashmap\n\x1b[0m") & 0);
-	if (!ft_hmap_insert(hashmap, "testC", test_c()))
-		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST C to hashmap\n\x1b[0m") & 0);
-	if (!ft_hmap_insert(hashmap, "testD", test_d()))
-		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST D to hashmap\n\x1b[0m") & 0);
-	if (!ft_hmap_insert(hashmap, "testE", test_e()))
-		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST E to hashmap\n\x1b[0m") & 0);
 	return (1);
 }
 
