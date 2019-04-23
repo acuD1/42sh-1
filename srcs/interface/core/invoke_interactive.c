@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 19:30:06 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 20:09:51 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void				shell_invoke_interactive(t_registry *shell)
 		}
 	}
 	log_print(shell, LOG_INFO, "Restoring original shell behavior.\n");
-//	restore_term_behavior(shell);
+	restore_term_behavior(shell);
 	log_print(shell, LOG_INFO, "Releasing interface memory.\n");
 	free_interface_registry(itf);
 	free(itf);
