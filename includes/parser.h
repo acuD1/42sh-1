@@ -16,7 +16,7 @@
 # define TRUE 1
 # define FALSE 0
 # define PARSE_STATES 2
-# define WORD E_STRING, E_EXP, E_QUOTE, E_DB_QUOTE
+# define WORD E_STRING, E_EXP, E_QUOTE, E_DB_QUOTE, E_BACKSLASH
 # define IO E_IO_NUMBER
 # define PIPELINE E_PIPE
 # define BASE_REDIRECT E_GREAT, E_LESS, E_DLESS, E_DGREAT
@@ -25,6 +25,7 @@
 # define END_CMD E_SEMICOLON, E_END
 # define ALL WORD, BASE_REDIRECT, IO
 # define ALL_END ALL, END_CMD
+# define START_TYPE NB_OF_TOKENS
 
 typedef struct	s_exec
 {
@@ -73,9 +74,9 @@ void	parser_start(t_parser *machine);
 
 struct s_graph
 {
-	t_parsing		parsing[PARSE_STATES];
+	enum e_type		*good_type;
+	int				nb_of_good_type;
 	enum e_type		type;
-	t_list 			*lst;
 };
 
 /*
@@ -95,13 +96,13 @@ void		print_result_debug(int which);
 ************************
 */
 
-void		set_start_token(t_graph *start, t_graph **tab);
-void		set_word_token(t_graph **tab);
-void		set_redirect_token(t_graph **tab);
-void		set_assign_token(t_graph **tab);
-void		set_semicolon_token(t_graph **tab);
-void		set_pipe_token(t_graph **tab);
-void		set_ionumber_token(t_graph **tab);
+void		set_start_token(t_graph *tab);
+void		set_word_token(t_graph *tab);
+void		set_redirect_token(t_graph *tab);
+void		set_assign_token(t_graph *tab);
+void		set_semicolon_token(t_graph *tab);
+void		set_pipe_token(t_graph *tab);
+void		set_ionumber_token(t_graph *tab);
 
 /*
 ************************
@@ -109,7 +110,6 @@ void		set_ionumber_token(t_graph **tab);
 ************************
 */
 
-t_graph		*generate_graph(t_graph *start, t_graph **tab);
-void		free_graph(t_graph *start, t_graph **tab);
+t_graph		*generate_graph(void);
 
 #endif
