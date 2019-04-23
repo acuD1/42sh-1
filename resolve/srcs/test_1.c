@@ -6,26 +6,51 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:41:02 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 13:29:43 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/23 16:20:07 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "resolve.h"
 
-static int		test1_ls(t_instr *cmd, char **env)
+static int		test1_ls(t_process *cmd, char **env)
 {
-	cmd->ac = 4;
-	cmd->av = ft_strsplit(EXEC_TEST_1, " ");
+	t_filedesc	fd;
+
+	ft_bzero(&fd, sizeof(t_filedesc));
+	fd.in = 0;
+	fd.out = open("./tempfile", O_RDWR | O_TRUNC | O_CREAT, 0666);
+	fd.err = 2;
+	cmd->av = ft_strsplit("ls -l", " ");
 	cmd->env = env;
-	cmd->fd_in = 0;
-	cmd->fd_out = 1;
-	cmd->fd_err = 2;
-	cmd->gid = 0;
+	cmd->pid = 0;
+	cmd->completed = 0;
+	cmd->stopped = 0;
+	cmd->status = 0;
+	cmd->fd = fd;
 	if (!cmd->av)
 		return (0);
 	return (1);
 }
+
+int				init_job1(t_job *job)
+{
+	t_filedesc	fd;
+	t_list		*alst;
+
+	alst = NULL;
+	ft_bzero(&fd, sizeof(t_filedesc));
+	fd.in = 0;
+	fd.out = 1;
+	fd.err = 2;
+	job->command = ft_strdup("ls");
+	job->fd = fd;
+	job->f_process = alst;
+	if (job->command == NULL)
+		return (0);
+	return (1);
+}
+
 
 t_list			*test1(void)
 {

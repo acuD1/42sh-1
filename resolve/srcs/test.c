@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 10:30:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 13:27:19 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/23 14:11:22 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,5 @@ char	*get_line(char	*test)
 		return (EXEC_TEST_D);
 	if (!ft_strcmp(test, "testE"))
 		return (EXEC_TEST_E);
-	if (!ft_strcmp(test, "testF"))
-		return (EXEC_TEST_F);
-	if (!ft_strcmp(test, "testG"))
-		return (EXEC_TEST_G);
 	return	(NULL);
 }
