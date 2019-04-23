@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:50 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 19:14:53 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 22:52:15 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ void					setup_pipes(t_job *j, t_list *p, t_filedesc *io, int pipe[2]);
 void					cleanup_pipes(t_job *job, t_filedesc *io);
 void					link_pipes(t_list *process, t_filedesc *io, int my_pipe[2]);
 
-void					launch_process(t_job *job, t_process *process,
-				t_registry *shell, t_filedesc *io);
-
+void 			launch_process(t_registry *shell, t_job *job, t_process *process);
 void					wait_for_job(t_job *job);
 
 /* Job tools */

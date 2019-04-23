@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/20 05:06:06 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 23:19:50 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 t_registry	*g_shell;
 
-void				redraw_prompt(int signo)
+void		redraw_prompt(int signo)
 {
 	(void)signo;
 	t_interface itf;
@@ -34,7 +34,7 @@ void				redraw_prompt(int signo)
 	itf.cursor.index = 0;
 }
 
-static void				interface_resize_handler(int signo)
+static void	interface_resize_handler(int signo)
 {
 	struct 					winsize w;
 	t_interface				itf;
@@ -50,7 +50,8 @@ static void				interface_resize_handler(int signo)
 	tputs(itf.termcaps.clear, 1, ft_putc);
 	if ((itf.window.cols < (uint32_t)(ft_strlen(get_intern_var(g_shell,
 												   	INT_PS1)) * 2)
-		|| itf.window.rows < 3) || ft_vctlen(itf.line) > (uint32_t)itf.window.max_chars)
+		|| itf.window.rows < 3)
+		|| ft_vctlen(itf.line) > (uint32_t)itf.window.max_chars)
 		print_words("Terminal window size too small :-(", &itf);
 	else
 	{
@@ -60,7 +61,7 @@ static void				interface_resize_handler(int signo)
 	}
 }
 
-void					define_interface_default_signals(t_registry *shell)
+void		define_interface_default_signals(t_registry *shell)
 {
 	if (signal(SIGWINCH, SIG_DFL) == SIG_ERR)
 		log_print(shell, LOG_ERROR, "Error catching the resize signal.\n");
@@ -68,8 +69,7 @@ void					define_interface_default_signals(t_registry *shell)
 		log_print(shell, LOG_ERROR, "Error catching C-c\n");
 }
 
-void					define_interface_signal_behavior(
-				t_registry *shell)
+void		define_interface_signal_behavior(t_registry *shell)
 {
 	g_shell = shell;
 	if (signal(SIGWINCH, interface_resize_handler) == SIG_ERR)
@@ -77,9 +77,4 @@ void					define_interface_signal_behavior(
 						"Error catching the resize signal.\n");
 	if (signal(SIGINT, redraw_prompt) == SIG_ERR)
 		log_print(shell, LOG_ERROR, "Error catching C-c\n");
-}
-
-int		define_runtime_signals(void)
-{
-	return (0);
 }

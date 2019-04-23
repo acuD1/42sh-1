@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/23 19:00:10 by cempassi         ###   ########.fr        #
+#    Updated: 2019/04/23 23:29:22 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,9 @@ NAMET = unit
 LIBFT = libft.a
 LIBFTDB = libftdb.a
 OBJM = $(patsubst %.c, $(OPATH)%.o, $(LINEM))
-OBJS = $(patsubst %.c, $(OPATH)%.o, $(LINE) $(LEX_SRCS) $(PARSER_SRCS))
+OBJS = $(patsubst %.c, $(OPATH)%.o, $(LINE) $(LEX_SRCS) $(PARSER_SRCS) $(TOOL))
 OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM))
-OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINE) $(LINEM) $(LEX_SRCS) $(PARSER_SRCS))
+OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINE) $(LINEM) $(LEX_SRCS) $(PARSER_SRCS) $(TOOL))
 LIB = $(addprefix $(LPATH), $(LIBFT))
 LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 # ---------------------------------------------------------------------------- #
@@ -107,7 +107,8 @@ LINE_PATH += signals/
 LINE_PATH += startup/
 LEXER_PATH += lexer/
 PARSER_PATH += parser/
-SPATH += $(addprefix srcs/, $(LINE_PATH) $(LEXER_PATH) $(PARSER_PATH))
+TOOL_PATH += tools/
+SPATH += $(addprefix srcs/, $(LINE_PATH) $(LEXER_PATH) $(PARSER_PATH) $(TOOL_PATH))
 
 # ---------------------------------------------------------------------------- #
 #									 vpath                                     #
@@ -252,7 +253,8 @@ LINE += launch_process.c
 LINE += pipes.c
 LINE += waitjob.c
 
-
+#						   - - - - - Tools - - - - -						   #
+TOOL += list_functions.c
 
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #

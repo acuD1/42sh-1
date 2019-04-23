@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 19:19:47 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/24 00:53:28 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,93 +14,52 @@
 #include "log.h"
 #include "resolve.h"
 
-char		**str_lst_to_tab(t_list *alst)
+static void		redirect_setup(t_process *process)
 {
-	int			i;
-	size_t		size;
-	t_variable	*variable;
-	char		*env;
-	char		**tabs;
-
-	i = 0;
-	size = ft_lstlen(alst);
-	if (!(tabs = (char **)malloc(sizeof(char *) * (size + 1))))
-		return (NULL);
-	while (alst != NULL)
-	{
-		variable = (t_variable *)alst->data;
-		env = NULL;
-		ft_asprintf(&env, "%s=%s", variable->name, variable->data);
-		tabs[i] = env;
-		alst = alst->next;
-		i++;
-	}
-	tabs[i] = NULL;
-	return (tabs);
+	if (process->fd.in != STDIN_FILENO)
+		dup2(process->fd.in, STDIN_FILENO);
+	if (process->fd.in != STDOUT_FILENO)
+		dup2(process->fd.out, STDOUT_FILENO);
+	if (process->fd.in != STDERR_FILENO)
+		dup2(process->fd.err, STDERR_FILENO);
 }
 
-static void		execute_process(t_process *process,
-			   	t_filedesc *io, t_registry *shell)
+static void		execute_process(t_registry *shell, t_process *process)
 {
-//	pid_t	pid;
+	char		*path;
 
-	/*	Interactive shell implementation	*/
-
-//	if (!pgid)
-//		pgid = getpid();
-//	ft_dprintf(2, "Child pid is %d.\n", getpid())
-
-		/*  Set up signal handling  */
-/*	Since it herited its behavior from the shell  */
 	signal(SIGINT, SIG_DFL); // way more
-
 	ft_dprintf(2, "Launching %s | in:%d out:%d err:%d.\n",
-				process->av[0], io->in, io->out, io->err);
-	ft_dprintf(2, "\x1b[32m[OUTPUT]: _______________________\n\x1b[0m");
-	/*  Set up correct piping   */
-	if (io->in != STDIN_FILENO && io->in != STDOUT_FILENO && io->in != STDERR_FILENO)
+				process->av[0]
+				, process->fd.in
+				, process->fd.out
+				, process->fd.err);
+	ft_dprintf(2, "%@s\n", "34","- - - - - [OUTPUT] - - - - - ");
+	redirect_setup(process);
+	path = ft_hmap_getdata(&shell->bin_hashmap, process->av[0]);
+	if (execve(path, process->av, process->env) == -1)
 	{
-		dup2(io->in, STDIN_FILENO);
-		close(io->in);
+		ft_dprintf(2, "[ERROR] - Execution failed: %s.\n", process->av[0]);
+		exit(-1);
 	}
-	if (io->out != STDOUT_FILENO && io->out != STDIN_FILENO)
-	{
-		dup2(io->out, STDOUT_FILENO);
-		if (io->out != STDERR_FILENO)
-			close(io->out);
-	}
-	if (io->err != STDERR_FILENO && io->err != STDIN_FILENO)
-	{
-		dup2(io->err, STDERR_FILENO);
-		if (io->err != STDOUT_FILENO)
-			close(io->err);
-	}
-	char **environ = str_lst_to_tab(shell->env);
-	/*	Exec the new process	*/
-//	ft_dprintf(2, "\n");
-	execve(ft_hmap_getdata(&shell->bin_hashmap, process->av[0]), process->av, environ);
-	ft_dprintf(2, "[ERROR] - Execution failed: %s.\n", process->av[0]);
-	exit(-1);
 }
 
-void launch_process(t_job *job, t_process *process, t_registry *shell, t_filedesc *io)
+void launch_process(t_registry *shell, t_job *job, t_process *process)
 {
 	pid_t		pid;
 
-	pid = fork();
-	if (pid == 0)
-	  execute_process(process, io, shell);
-	else if (pid < 0)
+	if ((pid = fork()))
 	{
-//		ft_dprintf(2, "Fork() failed.\n");
-		exit(-2);
+		process->pid = pid;
+		if (!job->pgid)
+			job->pgid = pid;
 	}
+	else if (pid < 0)
+		exit(-2);
 	else
 	{
-		process->pid = pid; 		// Set the childs pid
-									// If shell is interactive
-		if (!job->pgid) 			// If no pgid is set, set it.
-			job->pgid = pid;
-//		setpgid(pid, job->pgid);	// Set the child's pgid
+		if (job->pgid)
+			setgid(job->pgid);
+		execute_process(shell, process);
 	}
 }

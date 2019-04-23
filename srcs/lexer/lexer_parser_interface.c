@@ -6,11 +6,21 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 22:31:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/23 19:45:51 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 23:53:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+void	print_process(t_list *node)
+{
+	t_process	*process;
+
+	process = node->data;
+	ft_showtab(process->av);
+	ft_printf("FD : IN = %d | OUT = %d | ERROR = %d \n"
+			,process->fd.in, process->fd.out, process->fd.err);
+}
 
 void	bzero_parsing(t_parser *parse)
 {
@@ -35,6 +45,14 @@ void	init_process(t_process *process)
 	process->fd.err = 2;
 }
 
+void	init_job(t_job *job)
+{
+	ft_bzero(job, sizeof(t_job));
+	job->fd.in = 0;
+	job->fd.out = 1;
+	job->fd.err = 2;
+}
+
 void	init_parser(t_parser *parse)
 {
 	ft_bzero(parse, sizeof(t_parser));
@@ -43,6 +61,7 @@ void	init_parser(t_parser *parse)
 	init_parsing(parse);
 	ft_stckinit(&parse->stack);
 	init_process(&parse->process);
+	init_job(&parse->job);
 }
 
 int		lexer_parser(t_parser *parse, char *input)
@@ -57,5 +76,6 @@ int		lexer_parser(t_parser *parse, char *input)
 	ft_lstiter(parse->token_list, print_list);
 	get_token(parse);
 	parser_state(parse);
+	ft_lstiter(((t_job*)(parse->job_list->data))->process_list, print_process);
 	return (parse->token_list && parse->job_list ? 1 : 0);
 }

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:02:11 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 19:21:05 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/24 00:52:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,13 @@ int8_t		update_process_status(pid_t pid, int status)
 
 	if (pid <= 0)
 		return (-1);
-	//global job
 	job = g_job_head;
-	while (job)
+	process = ((t_job*)job->data)->process_list;
+	while (process)
 	{
-		process = ((t_job*)job->data)->process_list;
-		while (process)
-		{
-			if (((t_process*)process->data)->pid == pid)
-				return (set_process_status(((t_process*)process->data), pid, status));
-			process = process->next;
-		}
-		job = job->next;
+		if (((t_process*)process->data)->pid == pid)
+			return (set_process_status(((t_process*)process->data), pid, status));
+		process = process->next;
 	}
 	ft_printf("No child process %d.\n", (int)pid);
 	return (-1);
@@ -60,7 +55,7 @@ void		wait_for_job(t_job *job)
 	pid = 0;
 	pid = waitpid(WAIT_ANY, &status, WUNTRACED);
 	while (!update_process_status(pid, status)
-		&& !job_is_stopped(job)
-		&& !job_is_completed(job))
+			&& !job_is_stopped(job)
+			&& !job_is_completed(job))
 		pid = waitpid(WAIT_ANY, &status, WUNTRACED);
 }

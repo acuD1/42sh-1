@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 18:13:52 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/23 21:46:17 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,9 @@ void	setup_pipes(t_job *job, t_list *process,
 		io_file->out = my_pipe[1];
 	}
 	else if (io_file->out != STDOUT_FILENO)
-	{
 		io_file->out = ((t_process*)process->data)->fd.out;
-	}
 	else
-	{
 		io_file->out = job->fd.out;
-	}
 }
 
 void	cleanup_pipes(t_job *job, t_filedesc *io_file)

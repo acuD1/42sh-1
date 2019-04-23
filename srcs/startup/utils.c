@@ -6,26 +6,12 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/20 05:12:02 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 21:16:56 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-void			print_lst(t_list **alst)
-{
-	t_list *ptr;
-
-	if (!alst)
-		return ;
-	ptr = *alst;
-	while (ptr != NULL)
-	{
-		ft_printf("%s=%s\n", ((t_variable *)ptr->data)->name
-					, ((t_variable *)ptr->data)->data);
-		ptr = ptr->next;
-	}
-}
 
 int				s_create_node(t_list **alst, char *name, char *data)
 {
@@ -45,6 +31,15 @@ int				s_create_node(t_list **alst, char *name, char *data)
 	return (1);
 }
 
+
+int				find_data(void *searched, void *to_find)
+{
+	t_variable *tmp;
+
+	tmp = searched;
+	return (ft_strequ(tmp->data, (char *)to_find));
+}
+
 char			*get_data(t_list *lst, char *name)
 {
 	while (lst != NULL)
@@ -55,15 +50,6 @@ char			*get_data(t_list *lst, char *name)
 	}
 	return (NULL);
 }
-
-int				find_data(void *searched, void *to_find)
-{
-	t_variable *tmp;
-
-	tmp = searched;
-	return (ft_strequ(tmp->data, (char *)to_find));
-}
-
 int				change_node(t_list **alst, char *name, char *data)
 {
 	t_list *ptr;
@@ -80,4 +66,3 @@ int				change_node(t_list **alst, char *name, char *data)
 		return (0);
 	return (1);
 }
-

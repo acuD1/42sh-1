@@ -6,33 +6,30 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:27:08 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 19:01:22 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 21:30:18 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include <unistd.h>
 
-static void	hash_bin(t_registry *reg, char *bin)
+static void	hash_bin(t_registry *shell, char *path)
 {
-	char			*asp;
 	DIR				*dip;
+	char			*asp;
 	struct dirent	*dit;
 
-	if ((dip = opendir(bin)) != NULL)
+	if ((dip = opendir(path)) != NULL)
 	{
 		while ((dit = readdir(dip)) != NULL)
 		{
 			asp = NULL;
-			ft_asprintf(&asp, "%s/%s", bin, dit->d_name);
+			if (dit->d_name[0] == '.')
+				continue;
+			ft_asprintf(&asp, "%s/%s", path, dit->d_name);
 			if (asp)
 			{
-				if (dit->d_name[0] != '.')
-				{
-					if (!ft_hmap_insert(&(reg->bin_hashmap), dit->d_name, asp))
-						free(asp);
-				}
-				else
+				if (!ft_hmap_insert(&(shell->bin_hashmap), dit->d_name, asp))
 					free(asp);
 			}
 		}
@@ -41,38 +38,38 @@ static void	hash_bin(t_registry *reg, char *bin)
 	}
 }
 
-static void	hash_builtin(t_registry *reg)
+static void	hash_builtin(t_registry *shell)
 {
-	if (!ft_hmap_insert(&(reg->blt_hashmap), "echo", exit_blt))
+	if (!ft_hmap_insert(&(shell->blt_hashmap), "echo", exit_blt))
 		ft_dprintf(2, "[ERROR] Hmap insert failure : echo built-in\n");
-	if (!ft_hmap_insert(&(reg->blt_hashmap), "cd", exit_blt))
+	if (!ft_hmap_insert(&(shell->blt_hashmap), "cd", exit_blt))
 		ft_dprintf(2, "[ERROR] Hmap insert failure : cd built-in\n");
-	if (!ft_hmap_insert(&(reg->blt_hashmap), "setenv", exit_blt))
+	if (!ft_hmap_insert(&(shell->blt_hashmap), "setenv", exit_blt))
 		ft_dprintf(2, "[ERROR] Hmap insert failure : setenv built-in\n");
-	if (!ft_hmap_insert(&(reg->blt_hashmap), "unsetenv", exit_blt))
+	if (!ft_hmap_insert(&(shell->blt_hashmap), "unsetenv", exit_blt))
 		ft_dprintf(2, "[ERROR] Hmap insert failure : unsetenv built-in\n");
-	if (!ft_hmap_insert(&(reg->blt_hashmap), "env", exit_blt))
+	if (!ft_hmap_insert(&(shell->blt_hashmap), "env", exit_blt))
 		ft_dprintf(2, "[ERROR] Hmap insert failure : env built-in\n");
-	if (!ft_hmap_insert(&(reg->blt_hashmap), "hash", hash_blt))
+	if (!ft_hmap_insert(&(shell->blt_hashmap), "hash", hash_blt))
 		ft_dprintf(2, "[ERROR] Hmap insert failure : hash built-in\n");
-	if (!ft_hmap_insert(&(reg->blt_hashmap), "exit", exit_blt))
+	if (!ft_hmap_insert(&(shell->blt_hashmap), "exit", exit_blt))
 		ft_dprintf(2, "[ERROR] Hmap insert failure : exit built-in\n");
 }
 
-int			hash_blt(t_registry *reg)
+int			hash_blt(t_registry *shell)
 {
 	int				i;
 	char			**tabs;
 
-	if (reg->bin_hashmap.used > 0)
-		ft_hmap_free_content(&(reg->bin_hashmap), free);
-	tabs = ft_strsplit(get_data(reg->env, "PATH"), ":");
+	i = 0;
+	if (shell->bin_hashmap.used > 0)
+		ft_hmap_free_content(&(shell->bin_hashmap), free);
+	tabs = ft_strsplit(get_data(shell->env, "PATH"), ":");
 	if (!tabs)
 		return (0);
-	i = 0;
 	while (tabs[i])
-		hash_bin(reg, tabs[i++]);
-	hash_builtin(reg);
+		hash_bin(shell, tabs[i++]);
+	hash_builtin(shell);
 	ft_freetab(&tabs);
 	return (1);
 }

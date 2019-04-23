@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/23 19:38:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/24 00:34:21 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef struct			s_filedesc
 typedef struct	s_process
 {
 	t_filedesc	fd;
-	int			ac;
 	char		**av;
 	char		**env;
 	uint8_t		completed;
@@ -51,7 +50,7 @@ typedef struct	s_job
 	t_list			*process_list;
 	pid_t			pgid;
 	struct termios	*term_modes;
-	t_filedesc			fd;
+	t_filedesc		fd;
 }				t_job;
 
 enum	e_parser_state
@@ -109,6 +108,7 @@ void	pipe_parser(t_parser *parse);
 void	filename_state(t_parser *parse);
 void	io_redirect_parser(t_parser *parse);
 void	flush_redirect(t_parser *parse);
+void	delete_process(void *data);
 
 enum	e_event
 {

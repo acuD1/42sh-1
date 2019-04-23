@@ -6,12 +6,27 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 19:09:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 21:31:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "21sh.h"
+
+void			print_lst(t_list **alst)
+{
+	t_list *ptr;
+
+	if (!alst)
+		return ;
+	ptr = *alst;
+	while (ptr != NULL)
+	{
+		ft_printf("%s=%s\n", ((t_variable *)ptr->data)->name
+					, ((t_variable *)ptr->data)->data);
+		ptr = ptr->next;
+	}
+}
 
 static t_list	*get_env(t_list **alst, char **env)
 {
@@ -98,7 +113,9 @@ int				launch_sh(char **av, char **env, t_registry *shell)
 	}
 	shell->bin_hashmap = ft_hmap_init(2048);
 	shell->blt_hashmap = ft_hmap_init(16);
+	if (!get_env(&shell->env, env))
+		return (-1);
 	if (!hash_blt(shell))
 		return (0);
-	return (get_env(&shell->env, env) ? 0 : -1);
+	return (0);
 }

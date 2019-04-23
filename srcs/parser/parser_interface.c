@@ -6,11 +6,13 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:01:44 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/23 20:11:49 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 23:51:39 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "21sh.h"
 #include "parser.h"
+
 
 void	error_parser(t_parser *parse)
 {
@@ -29,6 +31,7 @@ void	stop_parser(t_parser *parse)
 	t_list		*node;
 
 	parse->state = P_STOP;
+	parse->process.env = ft_lsttotab(parse->env, variable_to_str);
 	node = ft_lstnew(&parse->process, sizeof(t_process));
 	ft_lstaddback(&parse->job.process_list, node);
 	node = ft_lstnew(&parse->job, sizeof(t_job));
@@ -40,6 +43,7 @@ void	end_parser(t_parser *parse)
 	t_list		*node;
 
 	parse->state = P_END;
+	parse->process.env = ft_lsttotab(parse->env, variable_to_str);
 	node = ft_lstnew(&parse->process, sizeof(t_process));
 	ft_lstaddback(&parse->job.process_list, node);
 	node = ft_lstnew(&parse->job, sizeof(t_job));

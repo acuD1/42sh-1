@@ -6,12 +6,13 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/23 19:44:15 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/24 00:58:20 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
+#include "21sh.h"
 #include "parser.h"
 
 void	flush_redirect(t_parser *parse)
@@ -57,11 +58,17 @@ void	redirect_parser(t_parser *parse)
 void	pipe_parser(t_parser *parse)
 {
 	t_list		*node;
+	int			fd[2];
 
 	parse->state = P_PIPE;
+	pipe(fd);
+	if (parse->process.fd.out == STDIN_FILENO)
+		parse->process.fd.out = fd[1];
+	parse->process.env = ft_lsttotab(parse->env, variable_to_str);
 	node = ft_lstnew(&parse->process, sizeof(t_process));
 	ft_lstaddback(&parse->job.process_list, node);
 	init_process(&parse->process);
+		parse->process.fd.in = fd[0];
 	get_token(parse);
 }
 
