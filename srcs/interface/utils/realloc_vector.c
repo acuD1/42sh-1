@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:13:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 19:17:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 19:56:16 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	realloc_vector(t_vector *dest, t_vector *source)
 
 void	reset_vector(t_vector *line)
 {
-	ft_strdel(&line->buffer);
+	ft_strdel(&(line->buffer));
 	line->buffer = ft_strnew(16);
 	line->size = 16;
 }

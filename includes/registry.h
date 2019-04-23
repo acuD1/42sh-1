@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 22:51:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/23 19:15:30 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/23 20:48:11 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct	s_opt
 
 struct			s_interface
 {
+	struct termios	*term_mode;
+	struct termios	*orig_mode;
 	t_cursor	cursor;
 	t_window	window;
 	t_termcaps	termcaps;
