@@ -6,8 +6,6 @@ Known bugs:
 TODO:
 	[Interface]
 		- Make unit tests
-		- Leaking on C-d when in PS2
 		- Set up correct routines for termios handling
 	[Logging]
-		- check leaks
 		- Cleanup Logging function

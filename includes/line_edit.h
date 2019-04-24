@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 13:35:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/23 19:41:33 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,9 @@ typedef struct				s_window
 
 typedef struct				s_interface
 {
+	struct termios			*term_mode;
+	struct termios			*orig_mode;
+
 	t_vector				*line;
 	t_vector				*clip;
 	t_cursor				*cursor;

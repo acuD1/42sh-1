@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 10:45:51 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 14:16:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/16 10:57:54 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 #include "ft_printf.h"
 #include "log.h"
 
-static uint8_t		is_too_long(t_vector *a, t_vector *b, uint32_t max)
+uint8_t		is_too_long(t_vector *a, t_vector *b, uint32_t max)
 {
 	if (ft_vctlen(a) + ft_vctlen(b) >= max)
 		return (1);
 	return (0);
 }
 
-static int			insert_clipboard(t_registry *shell)
+int			insert_clipboard(t_registry *shell)
 {
 	t_interface		*itf;
 	uint32_t		length;
@@ -50,7 +50,7 @@ static int			insert_clipboard(t_registry *shell)
 	return (length);
 }
 
-void				append_clipboard(t_registry *shell)
+static void				append_clipboard(t_registry *shell)
 {
 	t_interface *itf;
 

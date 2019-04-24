@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/18 15:09:06 by ffoissey         ###   ########.fr        #
+#    Updated: 2019/04/24 13:08:10 by ffoissey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -152,8 +152,14 @@ LINEM = main.c
 
 #						- - - - -  Unit-test  - - - - -
 UNIT += create_virt_registry.c
+<<<<<<< HEAD
 UNIT += 00-machine.c
 
+=======
+UNIT += clipboard_copy.c
+UNIT += clipboard_cut.c
+UNIT += clipboard_paste.c
+>>>>>>> origin/Interface
 #						- - - - -   Startup   - - - - -
 
 LINE += launch.c
