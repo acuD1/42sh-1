@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_O.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:43:34 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 14:45:49 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/24 15:45:19 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int		testO_cat(t_process *cmd, char **env)
 	t_filedesc	fd;
 
 	ft_bzero(&fd, sizeof(t_filedesc));
-	fd.in = 2;
+	fd.in = 0;
 	fd.out = 1;
 	fd.err = 2;
 	cmd->av = ft_strsplit("cat -e", " ");

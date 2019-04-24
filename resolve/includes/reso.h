@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:10:39 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/24 14:51:25 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/24 15:45:17 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_list *test_p(void);
 #define EXEC_TEST_L "ls -l 404 2>&1 | cat -e"
 #define EXEC_TEST_M "ls -l | cat -e <&1"
 #define EXEC_TEST_N "ls -l | cat -e <&-"
-#define EXEC_TEST_O "ls -l | cat -e <&2 | wc -l"
+#define EXEC_TEST_O "ls -l | cat -e  | wc -l"
 #define EXEC_TEST_P "ls -l > tmpfile | cat -e"
 
 #endif
