@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 18:20:04 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/24 08:39:02 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void		execute_process(t_process *process,
 /*	Since it herited its behavior from the shell  */
 	signal(SIGINT, SIG_DFL); // way more
 
-	ft_dprintf(2, "Launching %s | in:%d out:%d err:%d.\n",
+	ft_dprintf(2, "\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
 				process->av[0], io->in, io->out, io->err);
 	ft_dprintf(2, "\x1b[32m[OUTPUT]: _______________________\n\x1b[0m");
 	/*  Set up correct piping   */
