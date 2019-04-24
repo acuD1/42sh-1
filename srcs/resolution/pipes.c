@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 10:54:41 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/24 15:58:02 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ void	setup_pipes(t_job *job, t_list *process,
 		io_file->in = ((t_process *)process->data)->fd.in;
 	io_file->out = ((t_process*)process->data)->fd.out;
 	io_file->err = ((t_process*)process->data)->fd.err;
-	if (process->next && io_file->out == STDOUT_FILENO)
+	if (process->next /*&& */)
 	{
 		if (pipe(my_pipe))
 			exit(-1);
-		io_file->out = my_pipe[1];
+		if (io_file->out == STDOUT_FILENO)
+			io_file->out = my_pipe[1];
 	}
 	else if (io_file->out != STDOUT_FILENO)
 	{
@@ -47,7 +48,7 @@ void	cleanup_pipes(t_job *job, t_filedesc *io_file)
 
 void	link_pipes(t_list *process, t_filedesc *io_file, int my_pipe[2])
 {
-	if (process->next && io_file->out == my_pipe[1])
+	if (process->next && io_file->out != STDOUT_FILENO)
 		io_file->in = my_pipe[0];
 	else if (io_file->out != STDOUT_FILENO)
 		close(io_file->out);
