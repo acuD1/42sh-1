@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/24 18:14:28 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:37:45 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,39 @@ t_option			get_option_cd(char *s)
 	return (option);
 }
 
-int8_t				cd_blt(__unused t_registry *shell, char **av)
+
+
+
+static int8_t		process_cd(t_registry *shell, char **av)
+{
+
+}
+
+
+int8_t				cd_blt(t_registry *shell, char **av)
 {
 	t_option	option;
-
+	char		**tab;
+	
 	av++;
 	if ((option = set_options(&av, get_option_cd)) == ERROR_OPT)
 		return (FAILURE);
+	if (!*av)
+		// go to $HOME
+	else if (ft_strequ(*av, "-"))
+	{
+		// go to $OLDPWD
+	}
+	else if (**av == '/')
+		// Absolute path
+	else
+	{
+		// Get $PWD and concat with relative path (Warning : end by '/')
+		// Relative path
+	}
 	return (SUCCESS);
 }
+
+get_intern_var(shell, "");
+add_intern_var(shell, "");
+
