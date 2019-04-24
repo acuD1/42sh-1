@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/24 13:11:05 by ffoissey         ###   ########.fr        #
+#    Updated: 2019/04/24 16:41:00 by ffoissey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,9 @@ NAMET = unit
 LIBFT = libft.a
 LIBFTDB = libftdb.a
 OBJM = $(patsubst %.c, $(OPATH)%.o, $(LINEM))
-OBJS = $(patsubst %.c, $(OPATH)%.o, $(LINE) $(LEX_SRCS) $(PARSER_SRCS))
+OBJS = $(patsubst %.c, $(OPATH)%.o, $(LINE) $(LEX_SRCS) $(PARSER_SRCS) $(BUILTIN))
 OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM))
-OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINE) $(LINEM) $(LEX_SRCS) $(PARSER_SRCS))
+OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINE) $(LINEM) $(LEX_SRCS) $(PARSER_SRCS) $(BUILTIN))
 LIB = $(addprefix $(LPATH), $(LIBFT))
 LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 # ---------------------------------------------------------------------------- #
@@ -106,7 +106,8 @@ LINE_PATH += signals/
 LINE_PATH += startup/
 LEXER_PATH += lexer/
 PARSER_PATH += parser/
-SPATH += $(addprefix srcs/, $(LINE_PATH) $(LEXER_PATH) $(PARSER_PATH))
+BUILTIN_PATH += builtin/
+SPATH += $(addprefix srcs/, $(LINE_PATH) $(LEXER_PATH) $(PARSER_PATH) $(BUILTIN_PATH))
 
 # ---------------------------------------------------------------------------- #
 #									 vpath                                     #
@@ -141,6 +142,7 @@ INCS += interface_functions.h
 INCS += unit.h
 INCS += lexer.h
 INCS += parser.h
+INCS += builtin.h
 
 # ---------------------------------------------------------------------------- #
 #									Sources                                    #
@@ -168,6 +170,10 @@ LINE += exit.c
 #						- - - - -  Debug Log  - - - - -
 
 LINE += debug_logger.c
+
+#						- - - - -  Built-in   - - - - -                        #
+
+BUILTIN += echo.c
 
 #						- - - - - Line edtion - - - - -                        #
 
