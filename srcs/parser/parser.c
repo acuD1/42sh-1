@@ -21,9 +21,9 @@ static void	print_parser_error(enum e_type type)
 	else if (type < SINGLE_SIGNS)
 		ft_dprintf(2, "`%c'\n", ALLCHAR[type]);
 	else if (type >= SINGLE_SIGNS && type < SIGNS)
-		ft_dprintf(2, "`%c'\n", signs[type - SINGLE_SIGNS]);
+		ft_dprintf(2, "`%s'\n", signs[type - SINGLE_SIGNS]);
 	else if (type >= SIGNS && type < SIGNS + 13)
-		ft_dprintf(2, "`%c'\n", script[type - SIGNS]);
+		ft_dprintf(2, "`%s'\n", script[type - SIGNS]);
 	else if (type == E_IO_NUMBER)
 		ft_dprintf(2, "`IO'\n");
 	else if (type == E_ASSIGN)
