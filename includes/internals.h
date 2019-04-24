@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 16:41:15 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 14:51:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/24 15:38:17 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@
 #define INT_PS4 "PS4"
 #define INT_PS4_VALUE "heredoc> "
 
+#define INT_PS5 "PS5"
+#define INT_PS5_VALUE "pipe> "
 
 #define INT_ESCAPE_SEQ "ESC"
 #define INT_ESCAPE_SEQ_VALUE "\\"

@@ -1,4 +1,7 @@
 #include "parser.h"
+#include "interface_functions.h"
+
+t_registry	*g_shell_registry;
 
 static int	need_subprompt(enum e_type state, enum e_type type)
 {
@@ -33,18 +36,24 @@ static void	print_parser_error(enum e_type type)
 }
 
 static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
-										t_list *lst)
+										t_list **lst)
 {
+	t_list		*new_token;
+	char		*line;
+
 	if (need_subprompt(state, type))
 	{
-		/*
-		** -----> call subprompt
-		** -----> call lexer and get a new lst of tokens
-		** -----> add_back new lst to current lst
-		** -----> don't update state
-		*/
-		(void)lst;
-		ft_dprintf(2, "21sh: \033[33mNEED TO CALL A SUB_PROMPT\033[0m\n");
+		line = NULL;
+		new_token = NULL;
+		while (!new_token)
+		{
+			invoke_sub_prompt(g_shell_registry, &line, INT_PS5);
+			g_shell_registry->interface->state = INT_PS1;
+			new_token = lexer(line);
+			ft_strdel(&line);
+		}
+		free((*lst)->next);
+		(*lst)->next = new_token;
 		return (TRUE);
 	}
 	print_parser_error(type);
@@ -72,16 +81,21 @@ static int			parse_tokens(t_list *lst, t_graph *graph)
 {
 	t_token 	*token;
 	enum e_type	state;
+	t_list		*tmp;
 
-	state = START_TYPE;
+	state = E_START;
+	tmp = lst;
 	while (lst)
 	{
 		token = (t_token *)lst->data;
 		if (!(node_is_ok(token->type, &state, graph)))
 		{
-			if (!manage_error_and_subprompt(state, token->type, lst))
+			if (!manage_error_and_subprompt(state, token->type, &tmp))
 				return (FALSE);
+			lst = tmp;
 		}
+		else
+			tmp = lst;
 		lst = lst->next;
 	}
 	return (TRUE);

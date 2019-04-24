@@ -6,13 +6,15 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/16 12:30:59 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/24 15:38:36 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "line_edit.h"
 #include "interface_functions.h"
+
+t_registry	*g_shell_registry;
 
 static uint8_t		fetch_terminal_info(t_registry *shell)
 {
@@ -52,6 +54,7 @@ static int8_t		fill_interface_related_internals(t_registry *reg)
 	add_internal(reg, INT_PS2, INT_PS2_VALUE);
 	add_internal(reg, INT_PS3, INT_PS3_VALUE);
 	add_internal(reg, INT_PS4, INT_PS4_VALUE);
+	add_internal(reg, INT_PS5, INT_PS5_VALUE);
 	return (0);
 }
 
@@ -79,5 +82,6 @@ t_interface			*init_line_edition(t_registry *shell)
 	if ((itf->clip = allocate_clipboard(shell)) == NULL)
 		return (NULL);
 	log_print(shell, LOG_OK, "Line edition initialized.\n");
+	g_shell_registry = shell;
 	return (itf);
 }

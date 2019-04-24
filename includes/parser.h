@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/18 18:56:29 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/24 15:40:38 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define END_CMD E_SEMICOLON, E_END
 # define ALL WORD, BASE_REDIRECT, IO
 # define ALL_END ALL, END_CMD
-# define START_TYPE NB_OF_TOKENS
+# define E_START E_DEFAULT
 
 typedef struct	s_exec
 {
@@ -76,7 +76,6 @@ struct s_graph
 {
 	enum e_type		*good_type;
 	int				nb_of_good_type;
-	enum e_type		type;
 };
 
 /*

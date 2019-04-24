@@ -5,8 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/24 13:44:15 by ffoissey          #+#    #+#             */
+/*   Updated: 2019/04/24 14:21:22 by ffoissey         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/24 13:15:31 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/24 13:44:12 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +74,17 @@ static void		init_lexer(t_lexer *machine)
 	machine->duplicate[6] = E_ASSIGN;
 }
 
+static void		print_token(t_list *token)
+{
+	ft_putendl("\n");
+	while (token)
+	{
+		print_list(token);
+		token = token->next;
+	}
+	ft_putendl("\n");
+}
+
 t_list			*lexer(char *input)
 {
 	t_lexer	machine;
@@ -74,6 +97,7 @@ t_list			*lexer(char *input)
 	machine.input = input;
 	while (machine.state != FINISH)
 		machine.process[machine.state](&machine);
+	print_token(machine.tokens);
 	return (machine.tokens);
 }
 

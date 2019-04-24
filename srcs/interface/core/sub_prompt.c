@@ -6,13 +6,14 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:22:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 20:02:49 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/24 14:53:13 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "line_edit.h"
 #include "interface_functions.h"
+
 
 static void			print_sub_prompt(t_registry *shell)
 {
@@ -53,6 +54,9 @@ int8_t				invoke_sub_prompt(t_registry *shell, char **line,
 				char *prompt_state)
 {
 	t_interface		*itf;
+	
+	if (shell == NULL)
+		shell = g_shell_registry;
 
 	itf = shell->interface;
 	itf->state = prompt_state;
@@ -65,12 +69,12 @@ int8_t				invoke_sub_prompt(t_registry *shell, char **line,
 	if (sub_prompt_loop(shell, itf) != 0)
 	{
 		*line = NULL;
-//		reset_vector(itf->line);
+		reset_vector(itf->line);
 		ft_strdel(&(itf->line->buffer));
 		return (-3);
 	}
 	*line = ft_strdup(itf->line->buffer);
 	ft_strdel(&(itf->line->buffer));
-//	reset_vector(itf->line);
+	reset_vector(itf->line);
 	return (0);
 }

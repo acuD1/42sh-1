@@ -13,7 +13,7 @@ void		set_start_token(t_graph *tab)
 	int			nb_of_good_type;
 	
 	nb_of_good_type = 12;
-	set_graph_node(tab, START_TYPE, nb_of_good_type, tab_good_type);
+	set_graph_node(tab, E_START, nb_of_good_type, tab_good_type);
 }
 
 void		set_word_token(t_graph *tab)
