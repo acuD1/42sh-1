@@ -6,13 +6,15 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/16 12:30:59 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/24 13:58:48 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "line_edit.h"
 #include "interface_functions.h"
+
+t_registry	*g_shell_registry;
 
 static uint8_t		fetch_terminal_info(t_registry *shell)
 {
@@ -79,5 +81,6 @@ t_interface			*init_line_edition(t_registry *shell)
 	if ((itf->clip = allocate_clipboard(shell)) == NULL)
 		return (NULL);
 	log_print(shell, LOG_OK, "Line edition initialized.\n");
+	g_shell_registry = shell;
 	return (itf);
 }
