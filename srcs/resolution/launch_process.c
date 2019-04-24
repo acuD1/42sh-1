@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 10:18:45 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/24 13:25:07 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,25 +60,33 @@ static void		execute_process(t_process *process,
 	/*  Set up correct piping   */
 	if (io->in != STDIN_FILENO && io->in != STDOUT_FILENO && io->in != STDERR_FILENO)
 	{
-		ft_printf("Coucou");
-		dup2(io->in, STDIN_FILENO);
-		close(io->in);
+		/* PROTECT DUP */
+		if (io->in != -1 || close(STDIN_FILENO))
+		{
+			dup2(io->in, STDIN_FILENO);
+			close(io->in);
+		}
 	}
 	if (io->out != STDOUT_FILENO && io->out != STDIN_FILENO)
 	{
-		dup2(io->out, STDOUT_FILENO);
-		if (io->out != STDERR_FILENO)
-			close(io->out);
+		if (io->out != -1 || close(STDOUT_FILENO))
+		{
+			dup2(io->out, STDOUT_FILENO);
+			if (io->out != STDERR_FILENO)
+				close(io->out);
+		}
 	}
 	if (io->err != STDERR_FILENO && io->err != STDIN_FILENO)
 	{
-		dup2(io->err, STDERR_FILENO);
-		if (io->err != STDOUT_FILENO)
-			close(io->err);
+		if (io->err != -1 || close(STDERR_FILENO))
+		{
+			dup2(io->err, STDERR_FILENO);
+			if (io->err != STDOUT_FILENO)
+				close(io->err);
+		}
 	}
 	char **environ = str_lst_to_tab(shell->env);
 	/*	Exec the new process	*/
-//	ft_dprintf(2, "\n");
 	execve(ft_hmap_getdata(&shell->bin_hashmap, process->av[0]), process->av, environ);
 	ft_dprintf(2, "[ERROR] - Execution failed: %s.\n", process->av[0]);
 	exit(-1);

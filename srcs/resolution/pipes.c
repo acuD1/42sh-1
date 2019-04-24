@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 10:28:32 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/24 10:54:41 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 void	setup_pipes(t_job *job, t_list *process,
 				t_filedesc *io_file, int my_pipe[2])
 {
+	if (io_file->in != my_pipe[0])
+		io_file->in = ((t_process *)process->data)->fd.in;
 	io_file->out = ((t_process*)process->data)->fd.out;
 	io_file->err = ((t_process*)process->data)->fd.err;
-
 	if (process->next && io_file->out == STDOUT_FILENO)
 	{
 		if (pipe(my_pipe))
