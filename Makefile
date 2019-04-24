@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/24 16:41:00 by ffoissey         ###   ########.fr        #
+#    Updated: 2019/04/24 17:37:17 by ffoissey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -173,6 +173,7 @@ LINE += debug_logger.c
 
 #						- - - - -  Built-in   - - - - -                        #
 
+BUILTIN += builtin_tools.c
 BUILTIN += echo.c
 
 #						- - - - - Line edtion - - - - -                        #
