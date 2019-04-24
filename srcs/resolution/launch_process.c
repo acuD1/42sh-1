@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 08:39:02 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/24 10:18:45 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,11 @@ static void		execute_process(t_process *process,
 
 	ft_dprintf(2, "\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
 				process->av[0], io->in, io->out, io->err);
-	ft_dprintf(2, "\x1b[32m[OUTPUT]: _______________________\n\x1b[0m");
+	ft_dprintf(2, "\x1b[35m[OUTPUT]: _______________________\n\x1b[0m");
 	/*  Set up correct piping   */
 	if (io->in != STDIN_FILENO && io->in != STDOUT_FILENO && io->in != STDERR_FILENO)
 	{
+		ft_printf("Coucou");
 		dup2(io->in, STDIN_FILENO);
 		close(io->in);
 	}

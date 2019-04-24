@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:10:39 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 17:55:48 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/24 10:11:36 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ int init_job4(t_job *job);
 t_list *test4(void);
 int init_job5(t_job *job);
 t_list *test5(void);
+int init_job6(t_job *job);
+t_list *test6(void);
+int init_job7(t_job *job);
+t_list *test7(void);
+int init_job8(t_job *job);
+t_list *test8(void);
 
 // ">" test
 #define EXEC_TEST_1 "ls -l > testfile"
@@ -46,14 +52,14 @@ t_list *test5(void);
 // ">>" test
 #define EXEC_TEST_6 "ls -l >> testfile"
 #define EXEC_TEST_7 "ls 404 2>>errfile"
-#define EXEC_TEST_8 "ls 404 2>>&-"
-#define EXEC_TEST_9 "ls 404 2>>&1"
-#define EXEC_TEST_A "ls -l 1>>&2"
+#define EXEC_TEST_P1 "ls 404 2>>&-"			/* Parse Error */
+#define EXEC_TEST_P2 "ls 404 2>>&1"			/* Parse Error */
+#define EXEC_TEST_P3 "ls -l 1>>&2"			/* Parse Error */
 
 // "<" test
-#define EXEC_TEST_B "cat -e < file1"
-#define EXEC_TEST_C "cat -e <&2"
-#define EXEC_TEST_D "cat -e <&-"
-#define EXEC_TEST_E "cat -e 0<&-"
+#define EXEC_TEST_8 "cat -e < file1"
+#define EXEC_TEST_9 "cat -e <&2"
+#define EXEC_TEST_A "cat -e <&-"
+#define EXEC_TEST_B "cat -e 0<&-"
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 10:30:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 17:57:31 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/24 10:11:22 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,12 @@ int 	fill_test_bank(t_hash *hashmap)
 		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 4 to hashmap\n\x1b[0m") & 0);
 	if (!ft_hmap_insert(hashmap, "test5", test5()))
 		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 5 to hashmap\n\x1b[0m") & 0);
-
+	if (!ft_hmap_insert(hashmap, "test6", test6()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 6 to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "test7", test7()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 7 to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "test8", test8()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 8 to hashmap\n\x1b[0m") & 0);
 	return (1);
 }
 
@@ -43,6 +48,12 @@ int		setup_job(t_job *job, char *test)
 		init_job4(job);
 	if (!ft_strcmp(test, "test5"))
 		init_job5(job);
+	if (!ft_strcmp(test, "test6"))
+		init_job6(job);
+	if (!ft_strcmp(test, "test7"))
+		init_job7(job);
+	if (!ft_strcmp(test, "test8"))
+		init_job8(job);
 	return (1);
 }
 
@@ -68,11 +79,5 @@ char	*get_line(char	*test)
 		return (EXEC_TEST_A);
 	if (!ft_strcmp(test, "testB"))
 		return (EXEC_TEST_B);
-	if (!ft_strcmp(test, "testC"))
-		return (EXEC_TEST_C);
-	if (!ft_strcmp(test, "testD"))
-		return (EXEC_TEST_D);
-	if (!ft_strcmp(test, "testE"))
-		return (EXEC_TEST_E);
 	return	(NULL);
 }
