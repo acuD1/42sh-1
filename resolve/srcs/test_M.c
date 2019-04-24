@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_L.c                                           :+:      :+:    :+:   */
+/*   test_M.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/24 14:25:57 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 14:39:06 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/24 14:39:26 by skuppers          #+#    #+#             */
+/*   Updated: 2019/04/24 14:40:59 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 #include "resolve.h"
 #include "reso.h"
 
-static int		testL_ls(t_process *cmd, char **env)
+static int		testM_ls(t_process *cmd, char **env)
 {
 	t_filedesc	fd;
 
 	ft_bzero(&fd, sizeof(t_filedesc));
 	fd.in = 0;
 	fd.out = 1;
-	fd.err = 1;
-	cmd->av = ft_strsplit("ls -l 404", " ");
+	fd.err = 2;
+	cmd->av = ft_strsplit("ls -l", " ");
 	cmd->env = env;
 	cmd->pid = 0;
 	cmd->completed = 0;
@@ -34,12 +34,12 @@ static int		testL_ls(t_process *cmd, char **env)
 	return (1);
 }
 
-static int		testL_cat(t_process *cmd, char **env)
+static int		testM_cat(t_process *cmd, char **env)
 {
 	t_filedesc	fd;
 
 	ft_bzero(&fd, sizeof(t_filedesc));
-	fd.in = 0;
+	fd.in = 1;
 	fd.out = 1;
 	fd.err = 2;
 	cmd->av = ft_strsplit("cat -e", " ");
@@ -54,7 +54,7 @@ static int		testL_cat(t_process *cmd, char **env)
 	return (1);
 }
 
-int				init_job_l(t_job *job)
+int				init_job_m(t_job *job)
 {
 	t_filedesc	fd;
 	t_list		*alst;
@@ -64,7 +64,7 @@ int				init_job_l(t_job *job)
 	fd.in = 0;
 	fd.out = 1;
 	fd.err = 2;
-	job->command = ft_strdup(EXEC_TEST_L);
+	job->command = ft_strdup(EXEC_TEST_M);
 	job->fd = fd;
 	job->f_process = alst;
 	if (job->command == NULL)
@@ -73,12 +73,12 @@ int				init_job_l(t_job *job)
 }
 
 
-t_list			*test_l(void)
+t_list			*test_m(void)
 {
 	t_list	*test;
 
 	test = NULL;
-	add_to_test(&test, testL_ls);
-	add_to_test(&test, testL_cat);
+	add_to_test(&test, testM_ls);
+	add_to_test(&test, testM_cat);
 	return (test);
 }
