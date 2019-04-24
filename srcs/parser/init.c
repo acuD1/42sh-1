@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 21:57:35 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/23 17:40:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/24 01:02:42 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	init_filename(t_parser *parse)
 {
 	parse->parsing[P_FILENAME][E_STRING] = flush_redirect;
 	parse->parsing[P_FILENAME][E_QUOTE] = flush_redirect;
+	parse->parsing[P_FILENAME][E_PIPE] = flush_redirect;
 	parse->parsing[P_FILENAME][E_SEMICOLON] = flush_redirect;
 	parse->parsing[P_FILENAME][E_END] = flush_redirect;
 }
@@ -95,8 +96,9 @@ void	init_flush_redirect(t_parser *parse)
 {
 	parse->parsing[P_REDIRECT_FLUSH][E_STRING] = string_parser;
 	parse->parsing[P_REDIRECT_FLUSH][E_QUOTE] = single_quote_parser;
+	parse->parsing[P_REDIRECT_FLUSH][E_PIPE] = flush_string;
 	parse->parsing[P_REDIRECT_FLUSH][E_SEMICOLON] = flush_string;
-	parse->parsing[P_REDIRECT_FLUSH][E_END] = end_parser;
+	parse->parsing[P_REDIRECT_FLUSH][E_END] = flush_string;
 }
 
 void	init_parsing(t_parser *parse)

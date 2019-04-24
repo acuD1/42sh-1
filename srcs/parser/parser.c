@@ -111,14 +111,20 @@ int			parse_tokens(t_list **lst, t_graph **graph, t_list *ref, enum e_type start
 	return (FALSE);
 }
 
-void		parser(t_list *lst)
+int			parser(t_list *lst)
 {
 	t_graph	*graph;
 
 	ft_printf("\n------- | PARSER | -------\n\n");
 	graph = generate_graph();
 	if (!lst || parse_tokens(&lst, &graph, NULL, E_END))
+	{
 		print_result_debug(0);
+		return (0);
+	}
 	else
+	{
 		print_result_debug(1);
+		return (-1);
+	}
 }
