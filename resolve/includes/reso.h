@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:10:39 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/24 14:49:53 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/24 14:51:25 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,24 @@ int init_job_f(t_job *job);
 t_list *test_f(void);
 int init_job_g(t_job *job);
 t_list *test_g(void);
-
-//	int init_job_h(t_job *job);
-//	t_list *test_h(void);
-//	int init_job_i(t_job *job);
-//	t_list *test_i(void);
+int init_job_h(t_job *job);
+t_list *test_h(void);
+int init_job_i(t_job *job);
+t_list *test_i(void);
 //	int init_job_j(t_job *job);
 //	t_list *test_j(void);
 //	int init_job_k(t_job *job);
 //	t_list *test_k(void);
-//	int init_job_l(t_job *job);
-//	t_list *test_l(void);
-//	int init_job_m(t_job *job);
-//	t_list *test_m(void);
-//	int init_job_n(t_job *job);
-//	t_list *test_n(void);
-//	int init_job_o(t_job *job);
-//	t_list *test_o(void);
-//	int init_job_p(t_job *job);
-//	t_list *test_p(void);
+int init_job_l(t_job *job);
+t_list *test_l(void);
+int init_job_m(t_job *job);
+t_list *test_m(void);
+int init_job_n(t_job *job);
+t_list *test_n(void);
+int init_job_o(t_job *job);
+t_list *test_o(void);
+int init_job_p(t_job *job);
+t_list *test_p(void);
 
 // ">" test
 #define EXEC_TEST_1 "ls -l > testfile"		/*	OK	*/

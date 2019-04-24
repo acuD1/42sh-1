@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:11:04 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 18:07:14 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/24 14:54:25 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int		main(int ac, char **av, char **env)
 	registry.env = env_lst;
 
 	/* Init Test bench hashmap */
-	hashmap = ft_hmap_init(16);
+	hashmap = ft_hmap_init(32);
 	if (!hashmap.map)
 		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to malloc hashmap\n\x1b[0m") & 0);
 	if (!fill_test_bank(&hashmap))

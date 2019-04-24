@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 10:30:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/24 14:31:31 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/24 14:53:01 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,24 @@ int 	fill_test_bank(t_hash *hashmap)
 		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST F to hashmap\n\x1b[0m") & 0);
 	if (!ft_hmap_insert(hashmap, "testG", test_g()))
 		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST G to hashmap\n\x1b[0m") & 0);
-
-//	if (!ft_hmap_insert(hashmap, "testH", test_h()))
-//		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST H to hashmap\n\x1b[0m") & 0);
-//	if (!ft_hmap_insert(hashmap, "testI", test_i()))
-//		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST I to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "testH", test_h()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST H to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "testI", test_i()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST I to hashmap\n\x1b[0m") & 0);
 //	if (!ft_hmap_insert(hashmap, "testJ", test_j()))
 //		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST J to hashmap\n\x1b[0m") & 0);
 //	if (!ft_hmap_insert(hashmap, "testK", test_k()))
 //		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST K to hashmap\n\x1b[0m") & 0);
-//	if (!ft_hmap_insert(hashmap, "testL", test_l()))
-//		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST L to hashmap\n\x1b[0m") & 0);
-//	if (!ft_hmap_insert(hashmap, "testM", test_m()))
-//		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST M to hashmap\n\x1b[0m") & 0);
-//	if (!ft_hmap_insert(hashmap, "testN", test_n()))
-//		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST N to hashmap\n\x1b[0m") & 0);
-//	if (!ft_hmap_insert(hashmap, "testO", test_o()))
-//		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST O to hashmap\n\x1b[0m") & 0);
-//	if (!ft_hmap_insert(hashmap, "testP", test_p()))
-//		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST P to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "testL", test_l()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST L to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "testM", test_m()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST M to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "testN", test_n()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST N to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "testO", test_o()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST O to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "testP", test_p()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST P to hashmap\n\x1b[0m") & 0);
 
 	return (1);
 }
@@ -105,25 +104,24 @@ int		setup_job(t_job *job, char *test)
 		init_job_f(job);
 	if (!ft_strcmp(test, "testG"))
 		init_job_g(job);
-
-//	if (!ft_strcmp(test, "testH"))
-//		init_job_h(job);
-//	if (!ft_strcmp(test, "testI"))
-//		init_job_i(job);
+	if (!ft_strcmp(test, "testH"))
+		init_job_h(job);
+	if (!ft_strcmp(test, "testI"))
+		init_job_i(job);
 //	if (!ft_strcmp(test, "testJ"))
 //		init_job_j(job);
 //	if (!ft_strcmp(test, "testK"))
 //		init_job_k(job);
-//	if (!ft_strcmp(test, "testL"))
-//		init_job_l(job);
-//	if (!ft_strcmp(test, "testM"))
-//		init_job_m(job);
-//	if (!ft_strcmp(test, "testN"))
-//		init_job_n(job);
-//	if (!ft_strcmp(test, "testO"))
-//		init_job_o(job);
-//	if (!ft_strcmp(test, "testP"))
-//		init_job_p(job);
+	if (!ft_strcmp(test, "testL"))
+		init_job_l(job);
+	if (!ft_strcmp(test, "testM"))
+		init_job_m(job);
+	if (!ft_strcmp(test, "testN"))
+		init_job_n(job);
+	if (!ft_strcmp(test, "testO"))
+		init_job_o(job);
+	if (!ft_strcmp(test, "testP"))
+		init_job_p(job);
 	return (1);
 }
 
@@ -162,12 +160,22 @@ char	*get_line(char	*test)
 	if (!ft_strcmp(test, "testG"))
 		return (EXEC_TEST_G);
 	if (!ft_strcmp(test, "testH"))
-		return (EXEC_TEST_I);
+		return (EXEC_TEST_H);
 	if (!ft_strcmp(test, "testI"))
-		return (EXEC_TEST_J);
+		return (EXEC_TEST_I);
 	if (!ft_strcmp(test, "testJ"))
-		return (EXEC_TEST_K);
+		return (EXEC_TEST_J);
 	if (!ft_strcmp(test, "testK"))
-		return (EXEC_TEST_B);
+		return (EXEC_TEST_K);
+	if (!ft_strcmp(test, "testL"))
+		return (EXEC_TEST_L);
+	if (!ft_strcmp(test, "testM"))
+		return (EXEC_TEST_M);
+	if (!ft_strcmp(test, "testN"))
+		return (EXEC_TEST_N);
+	if (!ft_strcmp(test, "testO"))
+		return (EXEC_TEST_O);
+	if (!ft_strcmp(test, "testP"))
+		return (EXEC_TEST_P);
 	return	(NULL);
 }
