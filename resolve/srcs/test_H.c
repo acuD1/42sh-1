@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:15:38 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 16:42:57 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:31:21 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static int		testH_cat(t_process *cmd, char **env)
 	t_filedesc	fd;
 
 	ft_bzero(&fd, sizeof(t_filedesc));
-	fd.in = 0;
-	fd.out = 4;
+	fd.in = 3;
+	fd.out = 1;
 	fd.err = 2;
 	cmd->av = ft_strsplit("cat -e", " ");
 	cmd->env = env;
@@ -56,12 +56,14 @@ static int		testH_ls(t_process *cmd, char **env)
 
 int				init_job_h(t_job *job)
 {
+	int		my_pipe[2];
 	t_filedesc	fd;
 	t_list		*alst;
 
 	alst = NULL;
+	pipe(my_pipe);
 	ft_bzero(&fd, sizeof(t_filedesc));
-	fd.in = 3;
+	fd.in = 0;
 	fd.out = 1;
 	fd.err = 2;
 	job->command = ft_strdup(EXEC_TEST_H);
@@ -75,11 +77,9 @@ int				init_job_h(t_job *job)
 
 t_list			*test_h(void)
 {
-//	int		my_pipe[2];
 	t_list	*test;
 
 	test = NULL;
-//	pipe(my_pipe);
 	add_to_test(&test, testH_ls);
 	add_to_test(&test, testH_cat);
 	return (test);

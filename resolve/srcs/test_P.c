@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_P.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:46:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 14:48:13 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:28:32 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int		testP_ls(t_process *cmd, char **env)
 
 	ft_bzero(&fd, sizeof(t_filedesc));
 	fd.in = 0;
-	fd.out = open("tmpfile", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	fd.out = open("testfile", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	fd.err = 2;
 	cmd->av = ft_strsplit("ls -l", " ");
 	cmd->env = env;

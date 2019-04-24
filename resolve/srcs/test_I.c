@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_I.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:22:21 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 14:23:46 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:40:08 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int		testI_cat(t_process *cmd, char **env)
 
 	ft_bzero(&fd, sizeof(t_filedesc));
 	fd.in = 0;
-	fd.out = 1;
+	fd.out = 4;
 	fd.err = 2;
 	cmd->av = ft_strsplit("cat -e", " ");
 	cmd->env = env;
@@ -39,7 +39,7 @@ static int		testI_ls(t_process *cmd, char **env)
 	t_filedesc	fd;
 
 	ft_bzero(&fd, sizeof(t_filedesc));
-	fd.in = 0;
+	fd.in = 3;
 	fd.out = 1;
 	fd.err = 2;
 	cmd->av = ft_strsplit("ls -l", " ");
@@ -56,10 +56,12 @@ static int		testI_ls(t_process *cmd, char **env)
 
 int				init_job_i(t_job *job)
 {
+	int		my_pipe[2];
 	t_filedesc	fd;
 	t_list		*alst;
 
 	alst = NULL;
+	pipe(my_pipe);
 	ft_bzero(&fd, sizeof(t_filedesc));
 	fd.in = 0;
 	fd.out = 1;

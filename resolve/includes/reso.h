@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:10:39 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/24 15:45:17 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:36:02 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,16 +93,16 @@ t_list *test_p(void);
 // "<" test									/* Parser : IONBR1<&IONBR2 => IONBR2>&IONBR1 */
 #define EXEC_TEST_8 "cat -e < file1"		/*	OK	*/
 #define EXEC_TEST_9 "cat -e <&2"			/*	OK	*/
-#define EXEC_TEST_A "cat -e <&-"
-#define EXEC_TEST_B "cat -e 1<&-"
+#define EXEC_TEST_A "cat -e <&-"			/*	OK	*/
+#define EXEC_TEST_B "cat -e 1<&-"			/*	OK	*/
 #define EXEC_TEST_C "cat -e 2<&-" 			/*	OK	*/
-#define EXEC_TEST_D "cat -e 0<&-"
-#define EXEC_TEST_E "ls <&-"
-#define EXEC_TEST_F "ls -l <errfile"
-#define EXEC_TEST_G "ls 404 2<&-"
+#define EXEC_TEST_D "cat -e 0<&-"			/*	OK	*/
+#define EXEC_TEST_E "ls -l <&-"				/*	OK	*/
+#define EXEC_TEST_F "ls -l <errfile"		/*	OK	*/
+#define EXEC_TEST_G "ls 404 2<&-"			/*	OK	*/
 
 // "|" test
-#define EXEC_TEST_H "ls -l | cat -e"
+#define EXEC_TEST_H "ls -l | cat -e"		/*	OK	*/
 #define EXEC_TEST_I "cat -e | ls -l"
 #define EXEC_TEST_J "ls -l | echo \"slt\""
 #define EXEC_TEST_K "cd / | ls -l"
@@ -112,6 +112,6 @@ t_list *test_p(void);
 #define EXEC_TEST_M "ls -l | cat -e <&1"
 #define EXEC_TEST_N "ls -l | cat -e <&-"
 #define EXEC_TEST_O "ls -l | cat -e  | wc -l"
-#define EXEC_TEST_P "ls -l > tmpfile | cat -e"
+#define EXEC_TEST_P "ls -l > testfile | cat -e"
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resolve.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:50 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 17:07:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:47:24 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void					cleanup_pipes(t_job *job, t_filedesc *io);
 void					link_pipes(t_list *process, t_filedesc *io, int my_pipe[2]);
 
 void					launch_process(t_job *job, t_process *process,
-				t_registry *shell, t_filedesc *io);
+				t_registry *shell);
 
 void					wait_for_job(t_job *job);
 

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:11:04 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/24 14:54:25 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:58:00 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		print_test_joblst(t_list **stack, char *test)
 	while (ptr)
 	{
 		if (((t_process *)ptr->data)->env)
-			ft_printf("\x1b[93m CMD %d || av : %s | env : OK | IN = %d | OUT = %d | ERR = %d ||\n\x1b[0m"
+			ft_printf("\x1b[93m CMD %d || av : %s || env : OK || IN = %d || OUT = %d || ERR = %d ||\n\x1b[0m"
 			, i, get_line(test), ((t_process *)ptr->data)->fd.in
 			,((t_process *)ptr->data)->fd.out, ((t_process *)ptr->data)->fd.err);
 		else
