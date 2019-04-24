@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:51 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 08:41:17 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/24 08:42:32 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	launch_job(t_registry *shell, t_list *job_lst)
 	while (process)
 	{
 		setup_pipes(current_job, process, &io_file, my_pipe);
-//		ft_printf("execve\n");
 		launch_process(current_job, ((t_process*)process->data), shell, &io_file);
 
 		if (process->next != NULL)
