@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 23:36:11 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/24 02:58:15 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ int					launch_shell_prompt(t_registry *shell)
 	{
 		if (ft_strequ(input, "exit") || input[0] == 4)
 			return (0);
-		lexer_parser(&parse, input);
-		launch_job(shell, parse.job_list);
+		if (lexer_parser(&parse, input))
+			return (-1);
+		//launch_job(shell, parse.job_list);
 		return (1);
 	}
 	return (0);

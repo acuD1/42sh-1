@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 02:28:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/18 15:54:21 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/24 03:17:00 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ void	expansion_machine(t_lexer *machine)
 {
 	if (ft_strchr(EXP_INTERUPT, *machine->input) || !*machine->input)
 	{
-		machine->quote = machine->quote == QUOTE_INT ? QUOTE_ON : QUOTE_OFF;
+		if (machine->quote == QUOTE_INT)
+			machine->quote = QUOTE_OFF;
+		if (machine->quote == QUOTE_SP_INT)
+			machine->quote = QUOTE_SP;
 		machine->last_lexer = E_EXP;
 		machine->state = OUT;
 	}

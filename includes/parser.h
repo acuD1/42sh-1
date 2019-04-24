@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/24 00:34:21 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/24 02:54:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void		print_result_debug(int which);
 ************************
 */
 
-void		parser(t_list *lst);
+int			parser(t_list *lst);
 void		set_start_token(t_graph *start, t_graph **graph);
 void		set_string_token(t_graph **graph);
 void		set_exp_token(t_graph **graph);

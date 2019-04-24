@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/23 19:34:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/24 03:12:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define LEXER_H
 
 #include "registry.h"
-# define STATENBR 17
-# define TOKEN_WITH_DATA 8
+# define STATENBR 18
+# define TOKEN_WITH_DATA 9
 # define NB_OF_TOKENS 54
 # define BUFFER 1024
 # define SINGLE_SIGNS 23
@@ -23,9 +23,11 @@
 # define SIGNS (SPECIAL_SIGNS + SINGLE_SIGNS)
 
 # define ALLCHAR "$\\\'\"|()><;`&~{}[]*?!#%N"
-# define SIGN_DETECT " \t<>|;\'\"$&\\"
+# define SIGN_DETECT " \t<>|;\'\"$&~\\"
 # define LETTER_TO_QUOTE "\"\'$"
 # define LETTER_INTERUPT " \t<>|;\'\"&\\"
+# define TILDE_INTERUPT " /$"
+# define QSP_INT " \"\'"
 ///// 42sh
 ///// # define LETTER_INTERUPT " \t<>|;\'\"`()$&!?{}[]*%\\"
 ///// # define SIGN_DETECT " \t<>|;\'\"`()$&!?{}[]*%\\="
@@ -63,6 +65,7 @@ enum	e_lexer_state
 	LESSER,
 	GREATAND,
 	LESSAND,
+	TILDE,
 	EXP,
 	BSL,
 	SQTE,
@@ -136,6 +139,8 @@ enum	e_quote
 	QUOTE_OFF,
 	QUOTE_ON,
 	QUOTE_INT,
+	QUOTE_SP,
+	QUOTE_SP_INT,
 };
 
 typedef struct	s_token
@@ -171,6 +176,7 @@ void	double_sign_machine(t_lexer *machine);
 void	greater_machine(t_lexer *machine);
 void	lesser_machine(t_lexer *machine);
 void	greatand_machine(t_lexer *machine);
+void	tilde_machine(t_lexer *machine);
 
 void	fill_buffer_output(t_lexer *machine);
 t_token generate_token(t_lexer *machine);

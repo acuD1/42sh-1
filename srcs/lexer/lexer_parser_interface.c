@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 22:31:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/23 23:53:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/24 02:59:24 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,11 @@ int		lexer_parser(t_parser *parse, char *input)
 	if (!parse->token_list)
 	{
 		parse->token_list = lexer(input);
-		parser(parse->token_list);
+		ft_putchar('\n');
+		ft_lstiter(parse->token_list, print_list);
+		if (parser(parse->token_list))
+			return (-1);
 	}
-	ft_lstiter(parse->token_list, print_list);
 	get_token(parse);
 	parser_state(parse);
 	ft_lstiter(((t_job*)(parse->job_list->data))->process_list, print_process);
