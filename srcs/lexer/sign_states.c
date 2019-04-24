@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/23 14:32:53 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/24 02:36:05 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,53 +38,20 @@ void	double_sign_machine(t_lexer *machine)
 		machine->state = OUT;
 }
 
-void	lesser_machine(t_lexer *machine)
+void	tilde_machine(t_lexer *machine)
 {
-	int		checker;
-
-	checker = 0;
-	if (machine->last_lexer == E_DLESS && *machine->input == '-' && ++checker)
-		machine->last_lexer = E_DLESSDASH;
-	else if (*machine->buffer == '<' && *machine->input == '<')
+	machine->last_lexer = E_TILDE;
+	if(ft_strchr(TILDE_INTERUPT, *machine->input) || !*machine->input)
 	{
-		if (machine->last_lexer != E_DLESS)
-		{
-			machine->last_lexer = E_DLESS;
-			ft_strncat(machine->buffer, machine->input, 1);
-			machine->input++;
-			return ;
-		}
-	}
-	else if (*machine->input == '>' || *machine->input == '&')
-	{
-		if (*machine->buffer == '<' && *machine->input == '&' && ++checker)
-			machine->last_lexer = E_LESSAND;
-		else if (*machine->buffer == '<' && *machine->input == '>' && ++checker)
-			machine->last_lexer = E_LESSGREAT;
-	}
-	if (checker)
-		machine->input++;
-	machine->state = OUT;
-}
-
-void	greater_machine(t_lexer *machine)
-{
-	int		checker;
-
-	checker = 0;
-	if (ft_strchr(">&|", *machine->input))
-	{
-		if (*machine->buffer == '>' && *machine->input == '>' && ++checker)
-			machine->last_lexer = E_DGREAT;
-		else if (*machine->buffer == '>' && *machine->input == '&' && ++checker)
-			machine->state = GREATAND;
-		else if (*machine->buffer == '>' && *machine->input == '|' && ++checker)
-			machine->last_lexer = E_CLOBBER;
-	}
-	if (checker)
-		machine->input++;
-	if (machine->state != GREATAND)
+		if (*machine->input && *machine->input != ' ')
+			machine->quote = QUOTE_SP;
 		machine->state = OUT;
+	}
+	else
+	{
+		ft_strncat(machine->buffer, machine->input, 1);
+		machine->input++;
+	}
 }
 
 int		double_dispatcher(t_lexer *machine)
@@ -120,6 +87,8 @@ void	sign_machine(t_lexer *machine)
 		machine->state = DQTE;
 	else if (*machine->input == '$')
 		machine->state = EXP;
+	else if (*machine->input == '~')
+		machine->state = TILDE;
 	else if (double_dispatcher(machine))
 		ft_strncat(machine->buffer, machine->input, 1);
 	else

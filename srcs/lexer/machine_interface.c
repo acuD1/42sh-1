@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/23 14:39:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/24 03:00:49 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	start_lexer(t_lexer *machine)
 {
-	if (!*machine->input)
-		machine->state = END;
-	else if (machine->quote)
+	if (machine->quote)
 		machine->state = DQTE;
+	else if (!*machine->input)
+		machine->state = END;
 	else if (*machine->input == ' ' || *machine->input == '\t')
 	{
 		while (*machine->input == ' ' || *machine->input == '\t')
 			machine->input++;
 	}
-	else if (ft_strchr(SIGN_DETECT, *machine->input) || *machine->input == '~')
+	else if (ft_strchr(SIGN_DETECT, *machine->input))
 		machine->state = SIGN;
 	else if (ft_isdigit(*machine->input))
 		machine->state = IO_NUMBER;
