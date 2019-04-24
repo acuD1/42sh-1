@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 10:30:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/24 13:58:14 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/24 14:31:31 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,21 @@ int 	fill_test_bank(t_hash *hashmap)
 		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 8 to hashmap\n\x1b[0m") & 0);
 	if (!ft_hmap_insert(hashmap, "test9", test9()))
 		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST 9 to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "testA", test_a()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST A to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "testB", test_b()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST B to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "testC", test_c()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST C to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "testD", test_d()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST D to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "testE", test_e()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST E to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "testF", test_f()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST F to hashmap\n\x1b[0m") & 0);
+	if (!ft_hmap_insert(hashmap, "testG", test_g()))
+		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST G to hashmap\n\x1b[0m") & 0);
 
-//	if (!ft_hmap_insert(hashmap, "testA", test_a()))
-//		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST A to hashmap\n\x1b[0m") & 0);
-//	if (!ft_hmap_insert(hashmap, "testB", test_b()))
-//		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST B to hashmap\n\x1b[0m") & 0);
-//	if (!ft_hmap_insert(hashmap, "testC", test_c()))
-//		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST C to hashmap\n\x1b[0m") & 0);
-//	if (!ft_hmap_insert(hashmap, "testD", test_d()))
-//		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST D to hashmap\n\x1b[0m") & 0);
-//	if (!ft_hmap_insert(hashmap, "testE", test_e()))
-//		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST E to hashmap\n\x1b[0m") & 0);
-//	if (!ft_hmap_insert(hashmap, "testF", test_f()))
-//		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST F to hashmap\n\x1b[0m") & 0);
-//	if (!ft_hmap_insert(hashmap, "testG", test_g()))
-//		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST G to hashmap\n\x1b[0m") & 0);
 //	if (!ft_hmap_insert(hashmap, "testH", test_h()))
 //		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to insert TEST H to hashmap\n\x1b[0m") & 0);
 //	if (!ft_hmap_insert(hashmap, "testI", test_i()))
@@ -73,7 +73,6 @@ int 	fill_test_bank(t_hash *hashmap)
 
 int		setup_job(t_job *job, char *test)
 {
-
 	if (!ft_strcmp(test, "test1"))
 		init_job1(job);
 	if (!ft_strcmp(test, "test2"))
@@ -92,21 +91,21 @@ int		setup_job(t_job *job, char *test)
 		init_job8(job);
 	if (!ft_strcmp(test, "test9"))
 		init_job9(job);
+	if (!ft_strcmp(test, "testA"))
+		init_job_a(job);
+	if (!ft_strcmp(test, "testB"))
+		init_job_b(job);
+	if (!ft_strcmp(test, "testC"))
+		init_job_c(job);
+	if (!ft_strcmp(test, "testD"))
+		init_job_d(job);
+	if (!ft_strcmp(test, "testE"))
+		init_job_e(job);
+	if (!ft_strcmp(test, "testF"))
+		init_job_f(job);
+	if (!ft_strcmp(test, "testG"))
+		init_job_g(job);
 
-//	if (!ft_strcmp(test, "testA"))
-//		init_job_a(job);
-//	if (!ft_strcmp(test, "testB"))
-//		init_job_b(job);
-//	if (!ft_strcmp(test, "testC"))
-//		init_job_c(job);
-//	if (!ft_strcmp(test, "testD"))
-//		init_job_d(job);
-//	if (!ft_strcmp(test, "testE"))
-//		init_job_e(job);
-//	if (!ft_strcmp(test, "testF"))
-//		init_job_f(job);
-//	if (!ft_strcmp(test, "testG"))
-//		init_job_g(job);
 //	if (!ft_strcmp(test, "testH"))
 //		init_job_h(job);
 //	if (!ft_strcmp(test, "testI"))

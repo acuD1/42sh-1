@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_7.c                                           :+:      :+:    :+:   */
+/*   test_E.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/24 09:42:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/24 14:27:11 by nrechati         ###   ########.fr       */
+/*   Created: 2019/04/24 14:21:01 by nrechati          #+#    #+#             */
+/*   Updated: 2019/04/24 14:25:03 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 #include "resolve.h"
 #include "reso.h"
 
-static int test7_ls(t_process *cmd, char **env)
+static int		test_e_ls(t_process *cmd, char **env)
 {
-	t_filedesc fd;
+	t_filedesc	fd;
 
 	ft_bzero(&fd, sizeof(t_filedesc));
-	fd.in = 0;
+	fd.in = -1;
 	fd.out = 1;
-	fd.err = open("./errfile", O_RDWR | O_APPEND | O_CREAT, 0644);
-	cmd->av = ft_strsplit("ls 404", " ");
+	fd.err = 2;
+	cmd->av = ft_strsplit("ls -l", " ");
 	cmd->env = env;
 	cmd->pid = 0;
 	cmd->completed = 0;
@@ -34,10 +34,10 @@ static int test7_ls(t_process *cmd, char **env)
 	return (1);
 }
 
-int init_job7(t_job *job)
+int				init_job_e(t_job *job)
 {
-	t_filedesc fd;
-	t_list *alst;
+	t_filedesc	fd;
+	t_list		*alst;
 
 	alst = NULL;
 	ft_bzero(&fd, sizeof(t_filedesc));
@@ -52,11 +52,11 @@ int init_job7(t_job *job)
 	return (1);
 }
 
-t_list *test7(void)
+t_list			*test_e(void)
 {
-	t_list *test;
+	t_list	*test;
 
 	test = NULL;
-	add_to_test(&test, test7_ls);
+	add_to_test(&test, test_e_ls);
 	return (test);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_7.c                                           :+:      :+:    :+:   */
+/*   test_G.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/24 09:42:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/24 14:27:11 by nrechati         ###   ########.fr       */
+/*   Created: 2019/04/24 14:24:05 by nrechati          #+#    #+#             */
+/*   Updated: 2019/04/24 14:30:05 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 #include "resolve.h"
 #include "reso.h"
 
-static int test7_ls(t_process *cmd, char **env)
+static int		test_g_ls(t_process *cmd, char **env)
 {
-	t_filedesc fd;
+	t_filedesc	fd;
 
 	ft_bzero(&fd, sizeof(t_filedesc));
 	fd.in = 0;
 	fd.out = 1;
-	fd.err = open("./errfile", O_RDWR | O_APPEND | O_CREAT, 0644);
+	fd.err = -1;
 	cmd->av = ft_strsplit("ls 404", " ");
 	cmd->env = env;
 	cmd->pid = 0;
@@ -34,10 +34,10 @@ static int test7_ls(t_process *cmd, char **env)
 	return (1);
 }
 
-int init_job7(t_job *job)
+int				init_job_g(t_job *job)
 {
-	t_filedesc fd;
-	t_list *alst;
+	t_filedesc	fd;
+	t_list		*alst;
 
 	alst = NULL;
 	ft_bzero(&fd, sizeof(t_filedesc));
@@ -52,11 +52,11 @@ int init_job7(t_job *job)
 	return (1);
 }
 
-t_list *test7(void)
+t_list			*test_g(void)
 {
-	t_list *test;
+	t_list	*test;
 
 	test = NULL;
-	add_to_test(&test, test7_ls);
+	add_to_test(&test, test_g_ls);
 	return (test);
 }

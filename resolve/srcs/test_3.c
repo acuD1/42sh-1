@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 17:45:37 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 17:48:42 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/24 14:11:08 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int		test3_ls(t_process *cmd, char **env)
 	ft_bzero(&fd, sizeof(t_filedesc));
 	fd.in = 0;
 	fd.out = 1;
-	fd.err = open("/dev/null", O_WRONLY);
+	fd.err = -1;
 	cmd->av = ft_strsplit("ls 404", " ");
 	cmd->env = env;
 	cmd->pid = 0;
