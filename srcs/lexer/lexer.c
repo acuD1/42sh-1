@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 13:44:15 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/24 14:21:22 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:59:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ void	lexer_parser(char *input)
 
 	token = lexer(input);
 	parser(token);
+	//EXECUTE BUILTIN ICI
 }
 

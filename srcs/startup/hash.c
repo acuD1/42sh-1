@@ -6,12 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:27:08 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/12 16:19:58 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:58:24 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include <unistd.h>
+#include "builtin.h"
 
 static void	hash_bin(t_registry *reg, char *bin)
 {
@@ -43,7 +44,7 @@ static void	hash_bin(t_registry *reg, char *bin)
 
 static void	hash_builtin(t_registry *reg)
 {
-	if (!ft_hmap_insert(&(reg->blt_hashmap), "echo", exit_blt))
+	if (!ft_hmap_insert(&(reg->blt_hashmap), "echo", echo_blt))
 		ft_dprintf(2, "[ERROR] Hmap insert failure : echo built-in\n");
 	if (!ft_hmap_insert(&(reg->blt_hashmap), "cd", exit_blt))
 		ft_dprintf(2, "[ERROR] Hmap insert failure : cd built-in\n");
@@ -59,7 +60,7 @@ static void	hash_builtin(t_registry *reg)
 		ft_dprintf(2, "[ERROR] Hmap insert failure : exit built-in\n");
 }
 
-int			hash_blt(t_registry *reg)
+int			hash_blt(t_registry *reg, __unused char **av)
 {
 	int				i;
 	char			**tabs;

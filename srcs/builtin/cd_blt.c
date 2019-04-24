@@ -6,12 +6,12 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/24 18:37:45 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:57:05 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-
+/*
 t_option			get_option_cd(char *s)
 {
 	t_option	option;
@@ -47,7 +47,7 @@ int8_t				cd_blt(t_registry *shell, char **av)
 {
 	t_option	option;
 	char		**tab;
-	
+
 	av++;
 	if ((option = set_options(&av, get_option_cd)) == ERROR_OPT)
 		return (FAILURE);
@@ -69,4 +69,4 @@ int8_t				cd_blt(t_registry *shell, char **av)
 
 get_intern_var(shell, "");
 add_intern_var(shell, "");
-
+*/

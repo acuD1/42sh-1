@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/15 15:30:36 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:52:16 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct		s_registry
 
 #include "line_edit.h"
 
-typedef int 		(*t_builtin)(t_registry *);
+typedef int 		(*t_builtin)(t_registry *, char **);
 
 void			shell_invoke_interactive(t_registry *shell);
 
@@ -55,8 +55,8 @@ int				add_internal(t_registry *sh_reg, char *name, char *data);
 int				add_internal_nbr(t_registry *reg, char *name, int data);
 char			*get_intern_var(t_registry  *sh_reg, char *name);
 
-int				hash_blt(t_registry *reg);
-int				exit_blt(t_registry *reg);
+int				hash_blt(t_registry *reg, char **av);
+int				exit_blt(t_registry *reg, char **av);
 
 int				launch_sh(int ac, char **av, char **env, t_registry *registry);
 int				parse_arg(int index, char **av, t_opt *option);

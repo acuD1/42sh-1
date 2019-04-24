@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 09:37:06 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/04 15:58:49 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:55:08 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	free_registry(t_registry *reg)
 	free_hash(reg->blt_hashmap, NULL);
 }
 
-int		exit_blt(t_registry *reg)
+int		exit_blt(t_registry *reg, __unused char **av)
 {
 	free_registry(reg);
 	return (1);
