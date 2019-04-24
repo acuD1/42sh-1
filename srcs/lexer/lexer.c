@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/18 15:57:20 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/24 13:15:31 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,3 +76,12 @@ t_list			*lexer(char *input)
 		machine.process[machine.state](&machine);
 	return (machine.tokens);
 }
+
+void	lexer_parser(char *input)
+{
+	t_list	*token;
+
+	token = lexer(input);
+	parser(token);
+}
+

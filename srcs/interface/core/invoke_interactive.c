@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 13:05:29 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/24 13:15:30 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static int8_t		is_input_valid(char *input_string)
 void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 {
 	char	*user_input_string;
-	t_list	*token_lst;
 
 	log_print(shell, LOG_INFO, "Starting prompt.\n");
 	define_interface_signal_behavior(shell);
@@ -75,7 +74,7 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 	{
 		user_input_string = prompt(shell, itf);
 		if (is_input_valid(user_input_string) == 1)
-			lexer(user_input_string);
+			lexer_parser(user_input_string);
 		else
 			break ;
 		cleanup_interface(shell);
