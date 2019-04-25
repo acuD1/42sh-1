@@ -12,23 +12,34 @@
 
 #include "builtin.h"
 
-static int		is_valid_path(char *path, char *to_find)
+static char		*is_valid_path(char *path, char *to_find)
 {
-	char	*last_slash;
+	char	*complete_path;
 
-	if (!(last_slash = ft_strrchr(path, '/')))
-		return (0);
-	return (ft_strequ(last_slash, to_find));
+	if (!(complete_path = ft_strjoin(path, to_find)))
+		return (NULL);
+	else if (access(complete_path, F_OK) == SUCCESS)
+		return (complete_path);
+	ft_strdel(&complete_path);
+	return (NULL);
 
 }
 
-static void		ft_delete_end_slash(char *path)
+static int		add_end_slash(char **path)
 {
 	size_t	len;
+	char	*tmp_path;
 
-	len = ft_strlen(path);
-	if (path[len - 1] == '/')
-		path[len - 1] = '\0';
+	len = ft_strlen(*path);
+	if (*path[len - 1] != '/')
+	{
+		tmp_path = *path;
+		if (!(tmp_path = ft_strjoin(tmp_path, "/")))
+			return (FALSE);
+		ft_strdel(path);
+		*path = tmp_path;
+	}
+	return (TRUE);
 }
 
 char			*is_cdpath_env(t_registry *shell, char *to_find)
@@ -38,16 +49,19 @@ char			*is_cdpath_env(t_registry *shell, char *to_find)
 	int		i;
 
 	i = 0;
-	ft_delete_end_slash(to_find);
-	if (!(cd_path = get_intern_var(shell, "CDPATH"))
-		|| !(tab_cd_path = ft_strsplit(cd_path, ":")))
-			return (NULL);
+	if (!(cd_path = get_intern_var(shell, "CDPATH")))
+		return (is_valid_path("./", to_find));
+	if (!(tab_cd_path = ft_strsplit(cd_path, ":")))
+		return (NULL);
 	while (tab_cd_path[i])
 	{
-		ft_delete_end_slash(tab_cd_path[i]);
-		if (is_valid_path(tab_cd_path[i], to_find))
+		if (!add_end_slash(tab_cd_path + i))
 		{
-			cd_path = ft_strdup(tab_cd_path[i]);
+			ft_freetab(&tab_cd_path);
+			return (NULL);
+		}
+		if ((cd_path = is_valid_path(tab_cd_path[i], to_find)))
+		{
 			ft_freetab(&tab_cd_path);
 			return (cd_path);
 		}

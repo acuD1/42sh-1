@@ -14,6 +14,7 @@
 # define BUILTIN_H
 
 # include "interface_functions.h"
+# include "parser.h"
 
 # define SUCCESS			0
 # define FAILURE_OPTION		1
