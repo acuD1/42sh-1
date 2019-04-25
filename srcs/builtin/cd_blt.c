@@ -89,20 +89,6 @@ int8_t				cd_blt(t_registry *shell, char **av)
 	char		*curpath;
 	t_option	option;
 
-/*
-**************** DEBUG PWD *****************************
-** 
-**	if (ft_strequ(*av, "pwd"))
-**	{
-**		curpath = NULL;
-**		if (!(curpath = get_env_var(shell, "PWD")))
-**			curpath = getcwd(curpath, PATH_MAX);
-**		ft_printf("pwd:  %s\n", curpath);
-**		return (SUCCESS);
-**	}
-**
-********************************************************
-*/
 	av++;
 	if (((option = set_options(&av, get_option_cd)) == ERROR_OPT)
 		|| !(curpath = ft_get_curpath(shell, *av)))

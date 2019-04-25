@@ -101,6 +101,7 @@ void	lexer_parser(char *input)
 	parser(token);
 
 	char	**input_tab;
+	char	*tmp;
 
 	input_tab = ft_strsplit(input, " ");
 	if (ft_strnequ(input, "setenv ", 7) || ft_strequ(input, "setenv"))
@@ -109,7 +110,14 @@ void	lexer_parser(char *input)
 		env_blt(g_shell_registry, input_tab);
 	else if (ft_strnequ(input, "unsetenv ", 9) || ft_strequ(input, "unsetenv"))
 		unsetenv_blt(g_shell_registry, input_tab);
-
+	else if (ft_strnequ(input, "pwd", 3))
+	{
+		tmp = NULL;
+		ft_printf("pwd: %s\n", (tmp = get_env_var(g_shell_registry, "PWD"))
+				? tmp : getcwd(tmp, PATH_MAX));
+	}
+	else if (ft_strnequ(input, "cd ", 3) || ft_strequ(input, "cd"))
+		cd_blt(g_shell_registry, input_tab);
 	//EXECUTE BUILTIN ICI
 }
 
