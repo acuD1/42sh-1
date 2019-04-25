@@ -37,7 +37,8 @@
 
 # define CD_USAGE "cd: usage: cd [-L|-P] [dir]\n"
 # define ENV_USAGE "env: usage: env [-i] [name=value]... [utility [argument]...]\n"
-# define SETENV_USAGE "setenv: usage: setenv [-i] [name=value]...\n"
+# define SETENV_USAGE "setenv: usage: setenv [name [value]]\n"
+# define UNSETENV_USAGE "unsetenv: usage: unsetenv name\n"
 # define CD_ERROR_OLDPWD_NOTSET "21sh: cd: OLDPWD not set\n"
 
 typedef uint8_t t_option;
@@ -92,6 +93,13 @@ t_option			get_option_env(char *s, t_option option);
 */
 
 int8_t				setenv_blt(t_registry *shell, char **av);
-t_option			get_option_setenv(char *s, t_option option);
+
+/*
+*****************************************************
+***************** UNSETENV BUILT-IN *****************
+*****************************************************
+*/
+
+int8_t				unsetenv_blt(t_registry *shell, char **av);
 
 #endif

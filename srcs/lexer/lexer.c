@@ -5,18 +5,6 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/24 13:44:15 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/24 18:59:41 by skuppers         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
 /*   Updated: 2019/04/24 13:44:12 by ffoissey         ###   ########.fr       */
 /*                                                                            */
@@ -101,12 +89,27 @@ t_list			*lexer(char *input)
 	return (machine.tokens);
 }
 
+
+# include "builtin.h"
+
+
 void	lexer_parser(char *input)
 {
 	t_list	*token;
 
 	token = lexer(input);
 	parser(token);
+
+	char	**input_tab;
+
+	input_tab = ft_strsplit(input, " ");
+	if (ft_strnequ(input, "setenv ", 7) || ft_strequ(input, "setenv"))
+		setenv_blt(g_shell_registry, input_tab);
+	else if (ft_strnequ(input, "env ", 4) || ft_strequ(input, "env"))
+		env_blt(g_shell_registry, input_tab);
+	else if (ft_strnequ(input, "unsetenv ", 9) || ft_strequ(input, "unsetenv"))
+		unsetenv_blt(g_shell_registry, input_tab);
+
 	//EXECUTE BUILTIN ICI
 }
 

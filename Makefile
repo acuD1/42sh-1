@@ -181,6 +181,7 @@ BUILTIN += cd_blt_additions.c
 BUILTIN += cd_blt_simple.c
 BUILTIN += env_blt.c
 BUILTIN += setenv_blt.c
+BUILTIN += unsetenv_blt.c
 
 #						- - - - - Line edtion - - - - -                        #
 

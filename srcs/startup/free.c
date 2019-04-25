@@ -82,5 +82,6 @@ int		free_lst(t_list **alst)
 		ptr = ptr->next;
 		free(tmp);
 	}
+	*alst = NULL;
 	return (1);
 }

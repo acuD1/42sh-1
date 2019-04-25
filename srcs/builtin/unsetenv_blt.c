@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setenv_blt.c                                       :+:      :+:    :+:   */
+/*   unsetenv_blt.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,19 +12,18 @@
 
 #include "builtin.h"
 
-int8_t				setenv_blt(t_registry *shell, char **av)
+int8_t				unsetenv_blt(t_registry *shell, char **av)
 {
-	t_node		*node;
-
 	av++;
 	if (!*av)
-		print_lst(&shell->env);
-	else
-	{
-		node = (t_node *)malloc(sizeof(t_node));
-		node->var = ft_strdup(av[0]);
-		node->data = av[1] ? ft_strdup(av[1]) : ft_strdup("\0");
-		add_env(shell, node->var, node->data);
+	{	
+		ft_dprintf(2, UNSETENV_USAGE);
+		return (FAILURE);
 	}
+	if (ft_strequ(*av, "*"))
+		free_lst(&shell->env);
+	else if (shell->env)
+		free_node(&shell->env, *av);
+	
 	return (SUCCESS);
 }
