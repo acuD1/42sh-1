@@ -53,6 +53,8 @@ void			shell_invoke_interactive(t_registry *shell);
 
 int				add_internal(t_registry *sh_reg, char *name, char *data);
 int				add_internal_nbr(t_registry *reg, char *name, int data);
+int				add_env(t_registry *sh_reg, char *name, char *data);
+char			*get_env_var(t_registry  *sh_reg, char *name);
 char			*get_intern_var(t_registry  *sh_reg, char *name);
 
 int				hash_blt(t_registry *reg, char **av);
