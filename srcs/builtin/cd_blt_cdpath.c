@@ -10,40 +10,49 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "builtin.h"
 
-# include "interface_functions.h"
-
-# define SUCCESS			0
-# define FAILURE_OPTION		1
-
-# define N_OPT		0x0000000000000001
-# define L_OPT		0x0000000000000002
-# define P_OPT		0x0000000000000004
-# define ERROR_OPT	0x1000000000000000
-
-# define CD_USAGE "cd: usage: cd [-L|-P] [dir]\n"
-
-typedef unsigned long t_option;
-typedef t_option (*t_get_option)(char *s, t_option option);
-
-enum e_state_option
+static int		is_valid_path(char *path, char *to_find)
 {
-	E_START_OPTION,
-	E_OPTION,
-	E_END_OPTION,
-	E_NO_OPTION
+	char	*last_slash;
 
-};
+	if (!(last_slash = ft_strrchr(path, '/')))
+		return (0);
+	return (ft_strequ(last_slash, to_find));
 
-t_option	set_options(char ***av, t_get_option get_option);
+}
 
-int8_t		echo_blt(t_registry *shell, char **av);
+static void		ft_delete_end_slash(char *path)
+{
+	size_t	len;
 
-int8_t		cd_blt(t_registry *shell, char **av);
-char		*is_cdpath_env(t_registry *shell, char *to_find);
-t_option	get_option_cd(char *s, t_option option);
+	len = ft_strlen(path);
+	if (path[len - 1] == '/')
+		path[len - 1] = '\0';
+}
 
+char			*is_cdpath_env(t_registry *shell, char *to_find)
+{
+	char	*cd_path;
+	char	**tab_cd_path;
+	int		i;
 
-#endif
+	i = 0;
+	ft_delete_end_slash(to_find);
+	if (!(cd_path = get_intern_var(shell, "CDPATH"))
+		|| !(tab_cd_path = ft_strsplit(cd_path, ":")))
+			return (NULL);
+	while (tab_cd_path[i])
+	{
+		ft_delete_end_slash(tab_cd_path[i]);
+		if (is_valid_path(tab_cd_path[i], to_find))
+		{
+			cd_path = ft_strdup(tab_cd_path[i]);
+			ft_freetab(&tab_cd_path);
+			return (cd_path);
+		}
+		i++;
+	}
+	ft_freetab(&tab_cd_path);
+	return (NULL);
+}

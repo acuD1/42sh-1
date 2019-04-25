@@ -176,6 +176,7 @@ LINE += debug_logger.c
 BUILTIN += blt_tools.c
 BUILTIN += echo_blt.c
 BUILTIN += cd_blt.c
+BUILTIN += cd_blt_cdpath.c
 
 #						- - - - - Line edtion - - - - -                        #
 

@@ -25,7 +25,6 @@ t_option					set_options(char ***av, t_get_option get_option)
 {
 	enum e_state_option	state;
 	t_option			option;
-	t_option			new_option;
 
 	state = E_START_OPTION;
 	option = 0;
@@ -38,9 +37,8 @@ t_option					set_options(char ***av, t_get_option get_option)
 			return (option);
 		else if (state == E_OPTION)
 		{
-			if ((new_option = get_option(**av + 1)) == ERROR_OPT)
+			if ((option = get_option(**av + 1, option)) == ERROR_OPT)
 				return (ERROR_OPT);
-			option |= get_option(**av + 1);
 		}
 		(*av)++;
 	}

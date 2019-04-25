@@ -11,11 +11,9 @@
 /* ************************************************************************** */
 
 #include "builtin.h"
-/*
-t_option			get_option_cd(char *s)
-{
-	t_option	option;
 
+t_option			get_option_cd(char *s, t_option option)
+{
 	option = 0;
 	while (*s)
 	{
@@ -35,38 +33,45 @@ t_option			get_option_cd(char *s)
 }
 
 
-
-
-static int8_t		process_cd(t_registry *shell, char **av)
+static int8_t		process_cd_blt(t_registry *shell, char *path_give_by_user,
+					t_option option)
 {
+	char	*home_path;
+	char	*curpath;
+	char	*cdpath_env;
 
+	(void)option;
+	home_path = get_intern_var(shell, "HOME");
+	if (!path_give_by_user)
+	{
+		if (!home_path)
+			curpath = NULL;
+			////// get home_path by another way
+		curpath = ft_strdup(home_path);	
+	}
+	else if (*path_give_by_user == '/')
+		curpath = ft_strdup(path_give_by_user);
+	else if (*path_give_by_user == '.')
+	{
+		/// GO_TO_6_STEP
+	}
+	else if ((cdpath_env = is_cdpath_env(shell, path_give_by_user)))
+		curpath = cdpath_env;
+	return (SUCCESS);
 }
 
 
 int8_t				cd_blt(t_registry *shell, char **av)
 {
 	t_option	option;
-	char		**tab;
 
 	av++;
 	if ((option = set_options(&av, get_option_cd)) == ERROR_OPT)
-		return (FAILURE);
-	if (!*av)
-		// go to $HOME
-	else if (ft_strequ(*av, "-"))
-	{
-		// go to $OLDPWD
-	}
-	else if (**av == '/')
-		// Absolute path
-	else
-	{
-		// Get $PWD and concat with relative path (Warning : end by '/')
-		// Relative path
-	}
+		return (FAILURE_OPTION);
+	process_cd_blt(shell, *av, option);
 	return (SUCCESS);
 }
-
+/*
 get_intern_var(shell, "");
 add_intern_var(shell, "");
 */
