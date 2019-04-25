@@ -19,12 +19,12 @@ static char			*ft_get_curpath(t_registry *shell, char *path_give_by_user)
 
 	if (!path_give_by_user)
 	{
-		home_path = get_intern_var(shell, "HOME");
+		home_path = get_env_var(shell, "HOME");
 		curpath = ft_strdup(home_path ? home_path : get_home_path());	
 	}
 	else if (ft_strequ(path_give_by_user, "-"))
 	{
-		if (!(curpath = get_intern_var(shell, "OLDPWD")))
+		if (!(curpath = get_env_var(shell, "OLDPWD")))
 			ft_dprintf(2, CD_ERROR_OLDPWD_NOTSET);
 		else
 			curpath = ft_strdup(curpath);
@@ -45,7 +45,7 @@ static int8_t		change_directory(t_registry *shell, char *curpath,
 	char		*pwd;
 	struct stat	stat;
 
-	if (!(pwd = get_intern_var(shell, "PWD")))
+	if (!(pwd = get_env_var(shell, "PWD")))
 		pwd = getcwd(pwd, 0);
 	if (access(curpath, F_OK) != SUCCESS)
 		ft_dprintf(2, "cd: no such file or directory: %s\n", path_give_by_user);
@@ -57,8 +57,8 @@ static int8_t		change_directory(t_registry *shell, char *curpath,
 		ft_dprintf(2, "chdir() failed\n");
 	else
 	{
-		add_internal(shell, "OLDPWD", ft_strdup(pwd));
-		add_internal(shell, "PWD",
+		add_env(shell, "OLDPWD", ft_strdup(pwd));
+		add_env(shell, "PWD",
 				ft_strdup(option & P_OPT ? getcwd(pwd, PATH_MAX) : curpath));
 		ft_strdel(&curpath);
 		return (SUCCESS);
@@ -95,7 +95,7 @@ int8_t				cd_blt(t_registry *shell, char **av)
 **	if (ft_strequ(*av, "pwd"))
 **	{
 **		curpath = NULL;
-**		if (!(curpath = get_intern_var(shell, "PWD")))
+**		if (!(curpath = get_env_var(shell, "PWD")))
 **			curpath = getcwd(curpath, PATH_MAX);
 **		ft_printf("pwd:  %s\n", curpath);
 **		return (SUCCESS);

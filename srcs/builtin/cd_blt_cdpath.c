@@ -49,7 +49,7 @@ char			*is_cdpath_env(t_registry *shell, char *to_find)
 	int		i;
 
 	i = 0;
-	if (!(cd_path = get_intern_var(shell, "CDPATH")))
+	if (!(cd_path = get_env_var(shell, "CDPATH")))
 		return (is_valid_path("./", to_find));
 	if (!(tab_cd_path = ft_strsplit(cd_path, ":")))
 		return (NULL);

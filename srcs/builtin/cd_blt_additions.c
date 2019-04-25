@@ -23,7 +23,7 @@ t_option		get_option_cd(char *s, t_option option)
 			option |= P_OPT;
 		else
 		{
-			ft_dprintf(2, "21sh: cd: -%c: invalid option\n");
+			ft_dprintf(2, "21sh: cd: -%c: invalid option\n", *s);
 			ft_dprintf(2, CD_USAGE);
 			return (ERROR_OPT);
 		}
@@ -37,7 +37,7 @@ char			*concat_pwd_with_curpath(t_registry *shell, char **path)
 	char	*curpath;
 	char	*pwd;
 
-	if (!(pwd = get_intern_var(shell, "PWD")))
+	if (!(pwd = get_env_var(shell, "PWD")))
 		pwd = getcwd(pwd, PATH_MAX);
 	if (!pwd)
 		return (NULL);

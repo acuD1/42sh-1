@@ -26,17 +26,21 @@
 # define SUCCESS			0
 # define FAILURE			-1
 
-# define N_OPT		0x0000000000000001
-# define L_OPT		0x0000000000000002
-# define P_OPT		0x0000000000000004
-# define I_OPT		0x0000000000000008
-# define ERROR_OPT	0x1000000000000000
+# define N_OPT		0x01
+# define L_OPT		0x02
+# define P_OPT		0x04
+# define I_OPT		0x08
+# define ERROR_OPT	0x80
+
+# define NULL_STR_NOT_OK 0
+# define NULL_STR_OK	 1
 
 # define CD_USAGE "cd: usage: cd [-L|-P] [dir]\n"
 # define ENV_USAGE "env: usage: env [-i] [name=value]... [utility [argument]...]\n"
+# define SETENV_USAGE "setenv: usage: setenv [-i] [name=value]...\n"
 # define CD_ERROR_OLDPWD_NOTSET "21sh: cd: OLDPWD not set\n"
 
-typedef unsigned long t_option;
+typedef uint8_t t_option;
 typedef t_option (*t_get_option)(char *s, t_option option);
 
 enum e_state_option
@@ -49,6 +53,7 @@ enum e_state_option
 };
 
 t_option	set_options(char ***av, t_get_option get_option);
+void		print_env(t_list *env);
 
 /*
 *****************************************************
@@ -80,5 +85,14 @@ char		*make_curpath_simple(char *curpath);
 
 int8_t				env_blt(t_registry *shell, char **av);
 t_option			get_option_env(char *s, t_option option);
+
+/*
+*****************************************************
+****************** SETENV BUILT-IN ******************
+*****************************************************
+*/
+
+int8_t				setenv_blt(t_registry *shell, char **av);
+t_option			get_option_setenv(char *s, t_option option);
 
 #endif

@@ -180,6 +180,7 @@ BUILTIN += cd_blt_cdpath.c
 BUILTIN += cd_blt_additions.c
 BUILTIN += cd_blt_simple.c
 BUILTIN += env_blt.c
+BUILTIN += setenv_blt.c
 
 #						- - - - - Line edtion - - - - -                        #
 

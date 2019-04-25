@@ -20,7 +20,7 @@ t_option			get_option_env(char *s, t_option option)
 			option |= I_OPT;
 		else
 		{
-			ft_dprintf(2, "21sh: env: -%c: invalid option\n");
+			ft_dprintf(2, "21sh: env: -%c: invalid option\n", *s);
 			ft_dprintf(2, ENV_USAGE);
 			return (ERROR_OPT);
 		}
@@ -74,17 +74,6 @@ static t_registry		*copy_registry(t_registry *shell, char ***arg,
 	return (cpy_shell);
 }
 
-void				print_env(t_list *env)
-{
-	t_node	*node;
-
-	while (env)
-	{
-		node = (t_node *)(env->data);
-		ft_printf("%s=%s%s", node->var, node->data, env->next ? "\n" : "\0");
-		env = env->next;
-	}
-}
 
 int8_t				env_blt(t_registry *shell, char **av)
 {
@@ -92,10 +81,17 @@ int8_t				env_blt(t_registry *shell, char **av)
 	t_registry	*cpy_shell;
 
 	av++;
-	if (((option = set_options(&av, get_option_env)) == ERROR_OPT))
+	option = 0;
+	if (av && ft_strequ(*av, "-"))
+	{
+		av++;
+		option = I_OPT;
+	}
+	else if (((option |= set_options(&av, get_option_env)) == ERROR_OPT))
 		return (FAILURE);
 	cpy_shell = copy_registry(shell, &av, option);
-	print_env(cpy_shell->env);
+	if (!*av)
+		print_env(cpy_shell->env);
 	free_lst(&(cpy_shell->env));
 /////////////////////////////// SEND TO EXECUTION //////////////////// 	
 /////////////////////////////// exec(cpy_shell, av); //////////////////
