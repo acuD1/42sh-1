@@ -12,55 +12,48 @@
 
 #include "builtin.h"
 
-t_option			get_option_cd(char *s, t_option option)
+static char			*ft_get_curpath(t_registry *shell, char *path_give_by_user)
 {
-	option = 0;
-	while (*s)
+	char	*home_path;
+	char	*curpath;
+
+	if (!path_give_by_user)
 	{
-		if (*s == 'L')
-			option |= L_OPT;
-		else if (*s == 'P')
-			option |= P_OPT;
-		else
-		{
-			ft_dprintf(2, "21sh: cd: -%c: invalid option\n");
-			ft_dprintf(2, CD_USAGE);
-			return (ERROR_OPT);
-		}
-		s++;
+		home_path = get_intern_var(shell, "HOME");
+		curpath = ft_strdup(home_path ? home_path : get_home_path());	
 	}
-	return (option);
+	else if (ft_strequ(path_give_by_user, "-"))
+	{
+		if (!(curpath = get_intern_var(shell, "OLDPWD")))
+			ft_dprintf(2, CD_ERROR_OLDPWD_NOTSET);
+	}
+	else if (*path_give_by_user == '/' || *path_give_by_user == '.')
+		curpath = ft_strdup(path_give_by_user);
+	else
+	{
+		if (!(curpath = is_cdpath_env(shell, path_give_by_user)))
+			curpath = ft_strdup(path_give_by_user);
+	}
+	return (curpath);
 }
 
-static char			*get_home_path(void)
-{
-	struct passwd	*pwd;
-	char			*home_path;
-
-	pwd = getpwuid(geteuid());
-	home_path = pwd->pw_dir;
-	return (home_path);
-}
 
 static int8_t		process_cd_blt(t_registry *shell, char *path_give_by_user,
 					t_option option)
 {
-	char	*home_path;
 	char	*curpath;
-	char	*cdpath_env;
 
-	(void)option;
-	home_path = get_intern_var(shell, "HOME");
-	if (!path_give_by_user)
-		curpath = ft_strdup(home_path ? home_path : get_home_path());	
-	else if (*path_give_by_user == '/')
-		curpath = ft_strdup(path_give_by_user);
-	else if (*path_give_by_user == '.')
+	if (!(curpath = ft_get_curpath(shell, path_give_by_user)))
+		return (FAILURE);
+	if (option & L_OPT)
 	{
-		/// GO_TO_6_STEP
+		if (*curpath != '/')
+			if (!(curpath = concat_pwd_with_curpath(shell, &curpath)))
+				return (FAILURE);
 	}
-	else if ((cdpath_env = is_cdpath_env(shell, path_give_by_user)))
-		curpath = cdpath_env;
+
+
+	ft_printf("Original String: %s\nCD String:       %s\n", path_give_by_user, curpath);
 	return (SUCCESS);
 }
 
@@ -72,8 +65,7 @@ int8_t				cd_blt(t_registry *shell, char **av)
 	av++;
 	if ((option = set_options(&av, get_option_cd)) == ERROR_OPT)
 		return (FAILURE_OPTION);
-	process_cd_blt(shell, *av, option);
-	return (SUCCESS);
+	return (process_cd_blt(shell, *av, option));
 }
 /*
 get_intern_var(shell, "");

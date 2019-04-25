@@ -177,6 +177,7 @@ BUILTIN += blt_tools.c
 BUILTIN += echo_blt.c
 BUILTIN += cd_blt.c
 BUILTIN += cd_blt_cdpath.c
+BUILTIN += cd_blt_additions.c
 
 #						- - - - - Line edtion - - - - -                        #
 
