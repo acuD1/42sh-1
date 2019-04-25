@@ -18,9 +18,12 @@
 # include <pwd.h>
 # include <unistd.h>
 
+# include <limits.h>
+# include <sys/stat.h>
+# include <sys/types.h>
+
 # define SUCCESS			0
-# define FAILURE			1
-# define FAILURE_OPTION		2
+# define FAILURE			-1
 
 # define N_OPT		0x0000000000000001
 # define L_OPT		0x0000000000000002
@@ -63,7 +66,7 @@ t_option	get_option_cd(char *s, t_option option);
 char		*concat_pwd_with_curpath(t_registry *shell, char **path);
 char		*get_home_path(void);
 char		*is_cdpath_env(t_registry *shell, char *to_find);
-
-
+char		*get_relative_path(char **curpath);
+char		*make_curpath_simple(char *curpath);
 
 #endif
