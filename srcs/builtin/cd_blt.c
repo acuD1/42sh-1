@@ -12,6 +12,44 @@
 
 #include "builtin.h"
 
+static char			*make_curpath_simple(char *curpath)
+{
+	char	*new_path;
+	char	*tmp_path;
+	char	**tab_path;
+	int		i;
+
+	i = 0;
+	new_path = NULL;
+	if (!(tab_path = ft_strsplit(curpath, "/")))
+	{
+		ft_strdel(&curpath);
+		return (NULL);
+	}
+	ft_strdel(&curpath);
+	while (tab_path[i])
+	{
+		if (tab_path[i][0] && !ft_strequ(tab_path[i], "."))
+		{
+			if (ft_strequ(tab_path[i], "..") && !ft_strequ(new_path, "/"))
+			{
+				if ((tmp_path = ft_strrchr(new_path, '/')))
+					*tmp_path = '\0';
+			}
+			else
+			{
+				curpath = ft_strjoin("/", tab_path[i]);
+				tmp_path = new_path;
+				new_path = ft_strjoin(tmp_path, curpath);
+				ft_strdel(&curpath);
+				ft_strdel(&tmp_path);
+			}
+		}
+		i++;
+	}
+	return (new_path);
+}
+
 static char			*ft_get_curpath(t_registry *shell, char *path_give_by_user)
 {
 	char	*home_path;
@@ -37,7 +75,6 @@ static char			*ft_get_curpath(t_registry *shell, char *path_give_by_user)
 	return (curpath);
 }
 
-
 static int8_t		process_cd_blt(t_registry *shell, char *path_give_by_user,
 					t_option option)
 {
@@ -45,13 +82,17 @@ static int8_t		process_cd_blt(t_registry *shell, char *path_give_by_user,
 
 	if (!(curpath = ft_get_curpath(shell, path_give_by_user)))
 		return (FAILURE);
+	if (curpath[ft_strlen(curpath) - 1] == '/')
+		curpath[ft_strlen(curpath) - 1] = '\0';
 	if (option & L_OPT)
 	{
 		if (*curpath != '/')
 			if (!(curpath = concat_pwd_with_curpath(shell, &curpath)))
 				return (FAILURE);
+	ft_printf("BEFORE\nOriginal String: %s\nCD String:       %s\n\n", path_give_by_user, curpath);
+		curpath = make_curpath_simple(curpath);
 	}
-
+	
 
 	ft_printf("Original String: %s\nCD String:       %s\n", path_give_by_user, curpath);
 	return (SUCCESS);
@@ -67,6 +108,7 @@ int8_t				cd_blt(t_registry *shell, char **av)
 		return (FAILURE_OPTION);
 	return (process_cd_blt(shell, *av, option));
 }
+
 /*
 get_intern_var(shell, "");
 add_intern_var(shell, "");
