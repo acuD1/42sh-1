@@ -15,6 +15,7 @@
 
 # include "interface_functions.h"
 # include "parser.h"
+# include <pwd.h>
 
 # define SUCCESS			0
 # define FAILURE_OPTION		1

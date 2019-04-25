@@ -32,6 +32,15 @@ t_option			get_option_cd(char *s, t_option option)
 	return (option);
 }
 
+static char			*get_home_path(void)
+{
+	struct passwd	*pwd;
+	char			*home_path;
+
+	pwd = getpwuid(geteuid());
+	home_path = pwd->pw_dir;
+	return (home_path);
+}
 
 static int8_t		process_cd_blt(t_registry *shell, char *path_give_by_user,
 					t_option option)
@@ -43,12 +52,7 @@ static int8_t		process_cd_blt(t_registry *shell, char *path_give_by_user,
 	(void)option;
 	home_path = get_intern_var(shell, "HOME");
 	if (!path_give_by_user)
-	{
-		if (!home_path)
-			curpath = NULL;
-			////// get home_path by another way
-		curpath = ft_strdup(home_path);	
-	}
+		curpath = ft_strdup(home_path ? home_path : get_home_path());	
 	else if (*path_give_by_user == '/')
 		curpath = ft_strdup(path_give_by_user);
 	else if (*path_give_by_user == '.')
