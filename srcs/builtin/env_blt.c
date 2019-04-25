@@ -91,7 +91,7 @@ int8_t				env_blt(t_registry *shell, char **av)
 		return (FAILURE);
 	cpy_shell = copy_registry(shell, &av, option);
 	if (!*av)
-		print_env(cpy_shell->env);
+		print_lst(&cpy_shell->env);
 	free_lst(&(cpy_shell->env));
 /////////////////////////////// SEND TO EXECUTION //////////////////// 	
 /////////////////////////////// exec(cpy_shell, av); //////////////////

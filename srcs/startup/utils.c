@@ -21,8 +21,8 @@ void			print_lst(t_list **alst)
 	ptr = *alst;
 	while (ptr != NULL)
 	{
-		ft_printf("%s=%s\n", ((t_node *)ptr->data)->var
-					, ((t_node *)ptr->data)->data);
+		ft_printf("%s=%s%s", ((t_node *)ptr->data)->var
+					, ((t_node *)ptr->data)->data, ptr->next ? "\n" : "\0");
 		ptr = ptr->next;
 	}
 }

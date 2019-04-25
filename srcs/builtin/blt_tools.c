@@ -44,15 +44,3 @@ t_option					set_options(char ***av, t_get_option get_option)
 	}
 	return (option);
 }
-
-void				print_env(t_list *env)
-{
-	t_node	*node;
-
-	while (env)
-	{
-		node = (t_node *)(env->data);
-		ft_printf("%s=%s%s", node->var, node->data, env->next ? "\n" : "\0");
-		env = env->next;
-	}
-}

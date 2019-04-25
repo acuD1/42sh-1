@@ -53,7 +53,6 @@ enum e_state_option
 };
 
 t_option	set_options(char ***av, t_get_option get_option);
-void		print_env(t_list *env);
 
 /*
 *****************************************************

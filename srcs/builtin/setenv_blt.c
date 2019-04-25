@@ -19,7 +19,7 @@ int8_t				setenv_blt(t_registry *shell, char **av)
 
 	av++;
 	if (!*av)
-		print_env(shell->env);
+		print_lst(&shell->env);
 	else
 	{
 		node = (t_node *)malloc(sizeof(t_node));
