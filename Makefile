@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/26 16:26:31 by ffoissey         ###   ########.fr        #
+#    Updated: 2019/04/26 16:39:37 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,6 +94,7 @@ TPATH += unit-tests/interface/
 TPATH += unit-tests/lexer/
 LINE_PATH += interface/
 LINE_PATH += interface/action_keys/
+LINE_PATH += interface/history/
 LINE_PATH += interface/action_keys/clipboard/
 LINE_PATH += interface/action_keys/movement/
 LINE_PATH += interface/core/
@@ -145,6 +146,7 @@ INCS += lexer.h
 INCS += parser.h
 INCS += builtin.h
 INCS += resolve.h
+INCS += history.h
 
 # ---------------------------------------------------------------------------- #
 #									Sources                                    #
@@ -187,6 +189,9 @@ BUILTIN += unsetenv_blt.c
 BUILTIN += intern_blt.c
 
 #						- - - - - Line edtion - - - - -                        #
+
+#History
+LINE += history.c
 
 #Signals
 LINE += signal_handler.c

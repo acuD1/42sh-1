@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 11:03:36 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 13:45:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 12:49:54 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ void	cleanup_interface(t_registry *shell)
 
 void	free_interface_registry(t_interface *itf)
 {
+	t_history	*del;
+	t_history	*ptr;
+
+	ptr = itf->history_head;
+	while (ptr)
+	{
+		ft_strdel(&(ptr->command));
+		del = ptr->next;
+		free(ptr);
+		ptr = del;
+	}
+	ft_strdel(&(itf->current_line));
 	ft_strdel(&(itf->clip->buffer));
 	free(itf->clip);
 	ft_strdel(&(itf->line->buffer));
