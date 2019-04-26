@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 07:26:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 08:43:38 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,12 @@ void launch_process(t_job *job, t_process *process, t_registry *shell)
 {
 	pid_t		pid;
 
-
-
+	/*
+	 *	if process is builtin and not in a pipe
+	 *		launch it with no fork
+	 *	else
+	 *		fork() the process
+	 */
 
 
 	pid = fork();
