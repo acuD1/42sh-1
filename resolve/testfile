@@ -1,0 +1,13 @@
+total 528
+-rw-r--r--   1 skuppers  2017_paris      35 Apr 26 07:21 errfile
+-rw-r--r--   1 skuppers  2017_paris     114 Apr 26 07:17 file
+-rw-r--r--   1 skuppers  2017_paris      27 Apr 26 07:17 file1
+-rw-r--r--   1 skuppers  2017_paris      26 Apr 26 07:17 file2
+-rw-r--r--   1 skuppers  2017_paris      29 Apr 26 07:17 file3
+drwxr-xr-x   3 skuppers  2017_paris     102 Apr 26 07:17 includes
+-rwxr-xr-x   1 skuppers  2017_paris  233572 Apr 26 07:22 resolve
+-rw-r--r--   1 skuppers  2017_paris    1139 Apr 26 07:17 run.sh
+drwxr-xr-x  29 skuppers  2017_paris     986 Apr 26 07:19 srcs
+-rw-r--r--   1 skuppers  2017_paris      98 Apr 26 07:17 test.c
+-rw-r--r--   1 skuppers  2017_paris       0 Apr 26 07:22 testfile
+-rw-r--r--   1 skuppers  2017_paris      81 Apr 26 07:17 toto
