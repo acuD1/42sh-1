@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/26 08:40:11 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:34:15 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ void	lexer_parser(char *input)
 	}
 	else if (ft_strnequ(input, "cd ", 3) || ft_strequ(input, "cd"))
 		cd_blt(g_shell_registry, input_tab);
+	else if (ft_strnequ(input, "intern ", 3) || ft_strequ(input, "intern"))
+		intern_blt(g_shell_registry, input_tab);
 	//EXECUTE BUILTIN ICI
 }
 

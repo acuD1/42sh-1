@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/26 07:37:17 by skuppers         ###   ########.fr        #
+#    Updated: 2019/04/26 15:35:02 by ffoissey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -184,6 +184,7 @@ BUILTIN += cd_blt_simple.c
 BUILTIN += env_blt.c
 BUILTIN += setenv_blt.c
 BUILTIN += unsetenv_blt.c
+BUILTIN += intern_blt.c
 
 #						- - - - - Line edtion - - - - -                        #
 

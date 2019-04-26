@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/02 18:01:29 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:32:54 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void			print_lst(t_list **alst)
 	ptr = *alst;
 	while (ptr != NULL)
 	{
-		ft_printf("%s=%s%s", ((t_node *)ptr->data)->var
-					, ((t_node *)ptr->data)->data, ptr->next ? "\n" : "\0");
+		ft_printf("%s=%s%c", ((t_node *)ptr->data)->var
+					, ((t_node *)ptr->data)->data, ptr->next ? '\n' : '\0');
 		ptr = ptr->next;
 	}
 }
