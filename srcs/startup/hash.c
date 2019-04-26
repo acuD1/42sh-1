@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:27:08 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/26 11:01:10 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 13:17:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,21 @@ static void	hash_bin(t_registry *reg, char *bin)
 
 static void	hash_builtin(t_registry *reg)
 {
+//	ft_dprintf(2, "[ERROR] Hmap insert failure : echo built-in\n");
 	if (!ft_hmap_insert(&(reg->blt_hashmap), "echo", exit_blt))
-		ft_dprintf(2, "[ERROR] Hmap insert failure : echo built-in\n");
+			;
 	if (!ft_hmap_insert(&(reg->blt_hashmap), "cd", exit_blt))
-		ft_dprintf(2, "[ERROR] Hmap insert failure : cd built-in\n");
+			;
 	if (!ft_hmap_insert(&(reg->blt_hashmap), "setenv", exit_blt))
-		ft_dprintf(2, "[ERROR] Hmap insert failure : setenv built-in\n");
+			;
 	if (!ft_hmap_insert(&(reg->blt_hashmap), "unsetenv", exit_blt))
-		ft_dprintf(2, "[ERROR] Hmap insert failure : unsetenv built-in\n");
+			;
 	if (!ft_hmap_insert(&(reg->blt_hashmap), "env", exit_blt))
-		ft_dprintf(2, "[ERROR] Hmap insert failure : env built-in\n");
+			;
 	if (!ft_hmap_insert(&(reg->blt_hashmap), "hash", hash_blt))
-		ft_dprintf(2, "[ERROR] Hmap insert failure : hash built-in\n");
+			;
 	if (!ft_hmap_insert(&(reg->blt_hashmap), "exit", exit_blt))
-		ft_dprintf(2, "[ERROR] Hmap insert failure : exit built-in\n");
+			;
 }
 
 int			hash_blt(t_registry *reg)
@@ -66,14 +67,19 @@ int			hash_blt(t_registry *reg)
 
 	if (reg->bin_hashmap.used > 0)
 		ft_hmap_free_content(&(reg->bin_hashmap), free);
-	tabs = ft_strsplit(get_data(&(reg->env), "PATH"), ":");
-	if (!tabs)
+	if (get_data(&(reg->env), "PATH") != NULL)
+	{
+		tabs = ft_strsplit(get_data(&(reg->env), "PATH"), ":");
+		if (!tabs)
 		return (0);
-	i = 0;
-	while (tabs[i])
-		hash_bin(reg, tabs[i++]);
+		i = 0;
+		while (tabs[i])
+			hash_bin(reg, tabs[i++]);
+		ft_freetab(&tabs);
+	}
 	hash_builtin(reg);
-	ft_freetab(&tabs);
+	if (reg->blt_hashmap.used == 0)
+		ft_dprintf(2, "Hashmap blt is empty.\n");
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 12:35:10 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 13:21:11 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,19 +105,18 @@ void				shell_invoke_interactive(t_registry *shell)
 	log_print(shell, LOG_INFO, "Starting interactive mode.\n");
 	if ((itf = init_line_edition(shell)) == NULL)
 	{
-// cleanup
+		ft_printf("[CRITICAL] - Line edition failed.\n");
 		return ;
 	}
 	else
 	{
 		if (fill_interface_data(shell, itf) == 0)
 		{
-//exec
 			launch_shell_prompt(shell, itf);
 		}
 		else
 		{
-//cleanup
+			ft_printf("[CRITICAL] - Interface data could not be fetched.\n");
 		}
 	}
 	log_print(shell, LOG_INFO, "Restoring original shell behavior.\n");
