@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:50 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 07:41:37 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:53:40 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void					launch_process(t_job *job, t_process *process,
 
 void					wait_for_job(t_job *job);
 
-t_job					*find_job(pid_t pid);
 uint8_t					job_is_stopped(t_job *job);
 uint8_t					job_is_completed(t_job *job);
 

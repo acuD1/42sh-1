@@ -6,12 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:51 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 11:03:34 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:54:07 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
-#include "log.h"
 #include "resolve.h"
 
 t_list *g_job_head;
@@ -37,9 +36,6 @@ void		launch_job(t_registry *shell, t_list *job_lst)
 	g_job_head = job_lst;
 	current_job = ((t_job*)job_lst->data);
 	process = current_job->f_process;
-
-	ft_dprintf(2, "\x1b[32m[JOB LAUNCH]: %s || IN = %d\n\x1b[0m"
-				, current_job->command, ((t_process*)current_job->f_process->data)->fd.in);
 	while (process)
 	{
 		launch_process(current_job, ((t_process*)process->data), shell);

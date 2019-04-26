@@ -1,0 +1,4 @@
+
+
+waitjob.c = Global or not ?
+free(job) parser !

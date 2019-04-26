@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:27:08 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/26 12:50:27 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:40:58 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static void	hash_builtin(t_registry *reg)
 		ft_dprintf(2, "[ERROR] Hmap insert failure : unsetenv built-in\n");
 	if (!ft_hmap_insert(&(reg->blt_hashmap), "unsetenv", unsetenv_blt))
 		ft_dprintf(2, "[ERROR] Hmap insert failure : env built-in\n");
-
 	if (!ft_hmap_insert(&(reg->blt_hashmap), "hash", hash_blt))
 		ft_dprintf(2, "[ERROR] Hmap insert failure : hash built-in\n");
 	if (!ft_hmap_insert(&(reg->blt_hashmap), "exit", exit_blt))
@@ -74,7 +73,7 @@ int			hash_blt(t_registry *reg, __unused char **av)
 	i = 0;
 	while (tabs[i])
 		hash_bin(reg, tabs[i++]);
-	//hash_builtin(reg);
+	hash_builtin(reg);
 	ft_freetab(&tabs);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 15:20:58 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/26 16:04:44 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,89 +39,79 @@ char		**str_lst_to_tab(t_list *alst)
 	return (tabs);
 }
 
-static void		execute_process(t_process *process, t_registry *shell)
+static void	el_redirector(t_filedesc *fd)
 {
-	char 			**environ;
+	if (fd->in != STDIN_FILENO && fd->in != STDOUT_FILENO
+								&& fd->in != STDERR_FILENO)
+	{
+		if (fd->in != -1 || close(STDIN_FILENO))
+			dup2(fd->in, STDIN_FILENO);
+	}
+	if (fd->out != STDOUT_FILENO && fd->out != STDIN_FILENO)
+	{
+		if (fd->out != -1 || close(STDOUT_FILENO))
+			dup2(fd->out, STDOUT_FILENO);
+	}
+	if (fd->err != STDERR_FILENO && fd->err != STDIN_FILENO)
+	{
+		if (fd->err != -1 || close(STDERR_FILENO))
+		{
+			if (fd->err == STDOUT_FILENO)
+				dup2(fd->out, STDERR_FILENO);
+			else
+				dup2(fd->err, STDERR_FILENO);
+		}
+	}
+}
+
+static void	execute_process(t_process *process, t_registry *shell)
+{
+	char			**environ;
 	t_filedesc		fd;
 
 	fd = process->fd;
-//	pid_t	pid;
-
-	/*	Interactive shell implementation	*/
-
-//	if (!pgid)
-//		pgid = getpid();
-//	ft_dprintf(2, "Child pid is %d.\n", getpid())
-
-		/*  Set up signal handling  */
-/*	Since it herited its behavior from the shell  */
 	signal(SIGINT, SIG_DFL); // way more
-
-	ft_dprintf(2, "\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
-				process->av[0], fd.in, fd.out, fd.err);
-	ft_dprintf(2, "\x1b[35m[OUTPUT]: _______________________\n\x1b[0m");
-
-	/*  Set up correct piping   */
-	if (fd.in != STDIN_FILENO && fd.in != STDOUT_FILENO && fd.in != STDERR_FILENO)
-	{
-		if (fd.in != -1 || close(STDIN_FILENO))
-			dup2(fd.in, STDIN_FILENO);
-	}
-	if (fd.out != STDOUT_FILENO && fd.out != STDIN_FILENO)
-	{
-		if (fd.out != -1 || close(STDOUT_FILENO))
-			dup2(fd.out, STDOUT_FILENO);
-	}
-	if (fd.err != STDERR_FILENO && fd.err != STDIN_FILENO)
-	{
-		if (fd.err != -1 || close(STDERR_FILENO))
-		{
-			if (fd.err == STDOUT_FILENO)
-				dup2(fd.out, STDERR_FILENO);
-			else
-				dup2(fd.err, STDERR_FILENO);
-		}
-	}
+//	ft_dprintf(2, "\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
+//				process->av[0], fd.in, fd.out, fd.err);
+//	ft_dprintf(2, "\x1b[35m[OUTPUT]: _______________________\n\x1b[0m");
+	el_redirector(&fd);
 	environ = str_lst_to_tab(shell->env);
-
 	/*	Exec the new process	*/
-
-
-	execve(ft_hmap_getdata(&shell->bin_hashmap, process->av[0]), process->av, environ);
-
-
+	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL)
+		((t_builtin)ft_hmap_getdata(&shell->blt_hashmap, process->av[0]))
+													(shell, process->av);
+	else if (ft_hmap_getdata(&shell->bin_hashmap, process->av[0]) != NULL)
+		execve(ft_hmap_getdata(&shell->bin_hashmap, process->av[0])
+													, process->av, environ);
+	else
+		execve(process->av[0], process->av, environ);
 	ft_dprintf(2, "[ERROR] - Execution failed: %s.\n", process->av[0]);
 	exit(-1);
 }
 
-void launch_process(t_job *job, t_process *process, t_registry *shell)
+void		launch_process(t_job *job, t_process *process, t_registry *shell)
 {
 	pid_t		pid;
 
-	/*
-	 *	if process is builtin and not in a pipe
-	 *		launch it with no fork
-	 *	else
-	 *		fork() the process
-	 */
-
-//	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != 0)
-
-
-	pid = fork();
-	if (pid == 0)
-		execute_process(process, shell);
-	else if (pid < 0)
-	{
-//		ft_dprintf(2, "Fork() failed.\n");
-		exit(-2);
-	}
+	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL
+		&& job->f_process->next != NULL)
+		((t_builtin)ft_hmap_getdata(&shell->blt_hashmap, process->av[0]))
+													(shell, process->av);
 	else
 	{
-		process->pid = pid; 		// Set the childs pid
-									// If shell is interactive
-		if (!job->pgid) 			// If no pgid is set, set it.
-			job->pgid = pid;
-//		setpgid(pid, job->pgid);	// Set the child's pgid
+		pid = fork();
+		if (pid == 0)
+			execute_process(process, shell);
+		else if (pid < 0)
+		{
+			ft_dprintf(2, "[ERROR]: Fork() failed.\n");
+			exit(-2);
+		}
+		else
+		{
+			process->pid = pid;
+			if (!job->pgid)
+				job->pgid = pid;
+		}
 	}
 }
