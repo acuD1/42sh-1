@@ -6,12 +6,11 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:23:09 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/26 16:18:48 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/26 19:18:03 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-
 
 static void			ft_strlower(char *str)
 {
@@ -43,7 +42,7 @@ static void			find_intern_variable(t_registry *shell, char **av,
 			}
 		}
 		if (var)
-			ft_printf("%s=%s%c", *av, var, *(av + 1) ? '\n' : '\0');
+			ft_printf("%s=%s\n", *av, var, *(av + 1));
 		ft_strdel(&tmp);
 		av++;
 	}
