@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/26 15:59:50 by cempassi         ###   ########.fr        #
+#    Updated: 2019/04/26 16:35:02 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ NAMEDB = 42shdb
 NAMET = unit
 LIBFT = libft.a
 LIBFTDB = libftdb.a
-SRCS = $(LINE) $(LEX_SRCS) $(PARSER_SRCS) $(BUILTIN)
+SRCS = $(LINE) $(LEX_SRCS) $(PARSER_SRCS) $(BUILTIN) $(TOOLS_SRCS)
 OBJM = $(patsubst %.c, $(OPATH)%.o, $(LINEM))
 OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS)) 
 OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM))
@@ -109,7 +109,8 @@ LINE_PATH += startup/
 LEXER_PATH += lexer/
 PARSER_PATH += parser/
 BUILTIN_PATH += builtin/
-SPATH += $(addprefix srcs/, $(LINE_PATH) $(LEXER_PATH) $(PARSER_PATH) $(BUILTIN_PATH))
+TOOLS_PATH += tools/
+SPATH += $(addprefix srcs/, $(LINE_PATH) $(LEXER_PATH) $(PARSER_PATH) $(BUILTIN_PATH) $(TOOLS_PATH))
 
 # ---------------------------------------------------------------------------- #
 #									 vpath                                     #
@@ -263,6 +264,7 @@ PARSER_SRCS += quote_parser.c
 PARSER_SRCS += redirect_parser.c
 PARSER_SRCS += lexer_parser_interface.c
 
+TOOLS_SRCS += list_functions.c
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #
 # ---------------------------------------------------------------------------- #

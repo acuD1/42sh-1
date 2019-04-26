@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/26 15:11:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/26 16:31:05 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,17 @@
 
 # define STARTING 14
 # define STRING_TOKENS 16
+
+# define WORD E_STRING, E_EXP, E_QUOTE, E_DB_QUOTE, E_BACKSLASH
+# define IO E_IO_NUMBER
+# define PIPELINE E_PIPE
+# define BASE_REDIRECT E_GREAT, E_LESS, E_DLESS, E_DGREAT
+# define AND_REDIRECT E_GREATAND, E_LESSAND
+# define REDIRECT AND_REDIRECT, BASE_REDIRECT
+# define END_CMD E_SEMICOLON, E_END
+# define ALL WORD, BASE_REDIRECT, IO
+# define ALL_END ALL, END_CMD
+# define E_START E_DEFAULT
 
 typedef struct s_graph		t_graph;
 typedef struct s_parser		t_parser;
@@ -144,20 +155,14 @@ void		print_result_debug(int which);
 */
 
 int			parser(t_list *lst);
-void		set_start_token(t_graph *start, t_graph **graph);
-void		set_string_token(t_graph **graph);
-void		set_exp_token(t_graph **graph);
-void		set_quote_token(t_graph **graph);
-void		set_dbquote_token(t_graph **graph);
-void		set_forward_token(t_graph **graph);
-void		set_backward_token(t_graph **graph);
-void		set_dgreat_token(t_graph **graph);
-void		set_dless_token(t_graph **graph);
-void		set_semicolon_token(t_graph **graph);
-void		set_pipe_token(t_graph **graph);
-void		set_ionumber_token(t_graph **graph);
-void		set_assign_token(t_graph **graph);
 
+void		set_start_token(t_graph *tab_tokens);
+void		set_word_token(t_graph *tab_tokens);
+void		set_redirect_token(t_graph *tab_tokens);
+void		set_assign_token(t_graph *tab_tokens);
+void		set_semicolon_token(t_graph *tab_tokens);
+void		set_pipe_token(t_graph *tab_tokens);
+void		set_ionumber_token(t_graph *tab_tokens);
 /*
 void		set_if_token(t_graph **graph);
 void		set_elif_token(t_graph **graph);
