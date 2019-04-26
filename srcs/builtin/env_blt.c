@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/26 12:05:42 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/26 16:34:03 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static void				ft_fill_with_new_value(t_registry *cpy_shell,
 		node->data = ft_strdup(ft_strchr(**arg, '=') + 1);
 		add_env(cpy_shell, node->var, node->data);
 		(*arg)++;
+		if (node && node->var && ft_strequ(node->var, "PATH"))
+			hash_blt(cpy_shell, *arg);
 	}
 }
 
@@ -68,8 +70,6 @@ static t_registry		*copy_registry(t_registry *shell, char ***arg,
 			node->data = ft_strdup(((t_node *)(lst->data))->data);
 			add_env(cpy_shell, node->var, node->data);
 			lst = lst->next;
-			if (node && ft_strequ(node->var, "PATH"))
-				hash_blt(shell, *arg);
 		}
 	}
 	ft_fill_with_new_value(cpy_shell, arg);
