@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:11:04 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/26 10:52:13 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/26 14:37:52 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int		main(int ac, char **av, char **env)
 	registry.env = env_lst;
 
 	/* Init Test bench hashmap */
-	hashmap = ft_hmap_init(32);
+	hashmap = ft_hmap_init(64);
 	if (!hashmap.map)
 		return (ft_dprintf(2, "\x1b[31m[ERROR]: Failed to malloc hashmap\n\x1b[0m") & 0);
 	if (!fill_test_bank(&hashmap))
@@ -125,7 +125,7 @@ int		main(int ac, char **av, char **env)
 	hash_blt(&registry, av);
 
 	/* Print Test Bench Hashmap */
-	ft_print_hashmap_p(&hashmap) ; ft_printf("\n\x1b[0m");
+//	ft_print_hashmap_p(&hashmap) ; ft_printf("\n\x1b[0m");
 	if (ac != 2)
 		return (ft_dprintf(2, "USAGE: ./resolve [test]\n\x1b[0m"));
 

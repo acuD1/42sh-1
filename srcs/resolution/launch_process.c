@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 10:53:38 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:20:58 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char		**str_lst_to_tab(t_list *alst)
 
 static void		execute_process(t_process *process, t_registry *shell)
 {
+	char 			**environ;
 	t_filedesc		fd;
 
 	fd = process->fd;
@@ -63,21 +64,13 @@ static void		execute_process(t_process *process, t_registry *shell)
 	/*  Set up correct piping   */
 	if (fd.in != STDIN_FILENO && fd.in != STDOUT_FILENO && fd.in != STDERR_FILENO)
 	{
-		/* PROTECT DUP */
 		if (fd.in != -1 || close(STDIN_FILENO))
-		{
 			dup2(fd.in, STDIN_FILENO);
-			//close(fd.in);
-		}
 	}
 	if (fd.out != STDOUT_FILENO && fd.out != STDIN_FILENO)
 	{
 		if (fd.out != -1 || close(STDOUT_FILENO))
-		{
 			dup2(fd.out, STDOUT_FILENO);
-			//if (fd.out != STDERR_FILENO)
-			//	close(fd.out);
-		}
 	}
 	if (fd.err != STDERR_FILENO && fd.err != STDIN_FILENO)
 	{
@@ -87,13 +80,16 @@ static void		execute_process(t_process *process, t_registry *shell)
 				dup2(fd.out, STDERR_FILENO);
 			else
 				dup2(fd.err, STDERR_FILENO);
-			//if (fd.err != STDOUT_FILENO)
-			//	close(fd.err);
 		}
 	}
-	char **environ = str_lst_to_tab(shell->env);
+	environ = str_lst_to_tab(shell->env);
+
 	/*	Exec the new process	*/
+
+
 	execve(ft_hmap_getdata(&shell->bin_hashmap, process->av[0]), process->av, environ);
+
+
 	ft_dprintf(2, "[ERROR] - Execution failed: %s.\n", process->av[0]);
 	exit(-1);
 }
