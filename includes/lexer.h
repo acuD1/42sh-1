@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/26 07:42:09 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 08:13:50 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LEXER_H
 
 # include "libft.h"
+# include "21sh.h"
 # include "resolve.h"
 # define STATENBR 15
 # define TOKEN_WITH_DATA 7
