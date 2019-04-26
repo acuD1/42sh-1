@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/26 07:37:17 by skuppers         ###   ########.fr        #
+#    Updated: 2019/04/26 15:59:50 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,10 +37,11 @@ NAMEDB = 42shdb
 NAMET = unit
 LIBFT = libft.a
 LIBFTDB = libftdb.a
+SRCS = $(LINE) $(LEX_SRCS) $(PARSER_SRCS) $(BUILTIN)
 OBJM = $(patsubst %.c, $(OPATH)%.o, $(LINEM))
-OBJS = $(patsubst %.c, $(OPATH)%.o, $(LINE) $(LEX_SRCS) $(PARSER_SRCS) $(BUILTIN))
+OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS)) 
 OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM))
-OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINE) $(LINEM) $(LEX_SRCS) $(PARSER_SRCS) $(BUILTIN))
+OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINEM) $(SRCS))
 LIB = $(addprefix $(LPATH), $(LIBFT))
 LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 # ---------------------------------------------------------------------------- #

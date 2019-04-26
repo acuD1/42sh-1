@@ -122,12 +122,8 @@ enum	e_event
 
 struct s_graph
 {
-	t_parsing		parsing[PARSE_STATES];
-	enum e_event	event;
-	enum e_type		type;
-	t_list			*type_end;
-	t_list			*type_parent;
-	t_list 			*lst;
+	enum e_type		*good_type;
+	int				nb_of_good_type;
 };
 
 /*

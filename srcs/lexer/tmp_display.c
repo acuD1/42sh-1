@@ -6,14 +6,14 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 16:13:18 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/24 13:34:04 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/26 16:03:55 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include <stdio.h>
 
-void		print_list(t_list *list)
+void		print_token(t_list *list)
 {
 	t_token *token;
 	token = list->data;

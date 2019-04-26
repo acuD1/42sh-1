@@ -6,14 +6,14 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/26 08:40:11 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 16:07:16 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include <stdlib.h>
 
-static void		init_process(t_lexer *machine)
+static void		init_lexing(t_lexer *machine)
 {
 	machine->process[START] = start_lexer;
 	machine->process[LETTER] = letter_machine;
@@ -22,6 +22,8 @@ static void		init_process(t_lexer *machine)
 	machine->process[DSIGN] = double_sign_machine;
 	machine->process[GREATER] = greater_machine;
 	machine->process[LESSER] = lesser_machine;
+	machine->process[GREATAND] = greatand_machine;
+	machine->process[TILDE] = tilde_machine;
 	machine->process[EXP] = expansion_machine;
 	machine->process[BSL] = backslash_machine;
 	machine->process[SQTE] = single_quote_machine;
@@ -51,7 +53,7 @@ static void		init_lexer(t_lexer *machine)
 	ft_bzero(machine, sizeof(t_lexer));
 	machine->state = START;
 	machine->last_lexer = E_DEFAULT;
-	init_process(machine);
+	init_lexing(machine);
 	init_special(machine);
 	machine->duplicate[0] = E_EXP;
 	machine->duplicate[1] = E_STRING;
@@ -60,17 +62,8 @@ static void		init_lexer(t_lexer *machine)
 	machine->duplicate[4] = E_QUOTE;
 	machine->duplicate[5] = E_DB_QUOTE;
 	machine->duplicate[6] = E_ASSIGN;
-}
-
-static void		print_token(t_list *token)
-{
-	ft_putendl("\n");
-	while (token)
-	{
-		print_list(token);
-		token = token->next;
-	}
-	ft_putendl("\n");
+	machine->duplicate[7] = E_GREATAND;
+	machine->duplicate[8] = E_TILDE;
 }
 
 t_list			*lexer(char *input)
@@ -85,14 +78,13 @@ t_list			*lexer(char *input)
 	machine.input = input;
 	while (machine.state != FINISH)
 		machine.process[machine.state](&machine);
-	print_token(machine.tokens);
 	return (machine.tokens);
 }
 
 
 # include "builtin.h"
 
-
+/*
 void	lexer_parser(char *input)
 {
 	t_list	*token;
@@ -120,4 +112,4 @@ void	lexer_parser(char *input)
 		cd_blt(g_shell_registry, input_tab);
 	//EXECUTE BUILTIN ICI
 }
-
+*/

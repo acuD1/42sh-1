@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/24 16:41:53 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/26 16:12:46 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static int			parse_tokens(t_list *lst, t_graph *graph)
 	enum e_type	state;
 	t_list		*tmp;
 
-	state = E_START;
+	state = E_DEFAULT;
 	tmp = lst;
 	while (lst)
 	{
@@ -131,7 +131,7 @@ int		parser(t_list *lst)
 **	{
 **		t_token 	*token;
 **		enum e_type	state;
-**	
+**
 **		state = START_TYPE;
 **		while (lst)
 **		{
@@ -152,7 +152,7 @@ int		parser(t_list *lst)
 **	int		parser(t_list *lst)
 **	{
 **		static t_graph	*graph = NULL;
-**	
+**
 **		ft_printf("\n------- | PARSER | -------\n\n");
 **		if (!graph && !(graph = generate_graph()))
 **		{
