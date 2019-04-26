@@ -6,28 +6,28 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/26 09:11:47 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/24 03:12:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-# include "libft.h"
-# include "21sh.h"
-# include "resolve.h"
-# define STATENBR 15
-# define TOKEN_WITH_DATA 7
-# define NB_OF_TOKENS 55
+#include "registry.h"
+# define STATENBR 18
+# define TOKEN_WITH_DATA 9
+# define NB_OF_TOKENS 54
 # define BUFFER 1024
 # define SINGLE_SIGNS 23
 # define SPECIAL_SIGNS 12
 # define SIGNS (SPECIAL_SIGNS + SINGLE_SIGNS)
 
 # define ALLCHAR "$\\\'\"|()><;`&~{}[]*?!#%N"
-# define SIGN_DETECT " \t<>|;\'\"$&\\"
-# define LETTER_TO_QUOTE "\"\'"
-# define LETTER_INTERUPT " \t<>|;\'\"$&\\"
+# define SIGN_DETECT " \t<>|;\'\"$&~\\"
+# define LETTER_TO_QUOTE "\"\'$"
+# define LETTER_INTERUPT " \t<>|;\'\"&\\"
+# define TILDE_INTERUPT " /$"
+# define QSP_INT " \"\'"
 ///// 42sh
 ///// # define LETTER_INTERUPT " \t<>|;\'\"`()$&!?{}[]*%\\"
 ///// # define SIGN_DETECT " \t<>|;\'\"`()$&!?{}[]*%\\="
@@ -51,7 +51,8 @@
 # define WHILE "while"
 
 typedef struct s_lexer t_lexer;
-typedef  void (*tt_process)(t_lexer *);
+typedef  void (*t_lexing)(t_lexer *);
+typedef enum e_type t_type;
 
 enum	e_lexer_state
 {
@@ -62,6 +63,9 @@ enum	e_lexer_state
 	DSIGN,
 	GREATER,
 	LESSER,
+	GREATAND,
+	LESSAND,
+	TILDE,
 	EXP,
 	BSL,
 	SQTE,
@@ -136,6 +140,8 @@ enum	e_quote
 	QUOTE_OFF,
 	QUOTE_ON,
 	QUOTE_INT,
+	QUOTE_SP,
+	QUOTE_SP_INT,
 };
 
 typedef struct	s_token
@@ -144,17 +150,11 @@ typedef struct	s_token
 	char		*data;
 }				t_token;
 
-typedef struct	s_state
-{
-	enum e_lexer_state state;
-	tt_process	process;
-}				t_state;
-
 struct	s_lexer
 {
 	char				*input;
 	char				buffer[BUFFER];
-	tt_process			process[STATENBR];
+	t_lexing			process[STATENBR];
 	enum e_type			duplicate[TOKEN_WITH_DATA];
 	enum e_type			special_signs[SPECIAL_SIGNS];
 	t_list				*tokens;
@@ -176,12 +176,13 @@ void	double_quote_machine(t_lexer *machine);
 void	double_sign_machine(t_lexer *machine);
 void	greater_machine(t_lexer *machine);
 void	lesser_machine(t_lexer *machine);
+void	greatand_machine(t_lexer *machine);
+void	tilde_machine(t_lexer *machine);
 
 void	fill_buffer_output(t_lexer *machine);
 t_token generate_token(t_lexer *machine);
 
 t_list		*lexer(char *input);
-void		lexer_parser(char *input);
 
 /*
 ** Temporary display functions | REMOVE BEFOR PUSH
@@ -189,7 +190,5 @@ void		lexer_parser(char *input);
 
 void	print_list(t_list *list);
 void	del_token(void *token);
-
-int		parser(t_list *lst);
 
 #endif
