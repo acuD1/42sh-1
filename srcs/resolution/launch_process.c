@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 18:52:15 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/26 07:26:19 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void		execute_process(t_process *process, t_registry *shell)
 	ft_dprintf(2, "\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
 				process->av[0], fd.in, fd.out, fd.err);
 	ft_dprintf(2, "\x1b[35m[OUTPUT]: _______________________\n\x1b[0m");
+
 	/*  Set up correct piping   */
 	if (fd.in != STDIN_FILENO && fd.in != STDOUT_FILENO && fd.in != STDERR_FILENO)
 	{
@@ -85,7 +86,7 @@ static void		execute_process(t_process *process, t_registry *shell)
 	//TODO		if (fd.err == STDOUT_FILENO)
 	//			dup2(fd.out, STDERR_FILENO);
 	//		else
-				dup2(fd.err, STDERR_FILENO);
+			dup2(fd.err, STDERR_FILENO);
 			//if (fd.err != STDOUT_FILENO)
 			//	close(fd.err);
 		}
@@ -100,6 +101,10 @@ static void		execute_process(t_process *process, t_registry *shell)
 void launch_process(t_job *job, t_process *process, t_registry *shell)
 {
 	pid_t		pid;
+
+
+
+
 
 	pid = fork();
 	if (pid == 0)

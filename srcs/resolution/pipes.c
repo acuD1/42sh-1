@@ -6,14 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 15:58:02 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/26 07:22:46 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include "log.h"
 #include "resolve.h"
-
+/*
 void	setup_pipes(t_job *job, t_list *process,
 				t_filedesc *io_file, int my_pipe[2])
 {
@@ -21,7 +21,7 @@ void	setup_pipes(t_job *job, t_list *process,
 		io_file->in = ((t_process *)process->data)->fd.in;
 	io_file->out = ((t_process*)process->data)->fd.out;
 	io_file->err = ((t_process*)process->data)->fd.err;
-	if (process->next /*&& */)
+	if (process->next && )
 	{
 		if (pipe(my_pipe))
 			exit(-1);
@@ -54,4 +54,4 @@ void	link_pipes(t_list *process, t_filedesc *io_file, int my_pipe[2])
 		close(io_file->out);
 	else
 		io_file->in = io_file->out;
-}
+}*/
