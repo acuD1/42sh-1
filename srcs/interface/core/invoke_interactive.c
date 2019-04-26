@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 18:45:20 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/26 18:55:30 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "line_edit.h"
 #include "log.h"
 #include "parser.h"
+#include "resolve.h"
 
 static int8_t		allocate_data_structures(t_vector **vector,
 				t_window **window, t_cursor **cursor)
@@ -70,13 +71,13 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 	int8_t	valid;
 	char	*user_input_string;
 
-	init_parser(&parse);
-	parse.env = shell->env;
 	log_print(shell, LOG_INFO, "Starting prompt.\n");
 	define_interface_signal_behavior(shell);
 	valid = 0;
 	while (1)
 	{
+		init_parser(&parse);
+		parse.env = shell->env;
 		user_input_string = prompt(shell, itf);
 		valid = is_input_valid(user_input_string);
 		if (valid == 1)
@@ -92,6 +93,7 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 		else
 			break ;
 		cleanup_interface(shell);
+		launch_job(shell, parse.job_list);
 		ft_lstdel(&parse.job_list, delete_job);
 	}
 	define_interface_default_signals(shell);

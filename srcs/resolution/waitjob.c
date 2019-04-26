@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:02:11 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 15:54:02 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/26 18:54:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int8_t		update_process_status(pid_t pid, int status)
 	job = g_job_head;
 	while (job)
 	{
-		process = ((t_job*)job->data)->f_process;
+		process = ((t_job*)job->data)->process_list;
 		while (process)
 		{
 			if (((t_process*)process->data)->pid == pid)

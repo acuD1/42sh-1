@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:18:25 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 15:53:53 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/26 18:52:48 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ uint8_t	job_is_stopped(t_job *job)
 {
 	t_list		*process;
 
-	process = job->f_process;
+	process = job->process_list;
 	while (process)
 	{
 		if (!((t_process*)process)->completed
@@ -34,7 +34,7 @@ uint8_t	job_is_completed(t_job *job)
 {
 	t_list		*process;
 
-	process = job->f_process;
+	process = job->process_list;
 	while (process)
 	{
 		if (!((t_process*)process)->completed)
