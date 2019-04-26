@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:15:38 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 17:31:21 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/26 11:07:27 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 #include "resolve.h"
 #include "reso.h"
 
-static int		testH_cat(t_process *cmd, char **env)
+static int		testH_ls(t_process *cmd, char **env)
 {
 	t_filedesc	fd;
 
 	ft_bzero(&fd, sizeof(t_filedesc));
-	fd.in = 3;
-	fd.out = 1;
+	fd.in = 0;
+	fd.out = 4;
 	fd.err = 2;
-	cmd->av = ft_strsplit("cat -e", " ");
+	cmd->av = ft_strsplit("ls -l", " ");
 	cmd->env = env;
 	cmd->pid = 0;
 	cmd->completed = 0;
@@ -34,15 +34,15 @@ static int		testH_cat(t_process *cmd, char **env)
 	return (1);
 }
 
-static int		testH_ls(t_process *cmd, char **env)
+static int		testH_cat(t_process *cmd, char **env)
 {
 	t_filedesc	fd;
 
 	ft_bzero(&fd, sizeof(t_filedesc));
-	fd.in = 0;
-	fd.out = 4;
+	fd.in = 3;
+	fd.out = 1;
 	fd.err = 2;
-	cmd->av = ft_strsplit("ls -l", " ");
+	cmd->av = ft_strsplit("cat -e", " ");
 	cmd->env = env;
 	cmd->pid = 0;
 	cmd->completed = 0;

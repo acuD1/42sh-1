@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:51 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 07:22:50 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 11:03:34 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@ t_list *g_job_head;
 
 static void	close_opened_fd(t_filedesc fd)
 {
-	if (fd.in != STDIN_FILENO && fd.in != -1)
+	if (fd.in != STDIN_FILENO && fd.in != STDOUT_FILENO
+								&& fd.in != STDERR_FILENO && fd.in != -1)
 		close(fd.in);
-	if (fd.out != STDOUT_FILENO && fd.out != -1)
+	if (fd.out != STDOUT_FILENO && fd.out != STDERR_FILENO
+								&& fd.out != STDIN_FILENO && fd.out != -1)
 		close(fd.out);
-	if (fd.err != STDERR_FILENO && fd.err != STDOUT_FILENO && fd.err != -1)
+	if (fd.err != STDERR_FILENO && fd.err != STDIN_FILENO
+								&& fd.err != STDOUT_FILENO && fd.out != -1)
 		close(fd.err);
 }
 

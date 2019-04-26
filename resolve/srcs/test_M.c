@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:39:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 15:37:40 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/26 09:47:33 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int		testM_ls(t_process *cmd, char **env)
 
 	ft_bzero(&fd, sizeof(t_filedesc));
 	fd.in = 0;
-	fd.out = 1;
+	fd.out = 4;
 	fd.err = 2;
 	cmd->av = ft_strsplit("ls -l", " ");
 	cmd->env = env;
@@ -56,10 +56,12 @@ static int		testM_cat(t_process *cmd, char **env)
 
 int				init_job_m(t_job *job)
 {
+	int my_pipe[2];
 	t_filedesc	fd;
 	t_list		*alst;
 
 	alst = NULL;
+	pipe(my_pipe);
 	ft_bzero(&fd, sizeof(t_filedesc));
 	fd.in = 0;
 	fd.out = 1;
