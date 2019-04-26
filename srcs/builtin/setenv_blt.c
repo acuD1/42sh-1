@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/26 12:05:01 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/26 16:48:13 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int8_t				setenv_blt(t_registry *shell, char **av)
 		add_env(shell, node->var, node->data);
 		if (node && ft_strequ(node->var, "PATH"))
 			hash_blt(shell, av);
+		clear_node((void **)&node);
 	}
 	return (SUCCESS);
 }
