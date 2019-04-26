@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 08:43:38 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 09:12:00 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ static void		execute_process(t_process *process, t_registry *shell)
 	{
 		if (fd.err != -1 || close(STDERR_FILENO))
 		{
-	//TODO		if (fd.err == STDOUT_FILENO)
-	//			dup2(fd.out, STDERR_FILENO);
-	//		else
-			dup2(fd.err, STDERR_FILENO);
+			if (fd.err == STDOUT_FILENO)
+				dup2(fd.out, STDERR_FILENO);
+			else
+				dup2(fd.err, STDERR_FILENO);
 			//if (fd.err != STDOUT_FILENO)
 			//	close(fd.err);
 		}
@@ -108,6 +108,8 @@ void launch_process(t_job *job, t_process *process, t_registry *shell)
 	 *	else
 	 *		fork() the process
 	 */
+
+//	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != 0)
 
 
 	pid = fork();

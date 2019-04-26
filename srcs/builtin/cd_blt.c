@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/24 18:57:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 09:21:59 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char			*ft_get_curpath(t_registry *shell, char *path_give_by_user)
 	if (!path_give_by_user)
 	{
 		home_path = get_env_var(shell, "HOME");
-		curpath = ft_strdup(home_path ? home_path : get_home_path());	
+		curpath = ft_strdup(home_path ? home_path : get_home_path());
 	}
 	else if (ft_strequ(path_give_by_user, "-"))
 	{

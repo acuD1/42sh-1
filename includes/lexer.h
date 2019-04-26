@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/26 08:39:28 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 09:11:47 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ typedef struct	s_token
 typedef struct	s_state
 {
 	enum e_lexer_state state;
-	t_process	process;
+	tt_process	process;
 }				t_state;
 
 struct	s_lexer

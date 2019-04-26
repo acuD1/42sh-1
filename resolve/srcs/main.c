@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:11:04 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/24 16:58:00 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/26 09:14:03 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int		main(int ac, char **av, char **env)
 	/* Init registry hashmaps */
 	registry.bin_hashmap = ft_hmap_init(4096);
 	registry.blt_hashmap = ft_hmap_init(16);
-	hash_blt(&registry);
+	hash_blt(&registry, av);
 
 	/* Print Test Bench Hashmap */
 	ft_print_hashmap_p(&hashmap) ; ft_printf("\n\x1b[0m");
