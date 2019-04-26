@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 16:39:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 16:42:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 		if (valid == 1)
 		{
 			push_history_entry(&(itf->history_head), create_history_entry(itf->line->buffer));
-			lexer(user_input_string);
+			lexer_parser(user_input_string);
 		}
 		else if (valid == -1)
 		{
