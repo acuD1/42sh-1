@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/26 15:35:02 by ffoissey         ###   ########.fr        #
+#    Updated: 2019/04/26 16:26:31 by ffoissey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -259,7 +259,6 @@ PARSER_SRCS += parser_debug.c
 LINE += job_tools.c
 LINE += launch_job.c
 LINE += launch_process.c
-LINE += pipes.c
 LINE += waitjob.c
 
 
