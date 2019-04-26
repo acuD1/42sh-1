@@ -6,14 +6,14 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/24 03:12:29 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:07:46 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-#include "registry.h"
+#include "21sh.h"
 # define STATENBR 18
 # define TOKEN_WITH_DATA 9
 # define NB_OF_TOKENS 54

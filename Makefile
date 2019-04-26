@@ -246,6 +246,7 @@ LEX_SRCS += quotes_states.c
 LEX_SRCS += sign_states.c
 LEX_SRCS += expansion_states.c
 LEX_SRCS += tmp_display.c
+LEX_SRCS += redirect_states.c
 
 #						   - - - - - Parser - - - - -                          #
 #
@@ -253,15 +254,13 @@ PARSER_SRCS += parser.c
 PARSER_SRCS += set_parser_token.c
 PARSER_SRCS += generate_graph.c
 PARSER_SRCS += parser_debug.c
-
-#						   - - - - Resolution - - - -                           #
-LINE += job_tools.c
-LINE += launch_job.c
-LINE += launch_process.c
-LINE += pipes.c
-LINE += waitjob.c
-
-
+PARSER_SRCS += parser_state.c
+PARSER_SRCS += parser_interface.c
+PARSER_SRCS += init.c
+PARSER_SRCS += string_parser.c
+PARSER_SRCS += quote_parser.c
+PARSER_SRCS += redirect_parser.c
+PARSER_SRCS += lexer_parser_interface.c
 
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #

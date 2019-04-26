@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 07:36:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:15:22 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,7 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 	{
 		user_input_string = prompt(shell, itf);
 		if (is_input_valid(user_input_string) == 1)
-			lexer_parser(user_input_string);
-		else
-			break ;
+		//	lexer_parser(user_input_string);
 		cleanup_interface(shell);
 	}
 	define_interface_default_signals(shell);
