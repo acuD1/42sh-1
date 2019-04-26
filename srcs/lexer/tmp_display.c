@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 16:13:18 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/26 16:03:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/26 16:41:17 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void		print_token(t_list *list)
 		, "<>", "<<-", ">|", "==", "!="};
 	const static char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
 		, IF, IN, THEN, UNTIL, WHILE};
-
 	if (token->type < SINGLE_SIGNS || token->type == E_STRING )
 	{
 		ft_printf("type_id = [ %2d ] | type_name = [ %5.1c ] | data = [ %s ]\n",

@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 13:34:28 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/18 15:58:35 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/24 03:19:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,27 +60,34 @@ void	quote_dispatcher(t_lexer *machine)
 		machine->state = BQTE;
 	else if (*machine->input == '$')
 		machine->state = EXP;
+	else if (*machine->input == '~' && ft_strchr(" \"", machine->input[-1]))
+		machine->state = TILDE;
 	machine->input++;
 }
 
 void	close_double_quote(t_lexer *machine)
 {
+	if (machine->quote != QUOTE_SP)
+		machine->input++;
 	machine->last_lexer = E_DB_QUOTE;
 	machine->state = OUT;
 	machine->quote = QUOTE_OFF;
-	machine->input++;
 	return ;
 }
 
 void	double_quote_machine(t_lexer *machine)
 {
-	if (machine->quote && *machine->input == '\"')
+	if (machine->quote == QUOTE_SP && !*machine->input)
 		close_double_quote(machine);
-	else if (machine->quote == QUOTE_INT)
+	else if (machine->quote == QUOTE_SP && ft_strchr(QSP_INT, *machine->input))
+		close_double_quote(machine);
+	else if (machine->quote && *machine->input == '\"')
+		close_double_quote(machine);
+	else if (machine->quote == QUOTE_INT || machine->quote == QUOTE_SP_INT)
 		quote_dispatcher(machine);
 	else if (ft_strchr(QUOTE_INTERUPT, *machine->input))
 	{
-		machine->quote = QUOTE_INT;
+		machine->quote = machine->quote == QUOTE_SP ? QUOTE_SP_INT : QUOTE_INT;
 		machine->last_lexer = E_DB_QUOTE;
 		machine->state = OUT;
 		return ;
@@ -88,7 +95,7 @@ void	double_quote_machine(t_lexer *machine)
 	else if (*machine->input)
 	{
 		ft_strncat(machine->buffer, machine->input, 1);
-		machine->quote = QUOTE_ON;
+		machine->quote = machine->quote == QUOTE_SP ? QUOTE_SP : QUOTE_ON;
 		machine->input++;
 	}
 	else
