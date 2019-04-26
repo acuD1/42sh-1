@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/26 07:36:15 by skuppers         ###   ########.fr        #
+#    Updated: 2019/04/26 07:37:17 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -142,12 +142,9 @@ INCS += line_edit.h
 INCS += interface_functions.h
 INCS += unit.h
 INCS += lexer.h
-<<<<<<< HEAD
 INCS += parser.h
 INCS += builtin.h
-=======
 INCS += resolve.h
->>>>>>> Resolution
 
 # ---------------------------------------------------------------------------- #
 #									Sources                                    #
