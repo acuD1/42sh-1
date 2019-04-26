@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 02:58:15 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:24:45 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int					launch_shell_prompt(t_registry *shell)
 			return (0);
 		if (lexer_parser(&parse, input))
 			return (-1);
-		//launch_job(shell, parse.job_list);
+		launch_job(shell, parse.job_list);
 		return (1);
 	}
 	return (0);
