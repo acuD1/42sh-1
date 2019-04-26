@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 13:10:24 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 14:28:24 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ void	init_debug_logger(t_registry *reg)
 	{
 		if ((home_path = get_data(&(reg->env), "HOME")) == NULL)
 		{
-			add_internal(reg, INT_DBG_FD, ft_itoa(-1));
+			home_path = ft_itoa(-1);
+			add_internal(reg, INT_DBG_FD, home_path);
+			ft_strdel(&home_path);
 			ft_dprintf(2, "[ERROR] - Could not fetch home variable.\n");
 			return ;
 		}
@@ -80,5 +82,9 @@ void	init_debug_logger(t_registry *reg)
 		ft_strdel(&log_path);
 	}
 	else
-		add_internal(reg, INT_DBG_FD, ft_itoa(-1));
+	{
+		home_path = ft_itoa(-1);
+		add_internal(reg, INT_DBG_FD, home_path);
+		ft_strdel(&home_path);
+	}
 }
