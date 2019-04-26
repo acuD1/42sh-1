@@ -6,12 +6,13 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 22:07:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/26 16:32:19 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/26 17:27:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "21sh.h"
 # include "parser.h"
+
 
 void	delete_process(void *data)
 {
@@ -26,6 +27,14 @@ void	delete_process(void *data)
 		close(process->fd.out);
 	if (process->fd.err != 2)
 		close(process->fd.out);
+}
+
+void	delete_job(void *data)
+{
+	t_job	*job;
+
+	job = data;
+	ft_lstdel(&job->process_list, delete_process);
 }
 
 char	*variable_to_str(void *data)

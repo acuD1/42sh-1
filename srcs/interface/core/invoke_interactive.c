@@ -6,14 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 15:15:22 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/26 18:07:15 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interface_functions.h"
 #include "line_edit.h"
 #include "log.h"
-#include "lexer.h"
+#include "parser.h"
 
 static int8_t		allocate_data_structures(t_vector **vector,
 				t_window **window, t_cursor **cursor)
@@ -55,27 +55,25 @@ int8_t				fill_interface_data(t_registry *shell, t_interface *itf)
 	return (0);
 }
 
-static int8_t		is_input_valid(char *input_string)
-{
-	if (input_string == NULL)
-		return (-1);
-	if (ft_strequ(input_string, "exit") || input_string[0] == 4)
-		return (-2);
-	return (1);
-}
-
 void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 {
-	char	*user_input_string;
+	char	*input;
+	t_parser	parse;
 
+	parse.env = shell->env;
 	log_print(shell, LOG_INFO, "Starting prompt.\n");
 	define_interface_signal_behavior(shell);
 	while (1)
 	{
-		user_input_string = prompt(shell, itf);
-		if (is_input_valid(user_input_string) == 1)
-		//	lexer_parser(user_input_string);
+		init_parser(&parse);
+		input = prompt(shell, itf);
+		if (!input)
+			continue;
+		else if (ft_strequ(input, "exit") || input[0] == 4)
+			break;
+		lexer_parser(&parse, input);
 		cleanup_interface(shell);
+		ft_lstdel(&parse.job_list, delete_job);
 	}
 	define_interface_default_signals(shell);
 }

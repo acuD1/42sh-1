@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 22:31:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/26 16:40:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/26 18:07:06 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	init_job(t_job *job)
 void	init_parser(t_parser *parse)
 {
 	ft_bzero(parse, sizeof(t_parser));
-	parse->state = P_START;
 	bzero_parsing(parse);
 	init_parsing(parse);
 	ft_stckinit(&parse->stack);
@@ -68,14 +67,11 @@ int		lexer_parser(t_parser *parse, char *input)
 {
 	if (!*input)
 		return (0);
-	if (!parse->token_list)
-	{
-		parse->token_list = lexer(input);
-		ft_putchar('\n');
-		ft_lstiter(parse->token_list, print_token);
-		if (parser(parse->token_list))
-			return (-1);
-	}
+	parse->token_list = lexer(input);
+	ft_putchar('\n');
+	ft_lstiter(parse->token_list, print_token);
+	if (parser(parse->token_list) == FALSE)
+		return (-1);
 	get_token(parse);
 	parser_state(parse);
 	ft_lstiter(((t_job*)(parse->job_list->data))->process_list, print_process);

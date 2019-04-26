@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/26 16:32:53 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/26 17:27:59 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ int				free_node(t_list **alst, char *var);
 int				free_lst(t_list **alst);
 
 char		*variable_to_str(void *data);
-void	delete_process(void *data);
+void		delete_process(void *data);
+void		delete_job(void *data);
 #endif
