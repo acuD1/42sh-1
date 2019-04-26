@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:27:08 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/26 11:57:37 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/26 11:59:39 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int			hash_blt(t_registry *reg, __unused char **av)
 	i = 0;
 	while (tabs[i])
 		hash_bin(reg, tabs[i++]);
-//	hash_builtin(reg);
+	hash_builtin(reg);
 	ft_freetab(&tabs);
 	return (1);
 }
