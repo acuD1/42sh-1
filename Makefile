@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/26 16:35:02 by cempassi         ###   ########.fr        #
+#    Updated: 2019/04/26 18:40:09 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,6 +95,7 @@ TPATH += unit-tests/interface/
 TPATH += unit-tests/lexer/
 LINE_PATH += interface/
 LINE_PATH += interface/action_keys/
+LINE_PATH += interface/history/
 LINE_PATH += interface/action_keys/clipboard/
 LINE_PATH += interface/action_keys/movement/
 LINE_PATH += interface/core/
@@ -147,6 +148,7 @@ INCS += lexer.h
 INCS += parser.h
 INCS += builtin.h
 INCS += resolve.h
+INCS += history.h
 
 # ---------------------------------------------------------------------------- #
 #									Sources                                    #
@@ -186,8 +188,12 @@ BUILTIN += cd_blt_simple.c
 BUILTIN += env_blt.c
 BUILTIN += setenv_blt.c
 BUILTIN += unsetenv_blt.c
+BUILTIN += intern_blt.c
 
 #						- - - - - Line edtion - - - - -                        #
+
+#History
+LINE += history.c
 
 #Signals
 LINE += signal_handler.c
@@ -265,6 +271,15 @@ PARSER_SRCS += redirect_parser.c
 PARSER_SRCS += lexer_parser_interface.c
 
 TOOLS_SRCS += list_functions.c
+
+#						   - - - - Resolution - - - -                           #
+LINE += job_tools.c
+LINE += launch_job.c
+LINE += launch_process.c
+LINE += waitjob.c
+
+
+
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #
 # ---------------------------------------------------------------------------- #

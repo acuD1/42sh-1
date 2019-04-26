@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/26 17:27:59 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/26 18:41:51 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdlib.h>
 # include "libft.h"
 # include "internals.h"
+# include "lexer.h"
 
 typedef struct s_opt
 {
@@ -44,8 +45,7 @@ typedef struct		s_registry
 	struct s_interface		*interface;
 }					t_registry;
 
-# include "lexer.h"
-#include "line_edit.h"
+# include "line_edit.h"
 
 typedef int 		(*t_builtin)(t_registry *, char **);
 

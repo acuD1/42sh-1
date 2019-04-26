@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:35:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/24 18:13:09 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:33:47 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,13 @@ int8_t				setenv_blt(t_registry *shell, char **av);
 */
 
 int8_t				unsetenv_blt(t_registry *shell, char **av);
+
+/*
+*****************************************************
+****************** INTERN BUILT-IN ******************
+*****************************************************
+*/
+
+int8_t				intern_blt(t_registry *shell, char **av);
 
 #endif

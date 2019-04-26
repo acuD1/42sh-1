@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 15:38:36 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/26 16:38:29 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ t_interface			*init_line_edition(t_registry *shell)
 	if ((itf->clip = allocate_clipboard(shell)) == NULL)
 		return (NULL);
 	log_print(shell, LOG_OK, "Line edition initialized.\n");
+	itf->history_head = NULL;
+	itf->hist_ptr = NULL;
 	g_shell_registry = shell;
 	return (itf);
 }

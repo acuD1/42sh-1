@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 18:07:15 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/26 18:45:20 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,42 @@ int8_t				fill_interface_data(t_registry *shell, t_interface *itf)
 	return (0);
 }
 
+static int8_t		is_input_valid(char *input_string)
+{
+	if (ft_strequ(input_string, "exit") || input_string[0] == 4)
+		return (-2);
+	if (input_string == NULL || ft_strequ(input_string, " ") || ft_strlen(input_string) == 0)
+		return (-1);
+	return (1);
+}
+
 void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 {
-	char	*input;
-	t_parser	parse;
+	t_parser parse;
+	int8_t	valid;
+	char	*user_input_string;
 
+	init_parser(&parse);
 	parse.env = shell->env;
 	log_print(shell, LOG_INFO, "Starting prompt.\n");
 	define_interface_signal_behavior(shell);
+	valid = 0;
 	while (1)
 	{
-		init_parser(&parse);
-		input = prompt(shell, itf);
-		if (!input)
-			continue;
-		else if (ft_strequ(input, "exit") || input[0] == 4)
-			break;
-		lexer_parser(&parse, input);
+		user_input_string = prompt(shell, itf);
+		valid = is_input_valid(user_input_string);
+		if (valid == 1)
+		{
+			push_history_entry(&(itf->history_head), create_history_entry(itf->line->buffer));
+			lexer_parser(&parse, user_input_string);
+		}
+		else if (valid == -1)
+		{
+			cleanup_interface(shell);
+			continue ;
+		}
+		else
+			break ;
 		cleanup_interface(shell);
 		ft_lstdel(&parse.job_list, delete_job);
 	}
@@ -90,19 +109,18 @@ void				shell_invoke_interactive(t_registry *shell)
 	log_print(shell, LOG_INFO, "Starting interactive mode.\n");
 	if ((itf = init_line_edition(shell)) == NULL)
 	{
-// cleanup
+		ft_printf("[CRITICAL] - Line edition failed.\n");
 		return ;
 	}
 	else
 	{
 		if (fill_interface_data(shell, itf) == 0)
 		{
-//exec
 			launch_shell_prompt(shell, itf);
 		}
 		else
 		{
-//cleanup
+			ft_printf("[CRITICAL] - Interface data could not be fetched.\n");
 		}
 	}
 	log_print(shell, LOG_INFO, "Restoring original shell behavior.\n");

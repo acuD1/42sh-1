@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   waitjob.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:02:11 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 17:02:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:54:02 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
-#include "log.h"
 #include "resolve.h"
 
 int8_t		set_process_status(t_process *process, pid_t pid, int status)
@@ -23,19 +22,20 @@ int8_t		set_process_status(t_process *process, pid_t pid, int status)
 	{
 		process->completed = 1;
 		if (WIFSIGNALED(status))
-			ft_printf("%d: Terminated by %d.\n", pid, WTERMSIG(process->status));
+			ft_dprintf(2, "[ERROR] pid %d: Terminated by %d.\n"
+			, pid, WTERMSIG(process->status));
 	}
 	return (0);
 }
 
 int8_t		update_process_status(pid_t pid, int status)
 {
-	t_list 		*job;
+	t_list		*job;
 	t_list		*process;
 
 	if (pid <= 0)
 		return (-1);
-	//global job
+	// global job
 	job = g_job_head;
 	while (job)
 	{
@@ -43,12 +43,13 @@ int8_t		update_process_status(pid_t pid, int status)
 		while (process)
 		{
 			if (((t_process*)process->data)->pid == pid)
-				return (set_process_status(((t_process*)process->data), pid, status));
+				return (set_process_status(((t_process*)process->data)
+				, pid, status));
 			process = process->next;
 		}
 		job = job->next;
 	}
-	ft_printf("No child process %d.\n", (int)pid);
+	ft_dprintf(2, "[WARNING]: No child process %d.\n", (int)pid);
 	return (-1);
 }
 
