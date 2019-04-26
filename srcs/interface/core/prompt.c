@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 19:09:38 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 11:38:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "interface_functions.h"
 #include "log.h"
 #include "ft_printf.h"
+#include "history.h"
 
 char		*prompt(t_registry *shell_reg, t_interface *itf)
 {
@@ -21,6 +22,7 @@ char		*prompt(t_registry *shell_reg, t_interface *itf)
 
 	ft_bzero(character, READ_SIZE);
 	ft_dprintf(STDOUT_FILENO, "\n%s", get_intern_var(shell_reg, itf->state));
+	itf->hist_ptr = NULL;
 	while (character[0] != IFS_CHAR)
 	{
 		ft_bzero(character, READ_SIZE);

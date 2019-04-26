@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/15 19:20:26 by skuppers         ###   ########.fr        #
+#    Updated: 2019/04/26 10:20:27 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,7 @@ TPATH += unit-tests/
 TPATH += unit-tests/interface/
 LINE_PATH += interface/
 LINE_PATH += interface/action_keys/
+LINE_PATH += interface/history/
 LINE_PATH += interface/action_keys/clipboard/
 LINE_PATH += interface/action_keys/movement/
 LINE_PATH += interface/core/
@@ -138,6 +139,7 @@ INCS += line_edit.h
 INCS += interface_functions.h
 INCS += unit.h
 INCS += lexer.h
+INCS += history.h
 
 # ---------------------------------------------------------------------------- #
 #									Sources                                    #
@@ -166,6 +168,9 @@ LINE += exit.c
 LINE += debug_logger.c
 
 #						- - - - - Line edtion - - - - -                        #
+
+#History
+LINE += history.c
 
 #Signals
 LINE += signal_handler.c

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 16:06:08 by skuppers          #+#    #+#             */
-/*   Updated: 2019/03/04 13:17:49 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 09:48:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct			s_history
 
 t_history				*create_history_entry(char *command);
 t_history				*get_history_entry();
+
 void					push_history_entry(t_history **head, t_history *node);
 
 int						write_history_to_file(t_history *last);

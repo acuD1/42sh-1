@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 13:58:46 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 12:35:10 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,35 @@ int8_t				fill_interface_data(t_registry *shell, t_interface *itf)
 
 static int8_t		is_input_valid(char *input_string)
 {
-	if (input_string == NULL)
-		return (-1);
 	if (ft_strequ(input_string, "exit") || input_string[0] == 4)
 		return (-2);
+	if (input_string == NULL || ft_strequ(input_string, " ") || ft_strlen(input_string) == 0)
+		return (-1);
 	return (1);
 }
 
 void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 {
+	int8_t	valid;
 	char	*user_input_string;
 
 	log_print(shell, LOG_INFO, "Starting prompt.\n");
 	define_interface_signal_behavior(shell);
+	valid = 0;
 	while (1)
 	{
 		user_input_string = prompt(shell, itf);
-		if (is_input_valid(user_input_string) == 1)
-				;
-//			lexer(user_input_string);
+		valid = is_input_valid(user_input_string);
+		if (valid == 1)
+		{
+			push_history_entry(&(itf->history_head), create_history_entry(itf->line->buffer));
+			lexer(user_input_string);
+		}
+		else if (valid == -1)
+		{
+			cleanup_interface(shell);
+			continue ;
+		}
 		else
 			break ;
 		cleanup_interface(shell);

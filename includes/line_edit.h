@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 09:33:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 19:41:33 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 11:22:57 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 #include "21sh.h"
 #include "libft.h"
+#include "history.h"
 
 # define AK_AMOUNT 24
 #define AK_ARROW_UP_MASK	0x1b5b410000000000
@@ -111,6 +112,10 @@ typedef struct				s_interface
 	t_cursor				*cursor;
 	t_window				*window;
 	t_termcaps				*termcaps;
+
+	t_history				*history_head;
+	t_history				*hist_ptr;
+	char					*current_line;
 
 	char					*state;
 	unsigned long			ak_masks[AK_AMOUNT];

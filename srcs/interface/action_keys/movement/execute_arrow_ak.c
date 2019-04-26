@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:12:56 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 14:18:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 11:42:55 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,16 @@ int8_t				tc_ak_arrow_left(t_registry *shell)
 
 int8_t				tc_ak_arrow_up(t_registry *shell)
 {
-	(void)shell;
+	if (shell->interface->hist_ptr == NULL)
+	{
+		shell->interface->hist_ptr = shell->interface->history_head;
+		shell->interface->current_line = ft_strdup(shell->interface->line->buffer);
+	}
+	else if (shell->interface->hist_ptr->next)
+		shell->interface->hist_ptr = shell->interface->hist_ptr->next;
+	if (shell->interface->hist_ptr == NULL)
+		return (-1);
+	replace_input_line(shell->interface->hist_ptr->command ,shell);
 	return (0);
 }
 
@@ -88,6 +97,12 @@ int8_t				tc_ak_arrow_up(t_registry *shell)
 
 int8_t				tc_ak_arrow_down(t_registry *shell)
 {
-	(void)shell;
+	if (shell->interface->hist_ptr->prev == NULL)
+		replace_input_line(shell->interface->current_line, shell);
+	if (shell->interface->hist_ptr->prev)
+	{
+		shell->interface->hist_ptr = shell->interface->hist_ptr->prev;
+		replace_input_line(shell->interface->hist_ptr->command, shell);
+	}
 	return (0);
 }
