@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:27:08 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/26 16:44:23 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 17:03:35 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,13 @@ static void	hash_builtin(t_registry *reg)
 {
 //	ft_dprintf(2, "[ERROR] Hmap insert failure : echo built-in\n");
 	ft_hmap_insert(&(reg->blt_hashmap), "echo", exit_blt);
-	ft_hmap_insert(&(reg->blt_hashmap), "cd", exit_blt);
-	ft_hmap_insert(&(reg->blt_hashmap), "setenv", exit_blt);
-	ft_hmap_insert(&(reg->blt_hashmap), "unsetenv", exit_blt);
-	ft_hmap_insert(&(reg->blt_hashmap), "env", exit_blt);
+	ft_hmap_insert(&(reg->blt_hashmap), "cd", cd_blt);
+	ft_hmap_insert(&(reg->blt_hashmap), "setenv", setenv_blt);
+	ft_hmap_insert(&(reg->blt_hashmap), "unsetenv", unsetenv_blt);
+	ft_hmap_insert(&(reg->blt_hashmap), "env", env_blt);
 	ft_hmap_insert(&(reg->blt_hashmap), "hash", hash_blt);
 	ft_hmap_insert(&(reg->blt_hashmap), "exit", exit_blt);
+	ft_hmap_insert(&(reg->blt_hashmap), "intern", intern_blt);
 }
 
 int			hash_blt(t_registry *reg, __unused char **av)
