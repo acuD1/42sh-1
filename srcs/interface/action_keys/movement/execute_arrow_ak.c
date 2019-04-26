@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:12:56 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 11:42:55 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/26 12:42:31 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int8_t				tc_ak_arrow_up(t_registry *shell)
 	if (shell->interface->hist_ptr == NULL)
 	{
 		shell->interface->hist_ptr = shell->interface->history_head;
+		if (shell->interface->current_line != NULL)
+			ft_strdel(&(shell->interface->current_line));
 		shell->interface->current_line = ft_strdup(shell->interface->line->buffer);
 	}
 	else if (shell->interface->hist_ptr->next)
