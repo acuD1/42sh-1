@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/27 12:34:54 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/27 12:57:25 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ typedef struct s_opt
 	int		v;	//TODO: Implement this
 	int		d;	//TODO: Change implementation
 	int		c;	//TODO: Implement this
+	char	*cmd;  //TODO: Implement for -c
 	int		norc; // TODO: Mute this for 21sh
 	int		rcfile;//TODO: Mute this for 21sh
-	char	*cmd;  //TODO: Implement for -c
 	char	*path; //TODO: Mute this for 21sh // rcfile
 }				t_opt;
 

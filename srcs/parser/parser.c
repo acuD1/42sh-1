@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/26 16:12:46 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/27 13:37:31 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int		parser(t_list *lst)
 
 	if (!graph)
 		graph = generate_graph();
-	return (!lst || parse_tokens(lst, graph));
+	return (!lst || parse_tokens(lst, graph) ? SUCCESS : FAILURE);
 }
 
 /*

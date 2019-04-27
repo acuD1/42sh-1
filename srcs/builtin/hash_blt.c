@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 12:09:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/27 12:13:34 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/27 13:04:39 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	hash_bin(t_registry *reg, char *bin)
 
 static void	hash_builtin(t_registry *reg)
 {
-	ft_hmap_insert(&(reg->blt_hashmap), "echo", exit_blt);
+	ft_hmap_insert(&(reg->blt_hashmap), "echo", echo_blt);
 	ft_hmap_insert(&(reg->blt_hashmap), "cd", cd_blt);
 	ft_hmap_insert(&(reg->blt_hashmap), "setenv", setenv_blt);
 	ft_hmap_insert(&(reg->blt_hashmap), "unsetenv", unsetenv_blt);
@@ -65,7 +65,7 @@ int8_t			hash_blt(t_registry *reg, __unused char **av)
 	{
 		tabs = ft_strsplit(get_data(&(reg->env), "PATH"), ":");
 		if (!tabs)
-			return (0);
+			return (FAILURE);
 		i = 0;
 		while (tabs[i])
 			hash_bin(reg, tabs[i++]);
@@ -74,7 +74,7 @@ int8_t			hash_blt(t_registry *reg, __unused char **av)
 	hash_builtin(reg);
 	if (reg->blt_hashmap.used == 0)
 		ft_dprintf(2, "Hashmap blt is empty.\n");
-	return (1);
+	return (SUCCESS);
 }
 
 /*

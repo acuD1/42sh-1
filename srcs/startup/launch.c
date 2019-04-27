@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/27 12:30:53 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/27 13:47:53 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ static int		get_env(t_list **alst, char **env)
 	while (env[i] != NULL)
 	{
 		if (!f_create_node(alst, env[i]))
-			return (0);
+			return (FAILURE);
 		i++;
 	}
-	return (1);
+	return (SUCCESS);
 }
 
 int				fill_opt(int index, char **av, t_opt *option)
@@ -39,8 +39,8 @@ int				fill_opt(int index, char **av, t_opt *option)
 			ft_printf("USAGE ./21sh [-c]CMD\n");
 		else
 			option->cmd = ft_strdup(av[index + 1]);
-		if (!option->cmd || !parse_arg(index + 2, av, option))
-			return (0);
+		if (!option->cmd || parse_arg(index + 2, av, option))
+			return (FAILURE);
 	}
 	else if (!ft_strcmp(av[index], "--rcfile"))
 	{
@@ -49,22 +49,22 @@ int				fill_opt(int index, char **av, t_opt *option)
 			ft_printf("USAGE ./21sh [-rcfile]PATH\n");
 		else
 			option->path = ft_strdup(av[index + 1]);
-		if (!option->path || !parse_arg(index + 2, av, option))
-			return (0);
+		if (!option->path || parse_arg(index + 2, av, option))
+			return (FAILURE);
 	}
-	else if (!parse_arg(index + 1, av, option))
-		return (0);
-	return (1);
+	else if (parse_arg(index + 1, av, option))
+		return (FAILURE);
+	return (SUCCESS);
 }
 
 int				parse_arg(int index, char **av, t_opt *option)
 {
 	if (!av[index])
-		return (1);
+		return (SUCCESS);
 	if (av[index][0] != '-')
 	{
 		ft_printf("USAGE ./21sh [-vdh][--help][--norc][--rcfile]PATH[-c]CMD\n");
-		return (0);
+		return (FAILURE);
 	}
 	if (ft_strchr(av[index], 'h') || !ft_strcmp(av[index], "--help"))
 		option->h = 1;
@@ -75,12 +75,10 @@ int				parse_arg(int index, char **av, t_opt *option)
 	if (!ft_strcmp(av[index], "--norc"))
 	{
 		option->norc = 1;
-		if (!parse_arg(index + 1, av, option))
-			return (0);
+		if (parse_arg(index + 1, av, option))
+			return (FAILURE);
 	}
-	if (!fill_opt(index, av, option))
-		return (0);
-	return (1);
+	return (fill_opt(index, av, option));
 }
 
 int				launch_sh(int ac, char **av, char **env, t_registry *registry)
@@ -93,24 +91,20 @@ int				launch_sh(int ac, char **av, char **env, t_registry *registry)
 	env_lst = NULL;
 	var_lst = NULL;
 	ft_bzero(&option, sizeof(t_opt));
-	if (!parse_arg(1, av, &option))
+	if (parse_arg(1, av, &option))
 	{
 		ft_strdel(&(option.cmd));
 		ft_strdel(&(option.path));
 		return (FAILURE);
 	}
-	if (!get_env(&env_lst, env))
+	if (get_env(&env_lst, env))
 		return (FAILURE);
 	registry->env = env_lst;
 	registry->intern = var_lst;
 	registry->option = option;
 	registry->bin_hashmap = ft_hmap_init(4096);
 	registry->blt_hashmap = ft_hmap_init(16);
-	if (!hash_blt(registry, NULL))
-	//if (!hash_blt(registry))
-		return (FAILURE);
-//	ft_print_hashmap_p(&(registry->blt_hashmap));
-	return (SUCCESS);
+	return (hash_blt(registry, NULL));
 }
 
 /*
