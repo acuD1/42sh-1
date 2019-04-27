@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 14:30:15 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:59:24 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 		}
 		else
 		{
-			cleanup_interface(shell);
 			if (is_eof(input_str) == TRUE)
 				return ;
+			cleanup_interface(shell);
 			continue ;
 		}
 		cleanup_interface(shell);
@@ -105,25 +105,17 @@ void				shell_invoke_interactive(t_registry *shell)
 {
 	t_interface *itf;
 
-	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO))
-	{
-		log_print(shell, LOG_ERROR, "STDIN or STDOUT is not a valid tty.\n");
-		return ;
-	}
 	log_print(shell, LOG_INFO, "Starting interactive mode.\n");
 	if ((itf = init_line_edition(shell)) == NULL)
 	{
 		ft_printf("[CRITICAL] - Line edition failed.\n");
-		return ;
 	}
 	else
 	{
 		if (fill_interface_data(shell, itf) == SUCCESS)
 			launch_shell_prompt(shell, itf);
 		else
-		{
 			ft_printf("[CRITICAL] - Interface data could not be fetched.\n");
-		}
 	}
 	log_print(shell, LOG_INFO, "Restoring original shell behavior.\n");
 	restore_term_behavior(shell);

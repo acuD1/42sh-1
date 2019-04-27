@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/27 14:03:27 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:40:33 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int				parse_arg(int index, char **av, t_opt *option)
 		option->h = 1;
 	if (ft_strchr(av[index], 'v') || ft_strequ(av[index], "--version") == TRUE)
 		option->v = 1;
-	if (ft_strchr(av[index], 'd'))
+	if (ft_strequ(av[index], "d"))
 		option->d = 1;
 	if (ft_strequ(av[index], "--norc") == TRUE)
 	{

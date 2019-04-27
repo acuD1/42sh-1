@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/27 15:20:44 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:54:16 by skuppers         ###   ########.fr       */
 /*   Updated: 2019/04/26 14:23:34 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -55,15 +55,17 @@ int		main(__unused int ac, char **av, char **env)
 	ft_bzero(&shell, sizeof(t_registry));
 	if (launch_sh(av, env, &shell) == FAILURE)
 		return (FAILURE);
+
+	g_shell_registry = &shell;
+
 	init_debug_logger(&shell);
 
-	//TODO: Set up parser graphs
-	// & program wide used variables
+	print_opt(&shell); // print options, handle them
+
 	init_parser(&parser_module);
 	parser_module.env = shell.env;
 	shell.parser = &parser_module;
 
-	print_opt(&shell); // print options, handle them
 
 	if (shell.option.c == FALSE && isatty(STDIN_FILENO))
 	{
@@ -86,6 +88,11 @@ int		main(__unused int ac, char **av, char **env)
 			ft_lstdel(&shell.parser->job_list, delete_job);
 		}*/
 	}
+
+	// exit routines
+	// & cleanup
+	// Clean all environment variables
+	// Clean all intern variables
 
 	return (SUCCESS);
 }
