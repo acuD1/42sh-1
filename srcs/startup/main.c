@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/27 13:57:10 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/27 13:59:12 by ffoissey         ###   ########.fr       */
 /*   Updated: 2019/04/26 14:23:34 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@ void	print_opt(t_registry *reg)
 			, reg->option.rcfile, reg->option.path);
 }
 
-int		main(int ac, char **av, char **env)
+int		main(__unused int ac, char **av, char **env)
 {
 	t_registry	registry;
 
