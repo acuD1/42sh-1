@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/26 16:31:05 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/27 14:12:34 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include "libft.h"
 # include "lexer.h"
-# define TRUE 1
-# define FALSE 0
 # define PARSE_STATES 14
 
 # define STARTING 14

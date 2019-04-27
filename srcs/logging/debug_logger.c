@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 14:28:24 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 14:09:29 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	init_debug_logger(t_registry *reg)
 		if (debug_fd < 0)
 			return ;
 		char *tmp = ft_itoa(debug_fd);
-		if (add_internal(reg, INT_DBG_FD, tmp) == -1)
+		if (add_internal(reg, INT_DBG_FD, tmp) == FAILURE)
 		{
 			ft_strdel(&tmp);
 			return ;
