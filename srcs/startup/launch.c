@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/27 13:56:19 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/27 14:03:27 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int		get_env(t_list **alst, char **env)
 	i = 0;
 	while (env[i] != NULL)
 	{
-		if (f_create_node(alst, env[i]) == FALSE)
+		if (f_create_node(alst, env[i]) == FAILURE)
 			return (FAILURE);
 		i++;
 	}

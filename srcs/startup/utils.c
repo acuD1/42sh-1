@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/26 19:18:31 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/27 14:11:41 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ int				f_create_node(t_list **alst, char *str)
 	t_list	*newdir;
 
 	if (str == NULL)
-		return (0);
+		return (FAILURE);
 	ft_bzero(&s_node, sizeof(t_node));
 	s_node.var = ft_strsub(str, 0, ft_strcspn(str, "="));
 	s_node.data = ft_strdup(str + (ft_strcspn(str, "=") + 1));
 	if (s_node.var == NULL || s_node.data == NULL)
-		return (0);
+		return (FAILURE);
 	if (!(newdir = ft_lstnew(&s_node, sizeof(t_node))))
-		return (0);
+		return (FAILURE);
 	ft_lstaddback(alst, newdir);
-	return (1);
+	return (SUCCESS);
 }
 
 int				s_create_node(t_list **alst, char *var, char *data)
@@ -56,11 +56,11 @@ int				s_create_node(t_list **alst, char *var, char *data)
 	s_node.var = ft_strdup(var);
 	s_node.data = ft_strdup(data);
 	if (s_node.var == NULL || s_node.data == NULL)
-		return (0);
+		return (FAILURE);
 	if (!(newdir = ft_lstnew(&s_node, sizeof(t_node))))
-		return (0);
+		return (FAILURE);
 	ft_lstaddback(alst, newdir);
-	return (1);
+	return (SUCCESS);
 }
 
 int				change_node(t_list **alst, char *var, char *data)
@@ -69,20 +69,18 @@ int				change_node(t_list **alst, char *var, char *data)
 
 	ptr = *alst;
 	if (var == NULL || data == NULL)
-		return (0);
+		return (FAILURE);
 	while (ptr != NULL)
 	{
-		if (!ft_strcmp(((t_node *)ptr->data)->var, var))
+		if (ft_strequ(((t_node *)ptr->data)->var, var) == TRUE)
 		{
 			free(((t_node *)ptr->data)->data);
 			((t_node *)ptr->data)->data = data;
-			return (1);
+			return (SUCCESS);
 		}
 		ptr = ptr->next;
 	}
-	if (!s_create_node(alst, var, data))
-		return (0);
-	return (1);
+	return (s_create_node(alst, var, data));
 }
 
 int				search_data(t_list **alst, char *var)
@@ -92,11 +90,11 @@ int				search_data(t_list **alst, char *var)
 	ptr = *alst;
 	while (ptr != NULL)
 	{
-		if (!ft_strcmp(((t_node *)ptr->data)->var, var))
-			return (1);
+		if (ft_strequ(((t_node *)ptr->data)->var, var) == TRUE)
+			return (SUCCESS);
 		ptr = ptr->next;
 	}
-	return (0);
+	return (FAILURE);
 }
 
 char			*get_data(t_list **alst, char *var)
@@ -106,7 +104,7 @@ char			*get_data(t_list **alst, char *var)
 	ptr = *alst;
 	while (ptr != NULL)
 	{
-		if (!ft_strcmp(((t_node *)ptr->data)->var, var))
+		if (ft_strequ(((t_node *)ptr->data)->var, var) == TRUE)
 			return (((t_node *)ptr->data)->data);
 		ptr = ptr->next;
 	}

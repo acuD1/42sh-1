@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/27 14:11:58 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 14:12:34 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 # define SUCCESS			0
 # define FAILURE			-1
+# define FALSE				0
+# define TRUE				1
 
 typedef struct s_opt
 {
