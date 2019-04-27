@@ -14,7 +14,7 @@
 #include "log.h"
 #include "parser.h"
 #include "resolve.h"
-
+/*
 static int8_t		allocate_data_structures(t_vector **vector,
 				t_window **window, t_cursor **cursor)
 {
@@ -35,23 +35,30 @@ static int8_t		allocate_data_structures(t_vector **vector,
 	ft_memset(*cursor, 0, sizeof(t_cursor));
 	return (0);
 }
-
+*/
 int8_t				fill_interface_data(t_registry *shell, t_interface *itf)
 {
 	t_vector	*vector;
-	t_window	*window;
-	t_cursor	*cursor;
+	t_window	window;
+	t_cursor	cursor;
 
-	if (allocate_data_structures(&vector, &window, &cursor) != 0)
-		return (-3);
+	if ((vector = ft_vctnew(0)) == NULL)
+		return (FAILURE);
+	ft_memset(&window, 0, sizeof(t_vector));
+	ft_memset(&cursor, 0, sizeof(t_window));
+	
+//	if (allocate_data_structures(&vector, &window, &cursor) != 0)
+//		return (-3);
+
 	itf->line = vector;
-	itf->window = window;
-	itf->cursor = cursor;
-	itf->state = INT_PS1;
-	if (init_window(shell, itf) != 0)
-		return (-2);
-	if (init_cursor(shell) != 0)
-		return (-1);
+	itf.window = window;
+	itf.cursor = cursor;
+	itf.state = INT_PS1;
+
+	if (init_window(shell, itf) == FAILURE)
+		return (FAILURE);
+	if (init_cursor(cursor) == FAILURE)
+		return (FAILURE);
 	return (0);
 }
 
@@ -60,6 +67,7 @@ static int8_t		is_input_valid(char *input_string)
 
 	if (input_string == NULL
 		|| ft_strlen(input_string) == 0
+		|| (input_string[0] == 4 && input_string[1] == '\0')
 		|| is_only_whitespaces(input_string) == TRUE)
 		return (FAILURE);
 	return (SUCCESS);
@@ -105,9 +113,11 @@ void				shell_invoke_interactive(t_registry *shell)
 	t_interface *itf;
 
 	log_print(shell, LOG_INFO, "Starting interactive mode.\n");
-	if ((itf = init_line_edition(shell)) == NULL)
+
+
+	if ((load_interface(shell, itf)) == FAILURE)
 	{
-		ft_printf("[CRITICAL] - Line edition failed.\n");
+		ft_printf("[CRITICAL] - Interface setup failed.\n");
 	}
 	else
 	{

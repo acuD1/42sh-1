@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
+#include "define.h"
+
 
 uint8_t	is_eof(char *buffer)
 {

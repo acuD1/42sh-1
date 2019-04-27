@@ -25,6 +25,7 @@ char		*prompt(t_registry *shell_reg, t_interface *itf)
 	while (character[0] != IFS_CHAR)
 	{
 		ft_bzero(character, READ_SIZE);
+		// change to tty fd
 		if (read(0, character, READ_SIZE) == -1)
 		{
 			prompt_read_failed(shell_reg, itf->line);

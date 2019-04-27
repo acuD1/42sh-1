@@ -13,7 +13,7 @@
 #include "interface_functions.h"
 #include "log.h"
 
-static void			handle_printable_char(char c, t_registry *shell)
+static void			handle_printable_char(t_registry *shell, char c)
 {
 	t_interface *itf;
 
@@ -41,7 +41,7 @@ void				handle_input_key(char c[READ_SIZE], t_registry *shell)
 	unsigned long	value;
 
 	if (is_printable(c))
-		handle_printable_char(c[0], shell);
+		handle_printable_char(shell, c[0]);
 	else
 	{
 		index = 0;

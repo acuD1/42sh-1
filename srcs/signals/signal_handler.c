@@ -30,6 +30,8 @@ void				redraw_prompt(int signo)
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
 		ft_vctreset(itf->line);
 	itf->hist_ptr = NULL;
+	// check sub_prompt print
+	// use a ps5 for pipes, if then, etc...
 	print_words(get_intern_var(g_shell, itf->state), itf);
 	itf->cursor->index = 0;
 }

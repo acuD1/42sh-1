@@ -1,0 +1,14 @@
+Modified t_interface to not malloc
+	-change dependencies
+
+Removed PS5 - Implement sub-prompt text
+
+Renamed 'init_line_edition' to 'load_interface'
+Create function 'unload_interface'
+Rename 'free_interface_registry' to 'unload_interface'
+
+init_termcap_call changed to no malloc
+
+Prompt TTY slot protection
+
+rename tc_ak_xx to ak_xx

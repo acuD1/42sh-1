@@ -15,15 +15,16 @@
 
 t_termcaps		*init_termcap_calls(t_registry *reg)
 {
-	t_termcaps		*termcp;
+	t_termcaps		termcp;
 
-	if (!(termcp = malloc(sizeof(t_termcaps))))
-	{
-		log_print(reg, LOG_CRITICAL,
-				"Could not allocate memory for termcap structure.\n");
-		return (NULL);
-	}
-	ft_memset(termcp, 0, sizeof(t_termcaps));
+	ft_memset(&termcp, 0, sizeof(t_termcaps));
+
+//	if (!(termcp = malloc(sizeof(t_termcaps))))
+//	{
+//		log_print(reg, LOG_CRITICAL,
+//				"Could not allocate memory for termcap structure.\n");
+//		return (NULL);
+//	}
 	termcp->cs_down = ft_strdup(tgetstr("do", NULL));
 	termcp->cs_up = ft_strdup(tgetstr("up", NULL));
 	termcp->cs_left = ft_strdup(tgetstr("le", NULL));

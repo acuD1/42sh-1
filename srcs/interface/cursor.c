@@ -12,13 +12,11 @@
 
 #include "interface_functions.h"
 
-int8_t	init_cursor(t_registry *shell)
+int8_t	init_cursor(t_cursor *cursor)
 {
-	t_interface *itf;
 
-	itf = shell->interface;
-	itf->cursor->index = 0;
-	itf->cursor->x = get_prompt_len(shell);
-	itf->cursor->y = 0;
-	return (0);
+	cursor.index = 0;
+	cursor.x = get_prompt_len(shell);
+	cursor.y = 0;
+	return (SUCCESS);
 }

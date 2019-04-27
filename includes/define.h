@@ -61,13 +61,11 @@
 # define INT_PS2					"PS2"
 # define INT_PS3					"PS3"
 # define INT_PS4					"PS4"
-# define INT_PS5					"PS5"
 # define INT_ESCAPE_SEQ				"ESC"
 # define INT_PS1_VALUE				"[21sh] -> "
 # define INT_PS2_VALUE				"quote> "
 # define INT_PS3_VALUE				"script> "
 # define INT_PS4_VALUE				"heredoc> "
-# define INT_PS5_VALUE				"pipe> "
 # define INT_ESCAPE_SEQ_VALUE		"\\"
 # define INT_MAGIC_NUMBER			"4242"
 
