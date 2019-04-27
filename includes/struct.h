@@ -6,52 +6,12 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/27 16:23:00 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/27 16:35:01 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
-
-/*
-*****************************************************
-******** -------------- COMMON -------------- *******
-*****************************************************
-*/
-
-typedef struct s_opt
-{
-	int		h;	//TODO: Implement this
-	int		v;	//TODO: Implement this
-	int		d;	//TODO: Change implementation
-	int		c;	//TODO: Implement this
-	char	*cmd;  //TODO: Implement for -c
-	int		norc; // TODO: Mute this for 21sh
-	int		rcfile;//TODO: Mute this for 21sh
-	char	*path; //TODO: Mute this for 21sh // rcfile
-}				t_opt;
-
-typedef struct	s_node
-{
-	char *var;
-	char *data;
-}				t_node;
-
-typedef struct				s_registry
-{
-	t_opt					option;
-	t_list					*env;
-	t_list					*intern;
-	t_hash					bin_hashmap;
-	t_hash					blt_hashmap;
-	struct s_interface		*interface;
-	//TODO: move t_job head here for exit and global
-	//t_list				*job_list;
-}							t_registry;
-
-typedef int 		(*t_builtin)(t_registry *, char **);
-
-extern t_registry	*g_shell_registry;
 
 /*
 *****************************************************
@@ -290,6 +250,47 @@ typedef struct			s_history
 	struct s_history 	*next;
 	struct s_history 	*prev;
 }						t_history;
+
+/*
+*****************************************************
+******** -------------- COMMON -------------- *******
+*****************************************************
+*/
+
+typedef struct s_opt
+{
+	int		h;	//TODO: Implement this
+	int		v;	//TODO: Implement this
+	int		d;	//TODO: Change implementation
+	int		c;	//TODO: Implement this
+	char	*cmd;  //TODO: Implement for -c
+	int		norc; // TODO: Mute this for 21sh
+	int		rcfile;//TODO: Mute this for 21sh
+	char	*path; //TODO: Mute this for 21sh // rcfile
+}				t_opt;
+
+typedef struct	s_node
+{
+	char *var;
+	char *data;
+}				t_node;
+
+typedef struct				s_registry
+{
+	t_opt					option;
+	t_list					*env;
+	t_list					*intern;
+	t_hash					bin_hashmap;
+	t_hash					blt_hashmap;
+	struct s_interface		*interface;
+	//TODO: move t_job head here for exit and global
+	//t_list				*job_list;
+	t_parser				*parser;
+}							t_registry;
+
+typedef int 		(*t_builtin)(t_registry *, char **);
+
+extern t_registry	*g_shell_registry;
 
 /*
 *****************************************************
