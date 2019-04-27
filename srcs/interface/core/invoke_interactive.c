@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 14:14:09 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 14:30:15 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,39 +58,37 @@ int8_t				fill_interface_data(t_registry *shell, t_interface *itf)
 
 static int8_t		is_input_valid(char *input_string)
 {
-	if (input_string == NULL || ft_strequ(input_string, " ")
-		|| ft_strlen(input_string) == 0 || input_string[0] == 4)
+
+	if (input_string == NULL
+		|| ft_strlen(input_string) == 0
+		|| is_only_whitespaces(input_string) == TRUE)
 		return (FAILURE);
 	return (SUCCESS);
 }
 
 void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 {
-	char	*user_input_string;
+	char	*input_str;
 	int		ret_lexer_parser;
 
 	log_print(shell, LOG_INFO, "Starting prompt.\n");
-
 	define_interface_signal_behavior(shell);
 
 	while (1)
 	{
 		ret_lexer_parser = FAILURE;
-
-		// prompt
-		user_input_string = prompt(shell, itf);
-
-		//TODO: Check if input is not NULL and not len=0
-		//		Check if input is EOF
-		//		Check if input is only whitespaces and/or IFS
-		if (is_input_valid(user_input_string) == SUCCESS)
+		input_str = prompt(shell, itf);
+		if (is_input_valid(input_str) == SUCCESS)
 		{
-			push_history_entry(&(itf->history_head), create_history_entry(itf->line->buffer));
-			ret_lexer_parser = lexer_parser(shell->parser, user_input_string);
+			push_history_entry(&(itf->history_head),
+							create_history_entry(itf->line->buffer));
+			ret_lexer_parser = lexer_parser(shell->parser, input_str);
 		}
 		else
 		{
 			cleanup_interface(shell);
+			if (is_eof(input_str) == TRUE)
+				return ;
 			continue ;
 		}
 		cleanup_interface(shell);
@@ -100,7 +98,6 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 			ft_lstdel(&shell->parser->job_list, delete_job);
 		}
 	}
-
 	define_interface_default_signals(shell);
 }
 

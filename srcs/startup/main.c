@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/27 14:08:21 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:20:44 by skuppers         ###   ########.fr       */
 /*   Updated: 2019/04/26 14:23:34 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -17,6 +17,7 @@
 #include "line_edit.h"
 #include "interface_functions.h"
 #include "parser.h"
+#include "resolve.h"
 
 void	print_opt(t_registry *reg)
 {
@@ -26,6 +27,24 @@ void	print_opt(t_registry *reg)
 	log_print(reg, LOG_INFO, "| c=%d | cmd=%s | rcfile=%d | path=%s |\n",
 			reg->option.c, reg->option.cmd
 			, reg->option.rcfile, reg->option.path);
+}
+
+char	*read_input(int fd)
+{
+	char	*final;
+	char	*str;
+	char	buffer[16];
+
+	str = NULL;
+	final = NULL;
+	ft_memset(buffer, 0, sizeof(char) * 16);
+	while (read(fd, buffer, 16) > 0)
+	{
+		str = final;
+		ft_strdel(&final);
+		ft_asprintf(&final, "%s%s", str, buffer);
+	}
+	return (final);
 }
 
 int		main(__unused int ac, char **av, char **env)
@@ -42,15 +61,31 @@ int		main(__unused int ac, char **av, char **env)
 	// & program wide used variables
 	init_parser(&parser_module);
 	parser_module.env = shell.env;
-	shell.parser = parser_module;
+	shell.parser = &parser_module;
 
 	print_opt(&shell); // print options, handle them
 
-	//TODO: Handle interactive or not
-	//	isatty() or not
-	//	ex: echo "ls" | 21sh
-	//	etc...
+	if (shell.option.c == FALSE && isatty(STDIN_FILENO))
+	{
+		shell_invoke_interactive(&shell);
+	}
+	else
+	{
+		char *command;
 
-	shell_invoke_interactive(&shell);
+		if (shell.option.c == TRUE)
+			command = shell.option.cmd;
+		else
+			command = read_input(STDIN_FILENO);
+
+		ft_dprintf(1, "CMD:%s\n", command);
+		/*int ret_lex_parse = lexer_parser(shell.parser, shell.option.cmd);
+		if (ret_lex_parse == SUCCESS)
+		{
+			launch_job(&shell, shell.parser->job_list);
+			ft_lstdel(&shell.parser->job_list, delete_job);
+		}*/
+	}
+
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 19:24:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 14:30:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int		insert_clipboard(t_registry *shell);
 uint8_t is_too_long(t_vector *a, t_vector *b, uint32_t max);
 
 extern t_registry	*g_shell_registry;
+
+uint8_t						is_only_whitespaces(char *buffer);
 
 t_termcaps					*init_termcap_calls(t_registry *shell);
 t_interface					*init_line_edition(t_registry *shell);

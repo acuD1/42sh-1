@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 14:22:07 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 14:30:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,6 @@ static void			handle_printable_char(char c, t_registry *shell)
 	itf->cursor->index = redraw_after_cursor(shell);
 	tc_ak_arrow_right(shell);
 }
-
-/*
-** ft_dprintf(2, "|%d|%d|%d|%d|%d|%d|%d|%d|\n",c[0], c[1], c[2], c[3],
-**					 c[4], c[5], c[6], c[7]);
-*/
 
 void				handle_input_key(char c[READ_SIZE], t_registry *shell)
 {
