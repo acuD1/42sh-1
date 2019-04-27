@@ -18,6 +18,12 @@
 # include "struct.h"
 # include "interface_functions.h"
 
+
+/////////////// LINUX
+# include <signal.h>
+# include <sys/wait.h>
+/////////////////////
+
 int				lexer_parser(t_parser *parse, char *input);
 void			shell_invoke_interactive(t_registry *shell);
 

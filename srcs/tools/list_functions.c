@@ -17,7 +17,7 @@ void	delete_process(void *data)
 {
 	t_process	*process;
 
-	process = data;
+	process = (t_process *)data;
 	ft_freetab(&process->av);
 	ft_freetab(&process->env);
 	if (process->fd.in)
@@ -32,7 +32,7 @@ void	delete_job(void *data)
 {
 	t_job	*job;
 
-	job = data;
+	job = (t_job *)data;
 	ft_lstdel(&job->process_list, delete_process);
 }
 

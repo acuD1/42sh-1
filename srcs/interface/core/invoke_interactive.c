@@ -77,6 +77,8 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 	{
 		ret_lexer_parser = FAILURE;
 		input_str = prompt(shell, itf);
+		init_parser(shell->parser);
+		shell->parser->env = shell->env;
 		if (is_input_valid(input_str) == SUCCESS)
 		{
 			push_history_entry(&(itf->history_head),

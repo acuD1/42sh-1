@@ -46,11 +46,16 @@ char	*read_input(int fd)
 	return (final);
 }
 
-int		main(__unused int ac, char **av, char **env)
+/*
+******* ADD __ununused
+*/
+
+int		main(int ac, char **av, char **env)
 {
 	t_registry		shell;
 	t_parser 		parser_module;
 
+	(void)ac;
 	ft_bzero(&shell, sizeof(t_registry));
 	if (launch_sh(av, env, &shell) == FAILURE)
 		return (FAILURE);
