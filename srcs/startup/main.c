@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/27 13:59:12 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:44:49 by ffoissey         ###   ########.fr       */
 /*   Updated: 2019/04/26 14:23:34 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -14,7 +14,6 @@
 #include "libft.h"
 #include "21sh.h"
 #include "log.h"
-#include "line_edit.h"
 #include "interface_functions.h"
 
 void	print_opt(t_registry *reg)

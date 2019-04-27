@@ -6,11 +6,11 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 11:50:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 10:49:53 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:50:19 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "line_edit.h"
+#include <unistd.h>
 
 int	ft_putc(int c)
 {

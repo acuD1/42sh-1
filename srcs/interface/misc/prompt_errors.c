@@ -6,12 +6,12 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:23:08 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/11 17:30:09 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:49:04 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
-#include "line_edit.h"
+#include "interface_functions.h"
 
 void	prompt_read_failed(t_registry *reg, t_vector *vect)
 {

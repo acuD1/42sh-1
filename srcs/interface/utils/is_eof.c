@@ -6,11 +6,11 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:42:28 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 13:45:14 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:57:02 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "line_edit.h"
+#include "interface_functions.h"
 
 uint8_t	is_eof(char *buffer)
 {

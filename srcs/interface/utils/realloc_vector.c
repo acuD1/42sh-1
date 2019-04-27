@@ -6,11 +6,11 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:13:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/23 19:56:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:57:14 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "line_edit.h"
+#include "interface_functions.h"
 
 void	realloc_vector(t_vector *dest, t_vector *source)
 {

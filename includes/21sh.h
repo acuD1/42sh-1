@@ -6,56 +6,19 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/27 14:12:34 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/27 16:21:57 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SH21_H
 # define SH21_H
-# include <stdlib.h>
+
 # include "libft.h"
-# include "internals.h"
-# include "lexer.h"
+# include "define.h"
+# include "struct.h"
+# include "interface_functions.h"
 
-# define SUCCESS			0
-# define FAILURE			-1
-# define FALSE				0
-# define TRUE				1
-
-typedef struct s_opt
-{
-	int		h;	//TODO: Implement this
-	int		v;	//TODO: Implement this
-	int		d;	//TODO: Change implementation
-	int		c;	//TODO: Implement this
-	char	*cmd;  //TODO: Implement for -c
-	int		norc; // TODO: Mute this for 21sh
-	int		rcfile;//TODO: Mute this for 21sh
-	char	*path; //TODO: Mute this for 21sh // rcfile
-}				t_opt;
-
-typedef struct	s_node
-{
-	char *var;
-	char *data;
-}				t_node;
-
-typedef struct				s_registry
-{
-	t_opt					option;
-	t_list					*env;
-	t_list					*intern;
-	t_hash					bin_hashmap;
-	t_hash					blt_hashmap;
-	struct s_interface		*interface;
-	//TODO: move t_job head here for exit and global
-	//t_list				*job_list;
-}							t_registry;
-
-# include "line_edit.h"
-
-typedef int 		(*t_builtin)(t_registry *, char **);
-
+int				lexer_parser(t_parser *parse, char *input);
 void			shell_invoke_interactive(t_registry *shell);
 
 int				add_internal(t_registry *sh_reg, char *name, char *data);
@@ -79,7 +42,8 @@ int				del_node(t_list *ptr, char *var);
 int				free_node(t_list **alst, char *var);
 int				free_lst(t_list **alst);
 
-char		*variable_to_str(void *data);
-void		delete_process(void *data);
-void		delete_job(void *data);
+char			*variable_to_str(void *data);
+void			delete_process(void *data);
+void			delete_job(void *data);
+
 #endif

@@ -6,12 +6,11 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:49:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 16:28:38 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:53:15 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interface_functions.h"
-#include "line_edit.h"
 
 void	print_char(char d, t_interface *itf)
 {

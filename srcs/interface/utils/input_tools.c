@@ -6,11 +6,10 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 12:45:03 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 13:44:58 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:50:44 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "line_edit.h"
 #include "interface_functions.h"
 
 uint8_t		is_printable(char c[READ_SIZE])
