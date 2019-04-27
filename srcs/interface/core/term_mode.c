@@ -6,12 +6,11 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:05:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:58:13 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:47:41 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
-#include "line_edit.h"
 #include "interface_functions.h"
 
 short						set_term_behavior(t_registry *shell)

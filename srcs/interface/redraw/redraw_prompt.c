@@ -6,12 +6,11 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 09:08:59 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 12:51:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:49:35 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
-#include "line_edit.h"
 #include "interface_functions.h"
 
 uint32_t		redraw_input_line(t_registry *shell)

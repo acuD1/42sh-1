@@ -6,12 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:59:24 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 16:24:57 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interface_functions.h"
-#include "line_edit.h"
 #include "log.h"
 #include "parser.h"
 #include "resolve.h"

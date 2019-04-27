@@ -7,14 +7,13 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
 /*   Updated: 2019/04/27 15:54:16 by skuppers         ###   ########.fr       */
-/*   Updated: 2019/04/26 14:23:34 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 16:24:13 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "21sh.h"
 #include "log.h"
-#include "line_edit.h"
 #include "interface_functions.h"
 #include "parser.h"
 #include "resolve.h"

@@ -6,12 +6,11 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 11:03:36 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:55:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:49:56 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
-#include "line_edit.h"
 #include "interface_functions.h"
 
 void	cleanup_interface(t_registry *shell)

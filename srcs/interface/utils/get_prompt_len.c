@@ -6,11 +6,10 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:12:15 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 13:45:24 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:50:32 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "line_edit.h"
 #include "interface_functions.h"
 
 uint32_t	get_prompt_len(t_registry *shell)

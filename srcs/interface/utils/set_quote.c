@@ -6,11 +6,9 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:14:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 15:12:37 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:52:20 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "line_edit.h"
 
 char	set_quote(char c)
 {

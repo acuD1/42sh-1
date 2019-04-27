@@ -6,11 +6,10 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 11:32:21 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/12 15:57:09 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:54:57 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "line_edit.h"
 #include "interface_functions.h"
 #include "ft_printf.h"
 

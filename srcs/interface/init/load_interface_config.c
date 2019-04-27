@@ -6,12 +6,11 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:51:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:48:23 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
-#include "line_edit.h"
 #include "interface_functions.h"
 
 t_registry	*g_shell_registry;

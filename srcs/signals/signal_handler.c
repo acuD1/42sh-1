@@ -6,12 +6,11 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 12:01:32 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:44:36 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
-#include "line_edit.h"
 #include "interface_functions.h"
 #include <signal.h>
 

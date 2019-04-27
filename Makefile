@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/27 12:11:55 by ffoissey         ###   ########.fr        #
+#    Updated: 2019/04/27 15:37:15 by ffoissey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -141,7 +141,6 @@ LFLAGS = -ltermcap
 
 INCS += 21sh.h
 INCS += log.h
-INCS += line_edit.h
 INCS += interface_functions.h
 INCS += unit.h
 INCS += lexer.h
@@ -149,6 +148,8 @@ INCS += parser.h
 INCS += builtin.h
 INCS += resolve.h
 INCS += history.h
+INCS += define.h
+INCS += struct.h
 
 # ---------------------------------------------------------------------------- #
 #									Sources                                    #

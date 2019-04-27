@@ -6,12 +6,12 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:57:01 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/15 13:41:50 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:56:04 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "line_edit.h"
+#include "interface_functions.h"
 
 static void	ft_strshift(char *str, uint32_t index, int shift)
 {
