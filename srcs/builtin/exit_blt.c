@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 11:26:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/27 12:15:12 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/27 13:34:55 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ int8_t				exit_blt(t_registry *shell, char **av)
 	{
 		if (!ft_is_numeric(*av))
 		{
-			ft_dprintf(2, "21sh: exit: %s: numeric argument required", *av);
+			ft_dprintf(2, "21sh: exit: %s: numeric argument required\n", *av);
 			free_registry(shell);
 			exit(-1);
 		}
 		else if (*(av + 1))
 		{
-			ft_dprintf(2, "21sh: exit: too many argument");
+			ft_dprintf(2, "21sh: exit: too many argument\n");
 			return (1);
 		}
 		else

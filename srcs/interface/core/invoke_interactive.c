@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 11:38:37 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/27 13:46:05 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,29 +58,28 @@ int8_t				fill_interface_data(t_registry *shell, t_interface *itf)
 
 static int8_t		is_input_valid(char *input_string)
 {
-	if (ft_strequ(input_string, "exit") || input_string[0] == 4)
-		return (-2);
-	if (input_string == NULL || ft_strequ(input_string, " ") || ft_strlen(input_string) == 0)
-		return (-1);
-	return (1);
+	if (input_string == NULL || ft_strequ(input_string, " ")
+		|| ft_strlen(input_string) == 0 || input_string[0] == 4)
+		return (FAILURE);
+	return (SUCCESS);
 }
 
 void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 {
 	t_parser parse;
-	int8_t	valid;
 	char	*user_input_string;
+	int		ret_lexer_parser;
 
 	log_print(shell, LOG_INFO, "Starting prompt.\n");
 
 	define_interface_signal_behavior(shell);
 
-	valid = 0;
 	while (1) // change condition || handle with exit() variable in the interface structure ?
 	{
 		//TODO: Move this to startup
 		init_parser(&parse);
 		parse.env = shell->env;
+		ret_lexer_parser = FAILURE;
 
 		// prompt
 		user_input_string = prompt(shell, itf);
@@ -88,23 +87,22 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 		//TODO: Check if input is not NULL and not len=0
 		//		Check if input is EOF
 		//		Check if input is only whitespaces and/or IFS
-		valid = is_input_valid(user_input_string);
-
-		if (valid == 1)
+		if (is_input_valid(user_input_string) == SUCCESS)
 		{
 			push_history_entry(&(itf->history_head), create_history_entry(itf->line->buffer));
-			lexer_parser(&parse, user_input_string);
+			ret_lexer_parser = lexer_parser(&parse, user_input_string);
 		}
-		else if (valid == -1)
+		else
 		{
 			cleanup_interface(shell);
 			continue ;
 		}
-		else
-			break ;
 		cleanup_interface(shell);
-		launch_job(shell, parse.job_list);
-		ft_lstdel(&parse.job_list, delete_job);
+		if (ret_lexer_parser == SUCCESS)
+		{
+			launch_job(shell, parse.job_list);
+			ft_lstdel(&parse.job_list, delete_job);
+		}
 	}
 
 	define_interface_default_signals(shell);
@@ -127,10 +125,8 @@ void				shell_invoke_interactive(t_registry *shell)
 	}
 	else
 	{
-		if (fill_interface_data(shell, itf) == 0)
-		{
+		if (fill_interface_data(shell, itf) == SUCCESS)
 			launch_shell_prompt(shell, itf);
-		}
 		else
 		{
 			ft_printf("[CRITICAL] - Interface data could not be fetched.\n");
