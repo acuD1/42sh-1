@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/26 18:41:51 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/27 12:34:54 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "libft.h"
 # include "internals.h"
 # include "lexer.h"
+
+# define SUCCESS			0
+# define FAILURE			-1
 
 typedef struct s_opt
 {
@@ -56,9 +59,6 @@ int				add_internal_nbr(t_registry *reg, char *name, int data);
 int				add_env(t_registry *sh_reg, char *name, char *data);
 char			*get_env_var(t_registry  *sh_reg, char *name);
 char			*get_intern_var(t_registry  *sh_reg, char *name);
-
-int				hash_blt(t_registry *reg, char **av);
-int				exit_blt(t_registry *reg, char **av);
 
 int				launch_sh(int ac, char **av, char **env, t_registry *registry);
 int				parse_arg(int index, char **av, t_opt *option);
