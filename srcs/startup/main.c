@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/27 13:59:12 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/27 14:08:21 by skuppers         ###   ########.fr       */
 /*   Updated: 2019/04/26 14:23:34 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -16,6 +16,7 @@
 #include "log.h"
 #include "line_edit.h"
 #include "interface_functions.h"
+#include "parser.h"
 
 void	print_opt(t_registry *reg)
 {
@@ -29,23 +30,27 @@ void	print_opt(t_registry *reg)
 
 int		main(__unused int ac, char **av, char **env)
 {
-	t_registry	registry;
+	t_registry		shell;
+	t_parser 		parser_module;
 
-	ft_bzero(&registry, sizeof(t_registry));
-	if (launch_sh(av, env, &registry) == FAILURE)
+	ft_bzero(&shell, sizeof(t_registry));
+	if (launch_sh(av, env, &shell) == FAILURE)
 		return (FAILURE);
-	init_debug_logger(&registry);
+	init_debug_logger(&shell);
 
 	//TODO: Set up parser graphs
 	// & program wide used variables
+	init_parser(&parser_module);
+	parser_module.env = shell.env;
+	shell.parser = parser_module;
 
-	print_opt(&registry); // print options, handle them
+	print_opt(&shell); // print options, handle them
 
 	//TODO: Handle interactive or not
 	//	isatty() or not
 	//	ex: echo "ls" | 21sh
 	//	etc...
 
-	shell_invoke_interactive(&registry);
+	shell_invoke_interactive(&shell);
 	return (SUCCESS);
 }

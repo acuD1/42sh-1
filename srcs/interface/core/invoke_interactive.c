@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 13:46:05 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/27 14:14:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static int8_t		is_input_valid(char *input_string)
 
 void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 {
-	t_parser parse;
 	char	*user_input_string;
 	int		ret_lexer_parser;
 
@@ -74,11 +73,8 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 
 	define_interface_signal_behavior(shell);
 
-	while (1) // change condition || handle with exit() variable in the interface structure ?
+	while (1)
 	{
-		//TODO: Move this to startup
-		init_parser(&parse);
-		parse.env = shell->env;
 		ret_lexer_parser = FAILURE;
 
 		// prompt
@@ -90,7 +86,7 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 		if (is_input_valid(user_input_string) == SUCCESS)
 		{
 			push_history_entry(&(itf->history_head), create_history_entry(itf->line->buffer));
-			ret_lexer_parser = lexer_parser(&parse, user_input_string);
+			ret_lexer_parser = lexer_parser(shell->parser, user_input_string);
 		}
 		else
 		{
@@ -100,8 +96,8 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 		cleanup_interface(shell);
 		if (ret_lexer_parser == SUCCESS)
 		{
-			launch_job(shell, parse.job_list);
-			ft_lstdel(&parse.job_list, delete_job);
+			launch_job(shell, shell->parser->job_list);
+			ft_lstdel(&shell->parser->job_list, delete_job);
 		}
 	}
 
