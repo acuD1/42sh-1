@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 09:42:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 12:01:15 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 12:12:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ char		*apply_history_filter(char *command)
 	char	*ptr;
 	char	*new;
 
-	new = ft_strdup(command);
+	if (!(new = ft_strdup(command)))
+		return (NULL);
 	ptr = new;
 	while (*ptr)
 	{
@@ -34,7 +35,9 @@ void		push_history_entry(t_history **head, t_history *node)
 {
 	t_history *hist_ptr;
 
-	if (head == NULL || *head == NULL)
+	if (!node)
+		return ;
+	if (!head || *head == NULL)
 		*head = node;
 	else
 	{
@@ -49,13 +52,12 @@ void		push_history_entry(t_history **head, t_history *node)
 
 t_history	*create_history_entry(char *command)
 {
-	char		*dup;
 	t_history	*new;
 
 	new = NULL;
-	dup = apply_history_filter(command);
-	new = malloc(sizeof(t_history));
-	new->command = dup;
+	if (!(new = malloc(sizeof(t_history))))
+		return (NULL);
+	new->command = apply_history_filter(command);
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 18:55:30 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/27 12:31:10 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,24 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 	char	*user_input_string;
 
 	log_print(shell, LOG_INFO, "Starting prompt.\n");
+
 	define_interface_signal_behavior(shell);
+
 	valid = 0;
-	while (1)
+	while (1) // change condition || handle with exit() variable in the interface structure ?
 	{
+		//TODO: Move this to startup
 		init_parser(&parse);
 		parse.env = shell->env;
+
+		// prompt
 		user_input_string = prompt(shell, itf);
+
+		//TODO: Check if input is not NULL and not len=0
+		//		Check if input is EOF
+		//		Check if input is only whitespaces and/or IFS
 		valid = is_input_valid(user_input_string);
+
 		if (valid == 1)
 		{
 			push_history_entry(&(itf->history_head), create_history_entry(itf->line->buffer));
@@ -96,6 +106,7 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 		launch_job(shell, parse.job_list);
 		ft_lstdel(&parse.job_list, delete_job);
 	}
+
 	define_interface_default_signals(shell);
 }
 

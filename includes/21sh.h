@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/26 18:41:51 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/27 12:40:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@
 
 typedef struct s_opt
 {
-	int		h;
-	int		v;
-	int		d;
-	int		c;
-	int		norc;
-	int		rcfile;
-	char	*cmd;
-	char	*path;
+	int		h;	//TODO: Implement this
+	int		v;	//TODO: Implement this
+	int		d;	//TODO: Change implementation
+	int		c;	//TODO: Implement this
+	int		norc; // TODO: Mute this for 21sh
+	int		rcfile;//TODO: Mute this for 21sh
+	char	*cmd;  //TODO: Implement for -c
+	char	*path; //TODO: Mute this for 21sh // rcfile
 }				t_opt;
 
 typedef struct	s_node
@@ -35,15 +35,17 @@ typedef struct	s_node
 	char *data;
 }				t_node;
 
-typedef struct		s_registry
+typedef struct				s_registry
 {
-	t_opt			option;
-	t_list			*env;
-	t_list			*intern;
-	t_hash			bin_hashmap;
-	t_hash			blt_hashmap;
+	t_opt					option;
+	t_list					*env;
+	t_list					*intern;
+	t_hash					bin_hashmap;
+	t_hash					blt_hashmap;
 	struct s_interface		*interface;
-}					t_registry;
+	//TODO: move t_job head here for exit and global
+	//t_list				*job_list;
+}							t_registry;
 
 # include "line_edit.h"
 
@@ -56,9 +58,6 @@ int				add_internal_nbr(t_registry *reg, char *name, int data);
 int				add_env(t_registry *sh_reg, char *name, char *data);
 char			*get_env_var(t_registry  *sh_reg, char *name);
 char			*get_intern_var(t_registry  *sh_reg, char *name);
-
-int				hash_blt(t_registry *reg, char **av);
-int				exit_blt(t_registry *reg, char **av);
 
 int				launch_sh(int ac, char **av, char **env, t_registry *registry);
 int				parse_arg(int index, char **av, t_opt *option);
