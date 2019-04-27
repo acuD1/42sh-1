@@ -6,12 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/26 16:36:57 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 12:30:53 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "21sh.h"
+#include "builtin.h"
 
 static int		get_env(t_list **alst, char **env)
 {
@@ -96,10 +97,10 @@ int				launch_sh(int ac, char **av, char **env, t_registry *registry)
 	{
 		ft_strdel(&(option.cmd));
 		ft_strdel(&(option.path));
-		return (0);
+		return (FAILURE);
 	}
 	if (!get_env(&env_lst, env))
-		return (0);
+		return (FAILURE);
 	registry->env = env_lst;
 	registry->intern = var_lst;
 	registry->option = option;
@@ -107,9 +108,9 @@ int				launch_sh(int ac, char **av, char **env, t_registry *registry)
 	registry->blt_hashmap = ft_hmap_init(16);
 	if (!hash_blt(registry, NULL))
 	//if (!hash_blt(registry))
-		return (0);
+		return (FAILURE);
 //	ft_print_hashmap_p(&(registry->blt_hashmap));
-	return (1);
+	return (SUCCESS);
 }
 
 /*

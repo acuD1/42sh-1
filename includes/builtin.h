@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:35:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/26 15:33:47 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/27 12:35:32 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,11 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 
-# define SUCCESS			0
-# define FAILURE			-1
-
 # define N_OPT		0x01
 # define L_OPT		0x02
 # define P_OPT		0x04
 # define I_OPT		0x08
 # define ERROR_OPT	0x80
-
-# define NULL_STR_NOT_OK 0
-# define NULL_STR_OK	 1
 
 # define CD_USAGE "cd: usage: cd [-L|-P] [dir]\n"
 # define ENV_USAGE "env: usage: env [-i] [name=value]... [utility [argument]...]\n"
@@ -109,5 +103,20 @@ int8_t				unsetenv_blt(t_registry *shell, char **av);
 */
 
 int8_t				intern_blt(t_registry *shell, char **av);
+
+/*
+*****************************************************
+******************* EXIT BUILT-IN *******************
+*****************************************************
+*/
+
+int8_t				exit_blt(t_registry *reg, char **av);
+/*
+*****************************************************
+******************* HASH BUILT-IN *******************
+*****************************************************
+*/
+
+int8_t				hash_blt(t_registry *reg, char **av);
 
 #endif

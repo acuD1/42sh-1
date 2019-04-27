@@ -33,10 +33,8 @@ int		main(int ac, char **av, char **env)
 	t_registry	registry;
 
 	ft_bzero(&registry, sizeof(t_registry));
-	if (!launch_sh(ac, av, env, &registry))
-		return (0);
-
-	//TODO: Refactor logger
+	if (launch_sh(ac, av, env, &registry))
+		return (FAILURE);
 	init_debug_logger(&registry);
 
 	//TODO: Set up parser graphs
@@ -51,16 +49,10 @@ int		main(int ac, char **av, char **env)
 
 	shell_invoke_interactive(&registry);
 
-	// TODO: Setup exit routines dor all submodules:
-	// 	- Interface exit routine
-	// 	- Lexer, parser, exit routine
-	// 	- Registry deallocation routine
 
-
-	// TODO: WTF ?
 	blt = (t_builtin)ft_hmap_getdata(&(registry.blt_hashmap), "exit");
 	if (blt)
-		if (!blt(&registry, NULL))
-			return (0);
-	return (0);
+		if (blt(&registry, NULL))
+			return (FAILURE);
+	return (SUCCESS);
 }

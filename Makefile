@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/26 18:40:09 by cempassi         ###   ########.fr        #
+#    Updated: 2019/04/27 12:11:55 by ffoissey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -170,8 +170,6 @@ LINE += launch.c
 LINE += free.c
 LINE += utils.c
 LINE += internals.c
-LINE += hash.c
-LINE += exit.c
 
 #						- - - - -  Debug Log  - - - - -
 
@@ -189,6 +187,8 @@ BUILTIN += env_blt.c
 BUILTIN += setenv_blt.c
 BUILTIN += unsetenv_blt.c
 BUILTIN += intern_blt.c
+BUILTIN += hash_blt.c
+BUILTIN += exit_blt.c
 
 #						- - - - - Line edtion - - - - -                        #
 

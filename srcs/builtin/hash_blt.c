@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hash.c                                             :+:      :+:    :+:   */
+/*   hash_blt.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/03 15:27:08 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/26 17:03:35 by nrechati         ###   ########.fr       */
+/*   Created: 2019/04/27 12:09:44 by ffoissey          #+#    #+#             */
+/*   Updated: 2019/04/27 12:13:34 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+//#include "21sh.h"
 #include <unistd.h>
 #include "builtin.h"
 
@@ -44,7 +44,6 @@ static void	hash_bin(t_registry *reg, char *bin)
 
 static void	hash_builtin(t_registry *reg)
 {
-//	ft_dprintf(2, "[ERROR] Hmap insert failure : echo built-in\n");
 	ft_hmap_insert(&(reg->blt_hashmap), "echo", exit_blt);
 	ft_hmap_insert(&(reg->blt_hashmap), "cd", cd_blt);
 	ft_hmap_insert(&(reg->blt_hashmap), "setenv", setenv_blt);
@@ -55,7 +54,7 @@ static void	hash_builtin(t_registry *reg)
 	ft_hmap_insert(&(reg->blt_hashmap), "intern", intern_blt);
 }
 
-int			hash_blt(t_registry *reg, __unused char **av)
+int8_t			hash_blt(t_registry *reg, __unused char **av)
 {
 	int				i;
 	char			**tabs;
@@ -66,7 +65,7 @@ int			hash_blt(t_registry *reg, __unused char **av)
 	{
 		tabs = ft_strsplit(get_data(&(reg->env), "PATH"), ":");
 		if (!tabs)
-		return (0);
+			return (0);
 		i = 0;
 		while (tabs[i])
 			hash_bin(reg, tabs[i++]);

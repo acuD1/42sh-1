@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/27 12:40:04 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/27 12:34:54 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "libft.h"
 # include "internals.h"
 # include "lexer.h"
+
+# define SUCCESS			0
+# define FAILURE			-1
 
 typedef struct s_opt
 {
