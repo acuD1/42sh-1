@@ -133,5 +133,5 @@ void				shell_invoke_interactive(t_registry *shell)
 	log_print(shell, LOG_INFO, "Releasing interface memory.\n");
 	free_interface_registry(&itf);
 //	free(&itf);
-	//	unload_interface();
+//	unload_interface();
 }
