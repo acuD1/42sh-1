@@ -44,7 +44,7 @@ static void	free_registry(t_registry *reg)
 
 static int			ft_is_numeric(char *s)
 {
-	while (*s != NULL)
+	while (*s != '\0')
 	{
 		if (ft_isdigit(*s) == FALSE)
 			return (FALSE);

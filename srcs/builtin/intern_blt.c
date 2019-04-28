@@ -14,7 +14,7 @@
 
 static void			ft_strlower(char *str)
 {
-	while (*str != NULL)
+	while (*str != '\0')
 	{
 		*str = ft_tolower(*str);
 		str++;

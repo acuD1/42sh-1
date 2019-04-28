@@ -65,7 +65,7 @@ void	init_parser(t_parser *parse)
 
 int		lexer_parser(t_parser *parse, char *input)
 {
-	if (*input == NULL)
+	if (input == NULL || *input == '\0')
 		return (SUCCESS);
 	if ((parse->token_list = lexer(input)) == NULL)
 		return (SUCCESS);

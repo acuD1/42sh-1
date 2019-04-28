@@ -15,7 +15,7 @@
 void	expansion_machine(t_lexer *machine)
 {
 	if (ft_strchr(EXP_INTERUPT, *machine->input) != NULL
-			|| *machine->input == NULL)
+			|| *machine->input == '\0')
 	{
 		if (machine->quote == QUOTE_INT)
 			machine->quote = QUOTE_OFF;

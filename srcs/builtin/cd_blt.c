@@ -76,7 +76,7 @@ static int8_t		is_root_path(char *path)
 	i = 0;
 	if (path == NULL || path[0] == '\0')
 		return (FALSE);
-	while (path[i] != NULL)
+	while (path[i] != '\0')
 	{
 		if (path[i] != '/')
 			return (FALSE);
