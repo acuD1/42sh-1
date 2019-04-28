@@ -10,24 +10,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-# ! UNUSED !
-# ---------------------------------------------------------------------------- #
-#								    Version                                    #
-# ---------------------------------------------------------------------------- #
-VERSION_RELEASE = alpha
-VERSION_MAJOR = 0
-VERSION_MINOR = 0
-VERSION_PATCH = 0
-
-# ---------------------------------------------------------------------------- #
-#								     Build                                     #
-# ---------------------------------------------------------------------------- #
-
-#BUILD_NUMBER_FILE = "./.build-number"
-#BUILD_NUMBER = `cat $(BUILD_NUMBER_FILE)`
-
-#NUMBER_INC = $(shell echo "$(BUILD_NUMBER) + 1 "| bc)
-
 # ---------------------------------------------------------------------------- #
 #								 Build Targets                                 #
 # ---------------------------------------------------------------------------- #
@@ -106,7 +88,7 @@ LINE_PATH += interface/utils/
 LINE_PATH += resolution/
 LINE_PATH += logging/
 LINE_PATH += signals/
-LINE_PATH += startup/
+LINE_PATH += ./
 LEXER_PATH += lexer/
 PARSER_PATH += parser/
 BUILTIN_PATH += builtin/
@@ -130,7 +112,7 @@ LDLIBD = -lftdb
 LDFLAGS = -L $(LPATH)
 CFLAGS += -Wall
 CFLAGS += -Wextra
-CFLAGS += -Werror
+CFLAGS += #-Werror
 CFLAGS += $(IFLAGS)
 DFLAGS = $(CFLAGS) -fsanitize=address,undefined
 LFLAGS = -ltermcap
