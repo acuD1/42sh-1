@@ -25,7 +25,7 @@ uint32_t	clean_screen(t_registry *shell)
 		? itf->window->max_chars : itf->line->size;
 	tc_ak_home(shell);
 	while (offset++ < clear_size)
-		print_char(' ', itf);
+		print_char(itf, ' ');
 	tc_ak_home(shell);
 	return (itf->cursor->index);
 }

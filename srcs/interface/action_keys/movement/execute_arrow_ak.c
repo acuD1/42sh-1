@@ -88,7 +88,7 @@ int8_t				tc_ak_arrow_up(t_registry *shell)
 		shell->interface->hist_ptr = shell->interface->hist_ptr->next;
 	if (shell->interface->hist_ptr == NULL)
 		return (-1);
-	replace_input_line(shell->interface->hist_ptr->command ,shell);
+	replace_input_line(shell, shell->interface->hist_ptr->command);
 	return (0);
 }
 
@@ -99,11 +99,11 @@ int8_t				tc_ak_arrow_up(t_registry *shell)
 int8_t				tc_ak_arrow_down(t_registry *shell)
 {
 	if (shell->interface->hist_ptr->prev == NULL)
-		replace_input_line(shell->interface->current_line, shell);
+		replace_input_line(shell, shell->interface->current_line);
 	if (shell->interface->hist_ptr->prev)
 	{
 		shell->interface->hist_ptr = shell->interface->hist_ptr->prev;
-		replace_input_line(shell->interface->hist_ptr->command, shell);
+		replace_input_line(shell, shell->interface->hist_ptr->command);
 	}
 	return (0);
 }

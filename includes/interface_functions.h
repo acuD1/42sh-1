@@ -37,34 +37,38 @@ uint8_t 					is_too_long(t_vector *a, t_vector *b, uint32_t max);
 uint8_t						is_only_whitespaces(char *buffer);
 t_termcaps					*init_termcap_calls(t_registry *shell);
 
-uint8_t						load_interface(t_registry *shell);
+uint8_t						load_interface(t_registry *shell, t_interface *itf);
 
 t_vector					*allocate_clipboard(t_registry *shell);
 short						set_term_behavior(t_registry *shell);
 short						restore_term_behavior(t_registry *shell);
+
 int8_t	 					init_window(t_registry *shell, t_interface *itf);
-int8_t						init_cursor(t_registry *shell);
+int8_t						init_cursor(t_cursor *cursor);
+
 void						define_interface_default_signals(t_registry *shell);
 void						define_interface_signal_behavior(t_registry *shell);
+
 int8_t						invoke_sub_prompt(t_registry *shell, char **line,
 								char *prompt_state);
 void						launch_shell_prompt(t_registry *shell,
 								t_interface *itf);
 char						*prompt(t_registry *shell, t_interface *itf);
+
 void						setup_keycodes(t_interface *itf);
 void						init_ak_keycodes(t_interface *itf);
 void						link_actions_to_keys(t_registry *shell);
 void						init_termcap_actions(int8_t (*tc_call[AK_AMOUNT])
 								(struct s_registry *shell));
-void						handle_input_key(char c[], t_registry *shell);
+void						handle_input_key(t_registry *shell , char c[]);
 char						set_quote(char c);
 void						validate_input_quoting(t_registry *shell,
 								t_interface *itf);
-void						print_char(char c, t_interface *itf);
-void						print_words(char *str, t_interface *itf);
+void						print_char(t_interface *itf, char c);
+void						print_words(t_interface *itf, char *str);
 void						redraw_prompt(int signo);
 uint32_t					clean_screen(t_registry *shell);
-uint32_t					replace_input_line(char *string, t_registry *shell);
+uint32_t					replace_input_line(t_registry *shell, char *string);
 uint32_t					redraw_input_line(t_registry *shell);
 uint32_t					redraw_after_cursor(t_registry *shell);
 void						free_interface_registry(t_interface *itf);

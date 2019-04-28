@@ -24,7 +24,7 @@ uint32_t		redraw_input_line(t_registry *shell)
 	itf->cursor->index = clean_screen(shell);
 	offset = 0;
 	while (offset < ft_vctlen(itf->line))
-		print_char(itf->line->buffer[offset++], itf);
+		print_char(itf, itf->line->buffer[offset++]);
 	offset = 0;
 	tc_ak_home(shell);
 	while (offset++ < initial_cursor)
@@ -41,8 +41,8 @@ uint32_t		redraw_after_cursor(t_registry *shell)
 	initial_cursor_pos = itf->cursor->index;
 	while (itf->cursor->index < itf->line->size
 					&& itf->line->buffer[itf->cursor->index] != '\0')
-		print_char(itf->line->buffer[itf->cursor->index], itf);
-	print_char(' ', itf);
+		print_char(itf, itf->line->buffer[itf->cursor->index]);
+	print_char(itf, ' ');
 	while (itf->cursor->index > initial_cursor_pos
 				&& itf->cursor->index >= 1)
 		tc_ak_arrow_left(shell);
@@ -61,6 +61,6 @@ uint32_t		replace_input_line(t_registry *shell, char *string)
 	itf->line->buffer = ft_strncpy(itf->line->buffer,
 			string, ft_strlen(string));
 	tc_ak_home(shell);
-	print_words(string, itf);
+	print_words(itf, string);
 	return (itf->cursor->index);
 }

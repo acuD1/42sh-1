@@ -15,12 +15,12 @@
 #include "ft_printf.h"
 #include "history.h"
 
-char		*prompt(t_registry *shell_reg, t_interface *itf)
+char		*prompt(t_registry *shell, t_interface *itf)
 {
 	char			character[READ_SIZE + 1];
 
 	ft_bzero(character, READ_SIZE);
-	ft_dprintf(STDOUT_FILENO, "\n%s", get_intern_var(shell_reg, itf->state));
+	ft_dprintf(STDOUT_FILENO, "\n%s", get_intern_var(shell, itf->state));
 	itf->hist_ptr = NULL;
 	while (character[0] != IFS_CHAR)
 	{
@@ -28,14 +28,14 @@ char		*prompt(t_registry *shell_reg, t_interface *itf)
 		// change to tty fd
 		if (read(0, character, READ_SIZE) == -1)
 		{
-			prompt_read_failed(shell_reg, itf->line);
+			prompt_read_failed(shell, itf->line);
 			return (NULL);
 		}
-		handle_input_key(character, shell_reg);
+		handle_input_key(shell, character);
 		if (is_eof(itf->line->buffer))
 			return (itf->line->buffer);
 	}
-	tc_ak_end(shell_reg);
-	validate_input_quoting(shell_reg, itf);
+	tc_ak_end(shell);
+	validate_input_quoting(shell, itf);
 	return (itf->line->buffer);
 }

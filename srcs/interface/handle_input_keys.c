@@ -35,7 +35,7 @@ static void			handle_printable_char(t_registry *shell, char c)
 	tc_ak_arrow_right(shell);
 }
 
-void				handle_input_key(char c[READ_SIZE], t_registry *shell)
+void				handle_input_key(t_registry *shell, char c[READ_SIZE])
 {
 	uint32_t		index;
 	unsigned long	value;

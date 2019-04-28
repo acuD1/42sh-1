@@ -20,8 +20,8 @@ static void			print_sub_prompt(t_registry *shell)
 	shell->interface->cursor->y = 0;
 	ft_printf("\n");
 	//protect intern_var call and set to 'sub'
-	print_words(get_intern_var(shell, shell->interface->state),
-					shell->interface);
+	print_words(shell->interface, 
+				get_intern_var(shell, shell->interface->state));
 	shell->interface->cursor->index = 0;
 }
 
@@ -38,7 +38,7 @@ static int8_t		sub_prompt_loop(t_registry *shell, t_interface *itf)
 			prompt_read_failed(shell, itf->line);
 			return (-2);
 		}
-		handle_input_key(character, shell);
+		handle_input_key(shell, character);
 		if (is_eof(itf->line->buffer))
 		{
 //			ft_strdel(&(itf->line->buffer));

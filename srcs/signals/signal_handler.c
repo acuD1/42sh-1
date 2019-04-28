@@ -24,7 +24,7 @@ void				redraw_prompt(int signo)
 	itf = g_shell->interface;
 	tc_ak_end(g_shell);
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
-		print_words("\n", itf);
+		print_words(itf, "\n");
 	itf->cursor->x = 0;
 	itf->cursor->y = 0;
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
@@ -32,7 +32,7 @@ void				redraw_prompt(int signo)
 	itf->hist_ptr = NULL;
 	// check sub_prompt print
 	// use a ps5 for pipes, if then, etc...
-	print_words(get_intern_var(g_shell, itf->state), itf);
+	print_words(itf, get_intern_var(g_shell, itf->state));
 	itf->cursor->index = 0;
 }
 
@@ -53,7 +53,7 @@ static void				interface_resize_handler(int signo)
 	if ((itf->window->cols < (uint32_t)(ft_strlen(get_intern_var(g_shell,
 												   	INT_PS1)) * 2)
 		|| itf->window->rows < 3) || ft_vctlen(itf->line) > (uint32_t)itf->window->max_chars)
-		print_words("Terminal window size too small :-(", itf);
+		print_words(itf, "Terminal window size too small :-(");
 	else
 	{
 		redraw_prompt(ft_atoi(INT_MAGIC_NUMBER));

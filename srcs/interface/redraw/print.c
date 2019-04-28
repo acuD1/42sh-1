@@ -12,7 +12,7 @@
 
 #include "interface_functions.h"
 
-void	print_char(char d, t_interface *itf)
+void	print_char(t_interface *itf, char d)
 {
 	write(1, &d, 1);
 	itf->cursor->index++;
@@ -25,11 +25,11 @@ void	print_char(char d, t_interface *itf)
 	}
 }
 
-void	print_words(char *str, t_interface *itf)
+void	print_words(t_interface *itf, char *str)
 {
 	uint32_t	i;
 
 	i = 0;
 	while (i < ft_strlen(str))
-		print_char(str[i++], itf);
+		print_char(itf, str[i++]);
 }
