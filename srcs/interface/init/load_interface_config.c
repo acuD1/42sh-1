@@ -60,7 +60,7 @@ static int8_t		fill_interface_related_internals(t_registry *reg)
 	return (SUCCESS);
 }
 
-uint8_t load_interface(t_registry *shell, t_interface *itf)
+int8_t load_interface(t_registry *shell, t_interface *itf)
 {
 	int8_t			op_worked;
 	t_termcaps		termcp;

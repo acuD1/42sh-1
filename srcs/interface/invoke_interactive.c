@@ -53,13 +53,13 @@ int8_t				fill_interface_data(t_registry *shell, t_interface *itf)
 	itf->line = vector;
 	itf->window = &window;
 	itf->cursor = &cursor;
-	itf.state = INT_PS1;
+	itf->state = INT_PS1;
 
 	if (init_window(shell, itf) == FAILURE)
 		return (FAILURE);
-	if (init_cursor(cursor) == FAILURE)
+	if (init_cursor(shell) == FAILURE)
 		return (FAILURE);
-	return (0);
+	return (SUCCESS);
 }
 
 static int8_t		is_input_valid(char *input_string)
@@ -121,8 +121,8 @@ void				shell_invoke_interactive(t_registry *shell)
 		ft_printf("[CRITICAL] - Interface setup failed.\n");
 	else
 	{
-		if (fill_interface_data(shell, itf) == SUCCESS)
-			launch_shell_prompt(shell, itf);
+		if (fill_interface_data(shell, &itf) == SUCCESS)
+			launch_shell_prompt(shell, &itf);
 		else
 			ft_printf("[CRITICAL] - Interface data could not be fetched.\n");
 	}
@@ -131,7 +131,7 @@ void				shell_invoke_interactive(t_registry *shell)
 	restore_term_behavior(shell);
 
 	log_print(shell, LOG_INFO, "Releasing interface memory.\n");
-	free_interface_registry(itf);
-	free(itf);
+	free_interface_registry(&itf);
+	free(&itf);
 	//	unload_interface();
 }

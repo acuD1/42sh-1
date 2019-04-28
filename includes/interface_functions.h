@@ -36,7 +36,7 @@ int							insert_clipboard(t_registry *shell);
 uint8_t 					is_too_long(t_vector *a, t_vector *b, uint32_t max);
 uint8_t						is_only_whitespaces(char *buffer);
 int8_t						init_termcap_calls(t_termcaps *termcp);
-uint8_t						load_interface(t_registry *shell, t_interface *itf);
+int8_t						load_interface(t_registry *shell, t_interface *itf);
 
 t_vector					*allocate_clipboard(t_registry *shell);
 short						set_term_behavior(t_registry *shell);
