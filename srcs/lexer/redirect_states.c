@@ -25,7 +25,7 @@ void	lesser_machine(t_lexer *machine)
 		{
 			machine->last_lexer = E_DLESS;
 			ft_strncat(machine->buffer, machine->input, 1);
-			machine->input++;
+			++machine->input;
 			return ;
 		}
 	}
@@ -36,8 +36,8 @@ void	lesser_machine(t_lexer *machine)
 		else if (*machine->buffer == '<' && *machine->input == '>' && ++checker)
 			machine->last_lexer = E_LESSGREAT;
 	}
-	if (checker)
-		machine->input++;
+	if (checker != FALSE)
+		++machine->input;
 	machine->state = OUT;
 }
 
@@ -46,7 +46,7 @@ void	greater_machine(t_lexer *machine)
 	int		checker;
 
 	checker = 0;
-	if (ft_strchr(">&|", *machine->input))
+	if (ft_strchr(">&|", *machine->input) != NULL)
 	{
 		if (*machine->buffer == '>' && *machine->input == '>' && ++checker)
 			machine->last_lexer = E_DGREAT;
@@ -55,8 +55,8 @@ void	greater_machine(t_lexer *machine)
 		else if (*machine->buffer == '>' && *machine->input == '|' && ++checker)
 			machine->last_lexer = E_CLOBBER;
 	}
-	if (checker)
-		machine->input++;
+	if (checker != FALSE)
+		++machine->input;
 	if (machine->state != GREATAND)
 		machine->state = OUT;
 }
@@ -64,11 +64,11 @@ void	greater_machine(t_lexer *machine)
 void	greatand_machine(t_lexer *machine)
 {
 	machine->last_lexer = E_GREATAND;
-	if (ft_isdigit(*machine->input) || *machine->input == '-')
+	if (ft_isdigit(*machine->input) == TRUE || *machine->input == '-')
 	{
 		*machine->buffer = '\0';
 		fill_buffer_output(machine);
-		machine->input++;
+		++machine->input;
 	}
 	machine->state = OUT;
 
