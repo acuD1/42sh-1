@@ -16,7 +16,13 @@
 int8_t	init_window(t_registry *shell, t_window *window)
 {
 	struct winsize	w;
+	t_window		*win;
 
+	if (window == NULL)
+	{
+		ft_memset(&win, 0, sizeof(t_window));
+		*window = win;
+	}
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == -1)
 	{
 		log_print(shell, LOG_ERROR, "Terminal size could not be determined!\n");

@@ -42,7 +42,7 @@ t_vector					*allocate_clipboard(t_registry *shell);
 short						set_term_behavior(t_registry *shell);
 short						restore_term_behavior(t_registry *shell);
 
-int8_t	 					init_window(t_registry *shell, t_interface *itf);
+int8_t	 					init_window(t_registry *shell, t_window *window);
 int8_t						init_cursor(t_registry *shell);
 
 void						define_interface_default_signals(t_registry *shell);

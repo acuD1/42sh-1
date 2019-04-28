@@ -55,7 +55,7 @@ int8_t				fill_interface_data(t_registry *shell, t_interface *itf)
 	itf->cursor = &cursor;
 	itf->state = INT_PS1;
 
-	if (init_window(shell, itf) == FAILURE)
+	if (init_window(shell, &window) == FAILURE)
 		return (FAILURE);
 	if (init_cursor(shell) == FAILURE)
 		return (FAILURE);

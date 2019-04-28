@@ -48,7 +48,7 @@ static void				interface_resize_handler(int signo)
 		return ;
 	}
 	itf = g_shell->interface;
-	init_window(g_shell, itf);
+	init_window(g_shell, NULL);
 	tputs(itf->termcaps->clear, 1, ft_putc);
 	if ((itf->window->cols < (uint32_t)(ft_strlen(get_intern_var(g_shell,
 												   	INT_PS1)) * 2)
