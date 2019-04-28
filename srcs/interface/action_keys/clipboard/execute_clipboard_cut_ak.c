@@ -40,16 +40,16 @@ void			copy_buffer_part(t_interface *itf, int8_t before)
 	if (before > 0)
 	{
 		itf->clip->buffer = ft_strncpy(itf->clip->buffer, itf->line->buffer,
-						itf->cursor->index);
-		cut_vector(itf->line, itf->cursor, before);
+						itf->cursor.index);
+		cut_vector(itf->line, &itf->cursor, before);
 	}
 	else
 	{
-		tmp = ft_strsub(itf->line->buffer, itf->cursor->index,
+		tmp = ft_strsub(itf->line->buffer, itf->cursor.index,
 						ft_vctlen(itf->line));
 		itf->clip->buffer = ft_strcpy(itf->clip->buffer, tmp);
 		ft_strdel(&tmp);
-		cut_vector(itf->line, itf->cursor, before);
+		cut_vector(itf->line, &itf->cursor, before);
 	}
 }
 // static
@@ -63,40 +63,40 @@ int8_t				tc_ak_cut_before_cursor(t_registry *shell)
 {
 	t_interface	*itf;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	if (validate_interface_content(itf) != 0)
-		return (-1);
+		return (FAILURE);
 	realloc_vector(itf->clip, itf->line);
 	copy_buffer_part(itf, 1);
 	log_print(shell, LOG_INFO, "Cut |%s| to clipboard.\n", itf->clip->buffer);
 	redraw_input_line(shell);
-	return (0);
+	return (SUCCESS);
 }
 
 int8_t				tc_ak_cut_after_cursor(t_registry *shell)
 {
 	t_interface	*itf;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	if (validate_interface_content(itf) != 0)
-		return (-1);
+		return (FAILURE);
 	realloc_vector(itf->clip, itf->line);
 	copy_buffer_part(itf, -1);
 	log_print(shell, LOG_INFO, "Cut |%s| to clipboard.\n", itf->clip->buffer);
 	redraw_input_line(shell);
-	return (0);
+	return (SUCCESS);
 }
 
 int8_t				tc_ak_cut_line(t_registry *shell)
 {
 	t_interface	*itf;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	if (validate_interface_content(itf) != 0)
-		return (-1);
+		return (FAILURE);
 	realloc_vector(itf->clip, itf->line);
 	move_buffer(itf->clip->buffer, itf->line);
 	log_print(shell, LOG_INFO, "Cut |%s| to clipboard.\n", itf->clip->buffer);
 	redraw_input_line(shell);
-	return (0);
+	return (SUCCESS);
 }

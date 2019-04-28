@@ -27,8 +27,7 @@
 *****************************************************
 */
 
-int8_t						fill_interface_data(t_registry *shell,
-								t_interface *itf);
+int8_t						fill_interface_data(t_registry *shell);
 
 void						move_buffer(char *dest, t_vector *source);
 void						copy_buffer_part(t_interface *itf, int8_t before);
@@ -36,13 +35,15 @@ int							insert_clipboard(t_registry *shell);
 uint8_t 					is_too_long(t_vector *a, t_vector *b, uint32_t max);
 uint8_t						is_only_whitespaces(char *buffer);
 int8_t						init_termcap_calls(t_termcaps *termcp);
-int8_t						load_interface(t_registry *shell, t_interface *itf);
+
+
+int8_t						load_interface(t_registry *shell);
 
 t_vector					*allocate_clipboard(t_registry *shell);
 short						set_term_behavior(t_registry *shell);
 short						restore_term_behavior(t_registry *shell);
 
-int8_t	 					init_window(t_registry *shell, t_window *window);
+int8_t	 					init_window(t_registry *shell);
 int8_t						init_cursor(t_registry *shell);
 
 void						define_interface_default_signals(t_registry *shell);
@@ -50,9 +51,8 @@ void						define_interface_signal_behavior(t_registry *shell);
 
 int8_t						invoke_sub_prompt(t_registry *shell, char **line,
 								char *prompt_state);
-void						launch_shell_prompt(t_registry *shell,
-								t_interface *itf);
-char						*prompt(t_registry *shell, t_interface *itf);
+void						launch_shell_prompt(t_registry *shell);
+char						*prompt(t_registry *shell);
 
 void						setup_keycodes(t_interface *itf);
 void						init_ak_keycodes(t_interface *itf);

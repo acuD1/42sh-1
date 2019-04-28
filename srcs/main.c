@@ -45,31 +45,40 @@ char	*read_input(int fd)
 	return (final);
 }
 
-/*
-******* ADD __ununused
-*/
+static int		init_shell(t_registry *shell, char **av, char **env)
+{
+	ft_bzero(shell, sizeof(t_registry));
+	if (launch_sh(av, env, shell) == FAILURE)
+		return (FAILURE);
+	init_parser(&shell->parser);
+	shell->parser.env = shell->env;
+	init_debug_logger(shell);
+	if (shell->option.c == FALSE && isatty(STDIN_FILENO) != 0)
+	{
+			if ((load_interface(shell)) == FAILURE)
+			{
+				ft_printf("[CRITICAL] - Interface setup failed.\n");
+				log_print(shell, LOG_INFO, "Restoring original shell behavior.\n");
+				restore_term_behavior(shell);
+				log_print(shell, LOG_INFO, "Releasing interface memory.\n");
+				free_interface_registry(&shell->interface);
+				return (FAILURE);
+			}
+	}
+	return (SUCCESS);
+}
 
 int		main(int ac, char **av, char **env)
 {
 	t_registry		shell;
-	t_parser 		parser_module;
 	char 			*command;
 
 	(void)ac;
-	ft_bzero(&shell, sizeof(t_registry));
-	if (launch_sh(av, env, &shell) == FAILURE)
+	
+	if (init_shell(&shell, av, env) == FAILURE)
 		return (FAILURE);
-
 	g_shell_registry = &shell;
-	init_debug_logger(&shell);
-
 	print_opt(&shell); // print options, handle them
-
-	init_parser(&parser_module);
-	parser_module.env = shell.env;
-	shell.parser = &parser_module;
-
-
 	if (shell.option.c == FALSE && isatty(STDIN_FILENO) != 0)
 	{
 		shell_invoke_interactive(&shell);

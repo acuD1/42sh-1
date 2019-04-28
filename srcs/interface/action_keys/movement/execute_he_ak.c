@@ -15,18 +15,18 @@
 
 int8_t	tc_ak_home(t_registry *shell)
 {
-	if (validate_interface_content(shell->interface) != 0)
-		return (-1);
-	while (shell->interface->cursor->index > 0)
+	if (validate_interface_content(&shell->interface) != 0)
+		return (FAILURE);
+	while (shell->interface.cursor.index > 0)
 		tc_ak_arrow_left(shell);
-	return (0);
+	return (SUCCESS);
 }
 
 int8_t	tc_ak_end(t_registry *shell)
 {
-	if (validate_interface_content(shell->interface) != 0)
-		return (-1);
-	while (shell->interface->cursor->index < ft_vctlen(shell->interface->line))
+	if (validate_interface_content(&shell->interface) != 0)
+		return (FAILURE);
+	while (shell->interface.cursor.index < ft_vctlen(shell->interface.line))
 		tc_ak_arrow_right(shell);
-	return (0);
+	return (SUCCESS);
 }

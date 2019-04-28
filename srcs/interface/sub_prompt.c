@@ -16,13 +16,13 @@
 
 static void			print_sub_prompt(t_registry *shell)
 {
-	shell->interface->cursor->x = 0;
-	shell->interface->cursor->y = 0;
+	shell->interface.cursor.x = 0;
+	shell->interface.cursor.y = 0;
 	ft_printf("\n");
 	//protect intern_var call and set to 'sub'
-	print_words(shell->interface, 
-				get_intern_var(shell, shell->interface->state));
-	shell->interface->cursor->index = 0;
+	print_words(&shell->interface, 
+				get_intern_var(shell, shell->interface.state));
+	shell->interface.cursor.index = 0;
 }
 
 static int8_t		sub_prompt_loop(t_registry *shell, t_interface *itf)
@@ -58,7 +58,7 @@ int8_t				invoke_sub_prompt(t_registry *shell, char **line,
 	if (shell == NULL)
 		shell = g_shell_registry;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	//if (prompt_state != PS1 PS2 PS3 PS4)
 	// add_intern_var(PS5, prompt_state)
 	itf->state = prompt_state;

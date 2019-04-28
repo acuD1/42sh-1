@@ -15,7 +15,7 @@
 int		check_script(t_lexer *machine)
 {
 	int					index;
-	const static char	*script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
+	static const char	*script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
 									, IF, IN, THEN, UNTIL, WHILE};
 
 	index = 0;
