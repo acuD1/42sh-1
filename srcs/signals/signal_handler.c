@@ -21,19 +21,19 @@ void			redraw_prompt(int signo)
 	(void)signo;
 	t_interface *itf;
 
-	itf = g_shell->interface;
+	itf = &g_shell->interface;
 	tc_ak_end(g_shell);
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
 		print_words(itf, "\n");
-	itf->cursor->x = 0;
-	itf->cursor->y = 0;
+	itf->cursor.x = 0;
+	itf->cursor.y = 0;
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
 		ft_vctreset(itf->line);
 	itf->hist_ptr = NULL;
 	// check sub_prompt print
 	// use a ps5 for pipes, if then, etc...
 	print_words(itf, get_intern_var(g_shell, itf->state));
-	itf->cursor->index = 0;
+	itf->cursor.index = 0;
 }
 
 static void		interface_resize_handler(int signo)
@@ -47,13 +47,13 @@ static void		interface_resize_handler(int signo)
 		ft_dprintf(2, "[ERROR] Terminal size could not be updated.\n");
 		return ;
 	}
-	itf = g_shell->interface;
-	init_window(g_shell, NULL);
-	tputs(itf->termcaps->clear, 1, ft_putc);
-	if ((itf->window->cols
+	itf = &g_shell->interface;
+	init_window(g_shell);
+	tputs(itf->termcaps.clear, 1, ft_putc);
+	if ((itf->window.cols
 			< (uint32_t)(ft_strlen(get_intern_var(g_shell, INT_PS1)) * 2)
-		|| itf->window->rows < 3)
-		|| ft_vctlen(itf->line) > (uint32_t)itf->window->max_chars)
+		|| itf->window.rows < 3)
+		|| ft_vctlen(itf->line) > (uint32_t)itf->window.max_chars)
 		print_words(itf, "Terminal window size too small :-(");
 	else
 	{

@@ -15,10 +15,10 @@
 
 void	cleanup_interface(t_registry *shell)
 {
-	ft_vctreset(shell->interface->line);
-	shell->interface->cursor->x = get_prompt_len(shell);
-	shell->interface->cursor->y = 0;
-	shell->interface->cursor->index = 0;
+	ft_vctreset(shell->interface.line);
+	shell->interface.cursor.x = get_prompt_len(shell);
+	shell->interface.cursor.y = 0;
+	shell->interface.cursor.index = 0;
 }
 
 //interface exit routines
@@ -38,17 +38,13 @@ void	free_interface_registry(t_interface *itf)
 	}
 	ft_strdel(&(itf->current_line));
 	ft_strdel(&(itf->clip->buffer));
-	free(itf->clip);
 	ft_strdel(&(itf->line->buffer));
+	free(itf->clip);
 	free(itf->line);
 
-	ft_strdel(&(itf->termcaps->clear));
-	ft_strdel(&(itf->termcaps->cs_down));
-	ft_strdel(&(itf->termcaps->cs_up));
-	ft_strdel(&(itf->termcaps->cs_right));
-	ft_strdel(&(itf->termcaps->cs_left));
-
-	free(itf->termcaps);
-	free(itf->window);
-	free(itf->cursor);
+	ft_strdel(&(itf->termcaps.clear));
+	ft_strdel(&(itf->termcaps.cs_down));
+	ft_strdel(&(itf->termcaps.cs_up));
+	ft_strdel(&(itf->termcaps.cs_right));
+	ft_strdel(&(itf->termcaps.cs_left));
 }

@@ -36,30 +36,19 @@ static int8_t		allocate_data_structures(t_vector **vector,
 	return (0);
 }
 */
-int8_t				fill_interface_data(t_registry *shell, t_interface *itf)
+int8_t				fill_interface_data(t_registry *shell)
 {
-	t_vector	*vector;
-	t_window	window;
-	t_cursor	cursor;
 
-	if ((vector = ft_vctnew(0)) == NULL)
+	if ((shell->interface.line = ft_vctnew(0)) == NULL)
 		return (FAILURE);
-	ft_memset(&window, 0, sizeof(t_vector));
-	ft_memset(&cursor, 0, sizeof(t_window));
 	
 //	if (allocate_data_structures(&vector, &window, &cursor) != 0)
 //		return (-3);
 
-	itf->line = vector;
-	itf->window = &window;
-	itf->cursor = &cursor;
-	itf->state = INT_PS1;
-
-	if (init_window(shell, &window) == FAILURE)
+	shell->interface.state = INT_PS1;
+	if (init_window(shell) == FAILURE)
 		return (FAILURE);
-	if (init_cursor(shell) == FAILURE)
-		return (FAILURE);
-	return (SUCCESS);
+	return (init_cursor(shell));
 }
 
 static int8_t		is_input_valid(char *input_string)
@@ -73,25 +62,27 @@ static int8_t		is_input_valid(char *input_string)
 	return (SUCCESS);
 }
 
-void				launch_shell_prompt(t_registry *shell, t_interface *itf)
+void				launch_shell_prompt(t_registry *shell)
 {
-	char	*input_str;
-	int		ret_lexer_parser;
+	char		*input_str;
+	int			ret_lexer_parser;
+	t_interface *itf;
 
-	log_print(shell, LOG_INFO, "Starting prompt.\n");
+	itf = &shell->interface;
+//	log_print(shell, LOG_INFO, "Starting prompt.\n");
 	define_interface_signal_behavior(shell);
 
 	while (1)
 	{
 		ret_lexer_parser = FAILURE;
-		input_str = prompt(shell, itf);
-		init_parser(shell->parser);
-		shell->parser->env = shell->env;
+		input_str = prompt(shell);
+		init_parser(&shell->parser);
+		shell->parser.env = shell->env;
 		if (is_input_valid(input_str) == SUCCESS)
 		{
 			push_history_entry(&(itf->history_head),
 							create_history_entry(itf->line->buffer));
-			ret_lexer_parser = lexer_parser(shell->parser, input_str);
+			ret_lexer_parser = lexer_parser(&shell->parser, input_str);
 		}
 		else
 		{
@@ -103,8 +94,8 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 		cleanup_interface(shell);
 		if (ret_lexer_parser == SUCCESS)
 		{
-			launch_job(shell, shell->parser->job_list);
-			ft_lstdel(&shell->parser->job_list, delete_job);
+			launch_job(shell, shell->parser.job_list);
+			ft_lstdel(&shell->parser.job_list, delete_job);
 		}
 	}
 	define_interface_default_signals(shell);
@@ -112,26 +103,17 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 
 void				shell_invoke_interactive(t_registry *shell)
 {
-	t_interface itf;
-
 	log_print(shell, LOG_INFO, "Starting interactive mode.\n");
-
-
-	if ((load_interface(shell, &itf)) == FAILURE)
-		ft_printf("[CRITICAL] - Interface setup failed.\n");
-	else
+	if (fill_interface_data(shell) == SUCCESS)
 	{
-		if (fill_interface_data(shell, &itf) == SUCCESS)
-			launch_shell_prompt(shell, &itf);
-		else
-			ft_printf("[CRITICAL] - Interface data could not be fetched.\n");
+		launch_shell_prompt(shell);
 	}
-
+	else
+		ft_printf("[CRITICAL] - Interface data could not be fetched.\n");
 	log_print(shell, LOG_INFO, "Restoring original shell behavior.\n");
 	restore_term_behavior(shell);
-
 	log_print(shell, LOG_INFO, "Releasing interface memory.\n");
-	free_interface_registry(&itf);
+	free_interface_registry(&shell->interface);
 //	free(&itf);
 //	unload_interface();
 }

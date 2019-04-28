@@ -60,5 +60,5 @@ void			setup_keycodes(t_interface *itf)
 
 void			link_actions_to_keys(t_registry *shell)
 {
-	init_termcap_actions((shell->interface->tc_call));
+	init_termcap_actions((shell->interface.tc_call));
 }

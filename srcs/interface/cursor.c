@@ -16,7 +16,7 @@ int8_t	init_cursor(t_registry *shell)
 {
 	t_cursor *cursor;
 
-	cursor = shell->interface->cursor;
+	cursor = &shell->interface.cursor;
 	cursor->index = 0;
 	cursor->x = get_prompt_len(shell);
 	cursor->y = 0;

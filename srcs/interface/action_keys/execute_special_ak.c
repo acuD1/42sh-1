@@ -17,30 +17,30 @@
 int8_t		tc_ak_hightab(t_registry *shell)
 {
 	(void)shell;
-	return (0);
+	return (SUCCESS);
 }
 
 int8_t		tc_ak_delete(t_registry *shell)
 {
-	if (validate_interface_content(shell->interface) != 0)
-		return (-1);
-	shift_content_left_once(shell->interface->line,
-			shell->interface->cursor->index);
+	if (validate_interface_content(&shell->interface) != 0)
+		return (FAILURE);
+	shift_content_left_once(shell->interface.line,
+			shell->interface.cursor.index);
 	redraw_after_cursor(shell);
-	return (0);
+	return (SUCCESS);
 }
 
 int8_t		tc_ak_backspace(t_registry *shell)
 {
 	t_interface	*itf;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	if (validate_interface_content(itf) != 0)
-		return (-1);
-	if (itf->cursor->index == 0)
-		return (0);
+		return (FAILURE);
+	if (itf->cursor.index == 0)
+		return (SUCCESS);
 	tc_ak_arrow_left(shell);
-	shift_content_left_once(itf->line, itf->cursor->index);
+	shift_content_left_once(itf->line, itf->cursor.index);
 	redraw_after_cursor(shell);
-	return (0);
+	return (SUCCESS);
 }

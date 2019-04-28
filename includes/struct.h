@@ -275,22 +275,6 @@ typedef struct	s_node
 	char *data;
 }				t_node;
 
-typedef struct				s_registry
-{
-	t_opt					option;
-	t_list					*env;
-	t_list					*intern;
-	t_hash					bin_hashmap;
-	t_hash					blt_hashmap;
-	struct s_interface		*interface;
-	//TODO: move t_job head here for exit and global
-	//t_list				*job_list;
-	t_parser				*parser;
-}							t_registry;
-
-typedef int 		(*t_builtin)(t_registry *, char **);
-
-extern t_registry	*g_shell_registry;
 
 /*
 *****************************************************
@@ -348,15 +332,17 @@ typedef struct				s_window
 	uint32_t				max_chars;
 }							t_window;
 
+typedef struct				s_registry t_registry;
+
 typedef struct				s_interface
 {
 	struct termios			*term_mode;
 	struct termios			*orig_mode;
 	t_vector				*line;
 	t_vector				*clip;
-	t_cursor				*cursor;
-	t_window				*window;
-	t_termcaps				*termcaps;
+	t_cursor				cursor;
+	t_window				window;
+	t_termcaps				termcaps;
 	t_history				*history_head;
 	t_history				*hist_ptr;
 	char					*current_line;
@@ -367,6 +353,22 @@ typedef struct				s_interface
 
 
 
+struct				s_registry
+{
+	t_opt					option;
+	t_list					*env;
+	t_list					*intern;
+	t_hash					bin_hashmap;
+	t_hash					blt_hashmap;
+	struct s_interface		interface;
+	//TODO: move t_job head here for exit and global
+	//t_list				*job_list;
+	t_parser				parser;
+};
+
+typedef int 		(*t_builtin)(t_registry *, char **);
+
+extern t_registry	*g_shell_registry;
 /*
 *****************************************************
 ********************** RESOLVE **********************

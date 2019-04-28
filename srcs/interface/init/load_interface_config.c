@@ -60,44 +60,29 @@ static int8_t		fill_interface_related_internals(t_registry *reg)
 	return (SUCCESS);
 }
 
-int8_t load_interface(t_registry *shell, t_interface *itf)
+int8_t load_interface(t_registry *shell)
 {
 	int8_t			op_worked;
-	t_termcaps		termcp;
-
 	//if ((itf = create_interface(shell)) == NULL)
 	//	return (NULL);
-	ft_memset(itf, 0, sizeof(t_interface));
-
 	if (fetch_terminal_info(shell) == FAILURE)
 		return (FAILURE);
-
-	if ((init_termcap_calls(&termcp)) == FAILURE)
+	if ((init_termcap_calls(&shell->interface.termcaps)) == FAILURE)
 		return (FAILURE);
-
-	itf->termcaps = &termcp;
-
-	shell->interface = itf;
-
 // pas consistent
-	setup_keycodes(itf);
+	setup_keycodes(&shell->interface);
 	link_actions_to_keys(shell);
-
 	fill_interface_related_internals(shell);
-
-
 	if ((op_worked = set_term_behavior(shell)) != 0)
 	{
 		if (op_worked == -2)
 			restore_term_behavior(shell);
 		return (FAILURE);
 	}
-
-	if ((itf->clip = allocate_clipboard(shell)) == NULL)
+	if ((shell->interface.clip = allocate_clipboard(shell)) == NULL)
 		return (FAILURE);
-
 	log_print(shell, LOG_OK, "Line edition initialized.\n");
-	itf->history_head = NULL;
-	itf->hist_ptr = NULL;
+	shell->interface.history_head = NULL;
+	shell->interface.hist_ptr = NULL;
 	return (SUCCESS);
 }

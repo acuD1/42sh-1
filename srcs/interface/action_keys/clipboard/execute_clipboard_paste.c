@@ -33,9 +33,9 @@ int			insert_clipboard(t_registry *shell)
 	concat = NULL;
 	before = NULL;
 	after = NULL;
-	itf = shell->interface;
-	before = ft_strsub(itf->line->buffer, 0, itf->cursor->index);
-	after = ft_strsub(itf->line->buffer, itf->cursor->index,
+	itf = &shell->interface;
+	before = ft_strsub(itf->line->buffer, 0, itf->cursor.index);
+	after = ft_strsub(itf->line->buffer, itf->cursor.index,
 					ft_vctlen(itf->line));
 	ft_asprintf(&concat, "%s%s%s", before, itf->clip->buffer, after);
 	ft_bzero(itf->line->buffer, itf->line->size);
@@ -53,7 +53,7 @@ static void				append_clipboard(t_registry *shell)
 {
 	t_interface *itf;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	itf->line->buffer = ft_strcat(itf->line->buffer,
 			itf->clip->buffer);
 	redraw_after_cursor(shell);
@@ -67,14 +67,14 @@ int8_t				tc_ak_paste_clipboard(t_registry *shell)
 	t_interface			*itf;
 	uint32_t			go_front;
 
-	itf = shell->interface;
+	itf = &shell->interface;
 	if (validate_interface_content(itf) != 0)
-		return (-1);
-	if (is_too_long(itf->line, itf->clip, itf->window->max_chars))
-		return (-1);
+		return (FAILURE);
+	if (is_too_long(itf->line, itf->clip, itf->window.max_chars))
+		return (FAILURE);
 	while (itf->line->size < (ft_vctlen(itf->line) + ft_vctlen(itf->clip) + 2))
 		ft_vctrescale(itf->line);
-	if (itf->line->buffer[itf->cursor->index] != '\0')
+	if (itf->line->buffer[itf->cursor.index] != '\0')
 	{
 		go_front = insert_clipboard(shell);
 		tc_ak_home(shell);
@@ -84,5 +84,5 @@ int8_t				tc_ak_paste_clipboard(t_registry *shell)
 	}
 	else
 		append_clipboard(shell);
-	return (0);
+	return (SUCCESS);
 }

@@ -24,9 +24,9 @@ static int	need_subprompt(enum e_type state, enum e_type type)
 
 static void	print_parser_error(enum e_type type)
 {
-	const static char *signs[14] = {"&&", "OR", ";;", "<<", ">>", "<&", ">&"
+	static const char *signs[14] = {"&&", "OR", ";;", "<<", ">>", "<&", ">&"
 		, "<>", "<<-", ">|", "==", "!="};
-	const static char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
+	static const char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
 									, IF, IN, THEN, UNTIL, WHILE};
 
 	ft_dprintf(2, "21sh: syntax error near unexpected token ");
@@ -60,7 +60,7 @@ static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
 		while (new_token == NULL)
 		{
 			invoke_sub_prompt(g_shell_registry, &line, INT_PS3);
-			g_shell_registry->interface->state = INT_PS1;
+			g_shell_registry->interface.state = INT_PS1;
 			new_token = lexer(line);
 			ft_strdel(&line);
 		}

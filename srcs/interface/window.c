@@ -13,9 +13,12 @@
 #include "log.h"
 #include "interface_functions.h"
 
-int8_t	init_window(t_registry *shell, t_window *window)
+int8_t	init_window(t_registry *shell)
 {
 	struct winsize	w;
+	t_window *window;
+
+	window = &shell->interface.window;
 //	t_window		*win;
 
 //	if (window == NULL)
@@ -23,7 +26,7 @@ int8_t	init_window(t_registry *shell, t_window *window)
 //		ft_memset(&win, 0, sizeof(t_window));
 //		*window = win;
 //	}
-	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == -1)
+	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == FAILURE)
 	{
 		log_print(shell, LOG_ERROR, "Terminal size could not be determined!\n");
 		return (FAILURE);

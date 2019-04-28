@@ -15,13 +15,13 @@
 void	print_char(t_interface *itf, char d)
 {
 	write(1, &d, 1);
-	itf->cursor->index++;
-	itf->cursor->x++;
-	if (itf->cursor->x == itf->window->cols)
+	itf->cursor.index++;
+	itf->cursor.x++;
+	if (itf->cursor.x == itf->window.cols)
 	{
-		tputs(itf->termcaps->cs_down, 1, &ft_putc);
-		itf->cursor->x = 0;
-		itf->cursor->y++;
+		tputs(itf->termcaps.cs_down, 1, &ft_putc);
+		itf->cursor.x = 0;
+		itf->cursor.y++;
 	}
 }
 

@@ -15,10 +15,12 @@
 #include "ft_printf.h"
 #include "history.h"
 
-char		*prompt(t_registry *shell, t_interface *itf)
+char		*prompt(t_registry *shell)
 {
 	char			character[READ_SIZE + 1];
+	t_interface 	*itf;
 
+	itf = &shell->interface;
 	ft_bzero(character, READ_SIZE);
 	ft_dprintf(STDOUT_FILENO, "\n%s", get_intern_var(shell, itf->state));
 	itf->hist_ptr = NULL;

@@ -14,9 +14,9 @@
 
 void		print_token_debug(t_token *token)
 {
-	const static char *signs[14] = {"&&", "OR", ";;", "<<", ">>", "<&", ">&"
+	static const char *signs[14] = {"&&", "OR", ";;", "<<", ">>", "<&", ">&"
 		, "<>", "<<-", ">|", "==", "!="};
-	const static char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
+	static const char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
 									, IF, IN, THEN, UNTIL, WHILE};
 
 	if (token->type == E_STRING || token->type == E_QUOTE 

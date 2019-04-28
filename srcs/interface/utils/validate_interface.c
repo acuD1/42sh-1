@@ -14,11 +14,8 @@
 
 int8_t		validate_interface_content(t_interface *itf)
 {
-	if (itf == NULL || itf->clip == NULL || itf->line == NULL
-		|| itf->clip->buffer == NULL
-		|| itf->line->buffer == NULL
-		|| itf->cursor == NULL
-		|| itf->window == NULL)
-		return (-1);
-	return (0);
+	if (itf == NULL || itf->clip->buffer == NULL
+		|| itf->line->buffer == NULL)
+		return (FAILURE);
+	return (SUCCESS);
 }
