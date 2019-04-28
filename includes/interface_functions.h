@@ -35,7 +35,7 @@ void						copy_buffer_part(t_interface *itf, int8_t before);
 int							insert_clipboard(t_registry *shell);
 uint8_t 					is_too_long(t_vector *a, t_vector *b, uint32_t max);
 uint8_t						is_only_whitespaces(char *buffer);
-unit8_t						init_termcap_calls(t_termcaps *termcp);
+int8_t						init_termcap_calls(t_termcaps *termcp);
 uint8_t						load_interface(t_registry *shell, t_interface *itf);
 
 t_vector					*allocate_clipboard(t_registry *shell);
@@ -43,7 +43,7 @@ short						set_term_behavior(t_registry *shell);
 short						restore_term_behavior(t_registry *shell);
 
 int8_t	 					init_window(t_registry *shell, t_interface *itf);
-int8_t						init_cursor(t_cursor *cursor);
+int8_t						init_cursor(t_registry *shell);
 
 void						define_interface_default_signals(t_registry *shell);
 void						define_interface_signal_behavior(t_registry *shell);
