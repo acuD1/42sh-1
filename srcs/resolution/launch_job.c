@@ -18,13 +18,13 @@ t_list *g_job_head;
 static void	close_opened_fd(t_filedesc fd)
 {
 	if (fd.in != STDIN_FILENO && fd.in != STDOUT_FILENO
-								&& fd.in != STDERR_FILENO && fd.in != -1)
+			&& fd.in != STDERR_FILENO && fd.in != -1)
 		close(fd.in);
 	if (fd.out != STDOUT_FILENO && fd.out != STDERR_FILENO
-								&& fd.out != STDIN_FILENO && fd.out != -1)
+			&& fd.out != STDIN_FILENO && fd.out != -1)
 		close(fd.out);
 	if (fd.err != STDERR_FILENO && fd.err != STDIN_FILENO
-								&& fd.err != STDOUT_FILENO && fd.out != -1)
+			&& fd.err != STDOUT_FILENO && fd.out != -1)
 		close(fd.err);
 }
 

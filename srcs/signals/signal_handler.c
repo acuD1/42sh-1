@@ -16,7 +16,7 @@
 
 t_registry	*g_shell;
 
-void				redraw_prompt(int signo)
+void			redraw_prompt(int signo)
 {
 	(void)signo;
 	t_interface *itf;
@@ -36,13 +36,13 @@ void				redraw_prompt(int signo)
 	itf->cursor->index = 0;
 }
 
-static void				interface_resize_handler(int signo)
+static void		interface_resize_handler(int signo)
 {
 	struct 					winsize w;
 	t_interface				*itf;
 
 	(void)signo;
-	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == -1)
+	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == FAILURE)
 	{
 		ft_dprintf(2, "[ERROR] Terminal size could not be updated.\n");
 		return ;
@@ -50,9 +50,10 @@ static void				interface_resize_handler(int signo)
 	itf = g_shell->interface;
 	init_window(g_shell, itf);
 	tputs(itf->termcaps->clear, 1, ft_putc);
-	if ((itf->window->cols < (uint32_t)(ft_strlen(get_intern_var(g_shell,
-												   	INT_PS1)) * 2)
-		|| itf->window->rows < 3) || ft_vctlen(itf->line) > (uint32_t)itf->window->max_chars)
+	if ((itf->window->cols
+			< (uint32_t)(ft_strlen(get_intern_var(g_shell, INT_PS1)) * 2)
+		|| itf->window->rows < 3)
+		|| ft_vctlen(itf->line) > (uint32_t)itf->window->max_chars)
 		print_words("Terminal window size too small :-(", itf);
 	else
 	{
@@ -62,7 +63,7 @@ static void				interface_resize_handler(int signo)
 	}
 }
 
-void					define_interface_default_signals(t_registry *sh_reg)
+void			define_interface_default_signals(t_registry *sh_reg)
 {
 	if (signal(SIGWINCH, SIG_DFL) == SIG_ERR)
 		log_print(sh_reg, LOG_ERROR, "Error catching the resize signal.\n");
@@ -70,8 +71,7 @@ void					define_interface_default_signals(t_registry *sh_reg)
 		log_print(sh_reg, LOG_ERROR, "Error catching C-c\n");
 }
 
-void					define_interface_signal_behavior(
-				t_registry *shell)
+void			define_interface_signal_behavior(t_registry *shell)
 {
 	g_shell = shell;
 	if (signal(SIGWINCH, interface_resize_handler) == SIG_ERR)
@@ -83,5 +83,5 @@ void					define_interface_signal_behavior(
 
 int		define_runtime_signals(void)
 {
-	return (0);
+	return (SUCCESS);
 }

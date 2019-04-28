@@ -24,7 +24,7 @@ char		**str_lst_to_tab(t_list *alst)
 
 	i = 0;
 	size = ft_lstlen(alst);
-	if (!(tabs = (char **)malloc(sizeof(char *) * (size + 1))))
+	if ((tabs = (char **)malloc(sizeof(char *) * (size + 1))) == NULL)
 		return (NULL);
 	while (alst != NULL)
 	{
@@ -42,25 +42,20 @@ char		**str_lst_to_tab(t_list *alst)
 static void	el_redirector(t_filedesc *fd)
 {
 	if (fd->in != STDIN_FILENO && fd->in != STDOUT_FILENO
-								&& fd->in != STDERR_FILENO)
+			&& fd->in != STDERR_FILENO)
 	{
-		if (fd->in != -1 || close(STDIN_FILENO))
+		if (fd->in != -1 || close(STDIN_FILENO) != SUCCESS)
 			dup2(fd->in, STDIN_FILENO);
 	}
 	if (fd->out != STDOUT_FILENO && fd->out != STDIN_FILENO)
 	{
-		if (fd->out != -1 || close(STDOUT_FILENO))
+		if (fd->out != -1 || close(STDOUT_FILENO) != SUCCESS)
 			dup2(fd->out, STDOUT_FILENO);
 	}
 	if (fd->err != STDERR_FILENO && fd->err != STDIN_FILENO)
 	{
-		if (fd->err != -1 || close(STDERR_FILENO))
-		{
-			if (fd->err == STDOUT_FILENO)
-				dup2(fd->out, STDERR_FILENO);
-			else
-				dup2(fd->err, STDERR_FILENO);
-		}
+		if (fd->err != -1 || close(STDERR_FILENO) != SUCCESS)
+			dup2(fd->err == STDOUT_FILENO ? fd->err : fd->out, STDERR_FILENO);
 	}
 }
 
@@ -86,7 +81,7 @@ static void	execute_process(t_process *process, t_registry *shell)
 	else
 		execve(process->av[0], process->av, environ);
 	ft_dprintf(2, "[ERROR] - Execution failed: %s.\n", process->av[0]);
-	exit(-1);
+	exit(FAILURE);
 }
 
 void		launch_process(t_job *job, t_process *process, t_registry *shell)
@@ -94,7 +89,7 @@ void		launch_process(t_job *job, t_process *process, t_registry *shell)
 	pid_t		pid;
 
 	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL
-		&& job->process_list->next == NULL)
+			&& job->process_list->next == NULL)
 		((t_builtin)ft_hmap_getdata(&shell->blt_hashmap, process->av[0]))
 													(shell, process->av);
 	else
@@ -105,12 +100,12 @@ void		launch_process(t_job *job, t_process *process, t_registry *shell)
 		else if (pid < 0)
 		{
 			ft_dprintf(2, "[ERROR]: Fork() failed.\n");
-			exit(-2);
+			exit(FAILURE);
 		}
 		else
 		{
 			process->pid = pid;
-			if (!job->pgid)
+			if (job->pgid == 0)
 				job->pgid = pid;
 		}
 	}

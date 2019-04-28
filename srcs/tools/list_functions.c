@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "21sh.h"
-# include "parser.h"
+#include "21sh.h"
+#include "parser.h"
 
 void	delete_process(void *data)
 {
@@ -20,7 +20,7 @@ void	delete_process(void *data)
 	process = (t_process *)data;
 	ft_freetab(&process->av);
 	ft_freetab(&process->env);
-	if (process->fd.in)
+	if (process->fd.in != 0)
 		close(process->fd.in);
 	if (process->fd.out != 1)
 		close(process->fd.out);
@@ -38,7 +38,7 @@ void	delete_job(void *data)
 
 char	*variable_to_str(void *data)
 {
-	char		*string;
+	char	*string;
 	t_node	*variable;
 
 	variable = data;

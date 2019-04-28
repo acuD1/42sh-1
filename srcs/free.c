@@ -25,7 +25,7 @@ int		free_anode(t_list *ptr)
 {
 	clear_node(&ptr->data);
 	free(ptr->data);
-	return (1);
+	return (SUCCESS);
 }
 
 int		del_node(t_list *ptr, char *var)
@@ -36,17 +36,17 @@ int		del_node(t_list *ptr, char *var)
 	ptr = ptr->next;
 	while (ptr != NULL)
 	{
-		if (!ft_strcmp(((t_node *)ptr->data)->var, var))
+		if (ft_strequ(((t_node *)ptr->data)->var, var) == TRUE)
 		{
 			tmp->next = ptr->next;
 			free_anode(ptr);
 			free(ptr);
-			return (1);
+			return (SUCCESS);
 		}
 		tmp = tmp->next;
 		ptr = ptr->next;
 	}
-	return (0);
+	return (FAILURE);
 }
 
 int		free_node(t_list **alst, char *var)
@@ -56,16 +56,14 @@ int		free_node(t_list **alst, char *var)
 
 	ptr = *alst;
 	env = (t_node*)ptr->data;
-	if (!ft_strcmp(env->var, var))
+	if (ft_strequ(env->var, var) == TRUE)
 	{
 		*alst = ptr->next;
 		free_anode(ptr);
 		free(ptr);
-		return (1);
+		return (SUCCESS);
 	}
-	if (del_node(ptr, var))
-		return (1);
-	return (0);
+	return (del_node(ptr, var));
 }
 
 int		free_lst(t_list **alst)
@@ -83,5 +81,5 @@ int		free_lst(t_list **alst)
 		free(tmp);
 	}
 	*alst = NULL;
-	return (1);
+	return (SUCCESS);
 }

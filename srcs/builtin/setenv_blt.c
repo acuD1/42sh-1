@@ -17,7 +17,7 @@ int8_t				setenv_blt(t_registry *shell, char **av)
 	t_node		*node;
 
 	av++;
-	if (!*av)
+	if (*av == NULL)
 		print_lst(&shell->env);
 	else
 	{

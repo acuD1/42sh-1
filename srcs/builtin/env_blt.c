@@ -30,14 +30,13 @@ t_option			get_option_env(char *s, t_option option)
 	return (option);
 }
 
-
 static void				ft_fill_with_new_value(t_registry *cpy_shell,
 						char ***arg)
 {
 	char		*equal;
 	t_node		*node;
 
-	while ((equal = ft_strchr(**arg, '=')))
+	while ((equal = ft_strchr(**arg, '=')) != NULL)
 	{
 		node = (t_node *)malloc(sizeof(t_node));
 		node->var = ft_strdup(**arg);
@@ -62,10 +61,10 @@ static t_registry		*copy_registry(t_registry *shell, char ***arg,
 	cpy_shell = (t_registry *)ft_memalloc(sizeof(*shell));
 	cpy_shell = ft_memcpy(cpy_shell, shell, sizeof(*shell));
 	cpy_shell->env = NULL;
-	if (!option)
+	if (option == FALSE)
 	{
 		lst = shell->env;
-		while (lst)
+		while (lst != NULL)
 		{
 			node = (t_node *)malloc(sizeof(t_node));
 			node->var = ft_strdup(((t_node *)(lst->data))->var);
@@ -87,7 +86,7 @@ int8_t				env_blt(t_registry *shell, char **av)
 
 	av++;
 	option = 0;
-	if (av && ft_strequ(*av, "-"))
+	if (*av != NULL && ft_strequ(*av, "-") == TRUE)
 	{
 		av++;
 		option = I_OPT;
@@ -95,7 +94,7 @@ int8_t				env_blt(t_registry *shell, char **av)
 	else if (((option |= set_options(&av, get_option_env)) == ERROR_OPT))
 		return (FAILURE);
 	cpy_shell = copy_registry(shell, &av, option);
-	if (!*av)
+	if (*av == NULL)
 		print_lst(&cpy_shell->env);
 	free_lst(&(cpy_shell->env));
 /////////////////////////////// SEND TO EXECUTION //////////////////// 	

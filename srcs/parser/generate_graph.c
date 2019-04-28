@@ -28,6 +28,7 @@ t_graph			*generate_graph(void)
 	static t_graph		tab_tokens[NB_OF_TOKENS];
 	int					i;
 
+	//////////// bzero general;
 	i = 0;
 	while (i < NB_OF_TOKENS)
 		ft_bzero(&tab_tokens[i++], sizeof(t_graph));

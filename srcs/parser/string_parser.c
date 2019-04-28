@@ -19,7 +19,8 @@ void	flush_string(t_parser *parse)
 
 	parse->state = P_STRING_FLUSH;
 	index = ft_stcksize(&parse->stack);
-	parse->process.av = (char **)malloc(sizeof(char *) * (index + 1));
+	if (!(parse->process.av = (char **)malloc(sizeof(char *) * (index + 1))))
+		return (NULL);
 	parse->process.av[index] = NULL;
 	while (--index >= 0)
 	{

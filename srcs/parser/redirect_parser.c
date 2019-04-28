@@ -27,7 +27,8 @@ void	flush_redirect(t_parser *parse)
 	free(token);
 	token = ft_stckpop(&parse->stack);
 	stcksize = ft_stcksize(&parse->stack);
-	if (stcksize && ((t_token*)ft_stcktop(&parse->stack))->type == E_IO_NUMBER)
+	if (stcksize != 0
+			&& ((t_token*)ft_stcktop(&parse->stack))->type == E_IO_NUMBER)
 	{
 		free(ft_stckpop(&parse->stack));
 		*parse->fd = open(filename, parse->oflags, 0644);
@@ -80,7 +81,7 @@ void	heredoc_parser(t_parser *parse)
 	line = NULL;
 	pipe(fd);
 	parse->state = P_HEREDOC;
-	while(!ft_strequ(line, parse->token.data))
+	while(ft_strequ(line, parse->token.data) == TRUE)
 	{
 
 	}
@@ -88,7 +89,7 @@ void	heredoc_parser(t_parser *parse)
 
 void	io_redirect_parser(t_parser *parse)
 {
-	if (ft_strchr("012", *parse->token.data))
+	if (ft_strchr("012", *parse->token.data) != NULL)
 	{
 		parse->state = P_IO;
 		if (*parse->token.data == '0')
@@ -97,8 +98,8 @@ void	io_redirect_parser(t_parser *parse)
 			parse->fd = &parse->process.fd.out;
 		else if (*parse->token.data == '2')
 			parse->fd = &parse->process.fd.err;
-	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-	get_token(parse);
+		ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
+		get_token(parse);
 	}
 	else
 		error_parser(parse);

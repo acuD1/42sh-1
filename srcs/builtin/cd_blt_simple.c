@@ -17,17 +17,17 @@ static void		ft_process_transform(char *path, char **new_path)
 	char	*curpath;
 	char	*tmp_path;
 
-	if (ft_strequ(path, ".."))
+	if (ft_strequ(path, "..") == TRUE)
 	{
-		if ((!ft_strequ(*new_path, "/"))
-			&& (tmp_path = ft_strrchr((*new_path) + 1, '/')))
+		if ((ft_strequ(*new_path, "/") == FALSE)
+			&& (tmp_path = ft_strrchr((*new_path) + 1, '/')) != NULL)
 			*tmp_path = '\0';
 		else
 			*(*new_path + 1) = '\0';
 	}
 	else
 	{
-		if ((!ft_strequ(*new_path, "/")))
+		if ((ft_strequ(*new_path, "/")) == FALSE)
 			curpath = ft_strjoin("/", path);
 		else 
 			curpath = ft_strdup(path);
@@ -38,9 +38,9 @@ static void		ft_process_transform(char *path, char **new_path)
 	}
 }
 
-static char		*transform_element_path(char *path, char **new_path)
+static char		*transform_elem_path(char *path, char **new_path)
 {
-	if (path && !ft_strequ(path, "."))
+	if (path != NULL && ft_strequ(path, ".") == FALSE)
 	{
 		ft_process_transform(path, new_path);
 		if (access(*new_path, F_OK) != SUCCESS)
@@ -61,16 +61,16 @@ char			*make_curpath_simple(char *curpath)
 	i = 0;
 	if (ft_strequ(curpath, "/"))
 		return (curpath);
-	if (!(tab_path = ft_strsplit(curpath, "/")))
+	if ((tab_path = ft_strsplit(curpath, "/")) == NULL)
 	{
 		ft_strdel(&curpath);
 		return (NULL);
 	}
 	new_path = ft_strdup("/");
 	ft_strdel(&curpath);
-	while (tab_path[i])
+	while (tab_path[i] != NULL)
 	{
-		if (!(new_path = transform_element_path(tab_path[i++], &new_path)))
+		if ((new_path = transform_elem_path(tab_path[i++], &new_path)) == NULL)
 		{
 			ft_freetab(&tab_path);
 			return (NULL);

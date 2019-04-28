@@ -16,7 +16,7 @@ static char		*is_valid_path(char *path, char *to_find)
 {
 	char	*complete_path;
 
-	if (!(complete_path = ft_strjoin(path, to_find)))
+	if ((complete_path = ft_strjoin(path, to_find)) == NULL)
 		return (NULL);
 	else if (access(complete_path, F_OK) == SUCCESS)
 		return (complete_path);
@@ -34,7 +34,7 @@ static int		add_end_slash(char **path)
 	if (*path[len - 1] != '/')
 	{
 		tmp_path = *path;
-		if (!(tmp_path = ft_strjoin(tmp_path, "/")))
+		if ((tmp_path = ft_strjoin(tmp_path, "/")) == NULL)
 			return (FALSE);
 		ft_strdel(path);
 		*path = tmp_path;
@@ -49,18 +49,18 @@ char			*is_cdpath_env(t_registry *shell, char *to_find)
 	int		i;
 
 	i = 0;
-	if (!(cd_path = get_env_var(shell, "CDPATH")))
+	if ((cd_path = get_env_var(shell, "CDPATH")) == NULL)
 		return (is_valid_path("./", to_find));
-	if (!(tab_cd_path = ft_strsplit(cd_path, ":")))
+	if ((tab_cd_path = ft_strsplit(cd_path, ":")) == NULL)
 		return (NULL);
-	while (tab_cd_path[i])
+	while (tab_cd_path[i] != NULL)
 	{
-		if (!add_end_slash(tab_cd_path + i))
+		if (add_end_slash(tab_cd_path + i) == FALSE)
 		{
 			ft_freetab(&tab_cd_path);
 			return (NULL);
 		}
-		if ((cd_path = is_valid_path(tab_cd_path[i], to_find)))
+		if ((cd_path = is_valid_path(tab_cd_path[i], to_find)) != NULL)
 		{
 			ft_freetab(&tab_cd_path);
 			return (cd_path);
