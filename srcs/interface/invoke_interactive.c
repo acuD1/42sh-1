@@ -112,15 +112,13 @@ void				launch_shell_prompt(t_registry *shell, t_interface *itf)
 
 void				shell_invoke_interactive(t_registry *shell)
 {
-	t_interface *itf;
+	t_interface itf;
 
 	log_print(shell, LOG_INFO, "Starting interactive mode.\n");
 
 
-	if ((load_interface(shell, itf)) == FAILURE)
-	{
+	if ((load_interface(shell, &itf)) == FAILURE)
 		ft_printf("[CRITICAL] - Interface setup failed.\n");
-	}
 	else
 	{
 		if (fill_interface_data(shell, itf) == SUCCESS)
@@ -128,9 +126,12 @@ void				shell_invoke_interactive(t_registry *shell)
 		else
 			ft_printf("[CRITICAL] - Interface data could not be fetched.\n");
 	}
+
 	log_print(shell, LOG_INFO, "Restoring original shell behavior.\n");
 	restore_term_behavior(shell);
+
 	log_print(shell, LOG_INFO, "Releasing interface memory.\n");
 	free_interface_registry(itf);
 	free(itf);
+	//	unload_interface();
 }

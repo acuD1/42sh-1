@@ -49,12 +49,10 @@ uint32_t		redraw_after_cursor(t_registry *shell)
 	return (itf->cursor->index);
 }
 
-uint32_t		replace_input_line(char *string, t_registry *shell)
+uint32_t		replace_input_line(t_registry *shell, char *string)
 {
 	t_interface	*itf;
-	uint32_t	index;
 
-	index = 0;
 	itf = shell->interface;
 	itf->cursor->index = clean_screen(shell);
 	ft_bzero(itf->line->buffer, itf->line->size);

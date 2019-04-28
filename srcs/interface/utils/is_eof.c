@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "define.h"
-
+#include <stdint.h>
 
 uint8_t	is_eof(char *buffer)
 {

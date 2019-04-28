@@ -15,7 +15,7 @@
 
 t_registry	*g_shell_registry;
 
-static uint8_t		fetch_terminal_info(t_registry *shell)
+static int8_t		fetch_terminal_info(t_registry *shell)
 {
 	char			*term_name;
 
@@ -32,7 +32,7 @@ static uint8_t		fetch_terminal_info(t_registry *shell)
 			"Reached targeting terminal and termcaps database.\n");
 	return (SUCCESS);
 }
-
+/*
 static t_interface	*create_interface(t_registry *shell)
 {
 	t_interface *itf;
@@ -46,7 +46,7 @@ static t_interface	*create_interface(t_registry *shell)
 	ft_memset(itf, 0, sizeof(t_interface));
 	return (itf);
 }
-
+*/
 static int8_t		fill_interface_related_internals(t_registry *reg)
 {
 	if (add_internal(reg, INT_PS1, INT_PS1_VALUE) == FAILURE)
@@ -76,6 +76,7 @@ uint8_t load_interface(t_registry *shell, t_interface *itf)
 
 	shell->interface = itf;
 
+// pas consistent
 	setup_keycodes(itf);
 	link_actions_to_keys(shell);
 
