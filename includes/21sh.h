@@ -24,7 +24,7 @@
 # include <sys/wait.h>
 /////////////////////
 
-int				lexer_parser(t_parser *parse, char *input);
+int				lexer_parser(t_parser *parse, t_graph *graph, char *input);
 void			shell_invoke_interactive(t_registry *shell);
 
 int				add_internal(t_registry *sh_reg, char *name, char *data);

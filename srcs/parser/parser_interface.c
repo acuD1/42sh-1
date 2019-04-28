@@ -16,7 +16,7 @@
 
 void	error_parser(t_parser *parse)
 {
-	ft_printf("Error on token type %d\n",parse->token.type);
+	ft_printf("Error on token type %d\n", parse->token.type);
 	parse->state = P_ERROR;
 }
 

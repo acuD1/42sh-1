@@ -23,15 +23,7 @@ static void		set_graph(t_graph *tab_tokens)
 	set_ionumber_token(tab_tokens);
 }
 
-t_graph			*generate_graph(void)
+void			generate_graph(t_registry *shell)
 {
-	static t_graph		tab_tokens[NB_OF_TOKENS];
-	int					i;
-
-	//////////// bzero general;
-	i = 0;
-	while (i < NB_OF_TOKENS)
-		ft_bzero(&tab_tokens[i++], sizeof(t_graph));
-	set_graph(tab_tokens);
-	return (tab_tokens);
+	set_graph(shell->graph);
 }

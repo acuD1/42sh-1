@@ -34,7 +34,7 @@ void		launch_job(t_registry *shell, t_list *job_lst)
 	t_list			*process;
 
 	g_job_head = job_lst;
-	current_job = ((t_job*)job_lst->data);
+	current_job = ((t_job *)job_lst->data);
 	process = current_job->process_list;
 	while (process)
 	{

@@ -53,17 +53,18 @@ static int		init_shell(t_registry *shell, char **av, char **env)
 	init_parser(&shell->parser);
 	shell->parser.env = shell->env;
 	init_debug_logger(shell);
+	generate_graph(shell);
 	if (shell->option.c == FALSE && isatty(STDIN_FILENO) != 0)
 	{
-			if ((load_interface(shell)) == FAILURE)
-			{
-				ft_printf("[CRITICAL] - Interface setup failed.\n");
-				log_print(shell, LOG_INFO, "Restoring original shell behavior.\n");
-				restore_term_behavior(shell);
-				log_print(shell, LOG_INFO, "Releasing interface memory.\n");
-				free_interface_registry(&shell->interface);
-				return (FAILURE);
-			}
+		if ((load_interface(shell)) == FAILURE)
+		{
+			ft_printf("[CRITICAL] - Interface setup failed.\n");
+			log_print(shell, LOG_INFO, "Restoring original shell behavior.\n");
+			restore_term_behavior(shell);
+			log_print(shell, LOG_INFO, "Releasing interface memory.\n");
+			free_interface_registry(&shell->interface);
+			return (FAILURE);
+		}
 	}
 	return (SUCCESS);
 }
