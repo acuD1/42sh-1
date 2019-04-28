@@ -37,9 +37,9 @@ char			*concat_pwd_with_curpath(t_registry *shell, char **path)
 	char	*curpath;
 	char	*pwd;
 
-	if (!(pwd = get_env_var(shell, "PWD")))
+	if ((pwd = get_env_var(shell, "PWD")) == NULL)
 		pwd = getcwd(pwd, PATH_MAX);
-	if (!pwd)
+	if (pwd == NULL)
 		return (NULL);
 	else if (pwd[ft_strlen(pwd) - 1] != '/')
 		pwd = ft_strjoin(pwd, "/");
@@ -68,7 +68,7 @@ char			*get_relative_path(char **curpath)
 
 	pwd = NULL;
 	pwd = getcwd(pwd, PATH_MAX);
-	if (ft_strstr(*curpath, pwd))
+	if (ft_strstr(*curpath, pwd) != NULL)
 		new_path = ft_strdup(*curpath + ft_strlen(pwd) + 1);
 	else
 		return (*curpath);

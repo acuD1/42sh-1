@@ -53,11 +53,11 @@ static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
 	t_list		*new_token;
 	char		*line;
 
-	if (need_subprompt(state, type))
+	if (need_subprompt(state, type) == TRUE)
 	{
 		line = NULL;
 		new_token = NULL;
-		while (!new_token)
+		while (new_token == NULL)
 		{
 			invoke_sub_prompt(g_shell_registry, &line, INT_PS5);
 			g_shell_registry->interface->state = INT_PS1;
@@ -97,12 +97,12 @@ static int			parse_tokens(t_list *lst, t_graph *graph)
 
 	state = E_DEFAULT;
 	tmp = lst;
-	while (lst)
+	while (lst != NULL)
 	{
 		token = (t_token *)lst->data;
-		if (!(node_is_ok(token->type, &state, graph)))
+		if ((node_is_ok(token->type, &state, graph)) == FALSE)
 		{
-			if (!manage_error_and_subprompt(state, token->type, &tmp))
+			if (manage_error_and_subprompt(state, token->type, &tmp) == FALSE)
 				return (FALSE);
 			lst = tmp;
 		}
@@ -115,6 +115,7 @@ static int			parse_tokens(t_list *lst, t_graph *graph)
 
 int		parser(t_list *lst)
 {
+/////////// init in main
 	static t_graph	*graph = NULL;
 
 	if (!graph)

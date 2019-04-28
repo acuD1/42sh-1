@@ -7,7 +7,6 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
 /*   Updated: 2019/04/27 16:35:05 by skuppers         ###   ########.fr       */
-/*   Updated: 2019/04/27 16:24:13 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +53,7 @@ int		main(int ac, char **av, char **env)
 {
 	t_registry		shell;
 	t_parser 		parser_module;
+	char 			*command;
 
 	(void)ac;
 	ft_bzero(&shell, sizeof(t_registry));
@@ -61,7 +61,6 @@ int		main(int ac, char **av, char **env)
 		return (FAILURE);
 
 	g_shell_registry = &shell;
-
 	init_debug_logger(&shell);
 
 	print_opt(&shell); // print options, handle them
@@ -71,18 +70,15 @@ int		main(int ac, char **av, char **env)
 	shell.parser = &parser_module;
 
 
-	if (shell.option.c == FALSE && isatty(STDIN_FILENO))
+	if (shell.option.c == FALSE && isatty(STDIN_FILENO) != 0)
 	{
 		shell_invoke_interactive(&shell);
 	}
 	else
 	{
-		char *command;
 
-		if (shell.option.c == TRUE)
-			command = shell.option.cmd;
-		else
-			command = read_input(STDIN_FILENO);
+		command = (shell.option.c == TRUE)
+			? shell.option.cmd : read_input(STDIN_FILENO);
 
 		ft_dprintf(1, "CMD:%s\n", command);
 		/*int ret_lex_parse = lexer_parser(shell.parser, shell.option.cmd);

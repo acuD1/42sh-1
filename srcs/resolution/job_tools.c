@@ -20,14 +20,14 @@ uint8_t	job_is_stopped(t_job *job)
 	t_list		*process;
 
 	process = job->process_list;
-	while (process)
+	while (process != NULL)
 	{
-		if (!((t_process*)process)->completed
-				&& !((t_process*)process)->stopped)
-			return (0);
+		if (((t_process*)process)->completed == FALSE
+				&& ((t_process*)process)->stopped == FALSE)
+			return (FALSE);
 		process = process->next;
 	}
-	return (1);
+	return (TRUE);
 }
 
 uint8_t	job_is_completed(t_job *job)
@@ -35,11 +35,11 @@ uint8_t	job_is_completed(t_job *job)
 	t_list		*process;
 
 	process = job->process_list;
-	while (process)
+	while (process != NULL)
 	{
-		if (!((t_process*)process)->completed)
-			return (0);
+		if (((t_process*)process)->completed == FALSE)
+			return (FALSE);
 		process = process->next;
 	}
-	return (1);
+	return (TRUE);
 }

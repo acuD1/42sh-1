@@ -16,7 +16,7 @@ void	get_token(t_parser *parse)
 {
 	t_list		*node;
 
-	if (!parse->token_list)
+	if (parse->token_list == NULL)
 		return ;
 	node = parse->token_list;
 	parse->token_list = parse->token_list->next;

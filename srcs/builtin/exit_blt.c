@@ -44,12 +44,12 @@ static void	free_registry(t_registry *reg)
 
 static int			ft_is_numeric(char *s)
 {
-	while (*s)
+	while (*s != NULL)
 	{
-		if (!ft_isdigit(*s))
-			return (0);
+		if (ft_isdigit(*s) == FALSE)
+			return (FALSE);
 	}
-	return (1);
+	return (TRUE);
 }
 
 int8_t				exit_blt(t_registry *shell, char **av)
@@ -57,13 +57,13 @@ int8_t				exit_blt(t_registry *shell, char **av)
 	av++;
 	if (*av)
 	{
-		if (!ft_is_numeric(*av))
+		if (ft_is_numeric(*av) == FALSE)
 		{
 			ft_dprintf(2, "21sh: exit: %s: numeric argument required\n", *av);
 			free_registry(shell);
-			exit(-1);
+			exit(FAILURE);
 		}
-		else if (*(av + 1))
+		else if ((av + 1) != NULL)
 		{
 			ft_dprintf(2, "21sh: exit: too many argument\n");
 			return (1);
@@ -75,5 +75,5 @@ int8_t				exit_blt(t_registry *shell, char **av)
 		}
 	}
 	free_registry(shell);
-	exit(0);
+	exit(SUCCESS);
 }

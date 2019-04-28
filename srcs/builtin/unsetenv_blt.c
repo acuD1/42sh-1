@@ -15,15 +15,14 @@
 int8_t				unsetenv_blt(t_registry *shell, char **av)
 {
 	av++;
-	if (!*av)
+	if (*av == NULL)
 	{	
 		ft_dprintf(2, UNSETENV_USAGE);
 		return (FAILURE);
 	}
-	if (ft_strequ(*av, "*"))
+	if (ft_strequ(*av, "*") == TRUE)
 		free_lst(&shell->env);
-	else if (shell->env)
+	else if (shell->env != NULL)
 		free_node(&shell->env, *av);
-	
 	return (SUCCESS);
 }
