@@ -363,6 +363,7 @@ struct				s_registry
 	struct s_interface		interface;
 	//TODO: move t_job head here for exit and global
 	//t_list				*job_list;
+	t_graph					graph[NB_OF_TOKENS];
 	t_parser				parser;
 };
 

@@ -113,13 +113,9 @@ static int			parse_tokens(t_list *lst, t_graph *graph)
 	return (TRUE);
 }
 
-int		parser(t_list *lst)
+int		parser(t_graph *graph, t_list *lst)
 {
 /////////// init in main
-	static t_graph	*graph = NULL;
-
-	if (!graph)
-		graph = generate_graph();
 	return (!lst || parse_tokens(lst, graph) ? SUCCESS : FAILURE);
 }
 

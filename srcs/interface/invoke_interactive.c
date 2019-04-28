@@ -82,7 +82,7 @@ void				launch_shell_prompt(t_registry *shell)
 		{
 			push_history_entry(&(itf->history_head),
 							create_history_entry(itf->line->buffer));
-			ret_lexer_parser = lexer_parser(&shell->parser, input_str);
+			ret_lexer_parser = lexer_parser(&shell->parser, shell->graph, input_str);
 		}
 		else
 		{

@@ -22,8 +22,8 @@ uint8_t	job_is_stopped(t_job *job)
 	process = job->process_list;
 	while (process != NULL)
 	{
-		if (((t_process*)process)->completed == FALSE
-				&& ((t_process*)process)->stopped == FALSE)
+		if (((t_process *)process)->completed == FALSE
+				&& ((t_process *)process)->stopped == FALSE)
 			return (FALSE);
 		process = process->next;
 	}

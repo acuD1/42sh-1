@@ -70,10 +70,12 @@ t_list			*lexer(char *input)
 {
 	t_lexer	machine;
 
-	if (input == NULL || *input == '\0')
+	if (input == NULL)
 		return (NULL);
 	while (*input == '\t' || *input == ' ')
 		input++;
+	if (*input == '\0')
+		return (NULL);
 	init_lexer(&machine);
 	machine.input = input;
 	while (machine.state != FINISH)
