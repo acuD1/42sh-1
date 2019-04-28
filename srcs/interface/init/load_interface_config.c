@@ -63,6 +63,7 @@ static int8_t		fill_interface_related_internals(t_registry *reg)
 uint8_t load_interface(t_registry *shell, t_interface *itf)
 {
 	int8_t			op_worked;
+	t_termcaps		termcp;
 
 	//if ((itf = create_interface(shell)) == NULL)
 	//	return (NULL);
@@ -71,8 +72,10 @@ uint8_t load_interface(t_registry *shell, t_interface *itf)
 	if (fetch_terminal_info(shell) == FAILURE)
 		return (FAILURE);
 
-	if ((itf->termcaps = init_termcap_calls(shell)) == NULL)
+	if ((init_termcap_calls(&termcp)) == FAILURE)
 		return (FAILURE);
+
+	itf->termcaps = &termcp;
 
 	shell->interface = itf;
 

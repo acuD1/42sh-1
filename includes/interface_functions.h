@@ -35,8 +35,7 @@ void						copy_buffer_part(t_interface *itf, int8_t before);
 int							insert_clipboard(t_registry *shell);
 uint8_t 					is_too_long(t_vector *a, t_vector *b, uint32_t max);
 uint8_t						is_only_whitespaces(char *buffer);
-t_termcaps					*init_termcap_calls(t_registry *shell);
-
+unit8_t						init_termcap_calls(t_termcaps *termcp);
 uint8_t						load_interface(t_registry *shell, t_interface *itf);
 
 t_vector					*allocate_clipboard(t_registry *shell);
