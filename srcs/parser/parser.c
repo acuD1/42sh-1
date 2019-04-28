@@ -59,7 +59,7 @@ static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
 		new_token = NULL;
 		while (new_token == NULL)
 		{
-			invoke_sub_prompt(g_shell_registry, &line, INT_PS5);
+			invoke_sub_prompt(g_shell_registry, &line, INT_PS3);
 			g_shell_registry->interface->state = INT_PS1;
 			new_token = lexer(line);
 			ft_strdel(&line);
