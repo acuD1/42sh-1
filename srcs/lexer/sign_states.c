@@ -17,7 +17,7 @@ void	double_sign_machine(t_lexer *machine)
 	int		checker;
 
 	checker = 0;
-	if (ft_strchr(DOUBLE_SIGN, *machine->input))
+	if (ft_strchr(DOUBLE_SIGN, *machine->input) != NULL)
 	{
 		if (*machine->buffer == '|' && *machine->input == '|' && ++checker)
 			machine->last_lexer = E_OR;
@@ -29,8 +29,8 @@ void	double_sign_machine(t_lexer *machine)
 			machine->last_lexer = E_DEQ;
 		else if (*machine->buffer == '!' && *machine->input == '=' && ++checker)
 			machine->last_lexer = E_NOTEQ;
-		if (checker)
-			machine->input++;
+		if (checker != FALSE)
+			++machine->input;
 	}
 	if (*machine->buffer == '=' && *machine->input != '=')
 		machine->state = LETTER;
@@ -41,16 +41,17 @@ void	double_sign_machine(t_lexer *machine)
 void	tilde_machine(t_lexer *machine)
 {
 	machine->last_lexer = E_TILDE;
-	if(ft_strchr(TILDE_INTERUPT, *machine->input) || !*machine->input)
+	if (ft_strchr(TILDE_INTERUPT, *machine->input) != NULL
+		|| *machine->input == '\0')
 	{
-		if (*machine->input && *machine->input != ' ')
+		if (*machine->input != '\0' && *machine->input != ' ')
 			machine->quote = QUOTE_SP;
 		machine->state = OUT;
 	}
 	else
 	{
 		ft_strncat(machine->buffer, machine->input, 1);
-		machine->input++;
+		++machine->input;
 	}
 }
 
@@ -61,17 +62,17 @@ int		double_dispatcher(t_lexer *machine)
 	checker = 0;
 	if (*machine->input == '>')
 	{
-		checker++;
+		++checker;
 		machine->state = GREATER;
 	}
 	else if (*machine->input == '<')
 	{
-		checker++;
+		++checker;
 		machine->state = LESSER;
 	}
-	else if (ft_strchr(DOUBLE_SIGN, *machine->input))
+	else if (ft_strchr(DOUBLE_SIGN, *machine->input) != NULL)
 	{
-		checker++;
+		++checker;
 		machine->state = DSIGN;
 	}
 	return (checker);
@@ -89,9 +90,9 @@ void	sign_machine(t_lexer *machine)
 		machine->state = EXP;
 	else if (*machine->input == '~')
 		machine->state = TILDE;
-	else if (double_dispatcher(machine))
+	else if (double_dispatcher(machine) != FALSE)
 		ft_strncat(machine->buffer, machine->input, 1);
 	else
 		fill_buffer_output(machine);
-	machine->input++;
+	++machine->input;
 }

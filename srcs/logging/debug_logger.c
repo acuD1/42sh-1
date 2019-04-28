@@ -25,12 +25,12 @@ void			log_print(t_registry *reg, char *importance, char *message, ...)
 			return ;
 	fd = -1;
 	fd = ft_atoi(get_intern_var((reg), INT_DBG_FD));
-	if (!fd)
-			fd = -1;
-	if (fd < 1)
+	if (fd == STDIN_FILENO)
+		fd = -1;
+	if (fd < 0)
 	{
-		if (ft_strbeginswith(importance, "[CRITICAL]")
-				|| ft_strbeginswith(importance, "[ERROR]"))
+		if (ft_strbeginswith(importance, "[CRITICAL]") == TRUE
+				|| ft_strbeginswith(importance, "[ERROR]") == TRUE)
 		{
 			ft_dprintf(2, "%s\t- ", importance);
 			va_start(args, message);
@@ -50,12 +50,13 @@ void	init_debug_logger(t_registry *reg)
 	int  debug_fd;
 	char *home_path;
 	char *log_path;
+	char *tmp;
 
 	home_path = NULL;
 	log_path = NULL;
 	debug_fd = -1;
 
-	if (reg->option.d)
+	if (reg->option.d != FALSE)
 	{
 		if ((home_path = get_data(&(reg->env), "HOME")) == NULL)
 		{
@@ -70,7 +71,7 @@ void	init_debug_logger(t_registry *reg)
 		debug_fd = open(log_path, O_RDWR | O_APPEND | O_CREAT | O_NOFOLLOW, 0600);
 		if (debug_fd < 0)
 			return ;
-		char *tmp = ft_itoa(debug_fd);
+		tmp = ft_itoa(debug_fd);
 		if (add_internal(reg, INT_DBG_FD, tmp) == FAILURE)
 		{
 			ft_strdel(&tmp);

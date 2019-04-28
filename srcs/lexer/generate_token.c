@@ -39,20 +39,20 @@ int		check_last_lexer(t_lexer *machine)
 	{
 		if (machine->last_lexer == machine->duplicate[i])
 			return (machine->duplicate[i]);
-		i++;
+		++i;
 	}
 	i = 0;
 	while (i < SPECIAL_SIGNS)
 	{
 		if (machine->last_lexer == machine->special_signs[i])
 			return (machine->special_signs[i]);
-		i++;
+		++i;
 	}
 	if (machine->last_lexer == E_IO_NUMBER)
 		return (E_IO_NUMBER);
 	if (machine->last_lexer == E_NEWLINE)
 		return (E_NEWLINE);
-	return (machine->last_lexer == E_END ? E_END : -1);
+	return (machine->last_lexer == E_END ? E_END : FAILURE);
 }
 
 int		check_char(t_lexer *machine)
@@ -68,16 +68,16 @@ int		check_char(t_lexer *machine)
 			return (i);
 		++i;
 	}
-	return (0);
+	return (FALSE);
 }
 
 int		define_type(t_lexer *machine)
 {
 	int		result;
 
-	if ((result = check_last_lexer(machine)) >= 0)
+	if ((result = check_last_lexer(machine)) != FAILURE)
 		return (result);
-	else if ((result = check_char(machine)))
+	else if ((result = check_char(machine)) != FALSE)
 		return (result);
 	else if (machine->last_lexer == E_DB_QUOTE || machine->quote == QUOTE_ON)
 		return (E_DB_QUOTE);

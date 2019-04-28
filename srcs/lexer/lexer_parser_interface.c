@@ -65,15 +65,26 @@ void	init_parser(t_parser *parse)
 
 int		lexer_parser(t_parser *parse, char *input)
 {
-	if (!*input)
+	if (*input == NULL)
 		return (SUCCESS);
-	parse->token_list = lexer(input);
-	ft_putchar('\n');
+	if ((parse->token_list = lexer(input)) == NULL)
+		return (SUCCESS);
+	///// DEBUG LEXER /////
 	ft_lstiter(parse->token_list, print_token);
+	ft_putchar('\n');
+	///////////////////////
 	if (parser(parse->token_list) == FAILURE)
 		return (FAILURE);
 	get_token(parse);
 	parser_state(parse);
+	///// DEBUG PARSER2 ///
 	ft_lstiter(((t_job*)(parse->job_list->data))->process_list, print_process);
+	ft_putchar('\n');
+	////////////////////////////// IS IT GOOD? ///////////////////////////////
+	//
+	// OTHER POSSIBLE VERSION
+	// 
+	// return (parse->token_list != NULL || parse->job_list == NULL ? FAILURE : SUCCESS);
+	//////////////////////////////////////////////////////////////////////////
 	return (parse->token_list && parse->job_list ? FAILURE : SUCCESS);
 }

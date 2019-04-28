@@ -21,6 +21,7 @@ void		print_token(t_list *list)
 		, "<>", "<<-", ">|", "==", "!="};
 	const static char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
 		, IF, IN, THEN, UNTIL, WHILE};
+
 	if (token->type < SINGLE_SIGNS || token->type == E_STRING )
 	{
 		ft_printf("type_id = [ %2d ] | type_name = [ %5.1c ] | data = [ %s ]\n",

@@ -14,18 +14,18 @@
 
 void	start_lexer(t_lexer *machine)
 {
-	if (machine->quote)
+	if (machine->quote != QUOTE_OFF)
 		machine->state = DQTE;
-	else if (!*machine->input)
+	else if (*machine->input == '\0')
 		machine->state = END;
 	else if (*machine->input == ' ' || *machine->input == '\t')
 	{
 		while (*machine->input == ' ' || *machine->input == '\t')
-			machine->input++;
+			++machine->input;
 	}
-	else if (ft_strchr(SIGN_DETECT, *machine->input))
+	else if (ft_strchr(SIGN_DETECT, *machine->input) != NULL)
 		machine->state = SIGN;
-	else if (ft_isdigit(*machine->input))
+	else if (ft_isdigit(*machine->input) == TRUE)
 		machine->state = IO_NUMBER;
 	else
 		machine->state = LETTER;
@@ -33,7 +33,7 @@ void	start_lexer(t_lexer *machine)
 
 void	end_machine(t_lexer *machine)
 {
-	if (*machine->buffer)
+	if (*machine->buffer != '\0')
 		machine->state = OUT;
 	else if (machine->last_lexer != E_END)
 	{
@@ -56,7 +56,7 @@ void	out_lexer(t_lexer *machine)
 	t_token	token;
 
 	token = generate_token(machine);
-	if (!(node = ft_lstnew(&token, sizeof(token))))
+	if ((node = ft_lstnew(&token, sizeof(token))) == NULL)
 		return ;
 	ft_lstaddback(&machine->tokens, node);
 	machine->state = START;
