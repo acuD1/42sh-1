@@ -6,13 +6,14 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/29 06:51:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/29 10:32:25 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
-
+# include "define.h"
+# include "libft.h"
 # include "enum.h"
 
 /*
