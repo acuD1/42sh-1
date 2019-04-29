@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/29 11:34:42 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/29 12:18:34 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ void	pipe_parser(t_parser *parse)
 	t_list		*node;
 	int			fd[2];
 
-	parse->state = P_PIPE;
-	pipe(fd);
+	parse->state = pipe(fd) ? P_ERROR : P_PIPE;
+	if (parse->state == P_ERROR)
+		return ;
 	if (parse->process.fd.out == STDOUT_FILENO)
 		parse->process.fd.out = fd[1];
 	else
@@ -83,7 +84,7 @@ void	heredoc_parser(t_parser *parse)
 	line = NULL;
 	pipe(fd);
 	parse->state = P_HEREDOC;
-	while(ft_strequ(line, parse->token.data) == TRUE)
+	while(ft_strequ(line, parse->token.data) == FALSE)
 	{
 
 	}
