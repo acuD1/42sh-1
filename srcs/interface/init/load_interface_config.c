@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 07:22:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/29 14:23:20 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 int8_t				fill_interface_data(t_registry *shell)
 {
-
 	if ((shell->interface.line = ft_vctnew(0)) == NULL)
 		return (FAILURE);
 	shell->interface.state = INT_PS1;
@@ -71,6 +70,8 @@ int8_t load_interface(t_registry *shell)
 		return (FAILURE);
 	shell->interface.history_head = NULL;
 	shell->interface.hist_ptr = NULL;
+	if (fill_interface_data(shell) == FAILURE)
+		return (FAILURE);
 	log_print(shell, LOG_OK, "Line edition initialized.\n");
 	return (SUCCESS);
 }

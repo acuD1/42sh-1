@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/29 13:20:21 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/29 15:11:56 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ struct					s_parser
 	t_stack				stack;
 	t_token				token;
 	int					oflags;
-	int					*fd;
 	int					valid;
 	enum e_parser_state	last_state;
 	enum e_parser_state	state;
@@ -219,7 +218,6 @@ struct					s_registry
 	//t_list			*job_list;
 	t_graph				graph[NB_OF_TOKENS];
 	t_pstate			parsing;
-	t_parser			parser;
 };
 
 typedef int 			(*t_builtin)(t_registry *, char **);

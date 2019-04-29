@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/29 07:22:26 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/29 15:38:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@
 
 static void	launch_shell(t_registry *shell)
 {
-	char 	*command;
-
-	if (shell->option.command == FALSE
-		&& isatty(STDIN_FILENO) != 0)
+	if (shell->option.command == FALSE && isatty(STDIN_FILENO) != 0)
 	{
 		if ((load_interface(shell)) == SUCCESS)
 			launch_interface(shell);
@@ -30,37 +27,22 @@ static void	launch_shell(t_registry *shell)
 			ft_printf("[CRITICAL] - Interface setup failed. See logs.\n");
 		unload_interface(&shell->interface);
 	}
-	else
-	{
-		command = ((shell->option.command == TRUE)
-				? shell->option.command_str : read_input(STDIN_FILENO));
-		if (command != NULL)
-			execution_pipeline(shell, command);
-		else
-			ft_printf("[CRITICAL] - No valid input to execute.\n");
-	}
 }
 
 int		main(int ac, char **av, char **env)
 {
 	t_registry		shell;
 
-	(void)ac;
 	ft_bzero(&shell, sizeof(t_registry));
-
+	g_shell = &shell;
 	if (set_environment(&shell, av, env) == FAILURE)
 		return (FAILURE);
-
 	if (init_shell(&shell) == FAILURE)
 		return (FAILURE);
-
-	g_shell = &shell;
-
-	launch_shell(&shell);
-
+	if (ac == 1)
+		launch_shell(&shell);
 	// Clean all intern variables
 	// Clean all environment variables
 	shell_exit_routine(&shell);
-
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/29 13:09:04 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/29 15:39:54 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	flush_redirect(t_parser *parse)
 	if (stcksize != 0 && ((t_token*)ft_stcktop(&parse->stack))->type == E_IO_NUMBER)
 	{
 		free(ft_stckpop(&parse->stack));
-		*parse->fd = open(filename, parse->oflags, 0644);
 	}
 	else if (token->type == E_GREAT || token->type == E_DGREAT)
 		parse->process.fd.out = open(filename, parse->oflags, 0644);

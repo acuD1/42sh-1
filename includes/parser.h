@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/29 13:27:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/29 15:41:49 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 *****************************************************
 */
 
-void		init_parser(t_parser *parse);
+void		init_parser(t_registry *shell, t_parser *parse);
 void		init_process(t_process *process);
 void		init_parsing(t_pstate parsing);
 t_list		*parser_state(t_pstate parsing, t_parser *parse);
