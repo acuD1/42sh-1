@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:48:23 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/29 07:22:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,28 +57,20 @@ static int8_t		fill_interface_related_internals(t_registry *reg)
 
 int8_t load_interface(t_registry *shell)
 {
-	int8_t			op_worked;
-
 	if (fetch_terminal_info(shell) == FAILURE)
 		return (FAILURE);
 	if ((init_termcap_calls(&shell->interface.termcaps)) == FAILURE)
 		return (FAILURE);
-
-// pas consistent
 	setup_keycodes(&shell->interface);
-	link_actions_to_keys(shell);
-
-	fill_interface_related_internals(shell);
-	if ((op_worked = set_term_behavior(shell)) != 0)
-	{
-		if (op_worked == -2)
-			restore_term_behavior(shell);
+	link_actions_to_keys(shell->interface.tc_call);
+	if (fill_interface_related_internals(shell) == FAILURE)
 		return (FAILURE);
-	}
+	if (set_term_behavior(shell) == FAILURE)
+		return (FAILURE);
 	if ((shell->interface.clip = allocate_clipboard(shell)) == NULL)
 		return (FAILURE);
-	log_print(shell, LOG_OK, "Line edition initialized.\n");
 	shell->interface.history_head = NULL;
 	shell->interface.hist_ptr = NULL;
+	log_print(shell, LOG_OK, "Line edition initialized.\n");
 	return (SUCCESS);
 }

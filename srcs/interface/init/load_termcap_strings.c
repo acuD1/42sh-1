@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:49:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:48:36 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/29 07:04:47 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int8_t 			init_termcap_calls(t_termcaps *termcp)
 	return (SUCCESS);
 }
 
-void			init_termcap_actions(
+void			link_actions_to_keys(
 				int8_t (*tc_call[AK_AMOUNT])(t_registry *shell))
 {
 	tc_call[AK_ARROW_LEFT] = &tc_ak_arrow_left;
@@ -51,14 +51,4 @@ void			init_termcap_actions(
 	tc_call[AK_TABULATION] = &tc_ak_hightab;
 	tc_call[AK_CTRL_UP] = &tc_ak_ctrl_up;
 	tc_call[AK_CTRL_DOWN] = &tc_ak_ctrl_down;
-}
-
-void			setup_keycodes(t_interface *itf)
-{
-	init_ak_keycodes(itf);
-}
-
-void			link_actions_to_keys(t_registry *shell)
-{
-	init_termcap_actions((shell->interface.tc_call));
 }

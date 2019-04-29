@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/27 15:37:15 by ffoissey         ###   ########.fr        #
+#    Updated: 2019/04/29 08:05:54 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -154,6 +154,7 @@ LINE += launch.c
 LINE += free.c
 LINE += utils.c
 LINE += internals.c
+LINE += routines.c
 LINE += read_filedesc.c
 
 #						- - - - -  Debug Log  - - - - -
@@ -211,7 +212,7 @@ LINE += load_termcap_strings.c
 #Core
 LINE += cursor.c
 LINE += term_mode.c
-LINE += invoke_interactive.c
+LINE += launch_interface.c
 LINE += prompt.c
 LINE += sub_prompt.c
 LINE += validate_quoting.c

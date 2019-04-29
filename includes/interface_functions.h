@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 16:14:38 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/29 07:05:47 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int8_t						init_termcap_calls(t_termcaps *termcp);
 
 
 int8_t						load_interface(t_registry *shell);
+void						unload_interface(t_interface *itf);
 
 t_vector					*allocate_clipboard(t_registry *shell);
 short						set_term_behavior(t_registry *shell);
@@ -55,10 +56,9 @@ void						launch_shell_prompt(t_registry *shell);
 char						*prompt(t_registry *shell);
 
 void						setup_keycodes(t_interface *itf);
-void						init_ak_keycodes(t_interface *itf);
-void						link_actions_to_keys(t_registry *shell);
-void						init_termcap_actions(int8_t (*tc_call[AK_AMOUNT])
+void						link_actions_to_keys(int8_t (*tc_call[AK_AMOUNT])
 								(struct s_registry *shell));
+
 void						handle_input_key(t_registry *shell , char c[]);
 char						set_quote(char c);
 void						validate_input_quoting(t_registry *shell,
@@ -70,7 +70,6 @@ uint32_t					clean_screen(t_registry *shell);
 uint32_t					replace_input_line(t_registry *shell, char *string);
 uint32_t					redraw_input_line(t_registry *shell);
 uint32_t					redraw_after_cursor(t_registry *shell);
-void						free_interface_registry(t_interface *itf);
 void						cleanup_interface(t_registry *shell);
 void						prompt_read_failed(t_registry *shell,
 								t_vector *vect);

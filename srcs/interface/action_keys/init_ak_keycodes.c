@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:48:38 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:56:41 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/29 07:03:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interface_functions.h"
 
-void	init_ak_keycodes(t_interface *itf)
+void	setup_keycodes(t_interface *itf)
 {
 	ft_memset(itf->ak_masks, 0, (sizeof(unsigned long) * AK_AMOUNT));
 	itf->ak_masks[AK_ARROW_RIGHT] = AK_ARROW_RIGHT_MASK;

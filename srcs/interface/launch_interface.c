@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 16:35:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/29 07:23:34 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,9 @@ void				launch_shell_prompt(t_registry *shell)
 void				launch_interface(t_registry *shell)
 {
 	log_print(shell, LOG_INFO, "Starting interface.\n");
-
 	if (fill_interface_data(shell) == SUCCESS)
-	{
 		launch_shell_prompt(shell);
-	}
 	else
 		ft_printf("[CRITICAL] - Interface data could not be fetched.\n");
-
-
-	log_print(shell, LOG_INFO, "Restoring original shell behavior.\n");
 	restore_term_behavior(shell);
-
-	log_print(shell, LOG_INFO, "Releasing interface memory.\n");
-	free_interface_registry(&shell->interface);
-
-//	unload_interface();
 }

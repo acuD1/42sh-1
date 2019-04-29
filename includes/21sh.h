@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/27 16:24:38 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/29 07:23:38 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,15 @@
 # include <sys/wait.h>
 /////////////////////
 
+int8_t			init_shell(t_registry *shell);
+
 void			launch_interface(t_registry *shell);
+
 int				lexer_parser(t_parser *parse, t_graph *graph, char *input);
+
 int8_t		    execution_pipeline(t_registry *shell, char *command);
 
-
+void			shell_exit_routine(t_registry *shell);
 
 
 int				add_internal(t_registry *sh_reg, char *name, char *data);

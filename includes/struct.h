@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/27 16:35:01 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/29 06:51:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,14 +136,14 @@ typedef struct			s_history
 
 typedef struct 			s_opt
 {
-	int		help;	//TODO: Implement this
-	int		version;	//TODO: Implement this
-	int		debug;	//TODO: Change implementation
-	int		command;	//TODO: Implement this
-	char	*command_str;  //TODO: Implement for -c
-//	int		norc; // TODO: Mute this for 21sh
-//	int		rcfile;//TODO: Mute this for 21sh
-//	char	*rc_path; //TODO: Mute this for 21sh // rcfile
+	int		help;			//TODO: Implement this
+	int		version;		//TODO: Implement this
+	int		debug;			//TODO: Change implementation
+	int		command;		//TODO: Implement this
+	char	*command_str;  	//TODO: Implement for -c
+//	int		norc;
+//	int		rcfile;
+//	char	*rc_path;
 }				t_opt;
 
 typedef struct			s_node

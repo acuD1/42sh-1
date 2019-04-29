@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 14:09:29 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/29 07:25:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,9 @@ void	init_debug_logger(t_registry *reg)
 	home_path = NULL;
 	log_path = NULL;
 	debug_fd = -1;
-	
-	if (reg->option.debug == TRUE)
-	{	ft_printf("Here\n");
 
+	if (reg->option.debug == TRUE)
+	{
 		if ((home_path = get_data(&(reg->env), "HOME")) == NULL)
 		{
 			home_path = ft_itoa(-1);

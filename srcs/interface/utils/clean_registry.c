@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 11:03:36 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:49:56 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/29 07:11:05 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	cleanup_interface(t_registry *shell)
 	shell->interface.cursor.index = 0;
 }
 
-//interface exit routines
 //Delete interface_related internals
-void	free_interface_registry(t_interface *itf)
+void	unload_interface(t_interface *itf)
 {
 	t_history	*del;
 	t_history	*ptr;
 
+	// history linked list
 	ptr = itf->history_head;
 	while (ptr)
 	{
@@ -36,6 +36,7 @@ void	free_interface_registry(t_interface *itf)
 		free(ptr);
 		ptr = del;
 	}
+
 	ft_strdel(&(itf->current_line));
 	ft_strdel(&(itf->clip->buffer));
 	ft_strdel(&(itf->line->buffer));
