@@ -68,16 +68,27 @@ int8_t	execution_pipeline(t_registry *shell, t_list *token_list)
 
 	if (!token_list || parser(shell->graph, token_list))
 		return (FAILURE);
-	ft_putchar('\n');
+
+	////////////////////// DEBUG LEXER ////////////////////////
+	ft_putendl("\n\n\033[34m-------------- LEXER ---------------");
 	ft_lstiter(token_list, print_token);
+	ft_putendl("------------------------------------\033[0m\n");
+	///////////////////////////////////////////////////////////
+	
 	ft_bzero(&parse, sizeof(t_parser));
 	parse.token_list = token_list;
 	get_token(&parse);
-	while(parse.token_list)
+	while (parse.token_list)
 	{
 		init_parser(shell, &parse);
 		parse.job_list = parser_state(shell->parsing, &parse);
+
+		////////////////////// DEBUG PARSER ///////////////////////
+		ft_putstr("\n\033[33m-------------- PARSER --------------");
 		ft_lstiter(((t_job*)(parse.job_list->data))->process_list, print_process);
+		ft_putendl("------------------------------------\033[0m\n");
+		///////////////////////////////////////////////////////////
+		
 		launch_job(shell, parse.job_list);
 		delete_parser(&parse);
 	}

@@ -64,9 +64,9 @@ static void	execute_process(t_process *process, t_registry *shell)
 	t_filedesc		fd;
 	fd = process->fd;
 	signal(SIGINT, SIG_DFL); // way more
-	ft_dprintf(2, "\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
+	ft_dprintf(2, "\n\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
 				process->av[0], fd.in, fd.out, fd.err);
-	ft_dprintf(2, "\x1b[35m[OUTPUT]: _______________________\n\x1b[0m");
+	ft_dprintf(2, "\x1b[35m[OUTPUT]: _______________________\n\x1b[0m\n");
 	el_redirector(&fd);
 	environ = str_lst_to_tab(shell->env);
 	/*	Exec the new process	*/
@@ -78,7 +78,7 @@ static void	execute_process(t_process *process, t_registry *shell)
 									, process->av, environ);
 	else
 		execve(process->av[0], process->av, environ);
-	ft_dprintf(2, "[ERROR] - Execution failed: %s.\n", process->av[0]);
+	ft_dprintf(2, "\x1b[31m[ERROR] - Execution failed: %s.\x1b[0m\n\n", process->av[0]);
 	exit(FAILURE);
 }
 

@@ -38,7 +38,12 @@ int					launch_shell_prompt(t_registry *shell)
 	char		*input;
 
 	log_print(shell, LOG_INFO, "Starting prompt.\n");
-	if(get_input(shell, &input))
+
+	///////////////////////////////////////////////////////////
+	ft_putendl("\n\033[36m###################### NEW CMD #######################\033[0m\n");
+	///////////////////////////////////////////////////////////	
+
+	if (get_input(shell, &input))
 	{
 		cleanup_interface(shell);
 		return (FAILURE);

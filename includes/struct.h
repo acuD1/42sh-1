@@ -212,13 +212,14 @@ struct					s_registry
 typedef int 			(*t_builtin)(t_registry *, char **);
 
 extern t_registry	*g_shell;
+
 /*
 *****************************************************
 ********************** RESOLVE **********************
 *****************************************************
 */
 
-extern t_list			*g_job_head;
+extern t_list		*g_job_head;
 
 #endif
 
