@@ -259,14 +259,14 @@ typedef struct			s_history
 
 typedef struct s_opt
 {
-	int		h;	//TODO: Implement this
-	int		v;	//TODO: Implement this
-	int		d;	//TODO: Change implementation
-	int		c;	//TODO: Implement this
-	char	*cmd;  //TODO: Implement for -c
-	int		norc; // TODO: Mute this for 21sh
-	int		rcfile;//TODO: Mute this for 21sh
-	char	*path; //TODO: Mute this for 21sh // rcfile
+	int		help;	//TODO: Implement this
+	int		version;	//TODO: Implement this
+	int		debug;	//TODO: Change implementation
+	int		command;	//TODO: Implement this
+	char	*command_str;  //TODO: Implement for -c
+//	int		norc; // TODO: Mute this for 21sh
+//	int		rcfile;//TODO: Mute this for 21sh
+//	char	*rc_path; //TODO: Mute this for 21sh // rcfile
 }				t_opt;
 
 typedef struct	s_node
@@ -369,7 +369,7 @@ struct				s_registry
 
 typedef int 		(*t_builtin)(t_registry *, char **);
 
-extern t_registry	*g_shell_registry;
+extern t_registry	*g_shell;
 /*
 *****************************************************
 ********************** RESOLVE **********************

@@ -32,26 +32,26 @@ int				fill_opt(int index, char **av, t_opt *option)
 {
 	if (ft_strchr(av[index], 'c') && av[index][1] != '-')
 	{
-		option->c = 1;
-		if (option->cmd != NULL)
-			free(option->cmd);
+		option->command = TRUE;
+		if (option->command_str != NULL)
+			free(option->command_str);
 		if (!av[index + 1] || av[index + 1][0] == '-')
 			ft_printf("USAGE ./21sh [-c]CMD\n");
 		else
-			option->cmd = ft_strdup(av[index + 1]);
-		if (!option->cmd || parse_arg(index + 2, av, option) == FAILURE)
+			option->command_str = ft_strdup(av[index + 1]);
+		if (!option->command_str || parse_arg(index + 2, av, option) == FAILURE)
 			return (FAILURE);
 	}
-	else if (ft_strequ(av[index], "--rcfile") == TRUE)
-	{
-		option->rcfile = 1;
-		if (!av[index + 1] || av[index + 1][0] == '-')
-			ft_printf("USAGE ./21sh [-rcfile]PATH\n");
-		else
-			option->path = ft_strdup(av[index + 1]);
-		if (option->path == FALSE || parse_arg(index + 2, av, option) == FAILURE)
-			return (FAILURE);
-	}
+//	else if (ft_strequ(av[index], "--rcfile") == TRUE)
+//	{
+//		option->rcfile = 1;
+//		if (!av[index + 1] || av[index + 1][0] == '-')
+//			ft_printf("USAGE ./21sh [-rcfile]PATH\n");
+//		else
+//			option->path = ft_strdup(av[index + 1]);
+//		if (option->path == FALSE || parse_arg(index + 2, av, option) == FAILURE)
+//			return (FAILURE);
+//	}
 	else if (parse_arg(index + 1, av, option) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
@@ -67,21 +67,21 @@ int				parse_arg(int index, char **av, t_opt *option)
 		return (FAILURE);
 	}
 	if (ft_strchr(av[index], 'h') || ft_strequ(av[index], "--help") == TRUE)
-		option->h = 1;
+		option->help = TRUE;
 	if (ft_strchr(av[index], 'v') || ft_strequ(av[index], "--version") == TRUE)
-		option->v = 1;
-	if (ft_strequ(av[index], "d"))
-		option->d = 1;
-	if (ft_strequ(av[index], "--norc") == TRUE)
-	{
-		option->norc = 1;
-		if (parse_arg(index + 1, av, option) == FAILURE)
-			return (FAILURE);
-	}
+		option->version = TRUE;
+	if (ft_strchr(av[index], 'd'))
+		option->debug = TRUE;
+//	if (ft_strequ(av[index], "--norc") == TRUE)
+//	{
+//		option->norc = 1;
+//	if (parse_arg(index + 1, av, option) == FAILURE)
+//		return (FAILURE);
+//	}
 	return (fill_opt(index, av, option));
 }
 
-int				launch_sh(char **av, char **env, t_registry *registry)
+int				set_environment(t_registry *shell, char **av, char **env)
 {
 	t_opt		option;
 	t_list		*env_lst;
@@ -92,18 +92,19 @@ int				launch_sh(char **av, char **env, t_registry *registry)
 	ft_bzero(&option, sizeof(t_opt));
 	if (parse_arg(1, av, &option) == FAILURE)
 	{
-		ft_strdel(&(option.cmd));
-		ft_strdel(&(option.path));
+		ft_strdel(&(option.command_str));
+//		ft_strdel(&(option.path));
 		return (FAILURE);
 	}
 	if (get_env(&env_lst, env) == FAILURE)
 		return (FAILURE);
-	registry->env = env_lst;
-	registry->intern = var_lst;
-	registry->option = option;
-	registry->bin_hashmap = ft_hmap_init(4096);
-	registry->blt_hashmap = ft_hmap_init(16);
-	return (hash_blt(registry, NULL));
+	shell->env = env_lst;
+	shell->intern = var_lst;
+	shell->option = option;
+	shell->bin_hashmap = ft_hmap_init(4096);
+	shell->blt_hashmap = ft_hmap_init(16);
+	//wtf
+	return (hash_blt(shell, NULL));
 }
 
 /*

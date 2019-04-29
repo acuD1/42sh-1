@@ -61,6 +61,7 @@
 # define INT_PS2					"PS2"
 # define INT_PS3					"PS3"
 # define INT_PS4					"PS4"
+//# define INT_PS5					"PS5"
 # define INT_ESCAPE_SEQ				"ESC"
 # define INT_PS1_VALUE				"[21sh] -> "
 # define INT_PS2_VALUE				"quote> "

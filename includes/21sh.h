@@ -24,8 +24,12 @@
 # include <sys/wait.h>
 /////////////////////
 
+void			launch_interface(t_registry *shell);
 int				lexer_parser(t_parser *parse, t_graph *graph, char *input);
-void			shell_invoke_interactive(t_registry *shell);
+int8_t		    execution_pipeline(t_registry *shell, char *command);
+
+
+
 
 int				add_internal(t_registry *sh_reg, char *name, char *data);
 int				add_internal_nbr(t_registry *reg, char *name, int data);
@@ -33,7 +37,7 @@ int				add_env(t_registry *sh_reg, char *name, char *data);
 char			*get_env_var(t_registry  *sh_reg, char *name);
 char			*get_intern_var(t_registry  *sh_reg, char *name);
 
-int				launch_sh(char **av, char **env, t_registry *registry);
+int				set_environment( t_registry *shell, char **av, char **env);
 int				parse_arg(int index, char **av, t_opt *option);
 int				fill_opt(int index, char **av, t_opt *option);
 void			print_lst(t_list **alst);
@@ -47,6 +51,10 @@ int				free_anode(t_list *ptr);
 int				del_node(t_list *ptr, char *var);
 int				free_node(t_list **alst, char *var);
 int				free_lst(t_list **alst);
+
+char	        *read_input(int fd);
+char	       	*ft_strjoinfree(char *s1, char *s2, short todel);
+void	        print_opt(t_registry *shell);
 
 char			*variable_to_str(void *data);
 void			delete_process(void *data);

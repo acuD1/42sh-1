@@ -49,22 +49,30 @@ static int8_t		sub_prompt_loop(t_registry *shell, t_interface *itf)
 	}
 	return (0);
 }
-
+/*
+static int8_t		is_std_ps(char *p_state)
+{
+	if (ft_strequ(p_state, INT_PS1)
+		|| ft_strequ(p_state, INT_PS2)
+		|| ft_strequ(p_state, INT_PS3)
+		|| ft_strequ(p_state, INT_PS4))
+		return (TRUE);
+	return (FALSE);
+}
+*/
 int8_t				invoke_sub_prompt(t_registry *shell, char **line,
 				char *prompt_state)
 {
 	t_interface		*itf;
-	
-	if (shell == NULL)
-		shell = g_shell_registry;
 
 	itf = &shell->interface;
-	//if (prompt_state != PS1 PS2 PS3 PS4)
-	// add_intern_var(PS5, prompt_state)
+	
+//	if (is_std_ps(prompt_state) == FALSE)
+//		add_internal(shell, INT_PS5, prompt_state);
 	itf->state = prompt_state;
 
-	if (validate_interface_content(itf) != 0)
-		return (-1);
+	if (validate_interface_content(itf) == FAILURE)
+		return (FAILURE);
 
 	reset_vector(itf->line);
 	print_sub_prompt(shell);
@@ -73,10 +81,10 @@ int8_t				invoke_sub_prompt(t_registry *shell, char **line,
 		*line = NULL;
 		reset_vector(itf->line);
 		ft_strdel(&(itf->line->buffer));
-		return (-3);
+		return (FAILURE);
 	}
 	*line = ft_strdup(itf->line->buffer);
 	ft_strdel(&(itf->line->buffer));
 	reset_vector(itf->line);
-	return (0);
+	return (SUCCESS);
 }

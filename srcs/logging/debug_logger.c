@@ -55,9 +55,10 @@ void	init_debug_logger(t_registry *reg)
 	home_path = NULL;
 	log_path = NULL;
 	debug_fd = -1;
+	
+	if (reg->option.debug == TRUE)
+	{	ft_printf("Here\n");
 
-	if (reg->option.d != FALSE)
-	{
 		if ((home_path = get_data(&(reg->env), "HOME")) == NULL)
 		{
 			home_path = ft_itoa(-1);
@@ -68,7 +69,7 @@ void	init_debug_logger(t_registry *reg)
 		}
 
 		ft_asprintf(&log_path, "%s/%s", home_path, INT_DBG_FILE);
-		debug_fd = open(log_path, O_RDWR | O_APPEND | O_CREAT | O_NOFOLLOW, 0600);
+		debug_fd = open(log_path, O_RDWR | O_APPEND | O_CREAT, 0644);
 		if (debug_fd < 0)
 			return ;
 		tmp = ft_itoa(debug_fd);

@@ -13,7 +13,7 @@
 #include "parser.h"
 #include "interface_functions.h"
 
-t_registry	*g_shell_registry;
+t_registry	*g_shell;
 
 static int	need_subprompt(enum e_type state, enum e_type type)
 {
@@ -59,8 +59,8 @@ static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
 		new_token = NULL;
 		while (new_token == NULL)
 		{
-			invoke_sub_prompt(g_shell_registry, &line, INT_PS3);
-			g_shell_registry->interface.state = INT_PS1;
+			invoke_sub_prompt(g_shell, &line, INT_PS3);
+			g_shell->interface.state = INT_PS1;
 			new_token = lexer(line);
 			ft_strdel(&line);
 		}

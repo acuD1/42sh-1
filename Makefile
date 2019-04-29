@@ -112,7 +112,7 @@ LDLIBD = -lftdb
 LDFLAGS = -L $(LPATH)
 CFLAGS += -Wall
 CFLAGS += -Wextra
-CFLAGS += #-Werror
+CFLAGS += -Werror
 CFLAGS += $(IFLAGS)
 DFLAGS = $(CFLAGS) -fsanitize=address,undefined
 LFLAGS = -ltermcap
@@ -153,10 +153,12 @@ LINE += launch.c
 LINE += free.c
 LINE += utils.c
 LINE += internals.c
+LINE += read_filedesc.c
 
 #						- - - - -  Debug Log  - - - - -
 
 LINE += debug_logger.c
+LINE += print_opt.c
 
 #						- - - - -  Built-in   - - - - -                        #
 

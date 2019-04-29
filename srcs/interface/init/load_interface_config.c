@@ -13,7 +13,16 @@
 #include "log.h"
 #include "interface_functions.h"
 
-t_registry	*g_shell_registry;
+int8_t				fill_interface_data(t_registry *shell)
+{
+
+	if ((shell->interface.line = ft_vctnew(0)) == NULL)
+		return (FAILURE);
+	shell->interface.state = INT_PS1;
+	if (init_window(shell) == FAILURE)
+		return (FAILURE);
+	return (init_cursor(shell));
+}
 
 static int8_t		fetch_terminal_info(t_registry *shell)
 {
@@ -32,21 +41,7 @@ static int8_t		fetch_terminal_info(t_registry *shell)
 			"Reached targeting terminal and termcaps database.\n");
 	return (SUCCESS);
 }
-/*
-static t_interface	*create_interface(t_registry *shell)
-{
-	t_interface *itf;
 
-	if (!(itf = malloc(sizeof(t_interface))))
-	{
-		log_print(shell, LOG_ERROR,
-				"Interface registry could not be allocated.\n");
-		return (NULL);
-	}
-	ft_memset(itf, 0, sizeof(t_interface));
-	return (itf);
-}
-*/
 static int8_t		fill_interface_related_internals(t_registry *reg)
 {
 	if (add_internal(reg, INT_PS1, INT_PS1_VALUE) == FAILURE)
@@ -63,15 +58,16 @@ static int8_t		fill_interface_related_internals(t_registry *reg)
 int8_t load_interface(t_registry *shell)
 {
 	int8_t			op_worked;
-	//if ((itf = create_interface(shell)) == NULL)
-	//	return (NULL);
+
 	if (fetch_terminal_info(shell) == FAILURE)
 		return (FAILURE);
 	if ((init_termcap_calls(&shell->interface.termcaps)) == FAILURE)
 		return (FAILURE);
+
 // pas consistent
 	setup_keycodes(&shell->interface);
 	link_actions_to_keys(shell);
+
 	fill_interface_related_internals(shell);
 	if ((op_worked = set_term_behavior(shell)) != 0)
 	{

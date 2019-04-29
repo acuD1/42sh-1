@@ -15,16 +15,16 @@
 
 static void	free_opt(t_opt option)
 {
-	if (option.cmd)
+	if (option.command_str)
 	{
-		free(option.cmd);
-		option.cmd = NULL;
+		free(option.command_str);
+		option.command_str = NULL;
 	}
-	if (option.path)
-	{
-		free(option.path);
-		option.path = NULL;
-	}
+//	if (option.path)
+//	{
+//		free(option.path);
+//		option.path = NULL;
+//	}
 }
 
 static void	free_hash(t_hash hashmap, void (*del)(void *))
