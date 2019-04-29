@@ -23,6 +23,16 @@
 # define FAILURE					-1
 # define FALSE						0
 # define TRUE						1
+# define SH21_USAGE_1				"Usage: 21sh [long option] [-dhv] "
+# define SH21_USAGE_2				"[--rcfile PATH] [-c CMD]\n"
+# define SH21_USAGE_LONG_OPTION		"\n\t--help\n\t--norc\n\t"
+# define SH21_USAGE_LONG_OPTION_2	"--version\n\t--debug\n"
+# define HELP_OPT					0x01
+# define COMMAND_OPT				0x02
+# define DEBUG_OPT					0x04
+# define VERSION_OPT				0x08
+# define NORC_OPT					0x10
+# define RCFILE_OPT					0x20
 
 /*
 *****************************************************

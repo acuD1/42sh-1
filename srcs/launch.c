@@ -10,11 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "21sh.h"
 #include "builtin.h"
 
-static int		get_env(t_list **alst, char **env)
+static int8_t	get_env(t_list **alst, char **env)
 {
 	int i;
 
@@ -28,79 +27,91 @@ static int		get_env(t_list **alst, char **env)
 	return (SUCCESS);
 }
 
-int				fill_opt(int index, char **av, t_opt *option)
+static int8_t	shell_option_letter(t_opt *option, char *arg)
 {
-	if (ft_strchr(av[index], 'c') && av[index][1] != '-')
+	if (*arg != '-')
 	{
-		option->command = TRUE;
-		if (option->command_str != NULL)
-			free(option->command_str);
-		if (!av[index + 1] || av[index + 1][0] == '-')
-			ft_printf("USAGE ./21sh [-c]CMD\n");
-		else
-			option->command_str = ft_strdup(av[index + 1]);
-		if (!option->command_str || parse_arg(index + 2, av, option) == FAILURE)
-			return (FAILURE);
-	}
-//	else if (ft_strequ(av[index], "--rcfile") == TRUE)
-//	{
-//		option->rcfile = 1;
-//		if (!av[index + 1] || av[index + 1][0] == '-')
-//			ft_printf("USAGE ./21sh [-rcfile]PATH\n");
-//		else
-//			option->path = ft_strdup(av[index + 1]);
-//		if (option->path == FALSE || parse_arg(index + 2, av, option) == FAILURE)
-//			return (FAILURE);
-//	}
-	else if (parse_arg(index + 1, av, option) == FAILURE)
+		ft_dprintf(2,"21sh: %c: invalid option\n", *arg);
 		return (FAILURE);
+	}
+	++arg;
+	if (*arg == '-')
+		return (FAILURE);
+	while (*arg != '\0')
+	{
+		if (*arg == 'h')
+			option->option |= HELP_OPT;
+		else if (*arg == 'v')
+			option->option |= VERSION_OPT;
+		else if (*arg == 'd')
+			option->option |= DEBUG_OPT;
+		else
+		{
+			ft_dprintf(2,"21sh: -%c: invalid option\n", *arg);
+			return (FAILURE);
+		}
+		++arg;
+	}
 	return (SUCCESS);
 }
 
-int				parse_arg(int index, char **av, t_opt *option)
+static int8_t	shell_option_word(t_opt *option, char *arg)
 {
-	if (!av[index])
-		return (SUCCESS);
-	if (av[index][0] != '-')
+	if (ft_strequ(arg, "--help") == TRUE)
+		option->option |= HELP_OPT;
+	else if (ft_strequ(arg, "--version") == TRUE)
+		option->option |= VERSION_OPT;
+	else if (ft_strequ(arg, "--debug") == TRUE)
+		option->option |= DEBUG_OPT;
+	else
 	{
-		ft_printf("USAGE ./21sh [-vdh][--help][--norc][--rcfile]PATH[-c]CMD\n");
+		if (ft_strnequ(arg, "--", 2) == TRUE)
+			ft_dprintf(2,"21sh: %s: invalid option\n", arg);
 		return (FAILURE);
 	}
-	if (ft_strchr(av[index], 'h') || ft_strequ(av[index], "--help") == TRUE)
-		option->help = TRUE;
-	if (ft_strchr(av[index], 'v') || ft_strequ(av[index], "--version") == TRUE)
-		option->version = TRUE;
-	if (ft_strchr(av[index], 'd'))
-		option->debug = TRUE;
-//	if (ft_strequ(av[index], "--norc") == TRUE)
-//	{
-//		option->norc = 1;
-//	if (parse_arg(index + 1, av, option) == FAILURE)
-//		return (FAILURE);
-//	}
-	return (fill_opt(index, av, option));
+	return (SUCCESS);
+}
+
+static int8_t	parse_arg(char **av, t_opt *option)
+{
+//////////// MISS --norc and --rcfile
+	while (*av != NULL)
+	{
+		if (ft_strequ(*av, "--") == TRUE)
+			return (SUCCESS);
+		else if (ft_strequ(*av, "-c") == TRUE)
+		{
+			option->option |= COMMAND_OPT;
+			ft_strdel(&option->command_str);
+			av++;
+			if (*av == NULL || **av == '-')
+			{
+				ft_dprintf(2,"21sh: need command after -c option\n", av);
+				return (shell_usage());
+			}
+			option->command_str = ft_strdup(*av);
+		}
+		else if (shell_option_word(option, *av) == FAILURE)
+			if (shell_option_letter(option, *av) == FAILURE)
+				return (shell_usage());
+		av++;
+	}
+	return (SUCCESS);
 }
 
 int				set_environment(t_registry *shell, char **av, char **env)
 {
-	t_opt		option;
-	t_list		*env_lst;
-	t_list		*var_lst;
-
-	env_lst = NULL;
-	var_lst = NULL;
-	ft_bzero(&option, sizeof(t_opt));
-	if (parse_arg(1, av, &option) == FAILURE)
+	if (*av)
 	{
-		ft_strdel(&(option.command_str));
-//		ft_strdel(&(option.path));
-		return (FAILURE);
+		if (parse_arg(av, &shell->option) == FAILURE)
+		{
+			ft_strdel(&(shell->option.command_str));
+			//ft_strdel(&(shell->option.path));
+			return (FAILURE);
+		}
 	}
-	if (get_env(&env_lst, env) == FAILURE)
+	if (get_env(&shell->env, env) == FAILURE)
 		return (FAILURE);
-	shell->env = env_lst;
-	shell->intern = var_lst;
-	shell->option = option;
 	shell->bin_hashmap = ft_hmap_init(4096);
 	shell->blt_hashmap = ft_hmap_init(16);
 	//wtf

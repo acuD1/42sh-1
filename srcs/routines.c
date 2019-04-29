@@ -47,6 +47,6 @@ int8_t		execution_pipeline(t_registry *shell, char *command)
 
 void	shell_exit_routine(t_registry *shell)
 {
-	if (shell->option.debug == TRUE)
+	if (shell->option.option & DEBUG_OPT)
 		close(ft_atoi(get_intern_var(shell, INT_DBG_FD)));
 }

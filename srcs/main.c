@@ -17,11 +17,21 @@
 #include "parser.h"
 #include "resolve.h"
 
+int8_t		shell_usage(void)
+{
+	ft_dprintf(2,"%s%s\nLong options:%s%s",
+					SH21_USAGE_1,
+					SH21_USAGE_2,
+					SH21_USAGE_LONG_OPTION,
+					SH21_USAGE_LONG_OPTION_2);
+	return (FAILURE);
+}
+
 static void	launch_shell(t_registry *shell)
 {
 	char 	*command;
 
-	if (shell->option.command == FALSE
+	if ((shell->option.option & COMMAND_OPT) == FALSE
 		&& isatty(STDIN_FILENO) != 0)
 	{
 		if ((load_interface(shell)) == SUCCESS)
@@ -32,7 +42,7 @@ static void	launch_shell(t_registry *shell)
 	}
 	else
 	{
-		command = ((shell->option.command == TRUE)
+		command = ((shell->option.option & COMMAND_OPT) != FALSE
 				? shell->option.command_str : read_input(STDIN_FILENO));
 		if (command != NULL)
 			execution_pipeline(shell, command);
@@ -41,26 +51,20 @@ static void	launch_shell(t_registry *shell)
 	}
 }
 
-int		main(int ac, char **av, char **env)
+int			main(int ac, char **av, char **env)
 {
 	t_registry		shell;
 
 	(void)ac;
 	ft_bzero(&shell, sizeof(t_registry));
-
-	if (set_environment(&shell, av, env) == FAILURE)
+	if (set_environment(&shell, av + 1, env) == FAILURE)
 		return (FAILURE);
-
 	if (init_shell(&shell) == FAILURE)
 		return (FAILURE);
-
 	g_shell = &shell;
-
 	launch_shell(&shell);
-
 	// Clean all intern variables
 	// Clean all environment variables
 	shell_exit_routine(&shell);
-
 	return (SUCCESS);
 }

@@ -185,15 +185,10 @@ typedef struct			s_interface
 
 typedef struct 			s_opt
 {
-	int		help;			//TODO: Implement this
-	int		version;		//TODO: Implement this
-	int		debug;			//TODO: Change implementation
-	int		command;		//TODO: Implement this
-	char	*command_str;  	//TODO: Implement for -c
-//	int		norc;
-//	int		rcfile;
-//	char	*rc_path;
-}				t_opt;
+	t_option			option;
+	char				*command_str;
+//	char				*rc_path;
+}						t_opt;
 
 typedef struct			s_node
 {
