@@ -1,0 +1,96 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Grammar.txt                                        :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/04/17 16:52:36 by cempassi          #+#    #+#              #
+#    Updated: 2019/04/18 15:51:26 by ffoissey         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+Pre-parser handeling:
+	- SINGLE_QUOTE -> STRING
+	- DOUBLE_QUOTE -> STRING
+	- SPACE -> /*empty*/
+
+Terminal tokens:
+	- SEMI_COLON
+	- AND
+	- DAND
+	- OR
+	- NEWLINE
+	- PIPE
+	- FORWARD
+	- DOUBLE_FORWARD
+	- BACKWARD
+	- DOUBLE_BACKWARD
+	- LESSAND
+	- GREATAND
+	- LESSGREAT
+	- IO NUMBER
+	- ASSIGN
+	- STRING
+	- END
+
+start -> complete.
+
+complete -> script END.
+
+script -> script newline_list complete_job.
+script -> complete_job.
+
+complete_job -> job separator_op.
+complete_job -> job.
+
+job -> job separator_op and_or .
+job -> and_or.
+
+and_or -> and_or DAND linebreak pipeline.
+and_or -> and_or OR linebreak pipeline.
+and_or -> pipeline.
+
+pipeline -> pipeline PIPE linebreak command.
+pipeline -> command.
+
+command -> command_prefix command_name command_suffix.
+command -> command_prefix command_name .
+command -> command_name command_suffix.
+command -> command_name .
+
+command_prefix -> command_prefix redirect.
+command_prefix -> redirect.
+command_prefix -> command_prefix assignation.
+command_prefix -> assignation.
+
+command_name -> STRING.
+
+command_suffix -> command_suffix redirect.
+command_suffix -> redirect.
+command_suffix -> command_suffix STRING.
+command_suffix -> STRING.
+
+redirect -> IO_NUMBER redirect_file.
+redirect -> redirect_file.
+
+redirect_file -> FORWARD filename.
+redirect_file -> DOUBLE_FORWARD filename.
+redirect_file -> BACKWARD filename.
+redirect_file -> DOUBLE_BACKWARD filename.
+redirect_file -> LESSAND filename.
+redirect_file -> GREATAND filename.
+redirect_file -> LESSGREAT filename.
+
+filename -> STRING.
+
+assignation -> ASSIGN STRING.
+
+separator_op -> SEMI_COLON.
+separator_op -> AND.
+
+linebreak -> newline_list.
+linebreak -> .
+
+newline_list -> newline_list NEWLINE.
+newline_list -> NEWLINE.
