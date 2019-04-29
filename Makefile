@@ -176,6 +176,7 @@ BUILTIN += unsetenv_blt.c
 BUILTIN += intern_blt.c
 BUILTIN += hash_blt.c
 BUILTIN += exit_blt.c
+BUILTIN += type_blt.c
 
 #						- - - - - Line edtion - - - - -                        #
 
