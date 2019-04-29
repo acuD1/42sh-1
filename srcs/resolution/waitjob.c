@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:02:11 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 18:54:19 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/29 18:35:07 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void		wait_for_job(t_job *job)
 
 	pid = 0;
 	pid = waitpid(WAIT_ANY, &status, WUNTRACED);
-	while (pid >= 0 && update_process_status(pid, status) == FAILURE
+	while (update_process_status(pid, status) == SUCCESS
 			&& job_is_stopped(job) == FALSE
 			&& job_is_completed(job) == FALSE)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_J.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:24:06 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/24 14:25:46 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/29 14:07:45 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int				init_job_j(t_job *job)
 	fd.err = 2;
 	job->command = ft_strdup(EXEC_TEST_J);
 	job->fd = fd;
-	job->f_process = alst;
+	job->process_list = alst;
 	if (job->command == NULL)
 		return (0);
 	return (1);

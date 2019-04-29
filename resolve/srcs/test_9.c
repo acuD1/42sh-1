@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 11:10:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/24 13:13:42 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/29 14:07:45 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int				init_job9(t_job *job)
 	fd.err = 2;
 	job->command = ft_strdup("cat");
 	job->fd = fd;
-	job->f_process = alst;
+	job->process_list = alst;
 	if (job->command == NULL)
 		return (0);
 	return (1);
