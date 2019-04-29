@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 15:51:53 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/29 16:05:32 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,25 @@ char		**str_lst_to_tab(t_list *alst)
 	return (tabs);
 }
 
-static void	el_redirector(t_filedesc *fd)
+static void	el_redirector(t_filedesc *fd, char *name)
 {
+	ft_printf("%s || IN = %d || OUT = %d || ERR = %d", name, fd->in, fd->out, fd->err);
 	if (fd->in != STDIN_FILENO)
 	{
 		if (fd->in != -1 || close(STDIN_FILENO))
+			ft_printf("%s || STDIN_FILENO duped to %d\n", name,fd->in);
 			dup2(fd->in, STDIN_FILENO);
 	}
 	if (fd->out != STDOUT_FILENO)
 	{
 		if (fd->out != -1 || close(STDOUT_FILENO))
+			ft_printf("%s || STDOUT_FILENO duped to %d\n", name, fd->out);
 			dup2(fd->out, STDOUT_FILENO);
 	}
 	if (fd->err != STDERR_FILENO)
 	{
 		if (fd->err != -1 || close(STDERR_FILENO))
+			ft_printf("%s || STDERR_FILENO duped to %d\n", name, fd->err);
 			dup2(fd->err, STDERR_FILENO);
 	}
 }
@@ -67,7 +71,7 @@ static void	execute_process(t_process *process, t_registry *shell)
 	ft_dprintf(2, "\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
 				process->av[0], fd.in, fd.out, fd.err);
 	ft_dprintf(2, "\x1b[35m[OUTPUT]: _______________________\n\x1b[0m");
-	el_redirector(&fd);
+	el_redirector(&fd, process->av[0]);
 	environ = str_lst_to_tab(shell->env);
 	/*	Exec the new process	*/
 	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL)
