@@ -37,7 +37,7 @@ int8_t			quoting_is_valid(char *str)
 	while (index < length && str[index] != '\0')
 	{
 		quote = set_quote(str[index]);
-		if (quote != 0)
+		if (quote != FALSE)
 		{
 			if (goto_next_quote(str, quote, index + 1) != FAILURE)
 				index = goto_next_quote(str, quote, index + 1);

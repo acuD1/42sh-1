@@ -13,7 +13,6 @@
 #include "log.h"
 #include "interface_functions.h"
 
-
 static void			print_sub_prompt(t_registry *shell)
 {
 	shell->interface.cursor.x = 0;
@@ -33,13 +32,13 @@ static int8_t		sub_prompt_loop(t_registry *shell, t_interface *itf)
 	while (character[0] != IFS_CHAR)
 	{
 		ft_bzero(character, READ_SIZE);
-		if (read(0, character, READ_SIZE) == -1)
+		if (read(0, character, READ_SIZE) == FAILURE)
 		{
 			prompt_read_failed(shell, itf->line);
 			return (-2);
 		}
 		handle_input_key(shell, character);
-		if (is_eof(itf->line->buffer))
+		if (is_eof(itf->line->buffer) == TRUE)
 		{
 //			ft_strdel(&(itf->line->buffer));
 //			free(itf->line);
@@ -47,7 +46,7 @@ static int8_t		sub_prompt_loop(t_registry *shell, t_interface *itf)
 			return (-4);
 		}
 	}
-	return (0);
+	return (SUCCESS);
 }
 /*
 static int8_t		is_std_ps(char *p_state)
@@ -61,7 +60,7 @@ static int8_t		is_std_ps(char *p_state)
 }
 */
 int8_t				invoke_sub_prompt(t_registry *shell, char **line,
-				char *prompt_state)
+						char *prompt_state)
 {
 	t_interface		*itf;
 
@@ -76,7 +75,7 @@ int8_t				invoke_sub_prompt(t_registry *shell, char **line,
 
 	reset_vector(itf->line);
 	print_sub_prompt(shell);
-	if (sub_prompt_loop(shell, itf) != 0)
+	if (sub_prompt_loop(shell, itf) != SUCCESS)
 	{
 		*line = NULL;
 		reset_vector(itf->line);

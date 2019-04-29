@@ -13,14 +13,14 @@
 #include "log.h"
 #include "interface_functions.h"
 
-short						set_term_behavior(t_registry *shell)
+int16_t			set_term_behavior(t_registry *shell)
 {
 	struct termios	term;
 
-	if ((tcgetattr(STDIN_FILENO, &term)) == -1)
+	if ((tcgetattr(STDIN_FILENO, &term)) == FAILURE)
 	{
 		log_print(shell, LOG_ERROR, "Tcgetattr failed fetching info.\n");
-		return (-1);
+		return (FAILURE);
 	}
 	shell->interface.orig_mode = ft_memalloc(sizeof(struct termios));
 	ft_memcpy(shell->interface.orig_mode, &term, sizeof(struct termios));
@@ -30,22 +30,22 @@ short						set_term_behavior(t_registry *shell)
 	term.c_cc[VTIME] = 0;
 	shell->interface.term_mode = ft_memalloc(sizeof(struct termios));
 	ft_memcpy(shell->interface.term_mode, &term, sizeof(struct termios));
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == -1)
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == FAILURE)
 	{
 		log_print(shell, LOG_ERROR, "Tcsetattr failed setting params.\n");
 		return (-2);
 	}
-	return (0);
+	return (SUCCESS);
 }
 
-short						restore_term_behavior(t_registry *shell)
+int16_t			restore_term_behavior(t_registry *shell)
 {
-	if (tcsetattr(STDIN_FILENO, TCSANOW, shell->interface.orig_mode) == -1)
+	if (tcsetattr(STDIN_FILENO, TCSANOW, shell->interface.orig_mode) == FAILURE)
 	{
 		log_print(shell, LOG_ERROR, "Tcsetattr failed setting params.\n");
 		return (-2);
 	}
 	free(shell->interface.term_mode);
 	free(shell->interface.orig_mode);
-	return (0);
+	return (SUCCESS);
 }

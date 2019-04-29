@@ -18,7 +18,7 @@ static void			handle_printable_char(t_registry *shell, char c)
 	t_interface *itf;
 
 	itf = &shell->interface;
-	if (validate_interface_content(itf) != 0)
+	if (validate_interface_content(itf) != FALSE)
 		return ;
 	if ((uint32_t)ft_vctlen(itf->line) >= itf->window.max_chars)
 		return ;
@@ -27,7 +27,6 @@ static void			handle_printable_char(t_registry *shell, char c)
 	if (itf->cursor.index != ft_vctlen(itf->line))
 	{
 		shift_content_right_once(itf->line, itf->cursor.index);
-
 		itf->line->buffer[itf->cursor.index] = c;
 	}
 	else
@@ -41,7 +40,7 @@ void				handle_input_key(t_registry *shell, char c[READ_SIZE])
 	uint32_t		index;
 	unsigned long	value;
 
-	if (is_printable(c))
+	if (is_printable(c) == TRUE)
 		handle_printable_char(shell, c[0]);
 	else
 	{

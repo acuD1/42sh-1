@@ -132,6 +132,7 @@ INCS += resolve.h
 INCS += history.h
 INCS += define.h
 INCS += struct.h
+INCS += enum.h
 
 # ---------------------------------------------------------------------------- #
 #									Sources                                    #

@@ -88,6 +88,5 @@ int		main(int ac, char **av, char **env)
 	// Clean interface if neccessary
 	// Clean all environment variables
 	// Clean all intern variables
-
 	return (SUCCESS);
 }
