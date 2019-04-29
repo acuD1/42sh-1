@@ -1,0 +1,11 @@
+total 200
+-rw-r--r--   1 nrechati  2018_paris     70 Apr 29 17:43 errfile
+-rw-r--r--   1 nrechati  2018_paris     27 Apr 29 10:41 file1
+-rw-r--r--   1 nrechati  2018_paris     26 Apr 29 10:41 file2
+-rw-r--r--   1 nrechati  2018_paris     29 Apr 29 10:41 file3
+drwxr-xr-x   3 nrechati  2018_paris    102 Apr 29 16:55 includes
+-rw-r--r--   1 nrechati  2018_paris     49 Apr 29 16:11 notes.txt
+-rwxr-xr-x   1 nrechati  2018_paris  76264 Apr 29 17:42 resolve
+-rw-r--r--   1 nrechati  2018_paris   1043 Apr 29 17:00 run.sh
+drwxr-xr-x  31 nrechati  2018_paris   1054 Apr 29 17:00 srcs
+-rw-r--r--   1 nrechati  2018_paris      0 Apr 29 17:45 testfile
