@@ -64,7 +64,7 @@ void		wait_for_job(t_job *job)
 
 	pid = 0;
 	pid = waitpid(WAIT_ANY, &status, WUNTRACED);
-	while (update_process_status(pid, status) != SUCCESS
+	while (pid >= 0 && update_process_status(pid, status) == FAILURE
 			&& job_is_stopped(job) == FALSE
 			&& job_is_completed(job) == FALSE)
 	{
