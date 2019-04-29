@@ -6,7 +6,11 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2019/04/29 11:49:12 by skuppers         ###   ########.fr        #
+=======
+#    Updated: 2019/04/29 14:13:40 by skuppers         ###   ########.fr        #
+>>>>>>> develop
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +18,8 @@
 #								 Build Targets                                 #
 # ---------------------------------------------------------------------------- #
 
-NAME = 42sh
-NAMEDB = 42shdb
+NAME = 21sh
+NAMEDB = 21shdb
 NAMET = unit
 LIBFT = libft.a
 LIBFTDB = libftdb.a

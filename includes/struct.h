@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/29 10:32:25 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/29 15:11:56 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ struct					s_lexer
 typedef struct s_graph	t_graph;
 typedef struct s_parser	t_parser;
 typedef void			(*t_parsing)(t_parser *);
+typedef t_parsing		t_pstate[PARSE_STATES][NB_OF_TOKENS];
 
 typedef struct			s_filedesc
 {
@@ -96,7 +97,6 @@ struct					s_parser
 {
 	t_process			process;
 	t_job				job;
-	t_parsing			parsing[PARSE_STATES][NB_OF_TOKENS];
 	t_list				*token_list;
 	t_list				*env;
 	t_list				*tmp_env;
@@ -104,7 +104,6 @@ struct					s_parser
 	t_stack				stack;
 	t_token				token;
 	int					oflags;
-	int					*fd;
 	int					valid;
 	enum e_parser_state	last_state;
 	enum e_parser_state	state;
@@ -218,7 +217,7 @@ struct					s_registry
 	//TODO: move t_job head here for exit and global
 	//t_list			*job_list;
 	t_graph				graph[NB_OF_TOKENS];
-	t_parser			parser;
+	t_pstate			parsing;
 };
 
 typedef int 			(*t_builtin)(t_registry *, char **);

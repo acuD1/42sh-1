@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 07:26:49 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/29 16:47:28 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,71 @@
 #include "parser.h"
 #include "resolve.h"
 
+void	print_process(t_list *node)
+{
+	t_process	*process;
+
+	process = node->data;
+	ft_putchar('\n');
+	ft_showtab(process->av);
+	ft_printf("FD : IN = %d | OUT = %d | ERROR = %d \n"
+			,process->fd.in, process->fd.out, process->fd.err);
+}
+
 int8_t		init_shell(t_registry *shell)
 {
 	init_debug_logger(shell);
 	print_opt(shell);
-	init_parser(&shell->parser);
-	shell->parser.env = shell->env;
+	init_parsing(shell->parsing);
 	generate_graph(shell);
 	return (SUCCESS);
 }
 
-int8_t		execution_pipeline(t_registry *shell, char *command)
+void	init_job(t_job *job)
 {
-	log_print(shell, LOG_INFO, "Exec_pipeline processing: %s\n", command);
-	ft_printf("\n---------------------------------\n");
-	if (lexer_parser(&shell->parser, shell->graph, command) == SUCCESS)
-	{
-		ft_printf("\n---------------------------------\n");
-		launch_job(shell, shell->parser.job_list);
-		ft_lstdel(&shell->parser.job_list, delete_job);
-		return (SUCCESS);
-	}
-	else
-	{
-		// parse error handling
+	ft_bzero(job, sizeof(t_job));
+	job->fd.in = 0;
+	job->fd.out = 1;
+	job->fd.err = 2;
+}
+
+void	init_parser(t_registry *shell, t_parser *parse)
+{
+	ft_stckinit(&parse->stack);
+	parse->state = P_START;
+	parse->env = shell->env;
+	init_process(&parse->process);
+	init_job(&parse->job);
+}
+
+void	delete_parser(t_parser *parse)
+{
+	if (parse->tmp_env)
+		ft_lstdel(&parse->tmp_env, NULL); //This will leak
+	if (parse->job_list)
+		ft_lstdel(&parse->job_list, delete_job);
+}
+
+int8_t	execution_pipeline(t_registry *shell, t_list *token_list)
+{
+	t_parser	parse;
+
+	if (!token_list || parser(shell->graph, token_list))
 		return (FAILURE);
+	ft_putchar('\n');
+	ft_lstiter(token_list, print_token);
+	ft_bzero(&parse, sizeof(t_parser));
+	parse.token_list = token_list;
+	get_token(&parse);
+	while(parse.token_list)
+	{
+		init_parser(shell, &parse);
+		parse.job_list = parser_state(shell->parsing, &parse);
+		ft_lstiter(((t_job*)(parse.job_list->data))->process_list, print_process);
+		launch_job(shell, parse.job_list);
+		delete_parser(&parse);
 	}
+	return (SUCCESS);
 }
 
 void	shell_exit_routine(t_registry *shell)

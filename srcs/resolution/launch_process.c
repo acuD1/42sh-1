@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 16:35:39 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/29 17:02:17 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ static void	execute_process(t_process *process, t_registry *shell)
 int		launch_process(t_job *job, t_process *process, t_registry *shell)
 {
 	pid_t		pid;
+
 
 	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL
 			&& job->process_list->next == NULL)

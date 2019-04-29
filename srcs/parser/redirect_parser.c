@@ -6,7 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/04/29 13:57:06 by nrechati         ###   ########.fr       */
+=======
+/*   Updated: 2019/04/29 15:39:54 by cempassi         ###   ########.fr       */
+>>>>>>> develop
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +31,16 @@ void	flush_redirect(t_parser *parse)
 	free(token);
 	token = ft_stckpop(&parse->stack);
 	stcksize = ft_stcksize(&parse->stack);
-	if (stcksize != 0
-			&& ((t_token*)ft_stcktop(&parse->stack))->type == E_IO_NUMBER)
+	if (stcksize != 0 && ((t_token*)ft_stcktop(&parse->stack))->type == E_IO_NUMBER)
 	{
 		free(ft_stckpop(&parse->stack));
-		*parse->fd = open(filename, parse->oflags, 0644);
 	}
 	else if (token->type == E_GREAT || token->type == E_DGREAT)
-			parse->process.fd.out = open(filename, parse->oflags, 0644);
+		parse->process.fd.out = open(filename, parse->oflags, 0644);
 	else if ((parse->process.fd.in = open(filename, parse->oflags, 0644) < 0))
-			error_parser(parse);
+		error_parser(parse);
 	free(token);
+	ft_strdel(&filename);
 }
 
 void	redirect_parser(t_parser *parse)
@@ -46,7 +49,6 @@ void	redirect_parser(t_parser *parse)
 	if (parse->token.type == E_GREAT)
 	{
 		parse->oflags = O_RDWR + O_CREAT + O_TRUNC;
-		ft_printf("Flags = %b\n", parse->oflags);
 	}
 	else if (parse->token.type == E_DGREAT)
 		parse->oflags = O_RDWR + O_CREAT + O_APPEND;
@@ -61,8 +63,9 @@ void	pipe_parser(t_parser *parse)
 	t_list		*node;
 	int			fd[2];
 
-	parse->state = P_PIPE;
-	pipe(fd);
+	parse->state = pipe(fd) ? P_ERROR : P_PIPE;
+	if (parse->state == P_ERROR)
+		return ;
 	if (parse->process.fd.out == STDOUT_FILENO)
 		parse->process.fd.out = fd[1];
 	else
@@ -83,7 +86,7 @@ void	heredoc_parser(t_parser *parse)
 	line = NULL;
 	pipe(fd);
 	parse->state = P_HEREDOC;
-	while(ft_strequ(line, parse->token.data) == TRUE)
+	while(ft_strequ(line, parse->token.data) == FALSE)
 	{
 
 	}
@@ -91,18 +94,7 @@ void	heredoc_parser(t_parser *parse)
 
 void	io_redirect_parser(t_parser *parse)
 {
-	if (ft_strchr("012", *parse->token.data) != NULL)
-	{
-		parse->state = P_IO;
-		if (*parse->token.data == '0')
-			parse->fd = &parse->process.fd.in;
-		else if (*parse->token.data == '1')
-			parse->fd = &parse->process.fd.out;
-		else if (*parse->token.data == '2')
-			parse->fd = &parse->process.fd.err;
-		ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-		get_token(parse);
-	}
-	else
-		error_parser(parse);
+	parse->state = P_IO;
+	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
+	get_token(parse);
 }
