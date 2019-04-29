@@ -99,5 +99,13 @@ t_option			get_option_type(char *s, t_option option);
 
 int8_t				hash_blt(t_registry *reg, char **av);
 
+/*
+*****************************************************
+****************** EXPORT BUILT-IN ******************
+*****************************************************
+*/
+
+int8_t				export_blt(t_registry *shell, char **av);
+t_option			get_export_export(char *s, t_option option);
 
 #endif

@@ -177,6 +177,7 @@ BUILTIN += intern_blt.c
 BUILTIN += hash_blt.c
 BUILTIN += exit_blt.c
 BUILTIN += type_blt.c
+BUILTIN += export_blt.c
 
 #						- - - - - Line edtion - - - - -                        #
 

@@ -49,13 +49,14 @@
 # define T_OPT						0x040
 # define P_LOW_OPT					0x080
 # define ERROR_OPT					0x800
-# define TYPE_USAGE 				"type: usage: type [-afptP] name [name ...]\n"
 # define CD_USAGE 					"cd: usage: cd [-L|-P] [dir]\n"
+# define CD_ERROR_OLDPWD_NOTSET		"21sh: cd: OLDPWD not set\n"
 # define ENV_USAGE_1 				"env: usage: env [-i] [name=value]... "
 # define ENV_USAGE_2 				"[utility [argument]...]\n"
 # define SETENV_USAGE 				"setenv: usage: setenv [name [value]]\n"
 # define UNSETENV_USAGE 			"unsetenv: usage: unsetenv name\n"
-# define CD_ERROR_OLDPWD_NOTSET		"21sh: cd: OLDPWD not set\n"
+# define TYPE_USAGE 				"type: usage: type [-afptP] name [name ...]\n"
+# define EXPORT_USAGE 				"type: usage: type [-afptP] name [name ...]\n"
 
 /*
 *****************************************************

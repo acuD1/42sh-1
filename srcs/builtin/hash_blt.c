@@ -53,6 +53,7 @@ static void	hash_builtin(t_registry *reg)
 	ft_hmap_insert(&(reg->blt_hashmap), "exit", exit_blt);
 	ft_hmap_insert(&(reg->blt_hashmap), "intern", intern_blt);
 	ft_hmap_insert(&(reg->blt_hashmap), "type", type_blt);
+	ft_hmap_insert(&(reg->blt_hashmap), "export", export_blt);
 }
 
 int8_t			hash_blt(t_registry *reg, char **av)
