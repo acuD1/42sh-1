@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:11:04 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/29 14:19:37 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/29 15:40:57 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,11 @@ static int get_env(t_list **alst, char **env)
 	i = 0;
 	while (env[i] != NULL)
 	{
-		if (!f_create_node(alst, env[i]))
-			return (0);
+		if (f_create_node(alst, env[i]) == FAILURE)
+			return (FAILURE);
 		i++;
 	}
-	return (1);
+	return (SUCCESS);
 }
 
 int		main(int ac, char **av, char **env)
@@ -124,9 +124,8 @@ int		main(int ac, char **av, char **env)
 	registry.bin_hashmap = ft_hmap_init(4096);
 	registry.blt_hashmap = ft_hmap_init(16);
 	hash_blt(&registry, av);
-	ft_print_hashmap(&registry.bin_hashmap);
 	/* Print Test Bench Hashmap */
-//	ft_print_hashmap_p(&hashmap) ; ft_printf("\n\x1b[0m");
+	ft_print_hashmap_p(&hashmap) ; ft_printf("\n\x1b[0m");
 	if (ac != 2)
 		return (ft_dprintf(2, "USAGE: ./resolve [test]\n\x1b[0m"));
 

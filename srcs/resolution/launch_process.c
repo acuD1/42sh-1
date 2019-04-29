@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 14:14:15 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/29 15:51:53 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,17 @@ static void	el_redirector(t_filedesc *fd)
 {
 	if (fd->in != STDIN_FILENO)
 	{
-		if (fd->in != -1 || close(STDIN_FILENO) != SUCCESS)
+		if (fd->in != -1 || close(STDIN_FILENO))
 			dup2(fd->in, STDIN_FILENO);
 	}
 	if (fd->out != STDOUT_FILENO)
 	{
-		if (fd->out != -1 || close(STDOUT_FILENO) != SUCCESS)
+		if (fd->out != -1 || close(STDOUT_FILENO))
 			dup2(fd->out, STDOUT_FILENO);
 	}
 	if (fd->err != STDERR_FILENO)
 	{
-		if (fd->err != -1 || close(STDERR_FILENO) != SUCCESS)
+		if (fd->err != -1 || close(STDERR_FILENO))
 			dup2(fd->err, STDERR_FILENO);
 	}
 }
@@ -62,7 +62,6 @@ static void	execute_process(t_process *process, t_registry *shell)
 {
 	char			**environ;
 	t_filedesc		fd;
-
 	fd = process->fd;
 	signal(SIGINT, SIG_DFL); // way more
 	ft_dprintf(2, "\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
@@ -72,11 +71,11 @@ static void	execute_process(t_process *process, t_registry *shell)
 	environ = str_lst_to_tab(shell->env);
 	/*	Exec the new process	*/
 	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL)
-		((t_builtin)ft_hmap_getdata(&shell->blt_hashmap, process->av[0]))
-													(shell, process->av);
+		((t_builtin)ft_hmap_getdata(&shell->blt_hashmap
+									, process->av[0]))(shell, process->av);
 	else if (ft_hmap_getdata(&shell->bin_hashmap, process->av[0]) != NULL)
 		execve(ft_hmap_getdata(&shell->bin_hashmap, process->av[0])
-													, process->av, environ);
+									, process->av, environ);
 	else
 		execve(process->av[0], process->av, environ);
 	ft_dprintf(2, "[ERROR] - Execution failed: %s.\n", process->av[0]);
