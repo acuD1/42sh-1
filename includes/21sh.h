@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/29 07:23:38 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/29 14:50:51 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,8 @@ int8_t			init_shell(t_registry *shell);
 int8_t			shell_usage(void);
 
 void			launch_interface(t_registry *shell);
-
 int				lexer_parser(t_parser *parse, t_graph *graph, char *input);
-
-int8_t		    execution_pipeline(t_registry *shell, char *command);
-
+int8_t		    execution_pipeline(t_registry *shell, t_list *token_list);
 void			shell_exit_routine(t_registry *shell);
 
 
