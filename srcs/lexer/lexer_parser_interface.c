@@ -36,6 +36,13 @@ int		lexer_parser(t_parser *parse, t_graph *graph, char *input)
 	get_token(parse);
 	parser_state(parse);
 	///// DEBUG PARSER2 ///
+<<<<<<< HEAD
+||||||| merged common ancestors
+	ft_lstiter(((t_job*)(parse->job_list->data))->process_list, print_process);
+=======
+
+	ft_lstiter(((t_job*)(parse->job_list->data))->process_list, print_process);
+>>>>>>> 76a3752323105bd2869e89c0efb7a3f87252cb46
 	ft_putchar('\n');
 	return (parse->job_list == NULL ? FAILURE : SUCCESS);
 	//return (parse->token_list && parse->job_list ? FAILURE : SUCCESS);

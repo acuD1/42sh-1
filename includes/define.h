@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/27 15:39:41 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/29 13:46:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@
 # define INT_PS2					"PS2"
 # define INT_PS3					"PS3"
 # define INT_PS4					"PS4"
-//# define INT_PS5					"PS5"
+# define INT_PS5					"PS5"
 # define INT_ESCAPE_SEQ				"ESC"
 # define INT_PS1_VALUE				"[21sh] -> "
 # define INT_PS2_VALUE				"quote> "
@@ -128,7 +128,7 @@
 # define AND_REDIRECT				E_GREATAND, E_LESSAND
 # define END_CMD					E_SEMICOLON, E_END
 # define REDIRECT					AND_REDIRECT, BASE_REDIRECT
-# define WORD						STRING_WORD, BACKSLASH	
+# define WORD						STRING_WORD, BACKSLASH
 # define ALL						WORD, BASE_REDIRECT, IO
 # define ALL_END					ALL, END_CMD
 # define E_START					E_DEFAULT

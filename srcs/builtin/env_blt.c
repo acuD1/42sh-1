@@ -72,6 +72,7 @@ static t_registry		*copy_registry(t_registry *shell, char ***arg,
 			add_env(cpy_shell, node->var, node->data);
 			lst = lst->next;
 			clear_node((void **)&node);
+			free(node);
 		}
 	}
 	ft_fill_with_new_value(cpy_shell, arg);

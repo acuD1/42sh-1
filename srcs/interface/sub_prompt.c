@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:22:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:47:32 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/29 13:37:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,15 @@
 
 static void			print_sub_prompt(t_registry *shell)
 {
+	char	*ps;
+
+	ps = get_intern_var(shell, shell->interface.state);
 	shell->interface.cursor.x = 0;
 	shell->interface.cursor.y = 0;
 	ft_printf("\n");
-	//protect intern_var call and set to 'sub'
-	print_words(&shell->interface, 
-				get_intern_var(shell, shell->interface.state));
+	if (ps == NULL)
+		ps = "sub> ";
+	print_words(&shell->interface, ps);
 	shell->interface.cursor.index = 0;
 }
 
@@ -35,7 +38,7 @@ static int8_t		sub_prompt_loop(t_registry *shell, t_interface *itf)
 		if (read(0, character, READ_SIZE) == FAILURE)
 		{
 			prompt_read_failed(shell, itf->line);
-			return (-2);
+			return (FAILURE);
 		}
 		handle_input_key(shell, character);
 		if (is_eof(itf->line->buffer) == TRUE)
@@ -43,12 +46,12 @@ static int8_t		sub_prompt_loop(t_registry *shell, t_interface *itf)
 //			ft_strdel(&(itf->line->buffer));
 //			free(itf->line);
 //			itf->line = ft_vctnew(0);
-			return (-4);
+			return (FAILURE);
 		}
 	}
 	return (SUCCESS);
 }
-/*
+
 static int8_t		is_std_ps(char *p_state)
 {
 	if (ft_strequ(p_state, INT_PS1)
@@ -58,21 +61,21 @@ static int8_t		is_std_ps(char *p_state)
 		return (TRUE);
 	return (FALSE);
 }
-*/
+
 int8_t				invoke_sub_prompt(t_registry *shell, char **line,
 						char *prompt_state)
 {
 	t_interface		*itf;
 
 	itf = &shell->interface;
-	
-//	if (is_std_ps(prompt_state) == FALSE)
-//		add_internal(shell, INT_PS5, prompt_state);
+	if (prompt_state && is_std_ps(prompt_state) == FALSE)
+	{
+		add_internal(shell, INT_PS5, prompt_state);
+		prompt_state = INT_PS5;
+	}
 	itf->state = prompt_state;
-
 	if (validate_interface_content(itf) == FAILURE)
 		return (FAILURE);
-
 	reset_vector(itf->line);
 	print_sub_prompt(shell);
 	if (sub_prompt_loop(shell, itf) != SUCCESS)
@@ -84,6 +87,5 @@ int8_t				invoke_sub_prompt(t_registry *shell, char **line,
 	}
 	*line = ft_strdup(itf->line->buffer);
 	ft_strdel(&(itf->line->buffer));
-	reset_vector(itf->line);
 	return (SUCCESS);
 }
