@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 07:23:34 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/29 13:46:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,11 @@ void				launch_shell_prompt(t_registry *shell)
 	itf = &shell->interface;
 	log_print(shell, LOG_INFO, "Starting prompt.\n");
 	define_interface_signal_behavior(shell);
-
 	while (1)
 	{
 		input_str = prompt(shell);
 		init_parser(&shell->parser);
 		shell->parser.env = shell->env;
-
 		if (is_input_valid(input_str) == TRUE)
 		{
 			push_history_entry(&(itf->history_head),
@@ -54,7 +52,6 @@ void				launch_shell_prompt(t_registry *shell)
 	cleanup_interface(shell);
 	define_interface_default_signals(shell);
 }
-
 
 void				launch_interface(t_registry *shell)
 {
