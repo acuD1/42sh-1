@@ -131,30 +131,6 @@ typedef struct			s_history
 
 /*
 *****************************************************
-******** -------------- COMMON -------------- *******
-*****************************************************
-*/
-
-typedef struct 			s_opt
-{
-	int		help;			//TODO: Implement this
-	int		version;		//TODO: Implement this
-	int		debug;			//TODO: Change implementation
-	int		command;		//TODO: Implement this
-	char	*command_str;  	//TODO: Implement for -c
-//	int		norc;
-//	int		rcfile;
-//	char	*rc_path;
-}				t_opt;
-
-typedef struct			s_node
-{
-	char				*var;
-	char				*data;
-}						t_node;
-
-/*
-*****************************************************
 **************** INTERFACE_FUNCTIONS ****************
 *****************************************************
 */
@@ -206,6 +182,24 @@ typedef struct			s_interface
 ********************** COMMON ***********************
 *****************************************************
 */
+
+typedef struct 			s_opt
+{
+	int		help;			//TODO: Implement this
+	int		version;		//TODO: Implement this
+	int		debug;			//TODO: Change implementation
+	int		command;		//TODO: Implement this
+	char	*command_str;  	//TODO: Implement for -c
+//	int		norc;
+//	int		rcfile;
+//	char	*rc_path;
+}				t_opt;
+
+typedef struct			s_node
+{
+	char				*var;
+	char				*data;
+}						t_node;
 
 struct					s_registry
 {
