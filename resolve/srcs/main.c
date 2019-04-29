@@ -6,12 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:11:04 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/26 16:53:17 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/29 14:19:37 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "resolve.h"
+#include "builtin.h"
 #include "reso.h"
 
 int		add_to_test(t_list **test, void *fct)
@@ -53,7 +54,7 @@ int		test_to_bench(t_hash *hashmap, t_list **stack, char **env, char *test)
 		return (ft_dprintf(2, "\x1b[31m[ERROR]: Hashmap getdata FAILED\n\x1b[0m") & 0);
 	while (ptr)
 	{
-		if (!new_cmd(&job.f_process, env, ptr->data))
+		if (!new_cmd(&job.process_list, env, ptr->data))
 			return (ft_dprintf(2, "\x1b[31m[ERROR]: Hashmap getdata FAILED\n\x1b[0m") & 0);
 		ptr = ptr->next;
 	}
@@ -69,7 +70,7 @@ int		print_test_joblst(t_list **stack, char *test)
 	t_list	*ptr;
 
 	i = 1;
-	ptr = ((t_job*)(*stack)->data)->f_process;
+	ptr = ((t_job*)(*stack)->data)->process_list;
 	ft_dprintf(2, "\n\x1b[32m[PRINTING]: ********** %s **********\n\n\x1b[0m", get_line(test));
 	while (ptr)
 	{
@@ -123,7 +124,7 @@ int		main(int ac, char **av, char **env)
 	registry.bin_hashmap = ft_hmap_init(4096);
 	registry.blt_hashmap = ft_hmap_init(16);
 	hash_blt(&registry, av);
-
+	ft_print_hashmap(&registry.bin_hashmap);
 	/* Print Test Bench Hashmap */
 //	ft_print_hashmap_p(&hashmap) ; ft_printf("\n\x1b[0m");
 	if (ac != 2)
