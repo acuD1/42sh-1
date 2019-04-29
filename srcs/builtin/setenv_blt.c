@@ -28,6 +28,7 @@ int8_t				setenv_blt(t_registry *shell, char **av)
 	//	if (node && node->var && ft_strequ(node->var, "PATH"))
 	//		hash_blt(shell, av);
 		clear_node((void **)&node);
+		free(node);
 	}
 	return (SUCCESS);
 }
