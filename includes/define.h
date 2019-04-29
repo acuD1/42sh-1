@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/27 15:39:41 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/29 17:51:33 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@
 */
 
 # define STATENBR					18
-# define TOKEN_WITH_DATA			9
-# define NB_OF_TOKENS				54
+# define TOKEN_WITH_DATA			11
+# define NB_OF_TOKENS				56
 # define BUFFER						1024
 # define SINGLE_SIGNS				23
 # define SPECIAL_SIGNS				12
@@ -86,7 +86,7 @@
 # define ALLCHAR					"$\\\'\"|()><;`&~{}[]*?!#%N"
 # define SIGN_DETECT				" \t<>|;\'\"$&~\\"
 # define LETTER_TO_QUOTE			"\"\'$"
-# define LETTER_INTERUPT			" \t<>|;\'\"&\\"
+# define LETTER_INTERUPT			" \t<>|;&\\"
 # define TILDE_INTERUPT				" /$"
 # define QSP_INT					" \"\'"
 /*
@@ -128,7 +128,7 @@
 # define AND_REDIRECT				E_GREATAND, E_LESSAND
 # define END_CMD					E_SEMICOLON, E_END
 # define REDIRECT					AND_REDIRECT, BASE_REDIRECT
-# define WORD						STRING_WORD, BACKSLASH	
+# define WORD						STRING_WORD, BACKSLASH
 # define ALL						WORD, BASE_REDIRECT, IO
 # define ALL_END					ALL, END_CMD
 # define E_START					E_DEFAULT

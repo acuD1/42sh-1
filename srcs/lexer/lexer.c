@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/26 18:41:02 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/29 17:40:34 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ static void		init_lexer(t_lexer *machine)
 	machine->duplicate[6] = E_ASSIGN;
 	machine->duplicate[7] = E_GREATAND;
 	machine->duplicate[8] = E_TILDE;
+	machine->duplicate[9] = E_QEXP;
+	machine->duplicate[10] = E_QTILDE;
 }
 
 t_list			*lexer(char *input)

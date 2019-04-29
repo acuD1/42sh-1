@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/27 16:35:01 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/29 17:38:46 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ enum	e_type
 		E_QSTRING,
 		E_ASSIGN,
 		E_END,
+		E_QEXP,
+		E_QTILDE,
 		E_DEFAULT,
 		E_ERROR
 };
