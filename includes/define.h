@@ -27,12 +27,12 @@
 # define SH21_USAGE_2				"[--rcfile PATH] [-c CMD]\n"
 # define SH21_USAGE_LONG_OPTION		"\n\t--help\n\t--norc\n\t"
 # define SH21_USAGE_LONG_OPTION_2	"--version\n\t--debug\n"
-# define HELP_OPT					0x01
-# define COMMAND_OPT				0x02
-# define DEBUG_OPT					0x04
-# define VERSION_OPT				0x08
-# define NORC_OPT					0x10
-# define RCFILE_OPT					0x20
+# define HELP_OPT					0x001
+# define COMMAND_OPT				0x002
+# define DEBUG_OPT					0x004
+# define VERSION_OPT				0x008
+# define NORC_OPT					0x010
+# define RCFILE_OPT					0x020
 
 /*
 *****************************************************
@@ -40,17 +40,24 @@
 *****************************************************
 */
 
-# define N_OPT						0x01
-# define L_OPT						0x02
-# define P_OPT						0x04
-# define I_OPT						0x08
-# define ERROR_OPT					0x80
+# define A_OPT						0x001
+# define F_OPT						0x002
+# define I_OPT						0x004
+# define L_OPT						0x008
+# define N_OPT						0x010
+# define P_OPT						0x020
+# define T_OPT						0x040
+# define P_LOW_OPT					0x080
+# define ERROR_OPT					0x800
 # define CD_USAGE 					"cd: usage: cd [-L|-P] [dir]\n"
+# define CD_ERROR_OLDPWD_NOTSET		"21sh: cd: OLDPWD not set\n"
 # define ENV_USAGE_1 				"env: usage: env [-i] [name=value]... "
 # define ENV_USAGE_2 				"[utility [argument]...]\n"
 # define SETENV_USAGE 				"setenv: usage: setenv [name [value]]\n"
 # define UNSETENV_USAGE 			"unsetenv: usage: unsetenv name\n"
-# define CD_ERROR_OLDPWD_NOTSET		"21sh: cd: OLDPWD not set\n"
+# define TYPE_USAGE 				"type: usage: type [-afptP] name [name ...]\n"
+# define EXPORT_USAGE 				"type: usage: export name[=value] ...\n"
+# define UNSET_USAGE 				"type: usage: unset name\n"
 
 /*
 *****************************************************
