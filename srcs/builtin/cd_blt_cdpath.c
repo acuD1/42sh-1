@@ -18,7 +18,7 @@ static char		*is_valid_path(char *path, char *to_find)
 
 	if ((complete_path = ft_strjoin(path, to_find)) == NULL)
 		return (NULL);
-	else if (access(complete_path, F_OK) == SUCCESS)
+	if (access(complete_path, F_OK) == SUCCESS)
 		return (complete_path);
 	ft_strdel(&complete_path);
 	return (NULL);
@@ -30,14 +30,16 @@ static int		add_end_slash(char **path)
 	size_t	len;
 	char	*tmp_path;
 
-	len = ft_strlen(*path);
-	if (*path[len - 1] != '/')
+	tmp_path = *path;
+	len = ft_strlen(tmp_path);
+	if (len == 0)
+		return (TRUE);
+	if (tmp_path[len - 1] != '/')
 	{
 		tmp_path = *path;
-		if ((tmp_path = ft_strjoin(tmp_path, "/")) == NULL)
+		if ((*path = ft_strjoin(*path, "/")) == NULL)
 			return (FALSE);
-		ft_strdel(path);
-		*path = tmp_path;
+		ft_strdel(&tmp_path);
 	}
 	return (TRUE);
 }

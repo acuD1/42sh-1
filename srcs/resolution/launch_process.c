@@ -72,10 +72,7 @@ static void	execute_process(t_process *process, t_registry *shell)
 	el_redirector(&fd);
 	environ = str_lst_to_tab(shell->env);
 	/*	Exec the new process	*/
-	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL)
-		((t_builtin)ft_hmap_getdata(&shell->blt_hashmap, process->av[0]))
-													(shell, process->av);
-	else if (ft_hmap_getdata(&shell->bin_hashmap, process->av[0]) != NULL)
+	if (ft_hmap_getdata(&shell->bin_hashmap, process->av[0]) != NULL)
 		execve(ft_hmap_getdata(&shell->bin_hashmap, process->av[0])
 													, process->av, environ);
 	else
@@ -87,6 +84,7 @@ static void	execute_process(t_process *process, t_registry *shell)
 int		launch_process(t_job *job, t_process *process, t_registry *shell)
 {
 	pid_t		pid;
+
 
 	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL
 			&& job->process_list->next == NULL)

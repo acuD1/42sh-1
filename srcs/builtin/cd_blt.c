@@ -24,7 +24,7 @@ static char			*ft_get_curpath(t_registry *shell, char *path_give_by_user)
 	}
 	else if (ft_strequ(path_give_by_user, "-") == TRUE)
 	{
-		if ((curpath = get_env_var(shell, "OLDPWD")) != NULL)
+		if ((curpath = get_env_var(shell, "OLDPWD")) == NULL)
 			ft_dprintf(2, CD_ERROR_OLDPWD_NOTSET);
 		else
 			curpath = ft_strdup(curpath);
@@ -33,20 +33,37 @@ static char			*ft_get_curpath(t_registry *shell, char *path_give_by_user)
 		curpath = ft_strdup(path_give_by_user);
 	else
 	{
-		if ((curpath = is_cdpath_env(shell, path_give_by_user)) != NULL)
+		if ((curpath = is_cdpath_env(shell, path_give_by_user)) == NULL)
 			curpath = ft_strdup(path_give_by_user);
 	}
 	return (curpath);
 }
 
-static int8_t		change_directory(t_registry *shell, char *curpath,
-					char *path_give_by_user, t_option option)
+static void			set_oldpwd_and_pwd(t_registry *shell, char *curpath,
+						char *old_pwd, t_option option)
 {
 	char		*pwd;
+
+	if (option & P_OPT)
+	{
+		pwd = NULL;
+		pwd = getcwd(pwd, PATH_MAX);
+		add_env(shell, "PWD", pwd);
+		ft_strdel(&pwd);
+	}
+	else
+		add_env(shell, "PWD", curpath);
+	add_env(shell, "OLDPWD", old_pwd);
+}
+
+static int8_t		change_directory(t_registry *shell, char *curpath,
+						char *path_give_by_user, t_option option)
+{
+	char		*old_pwd;
 	struct stat	stat;
 
-	if ((pwd = get_env_var(shell, "PWD")) != NULL)
-		pwd = getcwd(pwd, PATH_MAX);
+	if ((old_pwd = ft_strdup(get_env_var(shell, "PWD"))) != NULL)
+		old_pwd = getcwd(old_pwd, PATH_MAX);
 	if (access(curpath, F_OK) != SUCCESS)
 		ft_dprintf(2, "cd: no such file or directory: %s\n", path_give_by_user);
 	else if (lstat(curpath, &stat) == FAILURE)
@@ -57,15 +74,15 @@ static int8_t		change_directory(t_registry *shell, char *curpath,
 		ft_dprintf(2, "chdir() failed\n");
 	else
 	{
-		add_env(shell, "OLDPWD", ft_strdup(pwd));
-		add_env(shell, "PWD",
-				ft_strdup(option & P_OPT ? getcwd(pwd, PATH_MAX) : curpath));
+		set_oldpwd_and_pwd(shell, curpath, old_pwd, option);
+		ft_strdel(&old_pwd);
 		ft_strdel(&curpath);
 		if (ft_strequ(path_give_by_user, "-") == TRUE)
 			ft_printf("%s\n", get_env_var(shell, "PWD"));
 		return (SUCCESS);
 	}
 	ft_strdel(&curpath);
+	ft_strdel(&old_pwd);
 	return (FAILURE);
 }
 
