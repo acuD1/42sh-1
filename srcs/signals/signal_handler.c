@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:44:36 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/29 13:45:19 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void			redraw_prompt(int signo)
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
 		ft_vctreset(itf->line);
 	itf->hist_ptr = NULL;
-	// check sub_prompt print
-	// use a ps5 for pipes, if then, etc...
 	print_words(itf, get_intern_var(g_shell, itf->state));
 	itf->cursor.index = 0;
 }
