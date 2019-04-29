@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 07:26:49 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/29 13:28:47 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int8_t		init_shell(t_registry *shell)
 {
 	init_debug_logger(shell);
 	print_opt(shell);
-	init_parser(&shell->parser);
-	shell->parser.env = shell->env;
+	init_parsing(shell->parsing);
 	generate_graph(shell);
 	return (SUCCESS);
 }

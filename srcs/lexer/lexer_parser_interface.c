@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 22:31:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/29 11:17:36 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/29 13:30:43 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,6 @@ void	print_process(t_list *node)
 	ft_showtab(process->av);
 	ft_printf("FD : IN = %d | OUT = %d | ERROR = %d \n"
 			,process->fd.in, process->fd.out, process->fd.err);
-}
-
-void	bzero_parsing(t_parser *parse)
-{
-	int		index;
-	int		state;
-
-	index = 0;
-	while (index < PARSE_STATES)
-	{
-		state = 0;
-		while (state < NB_OF_TOKENS)
-			parse->parsing[index][state++] = error_parser;
-		++index;
-	}
 }
 
 void	init_process(t_process *process)
@@ -56,8 +41,6 @@ void	init_job(t_job *job)
 void	init_parser(t_parser *parse)
 {
 	ft_bzero(parse, sizeof(t_parser));
-	bzero_parsing(parse);
-	init_parsing(parse);
 	ft_stckinit(&parse->stack);
 	init_process(&parse->process);
 	init_job(&parse->job);
