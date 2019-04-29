@@ -29,6 +29,8 @@ int8_t		shell_usage(void)
 
 static void	launch_shell(t_registry *shell)
 {
+	char	*command;
+
 	if ((shell->option.option & COMMAND_OPT) == FALSE
 		&& isatty(STDIN_FILENO) != 0)
 	{
@@ -40,10 +42,12 @@ static void	launch_shell(t_registry *shell)
 	}
 	else
 	{
-		command = ((shell->option.command == TRUE)
+		command = ((shell->option.option & COMMAND_OPT) != FALSE
 				? shell->option.command_str : read_input(STDIN_FILENO));
 		if (command != NULL)
-			execution_pipeline(shell, command);
+		{
+			//execution_pipeline(shell, command);
+		}
 		else
 			ft_printf("[CRITICAL] - No valid input to execute.\n");
 	}
