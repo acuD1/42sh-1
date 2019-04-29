@@ -89,6 +89,7 @@ int8_t				exit_blt(t_registry *reg, char **av);
 */
 
 int8_t				type_blt(t_registry *shell, char **av);
+t_option			get_option_type(char *s, t_option option);
 
 /*
 *****************************************************

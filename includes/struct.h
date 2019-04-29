@@ -22,7 +22,7 @@
 *****************************************************
 */
 
-typedef uint8_t			t_option;
+typedef uint16_t		t_option;
 typedef t_option		(*t_get_option)(char *s, t_option option);
 
 

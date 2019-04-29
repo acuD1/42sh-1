@@ -12,26 +12,59 @@
 
 #include "builtin.h"
 
+t_option		get_option_type(char *s, t_option option)
+{
+	option = 0;
+	while (*s)
+	{
+		if (*s == 'a')
+			option |= A_OPT;
+		else if (*s == 'f')
+			option |= F_OPT;
+		else if (*s == 'p')
+			option |= P_LOW_OPT;
+		else if (*s == 't')
+			option |= T_OPT;
+		else if (*s == 'P')
+			option |= P_OPT;
+		else
+		{
+			ft_dprintf(2, "21sh: type: -%c: invalid option\n", *s);
+			ft_dprintf(2, TYPE_USAGE);
+			return (ERROR_OPT);
+		}
+		s++;
+	}
+	return (option);
+}
+
 int8_t				type_blt(t_registry *shell, char **av)
 {
-	char	*path_bin;
-	int8_t	error;
+	char		*path_bin;
+	int8_t		error;
+	t_option	option;
 
+	///////// IMPLEMENT OPT
 	av++;
 	error = SUCCESS;
-	if (av[0] == NULL)
+	///////// implement for absolute path binary : ex: /bin/ls
+	if (*av == NULL
+		|| (option = set_options(&av, get_option_type)) == ERROR_OPT)
 		return (FAILURE);
 	while (*av != NULL)
 	{
-		if (ft_hmap_getdata(&shell->blt_hashmap, av[0]) != NULL)
-			ft_printf("%s is a shell builtin\n", av[0]);
-		else if ((path_bin = ft_hmap_getdata(&shell->bin_hashmap, av[0]))
+		if (ft_hmap_getdata(&shell->blt_hashmap, *av) != NULL)
+			ft_printf("%s is a shell builtin\n", *av);
+		else if ((path_bin = ft_hmap_getdata(&shell->bin_hashmap, *av))
 					!= NULL)
-			ft_printf("%s is %s\n", av[0], path_bin);
+			ft_printf("%s is %s\n", *av, path_bin);
+			//////
+			////// if hashed:
+			//////ft_printf("%s is hashed (%s)\n", *av, path_bin);
 		else
 		{
 			error = 1;
-			ft_dprintf(2, "21sh: type: %s: not found\n", av[0]);
+			ft_dprintf(2, "21sh: type: %s: not found\n", *av);
 		}
 		av++;
 	}

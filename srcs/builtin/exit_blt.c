@@ -48,6 +48,7 @@ static int			ft_is_numeric(char *s)
 	{
 		if (ft_isdigit(*s) == FALSE)
 			return (FALSE);
+		s++;
 	}
 	return (TRUE);
 }
@@ -55,7 +56,7 @@ static int			ft_is_numeric(char *s)
 int8_t				exit_blt(t_registry *shell, char **av)
 {
 	av++;
-	if (*av)
+	if (*av != NULL)
 	{
 		if (ft_is_numeric(*av) == FALSE)
 		{
@@ -63,17 +64,12 @@ int8_t				exit_blt(t_registry *shell, char **av)
 			free_registry(shell);
 			exit(FAILURE);
 		}
-		else if ((av + 1) != NULL)
+		else if (*(av + 1) != NULL)
 		{
 			ft_dprintf(2, "21sh: exit: too many argument\n");
 			return (1);
 		}
-		else
-		{
-			free_registry(shell);
-			exit(ft_atoi(*av));
-		}
 	}
 	free_registry(shell);
-	exit(SUCCESS);
+	exit(*av == NULL ? SUCCESS : ft_atoi(*av));
 }
