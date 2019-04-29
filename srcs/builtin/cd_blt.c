@@ -62,7 +62,7 @@ static int8_t		change_directory(t_registry *shell, char *curpath,
 	char		*old_pwd;
 	struct stat	stat;
 
-	if ((old_pwd = ft_strdup(get_env_var(shell, "PWD"))) != NULL)
+	if ((old_pwd = ft_strdup(get_env_var(shell, "PWD"))) == NULL)
 		old_pwd = getcwd(old_pwd, PATH_MAX);
 	if (access(curpath, F_OK) != SUCCESS)
 		ft_dprintf(2, "cd: no such file or directory: %s\n", path_give_by_user);
