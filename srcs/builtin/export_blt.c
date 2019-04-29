@@ -21,8 +21,7 @@ t_option			get_option_export(char *s, t_option option)
 		else
 		{
 			ft_dprintf(2, "21sh: export: -%c: invalid option\n", *s);
-			ft_dprintf(2, EXPORT_USAGE_1);
-			ft_dprintf(2, ENV_USAGE_2);
+			ft_dprintf(2, EXPORT_USAGE);
 			return (ERROR_OPT);
 		}
 		s++;

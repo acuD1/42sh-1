@@ -56,7 +56,8 @@
 # define SETENV_USAGE 				"setenv: usage: setenv [name [value]]\n"
 # define UNSETENV_USAGE 			"unsetenv: usage: unsetenv name\n"
 # define TYPE_USAGE 				"type: usage: type [-afptP] name [name ...]\n"
-# define EXPORT_USAGE 				"type: usage: type [-afptP] name [name ...]\n"
+# define EXPORT_USAGE 				"type: usage: export name[=value] ...\n"
+# define UNSET_USAGE 				"type: usage: unset name\n"
 
 /*
 *****************************************************

@@ -178,6 +178,8 @@ BUILTIN += hash_blt.c
 BUILTIN += exit_blt.c
 BUILTIN += type_blt.c
 BUILTIN += export_blt.c
+BUILTIN += set_blt.c
+BUILTIN += unset_blt.c
 
 #						- - - - - Line edtion - - - - -                        #
 

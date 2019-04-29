@@ -108,4 +108,20 @@ int8_t				hash_blt(t_registry *reg, char **av);
 int8_t				export_blt(t_registry *shell, char **av);
 t_option			get_export_export(char *s, t_option option);
 
+/*
+*****************************************************
+******************* SET BUILT-IN ********************
+*****************************************************
+*/
+
+int8_t				set_blt(t_registry *reg, char **av);
+
+/*
+*****************************************************
+****************** UNSET BUILT-IN *******************
+*****************************************************
+*/
+
+int8_t				unset_blt(t_registry *reg, char **av);
+
 #endif
