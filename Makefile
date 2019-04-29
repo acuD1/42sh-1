@@ -6,11 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2019/04/29 11:49:12 by skuppers         ###   ########.fr        #
-=======
-#    Updated: 2019/04/29 14:13:40 by skuppers         ###   ########.fr        #
->>>>>>> develop
+#    Updated: 2019/04/29 17:04:43 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +21,7 @@ LIBFT = libft.a
 LIBFTDB = libftdb.a
 SRCS = $(LINE) $(LEX_SRCS) $(PARSER_SRCS) $(BUILTIN) $(TOOLS_SRCS)
 OBJM = $(patsubst %.c, $(OPATH)%.o, $(LINEM))
-OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS)) 
+OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS))
 OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM))
 OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINEM) $(SRCS))
 LIB = $(addprefix $(LPATH), $(LIBFT))
@@ -292,13 +288,13 @@ test : $(NAMET)
 $(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJM)
 #	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
 #	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
-	$(LINK) $(OBJS) $(OBJM) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@ 
+	$(LINK) $(OBJS) $(OBJM) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@
 	$(PRINT) "$(GREEN)$@ is ready $(NC)"
 
 $(OBJM) : $(OPATH)%.o : %.c $(INCS)
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
-	
+
 $(OBJS) : $(OPATH)%.o : %.c $(INCS)
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
@@ -321,7 +317,7 @@ $(OBJT) : $(OPATH)%.o : %.c $(INCS)
 #					 - - - - - Debug Compilation - - - - -                     #
 
 $(NAMEDB) : $(CLEAR) $(LIBDB) $(OPATH) $(OBJD)
-	$(LINKD) $(OBJD) $(DFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBD) $(LFLAGS) -o $@ 
+	$(LINKD) $(OBJD) $(DFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBD) $(LFLAGS) -o $@
 	$(PRINT) "$(GREEN)$@ is ready $(NC)"
 
 $(OBJD) : $(OPATH)db%.o : %.c $(INCS)

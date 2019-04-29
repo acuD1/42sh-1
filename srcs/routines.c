@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routines.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 16:47:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/29 17:17:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ int8_t	execution_pipeline(t_registry *shell, t_list *token_list)
 		init_parser(shell, &parse);
 		parse.job_list = parser_state(shell->parsing, &parse);
 		ft_lstiter(((t_job*)(parse.job_list->data))->process_list, print_process);
+		ft_printf("%@s\n", "196", "LAUNCH JOB2");
 		launch_job(shell, parse.job_list);
+		ft_printf("%@s\n", "196", "COUCOU2");
 		delete_parser(&parse);
 	}
 	return (SUCCESS);
