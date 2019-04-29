@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/27 13:37:31 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/29 13:20:10 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
 		new_token = NULL;
 		while (new_token == NULL)
 		{
-			invoke_sub_prompt(g_shell, &line, INT_PS3);
+			// Set the string you want to display
+			invoke_sub_prompt(g_shell, &line, "pipe> ");
 			g_shell->interface.state = INT_PS1;
 			new_token = lexer(line);
 			ft_strdel(&line);
