@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 16:27:31 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/29 16:35:39 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	execute_process(t_process *process, t_registry *shell)
 	ft_dprintf(2, "\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
 				process->av[0], fd.in, fd.out, fd.err);
 	ft_dprintf(2, "\x1b[35m[OUTPUT]: _______________________\n\x1b[0m");
-	//el_redirector(&fd, process->av[0]);
+	el_redirector(&fd, process->av[0]);
 	environ = str_lst_to_tab(shell->env);
 	/*	Exec the new process	*/
 	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL)
