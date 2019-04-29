@@ -84,14 +84,17 @@ static void	execute_process(t_process *process, t_registry *shell)
 	exit(FAILURE);
 }
 
-void		launch_process(t_job *job, t_process *process, t_registry *shell)
+int		launch_process(t_job *job, t_process *process, t_registry *shell)
 {
 	pid_t		pid;
 
 	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL
 			&& job->process_list->next == NULL)
+	{
 		((t_builtin)ft_hmap_getdata(&shell->blt_hashmap, process->av[0]))
 													(shell, process->av);
+		return (FAILURE);
+	}
 	else
 	{
 		pid = fork();
@@ -109,4 +112,5 @@ void		launch_process(t_job *job, t_process *process, t_registry *shell)
 				job->pgid = pid;
 		}
 	}
+	return (SUCCESS);
 }

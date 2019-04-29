@@ -86,7 +86,6 @@ int		main(int ac, char **av, char **env)
 	}
 	else
 	{
-
 		command = (shell.option.c == TRUE)
 			? shell.option.cmd : read_input(STDIN_FILENO);
 
@@ -103,6 +102,5 @@ int		main(int ac, char **av, char **env)
 	// & cleanup
 	// Clean all environment variables
 	// Clean all intern variables
-
 	return (SUCCESS);
 }

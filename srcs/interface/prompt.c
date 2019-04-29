@@ -28,13 +28,13 @@ char		*prompt(t_registry *shell)
 	{
 		ft_bzero(character, READ_SIZE);
 		// change to tty fd
-		if (read(0, character, READ_SIZE) == -1)
+		if (read(0, character, READ_SIZE) == FAILURE)
 		{
 			prompt_read_failed(shell, itf->line);
 			return (NULL);
 		}
 		handle_input_key(shell, character);
-		if (is_eof(itf->line->buffer))
+		if (is_eof(itf->line->buffer) == TRUE)
 			return (itf->line->buffer);
 	}
 	tc_ak_end(shell);

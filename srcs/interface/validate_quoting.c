@@ -22,7 +22,7 @@ static int32_t	goto_next_quote(char *string, char quote, uint32_t index)
 		++found_match;
 	if (string[found_match] == quote)
 		return (found_match);
-	return (-1);
+	return (FAILURE);
 }
 
 int8_t			quoting_is_valid(char *str)
@@ -37,16 +37,16 @@ int8_t			quoting_is_valid(char *str)
 	while (index < length && str[index] != '\0')
 	{
 		quote = set_quote(str[index]);
-		if (quote != 0)
+		if (quote != FALSE)
 		{
-			if (goto_next_quote(str, quote, index + 1) != -1)
+			if (goto_next_quote(str, quote, index + 1) != FAILURE)
 				index = goto_next_quote(str, quote, index + 1);
 			else
-				return (-1);
+				return (FAILURE);
 		}
 		++index;
 	}
-	return (1);
+	return (SUCCESS);
 }
 
 void			validate_input_quoting(t_registry *shell, t_interface *itf)
@@ -57,11 +57,11 @@ void			validate_input_quoting(t_registry *shell, t_interface *itf)
 	char	*save_state;
 
 	save_state = itf->state;
-	while (quoting_is_valid(itf->line->buffer) == -1)
+	while (quoting_is_valid(itf->line->buffer) == FAILURE)
 	{
 		final_line = NULL;
 		tmp_line = ft_strdup(itf->line->buffer);
-		if (invoke_sub_prompt(shell, &line, INT_PS2) != 0)
+		if (invoke_sub_prompt(shell, &line, INT_PS2) != SUCCESS)
 		{
 			ft_strdel(&(tmp_line));
 			reset_vector(itf->line);
