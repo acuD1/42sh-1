@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 22:31:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/27 13:46:08 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/29 11:17:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		lexer_parser(t_parser *parse, t_graph *graph, char *input)
 	get_token(parse);
 	parser_state(parse);
 	///// DEBUG PARSER2 ///
-//	ft_lstiter(((t_job*)(parse->job_list->data))->process_list, print_process);
+	ft_lstiter(((t_job*)(parse->job_list->data))->process_list, print_process);
 	ft_putchar('\n');
 	return (parse->job_list == NULL ? FAILURE : SUCCESS);
 	//return (parse->token_list && parse->job_list ? FAILURE : SUCCESS);
