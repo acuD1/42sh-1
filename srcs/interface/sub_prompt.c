@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:22:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 13:37:37 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/30 11:54:47 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ int8_t				invoke_sub_prompt(t_registry *shell, char **line,
 						char *prompt_state)
 {
 	t_interface		*itf;
+
+//	if (shell->is_interactive == FALSE)
+//		return (FAILURE);
 
 	itf = &shell->interface;
 	if (prompt_state && is_std_ps(prompt_state) == FALSE)
