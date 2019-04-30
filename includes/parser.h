@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/30 16:14:18 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 17:03:03 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void		single_quote_parser(t_parser *parse);
 void		redirect_parser(t_parser *parse);
 void		pipe_parser(t_parser *parse);
 void		filename_state(t_parser *parse);
+void		io_parser(t_parser *parse);
 void		io_redirect_parser(t_parser *parse);
 void		flush_redirect(t_parser *parse);
 void		delete_process(void *data);

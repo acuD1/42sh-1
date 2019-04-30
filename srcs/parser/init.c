@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 21:57:35 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/30 16:43:33 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 17:02:18 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	init_start(t_pstate parsing)
 	parsing[P_START][E_LESSAND] = redirect_parser;
 	parsing[P_START][E_DGREAT] = redirect_parser;
 	parsing[P_START][E_DGREATAND] = redirect_parser;
-	parsing[P_START][E_IO_NUMBER] = io_redirect_parser;
+	parsing[P_START][E_IO_NUMBER] = io_parser;
 	parsing[P_START][E_SEMICOLON] = separator_parser;
 	parsing[P_START][E_END] = end_parser;
 }
@@ -52,7 +52,7 @@ void	init_string(t_pstate parsing)
 	parsing[P_STRING][E_LESSAND] = redirect_parser;
 	parsing[P_STRING][E_DGREAT] = redirect_parser;
 	parsing[P_STRING][E_DGREATAND] = redirect_parser;
-	parsing[P_STRING][E_IO_NUMBER] = io_redirect_parser;
+	parsing[P_STRING][E_IO_NUMBER] = io_parser;
 	parsing[P_STRING][E_PIPE] = flush_string;
 	parsing[P_STRING][E_SEMICOLON] = flush_string;
 	parsing[P_STRING][E_END] = flush_string;
@@ -68,7 +68,7 @@ void	init_single_quote(t_pstate parsing)
 	parsing[P_QUOTE][E_LESSAND] = redirect_parser;
 	parsing[P_QUOTE][E_DGREAT] = redirect_parser;
 	parsing[P_QUOTE][E_DGREATAND] = redirect_parser;
-	parsing[P_QUOTE][E_IO_NUMBER] = io_redirect_parser;
+	parsing[P_QUOTE][E_IO_NUMBER] = io_parser;
 	parsing[P_QUOTE][E_SEMICOLON] = flush_string;
 	parsing[P_QUOTE][E_END] = flush_string;
 }
@@ -104,7 +104,7 @@ void	init_pipe(t_pstate parsing)
 	parsing[P_PIPE][E_LESSAND] = redirect_parser;
 	parsing[P_PIPE][E_DGREAT] = redirect_parser;
 	parsing[P_PIPE][E_DGREATAND] = redirect_parser;
-	parsing[P_PIPE][E_IO_NUMBER] = io_redirect_parser;
+	parsing[P_PIPE][E_IO_NUMBER] = io_parser;
 }
 
 void	init_suffix_redirect(t_pstate parsing)

@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/30 14:29:59 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 18:03:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,15 @@ void	and_machine(t_lexer *machine)
 {
 	if (ft_strchr("<>", *machine->input))
 	{
-		machine->state = *machine->input == '>' ? GREATAND : LESSAND;
+		machine->last_lexer = *machine->input == '>' ? E_ANDGREAT : E_ANDLESS;
 		machine->input++;
-		if (machine->state == GREATAND && *machine->input == '>')
+		if (machine->last_lexer == E_ANDGREAT && *machine->input == '>')
 		{
 			machine->last_lexer = E_DGREATAND;
 			machine->input++;
-			machine->state = OUT;
 		}
 	}
-	else
-		machine->state = OUT;
+	machine->state = OUT;
 }
 
 void	sign_machine(t_lexer *machine)
