@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/29 13:20:10 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/29 16:59:15 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int	node_is_ok(enum e_type to_find, enum e_type *type, t_graph *graph)
 	return (FALSE);
 }
 
-static int			parse_tokens(t_list *lst, t_graph *graph)
+int			parser(t_graph *graph, t_list *lst)
 {
 	t_token 	*token;
 	enum e_type	state;
@@ -104,20 +104,14 @@ static int			parse_tokens(t_list *lst, t_graph *graph)
 		if ((node_is_ok(token->type, &state, graph)) == FALSE)
 		{
 			if (manage_error_and_subprompt(state, token->type, &tmp) == FALSE)
-				return (FALSE);
+				return (FAILURE);
 			lst = tmp;
 		}
 		else
 			tmp = lst;
 		lst = lst->next;
 	}
-	return (TRUE);
-}
-
-int		parser(t_graph *graph, t_list *lst)
-{
-/////////// init in main
-	return (!lst || parse_tokens(lst, graph) ? SUCCESS : FAILURE);
+	return (SUCCESS);
 }
 
 /*

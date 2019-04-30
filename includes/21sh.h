@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/29 07:23:38 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/30 11:41:55 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@
 # include <sys/wait.h>
 /////////////////////
 
+void			define_default_signals(t_registry *shell);
+
 int8_t			init_shell(t_registry *shell);
+int8_t			shell_usage(void);
 
 void			launch_interface(t_registry *shell);
-
 int				lexer_parser(t_parser *parse, t_graph *graph, char *input);
-
-int8_t		    execution_pipeline(t_registry *shell, char *command);
-
+int8_t		    execution_pipeline(t_registry *shell, t_list *token_list);
 void			shell_exit_routine(t_registry *shell);
 
 
@@ -42,8 +42,6 @@ char			*get_env_var(t_registry  *sh_reg, char *name);
 char			*get_intern_var(t_registry  *sh_reg, char *name);
 
 int				set_environment( t_registry *shell, char **av, char **env);
-int				parse_arg(int index, char **av, t_opt *option);
-int				fill_opt(int index, char **av, t_opt *option);
 void			print_lst(t_list **alst);
 int				f_create_node(t_list **alst, char *str);
 int				s_create_node(t_list **alst, char *var, char *data);

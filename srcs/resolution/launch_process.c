@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 13:33:40 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 14:05:14 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,20 @@ char		**str_lst_to_tab(t_list *alst)
 
 static void	el_redirector(t_filedesc *fd)
 {
-	if (fd->in != STDIN_FILENO && fd->in != STDOUT_FILENO
-			&& fd->in != STDERR_FILENO)
+	if (fd->in != STDIN_FILENO)
 	{
-		if (fd->in != -1 || close(STDIN_FILENO) != SUCCESS)
+		if (fd->in != -1 || close(STDIN_FILENO))
 			dup2(fd->in, STDIN_FILENO);
 	}
 	if (fd->out != STDOUT_FILENO && fd->out != STDIN_FILENO)
 	{
-		if (fd->out != -1 || close(STDOUT_FILENO) != SUCCESS)
+		if (fd->out != -1 || close(STDOUT_FILENO))
 			dup2(fd->out, STDOUT_FILENO);
 	}
 	if (fd->err != STDERR_FILENO && fd->err != STDIN_FILENO)
 	{
-		if (fd->err != -1 || close(STDERR_FILENO) != SUCCESS)
-			dup2(fd->err == STDOUT_FILENO ? fd->err : fd->out, STDERR_FILENO);
+		if (fd->err != -1 || close(STDERR_FILENO))
+			dup2(fd->err, STDERR_FILENO);
 	}
 }
 
@@ -64,29 +63,41 @@ static void	execute_process(t_process *process, t_registry *shell)
 	char			**environ;
 	t_filedesc		fd;
 
+	define_execution_signals(shell);
+
 	fd = process->fd;
-	signal(SIGINT, SIG_DFL); // way more
-//	ft_dprintf(2, "\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
-//				process->av[0], fd.in, fd.out, fd.err);
-//	ft_dprintf(2, "\x1b[35m[OUTPUT]: _______________________\n\x1b[0m");
+
+	////////////////////// DEBUG EXEC ///////////////////////
+	if ((shell->option.option & DEBUG_OPT) != FALSE)
+	{
+		ft_dprintf(2, "\n\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
+				process->av[0], fd.in, fd.out, fd.err);
+		ft_dprintf(2, "\x1b[35m[OUTPUT]: _______________________\n\x1b[0m\n");
+	}
+	/////////////////////////////////////////////////////////
+
 	el_redirector(&fd);
 	environ = str_lst_to_tab(shell->env);
 	/*	Exec the new process	*/
 	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL)
-		((t_builtin)ft_hmap_getdata(&shell->blt_hashmap, process->av[0]))
-													(shell, process->av);
+		exit(((t_builtin)ft_hmap_getdata(&shell->blt_hashmap /* HOTFIX */
+									, process->av[0]))(shell, process->av));
 	else if (ft_hmap_getdata(&shell->bin_hashmap, process->av[0]) != NULL)
 		execve(ft_hmap_getdata(&shell->bin_hashmap, process->av[0])
-													, process->av, environ);
-	else
+									, process->av, environ);
+	else if (process->av[0][0] == '.' || process->av[0][0] == '/')
 		execve(process->av[0], process->av, environ);
-	ft_dprintf(2, "[ERROR] - Execution failed: %s.\n", process->av[0]);
+	////////////////////// DEBUG ERROR ///////////////////////
+	ft_dprintf(2, "21sh: command not found: %s\n", process->av[0]);
+	//////////////////////////////////////////////////////////
+
 	exit(FAILURE);
 }
 
 int		launch_process(t_job *job, t_process *process, t_registry *shell)
 {
 	pid_t		pid;
+
 
 	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL
 			&& job->process_list->next == NULL)

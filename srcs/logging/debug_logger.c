@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 07:25:25 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/30 11:08:02 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 #include "log.h"
 #include "ft_printf.h"
 
-void			log_print(t_registry *reg, char *importance, char *message, ...)
+void			log_print(t_registry *shell, char *importance, char *message, ...)
 {
 	va_list args;
 	int		fd;
 
-	if (reg == NULL)
+	if (shell == NULL)
 			return ;
 	fd = -1;
-	fd = ft_atoi(get_intern_var((reg), INT_DBG_FD));
+	fd = ft_atoi(get_intern_var((shell), INT_DBG_FD));
 	if (fd == STDIN_FILENO)
 		fd = -1;
 	if (fd < 0)
@@ -45,7 +45,7 @@ void			log_print(t_registry *reg, char *importance, char *message, ...)
 	va_end(args);
 }
 
-void	init_debug_logger(t_registry *reg)
+void	init_debug_logger(t_registry *shell)
 {
 	int  debug_fd;
 	char *home_path;
@@ -56,12 +56,12 @@ void	init_debug_logger(t_registry *reg)
 	log_path = NULL;
 	debug_fd = -1;
 
-	if (reg->option.debug == TRUE)
+	if ((shell->option.option & DEBUG_OPT) != FALSE)
 	{
-		if ((home_path = get_data(&(reg->env), "HOME")) == NULL)
+		if ((home_path = get_data(&(shell->env), "HOME")) == NULL)
 		{
 			home_path = ft_itoa(-1);
-			add_internal(reg, INT_DBG_FD, home_path);
+			add_internal(shell, INT_DBG_FD, home_path);
 			ft_strdel(&home_path);
 			ft_dprintf(2, "[ERROR] - Could not fetch home variable.\n");
 			return ;
@@ -72,7 +72,7 @@ void	init_debug_logger(t_registry *reg)
 		if (debug_fd < 0)
 			return ;
 		tmp = ft_itoa(debug_fd);
-		if (add_internal(reg, INT_DBG_FD, tmp) == FAILURE)
+		if (add_internal(shell, INT_DBG_FD, tmp) == FAILURE)
 		{
 			ft_strdel(&tmp);
 			return ;
@@ -85,7 +85,7 @@ void	init_debug_logger(t_registry *reg)
 	else
 	{
 		home_path = ft_itoa(-1);
-		add_internal(reg, INT_DBG_FD, home_path);
+		add_internal(shell, INT_DBG_FD, home_path);
 		ft_strdel(&home_path);
 	}
 }

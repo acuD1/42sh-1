@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:46:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/26 11:27:28 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/29 14:07:45 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int				init_job_p(t_job *job)
 	fd.err = 2;
 	job->command = ft_strdup(EXEC_TEST_P);
 	job->fd = fd;
-	job->f_process = alst;
+	job->process_list = alst;
 	if (job->command == NULL)
 		return (0);
 	return (1);

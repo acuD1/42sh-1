@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/29 10:32:25 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 13:38:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 *****************************************************
 */
 
-typedef uint8_t			t_option;
+typedef uint16_t		t_option;
 typedef t_option		(*t_get_option)(char *s, t_option option);
 
 
@@ -64,6 +64,7 @@ struct					s_lexer
 typedef struct s_graph	t_graph;
 typedef struct s_parser	t_parser;
 typedef void			(*t_parsing)(t_parser *);
+typedef t_parsing		t_pstate[PARSE_STATES][NB_OF_TOKENS];
 
 typedef struct			s_filedesc
 {
@@ -96,7 +97,6 @@ struct					s_parser
 {
 	t_process			process;
 	t_job				job;
-	t_parsing			parsing[PARSE_STATES][NB_OF_TOKENS];
 	t_list				*token_list;
 	t_list				*env;
 	t_list				*tmp_env;
@@ -104,7 +104,6 @@ struct					s_parser
 	t_stack				stack;
 	t_token				token;
 	int					oflags;
-	int					*fd;
 	int					valid;
 	enum e_parser_state	last_state;
 	enum e_parser_state	state;
@@ -128,30 +127,6 @@ typedef struct			s_history
 	struct s_history 	*next;
 	struct s_history 	*prev;
 }						t_history;
-
-/*
-*****************************************************
-******** -------------- COMMON -------------- *******
-*****************************************************
-*/
-
-typedef struct 			s_opt
-{
-	int		help;			//TODO: Implement this
-	int		version;		//TODO: Implement this
-	int		debug;			//TODO: Change implementation
-	int		command;		//TODO: Implement this
-	char	*command_str;  	//TODO: Implement for -c
-//	int		norc;
-//	int		rcfile;
-//	char	*rc_path;
-}				t_opt;
-
-typedef struct			s_node
-{
-	char				*var;
-	char				*data;
-}						t_node;
 
 /*
 *****************************************************
@@ -207,30 +182,44 @@ typedef struct			s_interface
 *****************************************************
 */
 
+typedef struct 			s_opt
+{
+	t_option			option;
+	char				*command_str;
+//	char				*rc_path;
+}						t_opt;
+
+typedef struct			s_node
+{
+	char				*var;
+	char				*data;
+}						t_node;
+
 struct					s_registry
 {
+	uint8_t				is_interactive;
 	t_opt				option;
 	t_list				*env;
 	t_list				*intern;
 	t_hash				bin_hashmap;
 	t_hash				blt_hashmap;
-	struct s_interface	interface;
-	//TODO: move t_job head here for exit and global
-	//t_list			*job_list;
 	t_graph				graph[NB_OF_TOKENS];
-	t_parser			parser;
+	t_pstate			parsing;
+	t_list				*current_job;
+	struct s_interface	interface;
 };
 
 typedef int 			(*t_builtin)(t_registry *, char **);
 
 extern t_registry	*g_shell;
+
 /*
 *****************************************************
 ********************** RESOLVE **********************
 *****************************************************
 */
 
-extern t_list			*g_job_head;
+extern t_list		*g_job_head;
 
 #endif
 
