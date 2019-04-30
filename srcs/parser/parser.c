@@ -29,7 +29,7 @@ static void	print_parser_error(enum e_type type)
 	static const char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
 									, IF, IN, THEN, UNTIL, WHILE};
 
-	ft_dprintf(2, "21sh: syntax error near unexpected token ");
+	ft_dprintf(2, "\n21sh: syntax error near unexpected token ");
 	if (type == E_STRING || type == E_QUOTE
 		|| type == E_DB_QUOTE || type == E_EXP)
 		ft_dprintf(2, "`STRING'\n");

@@ -293,7 +293,7 @@ $(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJM)
 #	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
 #	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
 	$(LINK) $(OBJS) $(OBJM) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@
-	$(PRINT) "$(GREEN)$@ is ready $(NC)"
+	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
 $(OBJM) : $(OPATH)%.o : %.c $(INCS)
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
@@ -312,7 +312,7 @@ $(NAMET) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJT)
 	#@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
 	#@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
 	$(LINK) $(CFLAGS)  $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address -o  $@ $(OBJT) $(OBJS)
-	$(PRINT) "$(GREEN)$@ is ready $(NC)"
+	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
 $(OBJT) : $(OPATH)%.o : %.c $(INCS)
 	$(COMPILE) $(CFLAGS)  $< -o $@
@@ -322,7 +322,7 @@ $(OBJT) : $(OPATH)%.o : %.c $(INCS)
 
 $(NAMEDB) : $(CLEAR) $(LIBDB) $(OPATH) $(OBJD)
 	$(LINKD) $(OBJD) $(DFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBD) $(LFLAGS) -o $@
-	$(PRINT) "$(GREEN)$@ is ready $(NC)"
+	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
 $(OBJD) : $(OPATH)db%.o : %.c $(INCS)
 	$(DEBUG) $(DFLAGS) $(CPPFLAGS) $< -o $@
