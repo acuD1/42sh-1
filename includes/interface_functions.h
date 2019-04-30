@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 11:41:45 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/30 17:26:48 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ uint8_t						is_only_whitespaces(char *buffer);
 int8_t						init_termcap_calls(t_termcaps *termcp);
 
 
+int8_t						fill_interface_related_internals(t_registry *shell);
 int8_t						load_interface(t_registry *shell);
 void						unload_interface(t_interface *itf);
 
