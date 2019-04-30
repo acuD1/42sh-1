@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/30 16:55:50 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 21:23:05 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char	        *read_input(int fd);
 char	       	*ft_strjoinfree(char *s1, char *s2, short todel);
 void	        print_opt(t_registry *shell);
 
+int				find_variable(void *data, void *to_find);
 char			*variable_to_str(void *data);
 void			delete_process(void *data);
 void			delete_job(void *data);

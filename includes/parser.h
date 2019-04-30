@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/30 17:03:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 21:34:48 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void		separator_parser(t_parser *parse);
 void		get_token(t_parser *parse);
 void		start_parser(t_parser *parse);
 void		string_parser(t_parser *parse);
+void		expansion_parser(t_parser *parse);
 void		flush_string(t_parser *parse);
 void		end_parser(t_parser *parse);
 void		error_parser(t_parser *parse);
