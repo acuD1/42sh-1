@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 16:13:18 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/29 17:44:45 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/01 00:54:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,17 @@ void		print_token(t_list *list)
 	static const char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
 		, IF, IN, THEN, UNTIL, WHILE};
 
-	if (token->type < SINGLE_SIGNS || token->type == E_STRING )
+	if (token->type == E_STRING)
+	{
+		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
+				token->type, "STRING", token->data);
+	}
+	else if (token->type == E_SPSTRING)
+	{
+		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
+				token->type, "SPSTRING", token->data);
+	}
+	else if (token->type < SINGLE_SIGNS)
 	{
 		ft_printf("type_id = [ %2d ] | type_name = [ %5.1c ] | data = [ %s ]\n",
 				token->type,
@@ -54,16 +64,6 @@ void		print_token(t_list *list)
 	{
 		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
 				token->type, "END", token->data);
-	}
-	else if (token->type == E_QEXP)
-	{
-		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
-				token->type, "\"$", token->data);
-	}
-	else if (token->type == E_QTILDE)
-	{
-		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
-				token->type, "\"~", token->data);
 	}
 }
 

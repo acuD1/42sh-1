@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/30 18:03:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/01 01:22:13 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,9 @@ void	double_sign_machine(t_lexer *machine)
 			++machine->input;
 	}
 	if (*machine->buffer == '=' && *machine->input != '=')
-		machine->state = LETTER;
+		machine->state = L_STRING;
 	else
-		machine->state = OUT;
-}
-
-void	tilde_machine(t_lexer *machine)
-{
-	machine->last_lexer = E_TILDE;
-	if (ft_strchr(TILDE_INTERUPT, *machine->input) != NULL
-		|| *machine->input == '\0')
-	{
-		if (*machine->input != '\0' && *machine->input != ' ')
-			machine->quote = QUOTE_SP;
-		machine->state = OUT;
-	}
-	else
-	{
-		ft_strncat(machine->buffer, machine->input, 1);
-		++machine->input;
-	}
+		machine->state = L_OUT;
 }
 
 int		double_dispatcher(t_lexer *machine)
@@ -63,17 +46,17 @@ int		double_dispatcher(t_lexer *machine)
 	if (*machine->input == '>')
 	{
 		++checker;
-		machine->state = GREATER;
+		machine->state = L_GREATER;
 	}
 	else if (*machine->input == '<')
 	{
 		++checker;
-		machine->state = LESSER;
+		machine->state = L_LESSER;
 	}
 	else if (ft_strchr(DOUBLE_SIGN, *machine->input) != NULL)
 	{
 		++checker;
-		machine->state = DSIGN;
+		machine->state = L_DSIGN;
 	}
 	return (checker);
 }
@@ -90,23 +73,17 @@ void	and_machine(t_lexer *machine)
 			machine->input++;
 		}
 	}
-	machine->state = OUT;
+	machine->state = L_OUT;
 }
 
 void	sign_machine(t_lexer *machine)
 {
-	if (*machine->input == '\\')
-		machine->state = BSL;
-	else if (*machine->input == '\'')
-		machine->state = SQTE;
+	if (*machine->input == '\'')
+		machine->state = L_SQTE;
 	else if (*machine->input == '\"')
-		machine->state = DQTE;
-	else if (*machine->input == '$')
-		machine->state = EXP;
-	else if (*machine->input == '~')
-		machine->state = TILDE;
+		machine->state = L_DQTE;
 	else if (*machine->input == '&')
-		machine->state = AND;
+		machine->state = L_AND;
 	else if (double_dispatcher(machine) != FALSE)
 		ft_strncat(machine->buffer, machine->input, 1);
 	else

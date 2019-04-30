@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 21:17:49 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/30 21:40:20 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/01 01:20:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,8 @@ void	flush_string(t_parser *parse)
 
 void	filename_state(t_parser *parse)
 {
-	if (parse->token.type == E_EXP)
-		expansion_parser(parse);
-	else
-	{
-		ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-		get_token(parse);
-	}
+	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
+	get_token(parse);
 	parse->state = P_FILENAME;
 }
 

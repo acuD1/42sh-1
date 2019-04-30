@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 21:14:01 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/01 01:04:05 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ static void	print_parser_error(enum e_type type)
 									, IF, IN, THEN, UNTIL, WHILE};
 
 	ft_dprintf(2, "21sh: syntax error near unexpected token ");
-	if (type == E_STRING || type == E_QUOTE
-		|| type == E_DB_QUOTE || type == E_EXP)
+	if (type == E_STRING || type == E_DB_QUOTE )
 		ft_dprintf(2, "`STRING'\n");
 	else if (type < SINGLE_SIGNS)
 		ft_dprintf(2, "`%c'\n", ALLCHAR[type]);

@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:42:24 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 16:13:54 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/01 01:18:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ void		set_word_token(t_graph *tab_tokens)
 
 	nb_of_good_type = 16;
 	set_graph_node(tab_tokens, E_STRING, nb_of_good_type, tab_good_type);
-	set_graph_node(tab_tokens, E_BACKSLASH, nb_of_good_type, tab_good_type);
-	set_graph_node(tab_tokens, E_EXP, nb_of_good_type, tab_good_type);
-	set_graph_node(tab_tokens, E_QUOTE, nb_of_good_type, tab_good_type);
 	set_graph_node(tab_tokens, E_DB_QUOTE, nb_of_good_type, tab_good_type);
 }
 void		set_redirect_token(t_graph *tab_tokens)

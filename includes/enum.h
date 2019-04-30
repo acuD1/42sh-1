@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 21:11:33 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/01 01:21:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,32 +35,27 @@ enum	e_state_option
 
 enum	e_lexer_state
 {
-		START,
-		LETTER,
-		IO_NUMBER,
-		SIGN,
-		DSIGN,
-		GREATER,
-		LESSER,
-		GREATAND,
-		LESSAND,
-		TILDE,
-		EXP,
-		BSL,
-		SQTE,
-		DQTE,
-		BQTE,
-		AND,
-		OUT,
-		END,
-		FINISH
+		L_START,
+		L_STRING,
+		L_IO_NUMBER,
+		L_SIGN,
+		L_DSIGN,
+		L_GREATER,
+		L_LESSER,
+		L_GREATAND,
+		L_LESSAND,
+		L_SQTE,
+		L_DQTE,
+		L_AND,
+		L_OUT,
+		L_END,
+		L_FINISH
 };
 
 enum	e_type
 {
-		E_EXP,
-		E_BACKSLASH,
-		E_QUOTE,
+		E_STRING,
+		E_SPSTRING,
 		E_DB_QUOTE,
 		E_PIPE,
 		E_PARENT_OPEN,
@@ -70,14 +65,10 @@ enum	e_type
 		E_SEMICOLON,
 		E_BACKQUOTE,
 		E_AND,
-		E_TILDE,
 		E_HOOK_OPEN,
 		E_HOOK_CLOSE,
 		E_BRACKET_OPEN,
 		E_BRACKET_CLOSE,
-		E_STAR,
-		E_INTERROGATION,
-		E_EXCLAMATION,
 		E_HASH,
 		E_PERCENT,
 		E_NEWLINE,
@@ -89,6 +80,9 @@ enum	e_type
 		E_LESSAND,
 		E_GREATAND,
 		E_LESSGREAT,
+		E_DGREATAND,
+		E_ANDGREAT,
+		E_ANDLESS,
 		E_DLESSDASH,
 		E_CLOBBER,
 		E_DEQ,
@@ -107,17 +101,10 @@ enum	e_type
 		E_UNTIL,
 		E_WHILE,
 		E_IO_NUMBER,
-		E_STRING,
-		E_QSTRING,
 		E_ASSIGN,
 		E_END,
-		E_QEXP,
-		E_QTILDE,
-		E_DGREATAND,
-		E_ANDGREAT,
-		E_ANDLESS,
+		E_ERROR,
 		E_DEFAULT,
-		E_ERROR
 };
 
 enum	e_quote

@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/24 03:00:49 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/01 00:04:03 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,39 +15,39 @@
 void	start_lexer(t_lexer *machine)
 {
 	if (machine->quote != QUOTE_OFF)
-		machine->state = DQTE;
+		machine->state = L_DQTE;
 	else if (*machine->input == '\0')
-		machine->state = END;
+		machine->state = L_END;
 	else if (*machine->input == ' ' || *machine->input == '\t')
 	{
 		while (*machine->input == ' ' || *machine->input == '\t')
 			++machine->input;
 	}
 	else if (ft_strchr(SIGN_DETECT, *machine->input) != NULL)
-		machine->state = SIGN;
+		machine->state = L_SIGN;
 	else if (ft_isdigit(*machine->input) == TRUE)
-		machine->state = IO_NUMBER;
+		machine->state = L_IO_NUMBER;
 	else
-		machine->state = LETTER;
+		machine->state = L_STRING;
 }
 
 void	end_machine(t_lexer *machine)
 {
 	if (*machine->buffer != '\0')
-		machine->state = OUT;
+		machine->state = L_OUT;
 	else if (machine->last_lexer != E_END)
 	{
 		machine->last_lexer = E_END;
-		machine->state = OUT;
+		machine->state = L_OUT;
 	}
 	else
-		machine->state = FINISH;
+		machine->state = L_FINISH;
 }
 
 void	fill_buffer_output(t_lexer *machine)
 {
 	ft_strncat(machine->buffer, machine->input, 1);
-	machine->state = OUT;
+	machine->state = L_OUT;
 }
 
 void	out_lexer(t_lexer *machine)
@@ -59,5 +59,5 @@ void	out_lexer(t_lexer *machine)
 	if ((node = ft_lstnew(&token, sizeof(token))) == NULL)
 		return ;
 	ft_lstaddback(&machine->tokens, node);
-	machine->state = START;
+	machine->state = L_START;
 }

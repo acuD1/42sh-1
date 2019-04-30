@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:42:18 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/24 16:42:19 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/01 01:18:42 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void		print_token_debug(t_token *token)
 	static const char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
 									, IF, IN, THEN, UNTIL, WHILE};
 
-	if (token->type == E_STRING || token->type == E_QUOTE 
-		|| token->type == E_DB_QUOTE || token->type == E_EXP)
+	if (token->type == E_STRING  || token->type == E_DB_QUOTE )
 		ft_printf("\033[37m         --------\n         |   %c   | data [%s]\n         --------\n",
 				token->type < SINGLE_SIGNS ? ALLCHAR[token->type] : 'S', token->data);
 	else if (token->type < SINGLE_SIGNS)
@@ -42,7 +41,7 @@ void		print_arrow_debug(int which)
 {
 	if (which == 0)
 		ft_printf("\033[33m            ||\n            vv\n\033[0m");
-	else if (which == 1) 
+	else if (which == 1)
 		ft_printf("\033[34m            ||\n            up\n            ||\n            vv\n\033[0m");
 	else
 		ft_printf("\033[36m            ||\n           down\n            ||\n            vv\n\033[0m");

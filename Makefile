@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/30 21:10:55 by cempassi         ###   ########.fr        #
+#    Updated: 2019/05/01 01:02:21 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -244,7 +244,6 @@ LEX_SRCS += states.c
 LEX_SRCS += generate_token.c
 LEX_SRCS += quotes_states.c
 LEX_SRCS += sign_states.c
-LEX_SRCS += expansion_states.c
 LEX_SRCS += tmp_display.c
 LEX_SRCS += redirect_states.c
 

@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 21:11:21 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/01 01:17:59 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,17 +94,18 @@
 *****************************************************
 */
 
-# define STATENBR					19
-# define TOKEN_WITH_DATA			12
-# define NB_OF_TOKENS				59
+# define STATENBR					17
+# define TOKEN_WITH_DATA			6
+# define NB_OF_TOKENS				51
 # define BUFFER						1024
-# define SINGLE_SIGNS				23
+# define SINGLE_SIGNS				16
 # define SPECIAL_SIGNS				15
-# define SIGNS 						(SPECIAL_SIGNS + SINGLE_SIGNS)
-# define ALLCHAR					"$\\\'\"|()><;`&~{}[]*?!#%N"
-# define SIGN_DETECT				" \t<>|;\'\"$&~\\"
+# define SIGNS 						(SPECIAL_SIGNS + SINGLE_SIGNS + 2)
+# define ALLCHAR					"\"|()><;`&{}[]#%\n"
+# define SIGN_DETECT				" \t<>|;$&!="
 # define LETTER_TO_QUOTE			"\"\'$"
-# define LETTER_INTERUPT			" \t<>|;&\\"
+# define LETTER_INTERUPT			" \t<>|;&"
+# define LETTER_SPECIAL				"\"\'\\$~*?"
 # define TILDE_INTERUPT				" /$"
 # define QSP_INT					" \"\'"
 /*
@@ -138,15 +139,14 @@
 # define PARSE_STATES				20
 # define STARTING					14
 # define STRING_TOKENS				16
-# define BACKSLASH 					E_BACKSLASH
-# define STRING_WORD 				E_STRING, E_EXP, E_QUOTE, E_DB_QUOTE
+# define STRING_WORD 				E_STRING, E_DB_QUOTE
 # define IO							E_IO_NUMBER
 # define PIPELINE					E_PIPE
 # define BASE_REDIRECT				E_GREAT, E_LESS, E_DLESS, E_DGREAT
 # define AND_REDIRECT				E_GREATAND, E_LESSAND
 # define END_CMD					E_SEMICOLON, E_END
 # define REDIRECT					AND_REDIRECT, BASE_REDIRECT
-# define WORD						STRING_WORD, BACKSLASH
+# define WORD						STRING_WORD
 # define ALL						WORD, BASE_REDIRECT, IO
 # define ALL_END					ALL, END_CMD
 # define E_START					E_DEFAULT
