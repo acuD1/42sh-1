@@ -57,14 +57,14 @@ int			main(int ac, char **av, char **env)
 {
 	t_registry		shell;
 
+	(void)ac;
 	ft_bzero(&shell, sizeof(t_registry));
 	g_shell = &shell;
 	if (set_environment(&shell, av + 1, env) == FAILURE)
 		return (FAILURE);
 	if (init_shell(&shell) == FAILURE)
 		return (FAILURE);
-	if (ac == 1)
-		launch_shell(&shell);
+	launch_shell(&shell);
 	// Clean all intern variables
 	// Clean all environment variables
 	shell_exit_routine(&shell);

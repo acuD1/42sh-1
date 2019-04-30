@@ -40,7 +40,10 @@ int					launch_shell_prompt(t_registry *shell)
 	log_print(shell, LOG_INFO, "Starting prompt.\n");
 
 	///////////////////////////////////////////////////////////
-	ft_putendl("\n\033[36m###################### NEW CMD #######################\033[0m\n");
+	if ((shell->option.option & DEBUG_OPT) != FALSE)
+	{
+		ft_putendl("\n\033[36m###################### NEW CMD #######################\033[0m\n");
+	}
 	///////////////////////////////////////////////////////////	
 
 	if (get_input(shell, &input))
@@ -48,6 +51,7 @@ int					launch_shell_prompt(t_registry *shell)
 		cleanup_interface(shell);
 		return (FAILURE);
 	}
+	ft_putchar('\n');
 	update_history(shell, input);
 	execution_pipeline(shell, lexer(input));
 	return (SUCCESS);
