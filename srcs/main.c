@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/30 11:15:24 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/30 11:43:48 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	launch_shell(t_registry *shell)
 		if ((load_interface(shell)) == SUCCESS)
 			launch_interface(shell);
 		else
-			ft_printf("[CRITICAL] - Interface setup failed. See logs.\n");
+			ft_dprintf(2, "[CRITICAL] - Interface setup failed. See logs.\n");
 		unload_interface(&shell->interface);
 	}
 	else
