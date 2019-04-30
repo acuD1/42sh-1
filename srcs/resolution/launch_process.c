@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 18:34:46 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/30 10:12:33 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ static void	execute_process(t_process *process, t_registry *shell)
 	environ = str_lst_to_tab(shell->env);
 	/*	Exec the new process	*/
 	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL)
-		((t_builtin)ft_hmap_getdata(&shell->blt_hashmap
-									, process->av[0]))(shell, process->av);
+		exit(((t_builtin)ft_hmap_getdata(&shell->blt_hashmap /* HOTFIX */
+									, process->av[0]))(shell, process->av));
 	else if (ft_hmap_getdata(&shell->bin_hashmap, process->av[0]) != NULL)
 		execve(ft_hmap_getdata(&shell->bin_hashmap, process->av[0])
 									, process->av, environ);
