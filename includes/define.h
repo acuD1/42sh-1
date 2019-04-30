@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 15:15:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 15:34:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,16 @@
 # define FAILURE					-1
 # define FALSE						0
 # define TRUE						1
+# define SH21_USAGE_1				"Usage: 21sh [long option] [-dhv] "
+# define SH21_USAGE_2				"[--rcfile PATH] [-c CMD]\n"
+# define SH21_USAGE_LONG_OPTION		"\n\t--help\n\t--norc\n\t"
+# define SH21_USAGE_LONG_OPTION_2	"--version\n\t--debug\n"
+# define HELP_OPT					0x001
+# define COMMAND_OPT				0x002
+# define DEBUG_OPT					0x004
+# define VERSION_OPT				0x008
+# define NORC_OPT					0x010
+# define RCFILE_OPT					0x020
 
 /*
 *****************************************************
@@ -30,17 +40,24 @@
 *****************************************************
 */
 
-# define N_OPT						0x01
-# define L_OPT						0x02
-# define P_OPT						0x04
-# define I_OPT						0x08
-# define ERROR_OPT					0x80
+# define A_OPT						0x001
+# define F_OPT						0x002
+# define I_OPT						0x004
+# define L_OPT						0x008
+# define N_OPT						0x010
+# define P_OPT						0x020
+# define T_OPT						0x040
+# define P_LOW_OPT					0x080
+# define ERROR_OPT					0x800
 # define CD_USAGE 					"cd: usage: cd [-L|-P] [dir]\n"
+# define CD_ERROR_OLDPWD_NOTSET		"21sh: cd: OLDPWD not set\n"
 # define ENV_USAGE_1 				"env: usage: env [-i] [name=value]... "
 # define ENV_USAGE_2 				"[utility [argument]...]\n"
 # define SETENV_USAGE 				"setenv: usage: setenv [name [value]]\n"
 # define UNSETENV_USAGE 			"unsetenv: usage: unsetenv name\n"
-# define CD_ERROR_OLDPWD_NOTSET		"21sh: cd: OLDPWD not set\n"
+# define TYPE_USAGE 				"type: usage: type [-afptP] name [name ...]\n"
+# define EXPORT_USAGE 				"type: usage: export name[=value] ...\n"
+# define UNSET_USAGE 				"type: usage: unset name\n"
 
 /*
 *****************************************************
@@ -61,7 +78,7 @@
 # define INT_PS2					"PS2"
 # define INT_PS3					"PS3"
 # define INT_PS4					"PS4"
-//# define INT_PS5					"PS5"
+# define INT_PS5					"PS5"
 # define INT_ESCAPE_SEQ				"ESC"
 # define INT_PS1_VALUE				"[21sh] -> "
 # define INT_PS2_VALUE				"quote> "

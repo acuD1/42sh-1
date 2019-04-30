@@ -18,7 +18,10 @@ void	print_opt(t_registry *shell)
 {
 	log_print(shell, LOG_INFO, "Options: \n");
 	log_print(shell, LOG_INFO, "| h=%d | v=%d | d=%d |\n",
-			shell->option.help, shell->option.version, shell->option.debug);
+				(shell->option.option & HELP_OPT) == FALSE ? 0 : 1,
+				(shell->option.option & VERSION_OPT) == FALSE ? 0 : 1,
+				(shell->option.option & DEBUG_OPT) == FALSE ? 0 : 1);
 	log_print(shell, LOG_INFO, "| c=%d | cmd=%s |\n",
-			shell->option.command, shell->option.command_str);
+				(shell->option.option & COMMAND_OPT) == FALSE ? 0 : 1,
+				shell->option.command_str);
 }

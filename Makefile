@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/29 08:50:51 by skuppers         ###   ########.fr        #
+#    Updated: 2019/04/29 17:04:43 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,14 @@
 #								 Build Targets                                 #
 # ---------------------------------------------------------------------------- #
 
-NAME = 42sh
-NAMEDB = 42shdb
+NAME = 21sh
+NAMEDB = 21shdb
 NAMET = unit
 LIBFT = libft.a
 LIBFTDB = libftdb.a
 SRCS = $(LINE) $(LEX_SRCS) $(PARSER_SRCS) $(BUILTIN) $(TOOLS_SRCS)
 OBJM = $(patsubst %.c, $(OPATH)%.o, $(LINEM))
-OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS)) 
+OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS))
 OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM))
 OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINEM) $(SRCS))
 LIB = $(addprefix $(LPATH), $(LIBFT))
@@ -176,6 +176,10 @@ BUILTIN += unsetenv_blt.c
 BUILTIN += intern_blt.c
 BUILTIN += hash_blt.c
 BUILTIN += exit_blt.c
+BUILTIN += type_blt.c
+BUILTIN += export_blt.c
+BUILTIN += set_blt.c
+BUILTIN += unset_blt.c
 
 #						- - - - - Line edtion - - - - -                        #
 
@@ -288,13 +292,13 @@ test : $(NAMET)
 $(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJM)
 #	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
 #	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
-	$(LINK) $(OBJS) $(OBJM) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@ 
-	$(PRINT) "$(GREEN)$@ is ready $(NC)"
+	$(LINK) $(OBJS) $(OBJM) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@
+	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
 $(OBJM) : $(OPATH)%.o : %.c $(INCS)
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
-	
+
 $(OBJS) : $(OPATH)%.o : %.c $(INCS)
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
@@ -308,7 +312,7 @@ $(NAMET) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJT)
 	#@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
 	#@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
 	$(LINK) $(CFLAGS)  $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address -o  $@ $(OBJT) $(OBJS)
-	$(PRINT) "$(GREEN)$@ is ready $(NC)"
+	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
 $(OBJT) : $(OPATH)%.o : %.c $(INCS)
 	$(COMPILE) $(CFLAGS)  $< -o $@
@@ -317,8 +321,8 @@ $(OBJT) : $(OPATH)%.o : %.c $(INCS)
 #					 - - - - - Debug Compilation - - - - -                     #
 
 $(NAMEDB) : $(CLEAR) $(LIBDB) $(OPATH) $(OBJD)
-	$(LINKD) $(OBJD) $(DFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBD) $(LFLAGS) -o $@ 
-	$(PRINT) "$(GREEN)$@ is ready $(NC)"
+	$(LINKD) $(OBJD) $(DFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBD) $(LFLAGS) -o $@
+	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
 $(OBJD) : $(OPATH)db%.o : %.c $(INCS)
 	$(DEBUG) $(DFLAGS) $(CPPFLAGS) $< -o $@

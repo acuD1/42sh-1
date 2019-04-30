@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_errors.c                                    :+:      :+:    :+:   */
+/*   set_blt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/26 14:23:08 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 15:41:38 by cempassi         ###   ########.fr       */
+/*   Created: 2019/04/26 15:23:09 by ffoissey          #+#    #+#             */
+/*   Updated: 2019/04/26 19:18:03 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "log.h"
-#include "interface_functions.h"
-
-void	prompt_read_failed(t_registry *reg, t_vector *vect)
+#include "builtin.h"
+int8_t				set_blt(t_registry *shell, char **av)
 {
-	log_print(reg, LOG_ERROR, "Prompt read failed!\n");
-	ft_strdel(&vect->buffer);
-	free(vect);
-	vect = NULL;
+	(void)av;
+	print_lst(&shell->intern);
+	return (SUCCESS);
 }

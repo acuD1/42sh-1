@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_parser.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/30 15:20:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 15:43:34 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	flush_redirect(t_parser *parse)
 	filename = token->data;
 	free(token);
 	token = ft_stckpop(&parse->stack);
-	if ((fd = open(filename, parse->oflags, 0644) < 0))
+	if ((fd = open(filename, parse->oflags, 0644)) < 0)
 	{
 		error_parser(parse);
 		return ;

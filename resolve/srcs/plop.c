@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   resolve.c                                          :+:      :+:    :+:   */
+/*   plop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:10:32 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/23 16:45:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/29 14:07:45 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int 	launch_job(t_list *joblst, t_registry *shell)
 {
 	t_list *ptr;
 
-	ptr = ((t_job *)(joblst)->data)->f_process;
+	ptr = ((t_job *)(joblst)->data)->process_list;
 	ft_printf("Launching %s\n", ((t_job*)((joblst)->data))->command);
 	ft_printf("Process Fds %d %d %d\n"
 	, ((t_process*)ptr->data)->fd.in
