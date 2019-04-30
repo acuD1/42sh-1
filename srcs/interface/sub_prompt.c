@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:22:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 11:54:47 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:25:57 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,7 @@ static int8_t		sub_prompt_loop(t_registry *shell, t_interface *itf)
 		}
 		handle_input_key(shell, character);
 		if (is_eof(itf->line->buffer) == TRUE)
-		{
-//			ft_strdel(&(itf->line->buffer));
-//			free(itf->line);
-//			itf->line = ft_vctnew(0);
 			return (FAILURE);
-		}
 	}
 	return (SUCCESS);
 }
@@ -67,9 +62,6 @@ int8_t				invoke_sub_prompt(t_registry *shell, char **line,
 {
 	t_interface		*itf;
 
-//	if (shell->is_interactive == FALSE)
-//		return (FAILURE);
-
 	itf = &shell->interface;
 	if (prompt_state && is_std_ps(prompt_state) == FALSE)
 	{
@@ -77,9 +69,9 @@ int8_t				invoke_sub_prompt(t_registry *shell, char **line,
 		prompt_state = INT_PS5;
 	}
 	itf->state = prompt_state;
+	reset_vector(itf->line);
 	if (validate_interface_content(itf) == FAILURE)
 		return (FAILURE);
-	reset_vector(itf->line);
 	print_sub_prompt(shell);
 	if (sub_prompt_loop(shell, itf) != SUCCESS)
 	{
