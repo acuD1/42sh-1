@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/29 15:39:54 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 15:20:55 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,26 @@ void	flush_redirect(t_parser *parse)
 {
 	t_token	*token;
 	char	*filename;
-	size_t	stcksize;
+	int		fd;
 
 	parse->state = P_REDIRECT_FLUSH;
 	token = ft_stckpop(&parse->stack);
 	filename = token->data;
 	free(token);
 	token = ft_stckpop(&parse->stack);
-	stcksize = ft_stcksize(&parse->stack);
-	if (stcksize != 0 && ((t_token*)ft_stcktop(&parse->stack))->type == E_IO_NUMBER)
+	if ((fd = open(filename, parse->oflags, 0644) < 0))
 	{
-		free(ft_stckpop(&parse->stack));
-	}
-	else if (token->type == E_GREAT || token->type == E_DGREAT)
-		parse->process.fd.out = open(filename, parse->oflags, 0644);
-	else if ((parse->process.fd.in = open(filename, parse->oflags, 0644) < 0))
 		error_parser(parse);
+		return ;
+	}
+	if (token->type == E_LESS)
+		parse->process.fd.in = fd;
+	else
+	{
+		if (token->type == E_GREATAND || token->type == E_DGREATAND)
+			parse->process.fd.err = fd;
+		parse->process.fd.out = fd;
+	}
 	free(token);
 	ft_strdel(&filename);
 }
@@ -42,11 +46,9 @@ void	flush_redirect(t_parser *parse)
 void	redirect_parser(t_parser *parse)
 {
 	parse->state = P_REDIRECT;
-	if (parse->token.type == E_GREAT)
-	{
+	if (parse->token.type == E_GREAT || parse->token.type == E_GREATAND)
 		parse->oflags = O_RDWR + O_CREAT + O_TRUNC;
-	}
-	else if (parse->token.type == E_DGREAT)
+	else if (parse->token.type == E_DGREAT || parse->token.type == E_DGREATAND)
 		parse->oflags = O_RDWR + O_CREAT + O_APPEND;
 	else if (parse->token.type == E_LESS)
 		parse->oflags = O_RDONLY;

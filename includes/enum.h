@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 14:07:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 15:14:24 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ enum	e_type
 		E_END,
 		E_QEXP,
 		E_QTILDE,
+		E_DGREATAND,
 		E_DEFAULT,
 		E_ERROR
 };
@@ -143,11 +144,11 @@ enum	e_parser_state
 		P_STRING_FLUSH,
 		P_SEPARATOR,
 		P_REDIRECT,
+		P_REDIRECT_FLUSH,
 		P_FILENAME,
 		P_IO,
 		P_PIPE,
-		P_REDIRECT_FLUSH,
-		P_HEREDOC
+		P_HEREDOC,
 };
 
 enum	e_event

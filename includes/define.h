@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 14:00:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 15:15:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@
 
 # define STATENBR					19
 # define TOKEN_WITH_DATA			12
-# define NB_OF_TOKENS				56
+# define NB_OF_TOKENS				57
 # define BUFFER						1024
 # define SINGLE_SIGNS				23
-# define SPECIAL_SIGNS				12
+# define SPECIAL_SIGNS				13
 # define SIGNS 						(SPECIAL_SIGNS + SINGLE_SIGNS)
 # define ALLCHAR					"$\\\'\"|()><;`&~{}[]*?!#%N"
 # define SIGN_DETECT				" \t<>|;\'\"$&~\\"

@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 14:01:06 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 14:31:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static void		init_special(t_lexer *machine)
 	machine->special_signs[9] = E_CLOBBER;
 	machine->special_signs[10] = E_DEQ;
 	machine->special_signs[11] = E_NOTEQ;
+	machine->special_signs[12] = E_DGREATAND;
 }
 
 static void		init_lexer(t_lexer *machine)

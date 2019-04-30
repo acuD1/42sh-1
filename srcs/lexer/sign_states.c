@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/30 13:58:49 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 14:29:59 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,12 @@ void	and_machine(t_lexer *machine)
 	{
 		machine->state = *machine->input == '>' ? GREATAND : LESSAND;
 		machine->input++;
+		if (machine->state == GREATAND && *machine->input == '>')
+		{
+			machine->last_lexer = E_DGREATAND;
+			machine->input++;
+			machine->state = OUT;
+		}
 	}
 	else
 		machine->state = OUT;
