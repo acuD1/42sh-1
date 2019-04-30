@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 21:12:07 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 21:16:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,9 @@ static void				ft_fill_with_new_value(t_registry *cpy_shell,
 		variable->data = ft_strdup(ft_strchr(**arg, '=') + 1);
 		add_env(cpy_shell, variable->name, variable->data);
 		(*arg)++;
-<<<<<<< HEAD
-		if (node && node->var && ft_strequ(node->var, "PATH") == TRUE)
+		if (variable && variable->name && ft_strequ(variable->name, "PATH") == TRUE)
 			hash_blt(cpy_shell, NULL);
-		clear_node((void **)&node);
-||||||| merged common ancestors
-	//	if (node && node->var && ft_strequ(node->var, "PATH"))
-	//		hash_blt(cpy_shell, *arg);
-		clear_node((void **)&node);
-=======
-	//	if (variable && variable->name && ft_strequ(variable->name, "PATH"))
-	//		hash_blt(cpy_shell, *arg);
 		clear_node((void **)&variable);
->>>>>>> lexer-parser
 	}
 }
 
