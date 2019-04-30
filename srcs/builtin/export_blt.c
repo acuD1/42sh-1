@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/27 14:35:28 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 15:10:04 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int8_t				export_blt(t_registry *shell, char **av)
 		else
 			node->data = ft_strdup(get_intern_var(shell, node->var));
 		add_env(shell, node->var, node->data);
-	//	if (node && node->var && ft_strequ(node->var, "PATH"))
-	//		hash_blt(shell, av);
+		if (node && node->var && ft_strequ(node->var, "PATH") == TRUE)
+			hash_blt(shell, NULL);
 		clear_node((void **)&node);
 		free(node);
 		av++;

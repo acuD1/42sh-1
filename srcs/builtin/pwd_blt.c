@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 14:03:25 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 14:46:12 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:35:51 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char			*get_pwd(t_registry *shell, t_option option)
 		if (env_value_pwd != NULL)
 			pwd = ft_strdup(env_value_pwd);
 		if (pwd == NULL || access(pwd, F_OK) != SUCCESS)
-			pwd = getcwd(pwd, PATH_MAX);
+			pwd = getcwd(NULL, PATH_MAX);
 	}
 	else
 		pwd = getcwd(pwd, PATH_MAX);

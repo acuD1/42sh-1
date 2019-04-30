@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/27 14:35:28 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 15:09:34 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static void				ft_fill_with_new_value(t_registry *cpy_shell,
 		node->data = ft_strdup(ft_strchr(**arg, '=') + 1);
 		add_env(cpy_shell, node->var, node->data);
 		(*arg)++;
-	//	if (node && node->var && ft_strequ(node->var, "PATH"))
-	//		hash_blt(cpy_shell, *arg);
+		if (node && node->var && ft_strequ(node->var, "PATH") == TRUE)
+			hash_blt(cpy_shell, NULL);
 		clear_node((void **)&node);
 	}
 }

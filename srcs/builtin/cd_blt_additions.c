@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 14:42:40 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:24:49 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char			*get_relative_path(char **curpath)
 	char	*new_path;
 
 	pwd = NULL;
-	pwd = getcwd(pwd, PATH_MAX);
+	pwd = getcwd(NULL, PATH_MAX);
 	if (ft_strstr(*curpath, pwd) != NULL)
 		new_path = ft_strdup(*curpath + ft_strlen(pwd) + 1);
 	else
