@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 15:24:01 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:58:08 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
 			new_token = lexer(line);
 			ft_strdel(&line);
 		}
+		ft_putchar('\n');
 		free((*lst)->next);
 		(*lst)->next = new_token;
 		return (TRUE);

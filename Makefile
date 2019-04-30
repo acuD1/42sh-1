@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/30 14:03:11 by ffoissey         ###   ########.fr        #
+#    Updated: 2019/04/30 16:33:10 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -291,8 +291,6 @@ test : $(NAMET)
 #					 - - - - - Normal Compilation - - - - -                    #
 
 $(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJM)
-#	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
-#	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
 	$(LINK) $(OBJS) $(OBJM) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@
 	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
@@ -310,8 +308,6 @@ $(LIB) : FORCE
 #					 - - - - Unit test Compilation - - - -                     #
 
 $(NAMET) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJT)
-	#@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
-	#@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
 	$(LINK) $(CFLAGS)  $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address -o  $@ $(OBJT) $(OBJS)
 	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 

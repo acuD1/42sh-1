@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 14:05:14 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:21:02 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,18 +94,14 @@ static void	execute_process(t_process *process, t_registry *shell)
 	exit(FAILURE);
 }
 
-int		launch_process(t_job *job, t_process *process, t_registry *shell)
+int			launch_process(t_job *job, t_process *process, t_registry *shell)
 {
 	pid_t		pid;
 
-
 	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL
 			&& job->process_list->next == NULL)
-	{
-		((t_builtin)ft_hmap_getdata(&shell->blt_hashmap, process->av[0]))
-													(shell, process->av);
-		return (FAILURE);
-	}
+		return (((t_builtin)ft_hmap_getdata(&shell->blt_hashmap, process->av[0]))
+				(shell, process->av));
 	else
 	{
 		pid = fork();

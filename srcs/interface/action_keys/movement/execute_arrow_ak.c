@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:12:56 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:54:49 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:06:21 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ int8_t				tc_ak_arrow_up(t_registry *shell)
 	else if (shell->interface.hist_ptr->next)
 		shell->interface.hist_ptr = shell->interface.hist_ptr->next;
 	if (shell->interface.hist_ptr == NULL)
-		return (-1);
+		return (FAILURE);
 	replace_input_line(shell, shell->interface.hist_ptr->command);
-	return (0);
+	return (SUCCESS);
 }
 
 /*
@@ -98,12 +98,17 @@ int8_t				tc_ak_arrow_up(t_registry *shell)
 
 int8_t				tc_ak_arrow_down(t_registry *shell)
 {
+	if (shell->interface.hist_ptr == NULL)
+		return (FAILURE);
 	if (shell->interface.hist_ptr->prev == NULL)
+	{
+		shell->interface.hist_ptr = NULL;
 		replace_input_line(shell, shell->interface.current_line);
-	if (shell->interface.hist_ptr->prev)
+	}
+	else if (shell->interface.hist_ptr->prev)
 	{
 		shell->interface.hist_ptr = shell->interface.hist_ptr->prev;
 		replace_input_line(shell, shell->interface.hist_ptr->command);
 	}
-	return (0);
+	return (SUCCESS);
 }

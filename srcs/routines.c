@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 13:40:25 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:11:58 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "parser.h"
 #include "resolve.h"
 
-void	print_process(t_list *node)
+void		print_process(t_list *node)
 {
 	t_process	*process;
 
@@ -25,7 +25,7 @@ void	print_process(t_list *node)
 	ft_putchar('\n');
 	ft_showtab(process->av);
 	ft_printf("FD : IN = %d | OUT = %d | ERROR = %d \n"
-			,process->fd.in, process->fd.out, process->fd.err);
+			, process->fd.in, process->fd.out, process->fd.err);
 }
 
 int8_t		init_shell(t_registry *shell)
@@ -38,7 +38,7 @@ int8_t		init_shell(t_registry *shell)
 	return (SUCCESS);
 }
 
-void	init_job(t_job *job)
+void		init_job(t_job *job)
 {
 	ft_bzero(job, sizeof(t_job));
 	job->fd.in = 0;
@@ -46,7 +46,7 @@ void	init_job(t_job *job)
 	job->fd.err = 2;
 }
 
-void	init_parser(t_registry *shell, t_parser *parse)
+void		init_parser(t_registry *shell, t_parser *parse)
 {
 	ft_stckinit(&parse->stack);
 	parse->state = P_START;
@@ -55,7 +55,7 @@ void	init_parser(t_registry *shell, t_parser *parse)
 	init_job(&parse->job);
 }
 
-void	delete_parser(t_parser *parse)
+void		delete_parser(t_parser *parse)
 {
 	if (parse->tmp_env)
 		ft_lstdel(&parse->tmp_env, NULL); //This will leak
@@ -63,7 +63,7 @@ void	delete_parser(t_parser *parse)
 		ft_lstdel(&parse->job_list, delete_job);
 }
 
-int8_t	execution_pipeline(t_registry *shell, t_list *token_list)
+int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 {
 	t_parser	parse;
 
@@ -102,7 +102,7 @@ int8_t	execution_pipeline(t_registry *shell, t_list *token_list)
 	return (SUCCESS);
 }
 
-void	shell_exit_routine(t_registry *shell)
+void		shell_exit_routine(t_registry *shell)
 {
 	if (shell->option.option & DEBUG_OPT)
 		close(ft_atoi(get_intern_var(shell, INT_DBG_FD)));
