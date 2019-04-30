@@ -48,6 +48,7 @@ int			main(int ac, char **av, char **env)
 {
 	t_registry		shell;
 
+	(void)ac;
 	ft_bzero(&shell, sizeof(t_registry));
 	g_shell = &shell;
 	if (set_environment(&shell, av + 1, env) == FAILURE)

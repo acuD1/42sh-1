@@ -65,11 +65,11 @@ char			*get_intern_var(t_registry  *sh_reg, char *name);
 */
 
 void			print_lst(t_list **alst);
-int				f_create_node(t_list **alst, char *str);
-int				s_create_node(t_list **alst, char *var, char *data);
-int				change_node(t_list **alst, char *var, char *data);
+int8_t			f_create_node(t_list **alst, char *str);
+int8_t			s_create_node(t_list **alst, char *var, char *data);
+int8_t			change_node(t_list **alst, char *var, char *data);
+int8_t			search_data(t_list **alst, char *var); /// NO USE
 char			*get_data(t_list **alst, char *var);
-int				search_data(t_list **alst, char *var); /// NO USE
 char			*variable_to_str(void *data);
 
 /*
