@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 21:14:49 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 21:19:50 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 	}
 	///////////////////////////////////////////////////////////
 
-	return (SUCCESS);
 	if (!token_list || parser(shell->graph, token_list))
 		return (FAILURE);
 	ft_bzero(&parse, sizeof(t_parser));
