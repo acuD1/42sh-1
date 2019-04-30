@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 11:26:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 13:41:42 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:54:31 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	free_hash(t_hash hashmap, void (*del)(void *))
 	hashmap.map = NULL;
 }
 
-static void	free_registry(t_registry *reg)
+void	free_registry(t_registry *reg)
 {
 	free_opt(reg->option);
 	free_lst(&(reg->env));
@@ -61,7 +61,7 @@ static int			ft_is_numeric(char *s)
 int8_t				exit_blt(t_registry *shell, char **av)
 {
 	av++;
-	if (*av != NULL)
+	if (av != NULL && *av != NULL)
 	{
 		if (ft_is_numeric(*av) == FALSE)
 		{

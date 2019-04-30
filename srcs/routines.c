@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 16:11:58 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:54:51 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "interface_functions.h"
 #include "parser.h"
 #include "resolve.h"
+#include "builtin.h"
 
 void		print_process(t_list *node)
 {
@@ -106,4 +107,5 @@ void		shell_exit_routine(t_registry *shell)
 {
 	if (shell->option.option & DEBUG_OPT)
 		close(ft_atoi(get_intern_var(shell, INT_DBG_FD)));
+	free_registry(shell);
 }

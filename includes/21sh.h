@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/30 11:41:55 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:54:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 /////////////////////
 
 void			define_default_signals(t_registry *shell);
+void			free_registry(t_registry *shell);
 
 int8_t			init_shell(t_registry *shell);
 int8_t			shell_usage(void);
