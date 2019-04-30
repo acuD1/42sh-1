@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 12:09:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/29 18:11:04 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/30 14:24:04 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void	hash_builtin(t_registry *reg)
 	ft_hmap_insert(&(reg->blt_hashmap), "export", export_blt);
 	ft_hmap_insert(&(reg->blt_hashmap), "set", set_blt);
 	ft_hmap_insert(&(reg->blt_hashmap), "unset", unset_blt);
+	ft_hmap_insert(&(reg->blt_hashmap), "pwd", pwd_blt);
 }
 
 int8_t			hash_blt(t_registry *reg, char **av)

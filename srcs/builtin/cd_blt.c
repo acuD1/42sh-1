@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/26 17:29:45 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 14:43:32 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ static int8_t		change_directory(t_registry *shell, char *curpath,
 	char		*old_pwd;
 	struct stat	stat;
 
-	if ((old_pwd = ft_strdup(get_env_var(shell, "PWD"))) == NULL)
-		old_pwd = getcwd(old_pwd, PATH_MAX);
+	old_pwd = get_pwd(shell, NO_OPT);
 	if (access(curpath, F_OK) != SUCCESS)
 		ft_dprintf(2, "cd: no such file or directory: %s\n", path_give_by_user);
 	else if (lstat(curpath, &stat) == FAILURE)
