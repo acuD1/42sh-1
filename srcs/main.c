@@ -29,8 +29,6 @@ int8_t		shell_usage(void)
 
 static void	launch_shell(t_registry *shell)
 {
-	char	*command;
-
 	if ((shell->option.option & COMMAND_OPT) == FALSE
 		&& isatty(STDIN_FILENO) != 0)
 	{
@@ -42,14 +40,7 @@ static void	launch_shell(t_registry *shell)
 	}
 	else
 	{
-		command = ((shell->option.option & COMMAND_OPT) != FALSE
-				? shell->option.command_str : read_input(STDIN_FILENO));
-		if (command != NULL)
-		{
-			//execution_pipeline(shell, lexer(command));
-		}
-		else
-			ft_printf("[CRITICAL] - No valid input to execute.\n");
+		//execution_pipeline(shell, lexer(shell->option.command_str));
 	}
 }
 
@@ -63,8 +54,7 @@ int			main(int ac, char **av, char **env)
 		return (FAILURE);
 	if (init_shell(&shell) == FAILURE)
 		return (FAILURE);
-	if (ac == 1)
-		launch_shell(&shell);
+	launch_shell(&shell);
 	// Clean all intern variables
 	// Clean all environment variables
 	shell_exit_routine(&shell);

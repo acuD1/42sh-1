@@ -99,7 +99,7 @@ static int8_t	parse_arg(char **av, t_opt *option)
 	return (SUCCESS);
 }
 
-int				set_environment(t_registry *shell, char **av, char **env)
+int8_t			set_environment(t_registry *shell, char **av, char **env)
 {
 	if (*av)
 	{

@@ -30,7 +30,7 @@
 */
 
 int8_t			init_shell(t_registry *shell);
-int				set_environment( t_registry *shell, char **av, char **env);
+int8_t			set_environment( t_registry *shell, char **av, char **env);
 int8_t			shell_usage(void);
 void			shell_exit_routine(t_registry *shell);
 
