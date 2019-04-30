@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/30 11:34:06 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/30 13:55:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	launch_shell(t_registry *shell)
 				? shell->option.command_str : read_input(STDIN_FILENO));
 		if (command != NULL)
 		{
-			//execution_pipeline(shell, lexer(command));
+			execution_pipeline(shell, lexer(command));
 		}
 		else
 			ft_printf("[CRITICAL] - No valid input to execute.\n");
@@ -59,13 +59,14 @@ int			main(int ac, char **av, char **env)
 {
 	t_registry		shell;
 
+	(void)ac;
 	ft_bzero(&shell, sizeof(t_registry));
 	g_shell = &shell;
 	if (set_environment(&shell, av + 1, env) == FAILURE)
 		return (FAILURE);
 	if (init_shell(&shell) == FAILURE)
 		return (FAILURE);
-	if (ac == 1)
+//	if (ac == 1)
 		launch_shell(&shell);
 	// Clean all intern variables
 	// Clean all environment variables

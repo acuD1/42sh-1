@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 11:42:11 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/30 13:34:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,23 @@ int					launch_shell_prompt(t_registry *shell)
 {
 	char		*input;
 
+	define_interface_signal_behavior(shell);
 	if (get_input(shell, &input) == FAILURE)
 	{
 		cleanup_interface(shell);
 		return (FAILURE);
 	}
 	update_history(shell, input);
+
+//	define_execution_signals(shell);
 	execution_pipeline(shell, lexer(input));
 	return (SUCCESS);
 }
 
 void				launch_interface(t_registry *shell)
 {
-//	g_shell = shell;
 	log_print(shell, LOG_INFO, "Starting interface.\n");
-	define_interface_signal_behavior(shell);
 	while (launch_shell_prompt(shell) == SUCCESS)
 		cleanup_interface(shell);
-	define_default_signals(shell);
 	restore_term_behavior(shell);
 }
