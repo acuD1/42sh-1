@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:42:24 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/24 16:42:26 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:13:54 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,20 @@ static void	set_graph_node(t_graph *node, enum e_type type, int nb_of_good_type,
 
 void		set_start_token(t_graph *tab_tokens)
 {
-	static enum	e_type tab_good_type[12] = {ALL, E_END, E_ASSIGN};
+	static enum	e_type tab_good_type[14] = {ALL, AND_REDIRECT, E_END, E_ASSIGN};
 	int			nb_of_good_type;
-	
-	nb_of_good_type = 12;
+
+	nb_of_good_type = 14;
 	set_graph_node(tab_tokens, E_START, nb_of_good_type, tab_good_type);
+	set_graph_node(tab_tokens, E_SEMICOLON, nb_of_good_type, tab_good_type);
 }
 
 void		set_word_token(t_graph *tab_tokens)
 {
-	static enum e_type tab_good_type[14] = {ALL_END, E_ASSIGN, PIPELINE};
+	static enum e_type tab_good_type[16] = {ALL_END, E_ASSIGN, AND_REDIRECT, PIPELINE};
 	int			nb_of_good_type;
 
-	nb_of_good_type = 14;
+	nb_of_good_type = 16;
 	set_graph_node(tab_tokens, E_STRING, nb_of_good_type, tab_good_type);
 	set_graph_node(tab_tokens, E_BACKSLASH, nb_of_good_type, tab_good_type);
 	set_graph_node(tab_tokens, E_EXP, nb_of_good_type, tab_good_type);
@@ -61,15 +62,6 @@ void		set_assign_token(t_graph *tab_tokens)
 
 	nb_of_good_type = 5;
 	set_graph_node(tab_tokens, E_ASSIGN, nb_of_good_type, tab_good_type);
-}
-
-void		set_semicolon_token(t_graph *tab_tokens)
-{
-	static enum e_type tab_good_type[12] = {ALL, E_END, E_ASSIGN};
-	int			nb_of_good_type;
-
-	nb_of_good_type = 12;
-	set_graph_node(tab_tokens, E_SEMICOLON, nb_of_good_type, tab_good_type);
 }
 
 void		set_pipe_token(t_graph *tab_tokens)

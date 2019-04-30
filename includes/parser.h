@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/29 15:41:49 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:14:18 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void		set_start_token(t_graph *tab_tokens);
 void		set_word_token(t_graph *tab_tokens);
 void		set_redirect_token(t_graph *tab_tokens);
 void		set_assign_token(t_graph *tab_tokens);
-void		set_semicolon_token(t_graph *tab_tokens);
 void		set_pipe_token(t_graph *tab_tokens);
 void		set_ionumber_token(t_graph *tab_tokens);
 
