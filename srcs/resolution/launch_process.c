@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 10:12:33 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/30 11:42:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,12 @@ static void	execute_process(t_process *process, t_registry *shell)
 		execve(ft_hmap_getdata(&shell->bin_hashmap, process->av[0])
 									, process->av, environ);
 	else
-		execve(process->av[0], process->av, environ);
-
-	////////////////////// DEBUG ERROR ///////////////////////
-	if ((shell->option.option & DEBUG_OPT) != FALSE)
 	{
-		ft_dprintf(2, "\x1b[31m[ERROR] - Execution failed: %s.\x1b[0m\n\n",
-				process->av[0]);
+		ft_printf();
+		execve(process->av[0], process->av, environ);
 	}
+	////////////////////// DEBUG ERROR ///////////////////////
+	ft_dprintf(2, "21sh: command not found: %s\n", process->av[0]);
 	//////////////////////////////////////////////////////////
 
 	exit(FAILURE);
