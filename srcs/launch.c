@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/30 12:47:20 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/30 13:32:54 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int				set_environment(t_registry *shell, char **av, char **env)
 	shell->bin_hashmap = ft_hmap_init(4096);
 	shell->blt_hashmap = ft_hmap_init(32);
 	//wtf
+	hash_blt(shell, NULL);
 	return (hash_blt(shell, NULL));
 }
 
