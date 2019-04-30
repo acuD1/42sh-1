@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/30 10:12:26 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/30 10:14:51 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ static void	launch_shell(t_registry *shell)
 				? shell->option.command_str : read_input(STDIN_FILENO));
 		if (command != NULL)
 		{
-			//execution_pipeline(shell, lexer(command));
+			ft_printf("Coucou\n");
+			exit(0);
+			execution_pipeline(shell, lexer(command));
 		}
 		else
 			ft_printf("[CRITICAL] - No valid input to execute.\n");
