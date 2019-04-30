@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 16:13:18 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/26 16:41:17 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/29 17:44:45 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,16 @@ void		print_token(t_list *list)
 	{
 		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
 				token->type, "END", token->data);
+	}
+	else if (token->type == E_QEXP)
+	{
+		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
+				token->type, "\"$", token->data);
+	}
+	else if (token->type == E_QTILDE)
+	{
+		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
+				token->type, "\"~", token->data);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 14:14:24 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 21:11:33 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ enum	e_lexer_state
 		SQTE,
 		DQTE,
 		BQTE,
+		AND,
 		OUT,
 		END,
 		FINISH
@@ -110,6 +111,11 @@ enum	e_type
 		E_QSTRING,
 		E_ASSIGN,
 		E_END,
+		E_QEXP,
+		E_QTILDE,
+		E_DGREATAND,
+		E_ANDGREAT,
+		E_ANDLESS,
 		E_DEFAULT,
 		E_ERROR
 };
@@ -137,14 +143,20 @@ enum	e_parser_state
 		P_ERROR,
 		P_STRING,
 		P_QUOTE,
+		P_EXP,
+		P_DB_QUOTE,
+		P_DB_QUOTE_CONCAT,
 		P_STRING_FLUSH,
 		P_SEPARATOR,
 		P_REDIRECT,
+		P_REDIRECT_FLUSH,
 		P_FILENAME,
 		P_IO,
+		P_IO_REDIRECT,
+		P_IO_FILENAME,
+		P_IO_FLUSH,
 		P_PIPE,
-		P_REDIRECT_FLUSH,
-		P_HEREDOC
+		P_HEREDOC,
 };
 
 enum	e_event

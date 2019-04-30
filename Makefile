@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/30 16:33:10 by skuppers         ###   ########.fr        #
+#    Updated: 2019/04/30 21:10:55 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -260,6 +260,7 @@ PARSER_SRCS += init.c
 PARSER_SRCS += string_parser.c
 PARSER_SRCS += quote_parser.c
 PARSER_SRCS += redirect_parser.c
+PARSER_SRCS += expansion_parser.c
 PARSER_SRCS += lexer_parser_interface.c
 
 TOOLS_SRCS += list_functions.c

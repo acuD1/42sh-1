@@ -6,12 +6,22 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 22:07:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/29 15:37:01 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 21:09:15 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include "parser.h"
+
+int		find_variable(void *data, void *to_find)
+{
+	t_variable *variable;
+	char		*name;
+
+	name = to_find;
+	variable = data;
+	return (ft_strequ(variable->name, name));
+}
 
 void	delete_process(void *data)
 {
@@ -39,10 +49,10 @@ void	delete_job(void *data)
 char	*variable_to_str(void *data)
 {
 	char	*string;
-	t_node	*variable;
+	t_variable	*variable;
 
 	variable = data;
 	string = NULL;
-	ft_asprintf(&string, "%s=%s", variable->var, variable->data);
+	ft_asprintf(&string, "%s=%s", variable->name, variable->data);
 	return (string);
 }
