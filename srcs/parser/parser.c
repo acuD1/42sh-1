@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/29 16:59:15 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 15:24:01 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_registry	*g_shell;
 
 static int	need_subprompt(enum e_type state, enum e_type type)
 {
-	if (state == E_PIPE && type == E_END)
+	if (state == E_PIPE && type == E_END && g_shell->is_interactive == TRUE)
 		return (TRUE);
 	return (FALSE);
 }

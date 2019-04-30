@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 14:43:32 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:55:52 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void			set_oldpwd_and_pwd(t_registry *shell, char *curpath,
 	if (option & P_OPT)
 	{
 		pwd = NULL;
-		pwd = getcwd(pwd, PATH_MAX);
+		pwd = getcwd(NULL, PATH_MAX);
 		add_env(shell, "PWD", pwd);
 		ft_strdel(&pwd);
 	}
@@ -78,6 +78,7 @@ static int8_t		change_directory(t_registry *shell, char *curpath,
 		ft_strdel(&curpath);
 		if (ft_strequ(path_give_by_user, "-") == TRUE)
 			ft_printf("%s\n", get_env_var(shell, "PWD"));
+		get_prompt_ps1(shell);
 		return (SUCCESS);
 	}
 	ft_strdel(&curpath);

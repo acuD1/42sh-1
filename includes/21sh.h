@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/30 11:41:55 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:55:50 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <signal.h>
 # include <sys/wait.h>
 /////////////////////
+
+void			get_prompt_ps1(t_registry *shell);
 
 void			define_default_signals(t_registry *shell);
 
