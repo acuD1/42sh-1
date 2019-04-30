@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/29 17:04:43 by nrechati         ###   ########.fr        #
+#    Updated: 2019/04/30 14:03:11 by ffoissey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -180,6 +180,7 @@ BUILTIN += type_blt.c
 BUILTIN += export_blt.c
 BUILTIN += set_blt.c
 BUILTIN += unset_blt.c
+BUILTIN += pwd_blt.c
 
 #						- - - - - Line edtion - - - - -                        #
 

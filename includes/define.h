@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/29 13:46:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/30 14:14:52 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define SH21_USAGE_2				"[--rcfile PATH] [-c CMD]\n"
 # define SH21_USAGE_LONG_OPTION		"\n\t--help\n\t--norc\n\t"
 # define SH21_USAGE_LONG_OPTION_2	"--version\n\t--debug\n"
+# define NO_OPT						0x000
 # define HELP_OPT					0x001
 # define COMMAND_OPT				0x002
 # define DEBUG_OPT					0x004
