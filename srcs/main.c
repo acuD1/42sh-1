@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/30 10:14:51 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/30 11:08:00 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,26 @@ int8_t		shell_usage(void)
 	return (FAILURE);
 }
 
+static int	stdin_build_cmd(t_registry *shell, char *command)
+{
+	int		i;
+	char	*non_interactive_cmd;
+	char	**tab;
+
+	i = 1;
+	non_interactive_cmd = NULL;
+	if ((tab = ft_strsplit(command, "\n")) == FALSE)
+		return (0);
+	ft_asprintf(&non_interactive_cmd, "%s", tab[0]);
+	while(tab[i] != FALSE)
+		ft_asprintf(&non_interactive_cmd, " ; %s", tab[i++]);
+	if (non_interactive_cmd == FALSE)
+		return (0);
+	execution_pipeline(shell, lexer(non_interactive_cmd));
+	free(non_interactive_cmd);
+	return (1);
+}
+
 static void	launch_shell(t_registry *shell)
 {
 	char	*command;
@@ -45,11 +65,7 @@ static void	launch_shell(t_registry *shell)
 		command = ((shell->option.option & COMMAND_OPT) != FALSE
 				? shell->option.command_str : read_input(STDIN_FILENO));
 		if (command != NULL)
-		{
-			ft_printf("Coucou\n");
-			exit(0);
-			execution_pipeline(shell, lexer(command));
-		}
+			stdin_build_cmd(shell, command);
 		else
 			ft_printf("[CRITICAL] - No valid input to execute.\n");
 	}
