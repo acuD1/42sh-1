@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:23:05 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/24 01:52:54 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 14:06:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void	lesser_machine(t_lexer *machine)
 	else if (*machine->input == '>' || *machine->input == '&')
 	{
 		if (*machine->buffer == '<' && *machine->input == '&' && ++checker)
-			machine->last_lexer = E_LESSAND;
+			machine->state = LESSAND;
 		else if (*machine->buffer == '<' && *machine->input == '>' && ++checker)
 			machine->last_lexer = E_LESSGREAT;
 	}
 	if (checker != FALSE)
 		++machine->input;
-	machine->state = OUT;
+	machine->state = machine->state == LESSAND ? LESSAND : OUT;
 }
 
 void	greater_machine(t_lexer *machine)
@@ -57,19 +57,41 @@ void	greater_machine(t_lexer *machine)
 	}
 	if (checker != FALSE)
 		++machine->input;
-	if (machine->state != GREATAND)
-		machine->state = OUT;
+	machine->state = machine->state == GREATAND ? GREATAND : OUT;
 }
 
 void	greatand_machine(t_lexer *machine)
 {
 	machine->last_lexer = E_GREATAND;
-	if (ft_isdigit(*machine->input) == TRUE || *machine->input == '-')
+	*machine->buffer = '\0';
+	if (*machine->input == '-')
 	{
-		*machine->buffer = '\0';
 		fill_buffer_output(machine);
 		++machine->input;
 	}
+	else
+		while (ft_isdigit(*machine->input))
+		{
+			fill_buffer_output(machine);
+			++machine->input;
+		}
 	machine->state = OUT;
+}
 
+void	lessand_machine(t_lexer *machine)
+{
+	machine->last_lexer = E_LESSAND;
+	*machine->buffer = '\0';
+	if (*machine->input == '-')
+	{
+		fill_buffer_output(machine);
+		++machine->input;
+	}
+	else
+		while (ft_isdigit(*machine->input))
+		{
+			fill_buffer_output(machine);
+			++machine->input;
+		}
+	machine->state = OUT;
 }

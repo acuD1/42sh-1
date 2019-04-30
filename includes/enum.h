@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/29 17:38:46 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 14:07:03 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ enum	e_lexer_state
 		SQTE,
 		DQTE,
 		BQTE,
+		AND,
 		OUT,
 		END,
 		FINISH
