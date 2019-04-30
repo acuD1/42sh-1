@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/27 14:35:28 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 21:01:30 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,27 @@ static void				ft_fill_with_new_value(t_registry *cpy_shell,
 						char ***arg)
 {
 	char		*equal;
-	t_node		*node;
+	t_variable		*variable;
 
 	while ((equal = ft_strchr(**arg, '=')) != NULL)
 	{
-		node = (t_node *)malloc(sizeof(t_node));
-		node->var = ft_strdup(**arg);
-		equal = ft_strchr(node->var, '=');
+		variable = (t_variable *)malloc(sizeof(t_variable));
+		variable->name = ft_strdup(**arg);
+		equal = ft_strchr(variable->name, '=');
 		*equal = '\0';
-		node->data = ft_strdup(ft_strchr(**arg, '=') + 1);
-		add_env(cpy_shell, node->var, node->data);
+		variable->data = ft_strdup(ft_strchr(**arg, '=') + 1);
+		add_env(cpy_shell, variable->name, variable->data);
 		(*arg)++;
-	//	if (node && node->var && ft_strequ(node->var, "PATH"))
+	//	if (variable && variable->name && ft_strequ(variable->name, "PATH"))
 	//		hash_blt(cpy_shell, *arg);
-		clear_node((void **)&node);
+		clear_node((void **)&variable);
 	}
 }
 
 static t_registry		*copy_registry(t_registry *shell, char ***arg,
 						t_option option)
 {
-	t_node		*node;
+	t_variable		*variable;
 	t_list		*lst;
 	t_registry	*cpy_shell;
 
@@ -66,13 +66,13 @@ static t_registry		*copy_registry(t_registry *shell, char ***arg,
 		lst = shell->env;
 		while (lst != NULL)
 		{
-			node = (t_node *)malloc(sizeof(t_node));
-			node->var = ft_strdup(((t_node *)(lst->data))->var);
-			node->data = ft_strdup(((t_node *)(lst->data))->data);
-			add_env(cpy_shell, node->var, node->data);
+			variable = (t_variable *)malloc(sizeof(t_variable));
+			variable->name = ft_strdup(((t_variable *)(lst->data))->name);
+			variable->data = ft_strdup(((t_variable *)(lst->data))->data);
+			add_env(cpy_shell, variable->name, variable->data);
 			lst = lst->next;
-			clear_node((void **)&node);
-			free(node);
+			clear_node((void **)&variable);
+			free(variable);
 		}
 	}
 	ft_fill_with_new_value(cpy_shell, arg);
@@ -98,7 +98,7 @@ int8_t				env_blt(t_registry *shell, char **av)
 	if (*av == NULL)
 		print_lst(&cpy_shell->env);
 	free_lst(&(cpy_shell->env));
-/////////////////////////////// SEND TO EXECUTION //////////////////// 	
+/////////////////////////////// SEND TO EXECUTION ////////////////////
 /////////////////////////////// exec(cpy_shell, av); //////////////////
 	free(cpy_shell);
 	cpy_shell = NULL;

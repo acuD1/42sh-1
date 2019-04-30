@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 17:29:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 20:43:25 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@
 *****************************************************
 */
 
-# define PARSE_STATES				17
+# define PARSE_STATES				20
 # define STARTING					14
 # define STRING_TOKENS				16
 # define BACKSLASH 					E_BACKSLASH

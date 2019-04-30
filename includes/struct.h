@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 13:26:21 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 20:52:59 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,11 +189,11 @@ typedef struct 			s_opt
 //	char				*rc_path;
 }						t_opt;
 
-typedef struct			s_node
+typedef struct			s_variable
 {
-	char				*var;
+	char				*name;
 	char				*data;
-}						t_node;
+}						t_variable;
 
 struct					s_registry
 {

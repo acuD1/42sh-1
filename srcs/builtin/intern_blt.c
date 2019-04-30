@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:23:09 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/26 19:18:03 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 20:56:31 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,25 @@ static void			ft_strlower(char *str)
 static void			find_intern_variable(t_registry *shell, char **av,
 						char *(*get_var)(t_registry *shell, char *name))
 {
-	char	*var;
+	char	*name;
 	char	*tmp;
 
 	while (*av != NULL)
 	{
 		if ((tmp = ft_strdup(*av)) == NULL)
 			return ;
-		if ((var = get_var(shell, *av)) == NULL)
+		if ((name = get_var(shell, *av)) == NULL)
 		{
 			ft_strupper(*av);
-			if ((var = get_var(shell, *av)) == NULL)
+			if ((name = get_var(shell, *av)) == NULL)
 			{
 				ft_strlower(*av);
-				if ((var = get_var(shell, *av)) == NULL)
+				if ((name = get_var(shell, *av)) == NULL)
 					ft_dprintf(2, "21sh: intern: %s: not set\n", tmp);
 			}
 		}
-		if (var != NULL)
-			ft_printf("%s=%s\n", *av, var, *(av + 1));
+		if (name != NULL)
+			ft_printf("%s=%s\n", *av, name, *(av + 1));
 		ft_strdel(&tmp);
 		av++;
 	}
