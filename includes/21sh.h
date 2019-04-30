@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/29 14:50:51 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 11:41:55 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <signal.h>
 # include <sys/wait.h>
 /////////////////////
+
+void			define_default_signals(t_registry *shell);
 
 int8_t			init_shell(t_registry *shell);
 int8_t			shell_usage(void);

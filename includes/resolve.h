@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:50 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 16:21:46 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 11:37:54 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "define.h"
 # include "struct.h"
 
+void		define_execution_signals(t_registry *shell);
 
 void		launch_job(t_registry *shell, t_list *joblst);
 void		setup_pipes(t_job *j, t_list *p, t_filedesc *io, int pipe[2]);

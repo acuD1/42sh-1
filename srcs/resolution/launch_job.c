@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:51 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 18:54:02 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/30 11:46:02 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void			launch_job(t_registry *shell, t_list *job_lst)
 	t_job			*current_job;
 	t_list			*process;
 
-	restore_term_behavior(shell);
+	if (shell->is_interactive == TRUE)
+	{
+		restore_term_behavior(shell);
+	}
 	g_job_head = job_lst;
 	current_job = ((t_job *)job_lst->data);
 	process = current_job->process_list; /**/
@@ -44,5 +47,9 @@ void			launch_job(t_registry *shell, t_list *job_lst)
 		process = process->next;
 	}
 	wait_for_job(current_job);
-	set_term_behavior(shell);
+	if (shell->is_interactive == TRUE)
+	{
+		set_term_behavior(shell);
+//		define_interface_signal_behavior(shell);
+	}
 }
