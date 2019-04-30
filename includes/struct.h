@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 16:46:00 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 19:34:42 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ typedef struct			s_interface
 	t_history			*hist_ptr;
 	char				*current_line;
 	char				*state;
+	int8_t				int_state;
 	unsigned long		ak_masks[AK_AMOUNT];
 	int8_t				(*tc_call[AK_AMOUNT])(struct s_registry *shell);
 }						t_interface;

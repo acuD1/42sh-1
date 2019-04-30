@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 16:55:49 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 20:11:34 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,35 @@ void			get_prompt_ps1(t_registry *shell)
 	char			*pwd;
 	t_interface 	*itf;
 	char			*state;
-	char			*prompt;
 
 	itf = &shell->interface;
 	state = get_intern_var(shell, itf->state);
-	prompt = NULL;
 	pwd = get_pwd(shell, NO_OPT);
 	if (pwd != NULL)
 		pwd = get_last_directory_of_pwd(&pwd);
 	if (pwd == NULL)
-		add_internal(shell, "PS1", "[21sh] -> ");
+		add_internal(shell, INT_PS1, INT_PS1_VALUE);
 	else
 	{
-		ft_asprintf(&prompt, "[ \033[32m%s\033[0m ] -> ", pwd);
+		add_internal(shell, INT_PS1, pwd);
 		ft_strdel(&pwd);
-		add_internal(shell, "PS1", prompt);
-		ft_strdel(&prompt);
 	}
+}
+
+static void		print_prompt(t_registry *shell)
+{
+	t_interface 	*itf;
+	char			*prompt;
+
+	itf = &shell->interface;
+	prompt = get_intern_var(shell, itf->state);
+	if (ft_strequ(prompt, INT_PS1_VALUE) == TRUE
+		|| ft_strequ(prompt, INT_PS2_VALUE) == TRUE
+		|| ft_strequ(prompt, INT_PS3_VALUE) == TRUE
+		|| ft_strequ(prompt, INT_PS4_VALUE) == TRUE)
+		ft_dprintf(STDOUT_FILENO, "\n%s", prompt);
+	else
+		ft_dprintf(STDOUT_FILENO, "\n[ \033[32m%s\033[0m ] -> ", prompt);
 }
 
 char			*prompt(t_registry *shell)
@@ -69,7 +81,7 @@ char			*prompt(t_registry *shell)
 
 	itf = &shell->interface;
 	ft_bzero(character, READ_SIZE);
-	ft_dprintf(STDOUT_FILENO, "\n%s", get_intern_var(shell, itf->state));
+	print_prompt(shell);
 	itf->hist_ptr = NULL;
 	while (character[0] != IFS_CHAR)
 	{

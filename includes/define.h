@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 14:14:52 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 20:09:05 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@
 # define INT_PS4_VALUE				"heredoc> "
 # define INT_ESCAPE_SEQ_VALUE		"\\"
 # define INT_MAGIC_NUMBER			"4242"
+# define PS1_COLOR_START			"[ \033[32m"
+# define PS1_COLOR_END				"\033[0m ] -> "
 
 /*
 *****************************************************
