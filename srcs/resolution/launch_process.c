@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 13:52:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/30 14:05:14 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static void	execute_process(t_process *process, t_registry *shell)
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
 	{
 		ft_dprintf(2, "\n\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
-	signal(SIGINT, SIG_DFL); // way more
 				process->av[0], fd.in, fd.out, fd.err);
 		ft_dprintf(2, "\x1b[35m[OUTPUT]: _______________________\n\x1b[0m\n");
 	}
