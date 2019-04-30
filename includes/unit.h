@@ -13,18 +13,16 @@
 #ifndef UNIT_21_SH
 # define UNIT_21_SH
 
-#include "21sh.h"
-#include "log.h"
-#include "interface_functions.h"
-#include <stdlib.h>
+# include "21sh.h"
+# include "log.h"
+# include "interface_functions.h"
+# include <stdlib.h>
 
 t_result	test_virt_registry(int print_on);
 t_result	test_clipboard_copy(int print_on);
 t_result	test_clipboard_cut(int print_on);
 t_result	test_clipboard_paste(int print_on);
-
-int			create_virtual_registry(t_registry **sh, t_interface **itf);
-
 t_result	basic_lexer_test(int print_on);
+int			create_virtual_registry(t_registry **sh, t_interface **itf);
 
 #endif

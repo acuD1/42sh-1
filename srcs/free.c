@@ -12,7 +12,7 @@
 
 #include "21sh.h"
 
-void	clear_node(void **data)
+void			clear_node(void **data)
 {
 	t_node	*ptr;
 
@@ -21,14 +21,13 @@ void	clear_node(void **data)
 	free(ptr->data);
 }
 
-int		free_anode(t_list *ptr)
+static void		free_anode(t_list *ptr)
 {
 	clear_node(&ptr->data);
 	free(ptr->data);
-	return (SUCCESS);
 }
 
-int		del_node(t_list *ptr, char *var)
+static int8_t	del_node(t_list *ptr, char *var)
 {
 	t_list	*tmp;
 
@@ -49,7 +48,7 @@ int		del_node(t_list *ptr, char *var)
 	return (FAILURE);
 }
 
-int		free_node(t_list **alst, char *var)
+int8_t			free_node(t_list **alst, char *var)
 {
 	t_list	*ptr;
 	t_node	*env;
@@ -66,7 +65,7 @@ int		free_node(t_list **alst, char *var)
 	return (del_node(ptr, var));
 }
 
-int		free_lst(t_list **alst)
+int8_t			free_lst(t_list **alst)
 {
 	t_list	*ptr;
 	t_list	*tmp;

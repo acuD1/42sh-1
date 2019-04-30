@@ -12,6 +12,7 @@
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
 # include "define.h"
 # include "libft.h"
 # include "enum.h"
@@ -24,7 +25,6 @@
 
 typedef uint16_t		t_option;
 typedef t_option		(*t_get_option)(char *s, t_option option);
-
 
 /*
 *****************************************************
@@ -211,7 +211,7 @@ struct					s_registry
 
 typedef int 			(*t_builtin)(t_registry *, char **);
 
-extern t_registry	*g_shell;
+extern t_registry		*g_shell;
 
 /*
 *****************************************************
@@ -219,7 +219,7 @@ extern t_registry	*g_shell;
 *****************************************************
 */
 
-extern t_list		*g_job_head;
+extern t_list			*g_job_head;
 
 #endif
 

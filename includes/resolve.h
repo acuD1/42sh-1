@@ -20,7 +20,6 @@
 # include "define.h"
 # include "struct.h"
 
-
 void		launch_job(t_registry *shell, t_list *joblst);
 void		setup_pipes(t_job *j, t_list *p, t_filedesc *io, int pipe[2]);
 void		cleanup_pipes(t_job *job, t_filedesc *io);

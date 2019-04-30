@@ -36,7 +36,6 @@ uint8_t 					is_too_long(t_vector *a, t_vector *b, uint32_t max);
 uint8_t						is_only_whitespaces(char *buffer);
 int8_t						init_termcap_calls(t_termcaps *termcp);
 
-
 int8_t						load_interface(t_registry *shell);
 void						unload_interface(t_interface *itf);
 
