@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_blt.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 11:26:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/27 13:34:55 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 13:41:42 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	free_hash(t_hash hashmap, void (*del)(void *))
 {
 	ft_hmap_free_content(&hashmap, del);
 	free(hashmap.map);
+	hashmap.map = NULL;
 }
 
 static void	free_registry(t_registry *reg)
