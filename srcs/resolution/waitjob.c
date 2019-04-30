@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:02:11 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 13:56:35 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:15:59 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int8_t		set_process_status(t_process *process, pid_t pid, int status)
 							, pid, WTERMSIG(process->status));
 			return (FAILURE);
 		}
-
 	}
 	return (SUCCESS);
 }
@@ -48,7 +47,7 @@ int8_t		update_process_status(pid_t pid, int status)
 		{
 			if (((t_process*)process->data)->pid == pid)
 				return (set_process_status(((t_process*)process->data)
-							, pid, status));
+						, pid, status));
 			process = process->next;
 		}
 		job = job->next;
