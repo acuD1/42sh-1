@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 17:55:06 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/30 13:40:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	print_process(t_list *node)
 
 int8_t		init_shell(t_registry *shell)
 {
+	g_shell = shell;
 	init_debug_logger(shell);
 	print_opt(shell);
 	init_parsing(shell->parsing);
@@ -83,7 +84,7 @@ int8_t	execution_pipeline(t_registry *shell, t_list *token_list)
 	while (parse.token_list)
 	{
 		init_parser(shell, &parse);
-		parse.job_list = parser_state(shell->parsing, &parse);
+		shell->current_job = parser_state(shell->parsing, &parse);
 
 		////////////////////// DEBUG PARSER ///////////////////////
 		if ((shell->option.option & DEBUG_OPT) != FALSE)
@@ -94,7 +95,7 @@ int8_t	execution_pipeline(t_registry *shell, t_list *token_list)
 			ft_putendl("------------------------------------\033[0m\n");
 		}
 		///////////////////////////////////////////////////////////
-		
+
 		launch_job(shell, parse.job_list);
 		delete_parser(&parse);
 	}

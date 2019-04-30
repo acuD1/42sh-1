@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/29 15:11:56 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 13:38:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,16 +197,16 @@ typedef struct			s_node
 
 struct					s_registry
 {
+	uint8_t				is_interactive;
 	t_opt				option;
 	t_list				*env;
 	t_list				*intern;
 	t_hash				bin_hashmap;
 	t_hash				blt_hashmap;
-	struct s_interface	interface;
-	//TODO: move t_job head here for exit and global
-	//t_list			*job_list;
 	t_graph				graph[NB_OF_TOKENS];
 	t_pstate			parsing;
+	t_list				*current_job;
+	struct s_interface	interface;
 };
 
 typedef int 			(*t_builtin)(t_registry *, char **);

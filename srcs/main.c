@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/30 11:43:48 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/30 13:55:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static void	launch_shell(t_registry *shell)
 	if ((shell->option.option & COMMAND_OPT) == FALSE
 		&& isatty(STDIN_FILENO) != 0)
 	{
+		shell->is_interactive = TRUE;
 		if ((load_interface(shell)) == SUCCESS)
 			launch_interface(shell);
 		else
@@ -62,6 +63,7 @@ static void	launch_shell(t_registry *shell)
 	}
 	else
 	{
+		shell->is_interactive = FALSE;
 		command = ((shell->option.option & COMMAND_OPT) != FALSE
 				? shell->option.command_str : read_input(STDIN_FILENO));
 		if (command != NULL)
