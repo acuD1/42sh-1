@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/01 01:17:59 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/01 17:01:21 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@
 */
 
 # define STATENBR					17
-# define TOKEN_WITH_DATA			6
+# define TOKEN_WITH_DATA			4
 # define NB_OF_TOKENS				51
 # define BUFFER						1024
 # define SINGLE_SIGNS				16

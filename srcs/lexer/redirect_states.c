@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:23:05 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/01 00:05:04 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/01 17:07:04 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,8 @@ void	greatand_machine(t_lexer *machine)
 {
 	machine->last_lexer = E_GREATAND;
 	*machine->buffer = '\0';
-	if (*machine->input == '-')
-	{
-		fill_buffer_output(machine);
-		++machine->input;
-	}
-	else
-		while (ft_isdigit(*machine->input))
-		{
-			fill_buffer_output(machine);
-			++machine->input;
-		}
+	if (machine->io_detect == 1)
+		machine->io_detect = 2;
 	machine->state = L_OUT;
 }
 
@@ -82,16 +73,7 @@ void	lessand_machine(t_lexer *machine)
 {
 	machine->last_lexer = E_LESSAND;
 	*machine->buffer = '\0';
-	if (*machine->input == '-')
-	{
-		fill_buffer_output(machine);
-		++machine->input;
-	}
-	else
-		while (ft_isdigit(*machine->input))
-		{
-			fill_buffer_output(machine);
-			++machine->input;
-		}
+	if (machine->io_detect == 1)
+		machine->io_detect = 2;
 	machine->state = L_OUT;
 }
