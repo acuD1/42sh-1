@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/01 01:22:13 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/01 18:15:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	and_machine(t_lexer *machine)
 			machine->input++;
 		}
 	}
+	else
+		ft_strncat(machine->buffer, "&", 1);
 	machine->state = L_OUT;
 }
 

@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 20:19:38 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/01 00:04:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/01 17:54:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,7 @@ t_token	generate_token(t_lexer *machine)
 		ft_bzero(machine->buffer, BUFFER);
 		machine->last_lexer = E_DEFAULT;
 	}
+	if (machine->io_detect)
+		--machine->io_detect;
 	return (token);
 }

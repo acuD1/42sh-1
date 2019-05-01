@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/01 00:04:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/01 17:57:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void	start_lexer(t_lexer *machine)
 {
-	if (machine->quote != QUOTE_OFF)
-		machine->state = L_DQTE;
-	else if (*machine->input == '\0')
+	if (*machine->input == '\0')
 		machine->state = L_END;
 	else if (*machine->input == ' ' || *machine->input == '\t')
 	{
+		machine->io_detect = 0;
 		while (*machine->input == ' ' || *machine->input == '\t')
 			++machine->input;
 	}

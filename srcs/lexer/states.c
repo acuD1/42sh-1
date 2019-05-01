@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 17:03:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/01 17:13:31 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/01 19:07:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,12 @@ void	number_machine(t_lexer *machine)
 {
 	if (ft_isdigit(*machine->input))
 	{
-		if (machine->io_detect == 0)
-			machine->io_detect = 1;
 		machine->last_lexer = E_IO_NUMBER;
 		ft_strncat(machine->buffer, machine->input, 1);
 		++machine->input;
 	}
-	else if (ft_strchr("&<>", *machine->input))
+	else if (ft_strchr("<>", *machine->input))
 		machine->state = L_OUT;
-	else if (machine->io_detect == 2)
-	{
-		machine->io_detect = 0;
-		machine->state = L_OUT;
-	}
 	else
 	{
 		machine->last_lexer = E_STRING;
