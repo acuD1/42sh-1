@@ -65,7 +65,6 @@ static void		init_lexer(t_lexer *machine)
 t_list			*lexer(char *input)
 {
 	t_lexer	machine;
-	char	*cpy;
 
 	if (input == NULL)
 		return (NULL);
@@ -73,11 +72,8 @@ t_list			*lexer(char *input)
 		input++;
 	if (*input == '\0')
 		return (NULL);
-	cpy = ft_strdup(input);
 	init_lexer(&machine);
-	machine.input = cpy;
 	while (machine.state != L_FINISH)
 		machine.process[machine.state](&machine);
-	ft_strdel(&cpy);
 	return (machine.tokens);
 }
