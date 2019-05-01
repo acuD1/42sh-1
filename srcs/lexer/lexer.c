@@ -73,6 +73,7 @@ t_list			*lexer(char *input)
 	if (*input == '\0')
 		return (NULL);
 	init_lexer(&machine);
+	machine.input = input;
 	while (machine.state != L_FINISH)
 		machine.process[machine.state](&machine);
 	return (machine.tokens);
