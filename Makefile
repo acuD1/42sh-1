@@ -114,7 +114,7 @@ CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
 CFLAGS += $(IFLAGS)
-DFLAGS = $(CFLAGS) -fsanitize=address,undefined
+DFLAGS = $(CFLAGS) -fsanitize=address,undefined,leak
 LFLAGS = -ltermcap
 
 # ---------------------------------------------------------------------------- #
@@ -308,7 +308,7 @@ $(LIB) : FORCE
 #					 - - - - Unit test Compilation - - - -                     #
 
 $(NAMET) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJT)
-	$(LINK) $(CFLAGS)  $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address -o  $@ $(OBJT) $(OBJS)
+	$(LINK) $(CFLAGS)  $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address,undefined,leak -o  $@ $(OBJT) $(OBJS)
 	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
 $(OBJT) : $(OPATH)%.o : %.c $(INCS)

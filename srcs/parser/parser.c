@@ -49,15 +49,21 @@ static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
 	return (FALSE);
 }
 
-static int8_t	state_is_ok(enum e_type to_find, enum e_type possible_state[])
+static int8_t	state_is_ok(enum e_type to_find, enum e_type *current,
+							enum e_type possible_state[])
 {
 	uint8_t		i;
 
 	i = 0;
+	if (possible_state == NULL)
+		return (FALSE);
 	while (possible_state[i] != E_ERROR)
 	{
 		if (to_find == possible_state[i])
+		{
+			*current = to_find;
 			return (TRUE);
+		}
 		i++;
 	}
 	return (FALSE);
@@ -74,7 +80,7 @@ int8_t			parser(t_graph *graph, t_list *lst)
 	while (lst != NULL)
 	{
 		token = (t_token *)lst->data;
-		if ((state_is_ok(token->type, graph[state].good_type)) == FALSE)
+		if ((state_is_ok(token->type, &state, graph[state].good_type)) == FALSE)
 		{
 			if (manage_error_and_subprompt(state, token->type, &tmp) == FALSE)
 				return (FAILURE);
@@ -82,7 +88,6 @@ int8_t			parser(t_graph *graph, t_list *lst)
 		}
 		else
 			tmp = lst;
-		state = token->type;
 		lst = lst->next;
 	}
 	return (SUCCESS);
