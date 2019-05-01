@@ -116,19 +116,6 @@
 # define QUOTE_INTERUPT				"\\\"`$"
 # define EXP_INTERUPT				" \t\'\"`"
 # define DOUBLE_SIGN				"&|;=!"
-# define CASE						"case"
-# define DO							"do"
-# define DONE						"done"
-# define ELIF						"elif"
-# define ELSE						"else"
-# define ESAC						"esac"
-# define FI							"fi"
-# define FOR						"for"
-# define IF							"if"
-# define IN							"in"
-# define THEN						"then"
-# define UNTIL						"until"
-# define WHILE						"while"
 
 /*
 *****************************************************
@@ -137,8 +124,6 @@
 */
 
 # define PARSE_STATES				20
-# define STARTING					14
-# define STRING_TOKENS				16
 
 # define REDIR						E_GREAT, E_LESS
 # define REDIR_AND					E_GREATAND, E_LESSAND, E_ANDLESS, E_ANDGREAT
