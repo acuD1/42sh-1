@@ -13,9 +13,11 @@
 #include "21sh.h"
 #include "parser.h"
 
+t_registry	*g_shell;
+
 void	error_parser(t_parser *parse)
 {
-	ft_printf("Error on token type %d\n", parse->token.type);
+	ft_printf("Error on token %s\n", g_shell->grammar[parse->token.type]);
 	parse->state = P_ERROR;
 }
 
