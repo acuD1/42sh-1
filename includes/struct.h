@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 21:11:46 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/01 16:35:00 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ struct					s_lexer
 	enum e_type			duplicate[TOKEN_WITH_DATA];
 	enum e_type			special_signs[SPECIAL_SIGNS];
 	t_list				*tokens;
+	int					io_detect;
 	enum e_lexer_state	state;
 	enum e_quote		quote;
 	enum e_type			last_lexer;
