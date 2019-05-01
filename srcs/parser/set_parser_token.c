@@ -29,8 +29,6 @@ void		set_word_token(t_graph *tab_tokens)
 	tab_tokens[E_STRING].good_type = tab_good_type;
 	tab_tokens[E_SPSTRING].good_type = tab_good_type;
 	tab_tokens[E_DB_QUOTE].good_type = tab_good_type;
-	tab_tokens[E_DLESSDASH].good_type = tab_good_type;
-	tab_tokens[E_DGREATAND].good_type = tab_good_type;
 }
 
 void		set_redirect_token(t_graph *tab_tokens)
@@ -41,16 +39,12 @@ void		set_redirect_token(t_graph *tab_tokens)
 	tab_tokens[E_DGREAT].good_type = tab_good_type;
 	tab_tokens[E_LESS].good_type = tab_good_type;
 	tab_tokens[E_DLESS].good_type = tab_good_type;
-}
-
-void		set_and_redirect_token(t_graph *tab_tokens)
-{
-	static enum	e_type tab_good_type[] = {WORD, E_IO_NUMBER, E_ERROR};
-
 	tab_tokens[E_GREATAND].good_type = tab_good_type;
 	tab_tokens[E_LESSAND].good_type = tab_good_type;
 	tab_tokens[E_ANDGREAT].good_type = tab_good_type;
 	tab_tokens[E_ANDLESS].good_type = tab_good_type;
+	tab_tokens[E_DLESSDASH].good_type = tab_good_type;
+	tab_tokens[E_ANDDGREAT].good_type = tab_good_type;
 }
 
 void		set_assign_token(t_graph *tab_tokens)

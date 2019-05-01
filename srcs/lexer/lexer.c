@@ -45,7 +45,7 @@ static void		init_special(t_lexer *machine)
 	machine->special_signs[9] = E_CLOBBER;
 	machine->special_signs[10] = E_DEQ;
 	machine->special_signs[11] = E_NOTEQ;
-	machine->special_signs[12] = E_DGREATAND;
+	machine->special_signs[12] = E_ANDDGREAT;
 }
 
 static void		init_lexer(t_lexer *machine)

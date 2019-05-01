@@ -69,7 +69,7 @@ void	and_machine(t_lexer *machine)
 		machine->input++;
 		if (machine->last_lexer == E_ANDGREAT && *machine->input == '>')
 		{
-			machine->last_lexer = E_DGREATAND;
+			machine->last_lexer = E_ANDDGREAT;
 			machine->input++;
 		}
 	}
