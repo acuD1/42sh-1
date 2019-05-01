@@ -40,7 +40,7 @@ void	string_special(t_lexer *machine)
 
 void	string_machine(t_lexer *machine)
 {
-	if (!*machine->input)
+	if (*machine->input == '\0')
 		machine->state = L_START;
 	if (ft_strchr(LETTER_INTERUPT, *machine->input) != NULL)
 		machine->state = L_OUT;

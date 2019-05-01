@@ -76,9 +76,10 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 		ft_putendl("------------------------------------\033[0m");
 	}
 	///////////////////////////////////////////////////////////
-	return(SUCCESS);
-	if (!token_list || parser(shell->graph, token_list))
+	if (token_list == NULL || parser(shell->graph, token_list) == FAILURE)
 		return (FAILURE);
+	////////////////////////////////// RETURN
+	return (SUCCESS);
 	ft_bzero(&parse, sizeof(t_parser));
 	parse.token_list = token_list;
 	get_token(&parse);

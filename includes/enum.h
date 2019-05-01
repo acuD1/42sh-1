@@ -54,8 +54,6 @@ enum	e_lexer_state
 
 enum	e_type
 {
-		E_STRING,
-		E_SPSTRING,
 		E_DB_QUOTE,
 		E_PIPE,
 		E_PARENT_OPEN,
@@ -102,6 +100,8 @@ enum	e_type
 		E_WHILE,
 		E_IO_NUMBER,
 		E_ASSIGN,
+		E_STRING,
+		E_SPSTRING,
 		E_END,
 		E_ERROR,
 		E_DEFAULT,

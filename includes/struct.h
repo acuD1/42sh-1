@@ -112,7 +112,6 @@ struct					s_parser
 struct					s_graph
 {
 	enum e_type			*good_type;
-	int					nb_of_good_type;
 };
 
 /*

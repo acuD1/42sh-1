@@ -17,9 +17,9 @@ void		print_token(t_list *list)
 {
 	t_token *token;
 	token = list->data;
-	static const char *signs[14] = {"&&", "OR", ";;", "<<", ">>", "<&", ">&"
+	static const char *signs[] = {"&&", "OR", ";;", "<<", ">>", "<&", ">&"
 		, "<>", "<<-", ">|", "==", "!="};
-	static const char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
+	static const char *script[] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
 		, IF, IN, THEN, UNTIL, WHILE};
 
 	if (token->type == E_STRING)
@@ -35,9 +35,7 @@ void		print_token(t_list *list)
 	else if (token->type < SINGLE_SIGNS)
 	{
 		ft_printf("type_id = [ %2d ] | type_name = [ %5.1c ] | data = [ %s ]\n",
-				token->type,
-				token->type < SINGLE_SIGNS ? ALLCHAR[token->type] : 'S'
-				, token->data);
+				token->type, ALLCHAR[token->type], token->data);
 	}
 	else if (token->type >= SINGLE_SIGNS && token->type < SIGNS)
 	{

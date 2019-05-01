@@ -24,14 +24,16 @@ static int	need_subprompt(enum e_type state, enum e_type type)
 
 static void	print_parser_error(enum e_type type)
 {
-	static const char *signs[14] = {"&&", "OR", ";;", "<<", ">>", "<&", ">&"
+	static const char *signs[] = {"&&", "OR", ";;", "<<", ">>", "<&", ">&"
 		, "<>", "<<-", ">|", "==", "!="};
-	static const char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
+	static const char *script[] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
 									, IF, IN, THEN, UNTIL, WHILE};
 
 	ft_dprintf(2, "21sh: syntax error near unexpected token ");
-	if (type == E_STRING || type == E_DB_QUOTE )
+	if (type == E_STRING)
 		ft_dprintf(2, "`STRING'\n");
+	else if (type == E_SPSTRING)
+		ft_dprintf(2, "`SPSTRING'\n");
 	else if (type < SINGLE_SIGNS)
 		ft_dprintf(2, "`%c'\n", ALLCHAR[type]);
 	else if (type >= SINGLE_SIGNS && type < SIGNS)
@@ -39,11 +41,11 @@ static void	print_parser_error(enum e_type type)
 	else if (type >= SIGNS && type < SIGNS + 13)
 		ft_dprintf(2, "`%s'\n", script[type - SIGNS]);
 	else if (type == E_IO_NUMBER)
-		ft_dprintf(2, "`IO'\n");
+		ft_dprintf(2, "`IO_number'\n");
 	else if (type == E_ASSIGN)
-		ft_dprintf(2, "`ASSIGN (=)'\n");
+		ft_dprintf(2, "`assign (=)'\n");
 	else
-		ft_dprintf(2, "`END'\n");
+		ft_dprintf(2, "`end'\n");
 }
 
 static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
@@ -58,7 +60,6 @@ static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
 		new_token = NULL;
 		while (new_token == NULL)
 		{
-			// Set the string you want to display
 			invoke_sub_prompt(g_shell, &line, "pipe> ");
 			g_shell->interface.state = INT_PS1;
 			new_token = lexer(line);
@@ -73,12 +74,17 @@ static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
 	return (FALSE);
 }
 
-static int	node_is_ok(enum e_type to_find, enum e_type *type, t_graph *graph)
+static int	node_is_ok(enum e_type to_find, enum e_type *type,
+				char *data, t_graph *graph)
 {
 	int		i;
 
 	i = 0;
-	while (i < graph[*type].nb_of_good_type)
+	if ((*(type) == E_GREATAND || *(type) == E_LESSAND
+				|| *(type) == E_DGREATAND)
+			&& data == NULL)
+		return (FALSE);
+	while (graph[*type].good_type[i] != E_ERROR)
 	{
 		if (to_find == graph[*type].good_type[i])
 		{
@@ -94,14 +100,17 @@ int			parser(t_graph *graph, t_list *lst)
 {
 	t_token 	*token;
 	enum e_type	state;
+	char		*data;
 	t_list		*tmp;
 
 	state = E_DEFAULT;
 	tmp = lst;
+	if (lst)
+		data = ((t_token *)lst->data)->data;
 	while (lst != NULL)
 	{
 		token = (t_token *)lst->data;
-		if ((node_is_ok(token->type, &state, graph)) == FALSE)
+		if ((node_is_ok(token->type, &state, data, graph)) == FALSE)
 		{
 			if (manage_error_and_subprompt(state, token->type, &tmp) == FALSE)
 				return (FAILURE);
@@ -109,6 +118,7 @@ int			parser(t_graph *graph, t_list *lst)
 		}
 		else
 			tmp = lst;
+		data = token->data;
 		lst = lst->next;
 	}
 	return (SUCCESS);

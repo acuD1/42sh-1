@@ -100,7 +100,7 @@
 # define BUFFER						1024
 # define SINGLE_SIGNS				16
 # define SPECIAL_SIGNS				15
-# define SIGNS 						(SPECIAL_SIGNS + SINGLE_SIGNS + 2)
+# define SIGNS 						(SPECIAL_SIGNS + SINGLE_SIGNS)
 # define ALLCHAR					"\"|()><;`&{}[]#%\n"
 # define SIGN_DETECT				" \t<>|;$&!="
 # define LETTER_TO_QUOTE			"\"\'$"
@@ -139,16 +139,6 @@
 # define PARSE_STATES				20
 # define STARTING					14
 # define STRING_TOKENS				16
-# define STRING_WORD 				E_STRING, E_DB_QUOTE
-# define IO							E_IO_NUMBER
-# define PIPELINE					E_PIPE
-# define BASE_REDIRECT				E_GREAT, E_LESS, E_DLESS, E_DGREAT
-# define AND_REDIRECT				E_GREATAND, E_LESSAND
-# define END_CMD					E_SEMICOLON, E_END
-# define REDIRECT					AND_REDIRECT, BASE_REDIRECT
-# define WORD						STRING_WORD
-# define ALL						WORD, BASE_REDIRECT, IO
-# define ALL_END					ALL, END_CMD
 # define E_START					E_DEFAULT
 
 /*
