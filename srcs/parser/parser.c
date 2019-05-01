@@ -88,39 +88,29 @@ static int	state_is_ok(enum e_type to_find, enum e_type possible_state[])
 	return (FALSE);
 }
 
-int			process_parser(t_graph *graph, t_list **lst, enum e_type start_state)
+int8_t		parser(t_graph *graph, t_list *lst)
 {
 	t_token 	*token;
 	t_list		*tmp;
 	enum e_type	state;
 
-	state = start_state;
-	tmp = *lst;
-	while (*lst != NULL)
+	state = E_START;
+	tmp = lst;
+	while (lst != NULL)
 	{
-		token = (t_token *)(*lst)->data;
-		if (start_state != E_START
-			&& state_is_ok(token->type, graph[state].call_back) == TRUE)
-			return (SUCCESS);
+		token = (t_token *)lst->data;
 		if ((state_is_ok(token->type, graph[state].good_type)) == FALSE)
 		{
 			if (manage_error_and_subprompt(state, token->type, &tmp) == FALSE)
 				return (FAILURE);
-			*lst = tmp;
+			lst = tmp;
 		}
 		else
-			tmp = *lst;
+			tmp = lst;
 		state = token->type;
-		*lst = (*lst)->next;
-		if (graph[state].call_back != NULL)
-			process_parser(graph, lst, state);
+		lst = lst->next;
 	}
-	return (start_state == E_START ? SUCCESS : FAILURE);
-}
-
-int		parser(t_graph *graph, t_list *lst)
-{
-		return (process_parser(graph, &lst, E_START));
+	return (SUCCESS);
 }
 
 /*

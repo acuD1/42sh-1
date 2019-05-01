@@ -113,7 +113,6 @@ struct					s_parser
 struct					s_graph
 {
 	enum e_type			*good_type;
-	enum e_type			*call_back;
 };
 
 /*

@@ -50,7 +50,7 @@ void		delete_process(void *data);
 *****************************************************
 */
 
-int			parser(t_graph *graph, t_list *lst);
+int8_t		parser(t_graph *graph, t_list *lst);
 void		generate_graph(t_registry *shell);
 void		set_start_token(t_graph *tab_tokens);
 void		set_word_token(t_graph *tab_tokens);

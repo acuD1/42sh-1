@@ -71,7 +71,7 @@ void		set_and_redirect_token(t_graph *tab_tokens)
 	tab_tokens[E_GREATAND].good_type = tab_good_type;
 	tab_tokens[E_LESSAND].good_type = tab_good_type;
 	tab_tokens[E_ANDGREAT].good_type = tab_good_type;
-	tab_tokens[E_ANDGREAT].good_type = tab_good_type;
+	tab_tokens[E_ANDLESS].good_type = tab_good_type;
 }
 
 void		set_assign_token(t_graph *tab_tokens)
@@ -104,13 +104,5 @@ void		set_ionumber_token(t_graph *tab_tokens)
 											E_ERROR
 										};
 
-	static enum	e_type tab_call_back[] = {
-											REDIR,
-											REDIR_DB,
-											E_IO_NUMBER,
-											E_ERROR
-										};
-
 	tab_tokens[E_IO_NUMBER].good_type = tab_good_type;
-	tab_tokens[E_IO_NUMBER].call_back = tab_call_back;
 }
