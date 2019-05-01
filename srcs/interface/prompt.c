@@ -41,12 +41,8 @@ static char		*get_last_directory_of_pwd(char **pwd)
 void			get_prompt_ps1(t_registry *shell)
 {
 	char			*pwd;
-	t_interface 	*itf;
-	char			*state;
 	char			*prompt;
 
-	itf = &shell->interface;
-	state = get_intern_var(shell, itf->state);
 	prompt = NULL;
 	pwd = get_pwd(shell, NO_OPT);
 	if (pwd != NULL)

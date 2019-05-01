@@ -63,6 +63,8 @@ static int8_t		change_directory(t_registry *shell, char *curpath,
 	struct stat	stat;
 
 	old_pwd = get_pwd(shell, NO_OPT);
+	if (ft_strequ(path_give_by_user, "-") == TRUE)
+		path_give_by_user = get_env_var(shell, "OLDPWD");
 	if (access(curpath, F_OK) != SUCCESS)
 		ft_dprintf(2, "cd: no such file or directory: %s\n", path_give_by_user);
 	else if (lstat(curpath, &stat) == FAILURE)
@@ -74,19 +76,14 @@ static int8_t		change_directory(t_registry *shell, char *curpath,
 	else
 	{
 		set_oldpwd_and_pwd(shell, curpath, old_pwd, option);
-		ft_strdel(&old_pwd);
-		ft_strdel(&curpath);
 		if (ft_strequ(path_give_by_user, "-") == TRUE)
 			ft_printf("%s\n", get_env_var(shell, "PWD"));
-		get_prompt_ps1(shell);
-		return (SUCCESS);
+		return (exit_cd(shell, &old_pwd, &curpath, SUCCESS));
 	}
-	ft_strdel(&curpath);
-	ft_strdel(&old_pwd);
-	return (FAILURE);
+	return (exit_cd(shell, &old_pwd, &curpath, FAILURE));
 }
 
-static int8_t		is_root_path(char *path)
+static int8_t		is_root(char *path)
 {
 	int		i;
 
@@ -112,8 +109,7 @@ int8_t				cd_blt(t_registry *shell, char **av)
 	if (((option = set_options(&av, get_option_cd)) == ERROR_OPT)
 		|| (curpath = ft_get_curpath(shell, *av)) == NULL)
 		return (FAILURE);
-	if (is_root_path(curpath) == FALSE
-		&& curpath[ft_strlen(curpath) - 1] == '/')
+	if (is_root(curpath) == FALSE && curpath[ft_strlen(curpath) - 1] == '/')
 		curpath[ft_strlen(curpath) - 1] = '\0';
 	if ((option & P_OPT) == FALSE)
 	{
@@ -122,7 +118,8 @@ int8_t				cd_blt(t_registry *shell, char **av)
 				return (FAILURE);
 		if ((curpath = make_curpath_simple(curpath)) == NULL)
 		{
-			ft_dprintf(2, "21sh: cd: %s: No such file or directory\n", *av);
+			ft_dprintf(2, "21sh: cd: %s: No such file or directory\n",
+				ft_strequ(*av, "-") ? get_env_var(shell, "OLDPWD") : *av);
 			return (FAILURE);
 		}
 		else if (ft_strlen(curpath) + 1 >= PATH_MAX)

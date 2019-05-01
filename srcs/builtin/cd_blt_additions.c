@@ -32,18 +32,31 @@ t_option		get_option_cd(char *s, t_option option)
 	return (option);
 }
 
+int8_t			exit_cd(t_registry *shell, char **old_pwd,
+					char **curpath, int8_t ret)
+{
+	ft_strdel(old_pwd);
+	ft_strdel(curpath);
+	if (ret == SUCCESS)
+		get_prompt_ps1(shell);
+	return (ret);
+}
+
 char			*concat_pwd_with_curpath(t_registry *shell, char **path)
 {
 	char	*curpath;
 	char	*pwd;
+	char	*tmp_pwd;
 
 	pwd = get_pwd(shell, NO_OPT);
 	if (pwd == NULL)
 		return (NULL);
 	else if (pwd[ft_strlen(pwd) - 1] != '/')
+	{
+		tmp_pwd = pwd;
 		pwd = ft_strjoin(pwd, "/");
-	else
-		pwd = ft_strdup(pwd);
+		ft_strdel(&tmp_pwd);
+	}
 	curpath = ft_strjoin(pwd, *path);
 	ft_strdel(path);
 	ft_strdel(&pwd);
