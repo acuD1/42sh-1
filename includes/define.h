@@ -140,16 +140,13 @@
 # define STARTING					14
 # define STRING_TOKENS				16
 
-
-
 # define REDIR						E_GREAT, E_LESS
-# define REDIR_DB					E_DGREAT, E_DLESS
 # define REDIR_AND					E_GREATAND, E_LESSAND, E_ANDLESS, E_ANDGREAT
-# define REDIR_OTHER				E_DGREATAND, E_DLESSDASH
-# define ALL_REDIRECT				REDIR, REDIR_DB, REDIR_AND, REDIR_OTHER
+# define REDIR_DB					E_DGREAT, E_DLESS, E_DLESSDASH, E_ANDDGREAT
+# define ALL_REDIRECT				REDIR, REDIR_DB, REDIR_AND
 # define WORD						E_STRING, E_SPSTRING, E_DB_QUOTE
-# define E_START					E_DEFAULT
 # define END_CMD					E_END, E_SEMICOLON
+# define E_START					E_DEFAULT
 
 # define N_DB_QUOTE					"\""
 # define N_PIPE						"|"
@@ -175,7 +172,7 @@
 # define N_LESSAND					"<&"
 # define N_GREATAND					">&"
 # define N_LESSGREAT				"<>"
-# define N_DGREATAND				">>&"
+# define N_ANDDGREAT				"&>>"
 # define N_ANDGREAT					"&>"
 # define N_ANDLESS					"&<"
 # define N_DLESSDASH				"<<-"

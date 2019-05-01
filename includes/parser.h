@@ -55,21 +55,9 @@ void		generate_graph(t_registry *shell);
 void		set_start_token(t_graph *tab_tokens);
 void		set_word_token(t_graph *tab_tokens);
 void		set_redirect_token(t_graph *tab_tokens);
-void		set_and_redirect_token(t_graph *tab_tokens);
 void		set_assign_token(t_graph *tab_tokens);
 void		set_pipe_token(t_graph *tab_tokens);
 void		set_ionumber_token(t_graph *tab_tokens);
-
-/*
-**	void		set_if_token(t_graph **graph);
-**	void		set_elif_token(t_graph **graph);
-**	void		set_else_token(t_graph **graph);
-**	void		set_then_token(t_graph **graph);
-**	void		set_fi_token(t_graph **graph);
-**	void		set_bracket_open_token(t_graph **graph);
-**	void		set_bracket_close_token(t_graph **graph);
-**	void		set_pipe_token(t_graph **graph);
-*/
 
 /*
 *****************************************************
