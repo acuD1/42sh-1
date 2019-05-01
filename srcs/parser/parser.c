@@ -22,32 +22,6 @@ static int	need_subprompt(enum e_type state, enum e_type type)
 	return (FALSE);
 }
 
-static void	print_parser_error(enum e_type type)
-{
-	static const char *signs[] = {"&&", "OR", ";;", "<<", ">>", "<&", ">&"
-		, "<>", "<<-", ">|", "==", "!="};
-	static const char *script[] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
-									, IF, IN, THEN, UNTIL, WHILE};
-
-	ft_dprintf(2, "21sh: syntax error near unexpected token ");
-	if (type == E_STRING)
-		ft_dprintf(2, "`STRING'\n");
-	else if (type == E_SPSTRING)
-		ft_dprintf(2, "`SPSTRING'\n");
-	else if (type < SINGLE_SIGNS)
-		ft_dprintf(2, "`%c'\n", ALLCHAR[type]);
-	else if (type >= SINGLE_SIGNS && type < SIGNS)
-		ft_dprintf(2, "`%s'\n", signs[type - SINGLE_SIGNS]);
-	else if (type >= SIGNS && type < SIGNS + 13)
-		ft_dprintf(2, "`%s'\n", script[type - SIGNS]);
-	else if (type == E_IO_NUMBER)
-		ft_dprintf(2, "`IO_number'\n");
-	else if (type == E_ASSIGN)
-		ft_dprintf(2, "`assign (=)'\n");
-	else
-		ft_dprintf(2, "`end'\n");
-}
-
 static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
 										t_list **lst)
 {
@@ -70,13 +44,14 @@ static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
 		(*lst)->next = new_token;
 		return (TRUE);
 	}
-	print_parser_error(type);
+	ft_dprintf(2, "21sh: syntax error near unexpected token `%s'\n",
+						g_shell->grammar[type]);
 	return (FALSE);
 }
 
-static int	state_is_ok(enum e_type to_find, enum e_type possible_state[])
+static int8_t	state_is_ok(enum e_type to_find, enum e_type possible_state[])
 {
-	int		i;
+	uint8_t		i;
 
 	i = 0;
 	while (possible_state[i] != E_ERROR)
@@ -88,7 +63,7 @@ static int	state_is_ok(enum e_type to_find, enum e_type possible_state[])
 	return (FALSE);
 }
 
-int8_t		parser(t_graph *graph, t_list *lst)
+int8_t			parser(t_graph *graph, t_list *lst)
 {
 	t_token 	*token;
 	t_list		*tmp;

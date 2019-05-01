@@ -203,6 +203,7 @@ struct					s_registry
 	t_list				*intern;
 	t_hash				bin_hashmap;
 	t_hash				blt_hashmap;
+	const char			**grammar;
 	t_graph				graph[NB_OF_TOKENS];
 	t_pstate			parsing;
 	t_list				*current_job;

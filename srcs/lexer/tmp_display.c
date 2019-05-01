@@ -13,56 +13,15 @@
 #include "lexer.h"
 #include <stdio.h>
 
+t_registry	*g_shell;
+
 void		print_token(t_list *list)
 {
 	t_token *token;
 	token = list->data;
-	static const char *signs[] = {"&&", "OR", ";;", "<<", ">>", "<&", ">&"
-		, "<>", "<<-", ">|", "==", "!="};
-	static const char *script[] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
-		, IF, IN, THEN, UNTIL, WHILE};
 
-	if (token->type == E_STRING)
-	{
-		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
-				token->type, "STRING", token->data);
-	}
-	else if (token->type == E_SPSTRING)
-	{
-		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
-				token->type, "SPSTRING", token->data);
-	}
-	else if (token->type < SINGLE_SIGNS)
-	{
-		ft_printf("type_id = [ %2d ] | type_name = [ %5.1c ] | data = [ %s ]\n",
-				token->type, ALLCHAR[token->type], token->data);
-	}
-	else if (token->type >= SINGLE_SIGNS && token->type < SIGNS)
-	{
-		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
-				token->type, signs[token->type - SINGLE_SIGNS], token->data);
-
-	}
-	else if (token->type >= SIGNS && token->type < SIGNS + 13)
-	{
-		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
-				token->type, script[token->type - SIGNS], token->data);
-	}
-	else if (token->type == E_IO_NUMBER)
-	{
-		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
-				token->type, "IO", token->data);
-	}
-	else if (token->type == E_ASSIGN)
-	{
-		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
-				token->type, "ASSIGN", token->data);
-	}
-	else if (token->type == E_END)
-	{
-		ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
-				token->type, "END", token->data);
-	}
+	ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
+				token->type, g_shell->grammar[token->type], token->data);
 }
 
 void		del_token(void *token)

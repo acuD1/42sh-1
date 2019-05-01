@@ -12,29 +12,16 @@
 
 #include "parser.h"
 
+t_registry	*g_shell;
+
 void		print_token_debug(t_token *token)
 {
-	static const char *signs[14] = {"&&", "OR", ";;", "<<", ">>", "<&", ">&"
-		, "<>", "<<-", ">|", "==", "!="};
-	static const char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
-									, IF, IN, THEN, UNTIL, WHILE};
-
-	if (token->type == E_STRING  || token->type == E_DB_QUOTE )
-		ft_printf("\033[37m         --------\n         |   %c   | data [%s]\n         --------\n",
-				token->type < SINGLE_SIGNS ? ALLCHAR[token->type] : 'S', token->data);
-	else if (token->type < SINGLE_SIGNS)
-		ft_printf("\033[37m         --------\n         |   %c   |\n         --------\n",
-				ALLCHAR[token->type]);
-	else if (token->type >= SINGLE_SIGNS && token->type < SIGNS)
-		ft_printf("\033[37m         --------\n         | %5s |\n         --------\n", signs[token->type - SINGLE_SIGNS]);
-	else if (token->type >= SIGNS && token->type < SIGNS + 13)
-		ft_printf("\033[37m         --------\n         | %5s |\n         --------\n", script[token->type - SIGNS]);
-	else if (token->type == E_IO_NUMBER)
-		ft_printf("\033[37m         --------\n         |   IO   |\n         --------\n");
-	else if (token->type == E_ASSIGN)
-		ft_printf("\033[37m         --------\n         |ASSIGN| data [%s]\n         --------\n", token->data);
+	if (token->type == E_STRING || token->type == E_SPSTRING )
+		ft_printf("\033[37m         --------\n         |   %5s   | data [%s]\n         --------\n",
+				g_shell->grammar[token->type], token->data);
 	else
-		ft_printf("\033[37m         --------\n         |  END  |\n         --------\n");
+		ft_printf("\033[37m         --------\n         |   %c   |\n         --------\n",
+				g_shell->grammar[token->type]);
 }
 
 void		print_arrow_debug(int which)
