@@ -55,6 +55,7 @@ void		generate_graph(t_registry *shell);
 void		set_start_token(t_graph *tab_tokens);
 void		set_word_token(t_graph *tab_tokens);
 void		set_redirect_token(t_graph *tab_tokens);
+void		set_and_redirect_token(t_graph *tab_tokens);
 void		set_assign_token(t_graph *tab_tokens);
 void		set_pipe_token(t_graph *tab_tokens);
 void		set_ionumber_token(t_graph *tab_tokens);

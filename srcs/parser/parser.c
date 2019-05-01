@@ -74,54 +74,53 @@ static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
 	return (FALSE);
 }
 
-static int	node_is_ok(enum e_type to_find, enum e_type *type,
-				char *data, t_graph *graph)
+static int	state_is_ok(enum e_type to_find, enum e_type possible_state[])
 {
 	int		i;
 
 	i = 0;
-	if ((*(type) == E_GREATAND || *(type) == E_LESSAND
-				|| *(type) == E_DGREATAND)
-			&& data == NULL)
-		return (FALSE);
-	while (graph[*type].good_type[i] != E_ERROR)
+	while (possible_state[i] != E_ERROR)
 	{
-		if (to_find == graph[*type].good_type[i])
-		{
-			*type = to_find;
+		if (to_find == possible_state[i])
 			return (TRUE);
-		}
 		i++;
 	}
 	return (FALSE);
 }
 
-int			parser(t_graph *graph, t_list *lst)
+int			process_parser(t_graph *graph, t_list **lst, enum e_type start_state)
 {
 	t_token 	*token;
-	enum e_type	state;
-	char		*data;
 	t_list		*tmp;
+	enum e_type	state;
 
-	state = E_DEFAULT;
-	tmp = lst;
-	if (lst)
-		data = ((t_token *)lst->data)->data;
-	while (lst != NULL)
+	state = start_state;
+	tmp = *lst;
+	while (*lst != NULL)
 	{
-		token = (t_token *)lst->data;
-		if ((node_is_ok(token->type, &state, data, graph)) == FALSE)
+		token = (t_token *)(*lst)->data;
+		if (start_state != E_START
+			&& state_is_ok(token->type, graph[state].call_back) == TRUE)
+			return (SUCCESS);
+		if ((state_is_ok(token->type, graph[state].good_type)) == FALSE)
 		{
 			if (manage_error_and_subprompt(state, token->type, &tmp) == FALSE)
 				return (FAILURE);
-			lst = tmp;
+			*lst = tmp;
 		}
 		else
-			tmp = lst;
-		data = token->data;
-		lst = lst->next;
+			tmp = *lst;
+		state = token->type;
+		*lst = (*lst)->next;
+		if (graph[state].call_back != NULL)
+			process_parser(graph, lst, state);
 	}
-	return (SUCCESS);
+	return (start_state == E_START ? SUCCESS : FAILURE);
+}
+
+int		parser(t_graph *graph, t_list *lst)
+{
+		return (process_parser(graph, &lst, E_START));
 }
 
 /*
