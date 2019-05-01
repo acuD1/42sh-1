@@ -18,6 +18,14 @@
 #include "resolve.h"
 #include "builtin.h"
 
+void	init_process(t_process *process)
+{
+	ft_bzero(process, sizeof(t_process));
+	process->fd.in = 0;
+	process->fd.out = 1;
+	process->fd.err = 2;
+}
+
 void		print_process(t_list *node)
 {
 	t_process	*process;

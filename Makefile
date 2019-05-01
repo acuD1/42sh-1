@@ -260,7 +260,6 @@ PARSER_SRCS += string_parser.c
 PARSER_SRCS += quote_parser.c
 PARSER_SRCS += redirect_parser.c
 PARSER_SRCS += expansion_parser.c
-PARSER_SRCS += lexer_parser_interface.c
 
 TOOLS_SRCS += list_functions.c
 

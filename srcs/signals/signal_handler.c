@@ -61,11 +61,12 @@ static void		interface_resize_handler(int signo)
 	}
 }
 
-void			kill_process(__unused int signo)
+void			kill_process(int signo)
 {
 	t_job		*job;
 	t_list		*proc;
 
+	(void)signo;
 	job = ((t_job*)(g_shell->current_job->data));
 	proc = job->process_list;
 	while (proc != NULL)

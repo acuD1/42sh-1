@@ -33,7 +33,6 @@ int8_t			init_shell(t_registry *shell);
 int8_t			shell_usage(void);
 
 void			launch_interface(t_registry *shell);
-int				lexer_parser(t_parser *parse, t_graph *graph, char *input);
 int8_t		    execution_pipeline(t_registry *shell, t_list *token_list);
 void			shell_exit_routine(t_registry *shell);
 

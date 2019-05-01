@@ -44,7 +44,7 @@ t_token 	generate_token(t_lexer *machine);
 *****************************************************
 */
 
-void	print_token(t_list *list);
-void	del_token(void *token);
+void		print_token(t_list *list);
+void		del_token(void *token);
 
 #endif
