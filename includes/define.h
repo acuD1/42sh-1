@@ -195,7 +195,7 @@
 # define N_IO_NUMBER				"IO number"
 # define N_ASSIGN					"assign (=)"
 # define N_STRING					"word"
-# define N_SPSTRING					"word"
+# define N_SPSTRING					"spword"
 # define N_END						"end"
 
 /*
