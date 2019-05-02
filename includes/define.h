@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/01 20:31:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 02:24:28 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@
 # define SPECIAL_SIGNS				15
 # define SIGNS 						(SPECIAL_SIGNS + SINGLE_SIGNS)
 # define ALLCHAR					"\"|()><;`&{}[]#%\n"
-# define SIGN_DETECT				" \t<>|;$&!="
+# define SIGN_DETECT				" \t<>|;&!="
 # define LETTER_TO_QUOTE			"\"\'$"
 # define LETTER_INTERUPT			" \t<>|;&"
 # define LETTER_SPECIAL				"\"\'\\$~*?"
@@ -114,7 +114,7 @@
 ** # define SIGN_DETECT				" \t<>|;\'\"`()$&!?{}[]*%\\="
 **/
 # define QUOTE_INTERUPT				"\\\"`$"
-# define EXP_INTERUPT				" \t\'\"`"
+# define EXP_INTERUPT				" \t\'\"`$"
 # define DOUBLE_SIGN				"&|;=!"
 
 /*
@@ -123,7 +123,7 @@
 *****************************************************
 */
 
-# define PARSE_STATES				20
+# define PARSE_STATES				17
 
 # define REDIR						E_GREAT, E_LESS
 # define REDIR_AND					E_GREATAND, E_LESSAND, E_ANDLESS, E_ANDGREAT

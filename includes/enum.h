@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/01 01:21:29 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 00:44:12 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,10 +129,7 @@ enum	e_parser_state
 		P_STOP,
 		P_ERROR,
 		P_STRING,
-		P_QUOTE,
-		P_EXP,
-		P_DB_QUOTE,
-		P_DB_QUOTE_CONCAT,
+		P_SPSTRING,
 		P_STRING_FLUSH,
 		P_SEPARATOR,
 		P_REDIRECT,

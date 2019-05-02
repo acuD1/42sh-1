@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/05/01 01:02:21 by cempassi         ###   ########.fr        #
+#    Updated: 2019/05/02 02:17:05 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,8 +113,8 @@ LDFLAGS = -L $(LPATH)
 CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
-CFLAGS += $(IFLAGS)
-DFLAGS = $(CFLAGS) -fsanitize=address,undefined,leak
+CFLAGS += $(IFLAGS) 
+DFLAGS = $(CFLAGS) -fsanitize=address,undefined 
 LFLAGS = -ltermcap
 
 # ---------------------------------------------------------------------------- #
@@ -257,9 +257,8 @@ PARSER_SRCS += parser_state.c
 PARSER_SRCS += parser_interface.c
 PARSER_SRCS += init.c
 PARSER_SRCS += string_parser.c
-PARSER_SRCS += quote_parser.c
 PARSER_SRCS += redirect_parser.c
-PARSER_SRCS += expansion_parser.c
+PARSER_SRCS += expansion.c
 
 TOOLS_SRCS += list_functions.c
 
