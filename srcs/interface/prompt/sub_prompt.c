@@ -48,7 +48,7 @@ static int8_t		sub_prompt_loop(t_registry *shell, t_interface *itf)
 	return (SUCCESS);
 }
 
-static int8_t		is_std_ps(char *p_state)
+static int8_t		is_std_ps(const char *p_state)
 {
 	if (ft_strequ(p_state, INT_PS1)
 		|| ft_strequ(p_state, INT_PS2)
@@ -65,24 +65,18 @@ int8_t				invoke_sub_prompt(t_registry *shell, char **line,
 	char			*old_state;
 
 	old_state = NULL;
-
 	itf = &shell->interface;
 	if (prompt_state && is_std_ps(prompt_state) == FALSE)
 	{
 		add_internal(shell, INT_PS5, prompt_state);
 		prompt_state = INT_PS5;
 	}
-
 	old_state = itf->state;
 	itf->state = prompt_state;
-
 	reset_vector(itf->line);
-
 	if (validate_interface_content(itf) == FAILURE)
 		return (FAILURE);
-	
 	print_sub_prompt(shell);
-
 	if (sub_prompt_loop(shell, itf) != SUCCESS)
 	{
 		*line = NULL;
@@ -90,7 +84,6 @@ int8_t				invoke_sub_prompt(t_registry *shell, char **line,
 		ft_strdel(&(itf->line->buffer));
 		return (FAILURE);
 	}
-
 	*line = ft_strdup(itf->line->buffer);
 	ft_strdel(&(itf->line->buffer));
 	itf->state = old_state;

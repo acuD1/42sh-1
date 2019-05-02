@@ -13,8 +13,8 @@
 #include "libft.h"
 #include "define.h"
 
-static int8_t	only_whitespaces_after(char *str, uint32_t index,
-				char direction)
+static int8_t	only_whitespaces_after(const char *str, const uint32_t index,
+					const char direction)
 {
 	uint32_t idx;
 
@@ -38,9 +38,10 @@ static int8_t	only_whitespaces_after(char *str, uint32_t index,
 	return (TRUE);
 }
 
-uint32_t		get_next_char(char *str, uint32_t index, char direction)
+uint32_t		get_next_char(const char *str, uint32_t index,
+					const char direction)
 {
-	if (only_whitespaces_after(str, index, direction))
+	if (only_whitespaces_after(str, index, direction) == TRUE)
 		return (index);
 	if (direction > 0)
 	{

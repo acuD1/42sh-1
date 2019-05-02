@@ -32,7 +32,7 @@ t_option			get_option_export(char *s, t_option option)
 
 int8_t				export_blt(t_registry *shell, char **av)
 {
-	t_variable		*node;
+	t_variable	*variable;
 	char		*equal;
 	t_option	option;
 
@@ -41,23 +41,24 @@ int8_t				export_blt(t_registry *shell, char **av)
 	//////////////// implement option -p
 	if (((option |= set_options(&av, get_option_export)) == ERROR_OPT))
 		return (FAILURE);
-	while (*av)
+	while (*av != NULL)
 	{
-		node = (t_variable *)malloc(sizeof(t_variable));
-		node->name = ft_strdup(*av);
+		if ((variable = (t_variable *)malloc(sizeof(t_variable))) == NULL)
+			return (FAILURE);
+		variable->name = ft_strdup(*av);
 		if ((equal = ft_strchr(*av, '=')) != NULL)
 		{
-			equal = ft_strchr(node->name, '=');
+			equal = ft_strchr(variable->name, '=');
 			*equal = '\0';
-			node->data = ft_strdup(ft_strchr(*av, '=') + 1);
+			variable->data = ft_strdup(ft_strchr(*av, '=') + 1);
 		}
 		else
-			node->data = ft_strdup(get_intern_var(shell, node->name));
-		add_env(shell, node->name, node->data);
-	//	if (node && node->name && ft_strequ(node->name, "PATH"))
-	//		hash_blt(shell, av);
-		clear_node((void **)&node);
-		free(node);
+			variable->data = ft_strdup(get_intern_var(shell, variable->name));
+		add_env(shell, variable->name, variable->data);
+		if (variable && variable->name && ft_strequ(variable->name, "PATH"))
+			hash_blt(shell, av);
+		clear_node((void **)&variable);
+		free(variable);
 		av++;
 	}
 	return (SUCCESS);

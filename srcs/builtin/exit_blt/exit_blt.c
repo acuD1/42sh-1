@@ -12,28 +12,22 @@
 
 #include "21sh.h"
 
-static void	free_opt(t_opt option)
+static void		free_opt(t_opt option)
 {
-	if (option.command_str)
-	{
-		free(option.command_str);
-		option.command_str = NULL;
-	}
-//	if (option.path)
-//	{
-//		free(option.path);
-//		option.path = NULL;
-//	}
+	free(option.command_str);
+	option.command_str = NULL;
+//	free(option.path);
+//	option.path = NULL;
 }
 
-static void	free_hash(t_hash hashmap, void (*del)(void *))
+static void		free_hash(t_hash hashmap, void (*del)(void *))
 {
 	ft_hmap_free_content(&hashmap, del);
 	free(hashmap.map);
 	hashmap.map = NULL;
 }
 
-void	free_registry(t_registry *reg)
+void			free_registry(t_registry *reg)
 {
 	free_opt(reg->option);
 	free_lst(&(reg->env));
@@ -42,25 +36,25 @@ void	free_registry(t_registry *reg)
 	free_hash(reg->blt_hashmap, NULL);
 }
 
-static int			ft_is_numeric(char *s)
+static uint8_t	ft_is_numeric(char *s)
 {
 	if (*s == '-')
-		s++;
+		++s;
 	if (*s == '\0')
 		return (FALSE);
 	while (*s != '\0')
 	{
 		if (ft_isdigit(*s) == FALSE)
 			return (FALSE);
-		s++;
+		++s;
 	}
 	return (TRUE);
 }
 
-int8_t				exit_blt(t_registry *shell, char **av)
+int8_t			exit_blt(t_registry *shell, char **av)
 {
-	av++;
-	if (av != NULL && *av != NULL)
+	++av;
+	if (*av != NULL)
 	{
 		if (ft_is_numeric(*av) == FALSE)
 		{

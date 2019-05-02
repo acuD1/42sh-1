@@ -14,7 +14,7 @@
 #include <termcap.h>
 #include <unistd.h>
 
-void	print_char(t_interface *itf, char d)
+void	print_char(t_interface *itf, const char d)
 {
 	write(1, &d, 1);
 	itf->cursor.index++;
@@ -27,11 +27,13 @@ void	print_char(t_interface *itf, char d)
 	}
 }
 
-void	print_words(t_interface *itf, char *str)
+void	print_words(t_interface *itf, const char *str)
 {
-	uint32_t	i;
+	size_t		i;
+	size_t		len;
 
 	i = 0;
-	while (i < ft_strlen(str))
+	len = ft_strlen(str); 
+	while (i < len)
 		print_char(itf, str[i++]);
 }

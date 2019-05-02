@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-char	set_quote(char c)
+char	set_quote(const char c)
 {
 	if (c == '\'' || c == '\"' || c == '`')
 		return (c);
-	return (0);
+	return ('\0');
 }

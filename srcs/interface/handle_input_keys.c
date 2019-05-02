@@ -12,7 +12,7 @@
 
 #include "interface_functions.h"
 
-static void			handle_printable_char(t_registry *shell, char c)
+static void		handle_printable_char(t_registry *shell, const char c)
 {
 	t_interface *itf;
 
@@ -34,10 +34,10 @@ static void			handle_printable_char(t_registry *shell, char c)
 	tc_ak_arrow_right(shell);
 }
 
-void				handle_input_key(t_registry *shell, char c[READ_SIZE])
+void			handle_input_key(t_registry *shell, char c[READ_SIZE])
 {
-	uint32_t		index;
-	unsigned long	value;
+	uint32_t	index;
+	uint64_t	value;
 
 	if (is_printable(c) == TRUE)
 		handle_printable_char(shell, c[0]);

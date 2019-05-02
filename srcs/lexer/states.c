@@ -14,13 +14,13 @@
 
 void	number_machine(t_lexer *machine)
 {
-	if (ft_isdigit(*machine->input))
+	if (ft_isdigit(*machine->input) == TRUE)
 	{
 		machine->last_lexer = E_IO_NUMBER;
 		ft_strncat(machine->buffer, machine->input, 1);
 		++machine->input;
 	}
-	else if (ft_strchr("<>", *machine->input))
+	else if (ft_strchr("<>", *machine->input) != NULL)
 		machine->state = L_OUT;
 	else
 	{
@@ -54,7 +54,7 @@ void	string_machine(t_lexer *machine)
 		++machine->input;
 		return ;
 	}
-	else if (ft_strchr(LETTER_SPECIAL, *machine->input))
+	else if (ft_strchr(LETTER_SPECIAL, *machine->input) != NULL)
 		string_special(machine);
 	else if (machine->last_lexer != E_SPSTRING)
 		machine->last_lexer = E_STRING;

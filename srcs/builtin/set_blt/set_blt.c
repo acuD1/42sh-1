@@ -12,6 +12,7 @@
 
 #include "21sh.h"
 
+//// __unused av 
 int8_t				set_blt(t_registry *shell, char **av)
 {
 	(void)av;

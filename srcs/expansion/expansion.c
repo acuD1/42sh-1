@@ -12,7 +12,7 @@
 
 #include "parser.h"
 
-char	character_swap(char swapped)
+char	character_swap(const char swapped)
 {
 	static char previous = '\0';
 	char		c;
@@ -22,7 +22,7 @@ char	character_swap(char swapped)
 	return (c);
 }
 
-t_quote	select_quoting(t_quote quote, char c)
+t_quote	select_quoting(t_quote quote, const char c)
 {
 	if (quote == QUOTE_OFF)
 		quote = c == '\'' ? QUOTE_SINGLE : QUOTE_DOUBLE;

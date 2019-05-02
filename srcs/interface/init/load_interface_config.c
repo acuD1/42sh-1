@@ -48,8 +48,6 @@ static int8_t		fetch_terminal_info(t_registry *shell)
 
 int8_t				fill_interface_related_internals(t_registry *shell)
 {
-//	if (add_internal(shell, INT_PS1, INT_PS1_VALUE) == FAILURE)
-//		return (FAILURE);
 	get_prompt_ps1(shell);
 	if (add_internal(shell, INT_PS2, INT_PS2_VALUE) == FAILURE)
 		return (FAILURE);

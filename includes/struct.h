@@ -38,8 +38,8 @@ typedef enum e_type		t_type;
 
 typedef struct			s_token
 {
-	enum e_type			type;
 	char				*data;
+	enum e_type			type;
 }						t_token;
 
 typedef struct			s_lexinfo
@@ -55,10 +55,10 @@ struct					s_lexer
 	char				buffer[BUFFER];
 	t_lexinfo			*lexinfo;
 	t_list				*tokens;
-	int					io_detect;
 	enum e_lexer_state	state;
 	enum e_quote		quote;
 	enum e_type			last_lexer;
+	int					io_detect;
 };
 
 /*
@@ -86,33 +86,33 @@ typedef struct			s_process
 	char				**env;
 	uint8_t				completed;
 	uint8_t				stopped;
-	int					status;
 	pid_t				pid;
+	int					status;
 }						t_process;
 
 typedef struct			s_job
 {
 	char				*command; /* just for debug */
 	t_list				*process_list;
-	pid_t				pgid;
 	struct termios		*term_modes;
+	pid_t				pgid;
 	t_filedesc			fd;
 }						t_job;
 
 struct					s_parser
 {
-	t_process			process;
-	t_job				job;
 	t_list				*token_list;
 	t_list				*env;
 	t_list				*tmp_env;
 	t_list				*job_list;
+	t_process			process;
+	t_job				job;
 	t_stack				stack;
 	t_token				token;
-	int					oflags;
-	int					valid;
 	enum e_parser_state	last_state;
 	enum e_parser_state	state;
+	int					oflags;
+	int					valid;
 };
 
 struct					s_graph
@@ -170,14 +170,14 @@ typedef struct			s_interface
 	struct termios		*orig_mode;
 	t_vector			*line;
 	t_vector			*clip;
-	t_cursor			cursor;
-	t_window			window;
-	t_termcaps			termcaps;
 	t_history			*history_head;
 	t_history			*hist_ptr;
 	char				*current_line;
 	char				*state;
-	unsigned long		ak_masks[AK_AMOUNT];
+	t_cursor			cursor;
+	t_window			window;
+	t_termcaps			termcaps;
+	uint64_t			ak_masks[AK_AMOUNT];
 	int8_t				(*tc_call[AK_AMOUNT])(struct s_registry *shell);
 }						t_interface;
 
@@ -189,8 +189,8 @@ typedef struct			s_interface
 
 typedef struct 			s_opt
 {
-	t_option			option;
 	char				*command_str;
+	t_option			option;
 //	char				*rc_path;
 }						t_opt;
 
@@ -202,18 +202,18 @@ typedef struct			s_variable
 
 struct					s_registry
 {
-	uint8_t				is_interactive;
-	t_opt				option;
+	const char			**grammar;
+	t_graph				graph[NB_OF_TOKENS];
+	t_lexinfo			lexinfo;
+	t_pstate			parsing;
 	t_list				*env;
 	t_list				*intern;
+	t_list				*current_job;
 	t_hash				bin_hashmap;
 	t_hash				blt_hashmap;
-	const char			**grammar;
-	t_lexinfo			lexinfo;
-	t_graph				graph[NB_OF_TOKENS];
-	t_pstate			parsing;
-	t_list				*current_job;
 	struct s_interface	interface;
+	uint8_t				is_interactive;
+	t_opt				option;
 };
 
 typedef int 			(*t_builtin)(t_registry *, char **);

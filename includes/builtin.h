@@ -51,7 +51,7 @@ int8_t		cd_blt(t_registry *shell, char **av);
 t_option	get_option_cd(char *s, t_option option);
 char		*concat_pwd_with_curpath(t_registry *shell, char **path);
 char		*get_home_path(void);
-char		*is_cdpath_env(t_registry *shell, char *to_find);
+char		*is_cdpath_env(t_registry *shell, const char *to_find);
 char		*get_relative_path(char **curpath);
 char		*make_curpath_simple(char *curpath);
 int8_t		exit_cd(t_registry *shell, char **old_pwd,
@@ -122,7 +122,6 @@ int8_t				hash_blt(t_registry *reg, char **av);
 */
 
 int8_t				export_blt(t_registry *shell, char **av);
-t_option			get_export_export(char *s, t_option option);
 
 /*
 *****************************************************

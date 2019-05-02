@@ -12,9 +12,9 @@
 
 #include "lexer.h"
 
-static int	check_script(t_lexer *machine)
+static enum e_type	check_script(t_lexer *machine)
 {
-	int					index;
+	enum e_type			index;
 	static const char	*script[13] = {N_CASE, N_DO, N_DONE, N_ELIF, N_ELSE,
 										N_ESAC, N_FI, N_FOR, N_IF, N_IN, N_THEN,
 										N_UNTIL, N_WHILE};
@@ -29,9 +29,9 @@ static int	check_script(t_lexer *machine)
 	return (E_STRING);
 }
 
-static int	check_last_lexer(t_lexer *machine)
+static enum e_type	check_last_lexer(t_lexer *machine)
 {
-	int		i;
+	enum e_type		i;
 
 	i = 0;
 	if (machine->last_lexer == E_STRING)
@@ -53,13 +53,13 @@ static int	check_last_lexer(t_lexer *machine)
 		return (E_IO_NUMBER);
 	if (machine->last_lexer == E_NEWLINE)
 		return (E_NEWLINE);
-	return (machine->last_lexer == E_END ? E_END : FAILURE);
+	return (machine->last_lexer == E_END ? E_END : E_ERROR);
 }
 
-static int	check_char(t_lexer *machine)
+static enum e_type	check_char(t_lexer *machine)
 {
-	int		i;
-	char	*s;
+	enum e_type		i;
+	char			*s;
 
 	i = 0;
 	s = ALLCHAR;
@@ -69,24 +69,24 @@ static int	check_char(t_lexer *machine)
 			return (i);
 		++i;
 	}
-	return (FALSE);
+	return (E_ERROR);
 }
 
-static int	define_type(t_lexer *machine)
+static enum e_type	define_type(t_lexer *machine)
 {
-	int		result;
+	enum e_type		result;
 
-	if ((result = check_last_lexer(machine)) != FAILURE)
+	if ((result = check_last_lexer(machine)) != E_ERROR)
 		return (result);
-	else if ((result = check_char(machine)) != FALSE)
+	else if ((result = check_char(machine)) != E_ERROR)
 		return (result);
 	return (E_STRING);
 }
 
-t_token	generate_token(t_lexer *machine)
+t_token				generate_token(t_lexer *machine)
 {
-	t_token		token;
-	int			i;
+	t_token			token;
+	enum e_type		i;
 
 	i = 0;
 	token.type = define_type(machine);

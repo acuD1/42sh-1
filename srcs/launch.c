@@ -73,7 +73,7 @@ static int8_t	shell_option_letter(t_opt *option, char *arg)
 	return (SUCCESS);
 }
 
-static int8_t	shell_option_word(t_opt *option, char *arg)
+static int8_t	shell_option_word(t_opt *option, const char *arg)
 {
 	if (ft_strequ(arg, "--help") == TRUE)
 		option->option |= HELP_OPT;
@@ -119,7 +119,7 @@ static int8_t	parse_arg(char **av, t_opt *option)
 
 int8_t			set_environment(t_registry *shell, char **av, char **env)
 {
-	if (*av)
+	if (*av != NULL)
 	{
 		if (parse_arg(av, &shell->option) == FAILURE)
 		{

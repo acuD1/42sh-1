@@ -14,7 +14,7 @@
 
 void			double_sign_machine(t_lexer *machine)
 {
-	uint16_t	checker;
+	uint32_t	checker;
 
 	checker = 0;
 	if (ft_strchr(DOUBLE_SIGN, *machine->input) != NULL)
@@ -38,9 +38,9 @@ void			double_sign_machine(t_lexer *machine)
 		machine->state = L_OUT;
 }
 
-static uint16_t	double_dispatcher(t_lexer *machine)
+static uint32_t	double_dispatcher(t_lexer *machine)
 {
-	uint16_t	checker;
+	uint32_t	checker;
 
 	checker = 0;
 	if (*machine->input == '>')
@@ -61,12 +61,12 @@ static uint16_t	double_dispatcher(t_lexer *machine)
 	return (checker);
 }
 
-void	and_machine(t_lexer *machine)
+void			and_machine(t_lexer *machine)
 {
-	if (ft_strchr("<>", *machine->input))
+	if (ft_strchr("<>", *machine->input) != NULL)
 	{
 		machine->last_lexer = *machine->input == '>' ? E_ANDGREAT : E_ANDLESS;
-		machine->input++;
+		++machine->input;
 		if (machine->last_lexer == E_ANDGREAT && *machine->input == '>')
 		{
 			machine->last_lexer = E_ANDDGREAT;
@@ -78,7 +78,7 @@ void	and_machine(t_lexer *machine)
 	machine->state = L_OUT;
 }
 
-void	sign_machine(t_lexer *machine)
+void			sign_machine(t_lexer *machine)
 {
 	if (*machine->input == '\'')
 		machine->state = L_SQTE;

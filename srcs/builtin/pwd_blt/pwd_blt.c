@@ -14,7 +14,7 @@
 #include "21sh.h"
 #include <unistd.h>
 
-char			*get_pwd(t_registry *shell, t_option option)
+char			*get_pwd(t_registry *shell, const t_option option)
 {
 	char	*pwd;
 	char	*env_value_pwd;
@@ -60,7 +60,7 @@ int8_t			pwd_blt(t_registry *shell, char **av)
 	t_option	option;
 	char		*pwd;
 
-	av++;
+	++av;
 	option = set_options(&av, get_option_pwd);
 	if (option == ERROR_OPT)
 		return (FAILURE);

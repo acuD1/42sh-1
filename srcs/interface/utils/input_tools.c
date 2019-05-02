@@ -15,22 +15,22 @@
 uint8_t		is_printable(char c[READ_SIZE])
 {
 	if (c[1] == 0 && ft_isprint(c[0]))
-		return (1);
-	return (0);
+		return (TRUE);
+	return (FALSE);
 }
 
 uint64_t	compute_mask(char c[READ_SIZE])
 {
-	unsigned short	shift;
-	unsigned short	index;
-	unsigned long	value;
-	unsigned long	tmp;
+	uint16_t	shift;
+	uint16_t	index;
+	uint64_t	value;
+	uint64_t	tmp;
 
 	shift = 56;
 	index = 0;
 	value = 0;
 	tmp = 0;
-	while (index < 8 && c[index] != 0)
+	while (index < 8 && c[index] != '\0')
 	{
 		tmp = c[index++];
 		tmp <<= shift;

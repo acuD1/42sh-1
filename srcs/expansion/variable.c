@@ -17,7 +17,7 @@ static char	*variable_replace(t_list *lst, char *str)
 {
 	char		*expanded;
 	char		*data;
-	uint16_t	i;
+	uint32_t	i;
 
 	expanded = NULL;
 	i = ft_strcspn(str, EXP_INTERUPT);
@@ -35,8 +35,8 @@ char		*variable_expansion(t_parser *parse, char *str)
 {
 	char		*expanded;
 	char		*holder;
-	uint16_t	i;
-	t_quote	quote;
+	uint32_t	i;
+	t_quote		quote;
 
 	i = 0;
 	quote = 0;

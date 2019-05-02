@@ -14,7 +14,8 @@
 #include "21sh.h"
 #include <unistd.h>
 
-static char			*ft_get_curpath(t_registry *shell, char *path_give_by_user)
+static char			*ft_get_curpath(t_registry *shell,
+							const char *path_give_by_user)
 {
 	char	*home_path;
 	char	*curpath;
@@ -42,7 +43,7 @@ static char			*ft_get_curpath(t_registry *shell, char *path_give_by_user)
 }
 
 static void			set_oldpwd_and_pwd(t_registry *shell, char *curpath,
-						char *old_pwd, t_option option)
+						char *old_pwd, const t_option option)
 {
 	char		*pwd;
 
@@ -59,7 +60,7 @@ static void			set_oldpwd_and_pwd(t_registry *shell, char *curpath,
 }
 
 static int8_t		change_directory(t_registry *shell, char *curpath,
-						char *path_give_by_user, t_option option)
+						const char *path_give_by_user, const t_option option)
 {
 	char		*old_pwd;
 	struct stat	stat;
@@ -87,7 +88,7 @@ static int8_t		change_directory(t_registry *shell, char *curpath,
 
 static int8_t		is_root(char *path)
 {
-	int		i;
+	uint32_t	i;
 
 	i = 0;
 	if (path == NULL || path[0] == '\0')
@@ -96,7 +97,7 @@ static int8_t		is_root(char *path)
 	{
 		if (path[i] != '/')
 			return (FALSE);
-		i++;
+		++i;
 	}
 	path[1] = '\0';
 	return (TRUE);
@@ -107,7 +108,7 @@ int8_t				cd_blt(t_registry *shell, char **av)
 	char		*curpath;
 	t_option	option;
 
-	av++;
+	++av;
 	if (((option = set_options(&av, get_option_cd)) == ERROR_OPT)
 		|| (curpath = ft_get_curpath(shell, *av)) == NULL)
 		return (FAILURE);

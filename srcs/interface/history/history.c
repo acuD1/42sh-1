@@ -12,7 +12,7 @@
 
 #include "struct.h"
 
-static char		*apply_history_filter(char *command)
+static char		*apply_history_filter(const char *command)
 {
 	char	*ptr;
 	char	*new;
@@ -29,7 +29,7 @@ static char		*apply_history_filter(char *command)
 	return (new);
 }
 
-void		push_history_entry(t_history **head, t_history *node)
+void			push_history_entry(t_history **head, t_history *node)
 {
 	t_history *hist_ptr;
 
@@ -48,7 +48,7 @@ void		push_history_entry(t_history **head, t_history *node)
 	}
 }
 
-t_history	*create_history_entry(char *command)
+t_history		*create_history_entry(const char *command)
 {
 	t_history	*new;
 

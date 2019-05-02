@@ -14,7 +14,7 @@
 #include "parser.h"
 #include <unistd.h>
 
-static char	*user_home(char *str)
+static char	*user_home(const char *str)
 {
 	char	*path;
 
@@ -28,7 +28,7 @@ static char	*user_home(char *str)
 	return (path);
 }
 
-static char	*tilde_expansion(t_parser *parse, char *str)
+static char	*tilde_expansion(t_parser *parse, const char *str)
 {
 	char	*expanded;
 
@@ -54,9 +54,9 @@ static char	*tilde_expansion(t_parser *parse, char *str)
 
 char		*tilde(t_parser *parse, char *str)
 {
-	char	*expanded;
-	char	*holder;
-	int		i;
+	char		*expanded;
+	char		*holder;
+	uint32_t	i;
 
 	i = 0;
 	holder = NULL;

@@ -61,6 +61,8 @@ static void	launch_shell(t_registry *shell)
 	}
 }
 
+
+////// __unused
 int			main(int ac, char **av, char **env)
 {
 	t_registry		shell;

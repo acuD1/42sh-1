@@ -12,9 +12,9 @@
 
 #include "struct.h"
 
-static enum e_state_option	is_option(char *s)
+static enum e_state_option	is_option(const char *s)
 {
-	if (ft_strequ(s, "--"))
+	if (ft_strequ(s, "--") == TRUE)
 		return (E_END_OPTION);
 	else if (*s == '-' && *(s + 1) != '\0')
 		return (E_OPTION);
@@ -28,9 +28,9 @@ t_option					set_options(char ***av, t_get_option get_option)
 
 	state = E_START_OPTION;
 	option = 0;
-	if (!av)
+	if (av == NULL)
 		return (option);
-	while (**av)
+	while (**av != NULL)
 	{
 		state = is_option(**av);
 		if (state == E_NO_OPTION)

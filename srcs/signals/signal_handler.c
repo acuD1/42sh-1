@@ -20,7 +20,9 @@
 
 t_registry	*g_shell;
 
-void			redraw_prompt(int signo)
+//////// __unused signo
+
+void			redraw_prompt(const int signo)
 {
 	(void)signo;
 	t_interface *itf;
@@ -38,10 +40,10 @@ void			redraw_prompt(int signo)
 	itf->cursor.index = 0;
 }
 
-static void		interface_resize_handler(int signo)
+static void		interface_resize_handler(const int signo)
 {
-	struct 					winsize w;
-	t_interface				*itf;
+	struct 			winsize w;
+	t_interface		*itf;
 
 	(void)signo;
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == FAILURE)
@@ -65,7 +67,7 @@ static void		interface_resize_handler(int signo)
 	}
 }
 
-void			kill_process(int signo)
+void			kill_process(const int signo)
 {
 	t_job		*job;
 	t_list		*proc;

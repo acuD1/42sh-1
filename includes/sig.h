@@ -13,10 +13,10 @@
 #ifndef SIG_H
 # define SIG_H
 
-void	define_ign_signals();
-void	define_parser_signals();
-void	define_execution_signals();
-void	define_interface_signals();
-void	define_default_signals();
+void	define_ign_signals(void);
+void	define_parser_signals(void);
+void	define_execution_signals(void);
+void	define_interface_signals(void);
+void	define_default_signals(void);
 
 #endif

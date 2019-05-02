@@ -19,7 +19,7 @@
 int8_t	update_window(t_registry *shell)
 {
 	struct winsize	w;
-	t_window *window;
+	t_window		*window;
 
 	window = &shell->interface.window;
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == FAILURE)
@@ -38,7 +38,7 @@ int8_t	update_window(t_registry *shell)
 int8_t	init_window(t_registry *shell)
 {
 	struct winsize	w;
-	t_window *window;
+	t_window		*window;
 
 	window = &shell->interface.window;
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == FAILURE)

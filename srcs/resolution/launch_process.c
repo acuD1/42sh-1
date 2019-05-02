@@ -16,11 +16,11 @@
 
 static char	**str_lst_to_tab(t_list *alst)
 {
-	int		i;
-	size_t	size;
+	uint32_t	i;
+	size_t		size;
 	t_variable	*variable;
-	char	*env;
-	char	**tabs;
+	char		*env;
+	char		**tabs;
 
 	i = 0;
 	size = ft_lstlen(alst);
@@ -39,7 +39,7 @@ static char	**str_lst_to_tab(t_list *alst)
 	return (tabs);
 }
 
-static void	el_redirector(t_filedesc *fd)
+static void	el_redirector(const t_filedesc *fd)
 {
 	if (fd->in != STDIN_FILENO)
 	{
@@ -63,8 +63,7 @@ static void	execute_process(t_process *process, t_registry *shell)
 	char			**environ;
 	t_filedesc		fd;
 
-	define_execution_signals(shell);
-
+	define_execution_signals();
 	fd = process->fd;
 
 	////////////////////// DEBUG EXEC ///////////////////////

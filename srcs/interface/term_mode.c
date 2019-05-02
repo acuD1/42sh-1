@@ -14,7 +14,7 @@
 #include <termios.h>
 #include <unistd.h>
 
-int16_t			set_term_behavior(t_registry *shell)
+int8_t			set_term_behavior(t_registry *shell)
 {
 	struct termios	term;
 
@@ -43,7 +43,7 @@ int16_t			set_term_behavior(t_registry *shell)
 	return (SUCCESS);
 }
 
-int16_t			restore_term_behavior(t_registry *shell)
+int8_t			restore_term_behavior(t_registry *shell)
 {
 	if (tcsetattr(STDIN_FILENO, TCSANOW, shell->interface.orig_mode) == FAILURE)
 	{

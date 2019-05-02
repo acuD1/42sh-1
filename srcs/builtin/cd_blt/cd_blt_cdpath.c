@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include "21sh.h"
 
-static char		*is_valid_path(char *path, char *to_find)
+static char		*is_valid_path(char *path, const char *to_find)
 {
 	char	*complete_path;
 
@@ -26,7 +26,7 @@ static char		*is_valid_path(char *path, char *to_find)
 
 }
 
-static int		add_end_slash(char **path)
+static uint8_t		add_end_slash(char **path)
 {
 	size_t	len;
 	char	*tmp_path;
@@ -45,11 +45,11 @@ static int		add_end_slash(char **path)
 	return (TRUE);
 }
 
-char			*is_cdpath_env(t_registry *shell, char *to_find)
+char			*is_cdpath_env(t_registry *shell, const char *to_find)
 {
-	char	*cd_path;
-	char	**tab_cd_path;
-	int		i;
+	char		*cd_path;
+	char		**tab_cd_path;
+	uint32_t	i;
 
 	i = 0;
 	if ((cd_path = get_env_var(shell, "CDPATH")) == NULL)

@@ -131,7 +131,7 @@ CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
 CFLAGS += $(IFLAGS) 
-DFLAGS = $(CFLAGS) -fsanitize=address,undefined,leaks
+DFLAGS = $(CFLAGS) -fsanitize=address,undefined,leak
 LFLAGS = -ltermcap
 
 # ---------------------------------------------------------------------------- #

@@ -12,6 +12,7 @@
 
 #include "interface_functions.h"
 
+///// __unused shell
 int8_t		tc_ak_hightab(t_registry *shell)
 {
 	(void)shell;
@@ -20,7 +21,7 @@ int8_t		tc_ak_hightab(t_registry *shell)
 
 int8_t		tc_ak_delete(t_registry *shell)
 {
-	if (validate_interface_content(&shell->interface) != 0)
+	if (validate_interface_content(&shell->interface) == FAILURE)
 		return (FAILURE);
 	shift_content_left_once(shell->interface.line,
 			shell->interface.cursor.index);
@@ -33,7 +34,7 @@ int8_t		tc_ak_backspace(t_registry *shell)
 	t_interface	*itf;
 
 	itf = &shell->interface;
-	if (validate_interface_content(itf) != 0)
+	if (validate_interface_content(itf) == FAILURE)
 		return (FAILURE);
 	if (itf->cursor.index == 0)
 		return (SUCCESS);

@@ -23,7 +23,6 @@
 void			free_registry(t_registry *shell);
 int8_t			init_shell(t_registry *shell);
 int8_t			set_environment( t_registry *shell, char **av, char **env);
-//void			define_default_signals(t_registry *shell);
 void			init_lexinfo(t_registry *shell);
 int8_t			shell_usage(void);
 void			shell_exit_routine(t_registry *shell);
@@ -34,7 +33,7 @@ void			shell_exit_routine(t_registry *shell);
 *****************************************************
 */
 
-char	        *read_input(int fd);
+char	        *read_input(const int fd);
 void			launch_interface(t_registry *shell);
 int8_t		    execution_pipeline(t_registry *shell, t_list *token_list);
 void			get_prompt_ps1(t_registry *shell);
@@ -46,11 +45,13 @@ void			get_prompt_ps1(t_registry *shell);
 *****************************************************
 */
 
-int8_t			add_env(t_registry *sh_reg, char *name, char *data);
-int8_t			add_internal(t_registry *sh_reg, char *name, char *data);
-int8_t			add_internal_nbr(t_registry *reg, char *name, int data);
-char			*get_env_var(t_registry  *sh_reg, char *name);
-char			*get_intern_var(t_registry  *sh_reg, char *name);
+char			*get_env_var(t_registry  *shell, const char *name);
+char			*get_intern_var(t_registry  *shell, const char *name);
+int8_t			add_env(t_registry *shell, const char *name, const char *data);
+int8_t			add_internal(t_registry *shell, const char *name,
+					const char *data);
+int8_t			add_internal_nbr(t_registry *shell, const char *name,
+					const int data);
 
 /*
 *****************************************************
@@ -59,10 +60,10 @@ char			*get_intern_var(t_registry  *sh_reg, char *name);
 */
 
 void			print_lst(t_list **alst);
-int8_t			f_create_node(t_list **alst, char *str);
-int8_t			s_create_node(t_list **alst, char *var, char *data);
-int8_t			change_node(t_list **alst, char *var, char *data);
-char			*get_data(t_list *lst, char *var);
+int8_t			f_create_node(t_list **alst, const char *str);
+int8_t			s_create_node(t_list **alst, const char *var, const char *data);
+int8_t			change_node(t_list **alst, const char *var, char *data);
+char			*get_data(t_list *lst, const char *var);
 char			*variable_to_str(void *data);
 int				find_variable(void *data, void *to_find);
 
@@ -91,6 +92,6 @@ void	        print_opt(t_registry *shell);
 *****************************************************
 */
 
-char	       	*ft_strjoinfree(char *s1, char *s2, short todel);
+char	       	*ft_strjoinfree(char *s1, const char *s2, const short todel);
 
 #endif

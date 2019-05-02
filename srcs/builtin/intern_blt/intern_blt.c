@@ -22,7 +22,7 @@ static void			ft_strlower(char *str)
 }
 
 static void			find_intern_variable(t_registry *shell, char **av,
-						char *(*get_var)(t_registry *shell, char *name))
+						char *(*get_var)(t_registry *shell, const char *name))
 {
 	char	*name;
 	char	*tmp;
@@ -44,7 +44,7 @@ static void			find_intern_variable(t_registry *shell, char **av,
 		if (name != NULL)
 			ft_printf("%s=%s\n", *av, name, *(av + 1));
 		ft_strdel(&tmp);
-		av++;
+		++av;
 	}
 }
 
@@ -52,11 +52,11 @@ int8_t				intern_blt(t_registry *shell, char **av)
 {
 	uint8_t		option;
 
-	av++;
+	++av;
 	option = 0;
 	if (*av != NULL && ft_strequ(*av, "-env") == TRUE)
 	{
-		av++;
+		++av;
 		option = 1;
 	}
 	if (option != FALSE && shell->env == NULL)

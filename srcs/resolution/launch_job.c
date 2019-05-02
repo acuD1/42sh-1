@@ -17,7 +17,7 @@
 
 t_list *g_job_head;
 
-static void		close_opened_fd(t_filedesc fd)
+static void		close_opened_fd(const t_filedesc fd)
 {
 	if (fd.in != STDIN_FILENO && fd.in != STDOUT_FILENO
 			&& fd.in != STDERR_FILENO && fd.in != -1)
@@ -38,23 +38,21 @@ void			launch_job(t_registry *shell, t_list *job_lst)
 	if (shell->is_interactive == TRUE)
 	{
 		restore_term_behavior(shell);
-		define_execution_signals(shell);
+		define_execution_signals();
 	}
-
 	g_job_head = job_lst;
 	current_job = ((t_job *)job_lst->data);
-	process = current_job->process_list; /**/
-	while (process)
+	process = current_job->process_list;
+	while (process != NULL)
 	{
 		launch_process(current_job, ((t_process*)process->data), shell);
 		close_opened_fd(((t_process *)process->data)->fd);
 		process = process->next;
 	}
 	wait_for_job(current_job);
-
 	if (shell->is_interactive == TRUE)
 	{
 		set_term_behavior(shell);
-		define_ign_signals(shell);
+		define_ign_signals();
 	}
 }

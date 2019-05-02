@@ -14,7 +14,7 @@
 #include "builtin.h"
 #include "21sh.h"
 
-static void	hash_bin(t_registry *reg, char *bin)
+static void	hash_bin(t_registry *reg, const char *bin)
 {
 	char			*asp;
 	DIR				*dip;
@@ -60,9 +60,10 @@ static void	hash_builtin(t_registry *reg)
 	ft_hmap_insert(&(reg->blt_hashmap), "pwd", pwd_blt);
 }
 
+///// __unused av
 int8_t			hash_blt(t_registry *reg, char **av)
 {
-	int				i;
+	uint32_t		i;
 	char			**tabs;
 
 	(void)av;

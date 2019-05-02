@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "define.h"
 
-static void		ft_process_transform(char *path, char **new_path)
+static void		ft_process_transform(const char *path, char **new_path)
 {
 	char	*curpath;
 	char	*tmp_path;
@@ -40,7 +40,7 @@ static void		ft_process_transform(char *path, char **new_path)
 	}
 }
 
-static char		*transform_elem_path(char *path, char **new_path)
+static char		*transform_elem_path(const char *path, char **new_path)
 {
 	if (path != NULL && ft_strequ(path, ".") == FALSE)
 	{
@@ -58,7 +58,7 @@ char			*make_curpath_simple(char *curpath)
 {
 	char			*new_path;
 	char			**tab_path;
-	int				i;
+	uint32_t		i;
 
 	i = 0;
 	if (ft_strequ(curpath, "/"))

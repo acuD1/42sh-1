@@ -14,7 +14,7 @@
 
 void	lesser_machine(t_lexer *machine)
 {
-	int		checker;
+	uint32_t	checker;
 
 	checker = 0;
 	if (machine->last_lexer == E_DLESS && *machine->input == '-' && ++checker)
@@ -43,7 +43,7 @@ void	lesser_machine(t_lexer *machine)
 
 void	greater_machine(t_lexer *machine)
 {
-	int		checker;
+	uint32_t	checker;
 
 	checker = 0;
 	if (ft_strchr(">&|", *machine->input) != NULL)

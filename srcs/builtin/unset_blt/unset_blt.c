@@ -28,7 +28,7 @@ static void			reset_prompt(t_registry *shell, char **av)
 }
 int8_t				unset_blt(t_registry *shell, char **av)
 {
-	av++;
+	++av;
 	if (*av == NULL)
 	{
 		ft_dprintf(2, UNSET_USAGE);

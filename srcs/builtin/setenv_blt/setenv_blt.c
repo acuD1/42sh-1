@@ -11,12 +11,13 @@
 /* ************************************************************************** */
 
 #include "21sh.h"
+#include "builtin.h"
 
 int8_t				setenv_blt(t_registry *shell, char **av)
 {
 	t_variable		*variable;
 
-	av++;
+	++av;
 	if (*av == NULL)
 		print_lst(&shell->env);
 	else
@@ -25,8 +26,8 @@ int8_t				setenv_blt(t_registry *shell, char **av)
 		variable->name = ft_strdup(av[0]);
 		variable->data = av[1] ? ft_strdup(av[1]) : ft_strdup("\0");
 		add_env(shell, variable->name, variable->data);
-	//	if (variable && variable->name && ft_strequ(variable->name, "PATH"))
-	//		hash_blt(shell, av);
+		if (variable && variable->name && ft_strequ(variable->name, "PATH"))
+			hash_blt(shell, av);
 		clear_node((void **)&variable);
 		free(variable);
 	}

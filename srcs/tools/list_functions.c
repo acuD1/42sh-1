@@ -57,16 +57,16 @@ void	delete_job(void *data)
 
 void	delete_parser(t_parser *parse)
 {
-	if (parse->tmp_env)
+	if (parse->tmp_env != NULL)
 		ft_lstdel(&parse->tmp_env, NULL); //This will leak
-	if (parse->job_list)
+	if (parse->job_list != NULL)
 		ft_lstdel(&parse->job_list, delete_job);
 	ft_stckdestroy(&parse->stack, delete_variable);
 }
 
 char	*variable_to_str(void *data)
 {
-	char	*string;
+	char		*string;
 	t_variable	*variable;
 
 	variable = data;

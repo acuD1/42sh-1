@@ -12,7 +12,8 @@
 
 #include "interface_functions.h"
 
-static int32_t	goto_next_quote(char *string, char quote, uint32_t index)
+static int64_t	goto_next_quote(const char *string,
+									const char quote, uint32_t index)
 {
 	uint32_t		found_match;
 
@@ -26,8 +27,8 @@ static int32_t	goto_next_quote(char *string, char quote, uint32_t index)
 
 int8_t			quoting_is_valid(char *str)
 {
-	int32_t		length;
-	int32_t		index;
+	uint32_t	length;
+	uint32_t	index;
 	char		quote;
 
 	quote = 0;

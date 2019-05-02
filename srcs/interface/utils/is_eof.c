@@ -13,7 +13,7 @@
 #include "define.h"
 #include <stdint.h>
 
-uint8_t	is_eof(char *buffer)
+uint8_t	is_eof(const char *buffer)
 {
 	if (buffer[0] == 4 && buffer[1] == '\0')
 		return (TRUE);

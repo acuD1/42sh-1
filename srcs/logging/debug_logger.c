@@ -14,13 +14,14 @@
 #include <unistd.h>
 #include "21sh.h"
 
-void	log_print(t_registry *shell, char *importance, char *message, ...)
+void	log_print(t_registry *shell, const char *importance,
+						const char *message, ...)
 {
 	va_list args;
 	int		fd;
 
 	if (shell == NULL)
-			return ;
+		return ;
 	fd = -1;
 	fd = ft_atoi(get_intern_var((shell), INT_DBG_FD));
 	if (fd == STDIN_FILENO)
@@ -64,7 +65,6 @@ void	init_debug_logger(t_registry *shell)
 			ft_dprintf(2, "[ERROR] - Could not fetch home variable.\n");
 			return ;
 		}
-
 		ft_asprintf(&log_path, "%s/%s", home_path, INT_DBG_FILE);
 		debug_fd = open(log_path, O_RDWR | O_APPEND | O_CREAT, 0644);
 		if (debug_fd < 0)

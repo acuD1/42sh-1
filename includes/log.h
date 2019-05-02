@@ -15,7 +15,8 @@
 
 # include "struct.h"
 
-void	log_print(t_registry *reg, char *importance, char *message, ...);
+void	log_print(t_registry *reg, const char *importance,
+						const char *message, ...);
 void	init_debug_logger(t_registry *reg);
 
 #endif

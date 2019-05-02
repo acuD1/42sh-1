@@ -16,7 +16,7 @@
 
 t_option			get_option_env(char *s, t_option option)
 {
-	while (*s)
+	while (*s != '\0')
 	{
 		if (*s == 'i')
 			option |= I_OPT;
@@ -33,9 +33,9 @@ t_option			get_option_env(char *s, t_option option)
 }
 
 static void				ft_fill_with_new_value(t_registry *cpy_shell,
-						char ***arg)
+							char ***arg)
 {
-	char		*equal;
+	char			*equal;
 	t_variable		*variable;
 
 	while ((equal = ft_strchr(**arg, '=')) != NULL)
@@ -47,7 +47,7 @@ static void				ft_fill_with_new_value(t_registry *cpy_shell,
 		variable->data = ft_strdup(ft_strchr(**arg, '=') + 1);
 		add_env(cpy_shell, variable->name, variable->data);
 		(*arg)++;
-		if (variable && variable->name
+		if (variable != NULL && variable->name
 				&& ft_strequ(variable->name, "PATH") == TRUE)
 			hash_blt(cpy_shell, NULL);
 		clear_node((void **)&variable);
@@ -55,9 +55,9 @@ static void				ft_fill_with_new_value(t_registry *cpy_shell,
 }
 
 static t_registry		*copy_registry(t_registry *shell, char ***arg,
-						t_option option)
+							const t_option option)
 {
-	t_variable		*variable;
+	t_variable	*variable;
 	t_list		*lst;
 	t_registry	*cpy_shell;
 
@@ -120,10 +120,12 @@ int8_t				env_blt(t_registry *shell, char **av)
 		print_lst(&cpy_shell->env);
 	if (*av != NULL && (new_input = concat_param(av)) != NULL)
 	{
+		///////////// DOES NOT WORK ////////////// 
 		cpy_shell->is_interactive = FALSE;
 		execution_pipeline(cpy_shell, lexer(&shell->lexinfo, new_input));
 		ft_strdel(&new_input);
 		cpy_shell->is_interactive = TRUE;
+		/////////////////////////////////////////
 	}
 	free_lst(&(cpy_shell->env));
 	free(cpy_shell);

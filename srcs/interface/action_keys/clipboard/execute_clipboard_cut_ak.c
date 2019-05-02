@@ -13,7 +13,8 @@
 #include "interface_functions.h"
 #include "log.h"
 
-static int8_t		cut_vector(t_vector *vect, t_cursor *cursor, int before)
+static int8_t		cut_vector(t_vector *vect, t_cursor *cursor,
+							const int8_t before)
 {
 	char	*tmp;
 	char	*foobar;
@@ -29,10 +30,10 @@ static int8_t		cut_vector(t_vector *vect, t_cursor *cursor, int before)
 		tmp = ft_strncpy(tmp, vect->buffer, cursor->index);
 	ft_strdel(&(vect->buffer));
 	vect->buffer = tmp;
-	return (0);
+	return (SUCCESS);
 }
 
-static void			copy_buffer_part(t_interface *itf, int8_t before)
+static void			copy_buffer_part(t_interface *itf, const int8_t before)
 {
 	char *tmp;
 
@@ -63,7 +64,7 @@ int8_t				tc_ak_cut_before_cursor(t_registry *shell)
 	t_interface	*itf;
 
 	itf = &shell->interface;
-	if (validate_interface_content(itf) != 0)
+	if (validate_interface_content(itf) == FAILURE)
 		return (FAILURE);
 	realloc_vector(itf->clip, itf->line);
 	copy_buffer_part(itf, 1);
@@ -77,7 +78,7 @@ int8_t				tc_ak_cut_after_cursor(t_registry *shell)
 	t_interface	*itf;
 
 	itf = &shell->interface;
-	if (validate_interface_content(itf) != 0)
+	if (validate_interface_content(itf) == FAILURE)
 		return (FAILURE);
 	realloc_vector(itf->clip, itf->line);
 	copy_buffer_part(itf, -1);
@@ -91,7 +92,7 @@ int8_t				tc_ak_cut_line(t_registry *shell)
 	t_interface	*itf;
 
 	itf = &shell->interface;
-	if (validate_interface_content(itf) != 0)
+	if (validate_interface_content(itf) == FAILURE)
 		return (FAILURE);
 	realloc_vector(itf->clip, itf->line);
 	move_buffer(itf->clip->buffer, itf->line);

@@ -13,11 +13,11 @@
 #include <unistd.h>
 #include "libft.h"
 
-char	*ft_strjoinfree(char *s1, char *s2, short todel)
+char	*ft_strjoinfree(char *s1, const char *s2, const short todel)
 {
 	char	*join;
 
-	if (!(join = ft_strnew(ft_strlen(s1) + ft_strlen(s2))))
+	if ((join = ft_strnew(ft_strlen(s1) + ft_strlen(s2))) == NULL)
 		return (NULL);
 	ft_strcpy(join, s1);
 	ft_strcat(join, s2);
@@ -26,7 +26,7 @@ char	*ft_strjoinfree(char *s1, char *s2, short todel)
 	return (join);
 }
 
-char	*read_input(int fd)
+char	*read_input(const int fd)
 {
 	char	*final;
 	char	buffer[16];

@@ -25,8 +25,8 @@ static void			goto_endof_column(t_interface *itf)
 
 int8_t				tc_ak_arrow_right(t_registry *shell)
 {
-	if (validate_interface_content(&shell->interface) != 0)
-		return (-1);
+	if (validate_interface_content(&shell->interface) == FAILURE)
+		return (FAILURE);
 	if (shell->interface.cursor.index >= ft_vctlen(shell->interface.line))
 		return (-2);
 	if (shell->interface.cursor.x >= shell->interface.window.cols - 1)
@@ -46,13 +46,13 @@ int8_t				tc_ak_arrow_right(t_registry *shell)
 		shell->interface.cursor.index++;
 		shell->interface.cursor.x++;
 	}
-	return (0);
+	return (SUCCESS);
 }
 
 int8_t				tc_ak_arrow_left(t_registry *shell)
 {
-	if (validate_interface_content(&shell->interface) != 0)
-		return (-1);
+	if (validate_interface_content(&shell->interface) == FAILURE)
+		return (FAILURE);
 	if (shell->interface.cursor.index < 1)
 		return (-2);
 	if ((shell->interface.cursor.x == 0 && shell->interface.cursor.y >= 1))
@@ -68,7 +68,7 @@ int8_t				tc_ak_arrow_left(t_registry *shell)
 		shell->interface.cursor.index--;
 		shell->interface.cursor.x--;
 	}
-	return (0);
+	return (SUCCESS);
 }
 
 /*

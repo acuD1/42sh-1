@@ -16,7 +16,7 @@ void			print_lst(t_list **alst)
 {
 	t_list *ptr;
 
-	if (!alst)
+	if (alst == NULL)
 		return ;
 	ptr = *alst;
 	while (ptr != NULL)
@@ -27,10 +27,10 @@ void			print_lst(t_list **alst)
 	}
 }
 
-int8_t			f_create_node(t_list **alst, char *str)
+int8_t			f_create_node(t_list **alst, const char *str)
 {
 	t_variable	variable;
-	t_list	*newdir;
+	t_list		*newdir;
 
 	if (str == NULL)
 		return (FAILURE);
@@ -45,10 +45,10 @@ int8_t			f_create_node(t_list **alst, char *str)
 	return (SUCCESS);
 }
 
-int8_t			s_create_node(t_list **alst, char *name, char *data)
+int8_t			s_create_node(t_list **alst, const char *name, const char *data)
 {
-	t_variable variable;
-	t_list *newdir;
+	t_variable	variable;
+	t_list		*newdir;
 
 	if (name == NULL)
 		return (FAILURE);
@@ -63,7 +63,7 @@ int8_t			s_create_node(t_list **alst, char *name, char *data)
 	return (SUCCESS);
 }
 
-int8_t			change_node(t_list **alst, char *name, char *data)
+int8_t			change_node(t_list **alst, const char *name, char *data)
 {
 	t_list *ptr;
 
@@ -83,11 +83,11 @@ int8_t			change_node(t_list **alst, char *name, char *data)
 	return (s_create_node(alst, name, data));
 }
 
-char			*get_data(t_list *lst, char *name)
+char			*get_data(t_list *lst, const char *name)
 {
 	t_list *node;
 
-	if ((node = ft_lstfind(lst, name, find_variable)))
+	if ((node = ft_lstfind(lst, (char *)name, find_variable)))
 		return (((t_variable *)node->data)->data);
 	return (NULL);
 }

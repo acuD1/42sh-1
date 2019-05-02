@@ -27,7 +27,7 @@ int8_t		init_termcap_calls(t_termcaps *termcp);
 void		define_interface_signal_behavior(t_registry *shell);
 void		setup_keycodes(t_interface *itf);
 short		set_term_behavior(t_registry *shell);
-char		set_quote(char c);
+char		set_quote(const char c);
 int8_t		load_interface(t_registry *shell);
 void		unload_interface(t_interface *itf);
 short		restore_term_behavior(t_registry *shell);
@@ -44,13 +44,14 @@ void		validate_input_quoting(t_registry *shell, t_interface *itf);
 int8_t		fill_interface_related_internals(t_registry *shell);
 t_vector	*allocate_clipboard(t_registry *shell);
 void		handle_input_key(t_registry *shell , char c[]);
-uint32_t	get_next_char(char *str, uint32_t index, char direction);
+uint32_t	get_next_char(const char *str, uint32_t index,
+				const char direction);
 void		shift_content_right_once(t_vector *vect, unsigned int cursor);
 void		shift_content_left_once(t_vector *vect, unsigned int cursor);
-int			ft_putc(int c);
+int			ft_putc(const int c);
 int8_t		validate_interface_content(t_interface *itf);
 uint8_t		is_printable(char c[READ_SIZE]);
-uint8_t		is_eof(char *buffer);
+uint8_t		is_eof(const char *buffer);
 uint32_t	get_prompt_len(t_registry *itf);
 uint64_t	compute_mask(char c[READ_SIZE]);
 void		reset_vector(t_vector *vect);
@@ -64,11 +65,11 @@ void		link_actions_to_keys(int8_t (*tc_call[AK_AMOUNT])
 *****************************************************
 */
 
-void		print_char(t_interface *itf, char c);
-void		print_words(t_interface *itf, char *str);
-void		redraw_prompt(int signo);
+void		print_char(t_interface *itf, const char d);
+void		print_words(t_interface *itf, const char *str);
+void		redraw_prompt(const int signo);
 uint32_t	clean_screen(t_registry *shell);
-uint32_t	replace_input_line(t_registry *shell, char *string);
+uint32_t	replace_input_line(t_registry *shell, const char *string);
 uint32_t	redraw_input_line(t_registry *shell);
 uint32_t	redraw_after_cursor(t_registry *shell);
 

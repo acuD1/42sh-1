@@ -15,7 +15,8 @@
 ////////////
 #include "resolve.h"
 
-static int8_t	set_process_status(t_process *process, pid_t pid, int status)
+static int8_t	set_process_status(t_process *process, const pid_t pid,
+										const int status)
 {
 	process->status = status;
 	if (WIFSTOPPED(status) != FALSE)
@@ -33,7 +34,7 @@ static int8_t	set_process_status(t_process *process, pid_t pid, int status)
 	return (SUCCESS);
 }
 
-static int8_t	update_process_status(pid_t pid, int status)
+static int8_t	update_process_status(const pid_t pid, const int status)
 {
 	t_list		*job;
 	t_list		*process;
@@ -54,7 +55,7 @@ static int8_t	update_process_status(pid_t pid, int status)
 		}
 		job = job->next;
 	}
-	ft_dprintf(2, "[WARNING]: No child process %d.\n", (int)pid);
+	ft_dprintf(2, "[WARNING]: No child process %d.\n", (const int)pid);
 	return (FAILURE);
 }
 

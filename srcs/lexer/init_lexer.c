@@ -30,7 +30,7 @@ static void		init_lexing(t_lexinfo *lexinfo)
 	lexinfo->lexing[L_END] = end_machine;
 }
 
-void	init_lexinfo(t_registry *shell)
+void			init_lexinfo(t_registry *shell)
 {
 	shell->lexinfo.special_signs[0] = E_DAND;
 	shell->lexinfo.special_signs[1] = E_OR;
