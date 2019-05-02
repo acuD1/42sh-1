@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/02 11:44:14 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/02 14:42:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,11 @@ static void		loop_signals(void (*func)(int))
 
 	i = 1;
 	while (i < 32)
-		signal(i++, func);
+	{
+		if (i != 3)
+			signal(i, func);
+		++i;
+	}
 }
 
 void			define_ign_signals(void)
