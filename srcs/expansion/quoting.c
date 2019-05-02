@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:16:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/02 21:05:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 21:08:54 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,10 @@ void	quote_removal(char *str)
 		if (ft_strchr("\'\"", *str))
 			quote = select_quoting(quote, *str);
 		if (quote != QUOTE_DOUBLE && *str == '\'')
-		{
 			delete_char(str);
-			continue;
-		}
 		else if (quote != QUOTE_SINGLE && *str == '\"')
-		{
 			delete_char(str);
-			continue;
-		}
-		++str;
+		else
+			++str;
 	}
 }
