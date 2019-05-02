@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 13:53:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/02 10:35:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,18 @@ void			kill_process(int signo)
 	}
 }
 
+void			define_ign_signals(t_registry *shell)
+{
+	if (signal(SIGWINCH, SIG_IGN) == SIG_ERR)
+		log_print(shell, LOG_ERROR, "Error catching the resize signal.\n");
+}
+
+void			define_parser_signals(t_registry *shell)
+{
+	if (signal(SIGWINCH, SIG_DFL) == SIG_ERR)
+		log_print(shell, LOG_ERROR, "Error catching the resize signal.\n");
+}
+
 void			define_execution_signals(t_registry *shell)
 {
 	if (signal(SIGWINCH, SIG_DFL) == SIG_ERR)
@@ -84,7 +96,7 @@ void			define_execution_signals(t_registry *shell)
 		log_print(shell, LOG_ERROR, "Error catching C-c\n");
 }
 
-void			define_interface_signal_behavior(t_registry *shell)
+void			define_interface_signals(t_registry *shell)
 {
 	if (signal(SIGWINCH, interface_resize_handler) == SIG_ERR)
 		log_print(shell, LOG_ERROR, "Error catching the resize signal.\n");
