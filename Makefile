@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/05/02 13:38:39 by cempassi         ###   ########.fr        #
+#    Updated: 2019/05/02 18:39:20 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,13 +19,14 @@ NAMEDB = 21shdb
 NAMET = unit
 LIBFT = libft.a
 LIBFTDB = libftdb.a
-SRCS = $(LINE) $(LEX_SRCS) $(PARSER_SRCS) $(BUILTIN) $(TOOLS_SRCS)
+SRCS = $(LINE) $(LEXER) $(PARSER) $(BUILTIN) $(TOOLS) $(EXPANSION)
 OBJM = $(patsubst %.c, $(OPATH)%.o, $(LINEM))
 OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS))
 OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM))
 OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINEM) $(SRCS))
 LIB = $(addprefix $(LPATH), $(LIBFT))
 LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
+
 # ---------------------------------------------------------------------------- #
 #									Compiler                                   #
 # ---------------------------------------------------------------------------- #
@@ -92,8 +93,10 @@ LINE_PATH += ./
 LEXER_PATH += lexer/
 PARSER_PATH += parser/
 BUILTIN_PATH += builtin/
+EXPANSION_PATH += expansion/
 TOOLS_PATH += tools/
-SPATH += $(addprefix srcs/, $(LINE_PATH) $(LEXER_PATH) $(PARSER_PATH) $(BUILTIN_PATH) $(TOOLS_PATH))
+_SPATH = $(LINE_PATH) $(LEXER_PATH) $(PARSER_PATH) $(BUILTIN_PATH) $(TOOLS_PATH) $(EXPANSION_PATH)
+SPATH += $(addprefix srcs/, $(_SPATH)) 
 
 # ---------------------------------------------------------------------------- #
 #									 vpath                                     #
@@ -238,31 +241,33 @@ LINE += execute_special_ak.c
 
 #						   - - - - - Lexer - - - - -                           #
 
-LEX_SRCS += lexer.c
-LEX_SRCS += init_lexer.c
-LEX_SRCS += machine_interface.c
-LEX_SRCS += states.c
-LEX_SRCS += generate_token.c
-LEX_SRCS += quotes_states.c
-LEX_SRCS += sign_states.c
-LEX_SRCS += tmp_display.c
-LEX_SRCS += redirect_states.c
+LEXER += lexer.c
+LEXER += init_lexer.c
+LEXER += machine_interface.c
+LEXER += states.c
+LEXER += generate_token.c
+LEXER += quotes_states.c
+LEXER += sign_states.c
+LEXER += tmp_display.c
+LEXER += redirect_states.c
 
 #						   - - - - - Parser - - - - -                          #
 
-PARSER_SRCS += parser.c
-PARSER_SRCS += set_parser_token.c
-PARSER_SRCS += generate_graph.c
-PARSER_SRCS += parser_debug.c
-PARSER_SRCS += parser_state.c
-PARSER_SRCS += parser_interface.c
-PARSER_SRCS += init.c
-PARSER_SRCS += string_parser.c
-PARSER_SRCS += redirect_parser.c
-PARSER_SRCS += expansion.c
-PARSER_SRCS += tilde.c
+PARSER += parser.c
+PARSER += set_parser_token.c
+PARSER += generate_graph.c
+PARSER += parser_debug.c
+PARSER += parser_state.c
+PARSER += parser_interface.c
+PARSER += init.c
+PARSER += string_parser.c
+PARSER += redirect_parser.c
 
-TOOLS_SRCS += list_functions.c
+EXPANSION += expansion.c
+EXPANSION += tilde.c
+EXPANSION += variable.c
+
+TOOLS += list_functions.c
 
 #						   - - - - Resolution - - - -                           #
 
