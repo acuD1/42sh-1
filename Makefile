@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/29 17:04:43 by nrechati         ###   ########.fr        #
+#    Updated: 2019/04/30 21:10:55 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -180,6 +180,7 @@ BUILTIN += type_blt.c
 BUILTIN += export_blt.c
 BUILTIN += set_blt.c
 BUILTIN += unset_blt.c
+BUILTIN += pwd_blt.c
 
 #						- - - - - Line edtion - - - - -                        #
 
@@ -259,6 +260,7 @@ PARSER_SRCS += init.c
 PARSER_SRCS += string_parser.c
 PARSER_SRCS += quote_parser.c
 PARSER_SRCS += redirect_parser.c
+PARSER_SRCS += expansion_parser.c
 PARSER_SRCS += lexer_parser_interface.c
 
 TOOLS_SRCS += list_functions.c
@@ -290,8 +292,6 @@ test : $(NAMET)
 #					 - - - - - Normal Compilation - - - - -                    #
 
 $(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJM)
-#	@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
-#	@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
 	$(LINK) $(OBJS) $(OBJM) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@
 	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
@@ -309,8 +309,6 @@ $(LIB) : FORCE
 #					 - - - - Unit test Compilation - - - -                     #
 
 $(NAMET) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJT)
-	#@$(shell if ! test -f $(BUILD_NUMBER_FILE); then echo 0 > $(BUILD_NUMBER_FILE); fi)
-	#@echo "$(NUMBER_INC)" > $(BUILD_NUMBER_FILE)
 	$(LINK) $(CFLAGS)  $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address -o  $@ $(OBJT) $(OBJS)
 	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 

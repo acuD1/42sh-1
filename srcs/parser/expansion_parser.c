@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validate_interface.c                               :+:      :+:    :+:   */
+/*   expansion_parser.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 17:08:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 16:25:50 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/30 20:43:54 by cempassi          #+#    #+#             */
+/*   Updated: 2019/04/30 20:57:21 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
+#include "parser.h"
 
-int8_t		validate_interface_content(t_interface *itf)
+void	expansion_parser(t_parser *parse)
 {
-	if (itf == NULL
-			|| itf->clip->buffer == NULL
-			|| itf->line->buffer == NULL)
-		return (FAILURE);
-	return (SUCCESS);
+	parse->state = P_EXP;
 }

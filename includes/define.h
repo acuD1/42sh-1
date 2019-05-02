@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/29 13:46:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/30 21:11:21 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define SH21_USAGE_2				"[--rcfile PATH] [-c CMD]\n"
 # define SH21_USAGE_LONG_OPTION		"\n\t--help\n\t--norc\n\t"
 # define SH21_USAGE_LONG_OPTION_2	"--version\n\t--debug\n"
+# define NO_OPT						0x000
 # define HELP_OPT					0x001
 # define COMMAND_OPT				0x002
 # define DEBUG_OPT					0x004
@@ -93,17 +94,17 @@
 *****************************************************
 */
 
-# define STATENBR					18
-# define TOKEN_WITH_DATA			9
-# define NB_OF_TOKENS				54
+# define STATENBR					19
+# define TOKEN_WITH_DATA			12
+# define NB_OF_TOKENS				59
 # define BUFFER						1024
 # define SINGLE_SIGNS				23
-# define SPECIAL_SIGNS				12
+# define SPECIAL_SIGNS				15
 # define SIGNS 						(SPECIAL_SIGNS + SINGLE_SIGNS)
 # define ALLCHAR					"$\\\'\"|()><;`&~{}[]*?!#%N"
 # define SIGN_DETECT				" \t<>|;\'\"$&~\\"
 # define LETTER_TO_QUOTE			"\"\'$"
-# define LETTER_INTERUPT			" \t<>|;\'\"&\\"
+# define LETTER_INTERUPT			" \t<>|;&\\"
 # define TILDE_INTERUPT				" /$"
 # define QSP_INT					" \"\'"
 /*
@@ -134,7 +135,7 @@
 *****************************************************
 */
 
-# define PARSE_STATES				14
+# define PARSE_STATES				20
 # define STARTING					14
 # define STRING_TOKENS				16
 # define BACKSLASH 					E_BACKSLASH

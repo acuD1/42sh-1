@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/27 14:35:28 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 21:12:53 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_option			get_option_export(char *s, t_option option)
 
 int8_t				export_blt(t_registry *shell, char **av)
 {
-	t_node		*node;
+	t_variable		*node;
 	char		*equal;
 	t_option	option;
 
@@ -40,20 +40,20 @@ int8_t				export_blt(t_registry *shell, char **av)
 	//////////////// implement option -p
 	if (((option |= set_options(&av, get_option_export)) == ERROR_OPT))
 		return (FAILURE);
-	while (*av) 
+	while (*av)
 	{
-		node = (t_node *)malloc(sizeof(t_node));
-		node->var = ft_strdup(*av);
+		node = (t_variable *)malloc(sizeof(t_variable));
+		node->name = ft_strdup(*av);
 		if ((equal = ft_strchr(*av, '=')) != NULL)
 		{
-			equal = ft_strchr(node->var, '=');
+			equal = ft_strchr(node->name, '=');
 			*equal = '\0';
 			node->data = ft_strdup(ft_strchr(*av, '=') + 1);
 		}
 		else
-			node->data = ft_strdup(get_intern_var(shell, node->var));
-		add_env(shell, node->var, node->data);
-	//	if (node && node->var && ft_strequ(node->var, "PATH"))
+			node->data = ft_strdup(get_intern_var(shell, node->name));
+		add_env(shell, node->name, node->data);
+	//	if (node && node->name && ft_strequ(node->name, "PATH"))
 	//		hash_blt(shell, av);
 		clear_node((void **)&node);
 		free(node);

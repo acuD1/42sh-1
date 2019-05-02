@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:35:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/27 16:15:00 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 14:24:53 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,21 @@
 
 /*
 *****************************************************
-***************** ---- COMMON ---- ******************
+****************** ---- COMMON ---- *****************
 *****************************************************
 */
 
 t_option	set_options(char ***av, t_get_option get_option);
+
+/*
+*****************************************************
+************************ PWD ************************
+*****************************************************
+*/
+
+int8_t		pwd_blt(t_registry *shell, char **av);
+t_option	get_option_pwd(char *s, t_option option);
+char		*get_pwd(t_registry *shell, t_option option);
 
 /*
 *****************************************************
@@ -46,6 +56,8 @@ char		*get_home_path(void);
 char		*is_cdpath_env(t_registry *shell, char *to_find);
 char		*get_relative_path(char **curpath);
 char		*make_curpath_simple(char *curpath);
+int8_t		exit_cd(t_registry *shell, char **old_pwd,
+						char **curpath, int8_t ret);
 
 /*
 *****************************************************

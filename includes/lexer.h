@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/27 16:20:37 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 13:57:12 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ void		backslash_machine(t_lexer *machine);
 void		single_quote_machine(t_lexer *machine);
 void		double_quote_machine(t_lexer *machine);
 void		double_sign_machine(t_lexer *machine);
+void		and_machine(t_lexer *machine);
 void		greater_machine(t_lexer *machine);
-void		lesser_machine(t_lexer *machine);
 void		greatand_machine(t_lexer *machine);
+void		lesser_machine(t_lexer *machine);
+void		lessand_machine(t_lexer *machine);
 void		tilde_machine(t_lexer *machine);
 void		fill_buffer_output(t_lexer *machine);
 t_token 	generate_token(t_lexer *machine);

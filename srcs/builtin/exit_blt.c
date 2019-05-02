@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_blt.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 11:26:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/27 13:34:55 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:54:31 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ static void	free_hash(t_hash hashmap, void (*del)(void *))
 {
 	ft_hmap_free_content(&hashmap, del);
 	free(hashmap.map);
+	hashmap.map = NULL;
 }
 
-static void	free_registry(t_registry *reg)
+void	free_registry(t_registry *reg)
 {
 	free_opt(reg->option);
 	free_lst(&(reg->env));
@@ -60,7 +61,7 @@ static int			ft_is_numeric(char *s)
 int8_t				exit_blt(t_registry *shell, char **av)
 {
 	av++;
-	if (*av != NULL)
+	if (av != NULL && *av != NULL)
 	{
 		if (ft_is_numeric(*av) == FALSE)
 		{

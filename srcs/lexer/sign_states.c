@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/24 02:36:05 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 18:03:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,21 @@ int		double_dispatcher(t_lexer *machine)
 	return (checker);
 }
 
+void	and_machine(t_lexer *machine)
+{
+	if (ft_strchr("<>", *machine->input))
+	{
+		machine->last_lexer = *machine->input == '>' ? E_ANDGREAT : E_ANDLESS;
+		machine->input++;
+		if (machine->last_lexer == E_ANDGREAT && *machine->input == '>')
+		{
+			machine->last_lexer = E_DGREATAND;
+			machine->input++;
+		}
+	}
+	machine->state = OUT;
+}
+
 void	sign_machine(t_lexer *machine)
 {
 	if (*machine->input == '\\')
@@ -90,6 +105,8 @@ void	sign_machine(t_lexer *machine)
 		machine->state = EXP;
 	else if (*machine->input == '~')
 		machine->state = TILDE;
+	else if (*machine->input == '&')
+		machine->state = AND;
 	else if (double_dispatcher(machine) != FALSE)
 		ft_strncat(machine->buffer, machine->input, 1);
 	else

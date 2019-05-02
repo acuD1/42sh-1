@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/26 18:41:02 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 14:31:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ static void		init_process(t_lexer *machine)
 	machine->process[GREATER] = greater_machine;
 	machine->process[LESSER] = lesser_machine;
 	machine->process[GREATAND] = greatand_machine;
+	machine->process[LESSAND] = lessand_machine;
 	machine->process[TILDE] = tilde_machine;
 	machine->process[EXP] = expansion_machine;
 	machine->process[BSL] = backslash_machine;
 	machine->process[SQTE] = single_quote_machine;
 	machine->process[DQTE] = double_quote_machine;
+	machine->process[AND] = and_machine;
 	machine->process[OUT] = out_lexer;
 	machine->process[END] = end_machine;
 }
@@ -46,6 +48,7 @@ static void		init_special(t_lexer *machine)
 	machine->special_signs[9] = E_CLOBBER;
 	machine->special_signs[10] = E_DEQ;
 	machine->special_signs[11] = E_NOTEQ;
+	machine->special_signs[12] = E_DGREATAND;
 }
 
 static void		init_lexer(t_lexer *machine)
@@ -63,7 +66,10 @@ static void		init_lexer(t_lexer *machine)
 	machine->duplicate[5] = E_DB_QUOTE;
 	machine->duplicate[6] = E_ASSIGN;
 	machine->duplicate[7] = E_GREATAND;
-	machine->duplicate[8] = E_TILDE;
+	machine->duplicate[8] = E_LESSAND;
+	machine->duplicate[9] = E_TILDE;
+	machine->duplicate[10] = E_QEXP;
+	machine->duplicate[11] = E_QTILDE;
 }
 
 t_list			*lexer(char *input)

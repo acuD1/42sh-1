@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 16:58:01 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 17:26:47 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,19 @@ static int8_t		fetch_terminal_info(t_registry *shell)
 	return (SUCCESS);
 }
 
-static int8_t		fill_interface_related_internals(t_registry *reg)
+int8_t				fill_interface_related_internals(t_registry *shell)
 {
-	if (add_internal(reg, INT_PS1, INT_PS1_VALUE) == FAILURE)
+	get_prompt_ps1(shell);
+	if (add_internal(shell, INT_PS2, INT_PS2_VALUE) == FAILURE)
 		return (FAILURE);
-	if (add_internal(reg, INT_PS2, INT_PS2_VALUE) == FAILURE)
+	if (add_internal(shell, INT_PS3, INT_PS3_VALUE) == FAILURE)
 		return (FAILURE);
-	if (add_internal(reg, INT_PS3, INT_PS3_VALUE) == FAILURE)
-		return (FAILURE);
-	if (add_internal(reg, INT_PS4, INT_PS4_VALUE) == FAILURE)
+	if (add_internal(shell, INT_PS4, INT_PS4_VALUE) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
 }
 
-int8_t load_interface(t_registry *shell)
+int8_t 				load_interface(t_registry *shell)
 {
 	if (fetch_terminal_info(shell) == FAILURE)
 		return (FAILURE);

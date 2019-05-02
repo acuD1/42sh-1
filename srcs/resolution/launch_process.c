@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 10:12:33 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/30 21:14:37 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char		**str_lst_to_tab(t_list *alst)
 {
 	int		i;
 	size_t	size;
-	t_node	*data;
+	t_variable	*variable;
 	char	*env;
 	char	**tabs;
 
@@ -28,9 +28,9 @@ char		**str_lst_to_tab(t_list *alst)
 		return (NULL);
 	while (alst != NULL)
 	{
-		data = (t_node *)alst->data;
+		variable = (t_variable *)alst->data;
 		env = NULL;
-		ft_asprintf(&env, "%s=%s", data->var, data->data);
+		ft_asprintf(&env, "%s=%s", variable->name, variable->data);
 		tabs[i] = env;
 		alst = alst->next;
 		i++;
@@ -62,11 +62,20 @@ static void	execute_process(t_process *process, t_registry *shell)
 {
 	char			**environ;
 	t_filedesc		fd;
+
+	define_execution_signals(shell);
+
 	fd = process->fd;
-	signal(SIGINT, SIG_DFL); // way more
-	ft_dprintf(2, "\n\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
+
+	////////////////////// DEBUG EXEC ///////////////////////
+	if ((shell->option.option & DEBUG_OPT) != FALSE)
+	{
+		ft_dprintf(2, "\n\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
 				process->av[0], fd.in, fd.out, fd.err);
-	ft_dprintf(2, "\x1b[35m[OUTPUT]: _______________________\n\x1b[0m\n");
+		ft_dprintf(2, "\x1b[35m[OUTPUT]: _______________________\n\x1b[0m\n");
+	}
+	/////////////////////////////////////////////////////////
+
 	el_redirector(&fd);
 	environ = str_lst_to_tab(shell->env);
 	/*	Exec the new process	*/
@@ -76,24 +85,23 @@ static void	execute_process(t_process *process, t_registry *shell)
 	else if (ft_hmap_getdata(&shell->bin_hashmap, process->av[0]) != NULL)
 		execve(ft_hmap_getdata(&shell->bin_hashmap, process->av[0])
 									, process->av, environ);
-	else
+	else if (process->av[0][0] == '.' || process->av[0][0] == '/')
 		execve(process->av[0], process->av, environ);
-	ft_dprintf(2, "\x1b[31m[ERROR] - Execution failed: %s.\x1b[0m\n\n", process->av[0]);
+	////////////////////// DEBUG ERROR ///////////////////////
+	ft_dprintf(2, "21sh: command not found: %s\n", process->av[0]);
+	//////////////////////////////////////////////////////////
+
 	exit(FAILURE);
 }
 
-int		launch_process(t_job *job, t_process *process, t_registry *shell)
+int			launch_process(t_job *job, t_process *process, t_registry *shell)
 {
 	pid_t		pid;
 
-
 	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL
 			&& job->process_list->next == NULL)
-	{
-		((t_builtin)ft_hmap_getdata(&shell->blt_hashmap, process->av[0]))
-													(shell, process->av);
-		return (FAILURE);
-	}
+		return (((t_builtin)ft_hmap_getdata(&shell->blt_hashmap, process->av[0]))
+				(shell, process->av));
 	else
 	{
 		pid = fork();

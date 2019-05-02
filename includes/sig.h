@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validate_interface.c                               :+:      :+:    :+:   */
+/*   sig.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 17:08:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 16:25:50 by skuppers         ###   ########.fr       */
+/*   Created: 2019/04/30 18:02:22 by skuppers          #+#    #+#             */
+/*   Updated: 2019/04/30 18:13:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
-
-int8_t		validate_interface_content(t_interface *itf)
-{
-	if (itf == NULL
-			|| itf->clip->buffer == NULL
-			|| itf->line->buffer == NULL)
-		return (FAILURE);
-	return (SUCCESS);
-}
+#ifndef SIG_H
+# define SIG_H
+void			define_ign_signals(t_registry *shell);
+void			define_parser_signals(t_registry *shell);
+void			define_execution_signals(t_registry *shell);
+void			define_interface_signals(t_registry *shell);
+void			define_ign_signals(t_registry *shell);
+#endif

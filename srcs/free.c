@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:23:48 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/27 12:09:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/04/30 20:56:30 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void			clear_node(void **data)
 {
-	t_node	*ptr;
+	t_variable	*ptr;
 
 	ptr = *data;
-	free(ptr->var);
+	free(ptr->name);
 	free(ptr->data);
 }
 
@@ -35,7 +35,7 @@ static int8_t	del_node(t_list *ptr, char *var)
 	ptr = ptr->next;
 	while (ptr != NULL)
 	{
-		if (ft_strequ(((t_node *)ptr->data)->var, var) == TRUE)
+		if (ft_strequ(((t_variable *)ptr->data)->name, name) == TRUE)
 		{
 			tmp->next = ptr->next;
 			free_anode(ptr);
@@ -51,18 +51,18 @@ static int8_t	del_node(t_list *ptr, char *var)
 int8_t			free_node(t_list **alst, char *var)
 {
 	t_list	*ptr;
-	t_node	*env;
+	t_variable	*env;
 
 	ptr = *alst;
-	env = (t_node*)ptr->data;
-	if (ft_strequ(env->var, var) == TRUE)
+	env = (t_variable*)ptr->data;
+	if (ft_strequ(env->name, name) == TRUE)
 	{
 		*alst = ptr->next;
 		free_anode(ptr);
 		free(ptr);
 		return (SUCCESS);
 	}
-	return (del_node(ptr, var));
+	return (del_node(ptr, name));
 }
 
 int8_t			free_lst(t_list **alst)

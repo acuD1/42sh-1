@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/29 16:59:15 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 21:14:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_registry	*g_shell;
 
 static int	need_subprompt(enum e_type state, enum e_type type)
 {
-	if (state == E_PIPE && type == E_END)
+	if (state == E_PIPE && type == E_END && g_shell->is_interactive == TRUE)
 		return (TRUE);
 	return (FALSE);
 }
@@ -29,7 +29,7 @@ static void	print_parser_error(enum e_type type)
 	static const char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
 									, IF, IN, THEN, UNTIL, WHILE};
 
-	ft_dprintf(2, "\n21sh: syntax error near unexpected token ");
+	ft_dprintf(2, "21sh: syntax error near unexpected token ");
 	if (type == E_STRING || type == E_QUOTE
 		|| type == E_DB_QUOTE || type == E_EXP)
 		ft_dprintf(2, "`STRING'\n");
@@ -65,6 +65,7 @@ static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
 			new_token = lexer(line);
 			ft_strdel(&line);
 		}
+		ft_putchar('\n');
 		free((*lst)->next);
 		(*lst)->next = new_token;
 		return (TRUE);

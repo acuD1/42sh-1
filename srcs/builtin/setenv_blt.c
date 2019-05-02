@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/26 17:26:32 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 21:13:30 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 int8_t				setenv_blt(t_registry *shell, char **av)
 {
-	t_node		*node;
+	t_variable		*variable;
 
 	av++;
 	if (*av == NULL)
 		print_lst(&shell->env);
 	else
 	{
-		node = (t_node *)malloc(sizeof(t_node));
-		node->var = ft_strdup(av[0]);
-		node->data = av[1] ? ft_strdup(av[1]) : ft_strdup("\0");
-		add_env(shell, node->var, node->data);
-	//	if (node && node->var && ft_strequ(node->var, "PATH"))
+		variable = (t_variable *)malloc(sizeof(t_variable));
+		variable->name = ft_strdup(av[0]);
+		variable->data = av[1] ? ft_strdup(av[1]) : ft_strdup("\0");
+		add_env(shell, variable->name, variable->data);
+	//	if (variable && variable->name && ft_strequ(variable->name, "PATH"))
 	//		hash_blt(shell, av);
-		clear_node((void **)&node);
-		free(node);
+		clear_node((void **)&variable);
+		free(variable);
 	}
 	return (SUCCESS);
 }

@@ -6,11 +6,12 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/27 14:35:28 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 21:16:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
+#include "lexer.h"
 
 t_option			get_option_env(char *s, t_option option)
 {
@@ -34,27 +35,28 @@ static void				ft_fill_with_new_value(t_registry *cpy_shell,
 						char ***arg)
 {
 	char		*equal;
-	t_node		*node;
+	t_variable		*variable;
 
 	while ((equal = ft_strchr(**arg, '=')) != NULL)
 	{
-		node = (t_node *)malloc(sizeof(t_node));
-		node->var = ft_strdup(**arg);
-		equal = ft_strchr(node->var, '=');
+		variable = (t_variable *)malloc(sizeof(t_variable));
+		variable->name = ft_strdup(**arg);
+		equal = ft_strchr(variable->name, '=');
 		*equal = '\0';
-		node->data = ft_strdup(ft_strchr(**arg, '=') + 1);
-		add_env(cpy_shell, node->var, node->data);
+		variable->data = ft_strdup(ft_strchr(**arg, '=') + 1);
+		add_env(cpy_shell, variable->name, variable->data);
 		(*arg)++;
-	//	if (node && node->var && ft_strequ(node->var, "PATH"))
-	//		hash_blt(cpy_shell, *arg);
-		clear_node((void **)&node);
+		if (variable && variable->name
+				&& ft_strequ(variable->name, "PATH") == TRUE)
+			hash_blt(cpy_shell, NULL);
+		clear_node((void **)&variable);
 	}
 }
 
 static t_registry		*copy_registry(t_registry *shell, char ***arg,
 						t_option option)
 {
-	t_node		*node;
+	t_variable		*variable;
 	t_list		*lst;
 	t_registry	*cpy_shell;
 
@@ -66,40 +68,62 @@ static t_registry		*copy_registry(t_registry *shell, char ***arg,
 		lst = shell->env;
 		while (lst != NULL)
 		{
-			node = (t_node *)malloc(sizeof(t_node));
-			node->var = ft_strdup(((t_node *)(lst->data))->var);
-			node->data = ft_strdup(((t_node *)(lst->data))->data);
-			add_env(cpy_shell, node->var, node->data);
+			variable = (t_variable *)malloc(sizeof(t_variable));
+			variable->name = ft_strdup(((t_variable *)(lst->data))->name);
+			variable->data = ft_strdup(((t_variable *)(lst->data))->data);
+			add_env(cpy_shell, variable->name, variable->data);
 			lst = lst->next;
-			clear_node((void **)&node);
-			free(node);
+			clear_node((void **)&variable);
+			free(variable);
 		}
 	}
 	ft_fill_with_new_value(cpy_shell, arg);
 	return (cpy_shell);
 }
 
+static char		*concat_param(char **av)
+{
+	char	*new_input;
+	char	*arg;
+	char	*tmp;
+
+	new_input = NULL;
+	while (*av != NULL)
+	{
+		if (*(av + 1))
+			arg = ft_strjoin(*av, " ");
+		else
+			arg = ft_strdup(*av);
+		tmp = new_input;
+		new_input = ft_strjoin(tmp, arg);
+		ft_strdel(&tmp);
+		ft_strdel(&arg);
+		av++;
+	}
+	return (new_input);
+}
 
 int8_t				env_blt(t_registry *shell, char **av)
 {
 	t_option	option;
 	t_registry	*cpy_shell;
+	char		*new_input;
 
 	av++;
 	option = 0;
-	if (*av != NULL && ft_strequ(*av, "-") == TRUE)
-	{
-		av++;
-		option = I_OPT;
-	}
-	else if (((option |= set_options(&av, get_option_env)) == ERROR_OPT))
+	new_input = NULL;
+	if (((option |= set_options(&av, get_option_env)) == ERROR_OPT))
 		return (FAILURE);
 	cpy_shell = copy_registry(shell, &av, option);
 	if (*av == NULL)
 		print_lst(&cpy_shell->env);
+	if (*av != NULL && (new_input = concat_param(av)) != NULL)
+	{
+		cpy_shell->is_interactive = FALSE;
+		execution_pipeline(cpy_shell, lexer(new_input));
+		ft_strdel(&new_input);
+	}
 	free_lst(&(cpy_shell->env));
-/////////////////////////////// SEND TO EXECUTION //////////////////// 	
-/////////////////////////////// exec(cpy_shell, av); //////////////////
 	free(cpy_shell);
 	cpy_shell = NULL;
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/24 18:57:05 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:24:49 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,31 @@ t_option		get_option_cd(char *s, t_option option)
 	return (option);
 }
 
+int8_t			exit_cd(t_registry *shell, char **old_pwd,
+					char **curpath, int8_t ret)
+{
+	ft_strdel(old_pwd);
+	ft_strdel(curpath);
+	if (ret == SUCCESS)
+		get_prompt_ps1(shell);
+	return (ret);
+}
+
 char			*concat_pwd_with_curpath(t_registry *shell, char **path)
 {
 	char	*curpath;
 	char	*pwd;
+	char	*tmp_pwd;
 
-	if ((pwd = get_env_var(shell, "PWD")) == NULL)
-		pwd = getcwd(pwd, PATH_MAX);
+	pwd = get_pwd(shell, NO_OPT);
 	if (pwd == NULL)
 		return (NULL);
 	else if (pwd[ft_strlen(pwd) - 1] != '/')
+	{
+		tmp_pwd = pwd;
 		pwd = ft_strjoin(pwd, "/");
-	else
-		pwd = ft_strdup(pwd);
+		ft_strdel(&tmp_pwd);
+	}
 	curpath = ft_strjoin(pwd, *path);
 	ft_strdel(path);
 	ft_strdel(&pwd);
@@ -67,7 +79,7 @@ char			*get_relative_path(char **curpath)
 	char	*new_path;
 
 	pwd = NULL;
-	pwd = getcwd(pwd, PATH_MAX);
+	pwd = getcwd(NULL, PATH_MAX);
 	if (ft_strstr(*curpath, pwd) != NULL)
 		new_path = ft_strdup(*curpath + ft_strlen(pwd) + 1);
 	else

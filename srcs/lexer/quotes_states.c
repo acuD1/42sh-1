@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 13:34:28 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/24 03:19:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/29 18:02:32 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,13 @@ void	double_quote_machine(t_lexer *machine)
 	else if (machine->quote == QUOTE_SP && ft_strchr(QSP_INT, *machine->input))
 		close_double_quote(machine);
 	else if (machine->quote && *machine->input == '\"')
-		close_double_quote(machine);
+	{
+		machine->input++;
+		if (ft_strchr(" ;\t\n", *machine->input) || *machine->input == '\0')
+			close_double_quote(machine);
+		else
+			machine->quote = QUOTE_SP;
+	}
 	else if (machine->quote == QUOTE_INT || machine->quote == QUOTE_SP_INT)
 		quote_dispatcher(machine);
 	else if (ft_strchr(QUOTE_INTERUPT, *machine->input) != NULL)

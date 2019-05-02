@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 16:58:47 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:12:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,24 @@ int					launch_shell_prompt(t_registry *shell)
 {
 	char		*input;
 
-	log_print(shell, LOG_INFO, "Starting prompt.\n");
-
-	///////////////////////////////////////////////////////////
-	ft_putendl("\n\033[36m###################### NEW CMD #######################\033[0m\n");
-	///////////////////////////////////////////////////////////	
-
-	if (get_input(shell, &input))
+	define_interface_signal_behavior(shell);
+	if (get_input(shell, &input) == FAILURE)
 	{
 		cleanup_interface(shell);
 		return (FAILURE);
 	}
+	ft_putchar('\n');
 	update_history(shell, input);
+
+//	define_execution_signals(shell);
 	execution_pipeline(shell, lexer(input));
 	return (SUCCESS);
 }
 
 void				launch_interface(t_registry *shell)
 {
-	define_interface_signal_behavior(shell);
+	log_print(shell, LOG_INFO, "Starting interface.\n");
 	while (launch_shell_prompt(shell) == SUCCESS)
 		cleanup_interface(shell);
-	define_interface_default_signals(shell);
-	log_print(shell, LOG_INFO, "Starting interface.\n");
 	restore_term_behavior(shell);
 }

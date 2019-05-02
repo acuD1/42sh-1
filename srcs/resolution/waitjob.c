@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:02:11 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 18:35:07 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:15:59 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,10 @@ int8_t		set_process_status(t_process *process, pid_t pid, int status)
 		process->completed = 1;
 		if (WIFSIGNALED(status) != FALSE)
 		{
-			ft_dprintf(2, "[ERROR] pid %d: Terminated by %d.\n"
+			ft_dprintf(2, "[WARNING] pid %d: Terminated by signo %d.\n"
 							, pid, WTERMSIG(process->status));
 			return (FAILURE);
 		}
-
 	}
 	return (SUCCESS);
 }
@@ -48,7 +47,7 @@ int8_t		update_process_status(pid_t pid, int status)
 		{
 			if (((t_process*)process->data)->pid == pid)
 				return (set_process_status(((t_process*)process->data)
-							, pid, status));
+						, pid, status));
 			process = process->next;
 		}
 		job = job->next;
