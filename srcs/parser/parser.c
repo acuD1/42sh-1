@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/01 01:04:05 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 03:22:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
 		{
 			invoke_sub_prompt(g_shell, &line, "pipe> ");
 			g_shell->interface.state = INT_PS1;
-			new_token = lexer(line);
+			new_token = lexer(&g_shell->lexinfo, line);
 			ft_strdel(&line);
 		}
 		ft_putchar('\n');

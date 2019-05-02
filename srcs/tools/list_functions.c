@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 22:07:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/30 21:23:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 03:12:22 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,14 @@ void	delete_job(void *data)
 
 	job = (t_job *)data;
 	ft_lstdel(&job->process_list, delete_process);
+}
+
+void	delete_parser(t_parser *parse)
+{
+	if (parse->tmp_env)
+		ft_lstdel(&parse->tmp_env, NULL); //This will leak
+	if (parse->job_list)
+		ft_lstdel(&parse->job_list, delete_job);
 }
 
 char	*variable_to_str(void *data)

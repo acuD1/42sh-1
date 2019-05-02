@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 16:12:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/02 03:18:50 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int					launch_shell_prompt(t_registry *shell)
 	update_history(shell, input);
 
 //	define_execution_signals(shell);
-	execution_pipeline(shell, lexer(input));
+	execution_pipeline(shell, lexer(&shell->lexinfo, input));
 	return (SUCCESS);
 }
 

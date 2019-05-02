@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 20:19:38 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/01 17:54:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 03:20:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ int		check_last_lexer(t_lexer *machine)
 		return (check_script(machine));
 	while (i < TOKEN_WITH_DATA)
 	{
-		if (machine->last_lexer == machine->duplicate[i])
-			return (machine->duplicate[i]);
+		if (machine->last_lexer == machine->lexinfo->duplicate[i])
+			return (machine->lexinfo->duplicate[i]);
 		++i;
 	}
 	i = 0;
 	while (i < SPECIAL_SIGNS)
 	{
-		if (machine->last_lexer == machine->special_signs[i])
-			return (machine->special_signs[i]);
+		if (machine->last_lexer == machine->lexinfo->special_signs[i])
+			return (machine->lexinfo->special_signs[i]);
 		++i;
 	}
 	if (machine->last_lexer == E_IO_NUMBER)
@@ -95,7 +95,7 @@ t_token	generate_token(t_lexer *machine)
 	token.data = NULL;
 	while (i < TOKEN_WITH_DATA)
 	{
-		if (token.type == machine->duplicate[i++] && *machine->buffer)
+		if (token.type == machine->lexinfo->duplicate[i++] && *machine->buffer)
 			token.data = ft_strdup(machine->buffer);
 	}
 	if (machine->last_lexer != E_END)

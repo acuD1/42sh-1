@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/02 01:29:25 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 03:12:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void			define_default_signals(t_registry *shell);
 void			free_registry(t_registry *shell);
 
 int8_t			init_shell(t_registry *shell);
+void			init_lexinfo(t_registry *shell);
 int8_t			shell_usage(void);
 
 void			launch_interface(t_registry *shell);
@@ -59,6 +60,7 @@ char	        *read_input(int fd);
 char	       	*ft_strjoinfree(char *s1, char *s2, short todel);
 void	        print_opt(t_registry *shell);
 
+void			delete_parser(t_parser *parse);
 int				find_variable(void *data, void *to_find);
 char			*variable_to_str(void *data);
 void			delete_process(void *data);

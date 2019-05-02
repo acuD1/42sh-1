@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/02 00:49:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 03:12:39 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int8_t		init_shell(t_registry *shell)
 	print_opt(shell);
 	init_parsing(shell->parsing);
 	generate_graph(shell);
+	init_lexinfo(shell);
 	return (SUCCESS);
 }
 
@@ -64,13 +65,6 @@ void		init_parser(t_registry *shell, t_parser *parse)
 	init_job(&parse->job);
 }
 
-void		delete_parser(t_parser *parse)
-{
-	if (parse->tmp_env)
-		ft_lstdel(&parse->tmp_env, NULL); //This will leak
-	if (parse->job_list)
-		ft_lstdel(&parse->job_list, delete_job);
-}
 
 int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 {

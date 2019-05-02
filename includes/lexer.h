@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/01 00:02:48 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 03:04:11 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "define.h"
 # include "struct.h"
 
-t_list		*lexer(char *input);
+t_list		*lexer(t_lexinfo *info, char *input);
 void		start_lexer(t_lexer *machine);
 void		end_machine(t_lexer *machine);
 void		out_lexer(t_lexer *machine);

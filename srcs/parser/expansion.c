@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/02 02:31:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 02:35:34 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*expand_string(t_list *lst, char *str)
 		holder = NULL;
 		if (str[i] == '$' && str[i + 1])
 		{
-			expanded = expansion(lst, &str[i + 1]);;
+			expanded = expansion(lst, &str[i + 1]);
 			ft_asprintf(&holder, "%.*s%s", i, str, expanded);
 			ft_strdel(&str);
 			str = holder;

@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/05/02 02:17:05 by cempassi         ###   ########.fr        #
+#    Updated: 2019/05/02 03:24:49 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -239,6 +239,7 @@ LINE += execute_special_ak.c
 #						   - - - - - Lexer - - - - -                           #
 
 LEX_SRCS += lexer.c
+LEX_SRCS += init_lexer.c
 LEX_SRCS += machine_interface.c
 LEX_SRCS += states.c
 LEX_SRCS += generate_token.c
