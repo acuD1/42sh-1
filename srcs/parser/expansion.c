@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/02 02:35:34 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 13:08:20 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	character_swap(char swapped)
 	return (c);
 }
 
-char	*expansion(t_list *lst, char *str)
+char	*variable_expansion(t_list *lst, char *str)
 {
 	char	*expanded;
 	char	*data;
@@ -53,7 +53,7 @@ char	*expand_string(t_list *lst, char *str)
 		holder = NULL;
 		if (str[i] == '$' && str[i + 1])
 		{
-			expanded = expansion(lst, &str[i + 1]);
+			expanded = variable_expansion(lst, &str[i + 1]);
 			ft_asprintf(&holder, "%.*s%s", i, str, expanded);
 			ft_strdel(&str);
 			str = holder;

@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/02 02:04:21 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 13:37:34 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void		io_redirect_parser(t_parser *parse);
 void		flush_redirect(t_parser *parse);
 void		delete_process(void *data);
 
+char		*tilde(t_list *env, char *str);
 char		*expand_string(t_list *lst, char *str);
 
 /*
@@ -70,4 +71,5 @@ void		print_arrow_debug(int which);
 void		print_error_debug(enum e_type type, int which);
 void		print_result_debug(int which);
 
+char		character_swap(char swapped);
 #endif
