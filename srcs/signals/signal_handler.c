@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/02 10:35:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/02 11:44:14 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,40 +76,39 @@ void			kill_process(int signo)
 	}
 }
 
-void			define_ign_signals(t_registry *shell)
+static void		loop_signals(void (*func)(int))
 {
-	if (signal(SIGWINCH, SIG_IGN) == SIG_ERR)
-		log_print(shell, LOG_ERROR, "Error catching the resize signal.\n");
+	int i;
+
+	i = 1;
+	while (i < 32)
+		signal(i++, func);
 }
 
-void			define_parser_signals(t_registry *shell)
+void			define_ign_signals(void)
 {
-	if (signal(SIGWINCH, SIG_DFL) == SIG_ERR)
-		log_print(shell, LOG_ERROR, "Error catching the resize signal.\n");
+	loop_signals(SIG_IGN);
 }
 
-void			define_execution_signals(t_registry *shell)
+void			define_parser_signals(void)
 {
-	if (signal(SIGWINCH, SIG_DFL) == SIG_ERR)
-		log_print(shell, LOG_ERROR, "Error catching the resize signal.\n");
-	if (signal(SIGINT, kill_process) == SIG_ERR)
-		log_print(shell, LOG_ERROR, "Error catching C-c\n");
+	loop_signals(SIG_IGN);
 }
 
-void			define_interface_signals(t_registry *shell)
+void			define_execution_signals(void)
 {
-	if (signal(SIGWINCH, interface_resize_handler) == SIG_ERR)
-		log_print(shell, LOG_ERROR, "Error catching the resize signal.\n");
-	if (signal(SIGINT, redraw_prompt) == SIG_ERR)
-		log_print(shell, LOG_ERROR, "Error catching C-c\n");
+	signal(SIGINT, kill_process);
 }
 
-void			define_default_signals(t_registry *shell)
+void			define_interface_signals(void)
 {
-	if (signal(SIGWINCH, SIG_DFL) == SIG_ERR)
-		log_print(shell, LOG_ERROR, "Error catching the resize signal.\n");
-	if (signal(SIGINT, SIG_DFL) == SIG_ERR)
-		log_print(shell, LOG_ERROR, "Error catching C-c\n");
+	signal(SIGWINCH, interface_resize_handler);
+	signal(SIGINT, redraw_prompt);
+}
+
+void			define_default_signals(void)
+{
+	loop_signals(SIG_DFL);
 }
 
 int		define_runtime_signals(void)

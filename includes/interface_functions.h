@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/02 11:06:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/02 11:49:50 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 
 void						get_prompt_ps1(t_registry *shell);
 int8_t						fill_interface_data(t_registry *shell);
+
+int8_t 						update_window(t_registry *shell);
 
 void						move_buffer(char *dest, t_vector *source);
 void						copy_buffer_part(t_interface *itf, int8_t before);
