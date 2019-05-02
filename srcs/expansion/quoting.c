@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:16:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/02 20:38:14 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 21:08:54 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void		quote_removal(char *str)
 			delete_char(str);
 		else if (quote != QUOTE_SINGLE && *str == '\"')
 			delete_char(str);
-		++str;
+		else
+			++str;
 	}
 }
