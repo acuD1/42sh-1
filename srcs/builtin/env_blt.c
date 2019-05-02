@@ -81,7 +81,7 @@ static t_registry		*copy_registry(t_registry *shell, char ***arg,
 	return (cpy_shell);
 }
 
-static char		*concat_param(char **av)
+static char			*concat_param(char **av)
 {
 	char	*new_input;
 	char	*arg;
@@ -122,6 +122,7 @@ int8_t				env_blt(t_registry *shell, char **av)
 		cpy_shell->is_interactive = FALSE;
 		execution_pipeline(cpy_shell, lexer(new_input));
 		ft_strdel(&new_input);
+		cpy_shell->is_interactive = TRUE;
 	}
 	free_lst(&(cpy_shell->env));
 	free(cpy_shell);
