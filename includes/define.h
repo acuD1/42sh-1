@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/02 02:24:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 21:47:20 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@
 *****************************************************
 */
 
-# define PARSE_STATES				17
+# define PARSE_STATES				18
 
 # define REDIR						E_GREAT, E_LESS
 # define REDIR_AND					E_GREATAND, E_LESSAND, E_ANDLESS, E_ANDGREAT
