@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 21:11:46 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 03:19:53 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,20 @@ typedef struct			s_token
 	char				*data;
 }						t_token;
 
+typedef struct			s_lexinfo
+{
+	t_lexing			lexing[STATENBR];
+	enum e_type			duplicate[TOKEN_WITH_DATA];
+	enum e_type			special_signs[SPECIAL_SIGNS];
+}						t_lexinfo;
+
 struct					s_lexer
 {
 	char				*input;
 	char				buffer[BUFFER];
-	t_lexing			process[STATENBR];
-	enum e_type			duplicate[TOKEN_WITH_DATA];
-	enum e_type			special_signs[SPECIAL_SIGNS];
+	t_lexinfo			*lexinfo;
 	t_list				*tokens;
+	int					io_detect;
 	enum e_lexer_state	state;
 	enum e_quote		quote;
 	enum e_type			last_lexer;
@@ -112,7 +118,6 @@ struct					s_parser
 struct					s_graph
 {
 	enum e_type			*good_type;
-	int					nb_of_good_type;
 };
 
 /*
@@ -203,6 +208,8 @@ struct					s_registry
 	t_list				*intern;
 	t_hash				bin_hashmap;
 	t_hash				blt_hashmap;
+	const char			**grammar;
+	t_lexinfo			lexinfo;
 	t_graph				graph[NB_OF_TOKENS];
 	t_pstate			parsing;
 	t_list				*current_job;

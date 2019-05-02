@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/30 16:55:50 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/02 03:12:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void			free_registry(t_registry *shell);
 
 int8_t			init_shell(t_registry *shell);
 int8_t			set_environment( t_registry *shell, char **av, char **env);
+void			init_lexinfo(t_registry *shell);
 int8_t			shell_usage(void);
 void			shell_exit_routine(t_registry *shell);
 
@@ -46,7 +47,6 @@ void			shell_exit_routine(t_registry *shell);
 
 char	        *read_input(int fd);
 void			launch_interface(t_registry *shell);
-int				lexer_parser(t_parser *parse, t_graph *graph, char *input);
 int8_t		    execution_pipeline(t_registry *shell, t_list *token_list);
 
 
@@ -72,9 +72,9 @@ void			print_lst(t_list **alst);
 int8_t			f_create_node(t_list **alst, char *str);
 int8_t			s_create_node(t_list **alst, char *var, char *data);
 int8_t			change_node(t_list **alst, char *var, char *data);
-int8_t			search_data(t_list **alst, char *var); /// NO USE
-char			*get_data(t_list **alst, char *var);
+char			*get_data(t_list *lst, char *var);
 char			*variable_to_str(void *data);
+int				find_variable(void *data, void *to_find);
 
 /*
 *********************** FREE
@@ -83,6 +83,7 @@ char			*variable_to_str(void *data);
 void			clear_node(void **data);
 int8_t			free_node(t_list **alst, char *var);
 int8_t			free_lst(t_list **alst);
+void			delete_parser(t_parser *parse);
 void			delete_process(void *data);
 void			delete_job(void *data);
 

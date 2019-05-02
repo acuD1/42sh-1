@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 11:08:02 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/02 02:15:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	init_debug_logger(t_registry *shell)
 
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
 	{
-		if ((home_path = get_data(&(shell->env), "HOME")) == NULL)
+		if ((home_path = get_data(shell->env, "HOME")) == NULL)
 		{
 			home_path = ft_itoa(-1);
 			add_internal(shell, INT_DBG_FD, home_path);

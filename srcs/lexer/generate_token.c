@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 20:19:38 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/18 16:02:24 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/02 03:20:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 int		check_script(t_lexer *machine)
 {
 	int					index;
-	static const char	*script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
-									, IF, IN, THEN, UNTIL, WHILE};
+	static const char	*script[14] = {N_CASE, N_DO, N_DONE, N_ELIF, N_ELSE,
+										N_ESAC, N_FI, N_FOR, N_IF, N_IN, N_THEN,
+										N_UNTIL, N_WHILE};
 
 	index = 0;
 	while (index < 14)
@@ -37,15 +38,15 @@ int		check_last_lexer(t_lexer *machine)
 		return (check_script(machine));
 	while (i < TOKEN_WITH_DATA)
 	{
-		if (machine->last_lexer == machine->duplicate[i])
-			return (machine->duplicate[i]);
+		if (machine->last_lexer == machine->lexinfo->duplicate[i])
+			return (machine->lexinfo->duplicate[i]);
 		++i;
 	}
 	i = 0;
 	while (i < SPECIAL_SIGNS)
 	{
-		if (machine->last_lexer == machine->special_signs[i])
-			return (machine->special_signs[i]);
+		if (machine->last_lexer == machine->lexinfo->special_signs[i])
+			return (machine->lexinfo->special_signs[i]);
 		++i;
 	}
 	if (machine->last_lexer == E_IO_NUMBER)
@@ -94,7 +95,7 @@ t_token	generate_token(t_lexer *machine)
 	token.data = NULL;
 	while (i < TOKEN_WITH_DATA)
 	{
-		if (token.type == machine->duplicate[i++] && *machine->buffer)
+		if (token.type == machine->lexinfo->duplicate[i++] && *machine->buffer)
 			token.data = ft_strdup(machine->buffer);
 	}
 	if (machine->last_lexer != E_END)
@@ -102,5 +103,7 @@ t_token	generate_token(t_lexer *machine)
 		ft_bzero(machine->buffer, BUFFER);
 		machine->last_lexer = E_DEFAULT;
 	}
+	if (machine->io_detect)
+		--machine->io_detect;
 	return (token);
 }

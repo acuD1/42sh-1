@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 17:03:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/29 12:29:05 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/01 22:42:55 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,39 +20,44 @@ void	number_machine(t_lexer *machine)
 		ft_strncat(machine->buffer, machine->input, 1);
 		++machine->input;
 	}
-	else if (ft_strchr("&<>", *machine->input))
-		machine->state = OUT;
+	else if (ft_strchr("<>", *machine->input))
+		machine->state = L_OUT;
 	else
 	{
 		machine->last_lexer = E_STRING;
-		machine->state = LETTER;
+		machine->state = L_STRING;
 	}
 }
 
-void	letter_machine(t_lexer *machine)
+void	string_special(t_lexer *machine)
 {
+	machine->last_lexer = E_SPSTRING;
+	if (*machine->input == '\"')
+		machine->state = L_DQTE;
+	else if (*machine->input == '\'')
+		machine->state = L_SQTE;
+}
+
+void	string_machine(t_lexer *machine)
+{
+	if (*machine->input == '\0')
+		machine->state = L_START;
 	if (ft_strchr(LETTER_INTERUPT, *machine->input) != NULL)
-		machine->state = OUT;
+	{
+		machine->state = L_OUT;
+		return ;
+	}
 	else if (*machine->input == '=' && machine->last_lexer == E_STRING)
 	{
 		machine->last_lexer = E_ASSIGN;
-		machine->state = OUT;
+		machine->state = L_OUT;
 		++machine->input;
+		return ;
 	}
-	else if (ft_strchr(LETTER_TO_QUOTE, *machine->input) != NULL)
-	{
-		machine->state = *machine->input == '\'' ? SQTE : DQTE;
-		if (machine->state == DQTE)
-			machine->quote = QUOTE_SP;
-		if (*machine->input != '$')
-			++machine->input;
-	}
-	else if (*machine->input != '\0')
-	{
+	else if (ft_strchr(LETTER_SPECIAL, *machine->input))
+		string_special(machine);
+	else if (machine->last_lexer != E_SPSTRING)
 		machine->last_lexer = E_STRING;
-		ft_strncat(machine->buffer, machine->input, 1);
-		++machine->input;
-	}
-	else
-		machine->state = START;
+	ft_strncat(machine->buffer, machine->input, 1);
+	++machine->input;
 }

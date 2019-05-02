@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 21:14:01 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 03:22:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,6 @@ static int	need_subprompt(enum e_type state, enum e_type type)
 	return (FALSE);
 }
 
-static void	print_parser_error(enum e_type type)
-{
-	static const char *signs[14] = {"&&", "OR", ";;", "<<", ">>", "<&", ">&"
-		, "<>", "<<-", ">|", "==", "!="};
-	static const char *script[14] = {CASE, DO, DONE, ELIF, ELSE, ESAC, FI, FOR
-									, IF, IN, THEN, UNTIL, WHILE};
-
-	ft_dprintf(2, "21sh: syntax error near unexpected token ");
-	if (type == E_STRING || type == E_QUOTE
-		|| type == E_DB_QUOTE || type == E_EXP)
-		ft_dprintf(2, "`STRING'\n");
-	else if (type < SINGLE_SIGNS)
-		ft_dprintf(2, "`%c'\n", ALLCHAR[type]);
-	else if (type >= SINGLE_SIGNS && type < SIGNS)
-		ft_dprintf(2, "`%s'\n", signs[type - SINGLE_SIGNS]);
-	else if (type >= SIGNS && type < SIGNS + 13)
-		ft_dprintf(2, "`%s'\n", script[type - SIGNS]);
-	else if (type == E_IO_NUMBER)
-		ft_dprintf(2, "`IO'\n");
-	else if (type == E_ASSIGN)
-		ft_dprintf(2, "`ASSIGN (=)'\n");
-	else
-		ft_dprintf(2, "`END'\n");
-}
-
 static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
 										t_list **lst)
 {
@@ -59,10 +34,9 @@ static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
 		new_token = NULL;
 		while (new_token == NULL)
 		{
-			// Set the string you want to display
 			invoke_sub_prompt(g_shell, &line, "pipe> ");
 			g_shell->interface.state = INT_PS1;
-			new_token = lexer(line);
+			new_token = lexer(&g_shell->lexinfo, line);
 			ft_strdel(&line);
 		}
 		ft_putchar('\n');
@@ -70,20 +44,24 @@ static int	manage_error_and_subprompt(enum e_type state, enum e_type type,
 		(*lst)->next = new_token;
 		return (TRUE);
 	}
-	print_parser_error(type);
+	ft_dprintf(2, "21sh: syntax error near unexpected token `%s'\n",
+						g_shell->grammar[type]);
 	return (FALSE);
 }
 
-static int	node_is_ok(enum e_type to_find, enum e_type *type, t_graph *graph)
+static int8_t	state_is_ok(enum e_type to_find, enum e_type *current,
+							enum e_type possible_state[])
 {
-	int		i;
+	uint8_t		i;
 
 	i = 0;
-	while (i < graph[*type].nb_of_good_type)
+	if (possible_state == NULL)
+		return (FALSE);
+	while (possible_state[i] != E_ERROR)
 	{
-		if (to_find == graph[*type].good_type[i])
+		if (to_find == possible_state[i])
 		{
-			*type = to_find;
+			*current = to_find;
 			return (TRUE);
 		}
 		i++;
@@ -91,18 +69,18 @@ static int	node_is_ok(enum e_type to_find, enum e_type *type, t_graph *graph)
 	return (FALSE);
 }
 
-int			parser(t_graph *graph, t_list *lst)
+int8_t			parser(t_graph *graph, t_list *lst)
 {
 	t_token 	*token;
-	enum e_type	state;
 	t_list		*tmp;
+	enum e_type	state;
 
-	state = E_DEFAULT;
+	state = E_START;
 	tmp = lst;
 	while (lst != NULL)
 	{
 		token = (t_token *)lst->data;
-		if ((node_is_ok(token->type, &state, graph)) == FALSE)
+		if ((state_is_ok(token->type, &state, graph[state].good_type)) == FALSE)
 		{
 			if (manage_error_and_subprompt(state, token->type, &tmp) == FALSE)
 				return (FAILURE);

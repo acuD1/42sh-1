@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 12:09:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 14:48:11 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/02 02:16:28 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int8_t			hash_blt(t_registry *reg, char **av)
 	(void)av;
 	if (reg->bin_hashmap.used > 0)
 		ft_hmap_free_content(&(reg->bin_hashmap), free);
-	if (get_data(&(reg->env), "PATH") != NULL)
+	if (get_data(reg->env, "PATH") != NULL)
 	{
-		tabs = ft_strsplit(get_data(&(reg->env), "PATH"), ":");
+		tabs = ft_strsplit(get_data(reg->env, "PATH"), ":");
 		if (tabs == NULL)
 			return (FAILURE);
 		i = 0;

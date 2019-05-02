@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 21:11:21 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 02:24:28 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,17 +94,18 @@
 *****************************************************
 */
 
-# define STATENBR					19
-# define TOKEN_WITH_DATA			12
-# define NB_OF_TOKENS				59
+# define STATENBR					17
+# define TOKEN_WITH_DATA			5
+# define NB_OF_TOKENS				51
 # define BUFFER						1024
-# define SINGLE_SIGNS				23
+# define SINGLE_SIGNS				16
 # define SPECIAL_SIGNS				15
 # define SIGNS 						(SPECIAL_SIGNS + SINGLE_SIGNS)
-# define ALLCHAR					"$\\\'\"|()><;`&~{}[]*?!#%N"
-# define SIGN_DETECT				" \t<>|;\'\"$&~\\"
+# define ALLCHAR					"\"|()><;`&{}[]#%\n"
+# define SIGN_DETECT				" \t<>|;&!="
 # define LETTER_TO_QUOTE			"\"\'$"
-# define LETTER_INTERUPT			" \t<>|;&\\"
+# define LETTER_INTERUPT			" \t<>|;&"
+# define LETTER_SPECIAL				"\"\'\\$~*?"
 # define TILDE_INTERUPT				" /$"
 # define QSP_INT					" \"\'"
 /*
@@ -113,21 +114,8 @@
 ** # define SIGN_DETECT				" \t<>|;\'\"`()$&!?{}[]*%\\="
 **/
 # define QUOTE_INTERUPT				"\\\"`$"
-# define EXP_INTERUPT				" \t\'\"`"
+# define EXP_INTERUPT				" \t\'\"`$"
 # define DOUBLE_SIGN				"&|;=!"
-# define CASE						"case"
-# define DO							"do"
-# define DONE						"done"
-# define ELIF						"elif"
-# define ELSE						"else"
-# define ESAC						"esac"
-# define FI							"fi"
-# define FOR						"for"
-# define IF							"if"
-# define IN							"in"
-# define THEN						"then"
-# define UNTIL						"until"
-# define WHILE						"while"
 
 /*
 *****************************************************
@@ -135,21 +123,65 @@
 *****************************************************
 */
 
-# define PARSE_STATES				20
-# define STARTING					14
-# define STRING_TOKENS				16
-# define BACKSLASH 					E_BACKSLASH
-# define STRING_WORD 				E_STRING, E_EXP, E_QUOTE, E_DB_QUOTE
-# define IO							E_IO_NUMBER
-# define PIPELINE					E_PIPE
-# define BASE_REDIRECT				E_GREAT, E_LESS, E_DLESS, E_DGREAT
-# define AND_REDIRECT				E_GREATAND, E_LESSAND
-# define END_CMD					E_SEMICOLON, E_END
-# define REDIRECT					AND_REDIRECT, BASE_REDIRECT
-# define WORD						STRING_WORD, BACKSLASH
-# define ALL						WORD, BASE_REDIRECT, IO
-# define ALL_END					ALL, END_CMD
+# define PARSE_STATES				17
+
+# define REDIR						E_GREAT, E_LESS
+# define REDIR_AND					E_GREATAND, E_LESSAND, E_ANDLESS, E_ANDGREAT
+# define REDIR_DB					E_DGREAT, E_DLESS, E_DLESSDASH, E_ANDDGREAT
+# define ALL_REDIRECT				REDIR, REDIR_DB, REDIR_AND
+# define WORD						E_STRING, E_SPSTRING, E_DB_QUOTE
+# define END_CMD					E_END, E_SEMICOLON
 # define E_START					E_DEFAULT
+
+# define N_DB_QUOTE					"\""
+# define N_PIPE						"|"
+# define N_PARENT_OPEN				"("
+# define N_PARENT_CLOSE				")"
+# define N_GREAT					">"
+# define N_LESS						"<"
+# define N_SEMICOLON				";"
+# define N_BACKQUOTE				"`"
+# define N_AND						"&"
+# define N_HOOK_OPEN				"{"
+# define N_HOOK_CLOSE				"}"
+# define N_BRACKET_OPEN				"["
+# define N_BRACKET_CLOSE			"]"
+# define N_HASH						"#"
+# define N_PERCENT					"%"
+# define N_NEWLINE					"\\n"
+# define N_DAND						"&&"
+# define N_OR						"||"
+# define N_DSEMI					";;"
+# define N_DLESS					"<<"
+# define N_DGREAT					">>"
+# define N_LESSAND					"<&"
+# define N_GREATAND					">&"
+# define N_LESSGREAT				"<>"
+# define N_ANDDGREAT				"&>>"
+# define N_ANDGREAT					"&>"
+# define N_ANDLESS					"&<"
+# define N_DLESSDASH				"<<-"
+# define N_CLOBBER					">|"
+# define N_DEQ						"=="
+# define N_NOTEQ					"!="
+# define N_CASE						"case"
+# define N_DO						"do"
+# define N_DONE						"done"
+# define N_ELIF						"elif"
+# define N_ELSE						"else"
+# define N_ESAC						"esac"
+# define N_FI						"fi"
+# define N_FOR						"for"
+# define N_IF						"if"
+# define N_IN						"in"
+# define N_THEN						"then"
+# define N_UNTIL					"until"
+# define N_WHILE					"while"
+# define N_IO_NUMBER				"IO number"
+# define N_ASSIGN					"assign (=)"
+# define N_STRING					"word"
+# define N_SPSTRING					"spword"
+# define N_END						"end"
 
 /*
 *****************************************************

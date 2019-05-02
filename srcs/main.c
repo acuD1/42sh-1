@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/30 21:13:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 03:13:02 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,7 @@ int8_t		shell_usage(void)
 
 static int	stdin_build_cmd(t_registry *shell, char *command)
 {
-	int		i;
-	char	*non_interactive_cmd;
-	char	**tab;
-
-	i = 1;
-	non_interactive_cmd = NULL;
-	if ((tab = ft_strsplit(command, "\n")) == FALSE)
-		return (FAILURE);
-	ft_asprintf(&non_interactive_cmd, "%s", tab[0]);
-	while (tab[i] != FALSE)
-		ft_asprintf(&non_interactive_cmd, " ; %s", tab[i++]);
-	if (non_interactive_cmd == FALSE)
-		return (FAILURE);
-	execution_pipeline(shell, lexer(non_interactive_cmd));
-	free(non_interactive_cmd);
+	execution_pipeline(shell, lexer(&shell->lexinfo, command));
 	return (SUCCESS);
 }
 

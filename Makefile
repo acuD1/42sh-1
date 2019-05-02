@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/04/30 21:10:55 by cempassi         ###   ########.fr        #
+#    Updated: 2019/05/02 03:24:49 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,8 +113,8 @@ LDFLAGS = -L $(LPATH)
 CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
-CFLAGS += $(IFLAGS)
-DFLAGS = $(CFLAGS) -fsanitize=address,undefined
+CFLAGS += $(IFLAGS) 
+DFLAGS = $(CFLAGS) -fsanitize=address,undefined 
 LFLAGS = -ltermcap
 
 # ---------------------------------------------------------------------------- #
@@ -239,12 +239,12 @@ LINE += execute_special_ak.c
 #						   - - - - - Lexer - - - - -                           #
 
 LEX_SRCS += lexer.c
+LEX_SRCS += init_lexer.c
 LEX_SRCS += machine_interface.c
 LEX_SRCS += states.c
 LEX_SRCS += generate_token.c
 LEX_SRCS += quotes_states.c
 LEX_SRCS += sign_states.c
-LEX_SRCS += expansion_states.c
 LEX_SRCS += tmp_display.c
 LEX_SRCS += redirect_states.c
 
@@ -258,10 +258,8 @@ PARSER_SRCS += parser_state.c
 PARSER_SRCS += parser_interface.c
 PARSER_SRCS += init.c
 PARSER_SRCS += string_parser.c
-PARSER_SRCS += quote_parser.c
 PARSER_SRCS += redirect_parser.c
-PARSER_SRCS += expansion_parser.c
-PARSER_SRCS += lexer_parser_interface.c
+PARSER_SRCS += expansion.c
 
 TOOLS_SRCS += list_functions.c
 
@@ -309,7 +307,7 @@ $(LIB) : FORCE
 #					 - - - - Unit test Compilation - - - -                     #
 
 $(NAMET) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJT)
-	$(LINK) $(CFLAGS)  $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address -o  $@ $(OBJT) $(OBJS)
+	$(LINK) $(CFLAGS)  $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address,undefined,leak -o  $@ $(OBJT) $(OBJS)
 	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
 $(OBJT) : $(OPATH)%.o : %.c $(INCS)

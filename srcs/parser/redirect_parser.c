@@ -35,7 +35,7 @@ void	flush_redirect(t_parser *parse)
 		parse->process.fd.in = fd;
 	else
 	{
-		if (token->type == E_GREATAND || token->type == E_DGREATAND)
+		if (token->type == E_GREATAND || token->type == E_ANDDGREAT)
 			parse->process.fd.err = fd;
 		parse->process.fd.out = fd;
 	}
@@ -48,7 +48,7 @@ void	redirect_parser(t_parser *parse)
 	parse->state = P_REDIRECT;
 	if (parse->token.type == E_GREAT || parse->token.type == E_GREATAND)
 		parse->oflags = O_RDWR + O_CREAT + O_TRUNC;
-	else if (parse->token.type == E_DGREAT || parse->token.type == E_DGREATAND)
+	else if (parse->token.type == E_DGREAT || parse->token.type == E_ANDDGREAT)
 		parse->oflags = O_RDWR + O_CREAT + O_APPEND;
 	else if (parse->token.type == E_LESS)
 		parse->oflags = O_RDONLY;
@@ -95,7 +95,7 @@ void	io_redirect_parser(t_parser *parse)
 	parse->state = P_IO_REDIRECT;
 	if (parse->token.type == E_GREAT || parse->token.type == E_GREATAND)
 		parse->oflags = O_RDWR + O_CREAT + O_TRUNC;
-	else if (parse->token.type == E_DGREAT || parse->token.type == E_DGREATAND)
+	else if (parse->token.type == E_DGREAT || parse->token.type == E_ANDDGREAT)
 		parse->oflags = O_RDWR + O_CREAT + O_APPEND;
 	else if (parse->token.type == E_LESS)
 		parse->oflags = O_RDONLY;

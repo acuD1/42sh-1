@@ -120,7 +120,7 @@ int8_t				env_blt(t_registry *shell, char **av)
 	if (*av != NULL && (new_input = concat_param(av)) != NULL)
 	{
 		cpy_shell->is_interactive = FALSE;
-		execution_pipeline(cpy_shell, lexer(new_input));
+		execution_pipeline(cpy_shell, lexer(&shell->lexinfo, new_input));
 		ft_strdel(&new_input);
 		cpy_shell->is_interactive = TRUE;
 	}
