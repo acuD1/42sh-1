@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/30 17:27:22 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 00:04:07 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	redirect_parser(t_parser *parse)
 	get_token(parse);
 }
 
+
 void	pipe_parser(t_parser *parse)
 {
 	t_list		*node;
@@ -93,12 +94,19 @@ void	heredoc_parser(t_parser *parse)
 void	io_redirect_parser(t_parser *parse)
 {
 	parse->state = P_IO_REDIRECT;
-	if (parse->token.type == E_GREAT || parse->token.type == E_GREATAND)
+	if (parse->token.type == E_GREAT)
 		parse->oflags = O_RDWR + O_CREAT + O_TRUNC;
-	else if (parse->token.type == E_DGREAT || parse->token.type == E_ANDDGREAT)
+	else if (parse->token.type == E_DGREAT)
 		parse->oflags = O_RDWR + O_CREAT + O_APPEND;
 	else if (parse->token.type == E_LESS)
 		parse->oflags = O_RDONLY;
+	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
+	get_token(parse);
+}
+
+void	io_redirect_and_parser(t_parser *parse)
+{
+	parse->state = P_IO_REDIRECT_AND;
 	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
 	get_token(parse);
 }

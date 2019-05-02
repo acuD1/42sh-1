@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/02 20:38:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 23:10:03 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,13 @@ void		error_parser(t_parser *parse);
 void		stop_parser(t_parser *parse);
 void		redirect_parser(t_parser *parse);
 void		pipe_parser(t_parser *parse);
-void		filename_state(t_parser *parse);
+void		filename_parser(t_parser *parse);
+void		special_filename_parser(t_parser *parse);
 void		io_parser(t_parser *parse);
 void		io_redirect_parser(t_parser *parse);
+void		io_redirect_and_parser(t_parser *parse);
+void		io_dup_move_parser(t_parser *parse);
+void		io_filename_parser(t_parser *parse);
 void		flush_redirect(t_parser *parse);
 void		delete_process(void *data);
 char		*expand_string(t_list *lst, char *str);
