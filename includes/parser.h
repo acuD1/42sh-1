@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/02 02:04:21 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 20:38:27 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,11 @@ void		io_redirect_parser(t_parser *parse);
 void		flush_redirect(t_parser *parse);
 void		delete_process(void *data);
 char		*expand_string(t_list *lst, char *str);
+char		*string_expansion(t_parser *parse, char *str);
+char		*tilde(t_parser *parse, char *str);
+char		*variable_expansion(t_parser *parse, char *str);
+void		quote_removal(char *str);
+char		character_swap(char swapped);
+t_quote		select_quoting(t_quote quote, char c);
 
 #endif

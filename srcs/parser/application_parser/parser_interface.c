@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:01:44 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/29 16:33:34 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 19:30:58 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ t_registry	*g_shell;
 
 void	error_parser(t_parser *parse)
 {
-	ft_printf("Error on token %s\n", g_shell->grammar[parse->token.type]);
+	if (parse->valid == -1)
+		ft_dprintf(2, "21sh: OLDPWD is not set");
+	else if (parse->valid == -2)
+		ft_dprintf(2, "21sh : No such user or directory");
 	parse->state = P_ERROR;
 }
 

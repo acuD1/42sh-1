@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/05/02 03:24:49 by cempassi         ###   ########.fr        #
+#    Updated: 2019/05/02 20:31:44 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,13 +19,14 @@ NAMEDB = 21shdb
 NAMET = unit
 LIBFT = libft.a
 LIBFTDB = libftdb.a
-SRCS = $(LINE) $(LEX_SRCS) $(PARSER_SRCS) $(BUILTIN) $(TOOLS_SRCS)
+SRCS = $(LINE) $(LEXER) $(PARSER) $(BUILTIN) $(TOOLS) $(EXPANSION)
 OBJM = $(patsubst %.c, $(OPATH)%.o, $(LINEM))
 OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS))
 OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM))
 OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINEM) $(SRCS))
 LIB = $(addprefix $(LPATH), $(LIBFT))
 LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
+
 # ---------------------------------------------------------------------------- #
 #									Compiler                                   #
 # ---------------------------------------------------------------------------- #
@@ -76,6 +77,7 @@ TPATH += unit-tests/
 TPATH += unit-tests/interface/
 TPATH += unit-tests/lexer/
 LINE_PATH += interface/
+LINE_PATH += interface/prompt
 LINE_PATH += interface/action_keys/
 LINE_PATH += interface/history/
 LINE_PATH += interface/action_keys/clipboard/
@@ -105,8 +107,10 @@ BUILTIN_PATH += builtin/setenv_blt
 BUILTIN_PATH += builtin/type_blt
 BUILTIN_PATH += builtin/unset_blt
 BUILTIN_PATH += builtin/unsetenv_blt
+EXPANSION_PATH += expansion/
 TOOLS_PATH += tools/
-SPATH += $(addprefix srcs/, $(LINE_PATH) $(LEXER_PATH) $(PARSER_PATH) $(BUILTIN_PATH) $(TOOLS_PATH))
+_SPATH = $(LINE_PATH) $(LEXER_PATH) $(PARSER_PATH) $(BUILTIN_PATH) $(TOOLS_PATH) $(EXPANSION_PATH)
+SPATH += $(addprefix srcs/, $(_SPATH)) 
 
 # ---------------------------------------------------------------------------- #
 #									 vpath                                     #
@@ -127,7 +131,7 @@ CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
 CFLAGS += $(IFLAGS) 
-DFLAGS = $(CFLAGS) -fsanitize=address,undefined 
+DFLAGS = $(CFLAGS) -fsanitize=address,undefined,leaks
 LFLAGS = -ltermcap
 
 # ---------------------------------------------------------------------------- #
@@ -156,7 +160,7 @@ INCS += enum.h
 UNITM = unit.c
 LINEM = main.c
 
-#						- - - - -  Unit-test  - - - - -
+#						- - - - -  Unit-test  - - - - -						   #
 
 UNIT += create_virt_registry.c
 UNIT += 00-machine.c
@@ -164,7 +168,7 @@ UNIT += clipboard_copy.c
 UNIT += clipboard_cut.c
 UNIT += clipboard_paste.c
 
-#						- - - - -   Startup   - - - - -
+#						- - - - -   Startup   - - - - -						   #
 
 LINE += launch.c
 LINE += free.c
@@ -173,7 +177,7 @@ LINE += internals.c
 LINE += routines.c
 LINE += read_filedesc.c
 
-#						- - - - -  Debug Log  - - - - -
+#						- - - - -  Debug Log  - - - - -						   #
 
 LINE += debug_logger.c
 LINE += print_opt.c
@@ -257,11 +261,13 @@ LINE += load_termcap_strings.c
 LINE += cursor.c
 LINE += term_mode.c
 LINE += launch_interface.c
-LINE += prompt.c
-LINE += sub_prompt.c
 LINE += validate_quoting.c
 LINE += handle_input_keys.c
 LINE += window.c
+
+#Prompt
+LINE += prompt.c
+LINE += sub_prompt.c
 
 #Action keys
 LINE += init_clipboard.c
@@ -277,34 +283,42 @@ LINE += execute_special_ak.c
 
 #						   - - - - - Lexer - - - - -                           #
 
-LEX_SRCS += lexer.c
-LEX_SRCS += init_lexer.c
-LEX_SRCS += machine_interface.c
-LEX_SRCS += states.c
-LEX_SRCS += generate_token.c
-LEX_SRCS += quotes_states.c
-LEX_SRCS += sign_states.c
-LEX_SRCS += tmp_display.c
-LEX_SRCS += redirect_states.c
+LEXER += lexer.c
+LEXER += init_lexer.c
+LEXER += machine_interface.c
+LEXER += states.c
+LEXER += generate_token.c
+LEXER += quotes_states.c
+LEXER += sign_states.c
+LEXER += tmp_display.c
+LEXER += redirect_states.c
 
 #						   - - - - - Parser - - - - -                          #
 
 #Grammar Parser
-PARSER_SRCS += generate_graph.c
-PARSER_SRCS += ways_graph.c
-PARSER_SRCS += grammar_parser.c
-PARSER_SRCS += parser_debug.c
+PARSER += generate_graph.c
+PARSER += ways_graph.c
+PARSER += grammar_parser.c
+PARSER += parser_debug.c
+
 #Application Parser
-PARSER_SRCS += init_application_parser.c
-PARSER_SRCS += parser_state.c
-PARSER_SRCS += parser_interface.c
-PARSER_SRCS += string_parser.c
-PARSER_SRCS += redirect_parser.c
-PARSER_SRCS += expansion.c
+PARSER += init_application_parser.c
+PARSER += parser_state.c
+PARSER += parser_interface.c
+PARSER += string_parser.c
+PARSER += redirect_parser.c
 
-TOOLS_SRCS += list_functions.c
+#						   - - - - Expansion - - - -                           #
+EXPANSION += expansion.c
+EXPANSION += tilde.c
+EXPANSION += variable.c
+EXPANSION += quoting.c
 
-#						   - - - - Resolution - - - -                           #
+#						   - - - -    Tool    - - - -                          #
+						   
+TOOLS += list_functions.c
+
+#						   - - - - Resolution - - - -                          #
 
 LINE += job_tools.c
 LINE += launch_job.c
