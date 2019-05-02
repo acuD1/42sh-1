@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 13:53:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/02 14:42:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,28 +76,42 @@ void			kill_process(int signo)
 	}
 }
 
-void			define_execution_signals(t_registry *shell)
+static void		loop_signals(void (*func)(int))
 {
-	if (signal(SIGWINCH, SIG_DFL) == SIG_ERR)
-		log_print(shell, LOG_ERROR, "Error catching the resize signal.\n");
-	if (signal(SIGINT, kill_process) == SIG_ERR)
-		log_print(shell, LOG_ERROR, "Error catching C-c\n");
+	int signo;
+
+	signo = 0;
+	while (++signo < 32)
+	{
+		if (signo != SSIG_QUIT && signo != SSIG_STOP && signo != SSIG_KILL)
+			signal(signo, func);
+	}
 }
 
-void			define_interface_signal_behavior(t_registry *shell)
+void			define_ign_signals(void)
 {
-	if (signal(SIGWINCH, interface_resize_handler) == SIG_ERR)
-		log_print(shell, LOG_ERROR, "Error catching the resize signal.\n");
-	if (signal(SIGINT, redraw_prompt) == SIG_ERR)
-		log_print(shell, LOG_ERROR, "Error catching C-c\n");
+	loop_signals(SIG_IGN);
 }
 
-void			define_default_signals(t_registry *shell)
+void			define_parser_signals(void)
 {
-	if (signal(SIGWINCH, SIG_DFL) == SIG_ERR)
-		log_print(shell, LOG_ERROR, "Error catching the resize signal.\n");
-	if (signal(SIGINT, SIG_DFL) == SIG_ERR)
-		log_print(shell, LOG_ERROR, "Error catching C-c\n");
+	loop_signals(SIG_IGN);
+}
+
+void			define_execution_signals(void)
+{
+	signal(SIGINT, kill_process);
+}
+
+void			define_interface_signals(void)
+{
+	signal(SIGWINCH, interface_resize_handler);
+	signal(SIGINT, redraw_prompt);
+}
+
+void			define_default_signals(void)
+{
+	loop_signals(SIG_DFL);
 }
 
 int		define_runtime_signals(void)

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 17:26:47 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/02 14:57:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ static int8_t		fetch_terminal_info(t_registry *shell)
 	char			*term_name;
 
 	if ((term_name = getenv("TERM")) == NULL)
+	{
+		term_name = INT_TERM_DFLT_VALUE;
 		add_internal(shell, INT_TERM, INT_TERM_DFLT_VALUE);
+	}
 	else
 		add_internal(shell, INT_TERM, term_name);
 	if (term_name == NULL || (tgetent(NULL, term_name)) == -1)
@@ -43,6 +46,8 @@ static int8_t		fetch_terminal_info(t_registry *shell)
 
 int8_t				fill_interface_related_internals(t_registry *shell)
 {
+//	if (add_internal(shell, INT_PS1, INT_PS1_VALUE) == FAILURE)
+//		return (FAILURE);
 	get_prompt_ps1(shell);
 	if (add_internal(shell, INT_PS2, INT_PS2_VALUE) == FAILURE)
 		return (FAILURE);

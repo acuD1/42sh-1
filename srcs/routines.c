@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 21:19:50 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 11:57:19 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "parser.h"
 #include "resolve.h"
 #include "builtin.h"
+#include "sig.h"
 
 void		print_process(t_list *node)
 {
@@ -68,6 +69,9 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 {
 	t_parser	parse;
 
+
+	define_parser_signals();
+
 	////////////////////// DEBUG LEXER ////////////////////////
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
 	{
@@ -100,6 +104,9 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 		launch_job(shell, parse.job_list);
 		delete_parser(&parse);
 	}
+
+	define_ign_signals();
+
 	return (SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 17:40:18 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/02 11:21:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int8_t				unset_blt(t_registry *shell, char **av)
 {
 	av++;
 	if (*av == NULL)
-	{	
+	{
 		ft_dprintf(2, UNSET_USAGE);
 		return (FAILURE);
 	}

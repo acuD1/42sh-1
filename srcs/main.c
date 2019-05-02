@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/30 21:13:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 11:54:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "interface_functions.h"
 #include "parser.h"
 #include "resolve.h"
+#include "sig.h"
 
 int8_t		shell_usage(void)
 {
@@ -87,9 +88,8 @@ int			main(int ac, char **av, char **env)
 		return (FAILURE);
 	if (init_shell(&shell) == FAILURE)
 		return (FAILURE);
+	define_ign_signals();
 	launch_shell(&shell);
-	// Clean all intern variables
-	// Clean all environment variables
 	shell_exit_routine(&shell);
 	return (SUCCESS);
 }

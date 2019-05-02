@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 16:12:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/02 12:39:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "log.h"
 #include "parser.h"
 #include "resolve.h"
+#include "sig.h"
 
 void				update_history(t_registry *shell, char *input)
 {
@@ -26,7 +27,9 @@ void				update_history(t_registry *shell, char *input)
 int					get_input(t_registry *shell, char **input)
 {
 	*input = prompt(shell);
-	if (*input == NULL || **input == '\0')
+	if (*input == NULL)
+		return (FAILURE);
+	else if (**input == '\0')
 		return (get_input(shell, input));
 	else if (is_eof(*input))
 		return (FAILURE);
@@ -37,7 +40,8 @@ int					launch_shell_prompt(t_registry *shell)
 {
 	char		*input;
 
-	define_interface_signal_behavior(shell);
+	define_interface_signals();
+
 	if (get_input(shell, &input) == FAILURE)
 	{
 		cleanup_interface(shell);
@@ -46,7 +50,7 @@ int					launch_shell_prompt(t_registry *shell)
 	ft_putchar('\n');
 	update_history(shell, input);
 
-//	define_execution_signals(shell);
+	define_ign_signals();
 	execution_pipeline(shell, lexer(input));
 	return (SUCCESS);
 }

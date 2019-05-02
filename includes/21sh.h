@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/30 16:55:50 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/02 10:53:44 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@
 # include <sys/wait.h>
 /////////////////////
 
-void			get_prompt_ps1(t_registry *shell);
-
-void			define_default_signals(t_registry *shell);
 void			free_registry(t_registry *shell);
 
 int8_t			init_shell(t_registry *shell);
