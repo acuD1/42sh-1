@@ -13,8 +13,6 @@
 #ifndef HISTORY_H
 # define HISTORY_H
 
-# include "struct.h"
-
 t_history	*create_history_entry(char *command);
 void		push_history_entry(t_history **head, t_history *node);
 

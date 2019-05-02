@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "interface_functions.h"
 
 static void	ft_strshift(char *str, uint32_t index, int shift)
 {

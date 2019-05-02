@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "interface_functions.h"
-#include "log.h"
 
 static int32_t	goto_next_quote(char *string, char quote, uint32_t index)
 {

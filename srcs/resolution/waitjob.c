@@ -10,10 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+////// LINUX
+#include <sys/wait.h>
+////////////
 #include "resolve.h"
 
-int8_t		set_process_status(t_process *process, pid_t pid, int status)
+static int8_t	set_process_status(t_process *process, pid_t pid, int status)
 {
 	process->status = status;
 	if (WIFSTOPPED(status) != FALSE)
@@ -31,7 +33,7 @@ int8_t		set_process_status(t_process *process, pid_t pid, int status)
 	return (SUCCESS);
 }
 
-int8_t		update_process_status(pid_t pid, int status)
+static int8_t	update_process_status(pid_t pid, int status)
 {
 	t_list		*job;
 	t_list		*process;
@@ -56,7 +58,7 @@ int8_t		update_process_status(pid_t pid, int status)
 	return (FAILURE);
 }
 
-void		wait_for_job(t_job *job)
+void			wait_for_job(t_job *job)
 {
 	int		status;
 	pid_t	pid;

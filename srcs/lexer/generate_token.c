@@ -12,15 +12,15 @@
 
 #include "lexer.h"
 
-int		check_script(t_lexer *machine)
+static int	check_script(t_lexer *machine)
 {
 	int					index;
-	static const char	*script[14] = {N_CASE, N_DO, N_DONE, N_ELIF, N_ELSE,
+	static const char	*script[13] = {N_CASE, N_DO, N_DONE, N_ELIF, N_ELSE,
 										N_ESAC, N_FI, N_FOR, N_IF, N_IN, N_THEN,
 										N_UNTIL, N_WHILE};
 
 	index = 0;
-	while (index < 14)
+	while (index < 13)
 	{
 		if (ft_strequ(machine->buffer, script[index]))
 			return (index + SIGNS);
@@ -29,7 +29,7 @@ int		check_script(t_lexer *machine)
 	return (E_STRING);
 }
 
-int		check_last_lexer(t_lexer *machine)
+static int	check_last_lexer(t_lexer *machine)
 {
 	int		i;
 
@@ -56,7 +56,7 @@ int		check_last_lexer(t_lexer *machine)
 	return (machine->last_lexer == E_END ? E_END : FAILURE);
 }
 
-int		check_char(t_lexer *machine)
+static int	check_char(t_lexer *machine)
 {
 	int		i;
 	char	*s;
@@ -72,7 +72,7 @@ int		check_char(t_lexer *machine)
 	return (FALSE);
 }
 
-int		define_type(t_lexer *machine)
+static int	define_type(t_lexer *machine)
 {
 	int		result;
 

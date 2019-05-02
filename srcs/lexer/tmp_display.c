@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
-#include <stdio.h>
+#include "struct.h"
 
 t_registry	*g_shell;
 

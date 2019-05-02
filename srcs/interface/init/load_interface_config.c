@@ -15,7 +15,7 @@
 #include "21sh.h"
 #include <termcap.h>
 
-int8_t				fill_interface_data(t_registry *shell)
+static int8_t		fill_interface_data(t_registry *shell)
 {
 	if ((shell->interface.line = ft_vctnew(0)) == NULL)
 		return (FAILURE);
@@ -33,7 +33,7 @@ static int8_t		fetch_terminal_info(t_registry *shell)
 		add_internal(shell, INT_TERM, INT_TERM_DFLT_VALUE);
 	else
 		add_internal(shell, INT_TERM, term_name);
-	if (term_name == NULL || (tgetent(NULL, term_name)) == -1)
+	if (term_name == NULL || (tgetent(NULL, term_name)) == FAILURE)
 	{
 		log_print(shell, LOG_ERROR, "Tgetent failed.\n");
 		return (FAILURE);

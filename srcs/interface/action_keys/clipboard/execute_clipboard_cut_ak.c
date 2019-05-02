@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "interface_functions.h"
-#include "ft_printf.h"
 #include "log.h"
 
 static int8_t		cut_vector(t_vector *vect, t_cursor *cursor, int before)

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
 #include "21sh.h"
 
 static void	free_opt(t_opt option)

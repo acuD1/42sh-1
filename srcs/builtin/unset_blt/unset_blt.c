@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
 #include "21sh.h"
 #include "interface_functions.h"
 

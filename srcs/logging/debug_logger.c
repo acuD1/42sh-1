@@ -11,11 +11,8 @@
 /* ************************************************************************** */
 
 #include <fcntl.h>
-#include "21sh.h"
-#include "libft.h"
-#include "log.h"
-#include "ft_printf.h"
 #include <unistd.h>
+#include "21sh.h"
 
 void	log_print(t_registry *shell, char *importance, char *message, ...)
 {

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "interface_functions.h"
-#include "log.h"
 
 static void			handle_printable_char(t_registry *shell, char c)
 {

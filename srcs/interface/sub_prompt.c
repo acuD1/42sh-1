@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "log.h"
 #include "interface_functions.h"
 #include "21sh.h"
 #include <unistd.h>

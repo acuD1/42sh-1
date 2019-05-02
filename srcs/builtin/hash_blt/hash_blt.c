@@ -83,10 +83,3 @@ int8_t			hash_blt(t_registry *reg, char **av)
 		ft_dprintf(2, "Hashmap blt is empty.\n");
 	return (SUCCESS);
 }
-
-/*
-** builtin = (t_builtin)ft_hmap_getdata(&(reg->blt_hashmap), "hash");
-** if (builtin)
-** 	if (!builtin(reg))
-** 		return (0);
-*/

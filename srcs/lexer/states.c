@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "struct.h"
 
 void	number_machine(t_lexer *machine)
 {

@@ -10,8 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
 #include <unistd.h>
+#include "libft.h"
+#include "define.h"
 
 static void		ft_process_transform(char *path, char **new_path)
 {

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "log.h"
-#include "21sh.h"
 #include "interface_functions.h"
 
 static uint8_t		is_too_long(t_vector *a, t_vector *b, uint32_t max)
@@ -21,7 +20,7 @@ static uint8_t		is_too_long(t_vector *a, t_vector *b, uint32_t max)
 	return (0);
 }
 
-static int			insert_clipboard(t_registry *shell)
+static uint32_t		insert_clipboard(t_registry *shell)
 {
 	t_interface		*itf;
 	uint32_t		length;
@@ -49,7 +48,7 @@ static int			insert_clipboard(t_registry *shell)
 	return (length);
 }
 
-static void				append_clipboard(t_registry *shell)
+static void			append_clipboard(t_registry *shell)
 {
 	t_interface *itf;
 
@@ -62,7 +61,7 @@ static void				append_clipboard(t_registry *shell)
 					itf->clip->buffer);
 }
 
-int8_t					tc_ak_paste_clipboard(t_registry *shell)
+int8_t				tc_ak_paste_clipboard(t_registry *shell)
 {
 	t_interface			*itf;
 	uint32_t			go_front;

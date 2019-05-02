@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
+#include "struct.h"
 
 int8_t		validate_interface_content(t_interface *itf)
 {

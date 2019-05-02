@@ -15,11 +15,6 @@
 
 # include "struct.h"
 
-/////////////// LINUX
-# include <signal.h>
-# include <sys/wait.h>
-/////////////////////
-
 /*
 *****************************************************
 ******************** INIT / EXIT ********************
@@ -52,9 +47,9 @@ void			get_prompt_ps1(t_registry *shell);
 *****************************************************
 */
 
-int				add_env(t_registry *sh_reg, char *name, char *data);
-int				add_internal(t_registry *sh_reg, char *name, char *data);
-int				add_internal_nbr(t_registry *reg, char *name, int data);
+int8_t			add_env(t_registry *sh_reg, char *name, char *data);
+int8_t			add_internal(t_registry *sh_reg, char *name, char *data);
+int8_t			add_internal_nbr(t_registry *reg, char *name, int data);
 char			*get_env_var(t_registry  *sh_reg, char *name);
 char			*get_intern_var(t_registry  *sh_reg, char *name);
 

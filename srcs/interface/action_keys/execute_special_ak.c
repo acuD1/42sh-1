@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "interface_functions.h"
-#include "ft_printf.h"
-#include "log.h"
 
 int8_t		tc_ak_hightab(t_registry *shell)
 {

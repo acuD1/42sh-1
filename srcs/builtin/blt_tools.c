@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "struct.h"
 
 static enum e_state_option	is_option(char *s)
 {

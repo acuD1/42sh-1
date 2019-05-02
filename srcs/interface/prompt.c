@@ -11,11 +11,9 @@
 /* ************************************************************************** */
 
 #include "interface_functions.h"
-#include "log.h"
-#include "ft_printf.h"
-#include "history.h"
 #include "builtin.h"
 #include "21sh.h"
+#include "log.h"
 #include <unistd.h>
 
 static char		*get_last_directory_of_pwd(char **pwd)
@@ -38,6 +36,14 @@ static char		*get_last_directory_of_pwd(char **pwd)
 		last_dir = ft_strdup(ptr_last_slash + 1);
 	ft_strdel(pwd);
 	return (last_dir);
+}
+
+void	prompt_read_failed(t_registry *reg, t_vector *vect)
+{
+	log_print(reg, LOG_ERROR, "Prompt read failed!\n");
+	ft_strdel(&vect->buffer);
+	free(vect);
+	vect = NULL;
 }
 
 void			get_prompt_ps1(t_registry *shell)

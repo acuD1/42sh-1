@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
 #include "interface_functions.h"
 
 void	cleanup_interface(t_registry *shell)
@@ -29,7 +28,7 @@ void	unload_interface(t_interface *itf)
 
 	// history linked list
 	ptr = itf->history_head;
-	while (ptr)
+	while (ptr != NULL)
 	{
 		ft_strdel(&(ptr->command));
 		del = ptr->next;

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "log.h"
-#include "interface_functions.h"
 
 /*
 **		Initialise the clipboard vector.

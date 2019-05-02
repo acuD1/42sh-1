@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
 #include <stdlib.h>
+#include "struct.h"
 
 t_list			*lexer(t_lexinfo *info, char *input)
 {

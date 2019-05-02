@@ -10,13 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
 #include "log.h"
-#include "resolve.h"
 #include "sig.h"
 #include <unistd.h>
 
-char		**str_lst_to_tab(t_list *alst)
+static char	**str_lst_to_tab(t_list *alst)
 {
 	int		i;
 	size_t	size;
@@ -96,7 +94,7 @@ static void	execute_process(t_process *process, t_registry *shell)
 	exit(FAILURE);
 }
 
-int			launch_process(t_job *job, t_process *process, t_registry *shell)
+int8_t		launch_process(t_job *job, t_process *process, t_registry *shell)
 {
 	pid_t		pid;
 

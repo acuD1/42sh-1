@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
-#include "parser.h"
+#include "struct.h"
 
 void	get_token(t_parser *parse)
 {

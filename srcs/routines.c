@@ -10,17 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "21sh.h"
 #include "parser.h"
 #include "log.h"
-#include "interface_functions.h"
 #include "lexer.h"
 #include "resolve.h"
-#include "builtin.h"
 #include <unistd.h>
 
-void	init_process(t_process *process)
+void		init_process(t_process *process)
 {
 	ft_bzero(process, sizeof(t_process));
 	process->fd.in = 0;
@@ -66,7 +63,6 @@ void		init_parser(t_registry *shell, t_parser *parse)
 	init_process(&parse->process);
 	init_job(&parse->job);
 }
-
 
 int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 {

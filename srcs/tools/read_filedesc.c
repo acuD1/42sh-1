@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "21sh.h"
 #include <unistd.h>
+#include "libft.h"
 
 char	*ft_strjoinfree(char *s1, char *s2, short todel)
 {

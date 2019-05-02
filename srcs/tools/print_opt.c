@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "21sh.h"
 #include "log.h"
 
 void	print_opt(t_registry *shell)

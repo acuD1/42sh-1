@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "log.h"
 #include "interface_functions.h"
 
 uint32_t		redraw_input_line(t_registry *shell)

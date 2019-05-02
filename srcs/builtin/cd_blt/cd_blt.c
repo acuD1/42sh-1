@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "builtin.h"
+#include "21sh.h"
 #include <unistd.h>
-#include <21sh.h>
 
 static char			*ft_get_curpath(t_registry *shell, char *path_give_by_user)
 {

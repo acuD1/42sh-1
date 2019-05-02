@@ -12,9 +12,9 @@
 
 #include "lexer.h"
 
-void	double_sign_machine(t_lexer *machine)
+void			double_sign_machine(t_lexer *machine)
 {
-	int		checker;
+	uint16_t	checker;
 
 	checker = 0;
 	if (ft_strchr(DOUBLE_SIGN, *machine->input) != NULL)
@@ -38,9 +38,9 @@ void	double_sign_machine(t_lexer *machine)
 		machine->state = L_OUT;
 }
 
-int		double_dispatcher(t_lexer *machine)
+static uint16_t	double_dispatcher(t_lexer *machine)
 {
-	int		checker;
+	uint16_t	checker;
 
 	checker = 0;
 	if (*machine->input == '>')

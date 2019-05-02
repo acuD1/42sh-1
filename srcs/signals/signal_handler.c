@@ -103,8 +103,3 @@ void			define_default_signals(t_registry *shell)
 	if (signal(SIGINT, SIG_DFL) == SIG_ERR)
 		log_print(shell, LOG_ERROR, "Error catching C-c\n");
 }
-
-int		define_runtime_signals(void)
-{
-	return (SUCCESS);
-}

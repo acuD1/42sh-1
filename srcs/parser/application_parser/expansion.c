@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include "21sh.h"
-#include "parser.h"
 
-char	character_swap(char swapped)
+static char	character_swap(char swapped)
 {
 	static char previous = '\0';
 	char		c;
@@ -23,7 +22,7 @@ char	character_swap(char swapped)
 	return (c);
 }
 
-char	*expansion(t_list *lst, char *str)
+static char	*expansion(t_list *lst, char *str)
 {
 	char	*expanded;
 	char	*data;
@@ -34,7 +33,7 @@ char	*expansion(t_list *lst, char *str)
 	str[i] = character_swap(str[i]);
 	data = get_data(lst, str);
 	str[i] = character_swap('\0');
-	if (data)
+	if (data != NULL)
 		ft_asprintf(&expanded, "%s%s", data, str + i);
 	else
 		ft_asprintf(&expanded, "%s", str + i);
@@ -48,7 +47,7 @@ char	*expand_string(t_list *lst, char *str)
 	int		i;
 
 	i = 0;
-	while (str[i])
+	while (str[i] != '\0')
 	{
 		holder = NULL;
 		if (str[i] == '$' && str[i + 1])

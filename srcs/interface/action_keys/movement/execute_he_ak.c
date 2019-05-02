@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "interface_functions.h"
-#include "ft_printf.h"
 
 int8_t	tc_ak_home(t_registry *shell)
 {

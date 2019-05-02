@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "struct.h"
 
 void			clear_node(void **data)
 {
@@ -50,7 +50,7 @@ static int8_t	del_node(t_list *ptr, char *name)
 
 int8_t			free_node(t_list **alst, char *name)
 {
-	t_list	*ptr;
+	t_list		*ptr;
 	t_variable	*env;
 
 	ptr = *alst;

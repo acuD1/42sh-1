@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
-#include "log.h"
 #include "21sh.h"
 
 char	*get_intern_var(t_registry *reg, char *name)
@@ -19,7 +17,7 @@ char	*get_intern_var(t_registry *reg, char *name)
 	return (get_data(reg->intern, name));
 }
 
-int		add_internal(t_registry *reg, char *name, char *data)
+int8_t	add_internal(t_registry *reg, char *name, char *data)
 {
 	if (get_data(reg->intern, name) == NULL)
 		return (s_create_node(&(reg->intern), name, data));
@@ -31,14 +29,14 @@ char	*get_env_var(t_registry *reg, char *name)
 	return (get_data(reg->env, name));
 }
 
-int		add_env(t_registry *reg, char *name, char *data)
+int8_t	add_env(t_registry *reg, char *name, char *data)
 {
 	if (get_data(reg->env, name) == NULL)
 		return (s_create_node(&(reg->env), name, data));
 	return (change_node(&(reg->env), name, ft_strdup(data)));
 }
 
-int		add_internal_nbr(t_registry *reg, char *name, int data)
+int8_t	add_internal_nbr(t_registry *reg, char *name, int data)
 {
 	int		success;
 	char	*data_copy;

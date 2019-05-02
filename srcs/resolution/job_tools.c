@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
-#include "resolve.h"
+#include "struct.h"
 
 t_list	*g_job_head;
 

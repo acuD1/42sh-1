@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "struct.h"
 
 int8_t				echo_blt(t_registry *shell, char **av)
 {

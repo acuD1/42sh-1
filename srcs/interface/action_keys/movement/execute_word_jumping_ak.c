@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "interface_functions.h"
-#include "ft_printf.h"
 
 int8_t		tc_ak_next_word(t_registry *shell)
 {
