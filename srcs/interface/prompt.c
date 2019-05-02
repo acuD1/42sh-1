@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 16:55:49 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/02 11:05:31 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,10 @@ static char		*get_last_directory_of_pwd(char **pwd)
 	return (last_dir);
 }
 
-void	prompt_read_failed(t_registry *reg, t_vector *vect)
+void			prompt_read_failed(t_registry *reg, t_vector *vect)
 {
 	log_print(reg, LOG_ERROR, "Prompt read failed!\n");
 	ft_strdel(&vect->buffer);
-	free(vect);
 	vect = NULL;
 }
 
@@ -56,15 +55,16 @@ void			get_prompt_ps1(t_registry *shell)
 	if (pwd != NULL)
 		pwd = get_last_directory_of_pwd(&pwd);
 	if (pwd == NULL)
-		add_internal(shell, "PS1", "[21sh] -> ");
+		add_internal(shell, INT_PS1, "[21sh] -> ");
 	else
 	{
-		ft_asprintf(&prompt, "[ \033[32m%s\033[0m ] -> ", pwd);
+		ft_asprintf(&prompt, "[ %s ] -> ", pwd);
 		ft_strdel(&pwd);
-		add_internal(shell, "PS1", prompt);
+		add_internal(shell, INT_PS1, prompt);
 		ft_strdel(&prompt);
 	}
 }
+
 
 char			*prompt(t_registry *shell)
 {
@@ -78,7 +78,6 @@ char			*prompt(t_registry *shell)
 	while (character[0] != IFS_CHAR)
 	{
 		ft_bzero(character, READ_SIZE);
-		// change to tty fd
 		if (read(0, character, READ_SIZE) == FAILURE)
 		{
 			prompt_read_failed(shell, itf->line);

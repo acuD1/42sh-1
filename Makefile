@@ -82,7 +82,6 @@ LINE_PATH += interface/action_keys/clipboard/
 LINE_PATH += interface/action_keys/movement/
 LINE_PATH += interface/core/
 LINE_PATH += interface/init/
-LINE_PATH += interface/misc/
 LINE_PATH += interface/redraw/
 LINE_PATH += interface/utils/
 LINE_PATH += resolution/
@@ -90,8 +89,22 @@ LINE_PATH += logging/
 LINE_PATH += signals/
 LINE_PATH += ./
 LEXER_PATH += lexer/
-PARSER_PATH += parser/
+PARSER_PATH += parser/grammar_parser
+PARSER_PATH += parser/application_parser
 BUILTIN_PATH += builtin/
+BUILTIN_PATH += builtin/cd_blt
+BUILTIN_PATH += builtin/echo_blt
+BUILTIN_PATH += builtin/env_blt
+BUILTIN_PATH += builtin/exit_blt
+BUILTIN_PATH += builtin/export_blt
+BUILTIN_PATH += builtin/hash_blt
+BUILTIN_PATH += builtin/intern_blt
+BUILTIN_PATH += builtin/pwd_blt
+BUILTIN_PATH += builtin/set_blt
+BUILTIN_PATH += builtin/setenv_blt
+BUILTIN_PATH += builtin/type_blt
+BUILTIN_PATH += builtin/unset_blt
+BUILTIN_PATH += builtin/unsetenv_blt
 TOOLS_PATH += tools/
 SPATH += $(addprefix srcs/, $(LINE_PATH) $(LEXER_PATH) $(PARSER_PATH) $(BUILTIN_PATH) $(TOOLS_PATH))
 
@@ -139,15 +152,18 @@ INCS += enum.h
 # ---------------------------------------------------------------------------- #
 
 #							- - - - - Main - - - - -                           #
+
 UNITM = unit.c
 LINEM = main.c
 
 #						- - - - -  Unit-test  - - - - -
+
 UNIT += create_virt_registry.c
 UNIT += 00-machine.c
 UNIT += clipboard_copy.c
 UNIT += clipboard_cut.c
 UNIT += clipboard_paste.c
+
 #						- - - - -   Startup   - - - - -
 
 LINE += launch.c
@@ -165,22 +181,48 @@ LINE += print_opt.c
 #						- - - - -  Built-in   - - - - -                        #
 
 BUILTIN += blt_tools.c
-BUILTIN += echo_blt.c
+
+#CD
 BUILTIN += cd_blt.c
 BUILTIN += cd_blt_cdpath.c
 BUILTIN += cd_blt_additions.c
 BUILTIN += cd_blt_simple.c
+
+#ECHO
+BUILTIN += echo_blt.c
+
+#ENV
 BUILTIN += env_blt.c
-BUILTIN += setenv_blt.c
-BUILTIN += unsetenv_blt.c
-BUILTIN += intern_blt.c
-BUILTIN += hash_blt.c
+
+#EXIT
 BUILTIN += exit_blt.c
-BUILTIN += type_blt.c
+
+#EXPORT
 BUILTIN += export_blt.c
-BUILTIN += set_blt.c
-BUILTIN += unset_blt.c
+
+#HASH
+BUILTIN += hash_blt.c
+
+#INTERN
+BUILTIN += intern_blt.c
+
+#PWD
 BUILTIN += pwd_blt.c
+
+#SET
+BUILTIN += set_blt.c
+
+#SETENV
+BUILTIN += setenv_blt.c
+
+#TYPE
+BUILTIN += type_blt.c
+
+#UNSET
+BUILTIN += unset_blt.c
+
+#UNSETENV
+BUILTIN += unsetenv_blt.c
 
 #						- - - - - Line edtion - - - - -                        #
 
@@ -202,9 +244,6 @@ LINE += set_quote.c
 LINE += ft_putc.c
 LINE += is_eof.c
 LINE += print.c
-
-#Misc
-LINE += prompt_errors.c
 
 #Redraw
 LINE += clean_screen.c
@@ -250,13 +289,15 @@ LEX_SRCS += redirect_states.c
 
 #						   - - - - - Parser - - - - -                          #
 
-PARSER_SRCS += parser.c
-PARSER_SRCS += set_parser_token.c
+#Grammar Parser
 PARSER_SRCS += generate_graph.c
+PARSER_SRCS += ways_graph.c
+PARSER_SRCS += grammar_parser.c
 PARSER_SRCS += parser_debug.c
+#Application Parser
+PARSER_SRCS += init_application_parser.c
 PARSER_SRCS += parser_state.c
 PARSER_SRCS += parser_interface.c
-PARSER_SRCS += init.c
 PARSER_SRCS += string_parser.c
 PARSER_SRCS += redirect_parser.c
 PARSER_SRCS += expansion.c

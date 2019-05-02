@@ -13,6 +13,7 @@
 #include "21sh.h"
 #include "parser.h"
 #include "log.h"
+#include "sig.h"
 #include "lexer.h"
 #include "resolve.h"
 #include <unistd.h>
@@ -68,6 +69,9 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 {
 	t_parser	parse;
 
+
+	define_parser_signals();
+
 	////////////////////// DEBUG LEXER ////////////////////////
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
 	{
@@ -100,6 +104,9 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 		launch_job(shell, parse.job_list);
 		delete_parser(&parse);
 	}
+
+	define_ign_signals();
+
 	return (SUCCESS);
 }
 

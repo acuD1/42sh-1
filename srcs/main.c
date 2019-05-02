@@ -6,13 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/02 03:13:02 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 11:54:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include "interface_functions.h"
 #include "lexer.h"
+#include "sig.h"
 #include <unistd.h>
 
 int8_t		shell_usage(void)
@@ -71,9 +72,8 @@ int			main(int ac, char **av, char **env)
 		return (FAILURE);
 	if (init_shell(&shell) == FAILURE)
 		return (FAILURE);
+	define_ign_signals();
 	launch_shell(&shell);
-	// Clean all intern variables
-	// Clean all environment variables
 	shell_exit_routine(&shell);
 	return (SUCCESS);
 }

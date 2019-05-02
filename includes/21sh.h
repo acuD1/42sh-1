@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/02 03:12:36 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 10:53:44 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@
 ******************** INIT / EXIT ********************
 *****************************************************
 */
-
 void			free_registry(t_registry *shell);
 int8_t			init_shell(t_registry *shell);
 int8_t			set_environment( t_registry *shell, char **av, char **env);
-void			define_default_signals(t_registry *shell);
+//void			define_default_signals(t_registry *shell);
 void			init_lexinfo(t_registry *shell);
 int8_t			shell_usage(void);
 void			shell_exit_routine(t_registry *shell);

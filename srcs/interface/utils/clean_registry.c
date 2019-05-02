@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 11:03:36 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 07:11:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/02 11:50:20 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	cleanup_interface(t_registry *shell)
 {
+	update_window(shell);
 	ft_vctreset(shell->interface.line);
 	shell->interface.cursor.x = get_prompt_len(shell);
 	shell->interface.cursor.y = 0;

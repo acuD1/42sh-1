@@ -6,12 +6,23 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/02 02:24:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 11:04:19 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINE_H
 # define DEFINE_H
+
+/*
+*****************************************************
+******** -------------- SIGNAL -------------- *******
+*****************************************************
+*/
+
+# define SSIG_KILL                  9
+# define SSIG_INT                   2
+# define SSIG_QUIT                  3
+# define SSIG_STOP                  19
 
 /*
 *****************************************************
@@ -81,7 +92,7 @@
 # define INT_PS4					"PS4"
 # define INT_PS5					"PS5"
 # define INT_ESCAPE_SEQ				"ESC"
-# define INT_PS1_VALUE				"[21sh] -> "
+# define INT_PS1_VALUE				"[ 21sh ]-> "
 # define INT_PS2_VALUE				"quote> "
 # define INT_PS3_VALUE				"script> "
 # define INT_PS4_VALUE				"heredoc> "

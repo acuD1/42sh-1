@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 17:26:48 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/02 11:49:50 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int8_t		load_interface(t_registry *shell);
 void		unload_interface(t_interface *itf);
 short		restore_term_behavior(t_registry *shell);
 void		cleanup_interface(t_registry *shell);
+int8_t		update_window(t_registry *shell);
 
 /*
 *****************************************************
