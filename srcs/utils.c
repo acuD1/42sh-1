@@ -39,31 +39,31 @@ int8_t			f_create_node(t_list **alst, char *str)
 	variable.data = ft_strdup(str + (ft_strcspn(str, "=") + 1));
 	if (variable.name == NULL || variable.data == NULL)
 		return (FAILURE);
-	if ((newdir = ft_lstnew(&s_node, sizeof(t_node))) == NULL)
+	if ((newdir = ft_lstnew(&variable, sizeof(t_variable))) == NULL)
 		return (FAILURE);
 	ft_lstaddback(alst, newdir);
 	return (SUCCESS);
 }
 
-int8_t			s_create_node(t_list **alst, char *var, char *data)
+int8_t			s_create_node(t_list **alst, char *name, char *data)
 {
 	t_variable variable;
 	t_list *newdir;
 
-	if (var == NULL)
+	if (name == NULL)
 		return (FAILURE);
-	ft_bzero(&s_node, sizeof(t_node));
-	s_node.var = ft_strdup(var);
-	s_node.data = ft_strdup(data);
-	if (s_node.var == NULL || s_node.data == NULL)
+	ft_bzero(&variable, sizeof(t_variable));
+	variable.name = ft_strdup(name);
+	variable.data = ft_strdup(data);
+	if (variable.name == NULL || variable.data == NULL)
 		return (FAILURE);
-	if ((newdir = ft_lstnew(&s_node, sizeof(t_node))) == NULL)
+	if ((newdir = ft_lstnew(&variable, sizeof(t_variable))) == NULL)
 		return (FAILURE);
 	ft_lstaddback(alst, newdir);
 	return (SUCCESS);
 }
 
-int8_t			change_node(t_list **alst, char *var, char *data)
+int8_t			change_node(t_list **alst, char *name, char *data)
 {
 	t_list *ptr;
 
@@ -83,7 +83,7 @@ int8_t			change_node(t_list **alst, char *var, char *data)
 	return (s_create_node(alst, name, data));
 }
 
-int8_t			search_data(t_list **alst, char *var)
+int8_t			search_data(t_list **alst, char *name)
 {
 	t_list *ptr;
 

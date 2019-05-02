@@ -49,6 +49,8 @@ static int	stdin_build_cmd(t_registry *shell, char *command)
 
 static void	launch_shell(t_registry *shell)
 {
+	char	*command;
+
 	if ((shell->option.option & COMMAND_OPT) == FALSE
 		&& isatty(STDIN_FILENO) != 0)
 	{

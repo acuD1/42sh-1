@@ -27,7 +27,7 @@ static void		free_anode(t_list *ptr)
 	free(ptr->data);
 }
 
-static int8_t	del_node(t_list *ptr, char *var)
+static int8_t	del_node(t_list *ptr, char *name)
 {
 	t_list	*tmp;
 
@@ -48,7 +48,7 @@ static int8_t	del_node(t_list *ptr, char *var)
 	return (FAILURE);
 }
 
-int8_t			free_node(t_list **alst, char *var)
+int8_t			free_node(t_list **alst, char *name)
 {
 	t_list	*ptr;
 	t_variable	*env;
