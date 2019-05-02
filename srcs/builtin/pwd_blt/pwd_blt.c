@@ -6,13 +6,14 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 14:03:25 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 16:35:51 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/02 23:50:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include "21sh.h"
 #include <unistd.h>
+#include <limits.h>
 
 char			*get_pwd(t_registry *shell, const t_option option)
 {
