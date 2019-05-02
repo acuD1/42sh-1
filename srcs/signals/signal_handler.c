@@ -78,14 +78,13 @@ void			kill_process(int signo)
 
 static void		loop_signals(void (*func)(int))
 {
-	int i;
+	int signo;
 
-	i = 1;
-	while (i < 32)
+	signo = 0;
+	while (++signo < 32)
 	{
-		if (i != 3)
-			signal(i, func);
-		++i;
+		if (signo != SSIG_QUIT && signo != SSIG_STOP && signo != SSIG_KILL)
+			signal(signo, func);
 	}
 }
 
