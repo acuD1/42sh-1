@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/02 18:49:50 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 20:15:15 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,16 @@ char	*variable_expansion(t_parser *parse, char *str)
 	char	*expanded;
 	char	*holder;
 	int		i;
+	t_quote	quote;
 
 	i = 0;
+	quote = 0;
 	while (str[i])
 	{
 		holder = NULL;
-		if (str[i] == '$' && str[i + 1])
+		if (ft_strchr("\'\"", str[i]))
+			quote = select_quoting(quote, str[i]);
+		if (str[i] == '$' && str[i + 1] && quote != QUOTE_SINGLE)
 		{
 			expanded = variable_replace(parse->env, &str[i + 1]);
 			ft_asprintf(&holder, "%.*s%s", i, str, expanded);

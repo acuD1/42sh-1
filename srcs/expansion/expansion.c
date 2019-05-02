@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/02 18:49:25 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 20:38:33 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,21 @@ char	character_swap(char swapped)
 	return (c);
 }
 
+t_quote	select_quoting(t_quote quote, char c)
+{
+	if (quote == QUOTE_OFF)
+		quote = c == '\'' ? QUOTE_SINGLE : QUOTE_DOUBLE;
+	else if (quote == QUOTE_SINGLE)
+		quote = c == '\'' ? QUOTE_OFF : QUOTE_SINGLE;
+	else if (quote == QUOTE_DOUBLE)
+		quote = c == '\"' ? QUOTE_OFF : QUOTE_DOUBLE;
+	return (quote);
+}
+
 char	*string_expansion(t_parser *parse, char *str)
 {
 	str = tilde(parse, str);
 	str = variable_expansion(parse, str);
+	quote_removal(str);
 	return (str);
 }

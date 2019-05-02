@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/02 00:44:12 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 20:01:31 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,14 +107,12 @@ enum	e_type
 		E_DEFAULT,
 };
 
-enum	e_quote
+typedef enum	e_quote
 {
 		QUOTE_OFF,
-		QUOTE_ON,
-		QUOTE_INT,
-		QUOTE_SP,
-		QUOTE_SP_INT
-};
+		QUOTE_SINGLE,
+		QUOTE_DOUBLE,
+}				t_quote;
 
 /*
 *****************************************************

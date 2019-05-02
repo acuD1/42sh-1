@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 20:19:38 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/02 03:20:19 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/02 20:11:55 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ int		define_type(t_lexer *machine)
 		return (result);
 	else if ((result = check_char(machine)) != FALSE)
 		return (result);
-	else if (machine->last_lexer == E_DB_QUOTE || machine->quote == QUOTE_ON)
-		return (E_DB_QUOTE);
 	return (E_STRING);
 }
 

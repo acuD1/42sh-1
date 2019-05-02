@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/05/02 18:39:20 by cempassi         ###   ########.fr        #
+#    Updated: 2019/05/02 20:31:44 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -266,6 +266,7 @@ PARSER += redirect_parser.c
 EXPANSION += expansion.c
 EXPANSION += tilde.c
 EXPANSION += variable.c
+EXPANSION += quoting.c
 
 TOOLS += list_functions.c
 
