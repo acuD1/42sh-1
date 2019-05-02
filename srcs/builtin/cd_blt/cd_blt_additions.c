@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/02 11:21:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/02 23:49:58 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "21sh.h"
 #include <unistd.h>
 #include <pwd.h>
+#include <limits.h>
 
 t_option		get_option_cd(char *s, t_option option)
 {

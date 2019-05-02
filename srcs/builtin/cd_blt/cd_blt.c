@@ -6,13 +6,14 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/02 10:51:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/02 23:49:45 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include "21sh.h"
 #include <unistd.h>
+#include <limits.h>
 
 static char			*ft_get_curpath(t_registry *shell, char *path_give_by_user)
 {
