@@ -12,6 +12,7 @@
 
 #include "interface_functions.h"
 #include "log.h"
+#include "21sh.h"
 
 char	*get_intern_var(t_registry *reg, char *name)
 {

@@ -15,7 +15,9 @@
 #include "log.h"
 #include "interface_functions.h"
 #include "parser.h"
+#include "lexer.h"
 #include "resolve.h"
+#include <unistd.h>
 
 int8_t		shell_usage(void)
 {

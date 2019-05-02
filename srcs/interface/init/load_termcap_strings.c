@@ -12,6 +12,7 @@
 
 #include "interface_functions.h"
 #include "log.h"
+#include <termcap.h>
 
 int8_t 			init_termcap_calls(t_termcaps *termcp)
 {

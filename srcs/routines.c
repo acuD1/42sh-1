@@ -12,11 +12,13 @@
 
 #include "libft.h"
 #include "21sh.h"
+#include "parser.h"
 #include "log.h"
 #include "interface_functions.h"
-#include "parser.h"
+#include "lexer.h"
 #include "resolve.h"
 #include "builtin.h"
+#include <unistd.h>
 
 void	init_process(t_process *process)
 {

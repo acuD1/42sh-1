@@ -11,8 +11,12 @@
 /* ************************************************************************** */
 
 #include "log.h"
+#include "21sh.h"
 #include "interface_functions.h"
 #include <signal.h>
+#include <termcap.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
 
 t_registry	*g_shell;
 

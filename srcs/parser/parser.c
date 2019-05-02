@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "lexer.h"
 #include "interface_functions.h"
 
 t_registry	*g_shell;

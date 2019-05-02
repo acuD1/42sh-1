@@ -15,6 +15,8 @@
 #include "ft_printf.h"
 #include "history.h"
 #include "builtin.h"
+#include "21sh.h"
+#include <unistd.h>
 
 static char		*get_last_directory_of_pwd(char **pwd)
 {

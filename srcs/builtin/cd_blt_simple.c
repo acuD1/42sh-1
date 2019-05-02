@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin.h"
+#include <unistd.h>
 
 static void		ft_process_transform(char *path, char **new_path)
 {

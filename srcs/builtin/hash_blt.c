@@ -12,6 +12,7 @@
 
 #include <unistd.h>
 #include "builtin.h"
+#include "21sh.h"
 
 static void	hash_bin(t_registry *reg, char *bin)
 {

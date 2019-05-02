@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin.h"
+#include "21sh.h"
 #include "lexer.h"
 
 t_option			get_option_env(char *s, t_option option)

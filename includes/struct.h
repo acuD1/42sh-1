@@ -14,8 +14,8 @@
 # define STRUCT_H
 
 # include "define.h"
-# include "libft.h"
 # include "enum.h"
+# include "libft.h"
 
 /*
 *****************************************************

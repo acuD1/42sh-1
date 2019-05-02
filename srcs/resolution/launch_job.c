@@ -12,6 +12,9 @@
 
 #include "21sh.h"
 #include "resolve.h"
+#include "sig.h"
+#include "interface_functions.h"
+#include <unistd.h>
 
 t_list *g_job_head;
 

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin.h"
+#include "21sh.h"
 
 int8_t				setenv_blt(t_registry *shell, char **av)
 {

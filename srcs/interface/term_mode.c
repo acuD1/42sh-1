@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 
 #include "log.h"
-#include "interface_functions.h"
+#include <termios.h>
+#include <unistd.h>
 
 int16_t			set_term_behavior(t_registry *shell)
 {

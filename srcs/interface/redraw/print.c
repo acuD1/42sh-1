@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "interface_functions.h"
+#include <termcap.h>
+#include <unistd.h>
 
 void	print_char(t_interface *itf, char d)
 {

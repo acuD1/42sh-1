@@ -13,8 +13,6 @@
 #ifndef LEXER_H
 # define LEXER_H
 
-# include "libft.h"
-# include "define.h"
 # include "struct.h"
 
 t_list		*lexer(t_lexinfo *info, char *input);

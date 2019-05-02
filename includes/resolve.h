@@ -10,17 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef H_RESOLVE_H
-#define H_RESOLVE_H
+#ifndef RESOLVE_H
+# define RESOLVE_H
 
-# include <termios.h>
-# include <unistd.h>
-# include "21sh.h"
-# include "parser.h"
-# include "define.h"
 # include "struct.h"
 
-void		define_execution_signals(t_registry *shell);
 void		launch_job(t_registry *shell, t_list *joblst);
 void		setup_pipes(t_job *j, t_list *p, t_filedesc *io, int pipe[2]);
 void		cleanup_pipes(t_job *job, t_filedesc *io);

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin.h"
+#include "21sh.h"
 
 static void			ft_strlower(char *str)
 {

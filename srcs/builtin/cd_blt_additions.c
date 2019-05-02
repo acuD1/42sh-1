@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include "builtin.h"
+#include "21sh.h"
+#include <unistd.h>
+#include <pwd.h>
 
 t_option		get_option_cd(char *s, t_option option)
 {

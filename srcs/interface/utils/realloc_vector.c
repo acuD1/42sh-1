@@ -25,20 +25,3 @@ void	reset_vector(t_vector *line)
 	line->buffer = ft_strnew(16);
 	line->size = 16;
 }
-
-void	replace_vector(t_vector *dest, t_vector *src)
-{
-	ft_strdel(&(dest->buffer));
-	dest->buffer = ft_strdup(src->buffer);
-	dest->size = ft_strlen(src->buffer);
-	ft_strdel(&(src->buffer));
-	free(src);
-}
-
-void	move_vector(t_vector *dest, char *src)
-{
-	ft_strdel(&(dest->buffer));
-	dest->buffer = ft_strdup(src);
-	dest->size = ft_strlen(src);
-	free(src);
-}

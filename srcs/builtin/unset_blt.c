@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin.h"
+#include "21sh.h"
 #include "interface_functions.h"
 
 static void			reset_prompt(t_registry *shell, char **av)

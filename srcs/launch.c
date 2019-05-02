@@ -13,15 +13,20 @@
 #include "21sh.h"
 #include "builtin.h"
 
-static int		set_shlvl(t_list **env_lst)
+static int		set_shlvl(t_registry *shell)
 {
-	if (search_data(env_lst, "SHLVL") == SUCCESS)
-		change_node(env_lst, "SHLVL"
-		, ft_itoa(ft_atoi(get_data(env_lst, "SHLVL")) + 1));
+	char		*shlvl;
+
+	shlvl = get_env_var(shell, "SHLVL");
+	if (shlvl == NULL)
+		add_env(shell, "SHLVL", "1");
 	else
 	{
-		if (f_create_node(env_lst, "SHLVL=1") == FAILURE)
+		shlvl = ft_itoa(ft_atoi(shlvl) + 1);
+		if (shlvl == NULL)
 			return (FAILURE);
+		add_env(shell, "SHLVL", shlvl);
+		ft_strdel(&shlvl);
 	}
 	return (SUCCESS);
 }
@@ -37,8 +42,6 @@ static int8_t	get_env(t_list **alst, char **env)
 			return (FAILURE);
 		i++;
 	}
-	if (set_shlvl(alst) == FAILURE)
-		return (FAILURE);
 	return (SUCCESS);
 }
 
@@ -129,6 +132,8 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 		return (FAILURE);
 	shell->bin_hashmap = ft_hmap_init(4096);
 	shell->blt_hashmap = ft_hmap_init(32);
+	if (set_shlvl(shell) == FAILURE)
+		return (FAILURE);
 	//wtf
 	return (hash_blt(shell, NULL));
 }

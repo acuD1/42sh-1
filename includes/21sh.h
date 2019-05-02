@@ -13,10 +13,7 @@
 #ifndef SH21_H
 # define SH21_H
 
-# include "libft.h"
-# include "define.h"
 # include "struct.h"
-# include "interface_functions.h"
 
 /////////////// LINUX
 # include <signal.h>
@@ -28,13 +25,11 @@
 ******************** INIT / EXIT ********************
 *****************************************************
 */
-void			get_prompt_ps1(t_registry *shell);
 
-void			define_default_signals(t_registry *shell);
 void			free_registry(t_registry *shell);
-
 int8_t			init_shell(t_registry *shell);
 int8_t			set_environment( t_registry *shell, char **av, char **env);
+void			define_default_signals(t_registry *shell);
 void			init_lexinfo(t_registry *shell);
 int8_t			shell_usage(void);
 void			shell_exit_routine(t_registry *shell);
@@ -48,6 +43,7 @@ void			shell_exit_routine(t_registry *shell);
 char	        *read_input(int fd);
 void			launch_interface(t_registry *shell);
 int8_t		    execution_pipeline(t_registry *shell, t_list *token_list);
+void			get_prompt_ps1(t_registry *shell);
 
 
 /*

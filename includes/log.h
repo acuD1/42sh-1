@@ -13,8 +13,7 @@
 #ifndef LOG_H
 # define LOG_H
 
-# include <time.h>
-# include "21sh.h"
+# include "struct.h"
 
 void	log_print(t_registry *reg, char *importance, char *message, ...);
 void	init_debug_logger(t_registry *reg);

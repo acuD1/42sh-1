@@ -12,6 +12,8 @@
 
 #include "log.h"
 #include "interface_functions.h"
+#include "21sh.h"
+#include <termcap.h>
 
 int8_t				fill_interface_data(t_registry *shell)
 {

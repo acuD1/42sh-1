@@ -15,8 +15,9 @@
 #include "libft.h"
 #include "log.h"
 #include "ft_printf.h"
+#include <unistd.h>
 
-void			log_print(t_registry *shell, char *importance, char *message, ...)
+void	log_print(t_registry *shell, char *importance, char *message, ...)
 {
 	va_list args;
 	int		fd;

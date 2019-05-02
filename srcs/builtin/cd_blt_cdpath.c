@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "builtin.h"
+#include <unistd.h>
+#include "21sh.h"
 
 static char		*is_valid_path(char *path, char *to_find)
 {

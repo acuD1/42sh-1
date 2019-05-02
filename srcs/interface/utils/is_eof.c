@@ -19,16 +19,3 @@ uint8_t	is_eof(char *buffer)
 		return (TRUE);
 	return (FALSE);
 }
-
-uint8_t is_only_whitespaces(char *buffer)
-{
-	char	*ptr;
-	ptr = buffer;
-	while (ptr)
-	{
-		if (*ptr != ' ')
-			return (FALSE);
-		++ptr;
-	}
-	return (TRUE);
-}

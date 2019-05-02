@@ -13,9 +13,7 @@
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-# include "21sh.h"
-# include <pwd.h>
-# include <limits.h>
+# include "struct.h"
 
 /*
 *****************************************************

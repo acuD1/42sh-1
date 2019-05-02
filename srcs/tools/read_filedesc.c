@@ -12,8 +12,9 @@
 
 #include "libft.h"
 #include "21sh.h"
+#include <unistd.h>
 
-char		*ft_strjoinfree(char *s1, char *s2, short todel)
+char	*ft_strjoinfree(char *s1, char *s2, short todel)
 {
 	char	*join;
 

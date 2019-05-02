@@ -32,8 +32,8 @@ static int8_t		cut_vector(t_vector *vect, t_cursor *cursor, int before)
 	vect->buffer = tmp;
 	return (0);
 }
-//	static
-void			copy_buffer_part(t_interface *itf, int8_t before)
+
+static void			copy_buffer_part(t_interface *itf, int8_t before)
 {
 	char *tmp;
 
@@ -52,8 +52,8 @@ void			copy_buffer_part(t_interface *itf, int8_t before)
 		cut_vector(itf->line, &itf->cursor, before);
 	}
 }
-// static
-void			move_buffer(char *dest, t_vector *source)
+
+static void			move_buffer(char *dest, t_vector *source)
 {
 	ft_strcpy(dest, source->buffer);
 	ft_bzero(source->buffer, source->size);

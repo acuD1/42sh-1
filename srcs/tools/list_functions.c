@@ -12,6 +12,7 @@
 
 #include "21sh.h"
 #include "parser.h"
+#include <unistd.h>
 
 int		find_variable(void *data, void *to_find)
 {

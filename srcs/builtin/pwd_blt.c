@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "builtin.h"
+#include "21sh.h"
+#include <unistd.h>
 
 char			*get_pwd(t_registry *shell, t_option option)
 {

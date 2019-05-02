@@ -13,7 +13,7 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-# include "lexer.h"
+# include "struct.h"
 
 /*
 *****************************************************
@@ -41,7 +41,6 @@ void		io_parser(t_parser *parse);
 void		io_redirect_parser(t_parser *parse);
 void		flush_redirect(t_parser *parse);
 void		delete_process(void *data);
-
 char		*expand_string(t_list *lst, char *str);
 
 /*

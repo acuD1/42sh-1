@@ -12,9 +12,11 @@
 
 #ifndef SIG_H
 # define SIG_H
-void			define_ign_signals(t_registry *shell);
-void			define_parser_signals(t_registry *shell);
-void			define_execution_signals(t_registry *shell);
-void			define_interface_signals(t_registry *shell);
-void			define_ign_signals(t_registry *shell);
+
+void	define_ign_signals(t_registry *shell);
+void	define_parser_signals(t_registry *shell);
+void	define_execution_signals(t_registry *shell);
+void	define_interface_signals(t_registry *shell);
+void	define_ign_signals(t_registry *shell);
+
 #endif

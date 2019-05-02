@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
+#include "21sh.h"
 
 uint32_t	get_prompt_len(t_registry *shell)
 {

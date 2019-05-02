@@ -10,12 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
 #include "log.h"
-#include "parser.h"
-#include "resolve.h"
+#include "lexer.h"
+#include "history.h"
+#include "21sh.h"
+#include "interface_functions.h"
+#include <termcap.h>
 
-void				update_history(t_registry *shell, char *input)
+static void			update_history(t_registry *shell, char *input)
 {
 	t_history	*new;
 
@@ -23,7 +25,7 @@ void				update_history(t_registry *shell, char *input)
 	push_history_entry(&shell->interface.history_head, new);
 }
 
-int					get_input(t_registry *shell, char **input)
+static int8_t		get_input(t_registry *shell, char **input)
 {
 	*input = prompt(shell);
 	if (*input == NULL || **input == '\0')
@@ -33,7 +35,7 @@ int					get_input(t_registry *shell, char **input)
 	return (SUCCESS);
 }
 
-int					launch_shell_prompt(t_registry *shell)
+static int8_t		launch_shell_prompt(t_registry *shell)
 {
 	char		*input;
 

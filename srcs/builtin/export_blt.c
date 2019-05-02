@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin.h"
+#include "21sh.h"
 
 t_option			get_option_export(char *s, t_option option)
 {

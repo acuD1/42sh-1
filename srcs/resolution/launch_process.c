@@ -13,6 +13,8 @@
 #include "21sh.h"
 #include "log.h"
 #include "resolve.h"
+#include "sig.h"
+#include <unistd.h>
 
 char		**str_lst_to_tab(t_list *alst)
 {
