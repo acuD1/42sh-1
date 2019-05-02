@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/02 18:52:16 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 01:46:55 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,13 @@ typedef t_parsing		t_pstate[PARSE_STATES][NB_OF_TOKENS];
 
 typedef struct			s_filedesc
 {
-	int32_t				in;
-	int32_t				out;
-	int32_t				err;
+	int32_t				first;
+	int32_t				second;
 }						t_filedesc;
 
 typedef struct			s_process
 {
-	t_filedesc			fd;
+	t_list				*fd;
 	char				**av;
 	char				**env;
 	uint8_t				completed;

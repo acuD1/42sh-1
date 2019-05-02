@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 00:02:01 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 00:02:13 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 00:47:56 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,9 +170,8 @@ void	init_io_redirect(t_pstate parsing)
 
 void	init_io_filename_and(t_pstate parsing)
 {
-	parsing[P_IO_REDIRECT][E_STRING] = io_dup_move_parser;
-	parsing[P_IO_REDIRECT][E_SPSTRING] = io_dup_move_parser;
-
+	parsing[P_IO_REDIRECT_AND][E_STRING] = io_dup_move_parser;
+	parsing[P_IO_REDIRECT_AND][E_SPSTRING] = io_dup_move_parser;
 }
 
 void	init_parsing(t_pstate parsing)

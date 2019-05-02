@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 00:04:07 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 01:46:41 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,17 @@
 #include <unistd.h>
 #include "21sh.h"
 #include "parser.h"
+
+void	generate_filedesc(t_parser *parse, int fst, int sec, t_fd_action act)
+{
+	t_list		*node;
+	t_filedesc	fd;
+
+	fd.first = f;
+	fd.second = second;
+	node = ft_lstnew(&fd, sizeof(t_filedesc));
+	ft_lstaddback(&parse->process.fd, node);
+}
 
 void	flush_redirect(t_parser *parse)
 {
@@ -32,12 +43,12 @@ void	flush_redirect(t_parser *parse)
 		return ;
 	}
 	if (token->type == E_LESS)
-		parse->process.fd.in = fd;
+		generate_filedesc(parse, fd, STDIN_FILENO);
 	else
 	{
 		if (token->type == E_GREATAND || token->type == E_ANDDGREAT)
-			parse->process.fd.err = fd;
-		parse->process.fd.out = fd;
+			generate_filedesc(parse, fd, STDERR_FILENO);
+		generate_filedesc(parse, fd, STDOUT_FILENO);
 	}
 	free(token);
 	ft_strdel(&filename);
@@ -55,7 +66,6 @@ void	redirect_parser(t_parser *parse)
 	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
 	get_token(parse);
 }
-
 
 void	pipe_parser(t_parser *parse)
 {
@@ -89,6 +99,31 @@ void	heredoc_parser(t_parser *parse)
 	{
 
 	}
+}
+
+
+void	io_redirect_flush(t_parser *parse)
+{
+	t_token		*token;
+	char		*filename;
+	int			fd;
+	int			io_number;
+
+	parse->state = P_IO_FLUSH;
+	token = ft_stckpop(&parse->stack);
+	filename = token->data;
+	free(token);
+	token = ft_stckpop(&parse->stack);
+	io_number = ft_atoi(ft_stcktop(&parse->stack));
+	if ((fd = open(filename, parse->oflags, 0644)) < 0)
+	{
+		error_parser(parse);
+		return ;
+	}
+	if(token->type == E_GREAT || token->type == E_DGREAT)
+		generate_filedesc(parse, fd, io_number);
+	else if(token->type == E_LESS)
+		generate_filedesc(parse, fd, io_number);
 }
 
 void	io_redirect_parser(t_parser *parse)
