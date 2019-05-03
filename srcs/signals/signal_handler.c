@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/02 14:42:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/03 18:41:08 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void		interface_resize_handler(const int signo)
 		return ;
 	}
 	itf = &g_shell->interface;
-	init_window(g_shell);
+	update_window(g_shell);
 	tputs(itf->termcaps.clear, 1, ft_putc);
 	if ((itf->window.cols
 			< (uint32_t)(ft_strlen(get_intern_var(g_shell, INT_PS1)) * 2)
