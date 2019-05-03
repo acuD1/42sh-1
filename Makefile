@@ -258,12 +258,11 @@ LINE += load_interface_config.c
 LINE += load_termcap_strings.c
 
 #Core
-LINE += cursor.c
+LINE += window_cursor.c
 LINE += term_mode.c
 LINE += launch_interface.c
 LINE += validate_quoting.c
 LINE += handle_input_keys.c
-LINE += window.c
 
 #Prompt
 LINE += prompt.c

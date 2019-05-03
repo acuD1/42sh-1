@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window.c                                           :+:      :+:    :+:   */
+/*   window_cursor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/31 13:38:46 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/02 11:49:52 by skuppers         ###   ########.fr       */
+/*   Created: 2019/05/03 11:38:46 by ffoissey          #+#    #+#             */
+/*   Updated: 2019/05/03 12:34:52 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,16 @@ int8_t	init_window(t_registry *shell)
 		return (FAILURE);
 	window->max_chars = ((window->cols * window->rows)
 								- get_prompt_len(shell));
+	return (SUCCESS);
+}
+
+int8_t	init_cursor(t_registry *shell)
+{
+	t_cursor *cursor;
+
+	cursor = &shell->interface.cursor;
+	cursor->index = 0;
+	cursor->x = get_prompt_len(shell);
+	cursor->y = 0;
 	return (SUCCESS);
 }
