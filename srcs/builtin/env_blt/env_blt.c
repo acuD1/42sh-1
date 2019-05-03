@@ -51,6 +51,7 @@ static void				ft_fill_with_new_value(t_registry *cpy_shell,
 				&& ft_strequ(variable->name, "PATH") == TRUE)
 			hash_blt(cpy_shell, NULL);
 		clear_node((void **)&variable);
+		free(variable);
 	}
 }
 
