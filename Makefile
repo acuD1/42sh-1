@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/05/03 23:53:24 by cempassi         ###   ########.fr        #
+#    Updated: 2019/05/03 23:54:43 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -338,10 +338,8 @@ all : $(NAME)
 run : $(NAME)
 	./$<
 
-ifeq ($(DBRUN), yes)
-debug : $(NAMEDB)
+drun : $(NAMEDB)
 		./$< -d
-endif
 
 debug : $(NAMEDB)
 

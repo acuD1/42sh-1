@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/03 22:55:52 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 00:14:59 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@
 ** # define SIGN_DETECT				" \t<>|;\'\"`()$&!?{}[]*%\\="
 **/
 # define QUOTE_INTERUPT				"\\\"`$"
-# define EXP_INTERUPT				" \t\'\"`$"
+# define EXP_INTERUPT				" \t\'\"`$/"
 # define DOUBLE_SIGN				"&|;=!"
 
 /*
