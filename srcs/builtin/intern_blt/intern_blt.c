@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:23:09 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 20:56:31 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 19:11:04 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 
 static void			find_intern_variable(t_registry *shell, char **av,
-						char *(*get_var)(t_registry *shell, const char *name))
+						char *(*get_var)(t_registry *shell, char *name))
 {
 	char	*name;
 	char	*tmp;

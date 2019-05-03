@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/02 14:54:15 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/03 19:34:09 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,25 @@ static int		set_shlvl(t_registry *shell)
 	}
 	return (SUCCESS);
 }
+static t_list	*get_env(t_list **alst, char **env)
+{
+	t_list		*node;
+	t_variable	variable;
+	size_t		pos;
 
+	if (*env == NULL)
+		return (*alst);
+	pos = ft_strcspn(*env, "=");
+	variable.name = ft_strsub(*env, 0, pos);
+	variable.data = ft_strdup(*env + pos + 1);
+	if (variable.name == NULL || variable.data == NULL)
+		return (NULL);
+	if (!(node = ft_lstnew(&variable, sizeof(t_variable))))
+		return (NULL);
+	ft_lstaddback(alst, node);
+	return (get_env(alst, ++env));
+}
+/*
 static int8_t	get_env(t_list **alst, char **env)
 {
 	int i;
@@ -44,7 +62,7 @@ static int8_t	get_env(t_list **alst, char **env)
 	}
 	return (SUCCESS);
 }
-
+*/
 static int8_t	shell_option_letter(t_opt *option, char *arg)
 {
 	if (*arg != '-')
@@ -128,7 +146,7 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 			return (FAILURE);
 		}
 	}
-	if (get_env(&shell->env, env) == FAILURE)
+	if (get_env(&shell->env, env) == NULL)
 		return (FAILURE);
 	shell->bin_hashmap = ft_hmap_init(4096);
 	shell->blt_hashmap = ft_hmap_init(32);

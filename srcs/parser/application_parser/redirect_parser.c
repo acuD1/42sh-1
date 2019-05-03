@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 17:38:32 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 18:57:58 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include "21sh.h"
 #include "parser.h"
+#include "interface_functions.h"
 
 int		find_stdout_redirect(void *data, void *to_find)
 {
@@ -61,6 +62,8 @@ void	redirect_parser(t_parser *parse)
 		parse->oflags = O_RDWR + O_CREAT + O_APPEND;
 	else if (parse->token.type == E_LESS)
 		parse->oflags = O_RDONLY;
+	else if (parse->token.type == E_DLESSDASH)
+		parse->state = P_HEREDOC_REDIRECT;
 	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
 	get_token(parse);
 }
@@ -87,16 +90,43 @@ void	pipe_parser(t_parser *parse)
 	get_token(parse);
 }
 
+int		write_heredoc(t_parser *parse, char **line, int fd, t_type type)
+{
+	int		trim;
+
+	trim = 0;
+	*line = variable_expansion(parse, *line);
+	if (type == E_DLESSDASH)
+		trim = ft_strspn(*line, " \t");
+	ft_putstr_fd(*line + trim, fd);
+	ft_strdel(line);
+	return (0);
+}
+
 void	heredoc_parser(t_parser *parse)
 {
-	int			fd[2];
+	int			fd;
 	char		*line;
+	t_type		type;
 
 	line = NULL;
-	pipe(fd);
+	fd = open("/tmp/42herdoc", O_RDWR + O_CREAT + O_TRUNC);
 	parse->state = P_HEREDOC;
-	while(ft_strequ(line, parse->token.data) == FALSE)
+	type = ((t_token *)ft_stcktop(&parse->stack))->type;
+	free(ft_stckpop(&parse->stack));
+	parse->token.data = string_expansion(parse, parse->token.data);
+	while(invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
 	{
-
+		if (ft_strequ(line, parse->token.data) == TRUE)
+		{
+			generate_filedesc(parse, fd, STDIN_FILENO, FD_DUP | FD_WRITE);
+			ft_strdel(&line);
+			ft_strdel(&parse->token.data);
+			return ;
+		}
+		write_heredoc(parse, &line, fd, type);
 	}
+	ft_strdel(&line);
+	ft_strdel(&parse->token.data);
+	error_parser(parse);
 }

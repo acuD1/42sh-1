@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 22:07:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 04:54:22 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 19:25:47 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int		find_variable(void *data, void *to_find)
 
 	name = to_find;
 	variable = data;
+	ft_printf("to find : %s | variable : %s\n", name, variable->name);
 	return (ft_strequ(variable->name, name));
 }
 
