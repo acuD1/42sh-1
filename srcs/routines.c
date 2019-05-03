@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/03 04:29:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 04:54:49 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,6 @@ void		init_process(t_process *process)
 	ft_bzero(process, sizeof(t_process));
 }
 
-void		print_filedesc(t_list *lst)
-{
-	t_filedesc	*fd;
-
-	fd = lst->data;
-	if(fd->action & FD_CLOSE)
-		ft_printf("Closing FD : %d\n", fd->first);
-	else if (fd->action & FD_WRITE)
-		ft_printf("FD : %d >>> FD : %d\n", fd->first, fd->second);
-	else if (fd->action & FD_READ)
-		ft_printf("FD : %d <<< FD : %d\n", fd->first, fd->second);
-}
-
-void		print_process(t_list *node)
-{
-	t_process	*process;
-
-	process = node->data;
-	ft_putchar('\n');
-	ft_showtab(process->av);
-	ft_lstiter(process->fd, print_filedesc);
-}
-
 int8_t		init_shell(t_registry *shell)
 {
 	g_shell = shell;
@@ -57,18 +34,13 @@ int8_t		init_shell(t_registry *shell)
 	return (SUCCESS);
 }
 
-void		init_job(t_job *job)
-{
-	ft_bzero(job, sizeof(t_job));
-}
-
 void		init_parser(t_registry *shell, t_parser *parse)
 {
 	ft_stckinit(&parse->stack);
 	parse->state = P_START;
 	parse->env = shell->env;
 	init_process(&parse->process);
-	init_job(&parse->job);
+	ft_bzero(&parse->job, sizeof(t_job));
 }
 
 int8_t		execution_pipeline(t_registry *shell, t_list *token_list)

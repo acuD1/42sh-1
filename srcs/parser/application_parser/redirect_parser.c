@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 04:45:25 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 05:04:27 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	pipe_parser(t_parser *parse)
 	node = ft_lstnew(&parse->process, sizeof(t_process));
 	ft_lstaddback(&parse->job.process_list, node);
 	init_process(&parse->process);
-	generate_filedesc(parse, fd[0], STDIN_FILENO, FD_DUP);
+	generate_filedesc(parse, fd[0], STDIN_FILENO, FD_DUP | FD_WRITE);
 	get_token(parse);
 }
 

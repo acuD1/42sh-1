@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/05/03 04:48:54 by cempassi         ###   ########.fr        #
+#    Updated: 2019/05/03 05:02:39 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -131,7 +131,7 @@ CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
 CFLAGS += $(IFLAGS) 
-DFLAGS = $(CFLAGS) -fsanitize=address,undefined,leaks
+DFLAGS = $(CFLAGS) -fsanitize=address,undefined
 LFLAGS = -ltermcap
 
 # ---------------------------------------------------------------------------- #
@@ -339,7 +339,10 @@ run : $(NAME)
 	./$<
 
 debug : $(NAMEDB)
-	./$<
+	./$< -d
+
+lldb : $(NAMEDB)
+	lldb -- ./$< -d
 
 test : $(NAMET)
 	./$<
