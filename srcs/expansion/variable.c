@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 01:01:18 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 01:07:53 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static char	*variable_replace(t_list *lst, char *str)
 	char		*data;
 	uint32_t	i;
 
+	if (*str == '\0')
+		return (str);
 	expanded = NULL;
 	i = ft_strcspn(str, EXP_INTERUPT);
 	str[i] = character_swap(str[i]);
