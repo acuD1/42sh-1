@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/03 16:41:13 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:19:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,9 @@
 # define SPECIAL_SIGNS				14
 # define SIGNS 						(SPECIAL_SIGNS + SINGLE_SIGNS)
 # define ALLCHAR					"\"|()><;`&{}[]#%\n"
-# define SIGN_DETECT				" \t<>|;&!="
+# define SIGN_DETECT				" \t<>|;&!=\n"
 # define LETTER_TO_QUOTE			"\"\'$"
-# define LETTER_INTERUPT			" \t<>|;&"
+# define LETTER_INTERUPT			" \t<>|;&\n"
 # define LETTER_SPECIAL				"\"\'\\$~*?"
 # define TILDE_INTERUPT				" /$"
 # define QSP_INT					" \"\'"
@@ -145,7 +145,7 @@
 # define REDIR_DB					E_DGREAT, E_DLESS, E_DLESSDASH, E_ANDDGREAT
 # define ALL_REDIRECT				REDIR, REDIR_DB, REDIR_AND
 # define WORD						E_STRING, E_SPSTRING, E_DB_QUOTE
-# define END_CMD					E_END, E_SEMICOLON
+# define END_CMD					E_NEWLINE, E_END, E_SEMICOLON
 # define E_START					E_DEFAULT
 
 # define N_DB_QUOTE					"\""
@@ -174,7 +174,6 @@
 # define N_LESSGREAT				"<>"
 # define N_ANDDGREAT				"&>>"
 # define N_ANDGREAT					"&>"
-# define N_ANDLESS					"&<"
 # define N_DLESSDASH				"<<-"
 # define N_CLOBBER					">|"
 # define N_DEQ						"=="

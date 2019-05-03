@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:51 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/03 15:33:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:45:05 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@
 
 t_list *g_job_head;
 
-static void		close_fd(const t_filedesc *fd)
+static void		close_fd(t_list *data)
 {
+	t_filedesc		*fd;
+
+	fd = data->data;
 	if(fd->first > 2)
 		close(fd->first);
 	if (fd->second > 2)
@@ -57,7 +60,7 @@ void			launch_job(t_registry *shell, t_list *job_lst)
 	{
 		launch_process(current_job, ((t_process*)process_lst->data), shell);
 		if (((t_process *)process_lst->data)->fd)
-			close_fd((t_filedesc *)((t_process *)process_lst->data)->fd->data);
+			ft_lstiter(((t_process *)process_lst->data)->fd, close_fd);
 		//close_opened_fd(((t_process *)process->data)->fd);
 		process_lst = process_lst->next;
 	}

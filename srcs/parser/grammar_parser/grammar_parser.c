@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lexer.h"
+#include "21sh.h"
 #include "interface_functions.h"
 
 t_registry	*g_shell;
@@ -47,6 +48,37 @@ static uint8_t	manage_error_and_subprompt(enum e_type state, enum e_type type,
 	ft_dprintf(2, "21sh: syntax error near unexpected token `%s'\n",
 						g_shell->grammar[type]);
 	return (FALSE);
+}
+
+static void		token_reduction(t_list **lst)
+{
+	t_token	*token;
+	t_token	*next_token;
+	t_list	*tmp;
+
+	token = (t_token *)((*lst)->data);
+	while (token->type == E_NEWLINE)
+	{
+		next_token = (t_token *)((*lst)->next->data);
+		if (next_token->type == E_NEWLINE || next_token->type == E_END)
+		{
+			tmp = (*lst)->next->next;
+			free_one_node_token(&(*lst)->next);
+			(*lst)->next = tmp;
+			if (tmp == NULL)
+			{
+				token = (t_token *)((*lst)->data);
+				token->type = E_END;
+				return ;
+			}
+		}
+		else
+		{
+			token = (t_token *)((*lst)->data);
+			token->type = E_SEMICOLON;
+			return ;
+		}
+	}
 }
 
 static uint8_t	state_is_ok(enum e_type to_find, enum e_type *current,
@@ -87,7 +119,10 @@ int8_t			parser(t_graph *graph, t_list *lst)
 			lst = tmp;
 		}
 		else
+		{
+			token_reduction(&lst);
 			tmp = lst;
+		}
 		lst = lst->next;
 	}
 	return (SUCCESS);

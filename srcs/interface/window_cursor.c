@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 11:38:46 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/03 12:34:52 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/03 18:42:13 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int8_t	update_window(t_registry *shell)
 	if (add_internal_nbr(shell, INT_ROWS, window->rows) == FAILURE)
 		return (FAILURE);
 	window->max_chars = ((window->cols * window->rows)
-								- get_prompt_len(shell));
+								- (get_prompt_len(shell) + 3));
 	return (SUCCESS);
 }
 
@@ -53,7 +53,7 @@ int8_t	init_window(t_registry *shell)
 	if (add_internal_nbr(shell, INT_ROWS, window->rows) == FAILURE)
 		return (FAILURE);
 	window->max_chars = ((window->cols * window->rows)
-								- get_prompt_len(shell));
+								- (get_prompt_len(shell) + 3));
 	return (SUCCESS);
 }
 

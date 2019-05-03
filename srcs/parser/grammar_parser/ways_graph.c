@@ -19,6 +19,7 @@ void		set_start_token(t_graph *tab_tokens)
 
 	tab_tokens[E_START].good_type = tab_good_type;
 	tab_tokens[E_SEMICOLON].good_type = tab_good_type;
+	tab_tokens[E_NEWLINE].good_type = tab_good_type;
 }
 
 void		set_word_token(t_graph *tab_tokens)

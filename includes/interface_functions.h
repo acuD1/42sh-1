@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/02 11:49:50 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:25:59 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void		reset_vector(t_vector *vect);
 void		realloc_vector(t_vector *dest, t_vector *source);
 void		link_actions_to_keys(int8_t (*tc_call[AK_AMOUNT])
 				(struct s_registry *shell));
+int8_t		quoting_is_valid(char *string);
 
 /*
 *****************************************************
