@@ -6,13 +6,26 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 21:14:37 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 06:01:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "sig.h"
 #include <unistd.h>
+
+void		redirect(t_list *lst)
+{
+	t_filedesc *fd;
+
+	fd = lst->data;
+	if(fd->action & FD_CLOSE)
+		close(fd->second);
+	else if (fd->action & FD_WRITE)
+		dup2(fd->first, fd->second);
+	else if (fd->action & FD_READ)
+		dup2(fd->second, fd->first);
+}
 
 static char	**str_lst_to_tab(t_list *alst)
 {
@@ -39,7 +52,8 @@ static char	**str_lst_to_tab(t_list *alst)
 	return (tabs);
 }
 
-static void	el_redirector(const t_filedesc *fd)
+/*
+static void	el_redirector(t_filedesc *fd)
 {
 	if (fd->in != STDIN_FILENO)
 	{
@@ -57,25 +71,24 @@ static void	el_redirector(const t_filedesc *fd)
 			dup2(fd->err, STDERR_FILENO);
 	}
 }
+*/
 
 static void	execute_process(t_process *process, t_registry *shell)
 {
 	char			**environ;
-	t_filedesc		fd;
 
 	define_execution_signals();
-	fd = process->fd;
-
 	////////////////////// DEBUG EXEC ///////////////////////
-	if ((shell->option.option & DEBUG_OPT) != FALSE)
-	{
-		ft_dprintf(2, "\n\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
-				process->av[0], fd.in, fd.out, fd.err);
-		ft_dprintf(2, "\x1b[35m[OUTPUT]: _______________________\n\x1b[0m\n");
-	}
+//	if ((shell->option.option & DEBUG_OPT) != FALSE)
+//	{
+//		ft_dprintf(2, "\n\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
+//				process->av[0], fd.in, fd.out, fd.err);
+//		ft_dprintf(2, "\x1b[35m[OUTPUT]: _______________________\n\x1b[0m\n");
+//	}
 	/////////////////////////////////////////////////////////
 
-	el_redirector(&fd);
+	//el_redirector(&fd);
+	ft_lstiter(process->fd, redirect);
 	environ = str_lst_to_tab(shell->env);
 	/*	Exec the new process	*/
 	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL)

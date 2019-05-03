@@ -6,12 +6,35 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 22:07:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/02 18:59:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 04:54:22 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include <unistd.h>
+
+void	print_filedesc(t_list *lst)
+{
+	t_filedesc	*fd;
+
+	fd = lst->data;
+	if(fd->action & FD_CLOSE)
+		ft_printf("Closing FD : %d\n", fd->first);
+	else if (fd->action & FD_WRITE)
+		ft_printf("FD : %d >>> FD : %d\n", fd->first, fd->second);
+	else if (fd->action & FD_READ)
+		ft_printf("FD : %d <<< FD : %d\n", fd->first, fd->second);
+}
+
+void	print_process(t_list *node)
+{
+	t_process	*process;
+
+	process = node->data;
+	ft_putchar('\n');
+	ft_showtab(process->av);
+	ft_lstiter(process->fd, print_filedesc);
+}
 
 int		find_variable(void *data, void *to_find)
 {
@@ -39,12 +62,7 @@ void	delete_process(void *data)
 	process = (t_process *)data;
 	ft_freetab(&process->av);
 	ft_freetab(&process->env);
-	if (process->fd.in != 0)
-		close(process->fd.in);
-	if (process->fd.out != 1)
-		close(process->fd.out);
-	if (process->fd.err != 2)
-		close(process->fd.out);
+	ft_lstdel(&process->fd, NULL);
 }
 
 void	delete_job(void *data)

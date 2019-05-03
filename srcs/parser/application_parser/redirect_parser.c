@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/30 17:27:22 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 05:11:16 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,14 @@ void	flush_redirect(t_parser *parse)
 	free(token);
 	token = ft_stckpop(&parse->stack);
 	if ((fd = open(filename, parse->oflags, 0644)) < 0)
-	{
 		error_parser(parse);
-		return ;
-	}
-	if (token->type == E_LESS)
-		parse->process.fd.in = fd;
+	else if (token->type == E_LESS)
+		generate_filedesc(parse, fd, STDIN_FILENO, FD_DUP | FD_WRITE);
 	else
 	{
 		if (token->type == E_GREATAND || token->type == E_ANDDGREAT)
-			parse->process.fd.err = fd;
-		parse->process.fd.out = fd;
+			generate_filedesc(parse, fd, STDERR_FILENO, FD_DUP | FD_WRITE);
+		generate_filedesc(parse, fd, STDOUT_FILENO, FD_DUP | FD_WRITE);
 	}
 	free(token);
 	ft_strdel(&filename);
@@ -64,15 +61,15 @@ void	pipe_parser(t_parser *parse)
 	parse->state = pipe(fd) ? P_ERROR : P_PIPE;
 	if (parse->state == P_ERROR)
 		return ;
-	if (parse->process.fd.out == STDOUT_FILENO)
-		parse->process.fd.out = fd[1];
-	else
+	if (parse->process.fd)
 		close(fd[1]);
+	else
+		generate_filedesc(parse, fd[1], STDOUT_FILENO, FD_DUP | FD_WRITE);
 	parse->process.env = ft_lsttotab(parse->env, variable_to_str);
 	node = ft_lstnew(&parse->process, sizeof(t_process));
 	ft_lstaddback(&parse->job.process_list, node);
 	init_process(&parse->process);
-	parse->process.fd.in = fd[0];
+	generate_filedesc(parse, fd[0], STDIN_FILENO, FD_DUP | FD_WRITE);
 	get_token(parse);
 }
 
@@ -88,24 +85,4 @@ void	heredoc_parser(t_parser *parse)
 	{
 
 	}
-}
-
-void	io_redirect_parser(t_parser *parse)
-{
-	parse->state = P_IO_REDIRECT;
-	if (parse->token.type == E_GREAT || parse->token.type == E_GREATAND)
-		parse->oflags = O_RDWR + O_CREAT + O_TRUNC;
-	else if (parse->token.type == E_DGREAT || parse->token.type == E_ANDDGREAT)
-		parse->oflags = O_RDWR + O_CREAT + O_APPEND;
-	else if (parse->token.type == E_LESS)
-		parse->oflags = O_RDONLY;
-	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-	get_token(parse);
-}
-
-void	io_parser(t_parser *parse)
-{
-	parse->state = P_IO;
-	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-	get_token(parse);
 }

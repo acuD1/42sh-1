@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/02 11:04:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/03 03:33:00 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,11 @@
 *****************************************************
 */
 
-# define PARSE_STATES				17
+# define PARSE_STATES				22
+# define FD_DUP						0x01
+# define FD_CLOSE					0x02
+# define FD_WRITE					0x04
+# define FD_READ					0x08
 
 # define REDIR						E_GREAT, E_LESS
 # define REDIR_AND					E_GREATAND, E_LESSAND, E_ANDLESS, E_ANDGREAT

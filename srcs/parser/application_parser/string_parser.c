@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 21:17:49 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/02 19:10:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 04:48:05 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,6 @@ void	flush_string(t_parser *parse)
 		parse->process.av[index] = token->data;
 		free(token);
 	}
-}
-
-void	filename_state(t_parser *parse)
-{
-	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-	get_token(parse);
-	parse->state = P_FILENAME;
 }
 
 void	special_string_parser(t_parser *parse)

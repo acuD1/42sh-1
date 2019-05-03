@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/02 20:01:31 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 02:19:39 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ enum	e_lexer_state
 		L_FINISH
 };
 
-enum	e_type
+typedef enum	e_type
 {
 		E_DB_QUOTE,
 		E_PIPE,
@@ -105,7 +105,7 @@ enum	e_type
 		E_END,
 		E_ERROR,
 		E_DEFAULT,
-};
+}				t_type;
 
 typedef enum	e_quote
 {
@@ -133,10 +133,15 @@ enum	e_parser_state
 		P_REDIRECT,
 		P_REDIRECT_FLUSH,
 		P_FILENAME,
+		P_SPFILENAME,
 		P_IO,
 		P_IO_REDIRECT,
+		P_IO_REDIRECT_AND,
 		P_IO_FILENAME,
+		P_IO_DUP,
+		P_IO_MOVE,
 		P_IO_FLUSH,
+		P_IO_FLUSH_AND,
 		P_PIPE,
 		P_HEREDOC,
 };
