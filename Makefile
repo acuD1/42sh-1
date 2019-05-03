@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/05/03 05:02:39 by cempassi         ###   ########.fr        #
+#    Updated: 2019/05/03 23:53:24 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ LINK = $(CC)
 LINKD = $(CC) -g3
 COMPILE = $(CC) -c
 DEBUG = $(CC) -g3 -c
+DBRUN =
 
 # ---------------------------------------------------------------------------- #
 #									Commands                                   #
@@ -337,8 +338,12 @@ all : $(NAME)
 run : $(NAME)
 	./$<
 
+ifeq ($(DBRUN), yes)
 debug : $(NAMEDB)
-	./$< -d
+		./$< -d
+endif
+
+debug : $(NAMEDB)
 
 lldb : $(NAMEDB)
 	lldb -- ./$< -d
