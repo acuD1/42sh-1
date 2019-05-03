@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/03 18:40:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 20:34:05 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,8 @@ enum	e_parser_state
 		P_IO_FLUSH,
 		P_IO_FLUSH_AND,
 		P_PIPE,
-		P_HEREDOC_REDIRECT,
 		P_HEREDOC,
+		P_HEREDOC_REDIRECT,
 };
 
 enum	e_event
