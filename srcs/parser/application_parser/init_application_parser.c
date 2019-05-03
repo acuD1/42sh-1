@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 00:02:01 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 16:45:39 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:54:05 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	init_start(t_pstate parsing)
 	parsing[P_START][E_ANDDGREAT] = redirect_parser;
 	parsing[P_START][E_IO_NUMBER] = io_parser;
 	parsing[P_START][E_SEMICOLON] = separator_parser;
+	parsing[P_START][E_NEWLINE] = separator_parser;
 	parsing[P_START][E_END] = end_parser;
 }
 
@@ -57,6 +58,7 @@ void	init_string(t_pstate parsing)
 	parsing[P_STRING][E_IO_NUMBER] = io_parser;
 	parsing[P_STRING][E_PIPE] = flush_string;
 	parsing[P_STRING][E_SEMICOLON] = flush_string;
+	parsing[P_STRING][E_NEWLINE] = flush_string;
 	parsing[P_STRING][E_END] = flush_string;
 }
 
@@ -74,6 +76,7 @@ void	init_special_string(t_pstate parsing)
 	parsing[P_SPSTRING][E_IO_NUMBER] = io_parser;
 	parsing[P_SPSTRING][E_PIPE] = flush_string;
 	parsing[P_SPSTRING][E_SEMICOLON] = flush_string;
+	parsing[P_SPSTRING][E_NEWLINE] = flush_string;
 	parsing[P_SPSTRING][E_END] = flush_string;
 }
 
@@ -95,6 +98,7 @@ void	init_separator(t_pstate parsing)
 	parsing[P_SEPARATOR][E_DGREAT] = stop_parser;
 	parsing[P_SEPARATOR][E_ANDDGREAT] = stop_parser;
 	parsing[P_SEPARATOR][E_SEMICOLON] = stop_parser;
+	parsing[P_SEPARATOR][E_NEWLINE] = stop_parser;
 	parsing[P_SEPARATOR][E_END] = end_parser;
 }
 
@@ -116,6 +120,7 @@ void	init_filename(t_pstate parsing)
 	parsing[P_FILENAME][E_ANDDGREAT] = flush_redirect;
 	parsing[P_FILENAME][E_PIPE] = flush_redirect;
 	parsing[P_FILENAME][E_SEMICOLON] = flush_redirect;
+	parsing[P_FILENAME][E_NEWLINE] = flush_redirect;
 	parsing[P_FILENAME][E_END] = flush_redirect;
 }
 
@@ -131,6 +136,7 @@ void	init_special_filename(t_pstate parsing)
 	parsing[P_SPFILENAME][E_ANDDGREAT] = flush_redirect;
 	parsing[P_SPFILENAME][E_PIPE] = flush_redirect;
 	parsing[P_SPFILENAME][E_SEMICOLON] = flush_redirect;
+	parsing[P_SPFILENAME][E_NEWLINE] = flush_redirect;
 	parsing[P_SPFILENAME][E_END] = flush_redirect;
 }
 
@@ -146,6 +152,7 @@ void	init_flush_redirect(t_pstate parsing)
 	parsing[P_REDIRECT_FLUSH][E_ANDDGREAT] = redirect_parser;
 	parsing[P_REDIRECT_FLUSH][E_PIPE] = flush_string;
 	parsing[P_REDIRECT_FLUSH][E_SEMICOLON] = flush_string;
+	parsing[P_REDIRECT_FLUSH][E_NEWLINE] = flush_string;
 	parsing[P_REDIRECT_FLUSH][E_END] = flush_string;
 }
 
@@ -190,6 +197,7 @@ void	init_io_filename(t_pstate parsing)
 	parsing[P_IO_FILENAME][E_ANDDGREAT] = io_redirect_flush;
 	parsing[P_IO_FILENAME][E_PIPE] = io_redirect_flush;
 	parsing[P_IO_FILENAME][E_SEMICOLON] = io_redirect_flush;
+	parsing[P_IO_FILENAME][E_NEWLINE] = io_redirect_flush;
 	parsing[P_IO_FILENAME][E_END] = io_redirect_flush;
 }
 
@@ -211,6 +219,7 @@ void	init_io_dup_move(t_pstate parsing)
 	parsing[P_IO_DUP][E_ANDDGREAT] = io_and_redirect_flush;
 	parsing[P_IO_DUP][E_PIPE] = io_and_redirect_flush;
 	parsing[P_IO_DUP][E_SEMICOLON] = io_and_redirect_flush;
+	parsing[P_IO_DUP][E_NEWLINE] = io_and_redirect_flush;
 	parsing[P_IO_DUP][E_END] = io_and_redirect_flush;
 	parsing[P_IO_MOVE][E_STRING] = io_and_redirect_flush;
 	parsing[P_IO_MOVE][E_SPSTRING] = io_and_redirect_flush;
@@ -222,6 +231,7 @@ void	init_io_dup_move(t_pstate parsing)
 	parsing[P_IO_MOVE][E_ANDDGREAT] = io_and_redirect_flush;
 	parsing[P_IO_MOVE][E_PIPE] = io_and_redirect_flush;
 	parsing[P_IO_MOVE][E_SEMICOLON] = io_and_redirect_flush;
+	parsing[P_IO_MOVE][E_NEWLINE] = io_and_redirect_flush;
 	parsing[P_IO_MOVE][E_END] = io_and_redirect_flush;
 }
 
@@ -237,6 +247,7 @@ void	init_io_flush(t_pstate parsing)
 	parsing[P_IO_FLUSH][E_ANDDGREAT] = redirect_parser;
 	parsing[P_IO_FLUSH][E_PIPE] = flush_string;
 	parsing[P_IO_FLUSH][E_SEMICOLON] = flush_string;
+	parsing[P_IO_FLUSH][E_NEWLINE] = flush_string;
 	parsing[P_IO_FLUSH][E_END] = flush_string;
 }
 
@@ -252,6 +263,7 @@ void	init_io_flush_and(t_pstate parsing)
 	parsing[P_IO_FLUSH_AND][E_ANDDGREAT] = redirect_parser;
 	parsing[P_IO_FLUSH_AND][E_PIPE] = flush_string;
 	parsing[P_IO_FLUSH_AND][E_SEMICOLON] = flush_string;
+	parsing[P_IO_FLUSH_AND][E_NEWLINE] = flush_string;
 	parsing[P_IO_FLUSH_AND][E_END] = flush_string;
 }
 
