@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 16:40:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:38:32 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 #include <unistd.h>
 #include "21sh.h"
 #include "parser.h"
+
+int		find_stdout_redirect(void *data, void *to_find)
+{
+	t_filedesc *fd;
+
+	fd = data;
+	return (fd->second == *(int *)to_find? 1 : 0);
+}
 
 void	flush_redirect(t_parser *parse)
 {
@@ -61,11 +69,13 @@ void	pipe_parser(t_parser *parse)
 {
 	t_list		*node;
 	int			fd[2];
+	int			stdo;
 
+	stdo = 1;
 	parse->state = pipe(fd) ? P_ERROR : P_PIPE;
 	if (parse->state == P_ERROR)
 		return ;
-	if (parse->process.fd)
+	if (ft_lstfind(parse->process.fd, &stdo, find_stdout_redirect))
 		close(fd[1]);
 	else
 		generate_filedesc(parse, fd[1], STDOUT_FILENO, FD_DUP | FD_WRITE);
