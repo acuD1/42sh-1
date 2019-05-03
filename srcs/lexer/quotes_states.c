@@ -21,8 +21,13 @@ void	single_quote_machine(t_lexer *machine)
 	}
 	if (*machine->input == '\'')
 		machine->state = L_STRING;
-	ft_strncat(machine->buffer, machine->input, 1);
-	++machine->input;
+	if (*machine->input != '\0')
+	{
+		ft_strncat(machine->buffer, machine->input, 1);
+		++machine->input;
+	}
+	else
+		machine->state = L_START;
 }
 
 void	double_quote_machine(t_lexer *machine)
@@ -34,6 +39,11 @@ void	double_quote_machine(t_lexer *machine)
 	}
 	if (*machine->input == '\"')
 		machine->state = L_STRING;
-	ft_strncat(machine->buffer, machine->input, 1);
-	++machine->input;
+	if (*machine->input != '\0')
+	{
+		ft_strncat(machine->buffer, machine->input, 1);
+		++machine->input;
+	}
+	else
+		machine->state = L_START;
 }
