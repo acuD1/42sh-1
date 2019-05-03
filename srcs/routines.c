@@ -81,7 +81,10 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 	}
 	///////////////////////////////////////////////////////////
 	if (token_list == NULL || parser(shell->graph, token_list) == FAILURE)
+	{
+		free_token_list(token_list);
 		return (FAILURE);
+	}
 	////////////////////////////////// RETURN
 	ft_bzero(&parse, sizeof(t_parser));
 	parse.token_list = token_list;

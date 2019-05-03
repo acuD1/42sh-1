@@ -82,3 +82,19 @@ int8_t			free_lst(t_list **alst)
 	*alst = NULL;
 	return (SUCCESS);
 }
+
+void			free_token_list(t_list *token_list)
+{
+	t_token	*token;
+
+	if (token_list)
+	{
+		token = (t_token *)(token_list->data);
+		free_token_list(token_list->next);
+		ft_strdel(&token->data);
+		free(token);
+		token = NULL;
+		free(token_list);
+		token_list = NULL;
+	}
+}

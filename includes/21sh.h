@@ -77,6 +77,7 @@ int8_t			free_lst(t_list **alst);
 void			delete_parser(t_parser *parse);
 void			delete_process(void *data);
 void			delete_job(void *data);
+void			free_token_list(t_list *token_list);
 
 /*
 *****************************************************
