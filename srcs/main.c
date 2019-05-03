@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/02 11:54:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:51:35 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,18 @@ static void	launch_shell(t_registry *shell)
 		shell->is_interactive = FALSE;
 		command = ((shell->option.option & COMMAND_OPT) != FALSE
 				? shell->option.command_str : read_input(STDIN_FILENO));
-		if (command != NULL)
+
+		if (command != NULL && quoting_is_valid(command) == TRUE)
 		{
 			if (stdin_build_cmd(shell, command) == FAILURE)
 				ft_dprintf(2, "[CRITICAL] - Malloc error.\n");
 		}
 		else
-			ft_dprintf(2, "[CRITICAL] - No valid input to execute.\n");
+			ft_dprintf(2, "[ERROR] - No valid input to execute.\n");
 		ft_strdel(&command);
 	}
 }
 
-
-////// __unused
 int			main(int ac, char **av, char **env)
 {
 	t_registry		shell;

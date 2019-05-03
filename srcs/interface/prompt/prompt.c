@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/02 11:05:31 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:51:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void			get_prompt_ps1(t_registry *shell)
 		ft_strdel(&prompt);
 	}
 }
-
 
 char			*prompt(t_registry *shell)
 {
