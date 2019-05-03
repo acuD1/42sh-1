@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/05/02 20:31:44 by cempassi         ###   ########.fr        #
+#    Updated: 2019/05/03 04:48:54 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -307,6 +307,8 @@ PARSER += parser_state.c
 PARSER += parser_interface.c
 PARSER += string_parser.c
 PARSER += redirect_parser.c
+PARSER += io_redirect_parser.c
+PARSER += filename_parser.c
 
 #						   - - - - Expansion - - - -                           #
 EXPANSION += expansion.c

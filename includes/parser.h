@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 04:16:11 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 04:45:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void		init_process(t_process *process);
 void		init_parsing(t_pstate parsing);
 t_list		*parser_state(t_pstate parsing, t_parser *parse);
 void		separator_parser(t_parser *parse);
-void		get_token(t_parser *parse);
 void		start_parser(t_parser *parse);
 void		string_parser(t_parser *parse);
 void		special_string_parser(t_parser *parse);
@@ -80,4 +79,8 @@ void		quote_removal(char *str);
 char		character_swap(char swapped);
 t_quote		select_quoting(t_quote quote, char c);
 
+
+void		get_token(t_parser *parse);
+void		generate_filedesc(t_parser *parse, int first, int second\
+			,int action);
 #endif

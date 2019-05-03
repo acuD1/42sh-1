@@ -6,11 +6,23 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/02 00:31:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 04:44:21 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
+
+void	generate_filedesc(t_parser *parse, int first, int second, int action)
+{
+	t_list		*node;
+	t_filedesc	fd;
+
+	fd.action = action;
+	fd.first = first;
+	fd.second = second;
+	node = ft_lstnew(&fd, sizeof(t_filedesc));
+	ft_lstaddback(&parse->process.fd, node);
+}
 
 void	get_token(t_parser *parse)
 {
