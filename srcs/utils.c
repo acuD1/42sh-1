@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/02 01:31:20 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 19:23:13 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,11 @@ int8_t			change_node(t_list **alst, const char *name, char *data)
 	return (s_create_node(alst, name, data));
 }
 
-char			*get_data(t_list *lst, const char *name)
+char			*get_data(t_list *lst, char *name)
 {
 	t_list *node;
 
-	if ((node = ft_lstfind(lst, (char *)name, find_variable)))
+	if ((node = ft_lstfind(lst, name, find_variable)))
 		return (((t_variable *)node->data)->data);
 	return (NULL);
 }

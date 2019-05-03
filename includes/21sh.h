@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/03 04:54:47 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 19:09:13 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ void			get_prompt_ps1(t_registry *shell);
 *****************************************************
 */
 
-char			*get_env_var(t_registry  *shell, const char *name);
-char			*get_intern_var(t_registry  *shell, const char *name);
-int8_t			add_env(t_registry *shell, const char *name, const char *data);
-int8_t			add_internal(t_registry *shell, const char *name,
-					const char *data);
-int8_t			add_internal_nbr(t_registry *shell, const char *name,
-					const int data);
+char			*get_env_var(t_registry  *shell,  char *name);
+char			*get_intern_var(t_registry  *shell,  char *name);
+int8_t			add_env(t_registry *shell,  char *name,  char *data);
+int8_t			add_internal(t_registry *shell,  char *name,
+					 char *data);
+int8_t			add_internal_nbr(t_registry *shell,  char *name,
+					 int data);
 
 /*
 *****************************************************
@@ -63,7 +63,7 @@ void			print_lst(t_list **alst);
 int8_t			f_create_node(t_list **alst, const char *str);
 int8_t			s_create_node(t_list **alst, const char *var, const char *data);
 int8_t			change_node(t_list **alst, const char *var, char *data);
-char			*get_data(t_list *lst, const char *var);
+char			*get_data(t_list *lst, char *var);
 void			print_process(t_list *node);
 char			*variable_to_str(void *data);
 int				find_variable(void *data, void *to_find);
