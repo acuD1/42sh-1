@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/03 02:19:39 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:35:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ typedef enum	e_type
 		E_LESSGREAT,
 		E_ANDDGREAT,
 		E_ANDGREAT,
-		E_ANDLESS,
 		E_DLESSDASH,
 		E_CLOBBER,
 		E_DEQ,

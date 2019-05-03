@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 05:11:16 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:40:27 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	flush_redirect(t_parser *parse)
 	{
 		if (token->type == E_GREATAND || token->type == E_ANDDGREAT)
 			generate_filedesc(parse, fd, STDERR_FILENO, FD_DUP | FD_WRITE);
+		else if (token->type == E_ANDGREAT)
+			generate_filedesc(parse, fd, STDERR_FILENO, FD_DUP | FD_WRITE);
 		generate_filedesc(parse, fd, STDOUT_FILENO, FD_DUP | FD_WRITE);
 	}
 	free(token);
@@ -43,7 +45,9 @@ void	flush_redirect(t_parser *parse)
 void	redirect_parser(t_parser *parse)
 {
 	parse->state = P_REDIRECT;
-	if (parse->token.type == E_GREAT || parse->token.type == E_GREATAND)
+	if (parse->token.type == E_GREAT)
+		parse->oflags = O_RDWR + O_CREAT + O_TRUNC;
+	if (parse->token.type == E_GREATAND || parse->token.type == E_ANDGREAT)
 		parse->oflags = O_RDWR + O_CREAT + O_TRUNC;
 	else if (parse->token.type == E_DGREAT || parse->token.type == E_ANDDGREAT)
 		parse->oflags = O_RDWR + O_CREAT + O_APPEND;

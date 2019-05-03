@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/03 03:33:00 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:41:13 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,10 @@
 
 # define STATENBR					17
 # define TOKEN_WITH_DATA			5
-# define NB_OF_TOKENS				51
+# define NB_OF_TOKENS				50
 # define BUFFER						1024
 # define SINGLE_SIGNS				16
-# define SPECIAL_SIGNS				15
+# define SPECIAL_SIGNS				14
 # define SIGNS 						(SPECIAL_SIGNS + SINGLE_SIGNS)
 # define ALLCHAR					"\"|()><;`&{}[]#%\n"
 # define SIGN_DETECT				" \t<>|;&!="
@@ -141,7 +141,7 @@
 # define FD_READ					0x08
 
 # define REDIR						E_GREAT, E_LESS
-# define REDIR_AND					E_GREATAND, E_LESSAND, E_ANDLESS, E_ANDGREAT
+# define REDIR_AND					E_GREATAND, E_LESSAND, E_ANDGREAT
 # define REDIR_DB					E_DGREAT, E_DLESS, E_DLESSDASH, E_ANDDGREAT
 # define ALL_REDIRECT				REDIR, REDIR_DB, REDIR_AND
 # define WORD						E_STRING, E_SPSTRING, E_DB_QUOTE
