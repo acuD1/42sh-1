@@ -58,6 +58,9 @@ void	string_machine(t_lexer *machine)
 		string_special(machine);
 	else if (machine->last_lexer != E_SPSTRING)
 		machine->last_lexer = E_STRING;
-	ft_strncat(machine->buffer, machine->input, 1);
-	++machine->input;
+	if (*machine->input != '\0')
+	{
+		ft_strncat(machine->buffer, machine->input, 1);
+		++machine->input;
+	}
 }
