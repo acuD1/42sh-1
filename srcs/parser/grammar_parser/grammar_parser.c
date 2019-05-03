@@ -41,7 +41,7 @@ static uint8_t	manage_error_and_subprompt(enum e_type state, enum e_type type,
 			ft_strdel(&line);
 		}
 		ft_putchar('\n');
-		free((*lst)->next);
+		free_one_node_token(&(*lst)->next);
 		(*lst)->next = new_token;
 		return (TRUE);
 	}
