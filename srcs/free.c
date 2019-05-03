@@ -83,18 +83,22 @@ int8_t			free_lst(t_list **alst)
 	return (SUCCESS);
 }
 
-void			free_token_list(t_list *token_list)
+void			free_one_node_token(t_list **token_lst)
 {
 	t_token	*token;
 
+	token = (t_token *)((*token_lst)->data);
+	ft_strdel(&token->data);
+	free(token);
+	free(*token_lst);
+	*token_lst = NULL;
+}
+
+void			free_token_list(t_list *token_list)
+{
 	if (token_list != NULL)
 	{
-		token = (t_token *)(token_list->data);
 		free_token_list(token_list->next);
-		ft_strdel(&token->data);
-		free(token);
-		token = NULL;
-		free(token_list);
-		token_list = NULL;
+		free_one_node_token(&token_list);
 	}
 }
