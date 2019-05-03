@@ -40,6 +40,7 @@ char		*variable_expansion(t_parser *parse, char *str)
 
 	i = 0;
 	quote = 0;
+	expanded = NULL;
 	while (str[i] != '\0')
 	{
 		holder = NULL;
@@ -55,5 +56,6 @@ char		*variable_expansion(t_parser *parse, char *str)
 		else
 			++i;
 	}
+	ft_strdel(&expanded);
 	return (str);
 }
