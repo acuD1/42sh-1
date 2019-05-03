@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/03 01:46:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 01:59:07 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef t_parsing		t_pstate[PARSE_STATES][NB_OF_TOKENS];
 
 typedef struct			s_filedesc
 {
+	unsigned int		action;
 	int32_t				first;
 	int32_t				second;
 }						t_filedesc;

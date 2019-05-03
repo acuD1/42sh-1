@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 22:07:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/02 18:59:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 02:16:02 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,7 @@ void	delete_process(void *data)
 	process = (t_process *)data;
 	ft_freetab(&process->av);
 	ft_freetab(&process->env);
-	if (process->fd.in != 0)
-		close(process->fd.in);
-	if (process->fd.out != 1)
-		close(process->fd.out);
-	if (process->fd.err != 2)
-		close(process->fd.out);
+	ft_lstdel(&process->fd, NULL);
 }
 
 void	delete_job(void *data)

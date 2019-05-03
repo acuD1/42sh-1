@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 00:02:01 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 00:47:56 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 04:25:53 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,19 +95,6 @@ void	init_separator(t_pstate parsing)
 	parsing[P_SEPARATOR][E_END] = end_parser;
 }
 
-void	init_pipe(t_pstate parsing)
-{
-	parsing[P_PIPE][E_STRING] = string_parser;
-	parsing[P_PIPE][E_SPSTRING] = special_string_parser;
-	parsing[P_PIPE][E_GREAT] = redirect_parser;
-	parsing[P_PIPE][E_GREATAND] = redirect_parser;
-	parsing[P_PIPE][E_LESS] = redirect_parser;
-	parsing[P_PIPE][E_LESSAND] = redirect_parser;
-	parsing[P_PIPE][E_DGREAT] = redirect_parser;
-	parsing[P_PIPE][E_ANDDGREAT] = redirect_parser;
-	parsing[P_PIPE][E_IO_NUMBER] = io_parser;
-}
-
 void	init_redirect(t_pstate parsing)
 {
 	parsing[P_REDIRECT][E_STRING] = filename_parser;
@@ -148,9 +135,28 @@ void	init_flush_redirect(t_pstate parsing)
 {
 	parsing[P_REDIRECT_FLUSH][E_STRING] = string_parser;
 	parsing[P_REDIRECT_FLUSH][E_SPSTRING] = special_string_parser;
+	parsing[P_REDIRECT_FLUSH][E_GREAT] = redirect_parser;
+	parsing[P_REDIRECT_FLUSH][E_GREATAND] = redirect_parser;
+	parsing[P_REDIRECT_FLUSH][E_LESS] = redirect_parser;
+	parsing[P_REDIRECT_FLUSH][E_LESSAND] = redirect_parser;
+	parsing[P_REDIRECT_FLUSH][E_DGREAT] = redirect_parser;
+	parsing[P_REDIRECT_FLUSH][E_ANDDGREAT] = redirect_parser;
 	parsing[P_REDIRECT_FLUSH][E_PIPE] = flush_string;
 	parsing[P_REDIRECT_FLUSH][E_SEMICOLON] = flush_string;
 	parsing[P_REDIRECT_FLUSH][E_END] = flush_string;
+}
+
+void	init_pipe(t_pstate parsing)
+{
+	parsing[P_PIPE][E_STRING] = string_parser;
+	parsing[P_PIPE][E_SPSTRING] = special_string_parser;
+	parsing[P_PIPE][E_GREAT] = redirect_parser;
+	parsing[P_PIPE][E_GREATAND] = redirect_parser;
+	parsing[P_PIPE][E_LESS] = redirect_parser;
+	parsing[P_PIPE][E_LESSAND] = redirect_parser;
+	parsing[P_PIPE][E_DGREAT] = redirect_parser;
+	parsing[P_PIPE][E_ANDDGREAT] = redirect_parser;
+	parsing[P_PIPE][E_IO_NUMBER] = io_parser;
 }
 
 void	init_io(t_pstate parsing)
@@ -174,6 +180,62 @@ void	init_io_filename_and(t_pstate parsing)
 	parsing[P_IO_REDIRECT_AND][E_SPSTRING] = io_dup_move_parser;
 }
 
+void	init_io_dup_move(t_pstate parsing)
+{
+	parsing[P_IO_DUP][E_STRING] = io_and_redirect_flush;
+	parsing[P_IO_DUP][E_SPSTRING] = io_and_redirect_flush;
+	parsing[P_IO_DUP][E_GREAT] = io_and_redirect_flush;
+	parsing[P_IO_DUP][E_GREATAND] = io_and_redirect_flush;
+	parsing[P_IO_DUP][E_LESS] = io_and_redirect_flush;
+	parsing[P_IO_DUP][E_LESSAND] = io_and_redirect_flush;
+	parsing[P_IO_DUP][E_DGREAT] = io_and_redirect_flush;
+	parsing[P_IO_DUP][E_ANDDGREAT] = io_and_redirect_flush;
+	parsing[P_IO_DUP][E_PIPE] = io_and_redirect_flush;
+	parsing[P_IO_DUP][E_SEMICOLON] = io_and_redirect_flush;
+	parsing[P_IO_DUP][E_END] = io_and_redirect_flush;
+	parsing[P_IO_MOVE][E_STRING] = io_and_redirect_flush;
+	parsing[P_IO_MOVE][E_SPSTRING] = io_and_redirect_flush;
+	parsing[P_IO_MOVE][E_GREAT] = io_and_redirect_flush;
+	parsing[P_IO_MOVE][E_GREATAND] = io_and_redirect_flush;
+	parsing[P_IO_MOVE][E_LESS] = io_and_redirect_flush;
+	parsing[P_IO_MOVE][E_LESSAND] = io_and_redirect_flush;
+	parsing[P_IO_MOVE][E_DGREAT] = io_and_redirect_flush;
+	parsing[P_IO_MOVE][E_ANDDGREAT] = io_and_redirect_flush;
+	parsing[P_IO_MOVE][E_PIPE] = io_and_redirect_flush;
+	parsing[P_IO_MOVE][E_SEMICOLON] = io_and_redirect_flush;
+	parsing[P_IO_MOVE][E_END] = io_and_redirect_flush;
+}
+
+void	init_io_flush(t_pstate parsing)
+{
+	parsing[P_IO_FLUSH][E_STRING] = string_parser;
+	parsing[P_IO_FLUSH][E_SPSTRING] = special_string_parser;
+	parsing[P_IO_FLUSH][E_GREAT] = redirect_parser;
+	parsing[P_IO_FLUSH][E_GREATAND] = redirect_parser;
+	parsing[P_IO_FLUSH][E_LESS] = redirect_parser;
+	parsing[P_IO_FLUSH][E_LESSAND] = redirect_parser;
+	parsing[P_IO_FLUSH][E_DGREAT] = redirect_parser;
+	parsing[P_IO_FLUSH][E_ANDDGREAT] = redirect_parser;
+	parsing[P_IO_FLUSH][E_PIPE] = flush_string;
+	parsing[P_IO_FLUSH][E_SEMICOLON] = flush_string;
+	parsing[P_IO_FLUSH][E_END] = flush_string;
+}
+
+void	init_io_flush_and(t_pstate parsing)
+{
+	parsing[P_IO_FLUSH_AND][E_STRING] = string_parser;
+	parsing[P_IO_FLUSH_AND][E_SPSTRING] = special_string_parser;
+	parsing[P_IO_FLUSH_AND][E_GREAT] = redirect_parser;
+	parsing[P_IO_FLUSH_AND][E_GREATAND] = redirect_parser;
+	parsing[P_IO_FLUSH_AND][E_LESS] = redirect_parser;
+	parsing[P_IO_FLUSH_AND][E_LESSAND] = redirect_parser;
+	parsing[P_IO_FLUSH_AND][E_DGREAT] = redirect_parser;
+	parsing[P_IO_FLUSH_AND][E_ANDDGREAT] = redirect_parser;
+	parsing[P_IO_FLUSH_AND][E_PIPE] = flush_string;
+	parsing[P_IO_FLUSH_AND][E_SEMICOLON] = flush_string;
+	parsing[P_IO_FLUSH_AND][E_END] = flush_string;
+}
+
 void	init_parsing(t_pstate parsing)
 {
 	bzero_parsing(parsing);
@@ -187,4 +249,10 @@ void	init_parsing(t_pstate parsing)
 	init_special_filename(parsing);
 	init_flush_redirect(parsing);
 	init_pipe(parsing);
+	init_io(parsing);
+	init_io_redirect(parsing);
+	init_io_filename_and(parsing);
+	init_io_flush(parsing);
+	init_io_flush_and(parsing);
+	init_io_dup_move(parsing);
 }
