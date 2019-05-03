@@ -58,6 +58,7 @@ static void	launch_shell(t_registry *shell)
 		}
 		else
 			ft_dprintf(2, "[CRITICAL] - No valid input to execute.\n");
+		ft_strdel(&command);
 	}
 }
 
