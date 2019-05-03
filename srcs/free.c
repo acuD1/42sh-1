@@ -87,7 +87,7 @@ void			free_token_list(t_list *token_list)
 {
 	t_token	*token;
 
-	if (token_list)
+	if (token_list != NULL)
 	{
 		token = (t_token *)(token_list->data);
 		free_token_list(token_list->next);
