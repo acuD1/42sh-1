@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 00:34:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 01:01:18 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char		*variable_concat(t_list *lst, char **str, int i)
 	holder = NULL;
 	expanded = variable_replace(lst, *str + i + 1);
 	ft_asprintf(&holder, "%.*s%s", i, str, expanded);
+	ft_strdel(&expanded);
 	ft_strdel(str);
 	return (holder);
 }
