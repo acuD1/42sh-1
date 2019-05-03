@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:42:30 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 05:44:25 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 05:55:39 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,10 @@ void	io_and_redirect_flush(t_parser *parse)
 	ft_strdel(&token->data);
 	free(token);
 	action |= ft_strequ(fd, "-") ? FD_CLOSE : FD_DUP;
-	action |=  FD_READ;
 	if (type == E_GREATAND)
-		generate_filedesc(parse, io_number, ft_atoi(fd), action);
+		generate_filedesc(parse, ft_atoi(fd), io_number, action | FD_WRITE);
 	else
-		generate_filedesc(parse, io_number, ft_atoi(fd), action);
+		generate_filedesc(parse, ft_atoi(fd), io_number, action | FD_WRITE);
 	ft_strdel(&fd);
 }
 

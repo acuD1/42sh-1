@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/03 03:13:51 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 06:01:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		redirect(t_list *lst)
 
 	fd = lst->data;
 	if(fd->action & FD_CLOSE)
-		close(fd->first);
+		close(fd->second);
 	else if (fd->action & FD_WRITE)
 		dup2(fd->first, fd->second);
 	else if (fd->action & FD_READ)
