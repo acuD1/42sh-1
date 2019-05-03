@@ -11,15 +11,7 @@
 /* ************************************************************************** */
 
 #include "21sh.h"
-
-static void			ft_strlower(char *str)
-{
-	while (*str != '\0')
-	{
-		*str = ft_tolower(*str);
-		str++;
-	}
-}
+#include "libft.h"
 
 static void			find_intern_variable(t_registry *shell, char **av,
 						char *(*get_var)(t_registry *shell, const char *name))

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "21sh.h"
+#include "libft.h"
 
 static void		free_opt(t_opt option)
 {
@@ -36,27 +37,12 @@ void			free_registry(t_registry *reg)
 	free_hash(reg->blt_hashmap, NULL);
 }
 
-static uint8_t	ft_is_numeric(char *s)
-{
-	if (*s == '-')
-		++s;
-	if (*s == '\0')
-		return (FALSE);
-	while (*s != '\0')
-	{
-		if (ft_isdigit(*s) == FALSE)
-			return (FALSE);
-		++s;
-	}
-	return (TRUE);
-}
-
 int8_t			exit_blt(t_registry *shell, char **av)
 {
 	++av;
 	if (*av != NULL)
 	{
-		if (ft_is_numeric(*av) == FALSE)
+		if (ft_isnumeric(*av) == FALSE)
 		{
 			ft_dprintf(2, "21sh: exit: %s: numeric argument required\n", *av);
 			free_registry(shell);
