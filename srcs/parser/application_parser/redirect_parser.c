@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 05:04:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 05:11:16 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ void	pipe_parser(t_parser *parse)
 	parse->state = pipe(fd) ? P_ERROR : P_PIPE;
 	if (parse->state == P_ERROR)
 		return ;
-	generate_filedesc(parse, fd[1], STDOUT_FILENO, FD_DUP | FD_WRITE);
+	if (parse->process.fd)
+		close(fd[1]);
+	else
+		generate_filedesc(parse, fd[1], STDOUT_FILENO, FD_DUP | FD_WRITE);
 	parse->process.env = ft_lsttotab(parse->env, variable_to_str);
 	node = ft_lstnew(&parse->process, sizeof(t_process));
 	ft_lstaddback(&parse->job.process_list, node);
