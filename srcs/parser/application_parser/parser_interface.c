@@ -18,9 +18,9 @@ t_registry	*g_shell;
 void	error_parser(t_parser *parse)
 {
 	if (parse->valid == -1)
-		ft_dprintf(2, "21sh: OLDPWD is not set");
+		ft_dprintf(2, "21sh: OLDPWD is not set\n");
 	else if (parse->valid == -2)
-		ft_dprintf(2, "21sh : No such user or directory");
+		ft_dprintf(2, "21sh: No such user or directory\n");
 	parse->state = P_ERROR;
 }
 

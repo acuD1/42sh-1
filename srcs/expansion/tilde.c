@@ -33,13 +33,13 @@ static char	*tilde_expansion(t_parser *parse, const char *str)
 	char	*expanded;
 
 	expanded = NULL;
-	if (ft_strequ(str, "~"))
+	if (ft_strequ(str, "~") == TRUE)
 		expanded = get_data(parse->env, "HOME");
-	else if (ft_strequ(str, "~+"))
+	else if (ft_strequ(str, "~+") == TRUE)
 		expanded = get_data(parse->env, "PWD");
-	else if (ft_strequ(str, "~-"))
+	else if (ft_strequ(str, "~-") == TRUE)
 	{
-		if ((expanded = get_data(parse->env, "OLDPWD")))
+		if ((expanded = get_data(parse->env, "OLDPWD")) != NULL)
 			return (expanded);
 		parse->valid = -1;
 		error_parser(parse);
