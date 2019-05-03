@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:42:24 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/01 01:18:01 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:42:54 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void		set_redirect_token(t_graph *tab_tokens)
 	tab_tokens[E_GREATAND].good_type = tab_good_type;
 	tab_tokens[E_LESSAND].good_type = tab_good_type;
 	tab_tokens[E_ANDGREAT].good_type = tab_good_type;
-	tab_tokens[E_ANDLESS].good_type = tab_good_type;
 	tab_tokens[E_DLESSDASH].good_type = tab_good_type;
 	tab_tokens[E_ANDDGREAT].good_type = tab_good_type;
 }

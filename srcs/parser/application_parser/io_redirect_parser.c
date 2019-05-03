@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:42:30 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 05:55:39 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 15:57:48 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	io_redirect_flush(t_parser *parse)
 	filename = token->data;
 	free(token);
 	token = ft_stckpop(&parse->stack);
-	io_number = ft_atoi(ft_stcktop(&parse->stack));
-	action |= token->type == E_LESS ? FD_READ | FD_DUP : FD_WRITE | FD_DUP;
+	io_number = ft_atoi(((t_token *)ft_stcktop(&parse->stack))->data);
+	action |= FD_WRITE | FD_DUP;
 	if ((fd = open(filename, parse->oflags, 0644)) < 0)
 		error_parser(parse);
 	else
-		generate_filedesc(parse, io_number, fd, action);
+		generate_filedesc(parse, fd, io_number, action);
 	free(token);
 	token = ft_stckpop(&parse->stack);
 	ft_strdel(&filename);

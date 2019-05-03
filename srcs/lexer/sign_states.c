@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/01 18:15:01 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:37:09 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ static uint32_t	double_dispatcher(t_lexer *machine)
 
 void			and_machine(t_lexer *machine)
 {
-	if (ft_strchr("<>", *machine->input) != NULL)
+	if (*machine->input == '>')
 	{
-		machine->last_lexer = *machine->input == '>' ? E_ANDGREAT : E_ANDLESS;
+		machine->last_lexer = E_ANDGREAT;
 		++machine->input;
 		if (machine->last_lexer == E_ANDGREAT && *machine->input == '>')
 		{

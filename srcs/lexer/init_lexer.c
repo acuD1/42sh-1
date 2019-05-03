@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 02:50:12 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/02 03:25:01 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:39:06 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void			init_lexinfo(t_registry *shell)
 	shell->lexinfo.special_signs[9] = E_CLOBBER;
 	shell->lexinfo.special_signs[10] = E_DEQ;
 	shell->lexinfo.special_signs[11] = E_NOTEQ;
-	shell->lexinfo.special_signs[12] = E_ANDDGREAT;
+	shell->lexinfo.special_signs[12] = E_ANDGREAT;
+	shell->lexinfo.special_signs[13] = E_ANDDGREAT;
 	shell->lexinfo.duplicate[0] = E_STRING;
 	shell->lexinfo.duplicate[1] = E_IO_NUMBER;
 	shell->lexinfo.duplicate[2] = E_DB_QUOTE;
