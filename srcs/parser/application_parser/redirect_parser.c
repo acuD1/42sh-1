@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 23:07:22 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 01:48:51 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ void	pipe_parser(t_parser *parse)
 
 void	heredoc_delimiter(t_parser *parse)
 {
-	parse->state = P_HEREDOC_DELIMITER;
+	if (parse->state == P_HEREDOC_REDIRECT)
+		parse->state = P_HEREDOC_DELIMITER;
 	parse->token.type = E_STRING;
 	if ((parse->token.data = variable_expansion(parse, parse->token.data)))
 	{
@@ -136,6 +137,5 @@ void	heredoc_parser(t_parser *parse)
 		write_heredoc(&line, fd[1], type);
 	}
 	ft_strdel(&line);
-	ft_strdel(&parse->token.data);
 	error_parser(parse);
 }

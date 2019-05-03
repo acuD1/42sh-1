@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 01:07:53 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 01:50:41 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char		*variable_concat(t_list *lst, char **str, int i)
 
 	holder = NULL;
 	expanded = variable_replace(lst, *str + i + 1);
-	ft_asprintf(&holder, "%.*s%s", i, str, expanded);
+	ft_asprintf(&holder, "%.*s%s%c", i, str, expanded, '\0');
 	ft_strdel(&expanded);
 	ft_strdel(str);
 	return (holder);
@@ -59,12 +59,14 @@ char		*variable_expansion(t_parser *parse, char *str)
 	{
 		if (ft_strchr("\'\"", str[i]) != NULL)
 			quote = select_quoting(quote, str[i]);
-		if (str[i] == '$')
+		if (str[i] == '$' && str[i + 1] != '\0')
 		{
-			if(ft_strchr(EXP_INTERUPT, str[i + 1]) || str[i + 1] == '\0')
+			if(ft_strchr(EXP_INTERUPT, str[i + 1]))
 				++i;
-			else if (quote != QUOTE_SINGLE)
+			else if (quote != QUOTE_SINGLE )
 				str = variable_concat(parse->env, &str, i);
+			if (str[i - 1] == '\0')
+				return(str);
 		}
 		else
 			++i;
