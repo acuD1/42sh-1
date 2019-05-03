@@ -79,6 +79,7 @@ void			delete_parser(t_parser *parse);
 void			delete_process(void *data);
 void			delete_job(void *data);
 void			free_token_list(t_list *token_list);
+void			free_one_node_token(t_list **token_lst);
 
 /*
 *****************************************************
