@@ -4,11 +4,10 @@ make fclean;
 make debug CC=gcc;
 mkdir dump;
 cd dump;
-for f in ../leaks_and_segv/*;
+for f in ../test/*;
 	do echo "-----\n\033[32m$f\033[0m\n-----\n";
 		file=`cat $f`;
-		echo $file | ../21shdb;
-		sleep 0.02;
+		echo "export $file" | ../21shdb;
 	done
 cd ..;
 rm dump/*;
