@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/03 22:22:14 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 00:38:55 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ int8_t		launch_process(t_job *job, t_process *process, t_registry *shell)
 {
 	pid_t		pid;
 
+	if (process->av == NULL)
+		return (SUCCESS);
 	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL
 			&& job->process_list->next == NULL)
 		return (((t_builtin)ft_hmap_getdata(&shell->blt_hashmap, process->av[0]))
