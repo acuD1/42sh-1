@@ -48,6 +48,7 @@ char		*variable_expansion(t_parser *parse, char *str)
 			quote = select_quoting(quote, str[i]);
 		if (str[i] == '$' && str[i + 1] != '\0' && quote != QUOTE_SINGLE)
 		{
+			ft_strdel(&expanded);
 			expanded = variable_replace(parse->env, &str[i + 1]);
 			ft_asprintf(&holder, "%.*s%s", i, str, expanded);
 			ft_strdel(&str);
