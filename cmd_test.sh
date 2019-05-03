@@ -40,5 +40,5 @@ rmdir dump;
 
 
 #######
-# for f in ../test/*; do echo "-----\n\033[32m$f\033[0m\n-----\n";file=`cat $f`;echo $file | ../21shdb; sleep 0.01; done 
+# for i in {1000..3000}; do for f in example.*; do zzuf -r 0.2 -s $i < "$f" > "$i-$f"; done; done                               
 #######
