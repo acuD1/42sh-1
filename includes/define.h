@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/03 17:19:19 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 22:55:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@
 *****************************************************
 */
 
-# define PARSE_STATES				22
+# define PARSE_STATES				24
 # define FD_DUP						0x01
 # define FD_CLOSE					0x02
 # define FD_WRITE					0x04

@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/03 20:34:05 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 22:52:33 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ enum	e_parser_state
 		P_PIPE,
 		P_HEREDOC,
 		P_HEREDOC_REDIRECT,
+		P_HEREDOC_DELIMITER,
 };
 
 enum	e_event

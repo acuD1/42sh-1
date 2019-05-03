@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:51 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/03 17:45:05 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 22:16:42 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 t_list *g_job_head;
 
-static void		close_fd(t_list *data)
+void		close_fd(t_list *data)
 {
 	t_filedesc		*fd;
 

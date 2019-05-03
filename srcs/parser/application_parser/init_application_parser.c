@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 00:02:01 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 18:59:58 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 23:01:56 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	init_start(t_pstate parsing)
 	parsing[P_START][E_LESS] = redirect_parser;
 	parsing[P_START][E_LESSAND] = redirect_parser;
 	parsing[P_START][E_DGREAT] = redirect_parser;
+	parsing[P_START][E_DLESS] = redirect_parser;
 	parsing[P_START][E_DLESSDASH] = redirect_parser;
 	parsing[P_START][E_ANDGREAT] = redirect_parser;
 	parsing[P_START][E_ANDDGREAT] = redirect_parser;
@@ -54,6 +55,7 @@ void	init_string(t_pstate parsing)
 	parsing[P_STRING][E_LESS] = redirect_parser;
 	parsing[P_STRING][E_LESSAND] = redirect_parser;
 	parsing[P_STRING][E_DGREAT] = redirect_parser;
+	parsing[P_STRING][E_DLESS] = redirect_parser;
 	parsing[P_STRING][E_DLESSDASH] = redirect_parser;
 	parsing[P_STRING][E_ANDGREAT] = redirect_parser;
 	parsing[P_STRING][E_ANDDGREAT] = redirect_parser;
@@ -73,6 +75,7 @@ void	init_special_string(t_pstate parsing)
 	parsing[P_SPSTRING][E_LESS] = redirect_parser;
 	parsing[P_SPSTRING][E_LESSAND] = redirect_parser;
 	parsing[P_SPSTRING][E_ANDGREAT] = redirect_parser;
+	parsing[P_SPSTRING][E_DLESS] = redirect_parser;
 	parsing[P_SPSTRING][E_DGREAT] = redirect_parser;
 	parsing[P_SPSTRING][E_DLESSDASH] = redirect_parser;
 	parsing[P_SPSTRING][E_ANDDGREAT] = redirect_parser;
@@ -99,6 +102,7 @@ void	init_separator(t_pstate parsing)
 	parsing[P_SEPARATOR][E_LESS] = stop_parser;
 	parsing[P_SEPARATOR][E_LESSAND] = stop_parser;
 	parsing[P_SEPARATOR][E_DGREAT] = stop_parser;
+	parsing[P_SEPARATOR][E_DLESS] = stop_parser;
 	parsing[P_SEPARATOR][E_DLESSDASH] = stop_parser;
 	parsing[P_SEPARATOR][E_ANDDGREAT] = stop_parser;
 	parsing[P_SEPARATOR][E_SEMICOLON] = stop_parser;
@@ -122,6 +126,7 @@ void	init_filename(t_pstate parsing)
 	parsing[P_FILENAME][E_LESSAND] = flush_redirect;
 	parsing[P_FILENAME][E_DGREAT] = flush_redirect;
 	parsing[P_FILENAME][E_DLESSDASH] = flush_redirect;
+	parsing[P_FILENAME][E_DLESS] = flush_redirect;
 	parsing[P_FILENAME][E_ANDDGREAT] = flush_redirect;
 	parsing[P_FILENAME][E_PIPE] = flush_redirect;
 	parsing[P_FILENAME][E_SEMICOLON] = flush_redirect;
@@ -138,6 +143,7 @@ void	init_special_filename(t_pstate parsing)
 	parsing[P_SPFILENAME][E_LESS] = flush_redirect;
 	parsing[P_SPFILENAME][E_LESSAND] = flush_redirect;
 	parsing[P_SPFILENAME][E_DGREAT] = flush_redirect;
+	parsing[P_SPFILENAME][E_DLESS] = flush_redirect;
 	parsing[P_SPFILENAME][E_DLESSDASH] = flush_redirect;
 	parsing[P_SPFILENAME][E_ANDDGREAT] = flush_redirect;
 	parsing[P_SPFILENAME][E_PIPE] = flush_redirect;
@@ -153,6 +159,7 @@ void	init_flush_redirect(t_pstate parsing)
 	parsing[P_REDIRECT_FLUSH][E_GREAT] = redirect_parser;
 	parsing[P_REDIRECT_FLUSH][E_GREATAND] = redirect_parser;
 	parsing[P_REDIRECT_FLUSH][E_LESS] = redirect_parser;
+	parsing[P_REDIRECT_FLUSH][E_DLESS] = redirect_parser;
 	parsing[P_REDIRECT_FLUSH][E_LESSAND] = redirect_parser;
 	parsing[P_REDIRECT_FLUSH][E_DGREAT] = redirect_parser;
 	parsing[P_REDIRECT_FLUSH][E_DLESSDASH] = redirect_parser;
@@ -171,6 +178,7 @@ void	init_pipe(t_pstate parsing)
 	parsing[P_PIPE][E_GREATAND] = redirect_parser;
 	parsing[P_PIPE][E_ANDGREAT] = redirect_parser;
 	parsing[P_PIPE][E_LESS] = redirect_parser;
+	parsing[P_PIPE][E_DLESS] = redirect_parser;
 	parsing[P_PIPE][E_LESSAND] = redirect_parser;
 	parsing[P_PIPE][E_DGREAT] = redirect_parser;
 	parsing[P_PIPE][E_DLESSDASH] = redirect_parser;
@@ -280,8 +288,24 @@ void	init_io_flush_and(t_pstate parsing)
 
 void	init_heredoc_redirect(t_pstate parsing)
 {
-	parsing[P_IO_FLUSH_AND][E_STRING] = flush_string;
-	parsing[P_IO_FLUSH_AND][E_SPSTRING] = flush_string;
+	parsing[P_HEREDOC_REDIRECT][E_STRING] = heredoc_delimiter;
+	parsing[P_HEREDOC_REDIRECT][E_SPSTRING] = heredoc_delimiter;
+}
+
+void	init_heredoc_delimiter(t_pstate parsing)
+{
+	parsing[P_HEREDOC_DELIMITER][E_STRING] = heredoc_parser;
+	parsing[P_HEREDOC_DELIMITER][E_SPSTRING] = heredoc_parser;
+	parsing[P_HEREDOC_DELIMITER][E_GREAT] = heredoc_parser;
+	parsing[P_HEREDOC_DELIMITER][E_GREATAND] = heredoc_parser;
+	parsing[P_HEREDOC_DELIMITER][E_LESS] = heredoc_parser;
+	parsing[P_HEREDOC_DELIMITER][E_LESSAND] = heredoc_parser;
+	parsing[P_HEREDOC_DELIMITER][E_DGREAT] = heredoc_parser;
+	parsing[P_HEREDOC_DELIMITER][E_ANDDGREAT] = heredoc_parser;
+	parsing[P_HEREDOC_DELIMITER][E_PIPE] = heredoc_parser;
+	parsing[P_HEREDOC_DELIMITER][E_SEMICOLON] = heredoc_parser;
+	parsing[P_HEREDOC_DELIMITER][E_NEWLINE] = heredoc_parser;
+	parsing[P_HEREDOC_DELIMITER][E_END] = heredoc_parser;
 }
 
 void	init_heredoc(t_pstate parsing)
@@ -300,6 +324,7 @@ void	init_heredoc(t_pstate parsing)
 	parsing[P_HEREDOC][E_END] = flush_string;
 
 }
+
 void	init_parsing(t_pstate parsing)
 {
 	bzero_parsing(parsing);
@@ -321,6 +346,7 @@ void	init_parsing(t_pstate parsing)
 	init_io_dup(parsing);
 	init_io_move(parsing);
 	init_io_filename(parsing);
-	init_heredoc_redirect(parsing);
 	init_heredoc(parsing);
+	init_heredoc_redirect(parsing);
+	init_heredoc_delimiter(parsing);
 }

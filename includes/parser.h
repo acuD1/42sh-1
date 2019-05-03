@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 18:34:48 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/03 22:51:53 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void		io_and_redirect_flush(t_parser *parse);
 void		io_redirect_flush(t_parser *parse);
 void		flush_redirect(t_parser *parse);
 void		heredoc_parser(t_parser *parse);
+void		heredoc_delimiter(t_parser *parse);
 void		delete_process(void *data);
 char		*expand_string(t_list *lst, char *str);
 char		*string_expansion(t_parser *parse, char *str);
@@ -81,6 +82,8 @@ char		character_swap(char swapped);
 t_quote		select_quoting(t_quote quote, char c);
 
 
+t_type		pop_token_type(t_stack *stack);
+char		*pop_token_data(t_stack *stack);
 void		get_token(t_parser *parse);
 void		generate_filedesc(t_parser *parse, int first, int second\
 			,int action);
