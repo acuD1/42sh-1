@@ -81,3 +81,15 @@ char			*make_curpath_simple(char *curpath)
 	ft_freetab(&tab_path);
 	return (new_path);
 }
+
+uint8_t			one_only_arg(char **arg)
+{
+	if (*arg == NULL)
+		return (TRUE);
+	if (*(arg + 1) != NULL)
+	{
+		ft_dprintf(2, "21sh: cd: Too many arguments\n");
+		return (FALSE);
+	}
+	return (TRUE);
+}
