@@ -60,6 +60,8 @@ char		*tilde(t_parser *parse, char *str)
 
 	i = 0;
 	holder = NULL;
+	if (ft_strnequ(str, "~/", 2) == FALSE && ft_strequ(str, "~") == FALSE)
+		return (str);
 	if (str[0] == '~')
 	{
 		i = ft_strcspn(str, "/");
