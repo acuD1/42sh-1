@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/04 15:45:14 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/04 15:57:41 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,6 @@
 # define HELP_OPT					0x001
 # define COMMAND_OPT				0x002
 # define DEBUG_OPT					0x004
-# define VERSION_OPT				0x008
-# define NORC_OPT					0x010
-# define RCFILE_OPT					0x020
 
 /*
 *****************************************************
