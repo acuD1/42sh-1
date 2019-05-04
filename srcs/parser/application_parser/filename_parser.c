@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:47:14 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 18:09:33 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 21:11:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		io_filename_validate(t_parser *parse, char *str)
 	}
 	len = ft_strlen(str);
 	str[len - 1] = character_swap(str[len - 1]);
-	if(ft_strcheck(str, ft_isdigit) == 1)
+	if (ft_strcheck(str, ft_isdigit) == 1)
 	{
 		str[len - 1] = character_swap('\0');
 		if (str[len - 1] == '-')

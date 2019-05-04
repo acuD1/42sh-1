@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 22:07:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 18:59:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 21:11:42 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	print_filedesc(void *data)
 	t_filedesc	*fd;
 
 	fd = data;
-	if(fd->action & FD_CLOSE)
+	if (fd->action & FD_CLOSE)
 		ft_printf("Closing FD : %d\n", fd->second);
 	else if (fd->action & FD_WRITE)
 		ft_printf("FD : %d >>> FD : %d\n", fd->first, fd->second);

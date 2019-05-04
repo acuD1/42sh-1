@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 20:31:42 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 21:11:41 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void	io_heredoc_parser(t_parser *parse)
 	io  = pop_token_data(&parse->stack);
 	generate_filedesc(parse, fd[0], ft_atoi(io), FD_DUP | FD_WRITE);
 	ft_strdel(&io);
-	while(invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
+	while (invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
 	{
 		if (check_delimiter(&delimiter, line, fd[1]) == SUCCESS)
 			return ;
@@ -172,7 +172,7 @@ void	heredoc_parser(t_parser *parse)
 	delimiter = pop_token_data(&parse->stack);
 	type = pop_token_type(&parse->stack);
 	generate_filedesc(parse, fd[0], STDIN_FILENO, FD_DUP | FD_WRITE);
-	while(invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
+	while (invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
 	{
 		if (check_delimiter(&delimiter, line, fd[1]) == SUCCESS)
 			return ;

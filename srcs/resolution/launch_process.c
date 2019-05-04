@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/04 18:59:11 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 21:11:42 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		redirect(void *data)
 	t_filedesc *fd;
 
 	fd = data;
-	if(fd->action & FD_CLOSE)
+	if (fd->action & FD_CLOSE)
 		close(fd->second);
 	else if (fd->action & FD_WRITE)
 		dup2(fd->first, fd->second);

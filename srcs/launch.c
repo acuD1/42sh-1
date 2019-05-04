@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/04 19:44:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/04 21:02:31 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static int		set_shlvl(t_registry *shell)
 	}
 	return (SUCCESS);
 }
+
 static t_list	*get_env(t_list **alst, char **env)
 {
 	t_list		*node;
