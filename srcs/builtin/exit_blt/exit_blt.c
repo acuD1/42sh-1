@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 11:26:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 16:54:31 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/04 19:42:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 static void		free_opt(t_opt option)
 {
-	free(option.command_str);
-	option.command_str = NULL;
+	ft_strdel(&option.command_str);
 //	free(option.path);
 //	option.path = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/04 18:34:17 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/04 19:43:52 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static int	stdin_build_cmd(t_registry *shell, char *command)
 	execution_pipeline(shell, lexer(&shell->lexinfo, command));
 	return (SUCCESS);
 }
+#include <stdio.h>
 
 static void	launch_shell(t_registry *shell)
 {
@@ -49,8 +50,15 @@ static void	launch_shell(t_registry *shell)
 	else
 	{
 		shell->is_interactive = FALSE;
+
 		command = ((shell->option.option & COMMAND_OPT) != FALSE
 				? shell->option.command_str : read_input(STDIN_FILENO));
+
+		if (ft_strcheck(command, ft_isprint) == FALSE)
+		{
+			shell->option.command_str = NULL;
+			ft_strdel(&command);
+		}
 
 		if (command != NULL && quoting_is_valid(command) == TRUE)
 		{
@@ -59,7 +67,9 @@ static void	launch_shell(t_registry *shell)
 		}
 		else
 			ft_dprintf(2, "21sh: No valid input.\n");
-		if ((shell->option.option & COMMAND_OPT) == FALSE)
+
+		if ((shell->option.option & COMMAND_OPT) == FALSE
+				&& command != NULL)
 			ft_strdel(&command);
 	}
 }

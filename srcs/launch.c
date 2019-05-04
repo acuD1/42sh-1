@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/04 15:57:49 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/04 19:44:27 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,7 @@ static t_list	*get_env(t_list **alst, char **env)
 	ft_lstaddback(alst, node);
 	return (get_env(alst, ++env));
 }
-/*
-static int8_t	get_env(t_list **alst, char **env)
-{
-	int i;
 
-	i = 0;
-	while (env[i] != NULL)
-	{
-		if (f_create_node(alst, env[i]) == FAILURE)
-			return (FAILURE);
-		i++;
-	}
-	return (SUCCESS);
-}
-*/
 static int8_t	shell_option_letter(t_opt *option, char *arg)
 {
 	if (*arg != '-')
