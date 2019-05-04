@@ -6,13 +6,15 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/04 18:57:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 22:48:00 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SH21_H
 # define SH21_H
 
+# include "libft.h"
+# include "define.h"
 # include "struct.h"
 
 /*
@@ -26,6 +28,7 @@ int8_t			set_environment( t_registry *shell, char **av, char **env);
 void			init_lexinfo(t_registry *shell);
 int8_t			shell_usage(void);
 void			shell_exit_routine(t_registry *shell);
+void			init_parsing(t_pstate parsing);
 
 /*
 *****************************************************
