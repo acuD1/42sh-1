@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 21:11:21 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 01:34:46 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ char		*variable_expansion(t_parser *parse, char *str)
 				str = variable_concat(parse->env, &str, i);
 				len = ft_strlen(str);
 			}
+			else
+				++i;
 		}
 		else
 			++i;
