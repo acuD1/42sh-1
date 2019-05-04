@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/04 19:43:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/04 20:47:23 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static int	stdin_build_cmd(t_registry *shell, char *command)
 	execution_pipeline(shell, lexer(&shell->lexinfo, command));
 	return (SUCCESS);
 }
-#include <stdio.h>
 
 static void	launch_shell(t_registry *shell)
 {
@@ -53,7 +52,6 @@ static void	launch_shell(t_registry *shell)
 
 		command = ((shell->option.option & COMMAND_OPT) != FALSE
 				? shell->option.command_str : read_input(STDIN_FILENO));
-
 		if (ft_strcheck(command, ft_isprint) == FALSE)
 		{
 			shell->option.command_str = NULL;
