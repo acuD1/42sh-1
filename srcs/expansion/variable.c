@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 01:50:41 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 03:09:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char		*variable_concat(t_list *lst, char **str, int i)
 
 	holder = NULL;
 	expanded = variable_replace(lst, *str + i + 1);
-	ft_asprintf(&holder, "%.*s%s%c", i, str, expanded, '\0');
+	ft_asprintf(&holder, "%.*s%s%c", i, *str, expanded, '\0');
 	ft_strdel(&expanded);
 	ft_strdel(str);
 	return (holder);
@@ -52,10 +52,12 @@ char		*variable_expansion(t_parser *parse, char *str)
 {
 	t_quote		quote;
 	uint32_t	i;
+	uint32_t	len;
 
 	i = 0;
 	quote = 0;
-	while (str[i] != '\0')
+	len = ft_strlen(str);;
+	while (i < len)
 	{
 		if (ft_strchr("\'\"", str[i]) != NULL)
 			quote = select_quoting(quote, str[i]);
@@ -64,9 +66,10 @@ char		*variable_expansion(t_parser *parse, char *str)
 			if(ft_strchr(EXP_INTERUPT, str[i + 1]))
 				++i;
 			else if (quote != QUOTE_SINGLE )
+			{
 				str = variable_concat(parse->env, &str, i);
-			if (str[i - 1] == '\0')
-				return(str);
+				len = ft_strlen(str);
+			}
 		}
 		else
 			++i;

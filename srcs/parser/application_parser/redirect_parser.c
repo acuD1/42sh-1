@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 01:48:51 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 02:22:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ void	heredoc_delimiter(t_parser *parse)
 {
 	if (parse->state == P_HEREDOC_REDIRECT)
 		parse->state = P_HEREDOC_DELIMITER;
+	else
+		parse->state = P_IO_HEREDOC_DELIMITER;
 	parse->token.type = E_STRING;
 	if ((parse->token.data = variable_expansion(parse, parse->token.data)))
 	{
@@ -111,6 +113,44 @@ int		write_heredoc(char **line, int fd, t_type type)
 	return (0);
 }
 
+int		check_delimiter(char **delimiter, char *line, int fd)
+{
+	if (ft_strequ(line, *delimiter) == TRUE)
+	{
+		close(fd);
+		ft_strdel(delimiter);
+		return (SUCCESS);
+	}
+	return (FAILURE);
+}
+
+void	io_heredoc_parser(t_parser *parse)
+{
+	char		*line;
+	char		*delimiter;
+	t_type		type;
+	char		*io;
+	int			fd[2];
+
+	parse->state = P_HEREDOC;
+	pipe(fd);
+	line = NULL;
+	delimiter = pop_token_data(&parse->stack);
+	type = pop_token_type(&parse->stack);
+	io  = pop_token_data(&parse->stack);
+	generate_filedesc(parse, fd[0], ft_atoi(io), FD_DUP | FD_WRITE);
+	ft_strdel(&io);
+	while(invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
+	{
+		if (check_delimiter(&delimiter, line, fd[1]) == SUCCESS)
+			return ;
+		else
+			write_heredoc(&line, fd[1], type);
+		ft_strdel(&line);
+	}
+	ft_strdel(&line);
+	error_parser(parse);
+}
 
 void	heredoc_parser(t_parser *parse)
 {
@@ -124,17 +164,14 @@ void	heredoc_parser(t_parser *parse)
 	pipe(fd);
 	delimiter = pop_token_data(&parse->stack);
 	type = pop_token_type(&parse->stack);
+	generate_filedesc(parse, fd[0], STDIN_FILENO, FD_DUP | FD_WRITE);
 	while(invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
 	{
-		if (ft_strequ(line, delimiter) == TRUE)
-		{
-			close(fd[1]);
-			generate_filedesc(parse, fd[0], STDIN_FILENO, FD_DUP | FD_WRITE);
-			ft_strdel(&line);
-			ft_strdel(&delimiter);
+		if (check_delimiter(&delimiter, line, fd[1]) == SUCCESS)
 			return ;
-		}
-		write_heredoc(&line, fd[1], type);
+		else
+			write_heredoc(&line, fd[1], type);
+		ft_strdel(&line);
 	}
 	ft_strdel(&line);
 	error_parser(parse);
