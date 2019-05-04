@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:12:56 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 16:06:21 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/04 18:04:55 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int8_t				tc_ak_arrow_left(t_registry *shell)
 
 int8_t				tc_ak_arrow_up(t_registry *shell)
 {
+
 	if (shell->interface.hist_ptr == NULL)
 	{
 		shell->interface.hist_ptr = shell->interface.history_head;
@@ -88,7 +89,9 @@ int8_t				tc_ak_arrow_up(t_registry *shell)
 		shell->interface.hist_ptr = shell->interface.hist_ptr->next;
 	if (shell->interface.hist_ptr == NULL)
 		return (FAILURE);
-	replace_input_line(shell, shell->interface.hist_ptr->command);
+	if (ft_strlen(shell->interface.hist_ptr->command)
+			< shell->interface.window.max_chars)
+		replace_input_line(shell, shell->interface.hist_ptr->command);
 	return (SUCCESS);
 }
 
@@ -103,12 +106,16 @@ int8_t				tc_ak_arrow_down(t_registry *shell)
 	if (shell->interface.hist_ptr->prev == NULL)
 	{
 		shell->interface.hist_ptr = NULL;
-		replace_input_line(shell, shell->interface.current_line);
+		if (ft_strlen(shell->interface.current_line)
+				<= shell->interface.window.max_chars)
+			replace_input_line(shell, shell->interface.current_line);
 	}
 	else if (shell->interface.hist_ptr->prev)
 	{
 		shell->interface.hist_ptr = shell->interface.hist_ptr->prev;
-		replace_input_line(shell, shell->interface.hist_ptr->command);
+		if (ft_strlen(shell->interface.hist_ptr->command)
+				< shell->interface.window.max_chars)
+			replace_input_line(shell, shell->interface.hist_ptr->command);
 	}
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/04 17:04:54 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/04 18:34:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	launch_shell(t_registry *shell)
 		}
 		else
 			ft_dprintf(2, "21sh: No valid input.\n");
-		if ((shell->option.option & COMMAND_OPT) == TRUE)
+		if ((shell->option.option & COMMAND_OPT) == FALSE)
 			ft_strdel(&command);
 	}
 }
