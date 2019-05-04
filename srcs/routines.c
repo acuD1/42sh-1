@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/04 21:11:42 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 01:06:17 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,21 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 		}
 		init_parser(shell, &parse);
 		shell->current_job = parser_state(shell->parsing, &parse);
+		ft_printf("validate  = %d ", parse.valid);
 		////////////////////// DEBUG PARSER ///////////////////////
 		if ((shell->option.option & DEBUG_OPT) != FALSE)
 		{
 			ft_putstr("\n\033[33m-------------- PARSER --------------");
-			ft_lstiter(((t_job*)(parse.job_list->data))->process_list,
-					print_process);
+			if (parse.valid == 1)
+				ft_lstiter(((t_job*)(parse.job_list->data))->process_list,
+						print_process);
+			else
+				ft_putstr(NULL);
 			ft_putendl("------------------------------------\033[0m\n");
 		}
 		///////////////////////////////////////////////////////////
-		if (parse.valid <= 0)
-		{
-			delete_parser(&parse);
-			continue;
-		}
-		launch_job(shell, parse.job_list);
+		if (parse.valid == 1)
+			launch_job(shell, parse.job_list);
 		delete_parser(&parse);
 	}
 
