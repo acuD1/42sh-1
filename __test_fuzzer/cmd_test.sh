@@ -4,7 +4,7 @@ make -C ../ fclean;
 make -C ../ debug CC=gcc;
 mkdir dump;
 cd dump;
-for f in ../test_file/*;
+for f in ../leaks_and_segv/*;
 	do echo "-----\n\033[32m$f\033[0m\n-----\n";
 		cat $f | ../../21shdb;
 	done
