@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/05/04 17:40:29 by ffoissey         ###   ########.fr        #
+#    Updated: 2019/05/04 22:56:04 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAMEDB = 21shdb
 NAMET = unit
 LIBFT = libft.a
 LIBFTDB = libftdb.a
-SRCS = $(LINE) $(LEXER) $(PARSER) $(BUILTIN) $(TOOLS) $(EXPANSION)
+SRCS = $(LINE) $(LEXER) $(PARSER) $(BUILTIN) $(TOOLS) $(EXPANSION) $(INIT)
 OBJM = $(patsubst %.c, $(OPATH)%.o, $(LINEM))
 OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS))
 OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM))
@@ -77,40 +77,43 @@ IPATH += libft/includes/
 TPATH += unit-tests/
 TPATH += unit-tests/interface/
 TPATH += unit-tests/lexer/
-LINE_PATH += interface/
-LINE_PATH += interface/prompt
-LINE_PATH += interface/action_keys/
-LINE_PATH += interface/history/
-LINE_PATH += interface/action_keys/clipboard/
-LINE_PATH += interface/action_keys/movement/
-LINE_PATH += interface/core/
-LINE_PATH += interface/init/
-LINE_PATH += interface/redraw/
-LINE_PATH += interface/utils/
-LINE_PATH += resolution/
-LINE_PATH += logging/
-LINE_PATH += signals/
-LINE_PATH += ./
-LEXER_PATH += lexer/
-PARSER_PATH += parser/grammar_parser
-PARSER_PATH += parser/application_parser
-BUILTIN_PATH += builtin/
-BUILTIN_PATH += builtin/cd_blt
-BUILTIN_PATH += builtin/echo_blt
-BUILTIN_PATH += builtin/env_blt
-BUILTIN_PATH += builtin/exit_blt
-BUILTIN_PATH += builtin/export_blt
-BUILTIN_PATH += builtin/hash_blt
-BUILTIN_PATH += builtin/intern_blt
-BUILTIN_PATH += builtin/pwd_blt
-BUILTIN_PATH += builtin/set_blt
-BUILTIN_PATH += builtin/setenv_blt
-BUILTIN_PATH += builtin/type_blt
-BUILTIN_PATH += builtin/unset_blt
-BUILTIN_PATH += builtin/unsetenv_blt
-EXPANSION_PATH += expansion/
-TOOLS_PATH += tools/
-_SPATH = $(LINE_PATH) $(LEXER_PATH) $(PARSER_PATH) $(BUILTIN_PATH) $(TOOLS_PATH) $(EXPANSION_PATH)
+P_LINE += interface/
+P_LINE += interface/prompt
+P_LINE += interface/action_keys/
+P_LINE += interface/history/
+P_LINE += interface/action_keys/clipboard/
+P_LINE += interface/action_keys/movement/
+P_LINE += interface/core/
+P_LINE += interface/init/
+P_LINE += interface/redraw/
+P_LINE += interface/utils/
+P_LINE += resolution/
+P_LINE += logging/
+P_LINE += signals/
+P_LINE += ./
+P_LEXER += lexer/
+P_PARSER += parser/grammar_parser
+P_PARSER += parser/application_parser
+P_BUILTIN += builtin/
+P_BUILTIN += builtin/cd_blt
+P_BUILTIN += builtin/echo_blt
+P_BUILTIN += builtin/env_blt
+P_BUILTIN += builtin/exit_blt
+P_BUILTIN += builtin/export_blt
+P_BUILTIN += builtin/hash_blt
+P_BUILTIN += builtin/intern_blt
+P_BUILTIN += builtin/pwd_blt
+P_BUILTIN += builtin/set_blt
+P_BUILTIN += builtin/setenv_blt
+P_BUILTIN += builtin/type_blt
+P_BUILTIN += builtin/unset_blt
+P_BUILTIN += builtin/unsetenv_blt
+P_EXPANSION += expansion/
+P_TOOLS += tools/
+P_INIT += init/
+P_INIT += init/parser/
+_SPATH += $(P_LINE) $(P_LEXER) $(P_PARSER) $(P_BUILTIN) $(P_TOOLS) $(P_EXPANSION)
+_SPATH += $(P_INIT)
 SPATH += $(addprefix srcs/, $(_SPATH)) 
 
 # ---------------------------------------------------------------------------- #
@@ -302,13 +305,21 @@ PARSER += grammar_parser.c
 PARSER += parser_debug.c
 
 #Application Parser
-PARSER += init_application_parser.c
 PARSER += parser_state.c
 PARSER += parser_interface.c
 PARSER += string_parser.c
 PARSER += redirect_parser.c
 PARSER += io_redirect_parser.c
 PARSER += filename_parser.c
+PARSER += heredoc_parser.c
+
+#Init Parser
+INIT += init_parser.c
+INIT += init_io_parser.c
+INIT += init_io_redirect_parser.c
+INIT += init_string_parser.c
+INIT += init_redirection_parser.c
+INIT += init_heredoc_parser.c
 
 #						   - - - - Expansion - - - -                           #
 EXPANSION += expansion.c
