@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/03 19:03:36 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 20:21:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ struct					s_parser
 	t_job				job;
 	t_stack				stack;
 	t_token				token;
+	unsigned int		quoting;
 	enum e_parser_state	last_state;
 	enum e_parser_state	state;
 	int					oflags;

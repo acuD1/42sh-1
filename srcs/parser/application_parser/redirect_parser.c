@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 16:14:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 20:31:42 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,21 +96,24 @@ void	heredoc_delimiter(t_parser *parse)
 		parse->state = P_HEREDOC_DELIMITER;
 	else
 		parse->state = P_IO_HEREDOC_DELIMITER;
-	parse->token.type = E_STRING;
-	if ((parse->token.data = variable_expansion(parse, parse->token.data)))
+	if (g_shell->is_interactive == FALSE)
 	{
-		ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-		get_token(parse);
+		ft_dprintf(2,"21sh: Here documents only in interractive mode\n");
+		error_parser(parse);
 	}
+	parse->token.type = E_STRING;
+	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
+	get_token(parse);
 }
 
-int		write_heredoc(char **line, int fd, t_type type)
+int		write_heredoc(char **line, int fd, t_type type, t_parser *parse)
 {
 	int		trim;
 
 	trim = 0;
 	if (type == E_DLESSDASH)
 		trim = ft_strspn(*line, " \t");
+	*line = variable_expansion(parse, *line);
 	ft_putendl_fd(*line + trim, fd);
 	ft_strdel(line);
 	return (0);
@@ -121,6 +124,7 @@ int		check_delimiter(char **delimiter, char *line, int fd)
 	if (ft_strequ(line, *delimiter) == TRUE)
 	{
 		close(fd);
+		ft_putchar('\n');
 		ft_strdel(delimiter);
 		return (SUCCESS);
 	}
@@ -148,7 +152,7 @@ void	io_heredoc_parser(t_parser *parse)
 		if (check_delimiter(&delimiter, line, fd[1]) == SUCCESS)
 			return ;
 		else
-			write_heredoc(&line, fd[1], type);
+			write_heredoc(&line, fd[1], type, parse);
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
@@ -173,7 +177,7 @@ void	heredoc_parser(t_parser *parse)
 		if (check_delimiter(&delimiter, line, fd[1]) == SUCCESS)
 			return ;
 		else
-			write_heredoc(&line, fd[1], type);
+			write_heredoc(&line, fd[1], type, parse);
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);

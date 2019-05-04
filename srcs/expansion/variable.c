@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 03:09:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 20:24:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char		*variable_expansion(t_parser *parse, char *str)
 	len = ft_strlen(str);;
 	while (i < len)
 	{
-		if (ft_strchr("\'\"", str[i]) != NULL)
+		if (ft_strchr("\'\"", str[i]) != NULL && (parse->quoting & QUOTING))
 			quote = select_quoting(quote, str[i]);
 		if (str[i] == '$' && str[i + 1] != '\0')
 		{
