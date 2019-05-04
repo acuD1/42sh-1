@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:51 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/04 15:34:59 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/04 18:55:07 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,6 @@
 #include <unistd.h>
 
 t_list *g_job_head;
-
-void			close_fd(t_list *data)
-{
-	t_filedesc		*fd;
-
-	fd = data->data;
-	if (fd->first > 2)
-		close(fd->first);
-	if (fd->second > 2)
-		close(fd->second);
-}
 
 static void		get_last_bin(t_registry *shell, t_process *process, char **cmd)
 {
@@ -73,6 +62,8 @@ static int		update_last_bin(t_list *process_lst, t_registry *shell)
 {
 	t_list	*ptr;
 
+	if (process_lst == NULL)
+		return (0);
 	ptr = process_lst;
 	while (ptr->next)
 	{
@@ -83,11 +74,24 @@ static int		update_last_bin(t_list *process_lst, t_registry *shell)
 	return (0);
 }
 
+int				check_job(t_list *job_lst)
+{
+	if (job_lst == NULL)
+		return (-1);
+	if (job_lst->data == NULL)
+		return (-1);
+	if (((t_job *)job_lst->data)->process_list == NULL)
+		return (-1);
+	return (0);
+}
+
 void			launch_job(t_registry *shell, t_list *job_lst)
 {
 	t_job			*current_job;
 	t_list			*process_lst;
 
+	if (check_job(job_lst))
+		return ;
 	if (shell->is_interactive == TRUE)
 	{
 		restore_term_behavior(shell);

@@ -6,18 +6,29 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 22:07:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 17:14:53 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 18:59:28 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include <unistd.h>
 
-void	print_filedesc(t_list *lst)
+void	close_fd(void *data)
+{
+	t_filedesc		*fd;
+
+	fd = data;
+	if (fd->first > 2)
+		close(fd->first);
+	if (fd->second > 2)
+		close(fd->second);
+}
+
+void	print_filedesc(void *data)
 {
 	t_filedesc	*fd;
 
-	fd = lst->data;
+	fd = data;
 	if(fd->action & FD_CLOSE)
 		ft_printf("Closing FD : %d\n", fd->second);
 	else if (fd->action & FD_WRITE)
@@ -26,11 +37,11 @@ void	print_filedesc(t_list *lst)
 		ft_printf("FD : %d <<< FD : %d\n", fd->first, fd->second);
 }
 
-void	print_process(t_list *node)
+void	print_process(void *data)
 {
 	t_process	*process;
 
-	process = node->data;
+	process = data;
 	ft_putchar('\n');
 	ft_showtab(process->av);
 	ft_lstiter(process->fd, print_filedesc);
@@ -70,7 +81,7 @@ void	delete_process(void *data)
 	process = (t_process *)data;
 	ft_freetab(&process->av);
 	ft_freetab(&process->env);
-	ft_lstdel(&process->fd, NULL);
+	ft_lstdel(&process->fd, close_fd);
 }
 
 void	delete_job(void *data)

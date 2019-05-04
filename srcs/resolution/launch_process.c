@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/04 15:30:50 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/04 18:59:11 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include "sig.h"
 #include <unistd.h>
 
-void		redirect(t_list *lst)
+void		redirect(void *data)
 {
 	t_filedesc *fd;
 
-	fd = lst->data;
+	fd = data;
 	if(fd->action & FD_CLOSE)
 		close(fd->second);
 	else if (fd->action & FD_WRITE)

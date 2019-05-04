@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/02 03:04:11 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 18:56:48 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_token 	generate_token(t_lexer *machine);
 *****************************************************
 */
 
-void		print_token(t_list *list);
+void		print_token(void *data);
 void		del_token(void *token);
 
 #endif

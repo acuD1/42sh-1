@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:47:14 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 04:48:38 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 18:09:33 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@ void	special_filename_parser(t_parser *parse)
 	parse->state = P_SPFILENAME;
 	parse->token.type = E_STRING;
 	if ((parse->token.data = string_expansion(parse, parse->token.data)))
-	{
 		ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-		get_token(parse);
-	}
+	get_token(parse);
 }
 
 void	io_filename_parser(t_parser *parse)
@@ -35,10 +33,8 @@ void	io_filename_parser(t_parser *parse)
 	parse->state = P_IO_FILENAME;
 	parse->token.type = E_STRING;
 	if ((parse->token.data = string_expansion(parse, parse->token.data)))
-	{
 		ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-		get_token(parse);
-	}
+	get_token(parse);
 }
 
 int		io_filename_validate(t_parser *parse, char *str)
@@ -72,9 +68,7 @@ void	io_dup_move_parser(t_parser *parse)
 	if ((parse->token.data = string_expansion(parse, parse->token.data)))
 	{
 		if (io_filename_validate(parse, parse->token.data))
-		{
 			ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-			get_token(parse);
-		}
+		get_token(parse);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:01:44 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 17:04:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 18:44:35 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	error_parser(t_parser *parse)
 void	separator_parser(t_parser *parse)
 {
 	parse->state = P_SEPARATOR;
-	get_token(parse);
 }
 
 void	stop_parser(t_parser *parse)
@@ -54,5 +53,6 @@ void	end_parser(t_parser *parse)
 	ft_lstaddback(&parse->job.process_list, node);
 	node = ft_lstnew(&parse->job, sizeof(t_job));
 	ft_lstaddback(&parse->job_list, node);
-	++parse->valid;
+	get_token(parse);
 }
+

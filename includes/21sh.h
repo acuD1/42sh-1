@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/04 15:35:46 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 18:57:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int8_t			f_create_node(t_list **alst, const char *str);
 int8_t			s_create_node(t_list **alst, const char *var, const char *data);
 int8_t			change_node(t_list **alst, const char *var, char *data);
 char			*get_data(t_list *lst, char *var);
-void			print_process(t_list *node);
+void			print_process(void *data);
 char			*variable_to_str(void *data);
 int				find_variable(void *data, void *to_find);
 
@@ -72,6 +72,7 @@ int				find_variable(void *data, void *to_find);
 *********************** FREE
 */
 
+void			close_fd(void *data);
 void			clear_node(void **data);
 int8_t			free_node(t_list **alst, char *var);
 int8_t			free_lst(t_list **alst);
