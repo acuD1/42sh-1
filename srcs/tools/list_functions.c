@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 22:07:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 20:36:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 16:03:49 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@ int		find_variable(void *data, void *to_find)
 	return (ft_strequ(variable->name, name));
 }
 
+void	del_token(void *token)
+{
+	t_token *tmp;
+
+	tmp = token;
+	ft_strdel(&tmp->data);
+}
+
 void	delete_variable(void *data)
 {
 	t_variable *variable;
@@ -79,7 +87,7 @@ void	delete_parser(t_parser *parse)
 		ft_lstdel(&parse->tmp_env, NULL); //This will leak
 	if (parse->job_list != NULL)
 		ft_lstdel(&parse->job_list, delete_job);
-	ft_stckdestroy(&parse->stack, delete_variable);
+	ft_stckdestroy(&parse->stack, del_token);
 }
 
 char	*variable_to_str(void *data)
