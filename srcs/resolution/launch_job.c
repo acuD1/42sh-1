@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:51 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/04 18:55:07 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 20:58:44 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static int		change_last_bin(t_process *process, t_registry *shell)
 	char	*asp;
 
 	asp = NULL;
+	if (process->av == NULL)
+		return (FAILURE);
 	if (get_env_var(shell, "_") != NULL)
 	{
 		if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) == NULL)
@@ -62,7 +64,7 @@ static int		update_last_bin(t_list *process_lst, t_registry *shell)
 {
 	t_list	*ptr;
 
-	if (process_lst == NULL)
+	if (process_lst == NULL || process_lst->data == NULL)
 		return (0);
 	ptr = process_lst;
 	while (ptr->next)
