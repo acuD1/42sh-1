@@ -1,0 +1,1 @@
+executer dans __test_fuzzer/dump:     afl-fuzz -i ../corpus -o ../find -m none -- ../../21sh
