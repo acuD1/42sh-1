@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/04 02:23:17 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 15:57:41 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,14 @@
 # define FAILURE					-1
 # define FALSE						0
 # define TRUE						1
-# define SH21_USAGE_1				"Usage: 21sh [long option] [-dhv] "
-# define SH21_USAGE_2				"[--rcfile PATH] [-c CMD]\n"
-# define SH21_USAGE_LONG_OPTION		"\n\t--help\n\t--norc\n\t"
-# define SH21_USAGE_LONG_OPTION_2	"--version\n\t--debug\n"
+# define SH21_USAGE_1				"Usage: 21sh [long option] [-dh] "
+# define SH21_USAGE_2				"[-c CMD]\n"
+# define SH21_USAGE_LONG_OPTION		"\n\t--help\n\t"
+# define SH21_USAGE_LONG_OPTION_2	"--debug\n"
 # define NO_OPT						0x000
 # define HELP_OPT					0x001
 # define COMMAND_OPT				0x002
 # define DEBUG_OPT					0x004
-# define VERSION_OPT				0x008
-# define NORC_OPT					0x010
-# define RCFILE_OPT					0x020
 
 /*
 *****************************************************

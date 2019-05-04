@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/03 19:34:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 15:57:49 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ static int8_t	shell_option_letter(t_opt *option, char *arg)
 	{
 		if (*arg == 'h')
 			option->option |= HELP_OPT;
-		else if (*arg == 'v')
-			option->option |= VERSION_OPT;
 		else if (*arg == 'd')
 			option->option |= DEBUG_OPT;
 		else
@@ -95,8 +93,6 @@ static int8_t	shell_option_word(t_opt *option, const char *arg)
 {
 	if (ft_strequ(arg, "--help") == TRUE)
 		option->option |= HELP_OPT;
-	else if (ft_strequ(arg, "--version") == TRUE)
-		option->option |= VERSION_OPT;
 	else if (ft_strequ(arg, "--debug") == TRUE)
 		option->option |= DEBUG_OPT;
 	else
@@ -110,7 +106,6 @@ static int8_t	shell_option_word(t_opt *option, const char *arg)
 
 static int8_t	parse_arg(char **av, t_opt *option)
 {
-//////////// MISS --norc and --rcfile
 	while (*av != NULL)
 	{
 		if (ft_strequ(*av, "--") == TRUE)
@@ -145,6 +140,11 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 			//ft_strdel(&(shell->option.path));
 			return (FAILURE);
 		}
+	}
+	if ((shell->option.option & HELP_OPT) != FALSE)
+	{
+		shell_usage();
+		exit(0);
 	}
 	if (get_env(&shell->env, env) == NULL)
 		return (FAILURE);
