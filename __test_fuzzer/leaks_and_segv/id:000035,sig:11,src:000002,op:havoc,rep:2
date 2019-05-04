@@ -1,2 +1,0 @@
-pwd wd >&=pwd 
->& pwd 
