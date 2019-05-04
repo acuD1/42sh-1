@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/04 00:38:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 15:30:50 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,27 +52,6 @@ static char	**str_lst_to_tab(t_list *alst)
 	return (tabs);
 }
 
-/*
-static void	el_redirector(t_filedesc *fd)
-{
-	if (fd->in != STDIN_FILENO)
-	{
-		if (fd->in != -1 || close(STDIN_FILENO))
-			dup2(fd->in, STDIN_FILENO);
-	}
-	if (fd->out != STDOUT_FILENO && fd->out != STDIN_FILENO)
-	{
-		if (fd->out != -1 || close(STDOUT_FILENO))
-			dup2(fd->out, STDOUT_FILENO);
-	}
-	if (fd->err != STDERR_FILENO && fd->err != STDIN_FILENO)
-	{
-		if (fd->err != -1 || close(STDERR_FILENO))
-			dup2(fd->err, STDERR_FILENO);
-	}
-}
-*/
-
 static void	execute_process(t_process *process, t_registry *shell)
 {
 	char			**environ;
@@ -87,7 +66,6 @@ static void	execute_process(t_process *process, t_registry *shell)
 //	}
 	/////////////////////////////////////////////////////////
 
-	//el_redirector(&fd);
 	ft_lstiter(process->fd, redirect);
 	environ = str_lst_to_tab(shell->env);
 	/*	Exec the new process	*/

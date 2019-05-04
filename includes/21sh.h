@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/03 19:09:13 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 15:35:46 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int				find_variable(void *data, void *to_find);
 void			clear_node(void **data);
 int8_t			free_node(t_list **alst, char *var);
 int8_t			free_lst(t_list **alst);
+void			delete_variable(void *data);
 void			delete_parser(t_parser *parse);
 void			delete_process(void *data);
 void			delete_job(void *data);
