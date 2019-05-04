@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 16:07:52 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 16:14:28 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	flush_redirect(t_parser *parse)
 	type = pop_token_type(&parse->stack);
 	if ((fd = open(filename, parse->oflags, 0644)) < 0)
 	{
-		parse->valid = -3;
+		ft_dprintf(2, "21sh: %s: No such file\n", filename);
 		error_parser(parse);
 	}
 	else if (type == E_LESS)
