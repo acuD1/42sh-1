@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 12:57:21 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/02 19:34:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 17:04:46 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ static char	*tilde_expansion(t_parser *parse, const char *str)
 	{
 		if ((expanded = get_data(parse->env, "OLDPWD")) != NULL)
 			return (expanded);
-		parse->valid = -1;
+		ft_dprintf(2, "21sh: OLDPWD is not set\n");
 		error_parser(parse);
 	}
 	else if ((expanded = user_home(str + 1)) == NULL)
 	{
-		parse->valid = -2;
+		ft_dprintf(2, "21sh: No such user or directory\n");
 		error_parser(parse);
 	}
 	return (expanded);

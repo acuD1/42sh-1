@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/03 18:41:08 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/04 14:34:53 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void			define_parser_signals(void)
 void			define_execution_signals(void)
 {
 	signal(SIGINT, kill_process);
+	signal(SIGQUIT, kill_process);
 }
 
 void			define_interface_signals(void)
