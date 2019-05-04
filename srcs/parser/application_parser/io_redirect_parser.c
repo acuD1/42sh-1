@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:42:30 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 17:12:42 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 23:28:18 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	io_redirect_flush(t_parser *parse)
 
 void	io_and_redirect_flush(t_parser *parse)
 {
-	char		*fd;
-	char		*io;
-	unsigned int action;
+	char			*fd;
+	char			*io;
+	unsigned int	action;
 
 	action = 0;
 	parse->state = P_IO_FLUSH_AND;

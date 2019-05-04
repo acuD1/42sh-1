@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:48:28 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 21:51:15 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 23:29:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		heredoc_delimiter(t_parser *parse)
 		parse->state = P_IO_HEREDOC_DELIMITER;
 	if (g_shell->is_interactive == FALSE)
 	{
-		ft_dprintf(2,"21sh: Here documents only in interractive mode\n");
+		ft_dprintf(2, "21sh: Here documents only in interractive mode\n");
 		error_parser(parse);
 	}
 	parse->token.type = E_STRING;
@@ -69,7 +69,7 @@ void		io_heredoc_parser(t_parser *parse)
 	line = NULL;
 	delimiter = pop_token_data(&parse->stack);
 	type = pop_token_type(&parse->stack);
-	io  = pop_token_data(&parse->stack);
+	io = pop_token_data(&parse->stack);
 	generate_filedesc(parse, fd[0], ft_atoi(io), FD_DUP | FD_WRITE);
 	ft_strdel(&io);
 	while (invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)

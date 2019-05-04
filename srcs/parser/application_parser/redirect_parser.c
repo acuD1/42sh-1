@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 21:51:20 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 23:30:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		find_stdout_redirect(void *data, void *to_find)
 	t_filedesc *fd;
 
 	fd = data;
-	return (fd->second == *(int *)to_find? 1 : 0);
+	return (fd->second == *(int *)to_find ? 1 : 0);
 }
 
 void	flush_redirect(t_parser *parse)

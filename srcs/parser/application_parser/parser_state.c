@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 18:22:32 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 23:02:46 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_list	*parser_state(t_pstate parsing, t_parser *parse)
 	while (parse->state != P_END && parse->state != P_ERROR)
 	{
 		if (parse->state == P_STOP)
-			break;
+			break ;
 		parsing[parse->state][parse->token.type](parse);
 	}
 	return (parse->job_list);

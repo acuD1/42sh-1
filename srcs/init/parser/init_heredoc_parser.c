@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:07:01 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 22:10:42 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/04 22:59:23 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	init_io_heredoc(t_pstate parsing)
 	parsing[P_IO_HEREDOC][E_SEMICOLON] = flush_string;
 	parsing[P_IO_HEREDOC][E_NEWLINE] = flush_string;
 	parsing[P_IO_HEREDOC][E_END] = flush_string;
-
 }
 
 void	init_io_heredoc_delimiter(t_pstate parsing)
@@ -83,5 +82,4 @@ void	init_heredoc(t_pstate parsing)
 	parsing[P_HEREDOC][E_SEMICOLON] = flush_string;
 	parsing[P_HEREDOC][E_NEWLINE] = flush_string;
 	parsing[P_HEREDOC][E_END] = flush_string;
-
 }
