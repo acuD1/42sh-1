@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/04 15:33:45 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/04 15:53:26 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,11 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 			//ft_strdel(&(shell->option.path));
 			return (FAILURE);
 		}
+	}
+	if ((shell->option.option & HELP_OPT) != FALSE)
+	{
+		shell_usage();
+		exit(0);
 	}
 	if (get_env(&shell->env, env) == NULL)
 		return (FAILURE);
