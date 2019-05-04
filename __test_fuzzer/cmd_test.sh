@@ -1,13 +1,12 @@
 #!/bin/zsh
 
-make fclean;
-make debug CC=gcc;
+make -C ../ fclean;
+make -C ../ debug CC=gcc;
 mkdir dump;
 cd dump;
-for f in ../leaks_and_segv/*;
+for f in ../test_file/*;
 	do echo "-----\n\033[32m$f\033[0m\n-----\n";
-		file=`cat $f`;
-		echo "$file" | ../21shdb;
+		cat $f | ../../21shdb;
 	done
 cd ..;
 rm dump/*;
@@ -39,5 +38,4 @@ rmdir dump;
 
 
 #######
-# for i in {1000..3000}; do for f in example.*; do zzuf -r 0.2 -s $i < "$f" > "$i-$f"; done; done                               
 #######
