@@ -36,7 +36,6 @@ void	io_redirect_flush(t_parser *parse)
 
 void	io_and_redirect_flush(t_parser *parse)
 {
-	t_type		type;
 	char		*fd;
 	char		*io;
 	unsigned int action;
@@ -44,7 +43,6 @@ void	io_and_redirect_flush(t_parser *parse)
 	action = 0;
 	parse->state = P_IO_FLUSH_AND;
 	fd = pop_token_data(&parse->stack);
-	type = pop_token_type(&parse->stack);
 	io = pop_token_data(&parse->stack);
 	action |= ft_strequ(fd, "-") ? FD_CLOSE : FD_DUP;
 	generate_filedesc(parse, ft_atoi(fd), ft_atoi(io), action | FD_WRITE);
