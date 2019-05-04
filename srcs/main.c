@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/03 17:51:35 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/04 14:40:15 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	launch_shell(t_registry *shell)
 				ft_dprintf(2, "[CRITICAL] - Malloc error.\n");
 		}
 		else
-			ft_dprintf(2, "[ERROR] - No valid input to execute.\n");
+			ft_dprintf(2, "21sh: No valid input.\n");
 		ft_strdel(&command);
 	}
 }
