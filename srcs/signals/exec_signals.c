@@ -1,43 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handler.c                                   :+:      :+:    :+:   */
+/*   exec_signals.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 16:44:51 by skuppers         ###   ########.fr       */
+/*   Created: 2019/05/05 16:41:13 by skuppers          #+#    #+#             */
+/*   Updated: 2019/05/05 16:45:45 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include <signal.h>
-#include "interface_functions.h"
-#include "sig.h"
 
-void			define_ign_signals(void)
+void		kill_process(const int signo)
 {
-	loop_signals(SIG_IGN);
+	t_job		*job;
+	t_list		*proc;
+
+	(void)signo;
+	job = ((t_job*)(g_shell->current_job->data));
+	proc = job->process_list;
+	while (proc != NULL)
+	{
+		kill(((t_process*)(proc->data))->pid, SIGINT);
+		proc = proc->next;
+	}
 }
 
-void			define_parser_signals(void)
+void		loop_signals(void (*func)(int))
 {
-	loop_signals(SIG_IGN);
-}
+	int signo;
 
-void			define_execution_signals(void)
-{
-	signal(SIGINT, kill_process);
-	signal(SIGQUIT, kill_process);
-}
-
-void			define_interface_signals(void)
-{
-	signal(SIGWINCH, interface_resize_handler);
-	signal(SIGINT, redraw_prompt);
-}
-
-void			define_default_signals(void)
-{
-	loop_signals(SIG_DFL);
+	signo = 0;
+	while (++signo < 32)
+	{
+		if (signo != SSIG_QUIT && signo != SSIG_STOP && signo != SSIG_KILL)
+			signal(signo, func);
+	}
 }

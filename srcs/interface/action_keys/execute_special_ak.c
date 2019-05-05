@@ -6,13 +6,12 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:14:28 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:45:51 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/05 16:26:20 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interface_functions.h"
 
-///// __unused shell
 int8_t		tc_ak_hightab(t_registry *shell)
 {
 	(void)shell;
