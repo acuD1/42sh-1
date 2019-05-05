@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 18:21:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/05 19:04:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,16 @@ void	get_token(t_parser *parse)
 	ft_memcpy(&parse->token, node->data, sizeof(t_token));
 	ft_lstdelone(&node, NULL);
 }
-
+//#include <unistd.h>
 t_list	*parser_state(t_pstate parsing, t_parser *parse)
 {
 	get_token(parse);
 	while (parse->state != P_END && parse->state != P_ERROR)
 	{
+//		sleep(1);
 		if (g_shell->parse_signal == TRUE)
 		{
-			signal_parser();
+			signal_parser(&parse->token_list);
 			break ;
 		}
 		if (parse->state == P_STOP)
