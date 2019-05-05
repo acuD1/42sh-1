@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 19:25:53 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 19:26:53 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_list	*parser_state(t_pstate parsing, t_parser *parse)
 	{
 		if (g_shell->parse_signal == TRUE)
 		{
-			signal_parser();
+			signal_parser(parse);
 			break ;
 		}
 		if (parse->state == P_STOP)
