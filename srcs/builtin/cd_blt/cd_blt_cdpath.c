@@ -74,8 +74,8 @@ char			*is_cdpath_env(t_registry *shell, const char *to_find)
 	return (NULL);
 }
 
-uint8_t check_path(t_registry *shell, char *curpath,
-						const char *path_give_by_user)
+uint8_t 	check_path(t_registry *shell, char *curpath,
+							const char *path_give_by_user)
 {
 	char		*oldpwd;
 	struct stat	stat;
