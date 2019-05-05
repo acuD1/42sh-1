@@ -4,7 +4,7 @@ make -C ../;
 mkdir dump;
 cd dump;
 i = 0;
-for f in ../leaks_and_segv/*;
+for f in ../leaks_and_segv/leaks/*;
 	do echo "-----\n\033[32m$f\033[0m\n-----\n";
 		let "i++"
 		valgrind --leak-check=full --track-fds=yes --  ../../21sh < $f > log;
