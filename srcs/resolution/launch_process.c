@@ -92,6 +92,9 @@ int			launch_builtin(t_registry *shell, t_process *process)
 
 	if (!(f = ft_hmap_getdata(&shell->blt_hashmap, process->av[0])))
 		return (FALSE);
+	shell->cur_fd.in = 0;
+	shell->cur_fd.out = 1;
+	shell->cur_fd.err = 2;
 	ft_lstiter(process->fd, get_blt_fd);
 	f(shell, process->av);
 	shell->cur_fd.in = 0;

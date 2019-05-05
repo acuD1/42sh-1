@@ -368,11 +368,11 @@ $(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJM)
 	$(LINK) $(OBJS) $(OBJM) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@
 	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
-$(OBJM) : $(OPATH)%.o : %.c $(INCS)
+$(OBJM) : $(OPATH)%.o : %.c $(INCS) Makefile
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
 
-$(OBJS) : $(OPATH)%.o : %.c $(INCS)
+$(OBJS) : $(OPATH)%.o : %.c $(INCS) Makefile
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
 
@@ -385,7 +385,7 @@ $(NAMET) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJT)
 	$(LINK) $(CFLAGS)  $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address,undefined,leak -o  $@ $(OBJT) $(OBJS)
 	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
-$(OBJT) : $(OPATH)%.o : %.c $(INCS)
+$(OBJT) : $(OPATH)%.o : %.c $(INCS) Makefile
 	$(COMPILE) $(CFLAGS)  $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
 
@@ -395,7 +395,7 @@ $(NAMEDB) : $(CLEAR) $(LIBDB) $(OPATH) $(OBJD)
 	$(LINKD) $(OBJD) $(DFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBD) $(LFLAGS) -o $@
 	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
-$(OBJD) : $(OPATH)db%.o : %.c $(INCS)
+$(OBJD) : $(OPATH)db%.o : %.c $(INCS) Makefile
 	$(DEBUG) $(DFLAGS) $(CPPFLAGS) $< -o $@
 	$(PRINT) "$(ONELINE)$(BLUE)Compiling $< for debug                   $(NC)\n"
 
