@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/05 02:00:33 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 03:36:30 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ struct					s_lexer
 {
 	char				*input;
 	char				buffer[BUFFER];
+	char				*data;
+	unsigned int		buffer_index;
 	t_lexinfo			*lexinfo;
 	t_list				*tokens;
 	enum e_lexer_state	state;

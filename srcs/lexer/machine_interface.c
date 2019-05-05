@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/01 17:57:36 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 04:02:32 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,6 @@ void	end_machine(t_lexer *machine)
 		machine->state = L_FINISH;
 }
 
-void	fill_buffer_output(t_lexer *machine)
-{
-	ft_strncat(machine->buffer, machine->input, 1);
-	machine->state = L_OUT;
-}
 
 void	out_lexer(t_lexer *machine)
 {

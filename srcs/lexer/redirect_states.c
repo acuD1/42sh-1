@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:23:05 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/01 19:07:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 04:02:43 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	lesser_machine(t_lexer *machine)
 		if (machine->last_lexer != E_DLESS)
 		{
 			machine->last_lexer = E_DLESS;
-			ft_strncat(machine->buffer, machine->input, 1);
+			create_token_data(machine);
 			++machine->input;
 			return ;
 		}

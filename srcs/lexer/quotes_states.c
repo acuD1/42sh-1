@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 13:34:28 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 15:27:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 04:15:21 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	single_quote_machine(t_lexer *machine)
 		machine->state = L_STRING;
 	if (*machine->input != '\0')
 	{
-		ft_strncat(machine->buffer, machine->input, 1);
+		create_token_data(machine);
 		++machine->input;
 	}
 	else
@@ -41,7 +41,7 @@ void	double_quote_machine(t_lexer *machine)
 		machine->state = L_STRING;
 	if (*machine->input != '\0')
 	{
-		ft_strncat(machine->buffer, machine->input, 1);
+		create_token_data(machine);
 		++machine->input;
 	}
 	else

@@ -6,18 +6,18 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 17:03:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 15:19:29 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 04:01:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct.h"
+#include "lexer.h"
 
 void	number_machine(t_lexer *machine)
 {
 	if (ft_isdigit(*machine->input) == TRUE)
 	{
 		machine->last_lexer = E_IO_NUMBER;
-		ft_strncat(machine->buffer, machine->input, 1);
+		create_token_data(machine);
 		++machine->input;
 	}
 	else if (ft_strchr("<>", *machine->input) != NULL)
@@ -53,7 +53,7 @@ void	string_machine(t_lexer *machine)
 		machine->last_lexer = E_STRING;
 	if (*machine->input != '\0')
 	{
-		ft_strncat(machine->buffer, machine->input, 1);
+		create_token_data(machine);
 		++machine->input;
 	}
 }

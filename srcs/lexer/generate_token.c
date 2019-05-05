@@ -6,27 +6,30 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 20:19:38 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 15:19:49 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 04:32:03 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-static enum e_type	check_script(t_lexer *machine)
+char				*assign_token_data(t_lexer *machine, t_token *token)
 {
-	enum e_type			index;
-	static const char	*script[13] = {N_CASE, N_DO, N_DONE, N_ELIF, N_ELSE,
-										N_ESAC, N_FI, N_FOR, N_IF, N_IN, N_THEN,
-										N_UNTIL, N_WHILE};
+	enum e_type		i;
 
-	index = 0;
-	while (index < 13)
+	i = 0;
+	while (i < TOKEN_WITH_DATA)
 	{
-		if (ft_strequ(machine->buffer, script[index]))
-			return (index + SIGNS);
-		++index;
+		if (token->type == machine->lexinfo->duplicate[i++] && *machine->buffer)
+		{
+			if (machine->data != NULL)
+				ft_asprintf(&token->data, "%s%s", machine->data, machine->buffer);
+			else
+				token->data = ft_strdup(machine->buffer);
+			ft_strdel(&machine->data);
+		}
 	}
-	return (E_STRING);
+	machine->buffer_index = 0;
+	return (token->data);
 }
 
 static enum e_type	check_last_lexer(t_lexer *machine)
@@ -34,8 +37,6 @@ static enum e_type	check_last_lexer(t_lexer *machine)
 	enum e_type		i;
 
 	i = 0;
-	if (machine->last_lexer == E_STRING)
-		return (check_script(machine));
 	while (i < TOKEN_WITH_DATA)
 	{
 		if (machine->last_lexer == machine->lexinfo->duplicate[i])
@@ -86,16 +87,10 @@ static enum e_type	define_type(t_lexer *machine)
 t_token				generate_token(t_lexer *machine)
 {
 	t_token			token;
-	enum e_type		i;
 
-	i = 0;
 	token.type = define_type(machine);
 	token.data = NULL;
-	while (i < TOKEN_WITH_DATA)
-	{
-		if (token.type == machine->lexinfo->duplicate[i++] && *machine->buffer)
-			token.data = ft_strdup(machine->buffer);
-	}
+	assign_token_data(machine, &token) ; //Gestion d'erreur ici
 	if (machine->last_lexer != E_END)
 	{
 		ft_bzero(machine->buffer, BUFFER);
