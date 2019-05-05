@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:13:42 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 00:54:16 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 18:58:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	init_io_rediction_parser(t_pstate parsing)
 {
 	init_io(parsing);
 	init_io_redirect(parsing);
+	init_io_filename(parsing);
 	init_io_filename_and(parsing);
 	init_io_flush(parsing);
 	init_io_flush_and(parsing);
