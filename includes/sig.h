@@ -6,12 +6,15 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:02:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 16:44:49 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/05 18:08:10 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SIG_H
 # define SIG_H
+void	signal_parser(void);
+
+void	stop_parsing(const int signo);
 void	kill_process(const int signo);
 void	loop_signals(void (*func)(int));
 void	define_ign_signals(void);
