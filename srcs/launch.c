@@ -137,6 +137,9 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 		return (FAILURE);
 	shell->bin_hashmap = ft_hmap_init(4096);
 	shell->blt_hashmap = ft_hmap_init(32);
+	shell->cur_fd.in = 0;
+	shell->cur_fd.out = 1;
+	shell->cur_fd.err = 2;
 	if (set_shlvl(shell) == FAILURE)
 		return (FAILURE);
 	//wtf

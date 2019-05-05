@@ -31,7 +31,7 @@ int8_t				unset_blt(t_registry *shell, char **av)
 	++av;
 	if (*av == NULL)
 	{
-		ft_dprintf(2, UNSET_USAGE);
+		ft_dprintf(shell->cur_fd.err, UNSET_USAGE);
 		return (FAILURE);
 	}
 	if (ft_strequ(*av, "*") == TRUE)

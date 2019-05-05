@@ -36,9 +36,6 @@ void		get_blt_fd(void *data)
 	t_filedesc *fd;
 
 	fd = data;
-	g_shell->cur_fd.in = 0;
-	g_shell->cur_fd.out = 1;
-	g_shell->cur_fd.err = 2;
 	if (fd->second == 0)
 		g_shell->cur_fd.in = fd->first;
 	else if (fd->second == 2)
@@ -97,6 +94,9 @@ int			launch_builtin(t_registry *shell, t_process *process)
 		return (FALSE);
 	ft_lstiter(process->fd, get_blt_fd);
 	f(shell, process->av);
+	shell->cur_fd.in = 0;
+	shell->cur_fd.out = 1;
+	shell->cur_fd.err = 2;
 	return (TRUE);
 }
 

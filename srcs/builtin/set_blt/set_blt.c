@@ -16,6 +16,6 @@
 int8_t				set_blt(t_registry *shell, char **av)
 {
 	(void)av;
-	print_lst(&shell->intern);
+	print_lst(&shell->intern, shell->cur_fd.out);
 	return (SUCCESS);
 }

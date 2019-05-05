@@ -14,7 +14,9 @@
 #include "21sh.h"
 #include "lexer.h"
 
-t_option			get_option_env(char *s, t_option option)
+t_registry	*g_shell;
+
+t_option				get_option_env(char *s, t_option option)
 {
 	while (*s != '\0')
 	{
@@ -22,9 +24,10 @@ t_option			get_option_env(char *s, t_option option)
 			option |= I_OPT;
 		else
 		{
-			ft_dprintf(2, "21sh: env: -%c: invalid option\n", *s);
-			ft_dprintf(2, ENV_USAGE_1);
-			ft_dprintf(2, ENV_USAGE_2);
+			ft_dprintf(g_shell->cur_fd.err,
+							"21sh: env: -%c: invalid option\n", *s);
+			ft_dprintf(g_shell->cur_fd.err, ENV_USAGE_1);
+			ft_dprintf(g_shell->cur_fd.err, ENV_USAGE_2);
 			return (ERROR_OPT);
 		}
 		s++;
@@ -83,7 +86,7 @@ static t_registry		*copy_registry(t_registry *shell, char ***arg,
 	return (cpy_shell);
 }
 
-static char			*concat_param(char **av)
+static char				*concat_param(char **av)
 {
 	char	*new_input;
 	char	*arg;
@@ -118,15 +121,14 @@ int8_t				env_blt(t_registry *shell, char **av)
 		return (FAILURE);
 	cpy_shell = copy_registry(shell, &av, option);
 	if (*av == NULL)
-		print_lst(&cpy_shell->env);
+		print_lst(&cpy_shell->env, shell->cur_fd.out);
 	if (*av != NULL && (new_input = concat_param(av)) != NULL)
 	{
-		///////////// DOES NOT WORK ////////////// 
+		///////////////////// GOOD ? ///////////////
 		cpy_shell->is_interactive = FALSE;
 		execution_pipeline(cpy_shell, lexer(&shell->lexinfo, new_input));
 		ft_strdel(&new_input);
 		cpy_shell->is_interactive = TRUE;
-		/////////////////////////////////////////
 	}
 	free_lst(&(cpy_shell->env));
 	free(cpy_shell);

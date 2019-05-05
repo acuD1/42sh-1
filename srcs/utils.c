@@ -12,7 +12,7 @@
 
 #include "21sh.h"
 
-void			print_lst(t_list **alst)
+void			print_lst(t_list **alst, int fd)
 {
 	t_list *ptr;
 
@@ -21,7 +21,7 @@ void			print_lst(t_list **alst)
 	ptr = *alst;
 	while (ptr != NULL)
 	{
-		ft_printf("%s=%s\n", ((t_variable *)ptr->data)->name
+		ft_dprintf(fd, "%s=%s\n", ((t_variable *)ptr->data)->name
 				, ((t_variable *)ptr->data)->data, ptr->next);
 		ptr = ptr->next;
 	}

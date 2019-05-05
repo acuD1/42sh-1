@@ -18,7 +18,7 @@ int8_t				unsetenv_blt(t_registry *shell, char **av)
 	av++;
 	if (*av == NULL)
 	{	
-		ft_dprintf(2, UNSETENV_USAGE);
+		ft_dprintf(shell->cur_fd.err, UNSETENV_USAGE);
 		return (FAILURE);
 	}
 	if (ft_strequ(*av, "*") == TRUE)
