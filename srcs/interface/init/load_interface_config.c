@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/02 14:57:41 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/05 16:28:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int8_t				fill_interface_related_internals(t_registry *shell)
 	return (SUCCESS);
 }
 
-int8_t 				load_interface(t_registry *shell)
+int8_t				load_interface(t_registry *shell)
 {
 	if (fetch_terminal_info(shell) == FAILURE)
 		return (FAILURE);

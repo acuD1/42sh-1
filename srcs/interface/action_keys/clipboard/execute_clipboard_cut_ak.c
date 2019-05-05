@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 10:41:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:54:00 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/05 16:27:28 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int8_t		cut_vector(t_vector *vect, t_cursor *cursor,
 
 static void			copy_buffer_part(t_interface *itf, const int8_t before)
 {
-	char *tmp;
+	char	*tmp;
 
 	if (before > 0)
 	{
@@ -51,12 +51,6 @@ static void			copy_buffer_part(t_interface *itf, const int8_t before)
 		ft_strdel(&tmp);
 		cut_vector(itf->line, &itf->cursor, before);
 	}
-}
-
-static void			move_buffer(char *dest, t_vector *source)
-{
-	ft_strcpy(dest, source->buffer);
-	ft_bzero(source->buffer, source->size);
 }
 
 int8_t				tc_ak_cut_before_cursor(t_registry *shell)

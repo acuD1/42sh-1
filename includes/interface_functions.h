@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/03 17:25:59 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/05 16:39:39 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int8_t		update_window(t_registry *shell);
 *****************************************************
 */
 
+void		move_buffer(char *dest, t_vector *source);
 void		validate_input_quoting(t_registry *shell, t_interface *itf);
 int8_t		fill_interface_related_internals(t_registry *shell);
 t_vector	*allocate_clipboard(t_registry *shell);
@@ -66,6 +67,7 @@ int8_t		quoting_is_valid(char *string);
 *****************************************************
 */
 
+void		interface_resize_handler(const int signo);
 void		print_char(t_interface *itf, const char d);
 void		print_words(t_interface *itf, const char *str);
 void		redraw_prompt(const int signo);

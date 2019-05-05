@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/02 02:15:38 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 17:14:06 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	init_debug_logger(t_registry *shell)
 	home_path = NULL;
 	log_path = NULL;
 	debug_fd = -1;
-
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
 	{
 		if ((home_path = get_data(shell->env, "HOME")) == NULL)
@@ -76,8 +75,6 @@ void	init_debug_logger(t_registry *shell)
 			return ;
 		}
 		ft_strdel(&tmp);
-		ft_dprintf(debug_fd, "---------------------------------\n");
-		ft_dprintf(debug_fd, "[INFO] - Starting shell\n");
 		ft_strdel(&log_path);
 	}
 	else

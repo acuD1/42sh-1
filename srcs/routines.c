@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 06:32:22 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 17:15:05 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 
 
 	define_parser_signals();
-
 	////////////////////// DEBUG LEXER ////////////////////////
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
 	{

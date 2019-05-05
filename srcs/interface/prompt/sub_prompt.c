@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:22:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 06:14:47 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 17:36:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,13 @@ static int8_t		is_std_ps(const char *p_state)
 	return (FALSE);
 }
 
+void				sub_prompt_error(char **line, t_interface *itf)
+{
+	*line = NULL;
+	reset_vector(itf->line);
+	ft_strdel(&(itf->line->buffer));
+}
+
 int8_t				invoke_sub_prompt(t_registry *shell, char **line,
 						char *prompt_state)
 {
@@ -79,9 +86,7 @@ int8_t				invoke_sub_prompt(t_registry *shell, char **line,
 	print_sub_prompt(shell);
 	if (sub_prompt_loop(shell, itf) != SUCCESS)
 	{
-		*line = NULL;
-		reset_vector(itf->line);
-		ft_strdel(&(itf->line->buffer));
+		sub_prompt_error(line, itf);
 		return (FAILURE);
 	}
 	*line = ft_strdup(itf->line->buffer);

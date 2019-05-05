@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/03 17:51:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/05 17:36:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void			get_prompt_ps1(t_registry *shell)
 char			*prompt(t_registry *shell)
 {
 	char			character[READ_SIZE + 1];
-	t_interface 	*itf;
+	t_interface		*itf;
 
 	itf = &shell->interface;
 	ft_bzero(character, READ_SIZE);

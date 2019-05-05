@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:49:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:53:15 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/05 16:43:27 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	print_words(t_interface *itf, const char *str)
 	size_t		len;
 
 	i = 0;
-	len = ft_strlen(str); 
+	len = ft_strlen(str);
 	while (i < len)
 		print_char(itf, str[i++]);
 }

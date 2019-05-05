@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/02 12:39:32 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/05 17:29:47 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static int8_t		launch_shell_prompt(t_registry *shell)
 	char		*input;
 
 	define_interface_signals();
-
 	if (get_input(shell, &input) == FAILURE)
 	{
 		cleanup_interface(shell);
@@ -55,6 +54,15 @@ static int8_t		launch_shell_prompt(t_registry *shell)
 	execution_pipeline(shell, lexer(&shell->lexinfo, input));
 	return (SUCCESS);
 }
+
+/*
+**	This is the main function to invoke the interactive
+**  line edition, aside from logging its progress,
+**	it iterates on the function launch_shell_prompt,
+**	which displays the real prompt, send input to the execution pipeline,
+**	and cleans it up on successfull completion.
+**	On exit, we restore the previous terminal behavior (via. the Termios struct)
+*/
 
 void				launch_interface(t_registry *shell)
 {

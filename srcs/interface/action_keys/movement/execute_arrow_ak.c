@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:12:56 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/04 18:04:55 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/05 16:33:53 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,15 @@ int8_t				tc_ak_arrow_left(t_registry *shell)
 	return (SUCCESS);
 }
 
-/*
-** History placeholder
-*/
-
 int8_t				tc_ak_arrow_up(t_registry *shell)
 {
-
 	if (shell->interface.hist_ptr == NULL)
 	{
 		shell->interface.hist_ptr = shell->interface.history_head;
 		if (shell->interface.current_line != NULL)
 			ft_strdel(&(shell->interface.current_line));
-		shell->interface.current_line = ft_strdup(shell->interface.line->buffer);
+		shell->interface.current_line = ft_strdup(
+						shell->interface.line->buffer);
 	}
 	else if (shell->interface.hist_ptr->next)
 		shell->interface.hist_ptr = shell->interface.hist_ptr->next;
@@ -94,10 +90,6 @@ int8_t				tc_ak_arrow_up(t_registry *shell)
 		replace_input_line(shell, shell->interface.hist_ptr->command);
 	return (SUCCESS);
 }
-
-/*
-** History placeholder
-*/
 
 int8_t				tc_ak_arrow_down(t_registry *shell)
 {

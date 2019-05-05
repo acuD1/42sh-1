@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/05/04 22:56:04 by cempassi         ###   ########.fr        #
+#    Updated: 2019/05/05 16:45:32 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -239,6 +239,8 @@ LINE += history.c
 
 #Signals
 LINE += signal_handler.c
+LINE += itf_signals.c
+LINE += exec_signals.c
 
 #Utilities
 LINE += validate_interface.c
