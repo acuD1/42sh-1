@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 16:44:51 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/05 18:02:55 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void			define_ign_signals(void)
 void			define_parser_signals(void)
 {
 	loop_signals(SIG_IGN);
+	signal(SIGINT, stop_parsing);
 }
 
 void			define_execution_signals(void)

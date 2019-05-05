@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/05 03:36:30 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 17:54:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,7 @@ struct					s_registry
 	t_hash				blt_hashmap;
 	struct s_interface	interface;
 	uint8_t				is_interactive;
+	uint8_t				parse_signal;
 	t_opt				option;
 	t_fd				cur_fd;
 };
