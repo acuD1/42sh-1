@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:01:44 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 01:01:50 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 18:21:14 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	stop_parser(t_parser *parse)
 	ft_lstaddback(&parse->job_list, node);
 	free(token);
 	get_token(parse);
+	parse->valid = 1;
 }
 
 void	end_parser(t_parser *parse)
@@ -53,4 +54,5 @@ void	end_parser(t_parser *parse)
 	node = ft_lstnew(&parse->job, sizeof(t_job));
 	ft_lstaddback(&parse->job_list, node);
 	get_token(parse);
+	parse->valid = 1;
 }

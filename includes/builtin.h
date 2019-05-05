@@ -55,6 +55,8 @@ char		*is_cdpath_env(t_registry *shell, const char *to_find);
 char		*get_relative_path(char **curpath);
 char		*make_curpath_simple(char *curpath);
 uint8_t		one_only_arg(char **arg);
+uint8_t 	check_path(t_registry *shell, char *curpath,
+						const char *path_give_by_user);
 int8_t		exit_cd(t_registry *shell, char **old_pwd,
 						char **curpath, int8_t ret);
 

@@ -6,13 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 05:42:30 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 17:29:59 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "sig.h"
 #include <unistd.h>
+#include <fcntl.h>
 
 void		redirect(void *data)
 {
@@ -22,9 +23,15 @@ void		redirect(void *data)
 	if (fd->action & FD_CLOSE)
 		close(fd->second);
 	else if (fd->action & FD_WRITE)
+	{
 		dup2(fd->first, fd->second);
+		close(fd->first);
+	}
 	else if (fd->action & FD_READ)
+	{
 		dup2(fd->second, fd->first);
+		close(fd->second);
+	}
 }
 
 static char	**str_lst_to_tab(t_list *alst)
@@ -72,11 +79,27 @@ static void	execute_process(t_process *process, t_registry *shell, char **env)
 int			launch_builtin(t_registry *shell, t_process *process)
 {
 	t_builtin		f;
+	t_filedesc 		*fd;
+	int				tmp_fd;
 
-	if ((f = ft_hmap_getdata(&shell->blt_hashmap, process->av[0])))
+	if (!(f = ft_hmap_getdata(&shell->blt_hashmap, process->av[0])))
+		return (FALSE);
+	if (!process->fd || !(fd = (t_filedesc *)(process->fd->data)))
 	{
 		f(shell, process->av);
 		return (1);
+	}
+	tmp_fd = fcntl(fd->second, F_DUPFD, 10);
+	fcntl(tmp_fd, F_SETFD, FD_CLOEXEC);
+	if (fd->action & FD_WRITE)
+	{
+		dup2(fd->first, fd->second);
+		close(fd->second);
+	//	if (fd->action & FD_CLOSE)
+	//		close(fd->first);
+		f(shell, process->av);
+		dup2(tmp_fd, fd->second);
+		close(tmp_fd);
 	}
 	return (0);
 }
