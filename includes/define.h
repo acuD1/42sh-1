@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/05 05:57:30 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 19:35:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@
 *****************************************************
 */
 
+# define FAIL_EOF					42
 # define AK_AMOUNT					24
 # define AK_ARROW_UP_MASK			0x1b5b410000000000
 # define AK_ARROW_DOWN_MASK 		0x1b5b420000000000
