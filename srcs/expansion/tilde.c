@@ -34,13 +34,13 @@ static char	*tilde_expansion(t_parser *parse, const char *str)
 
 	expanded = NULL;
 	if (ft_strequ(str, "~") == TRUE)
-		expanded = get_data(parse->env, "HOME");
+		expanded = ft_strdup(get_data(parse->env, "HOME"));
 	else if (ft_strequ(str, "~+") == TRUE)
-		expanded = get_data(parse->env, "PWD");
+		expanded = ft_strdup(get_data(parse->env, "PWD"));
 	else if (ft_strequ(str, "~-") == TRUE)
 	{
 		if ((expanded = get_data(parse->env, "OLDPWD")) != NULL)
-			return (expanded);
+			return (ft_strdup(expanded));
 		ft_dprintf(2, "21sh: OLDPWD is not set\n");
 		error_parser(parse);
 	}
