@@ -94,6 +94,7 @@ void		heredoc_parser(t_parser *parse)
 	line = NULL;
 	pipe(fd);
 	delimiter = pop_token_data(&parse->stack);
+	pop_token_data(&parse->stack);
 	generate_filedesc(parse, fd[0], STDIN_FILENO, FD_DUP | FD_WRITE);
 	while (invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
 	{
