@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 16:41:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 19:04:33 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/05 19:12:16 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ void		stop_parsing(const int signo)
 	g_shell->parse_signal = TRUE;
 }
 
-void		signal_parser(t_list **token_list)
+void		signal_parser(t_parser *parse)
 {
 	ft_dprintf(2, "21sh: Parsing has been interrupted.\n");
-	ft_lstdel(token_list, del_token);
+	ft_lstdel(&parse->token_list, del_token);
+	ft_strdel(&parse->token.data);
 }
 
 void		kill_process(const int signo)
