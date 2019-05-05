@@ -73,3 +73,28 @@ char			*is_cdpath_env(t_registry *shell, const char *to_find)
 	ft_freetab(&tab_cd_path);
 	return (NULL);
 }
+
+uint8_t check_path(t_registry *shell, char *curpath,
+						const char *path_give_by_user)
+{
+	char		*oldpwd;
+	struct stat	stat;
+
+	if (ft_strequ(path_give_by_user, "-") == TRUE)
+	{
+		oldpwd = get_env_var(shell, "OLDPWD");
+		if (oldpwd != NULL)
+			path_give_by_user = oldpwd;
+	}
+	if (access(curpath, F_OK) != SUCCESS)
+		ft_dprintf(2, "cd: no such file or directory: %s\n", path_give_by_user);
+	else if (lstat(curpath, &stat) == FAILURE)
+		ft_dprintf(2, "cd: not a directory: %s\n", path_give_by_user);
+	else if (access(curpath, R_OK) != SUCCESS)
+		ft_dprintf(2, "21sh: cd: %s: Permission denied\n", path_give_by_user);
+	else if (chdir(curpath) == FAILURE)
+		ft_dprintf(2, "chdir() failed\n");
+	else
+		return (TRUE);
+	return (FALSE);
+}

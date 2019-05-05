@@ -64,20 +64,9 @@ static int8_t		change_directory(t_registry *shell, char *curpath,
 						const char *path_give_by_user, const t_option option)
 {
 	char		*old_pwd;
-	struct stat	stat;
 
 	old_pwd = get_pwd(shell, NO_OPT);
-	if (ft_strequ(path_give_by_user, "-") == TRUE)
-		path_give_by_user = get_env_var(shell, "OLDPWD");
-	if (access(curpath, F_OK) != SUCCESS)
-		ft_dprintf(2, "cd: no such file or directory: %s\n", path_give_by_user);
-	else if (lstat(curpath, &stat) == FAILURE)
-		ft_dprintf(2, "cd: not a directory: %s\n", path_give_by_user);
-	else if (access(curpath, R_OK) != SUCCESS)
-		ft_dprintf(2, "21sh: cd: %s: Permission denied\n", path_give_by_user);
-	else if (chdir(curpath) == FAILURE)
-		ft_dprintf(2, "chdir() failed\n");
-	else
+	if (check_path(shell, curpath, path_give_by_user) == TRUE)
 	{
 		set_oldpwd_and_pwd(shell, curpath, old_pwd, option);
 		if (ft_strequ(path_give_by_user, "-") == TRUE)
