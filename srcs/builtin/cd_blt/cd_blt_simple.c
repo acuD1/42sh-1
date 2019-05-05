@@ -11,8 +11,7 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "libft.h"
-#include "define.h"
+#include "builtin.h"
 
 static void		ft_process_transform(const char *path, char **new_path)
 {
@@ -82,13 +81,13 @@ char			*make_curpath_simple(char *curpath)
 	return (new_path);
 }
 
-uint8_t			one_only_arg(char **arg)
+uint8_t			one_only_arg(t_registry *shell, char **arg)
 {
 	if (*arg == NULL)
 		return (TRUE);
 	if (*(arg + 1) != NULL)
 	{
-		ft_dprintf(2, "21sh: cd: Too many arguments\n");
+		ft_dprintf(shell->cur_fd.err, "21sh: cd: Too many arguments\n");
 		return (FALSE);
 	}
 	return (TRUE);

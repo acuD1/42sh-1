@@ -15,6 +15,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+t_registry	*g_shell;
+
 void		redirect(void *data)
 {
 	t_filedesc *fd;
@@ -23,9 +25,26 @@ void		redirect(void *data)
 	if (fd->action & FD_CLOSE)
 		close(fd->second);
 	else if (fd->action & FD_WRITE)
+	{
+		close(fd->second);
 		dup2(fd->first, fd->second);
-	else if (fd->action & FD_READ)
-		dup2(fd->second, fd->first);
+	}
+}
+
+void		get_blt_fd(void *data)
+{
+	t_filedesc *fd;
+
+	fd = data;
+	g_shell->cur_fd.in = 0;
+	g_shell->cur_fd.out = 1;
+	g_shell->cur_fd.err = 2;
+	if (fd->second == 0)
+		g_shell->cur_fd.in = fd->first;
+	else if (fd->second == 2)
+		g_shell->cur_fd.err = fd->first;
+	else
+		g_shell->cur_fd.out = fd->first;
 }
 
 static char	**str_lst_to_tab(t_list *alst)
@@ -73,29 +92,12 @@ static void	execute_process(t_process *process, t_registry *shell, char **env)
 int			launch_builtin(t_registry *shell, t_process *process)
 {
 	t_builtin		f;
-	t_filedesc 		*fd;
-	int				tmp_fd;
 
 	if (!(f = ft_hmap_getdata(&shell->blt_hashmap, process->av[0])))
 		return (FALSE);
-	if (!process->fd || !(fd = (t_filedesc *)(process->fd->data)))
-	{
-		f(shell, process->av);
-		return (1);
-	}
-	tmp_fd = fcntl(fd->second, F_DUPFD, 10);
-	fcntl(tmp_fd, F_SETFD, FD_CLOEXEC);
-	if (fd->action & FD_WRITE)
-	{
-		dup2(fd->first, fd->second);
-		close(fd->second);
-	//	if (fd->action & FD_CLOSE)
-	//		close(fd->first);
-		f(shell, process->av);
-		dup2(tmp_fd, fd->second);
-		close(tmp_fd);
-	}
-	return (0);
+	ft_lstiter(process->fd, get_blt_fd);
+	f(shell, process->av);
+	return (TRUE);
 }
 
 int8_t		launch_process(t_job *job, t_process *process, t_registry *shell)

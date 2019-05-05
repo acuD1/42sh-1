@@ -16,6 +16,8 @@
 #include <pwd.h>
 #include <limits.h>
 
+t_registry	*g_shell;
+
 t_option		get_option_cd(char *s, t_option option)
 {
 	option = 0;
@@ -27,8 +29,9 @@ t_option		get_option_cd(char *s, t_option option)
 			option |= P_OPT;
 		else
 		{
-			ft_dprintf(2, "21sh: cd: -%c: invalid option\n", *s);
-			ft_dprintf(2, CD_USAGE);
+			ft_dprintf(g_shell->cur_fd.err,
+					"21sh: cd: -%c: invalid option\n", *s);
+			ft_dprintf(g_shell->cur_fd.err, CD_USAGE);
 			return (ERROR_OPT);
 		}
 		s++;

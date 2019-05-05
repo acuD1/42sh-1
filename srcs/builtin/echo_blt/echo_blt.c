@@ -12,13 +12,10 @@
 
 #include "struct.h"
 
-//////__unused shell
 int8_t				echo_blt(t_registry *shell, char **av)
 {
 	t_option	option;
 
-///// delete (void)shell
-	(void)shell;
 	++av;
 	option = 0;
 	while (ft_strequ("-n", *av) == TRUE)
@@ -28,12 +25,12 @@ int8_t				echo_blt(t_registry *shell, char **av)
 	}
 	while (*av != NULL)
 	{
-		ft_putstr(*av);
+		ft_putstr_fd(*av, shell->cur_fd.out);
 		++av;
 		if (*av != NULL)
-			ft_putchar(' ');
+			ft_putchar_fd(' ', shell->cur_fd.out);
 	}
 	if ((option & N_OPT) == FALSE)
-		ft_putchar('\n');
+		ft_putchar_fd('\n', shell->cur_fd.out);
 	return (SUCCESS);
 }
