@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 21:11:21 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 01:55:47 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*variable_replace(t_list *lst, char *str)
 	data = get_data(lst, str);
 	str[i] = character_swap('\0');
 	if (i == 0)
-		ft_asprintf(&expanded,"$%s", str);
+		ft_asprintf(&expanded, "$%s", str);
 	else if (data != NULL)
 		ft_asprintf(&expanded, "%s%s", data, str + i);
 	else
@@ -35,7 +35,7 @@ static char	*variable_replace(t_list *lst, char *str)
 	return (expanded);
 }
 
-char		*variable_concat(t_list *lst, char **str, int i)
+static char	*variable_concat(t_list *lst, char **str, int i)
 {
 	char	*expanded;
 	char	*holder;
@@ -46,6 +46,24 @@ char		*variable_concat(t_list *lst, char **str, int i)
 	ft_strdel(&expanded);
 	ft_strdel(str);
 	return (holder);
+}
+
+static int	check_expansion(t_parser *parse, char **str, int i, t_quote quote)
+{
+	int		check;
+
+	check = 0;
+	if ((*str)[i] == '$' && (*str)[i + 1] != '\0')
+	{
+		if (ft_strchr(EXP_INTERUPT, (*str)[i + 1]))
+			check = 0;
+		else if (quote != QUOTE_SINGLE )
+		{
+			(*str) = variable_concat(parse->env, str, i);
+			check = 1;
+		}
+	}
+	return (check);
 }
 
 char		*variable_expansion(t_parser *parse, char *str)
@@ -61,16 +79,8 @@ char		*variable_expansion(t_parser *parse, char *str)
 	{
 		if (ft_strchr("\'\"", str[i]) != NULL && (parse->quoting & QUOTING))
 			quote = select_quoting(quote, str[i]);
-		if (str[i] == '$' && str[i + 1] != '\0')
-		{
-			if (ft_strchr(EXP_INTERUPT, str[i + 1]))
-				++i;
-			else if (quote != QUOTE_SINGLE )
-			{
-				str = variable_concat(parse->env, &str, i);
-				len = ft_strlen(str);
-			}
-		}
+		if (check_expansion(parse, &str, i, quote) == 1)
+			len = ft_strlen(str);
 		else
 			++i;
 	}

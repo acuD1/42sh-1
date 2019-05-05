@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:18:11 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 22:34:15 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 00:53:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "parser.h"
 
 void	init_io(t_pstate parsing);
-void	init_io_filename(t_pstate parsing);
 void	init_io_filename_and(t_pstate parsing);
 void	init_io_flush(t_pstate parsing);
 void	init_io_flush_and(t_pstate parsing);
@@ -34,7 +33,6 @@ void	init_string(t_pstate parsing);
 void	init_special_string(t_pstate parsing);
 void	init_flush_string(t_pstate parsing);
 void	init_filename(t_pstate parsing);
-void	init_special_filename(t_pstate parsing);
 void	init_start(t_pstate parsing);
 void	init_separator(t_pstate parsing);
 void	init_redirect(t_pstate parsing);

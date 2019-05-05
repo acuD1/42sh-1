@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/04 20:20:46 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 02:00:49 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@
 # define STATENBR					17
 # define TOKEN_WITH_DATA			5
 # define NB_OF_TOKENS				50
-# define BUFFER						1024
+# define BUFFER						4096
 # define SINGLE_SIGNS				16
 # define SPECIAL_SIGNS				14
 # define SIGNS 						(SPECIAL_SIGNS + SINGLE_SIGNS)

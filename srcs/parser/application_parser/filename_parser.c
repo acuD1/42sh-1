@@ -6,34 +6,38 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:47:14 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 21:11:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 00:57:27 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
+void	check_filename (t_parser *parse)
+{
+	int		stat;
+
+	stat = 0;
+	if (!parse->token.data || (stat = ft_checkstat(parse->token.data, S_IFDIR)))
+	{
+		if(stat)
+			ft_dprintf(2, "21sh: %s: Is a directory\n", parse->token.data);
+		error_parser(parse);
+	}
+	else
+		ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
+}
+
 void	filename_parser(t_parser *parse)
 {
-	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-	get_token(parse);
-	parse->state = P_FILENAME;
-}
-
-void	special_filename_parser(t_parser *parse)
-{
-	parse->state = P_SPFILENAME;
-	parse->token.type = E_STRING;
-	if ((parse->token.data = string_expansion(parse, parse->token.data)))
-		ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-	get_token(parse);
-}
-
-void	io_filename_parser(t_parser *parse)
-{
-	parse->state = P_IO_FILENAME;
-	parse->token.type = E_STRING;
-	if ((parse->token.data = string_expansion(parse, parse->token.data)))
-		ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
+	if (parse->token.type == E_SPSTRING)
+		parse->token.data = string_expansion(parse, parse->token.data);
+	if (parse->state == P_IO_REDIRECT)
+		parse->state = P_IO_FILENAME;
+	else if (parse->token.type == E_SPSTRING)
+		parse->state = P_SPFILENAME;
+	else
+		parse->state = P_FILENAME;
+	check_filename(parse);
 	get_token(parse);
 }
 
