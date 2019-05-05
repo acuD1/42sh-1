@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:42:30 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 23:28:18 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 05:59:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	io_redirect_parser(t_parser *parse)
 		parse->oflags = O_RDWR + O_CREAT + O_APPEND;
 	else if (parse->token.type == E_LESS)
 		parse->oflags = O_RDONLY;
-	else if (parse->token.type == E_DLESS)
+	else if (parse->token.type == E_DLESS || parse->token.type == E_DLESSDASH)
 		parse->state = P_IO_HEREDOC_REDIRECT;
 	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
 	get_token(parse);

@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 01:55:47 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 05:11:48 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	check_expansion(t_parser *parse, char **str, int i, t_quote quote)
 			check = 0;
 		else if (quote != QUOTE_SINGLE )
 		{
-			(*str) = variable_concat(parse->env, str, i);
+			*str = variable_concat(parse->env, str, i);
 			check = 1;
 		}
 	}

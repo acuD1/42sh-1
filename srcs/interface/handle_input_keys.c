@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:46:52 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/05 06:26:02 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void			handle_input_key(t_registry *shell, char c[READ_SIZE])
 		while (index < AK_AMOUNT)
 		{
 			if (value == shell->interface.ak_masks[index])
-				(shell->interface.tc_call)[index](shell);
+				shell->interface.tc_call[index](shell);
 			++index;
 		}
 	}

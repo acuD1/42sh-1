@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/24 18:57:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/05 06:56:35 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void		ft_process_transform(const char *path, char **new_path)
 	{
 		if ((ft_strequ(*new_path, "/")) == FALSE)
 			curpath = ft_strjoin("/", path);
-		else 
+		else
 			curpath = ft_strdup(path);
 		tmp_path = *new_path;
 		*new_path = ft_strjoin(tmp_path, curpath);

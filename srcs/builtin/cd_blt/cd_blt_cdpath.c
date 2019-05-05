@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd_blt_cdpath.h                                    :+:      :+:    :+:   */
+/*   cd_blt_cdpath.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:35:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/24 18:13:09 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/05 06:56:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char		*is_valid_path(char *path, const char *to_find)
 
 }
 
-static uint8_t		add_end_slash(char **path)
+static uint8_t	add_end_slash(char **path)
 {
 	size_t	len;
 	char	*tmp_path;

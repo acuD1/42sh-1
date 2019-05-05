@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:47:14 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 00:57:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 06:18:14 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	check_filename (t_parser *parse)
 	}
 	else
 		ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
+	ft_strdel(&parse->token.data);
 }
 
 void	filename_parser(t_parser *parse)
@@ -73,6 +74,8 @@ void	io_dup_move_parser(t_parser *parse)
 	{
 		if (io_filename_validate(parse, parse->token.data))
 			ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
+		else
+			ft_strdel(&parse->token.data);
 		get_token(parse);
 	}
 }

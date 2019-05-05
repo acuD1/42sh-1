@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/05 03:42:06 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 05:57:30 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@
 # define FD_WRITE					0x04
 # define FD_READ					0x08
 # define QUOTING					0x01
+# define HERETRIM					0x02
 
 # define REDIR						E_GREAT, E_LESS
 # define REDIR_AND					E_GREATAND, E_LESSAND, E_ANDGREAT

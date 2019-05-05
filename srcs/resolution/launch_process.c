@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/04 23:35:59 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 05:42:30 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,64 +52,54 @@ static char	**str_lst_to_tab(t_list *alst)
 	return (tabs);
 }
 
-static void	execute_process(t_process *process, t_registry *shell)
+static void	execute_process(t_process *process, t_registry *shell, char **env)
 {
-	char			**environ;
 
 	define_execution_signals();
-	////////////////////// DEBUG EXEC ///////////////////////
-//	if ((shell->option.option & DEBUG_OPT) != FALSE)
-//	{
-//		ft_dprintf(2, "\n\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
-//				process->av[0], fd.in, fd.out, fd.err);
-//		ft_dprintf(2, "\x1b[35m[OUTPUT]: _______________________\n\x1b[0m\n");
-//	}
-	/////////////////////////////////////////////////////////
-
 	ft_lstiter(process->fd, redirect);
-	environ = str_lst_to_tab(shell->env);
-	/*	Exec the new process	*/
 	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL)
 		exit(((t_builtin)ft_hmap_getdata(&shell->blt_hashmap /* HOTFIX */
-									, process->av[0]))(shell, process->av));
+						, process->av[0]))(shell, process->av));
 	else if (ft_hmap_getdata(&shell->bin_hashmap, process->av[0]) != NULL)
 		execve(ft_hmap_getdata(&shell->bin_hashmap, process->av[0])
-									, process->av, environ);
+				, process->av, env);
 	else if (process->av[0][0] == '.' || process->av[0][0] == '/')
-		execve(process->av[0], process->av, environ);
-	////////////////////// DEBUG ERROR ///////////////////////
+		execve(process->av[0], process->av, env);
 	ft_dprintf(2, "21sh: command not found: %s\n", process->av[0]);
-	//////////////////////////////////////////////////////////
-
 	exit(FAILURE);
+}
+
+int			launch_builtin(t_registry *shell, t_process *process)
+{
+	t_builtin		f;
+
+	if ((f = ft_hmap_getdata(&shell->blt_hashmap, process->av[0])))
+	{
+		f(shell, process->av);
+		return (1);
+	}
+	return (0);
 }
 
 int8_t		launch_process(t_job *job, t_process *process, t_registry *shell)
 {
 	pid_t		pid;
+	char		**env;
 
 	if (process->av == NULL)
 		return (SUCCESS);
-	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL
-			&& job->process_list->next == NULL)
-		return (((t_builtin)ft_hmap_getdata(&shell->blt_hashmap, process->av[0]))
-				(shell, process->av));
-	else
+	env = str_lst_to_tab(shell->env);
+	if (job->process_list->next == NULL && launch_builtin(shell, process))
+		return (SUCCESS);
+	if ((pid = fork()) == SUCCESS)
+		execute_process(process, shell, env);
+	else if (pid < 0)
 	{
-		pid = fork();
-		if (pid == 0)
-			execute_process(process, shell);
-		else if (pid < 0)
-		{
-			ft_dprintf(2, "[ERROR]: Fork() failed.\n");
-			exit(FAILURE);
-		}
-		else
-		{
-			process->pid = pid;
-			if (job->pgid == 0)
-				job->pgid = pid;
-		}
+		ft_dprintf(2, "[ERROR]: Fork() failed.\n");
+		return (FAILURE);
 	}
+	ft_freetab(&env);
+	process->pid = pid;
+	job->pgid = job->pgid ? job->pgid  :pid;
 	return (SUCCESS);
 }
