@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/05 02:00:49 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 05:57:30 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@
 # define STATENBR					17
 # define TOKEN_WITH_DATA			5
 # define NB_OF_TOKENS				50
-# define BUFFER						4096
+# define BUFFER						1024
 # define SINGLE_SIGNS				16
 # define SPECIAL_SIGNS				14
 # define SIGNS 						(SPECIAL_SIGNS + SINGLE_SIGNS)
@@ -137,6 +137,7 @@
 # define FD_WRITE					0x04
 # define FD_READ					0x08
 # define QUOTING					0x01
+# define HERETRIM					0x02
 
 # define REDIR						E_GREAT, E_LESS
 # define REDIR_AND					E_GREATAND, E_LESSAND, E_ANDGREAT

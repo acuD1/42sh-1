@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/04 18:56:48 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 03:59:34 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void		greatand_machine(t_lexer *machine);
 void		lesser_machine(t_lexer *machine);
 void		lessand_machine(t_lexer *machine);
 void		tilde_machine(t_lexer *machine);
-void		fill_buffer_output(t_lexer *machine);
 t_token 	generate_token(t_lexer *machine);
+int			create_token_data(t_lexer *machine);
 
 /*
 *****************************************************

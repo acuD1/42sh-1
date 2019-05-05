@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 12:57:21 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 17:04:46 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 05:45:46 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ char		*tilde(t_parser *parse, char *str)
 		expanded = tilde_expansion(parse, str);
 		str[i] = character_swap('\0');
 		ft_asprintf(&holder, "%s%s", expanded, str + i);
+		ft_strdel(&expanded);
 		ft_strdel(&str);
 		str = holder;
 	}

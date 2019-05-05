@@ -6,14 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:11:04 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/29 17:42:13 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/05 06:54:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "resolve.h"
 #include "builtin.h"
-#include "reso.h"
 
 int		add_to_test(t_list **test, void *fct)
 {

@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 22:07:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 21:11:42 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 06:33:02 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	delete_process(void *data)
 
 	process = (t_process *)data;
 	ft_freetab(&process->av);
-	ft_freetab(&process->env);
 	ft_lstdel(&process->fd, close_fd);
 }
 

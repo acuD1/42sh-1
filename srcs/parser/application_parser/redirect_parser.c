@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 00:13:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 06:00:54 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	pipe_parser(t_parser *parse)
 		close(fd[1]);
 	else
 		generate_filedesc(parse, fd[1], STDOUT_FILENO, FD_DUP | FD_WRITE);
-	parse->process.env = ft_lsttotab(parse->env, variable_to_str);
 	node = ft_lstnew(&parse->process, sizeof(t_process));
 	ft_lstaddback(&parse->job.process_list, node);
 	init_process(&parse->process);

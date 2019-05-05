@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/03 16:37:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 04:29:54 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void			and_machine(t_lexer *machine)
 		}
 	}
 	else
-		ft_strncat(machine->buffer, "&", 1);
+		create_token_data(machine);
 	machine->state = L_OUT;
 }
 
@@ -87,8 +87,11 @@ void			sign_machine(t_lexer *machine)
 	else if (*machine->input == '&')
 		machine->state = L_AND;
 	else if (double_dispatcher(machine) != FALSE)
-		ft_strncat(machine->buffer, machine->input, 1);
+		create_token_data(machine);
 	else
-		fill_buffer_output(machine);
+	{
+		create_token_data(machine);
+		machine->state = L_OUT;
+	}
 	++machine->input;
 }
