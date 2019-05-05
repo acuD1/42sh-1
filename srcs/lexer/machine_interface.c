@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/05 04:02:32 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 19:36:50 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	end_machine(t_lexer *machine)
 	else
 		machine->state = L_FINISH;
 }
-
 
 void	out_lexer(t_lexer *machine)
 {

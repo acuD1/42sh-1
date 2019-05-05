@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 19:14:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/05 19:26:53 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	get_token(t_parser *parse)
 
 t_list	*parser_state(t_pstate parsing, t_parser *parse)
 {
-	get_token(parse);
+	if (parse->token.type == E_DEFAULT)
+		get_token(parse);
 	while (parse->state != P_END && parse->state != P_ERROR)
 	{
 		if (g_shell->parse_signal == TRUE)
