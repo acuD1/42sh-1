@@ -88,14 +88,13 @@ void		heredoc_parser(t_parser *parse)
 {
 	char		*line;
 	char		*delimiter;
-	t_type		type;
 	int			fd[2];
 
 	parse->state = P_HEREDOC;
 	line = NULL;
 	pipe(fd);
 	delimiter = pop_token_data(&parse->stack);
-	type = pop_token_type(&parse->stack);
+	pop_token_data(&parse->stack);
 	generate_filedesc(parse, fd[0], STDIN_FILENO, FD_DUP | FD_WRITE);
 	while (invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
 	{

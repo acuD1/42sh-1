@@ -13,6 +13,7 @@
 #include "log.h"
 #include "sig.h"
 #include <unistd.h>
+#include <fcntl.h>
 
 void		redirect(void *data)
 {
@@ -78,11 +79,27 @@ static void	execute_process(t_process *process, t_registry *shell, char **env)
 int			launch_builtin(t_registry *shell, t_process *process)
 {
 	t_builtin		f;
+	t_filedesc 		*fd;
+	int				tmp_fd;
 
-	if ((f = ft_hmap_getdata(&shell->blt_hashmap, process->av[0])))
+	if (!(f = ft_hmap_getdata(&shell->blt_hashmap, process->av[0])))
+		return (FALSE);
+	if (!process->fd || !(fd = (t_filedesc *)(process->fd->data)))
 	{
 		f(shell, process->av);
 		return (1);
+	}
+	tmp_fd = fcntl(fd->second, F_DUPFD, 10);
+	fcntl(tmp_fd, F_SETFD, FD_CLOEXEC);
+	if (fd->action & FD_WRITE)
+	{
+		dup2(fd->first, fd->second);
+		close(fd->second);
+	//	if (fd->action & FD_CLOSE)
+	//		close(fd->first);
+		f(shell, process->av);
+		dup2(tmp_fd, fd->second);
+		close(tmp_fd);
 	}
 	return (0);
 }

@@ -11,21 +11,33 @@
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "unistd.h"
 
-void	check_filename (t_parser *parse)
+uint8_t	check_access(char *data)
 {
-	int		stat;
+	struct stat	stat;
 
-	stat = 0;
-	if (!parse->token.data || (stat = ft_checkstat(parse->token.data, S_IFDIR)))
+	if (access(data, F_OK) != SUCCESS)
+		return (TRUE);
+	lstat(data, &stat);
+	if (stat.st_mode & S_IFDIR)
+		ft_dprintf(2, "21sh: %s: Is a directory\n", data);
+	else if (access(data, R_OK) != SUCCESS)
+		ft_dprintf(2, "21sh: %s: Permission denied\n", data);
+	else
+		return (TRUE);
+	return (FALSE);
+}
+
+void	check_filename(t_parser *parse)
+{
+	if (parse->token.data == NULL || check_access(parse->token.data) == FALSE)
 	{
-		if(stat)
-			ft_dprintf(2, "21sh: %s: Is a directory\n", parse->token.data);
 		error_parser(parse);
+		ft_strdel(&parse->token.data);
 	}
 	else
 		ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-	ft_strdel(&parse->token.data);
 }
 
 void	filename_parser(t_parser *parse)
