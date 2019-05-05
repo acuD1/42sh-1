@@ -62,7 +62,7 @@ int8_t			add_internal_nbr(t_registry *shell,  char *name,
 *****************************************************
 */
 
-void			print_lst(t_list **alst);
+void			print_lst(t_list **alst, int fd);
 int8_t			f_create_node(t_list **alst, const char *str);
 int8_t			s_create_node(t_list **alst, const char *var, const char *data);
 int8_t			change_node(t_list **alst, const char *var, char *data);

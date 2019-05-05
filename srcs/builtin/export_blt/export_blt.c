@@ -13,6 +13,8 @@
 #include "builtin.h"
 #include "21sh.h"
 
+t_registry *g_shell;
+
 t_option			get_option_export(char *s, t_option option)
 {
 	while (*s)
@@ -21,8 +23,9 @@ t_option			get_option_export(char *s, t_option option)
 			option |= P_OPT;
 		else
 		{
-			ft_dprintf(2, "21sh: export: -%c: invalid option\n", *s);
-			ft_dprintf(2, EXPORT_USAGE);
+			ft_dprintf(g_shell->cur_fd.err,
+						"21sh: export: -%c: invalid option\n", *s);
+			ft_dprintf(g_shell->cur_fd.err, EXPORT_USAGE);
 			return (ERROR_OPT);
 		}
 		s++;

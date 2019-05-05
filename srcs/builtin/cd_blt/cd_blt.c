@@ -29,7 +29,7 @@ static char			*ft_get_curpath(t_registry *shell,
 	else if (ft_strequ(path_give_by_user, "-") == TRUE)
 	{
 		if ((curpath = get_env_var(shell, "OLDPWD")) == NULL)
-			ft_dprintf(2, CD_ERROR_OLDPWD_NOTSET);
+			ft_dprintf(shell->cur_fd.err, CD_ERROR_OLDPWD_NOTSET);
 		else
 			curpath = ft_strdup(curpath);
 	}
@@ -70,7 +70,7 @@ static int8_t		change_directory(t_registry *shell, char *curpath,
 	{
 		set_oldpwd_and_pwd(shell, curpath, old_pwd, option);
 		if (ft_strequ(path_give_by_user, "-") == TRUE)
-			ft_printf("%s\n", get_env_var(shell, "PWD"));
+			ft_dprintf(shell->cur_fd.out, "%s\n", get_env_var(shell, "PWD"));
 		return (exit_cd(shell, &old_pwd, &curpath, SUCCESS));
 	}
 	return (exit_cd(shell, &old_pwd, &curpath, FAILURE));
@@ -98,7 +98,7 @@ int8_t				cd_blt(t_registry *shell, char **av)
 	char		*curpath;
 	t_option	option;
 
-	if (one_only_arg(++av) == FALSE)
+	if (one_only_arg(shell, ++av) == FALSE)
 		return (FAILURE);
 	if (((option = set_options(&av, get_option_cd)) == ERROR_OPT)
 		|| (curpath = ft_get_curpath(shell, *av)) == NULL)
@@ -112,7 +112,8 @@ int8_t				cd_blt(t_registry *shell, char **av)
 				return (FAILURE);
 		if ((curpath = make_curpath_simple(curpath)) == NULL)
 		{
-			ft_dprintf(2, "21sh: cd: %s: No such file or directory\n",
+			ft_dprintf(shell->cur_fd.err,
+					"21sh: cd: %s: No such file or directory\n",
 				ft_strequ(*av, "-") ? get_env_var(shell, "OLDPWD") : *av);
 			return (FAILURE);
 		}

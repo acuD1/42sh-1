@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin.h"
-
+/*
 t_option		get_option_type(char *s, t_option option)
 {
 	option = 0;
@@ -37,34 +37,31 @@ t_option		get_option_type(char *s, t_option option)
 	}
 	return (option);
 }
-
+*/
 int8_t				type_blt(t_registry *shell, char **av)
 {
 	char		*path_bin;
 	int8_t		error;
-	t_option	option;
+	//t_option	option;
 
 	///////// IMPLEMENT OPT
 	av++;
 	error = SUCCESS;
 	///////// implement for absolute path binary : ex: /bin/ls
-	if (*av == NULL
+/*	if (*av == NULL
 		|| (option = set_options(&av, get_option_type)) == ERROR_OPT)
-		return (FAILURE);
+		return (FAILURE);*/
 	while (*av != NULL)
 	{
 		if (ft_hmap_getdata(&shell->blt_hashmap, *av) != NULL)
-			ft_printf("%s is a shell builtin\n", *av);
+			ft_dprintf(shell->cur_fd.out, "%s is a shell builtin\n", *av);
 		else if ((path_bin = ft_hmap_getdata(&shell->bin_hashmap, *av))
 					!= NULL)
-			ft_printf("%s is %s\n", *av, path_bin);
-			//////
-			////// if hashed:
-			//////ft_printf("%s is hashed (%s)\n", *av, path_bin);
+			ft_dprintf(shell->cur_fd.out, "%s is %s\n", *av, path_bin);
 		else
 		{
 			error = 1;
-			ft_dprintf(2, "21sh: type: %s: not found\n", *av);
+			ft_dprintf(shell->cur_fd.err, "21sh: type: %s: not found\n", *av);
 		}
 		av++;
 	}

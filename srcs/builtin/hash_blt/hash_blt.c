@@ -81,6 +81,6 @@ int8_t			hash_blt(t_registry *reg, char **av)
 	}
 	hash_builtin(reg);
 	if (reg->blt_hashmap.used == FALSE)
-		ft_dprintf(2, "Hashmap blt is empty.\n");
+		ft_dprintf(reg->cur_fd.err, "Hashmap blt is empty.\n");
 	return (SUCCESS);
 }

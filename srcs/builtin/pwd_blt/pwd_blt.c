@@ -32,7 +32,7 @@ char			*get_pwd(t_registry *shell, const t_option option)
 	else
 		pwd = getcwd(pwd, PATH_MAX);
 	if (pwd == NULL)
-		ft_dprintf(2, "21sh: get_pwd(): An error occurred\n");
+		ft_dprintf(shell->cur_fd.err, "21sh: get_pwd(): An error occurred\n");
 	return (pwd);
 }
 
@@ -47,8 +47,9 @@ t_option		get_option_pwd(char *s, t_option option)
 			option |= P_OPT;
 		else
 		{
-			ft_dprintf(2, "21sh: pwd: -%c: invalid option\n", *s);
-			ft_dprintf(2, "pwd: usage: pwd [-LP]\n");
+			ft_dprintf(g_shell->cur_fd.err,
+					"21sh: pwd: -%c: invalid option\n", *s);
+			ft_dprintf(g_shell->cur_fd.err, "pwd: usage: pwd [-LP]\n");
 			return (ERROR_OPT);
 		}
 		s++;

@@ -203,6 +203,13 @@ typedef struct			s_variable
 	char				*data;
 }						t_variable;
 
+typedef struct			s_fd
+{
+		int				in;
+		int				out;
+		int				err;
+}						t_fd;
+
 struct					s_registry
 {
 	const char			**grammar;
@@ -218,6 +225,7 @@ struct					s_registry
 	uint8_t				is_interactive;
 	uint8_t				parse_signal;
 	t_opt				option;
+	t_fd				cur_fd;
 };
 
 typedef int 			(*t_builtin)(t_registry *, char **);
