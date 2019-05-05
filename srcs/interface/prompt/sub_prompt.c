@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:22:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 17:29:08 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/05 17:36:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,5 @@ int8_t				invoke_sub_prompt(t_registry *shell, char **line,
 	*line = ft_strdup(itf->line->buffer);
 	ft_strdel(&(itf->line->buffer));
 	itf->state = old_state;
-//	ft_printf("\nReturned : |%s|\n", *line);
 	return (SUCCESS);
 }

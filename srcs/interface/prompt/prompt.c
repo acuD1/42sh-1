@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 17:29:02 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/05 17:36:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,5 @@ char			*prompt(t_registry *shell)
 	}
 	tc_ak_end(shell);
 	validate_input_quoting(shell, itf);
-//	ft_printf("\n P returned: |%s|\n", itf->line->buffer);
 	return (itf->line->buffer);
 }
