@@ -88,7 +88,6 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 		///////////////////////////////////////////////////////////
 		if (parse.valid == 1)
 			launch_job(shell, parse.job_list);
-		ft_lstdel(&parse.token_list, del_token);
 		delete_parser(&parse);
 	}
 	define_ign_signals();

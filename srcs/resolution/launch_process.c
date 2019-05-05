@@ -118,6 +118,7 @@ int8_t		launch_process(t_job *job, t_process *process, t_registry *shell)
 	else if (pid < 0)
 	{
 		ft_dprintf(2, "[ERROR]: Fork() failed.\n");
+		ft_freetab(&env);
 		return (FAILURE);
 	}
 	ft_freetab(&env);
