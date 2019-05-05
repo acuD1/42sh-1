@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 04:29:54 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 19:44:07 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ static uint32_t	double_dispatcher(t_lexer *machine)
 
 void			and_machine(t_lexer *machine)
 {
-	if (*machine->input == '>')
+	if (machine->input[1] == '>')
 	{
+		++machine->input;
 		machine->last_lexer = E_ANDGREAT;
 		++machine->input;
 		if (machine->last_lexer == E_ANDGREAT && *machine->input == '>')
@@ -74,7 +75,10 @@ void			and_machine(t_lexer *machine)
 		}
 	}
 	else
+	{
 		create_token_data(machine);
+		++machine->input;
+	}
 	machine->state = L_OUT;
 }
 
@@ -85,7 +89,10 @@ void			sign_machine(t_lexer *machine)
 	else if (*machine->input == '\"')
 		machine->state = L_DQTE;
 	else if (*machine->input == '&')
+	{
 		machine->state = L_AND;
+		return ;
+	}
 	else if (double_dispatcher(machine) != FALSE)
 		create_token_data(machine);
 	else
