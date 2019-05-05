@@ -37,11 +37,11 @@ void		get_blt_fd(void *data)
 
 	fd = data;
 	if (fd->second == 0)
-		g_shell->cur_fd.in = fd->first;
+		g_shell->cur_fd.in = (fd->action & FD_CLOSE) ? -1 : fd->first;
 	else if (fd->second == 2)
-		g_shell->cur_fd.err = fd->first;
+		g_shell->cur_fd.err = (fd->action & FD_CLOSE) ? -1 : fd->first;
 	else
-		g_shell->cur_fd.out = fd->first;
+		g_shell->cur_fd.out = (fd->action & FD_CLOSE) ? -1 : fd->first;
 }
 
 static char	**str_lst_to_tab(t_list *alst)
