@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 20:22:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 18:40:33 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ t_quote	select_quoting(t_quote quote, const char c)
 
 char	*string_expansion(t_parser *parse, char *str)
 {
-	parse->quoting |= QUOTING;
+	parse->special_case ^= QUOTING;
 	str = tilde(parse, str);
 	str = variable_expansion(parse, str);
 	quote_removal(str);
-	parse->quoting = 0;
+	parse->special_case ^= QUOTING;
 	return (str);
 }

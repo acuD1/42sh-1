@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:48:28 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 06:28:52 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 18:38:43 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 #include "parser.h"
 #include "interface_functions.h"
 
-
 static int	write_heredoc(char **line, int fd, t_parser *parse)
 {
 	int		trim;
 
 	trim = 0;
-	if (parse->quoting & HERETRIM)
+	if (parse->special_case & HERETRIM)
 		trim = ft_strspn(*line, " \t");
 	*line = variable_expansion(parse, *line);
 	ft_putendl_fd(*line + trim, fd);
@@ -37,6 +36,7 @@ static int	check_delimiter(char **delimiter, char **line, int fd, t_parser *p)
 		ft_putchar('\n');
 		ft_strdel(delimiter);
 		ft_strdel(line);
+		p->special_case ^= HERETRIM;
 		return (SUCCESS);
 	}
 	write_heredoc(line, fd, p);
