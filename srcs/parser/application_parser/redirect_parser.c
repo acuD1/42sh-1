@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 06:00:54 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 18:39:44 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	redirect_parser(t_parser *parse)
 		parse->oflags = O_RDONLY;
 	else if (parse->token.type == E_DLESSDASH || parse->token.type == E_DLESS)
 		parse->state = P_HEREDOC_REDIRECT;
+	if (parse->token.type == E_DLESSDASH)
+		parse->special_case ^= HERETRIM;
 	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
 	get_token(parse);
 }
