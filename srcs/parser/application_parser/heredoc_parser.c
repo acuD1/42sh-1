@@ -6,12 +6,13 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:48:28 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 18:38:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/05 19:50:03 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
+#include "lexer.h"
 #include "parser.h"
 #include "interface_functions.h"
 
@@ -52,6 +53,7 @@ void		heredoc_delimiter(t_parser *parse)
 	if (g_shell->is_interactive == FALSE)
 	{
 		ft_dprintf(2, "21sh: Here documents only in interractive mode\n");
+		ft_lstdel(&parse->token_list, del_token);
 		ft_strdel(&parse->token.data);
 		error_parser(parse);
 	}
