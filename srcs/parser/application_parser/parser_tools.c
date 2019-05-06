@@ -6,14 +6,14 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 13:37:40 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 14:54:52 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 18:28:24 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "unistd.h"
 
-int		filename_validate(t_parser *parse, char *str)
+int		is_ionumber(t_parser *parse, char *str)
 {
 	int		len;
 
@@ -32,7 +32,6 @@ int		filename_validate(t_parser *parse, char *str)
 		}
 	}
 	str[len - 1] = character_swap('\0');
-	error_parser(parse);
 	return (0);
 }
 

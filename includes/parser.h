@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 14:48:10 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 18:28:46 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char		character_swap(char swapped);
 t_quote		select_quoting(t_quote quote, char c);
 
 
-int			filename_validate(t_parser *parse, char *str);
+int			is_ionumber(t_parser *parse, char *str);
 void		check_filename(t_parser *parse);
 t_type		pop_token_type(t_stack *stack);
 char		*pop_token_data(t_stack *stack);
