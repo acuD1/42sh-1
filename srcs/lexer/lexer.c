@@ -10,32 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "lexer.h"
 #include "struct.h"
+#include "libft.h"
+#include <stdlib.h>
 
-int			create_token_data(t_lexer *machine)
+int				create_token_data(t_lexer *machine)
 {
-	char	*holder;
-
-	holder = NULL;
-	if(machine->buffer_index == BUFFER - 2)
+	if (machine->buffer_index == BUFFER)
 	{
-		machine->buffer[machine->buffer_index++] = *machine->input;
-		if (machine->data == NULL)
-			machine->data = ft_strdup(machine->buffer);
-		else
-		{
-			if (ft_asprintf(&holder,"%s%s", machine->data, machine->buffer) < 0)
-			ft_strdel(&machine->data);
-			machine->data = holder;
-			return (-1);
-		}
-		ft_bzero(&machine->buffer, BUFFER);
-		machine->buffer_index = 0;
+		ft_dprintf(2, "21sh: Argument too long\n");
+		ft_lstdel(&machine->tokens, del_token);
+		machine->state = L_FINISH;
+		machine->tokens = NULL;
+		return (FAILURE);
 	}
-	else
-		machine->buffer[machine->buffer_index++] = *machine->input;
-	return (0);
+	machine->buffer[machine->buffer_index++] = *machine->input;
+
+	return (SUCCESS);
 }
 
 t_list			*lexer(t_lexinfo *info, char *input)

@@ -24,7 +24,8 @@ void	lesser_machine(t_lexer *machine)
 		if (machine->last_lexer != E_DLESS)
 		{
 			machine->last_lexer = E_DLESS;
-			create_token_data(machine);
+			if (create_token_data(machine) == FAILURE)
+				return ;
 			++machine->input;
 			return ;
 		}
