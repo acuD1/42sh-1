@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 17:29:59 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 16:32:32 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,13 @@ void		redirect(void *data)
 		close(fd->second);
 	else if (fd->action & FD_WRITE)
 	{
-		close(fd->second);
 		dup2(fd->first, fd->second);
+		close(fd->first);
+	}
+	else if (fd->action & FD_READ)
+	{
+		dup2(fd->first, fd->second);
+		close(fd->first);
 	}
 }
 
