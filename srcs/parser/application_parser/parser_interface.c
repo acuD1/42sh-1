@@ -16,9 +16,30 @@
 
 void	error_parser(t_parser *parse)
 {
+	t_token		*token;
+
 	parse->state = P_ERROR;
+	parse->token.type = E_DEFAULT;
 	parse->valid = -1;
-	ft_stckdestroy(&parse->stack, del_token);
+	if (parse->token_list && (token = (t_token *)(parse->token_list->data)))
+	{
+		while (token->type != E_SEMICOLON && token->type != E_PIPE
+				&& token->type != E_END)
+		{
+			ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
+			get_token(parse);
+			token = (t_token *)(parse->token_list->data);
+			if (token == NULL)
+				break ;
+		}
+	}
+	if (parse->token_list && token != NULL && (token->type == E_SEMICOLON
+			|| token->type == E_PIPE))
+	{
+		ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
+		get_token(parse);
+	}
+	ft_lstdel(&parse->process.fd, close_fd);
 }
 
 void	separator_parser(t_parser *parse)
@@ -35,7 +56,7 @@ void	stop_parser(t_parser *parse)
 	ft_lstaddback(&parse->job.process_list, node);
 	node = ft_lstnew(&parse->job, sizeof(t_job));
 	ft_lstaddback(&parse->job_list, node);
-	get_token(parse);
+	parse->token.type = E_DEFAULT;
 	parse->valid = 1;
 }
 

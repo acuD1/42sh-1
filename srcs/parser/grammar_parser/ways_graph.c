@@ -15,7 +15,7 @@
 void		set_start_token(t_graph *tab_tokens)
 {
 	static enum	e_type tab_good_type[] = {WORD, ALL_REDIRECT, E_ASSIGN,
-										E_IO_NUMBER, E_END, E_ERROR};
+										E_IO_NUMBER, E_END, E_START, E_ERROR};
 
 	tab_tokens[E_START].good_type = tab_good_type;
 	tab_tokens[E_SEMICOLON].good_type = tab_good_type;

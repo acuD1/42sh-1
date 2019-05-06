@@ -22,7 +22,7 @@ static void		generate_grammar(t_registry *shell)
 			N_ANDDGREAT, N_ANDGREAT, N_DLESSDASH, N_CLOBBER, N_DEQ,
 			N_NOTEQ, N_CASE, N_DO, N_DONE, N_ELIF, N_ELSE, N_ESAC, N_FI, N_FOR,
 			N_IF, N_IN, N_THEN, N_UNTIL, N_WHILE, N_IO_NUMBER, N_ASSIGN,
-			N_STRING, N_SPSTRING, N_END};
+			N_STRING, N_SPSTRING, N_END, N_ERROR, N_START};
 
 	shell->grammar = grammar;
 }

@@ -195,6 +195,8 @@
 # define N_STRING					"word"
 # define N_SPSTRING					"spword"
 # define N_END						"end"
+# define N_ERROR					"ERROR"
+# define N_START					"START"
 
 /*
 *****************************************************

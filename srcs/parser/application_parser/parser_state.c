@@ -63,6 +63,8 @@ t_list	*parser_state(t_pstate parsing, t_parser *parse)
 {
 	if (parse->token.type == E_DEFAULT)
 		get_token(parse);
+	if (parse->state == P_STOP)
+		parse->state = P_START;
 	while (parse->state != P_END && parse->state != P_ERROR)
 	{
 		if (g_shell->parse_signal == TRUE)

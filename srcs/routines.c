@@ -46,25 +46,44 @@ void		init_parser(t_registry *shell, t_parser *parse)
 	ft_bzero(&parse->job, sizeof(t_job));
 }
 
-int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
+
+////////////////////////////////////////////////////
+static void		lexer_print_debug(t_registry *shell, t_list *token_list)
 {
-	t_parser	parse;
-
-
-	shell->parse_signal = FALSE;
-	define_parser_signals();
-	////////////////////// DEBUG LEXER ////////////////////////
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
 	{
 		ft_putendl("\n\n\033[34m-------------- LEXER ---------------");
 		ft_lstiter(token_list, print_token);
 		ft_putendl("------------------------------------\033[0m");
 	}
-	///////////////////////////////////////////////////////////
-	////////////////////////////////// RETURN
+}
+
+static void		parser_print_debug(t_registry *shell, t_parser *parse)
+{
+	if ((shell->option.option & DEBUG_OPT) != FALSE)
+	{
+		ft_putstr("\n\033[33m-------------- PARSER --------------");
+		if (parse->valid == 1)
+			ft_lstiter(((t_job *)(parse->job_list->data))->process_list,
+					print_process);
+		else
+			ft_putstr(NULL);
+		ft_putendl("------------------------------------\033[0m\n");
+	}
+}
+///////////////////////////////////////////////////
+
+
+int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
+{
+	t_parser	parse;
+
+	shell->parse_signal = FALSE;
+	define_parser_signals();
 	ft_bzero(&parse, sizeof(t_parser));
 	parse.token_list = token_list;
 	parse.token.type = E_DEFAULT;
+	lexer_print_debug(shell, parse.token_list); //
 	while (parse.token_list)
 	{
 		if (parser(shell->graph, parse.token_list) == FAILURE)
@@ -74,20 +93,10 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 		}
 		init_parser(shell, &parse);
 		shell->current_job = parser_state(shell->parsing, &parse);
-		////////////////////// DEBUG PARSER ///////////////////////
-		if ((shell->option.option & DEBUG_OPT) != FALSE)
-		{
-			ft_putstr("\n\033[33m-------------- PARSER --------------");
-			if (parse.valid == 1)
-				ft_lstiter(((t_job*)(parse.job_list->data))->process_list,
-						print_process);
-			else
-				ft_putstr(NULL);
-			ft_putendl("------------------------------------\033[0m\n");
-		}
-		///////////////////////////////////////////////////////////
+		parser_print_debug(shell, &parse); //
 		if (parse.valid == 1)
 			launch_job(shell, parse.job_list);
+		lexer_print_debug(shell, parse.token_list); //
 		delete_parser(&parse);
 	}
 	define_ign_signals();
