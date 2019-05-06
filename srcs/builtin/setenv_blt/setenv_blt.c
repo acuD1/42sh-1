@@ -22,14 +22,14 @@ int8_t				setenv_blt(t_registry *shell, char **av)
 		print_lst(&shell->env, shell->cur_fd.err);
 	else
 	{
-		variable = (t_variable *)malloc(sizeof(t_variable));
+		variable = (t_variable *)ft_malloc(sizeof(t_variable));
 		variable->name = ft_strdup(av[0]);
 		variable->data = av[1] ? ft_strdup(av[1]) : ft_strdup("\0");
 		add_env(shell, variable->name, variable->data);
 		if (variable && variable->name && ft_strequ(variable->name, "PATH"))
 			hash_blt(shell, av);
 		clear_node((void **)&variable);
-		free(variable);
+		ft_free(variable);
 	}
 	return (SUCCESS);
 }

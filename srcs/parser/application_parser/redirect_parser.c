@@ -83,9 +83,9 @@ void	pipe_parser(t_parser *parse)
 {
 	t_list		*node;
 	int			fd[2];
-	int			stdo;
+	//int			stdo;
 
-	stdo = 1;
+	//stdo = 1;
 	parse->state = pipe(fd) ? P_ERROR : P_PIPE;
 	if (parse->state == P_ERROR)
 		return ;

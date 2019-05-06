@@ -17,14 +17,14 @@ void			clear_node(void **data)
 	t_variable	*ptr;
 
 	ptr = *data;
-	free(ptr->name);
-	free(ptr->data);
+	ft_free(ptr->name);
+	ft_free(ptr->data);
 }
 
 static void		free_anode(t_list *ptr)
 {
 	clear_node(&ptr->data);
-	free(ptr->data);
+	ft_free(ptr->data);
 }
 
 static int8_t	del_node(t_list *ptr, const char *name)
@@ -39,7 +39,7 @@ static int8_t	del_node(t_list *ptr, const char *name)
 		{
 			tmp->next = ptr->next;
 			free_anode(ptr);
-			free(ptr);
+			ft_free(ptr);
 			return (SUCCESS);
 		}
 		tmp = tmp->next;
@@ -59,7 +59,7 @@ int8_t			free_node(t_list **alst, const char *name)
 	{
 		*alst = ptr->next;
 		free_anode(ptr);
-		free(ptr);
+		ft_free(ptr);
 		return (SUCCESS);
 	}
 	return (del_node(ptr, name));
@@ -77,7 +77,7 @@ int8_t			free_lst(t_list **alst)
 		free_anode(ptr);
 		tmp = ptr;
 		ptr = ptr->next;
-		free(tmp);
+		ft_free(tmp);
 	}
 	*alst = NULL;
 	return (SUCCESS);
@@ -89,8 +89,8 @@ void			free_one_node_token(t_list **token_lst)
 
 	token = (t_token *)((*token_lst)->data);
 	ft_strdel(&token->data);
-	free(token);
-	free(*token_lst);
+	ft_free(token);
+	ft_free(*token_lst);
 	*token_lst = NULL;
 }
 

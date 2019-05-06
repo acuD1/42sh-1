@@ -43,7 +43,7 @@ static void				ft_fill_with_new_value(t_registry *cpy_shell,
 
 	while ((equal = ft_strchr(**arg, '=')) != NULL)
 	{
-		variable = (t_variable *)malloc(sizeof(t_variable));
+		variable = (t_variable *)ft_malloc(sizeof(t_variable));
 		variable->name = ft_strdup(**arg);
 		equal = ft_strchr(variable->name, '=');
 		*equal = '\0';
@@ -54,7 +54,7 @@ static void				ft_fill_with_new_value(t_registry *cpy_shell,
 				&& ft_strequ(variable->name, "PATH") == TRUE)
 			hash_blt(cpy_shell, NULL);
 		clear_node((void **)&variable);
-		free(variable);
+		ft_free(variable);
 	}
 }
 
@@ -73,13 +73,13 @@ static t_registry		*copy_registry(t_registry *shell, char ***arg,
 		lst = shell->env;
 		while (lst != NULL)
 		{
-			variable = (t_variable *)malloc(sizeof(t_variable));
+			variable = (t_variable *)ft_malloc(sizeof(t_variable));
 			variable->name = ft_strdup(((t_variable *)(lst->data))->name);
 			variable->data = ft_strdup(((t_variable *)(lst->data))->data);
 			add_env(cpy_shell, variable->name, variable->data);
 			lst = lst->next;
 			clear_node((void **)&variable);
-			free(variable);
+			ft_free(variable);
 		}
 	}
 	ft_fill_with_new_value(cpy_shell, arg);
@@ -131,7 +131,7 @@ int8_t				env_blt(t_registry *shell, char **av)
 		cpy_shell->is_interactive = TRUE;
 	}
 	free_lst(&(cpy_shell->env));
-	free(cpy_shell);
+	ft_free(cpy_shell);
 	cpy_shell = NULL;
 	return (SUCCESS);
 }

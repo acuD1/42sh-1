@@ -74,7 +74,7 @@ int8_t			change_node(t_list **alst, const char *name, char *data)
 	{
 		if (ft_strequ(((t_variable *)ptr->data)->name, name) == TRUE)
 		{
-			free(((t_variable *)ptr->data)->data);
+			ft_free(((t_variable *)ptr->data)->data);
 			((t_variable *)ptr->data)->data = data;
 			return (SUCCESS);
 		}

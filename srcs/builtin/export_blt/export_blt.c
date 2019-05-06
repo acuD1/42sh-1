@@ -46,7 +46,7 @@ int8_t				export_blt(t_registry *shell, char **av)
 		return (FAILURE);
 	while (*av != NULL)
 	{
-		if ((variable = (t_variable *)malloc(sizeof(t_variable))) == NULL)
+		if ((variable = (t_variable *)ft_malloc(sizeof(t_variable))) == NULL)
 			return (FAILURE);
 		variable->name = ft_strdup(*av);
 		if ((equal = ft_strchr(*av, '=')) != NULL)
@@ -62,7 +62,7 @@ int8_t				export_blt(t_registry *shell, char **av)
 		if (variable && variable->name && ft_strequ(variable->name, "PATH"))
 			hash_blt(shell, av);
 		clear_node((void **)&variable);
-		free(variable);
+		ft_free(variable);
 		av++;
 	}
 	return (SUCCESS);

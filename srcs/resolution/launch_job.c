@@ -55,7 +55,7 @@ static int		change_last_bin(t_process *process, t_registry *shell)
 			if (asp == NULL || s_create_node(&shell->env, "_", asp) == FAILURE)
 				return (FAILURE);
 		}
-		free(asp);
+		ft_free(asp);
 	}
 	return (SUCCESS);
 }

@@ -16,14 +16,14 @@
 static void		free_opt(t_opt option)
 {
 	ft_strdel(&option.command_str);
-//	free(option.path);
+//	ft_free(option.path);
 //	option.path = NULL;
 }
 
 static void		free_hash(t_hash hashmap, void (*del)(void *))
 {
 	ft_hmap_free_content(&hashmap, del);
-	free(hashmap.map);
+	ft_free(hashmap.map);
 	hashmap.map = NULL;
 }
 
@@ -32,12 +32,14 @@ void			free_registry(t_registry *reg)
 	free_opt(reg->option);
 	free_lst(&(reg->env));
 	free_lst(&(reg->intern));
-	free_hash(reg->bin_hashmap, free);
+	free_hash(reg->bin_hashmap, ft_free);
 	free_hash(reg->blt_hashmap, NULL);
 }
 
 int8_t			exit_blt(t_registry *shell, char **av)
 {
+	int		ret;
+
 	++av;
 	if (*av != NULL)
 	{
@@ -46,6 +48,7 @@ int8_t			exit_blt(t_registry *shell, char **av)
 			ft_dprintf(shell->cur_fd.err,
 					"21sh: exit: %s: numeric argument required\n", *av);
 			free_registry(shell);
+			ft_flush_memory();
 			exit(FAILURE);
 		}
 		else if (*(av + 1) != NULL)
@@ -54,6 +57,8 @@ int8_t			exit_blt(t_registry *shell, char **av)
 			return (1);
 		}
 	}
-	free_registry(shell);
-	exit(*av == NULL ? SUCCESS : ft_atoi(*av));
+	ret = *av == NULL ? SUCCESS : ft_atoi(*av);
+//	free_registry(shell);
+	ft_flush_memory();
+	exit(ret);
 }
