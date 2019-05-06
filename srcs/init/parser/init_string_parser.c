@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:03:32 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 14:34:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 15:40:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	init_filename(t_pstate parsing)
 	parsing[P_FILENAME][E_DLESSDASH] = flush_redirect;
 	parsing[P_FILENAME][E_DLESS] = flush_redirect;
 	parsing[P_FILENAME][E_ANDDGREAT] = flush_redirect;
+	parsing[P_FILENAME][E_IO_NUMBER] = flush_redirect;
 	parsing[P_FILENAME][E_PIPE] = flush_redirect;
 	parsing[P_FILENAME][E_SEMICOLON] = flush_redirect;
 	parsing[P_FILENAME][E_NEWLINE] = flush_redirect;
@@ -89,6 +90,7 @@ void	init_special_filename(t_pstate parsing)
 	parsing[P_SPFILENAME][E_DLESS] = flush_redirect;
 	parsing[P_SPFILENAME][E_DLESSDASH] = flush_redirect;
 	parsing[P_SPFILENAME][E_ANDDGREAT] = flush_redirect;
+	parsing[P_SPFILENAME][E_IO_NUMBER] = flush_redirect;
 	parsing[P_SPFILENAME][E_PIPE] = flush_redirect;
 	parsing[P_SPFILENAME][E_SEMICOLON] = flush_redirect;
 	parsing[P_SPFILENAME][E_NEWLINE] = flush_redirect;

@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:54:44 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 14:35:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 15:05:39 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	init_io_flush(t_pstate parsing)
 	parsing[P_IO_FLUSH][E_LESSAND] = redirect_parser;
 	parsing[P_IO_FLUSH][E_DGREAT] = redirect_parser;
 	parsing[P_IO_FLUSH][E_ANDDGREAT] = redirect_parser;
+	parsing[P_IO_FLUSH][E_IO_NUMBER] = io_parser;
 	parsing[P_IO_FLUSH][E_PIPE] = flush_string;
 	parsing[P_IO_FLUSH][E_SEMICOLON] = flush_string;
 	parsing[P_IO_FLUSH][E_NEWLINE] = flush_string;

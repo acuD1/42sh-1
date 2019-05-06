@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:13:42 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 14:46:06 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 15:38:21 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	init_io_rediction_parser(t_pstate parsing)
 	init_heredoc_delimiter(parsing);
 	init_io_heredoc(parsing);
 	init_io_heredoc_redirect(parsing);
+	init_dup_move(parsing);
 	init_pipe(parsing);
 	init_io_heredoc_delimiter(parsing);
 	init_flush_redirect(parsing);
