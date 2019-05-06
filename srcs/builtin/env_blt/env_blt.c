@@ -108,7 +108,7 @@ static char				*concat_param(char **av)
 	return (new_input);
 }
 
-int8_t				env_blt(t_registry *shell, char **av)
+int8_t					env_blt(t_registry *shell, char **av)
 {
 	t_option	option;
 	t_registry	*cpy_shell;
@@ -122,9 +122,8 @@ int8_t				env_blt(t_registry *shell, char **av)
 	cpy_shell = copy_registry(shell, &av, option);
 	if (*av == NULL)
 		print_lst(&cpy_shell->env, shell->cur_fd.out);
-	if (*av != NULL && (new_input = concat_param(av)) != NULL)
+	else if (*av != NULL && (new_input = concat_param(av)) != NULL)
 	{
-		///////////////////// GOOD ? ///////////////
 		cpy_shell->is_interactive = FALSE;
 		execution_pipeline(cpy_shell, lexer(&shell->lexinfo, new_input));
 		ft_strdel(&new_input);

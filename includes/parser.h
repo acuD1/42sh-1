@@ -47,8 +47,8 @@ void		print_result_debug(int which);
 */
 
 void		init_parser(t_registry *shell, t_parser *parse);
-void		init_process(t_process *process);
 void		init_parsing(t_pstate parsing);
+void		init_process(t_process *process);
 t_list		*parser_state(t_pstate parsing, t_parser *parse);
 void		start_parser(t_parser *parse);
 void		separator_parser(t_parser *parse);

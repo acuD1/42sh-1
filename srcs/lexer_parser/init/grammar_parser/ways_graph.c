@@ -22,16 +22,6 @@ void		set_start_token(t_graph *tab_tokens)
 	tab_tokens[E_NEWLINE].good_type = tab_good_type;
 }
 
-void		set_word_token(t_graph *tab_tokens)
-{
-	static enum	e_type tab_good_type[] = {WORD, ALL_REDIRECT, E_ASSIGN,
-										E_IO_NUMBER, E_PIPE, END_CMD, E_ERROR};
-
-	tab_tokens[E_STRING].good_type = tab_good_type;
-	tab_tokens[E_SPSTRING].good_type = tab_good_type;
-	tab_tokens[E_DB_QUOTE].good_type = tab_good_type;
-}
-
 void		set_redirect_token(t_graph *tab_tokens)
 {
 	static enum	e_type tab_good_type[] = {WORD, E_ERROR};

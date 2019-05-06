@@ -12,38 +12,12 @@
 
 #include "log.h"
 #include "sig.h"
+#include "resolve.h"
 #include <unistd.h>
-#include <fcntl.h>
 
 t_registry	*g_shell;
 
-void		redirect(void *data)
-{
-	t_filedesc *fd;
-
-	fd = data;
-	if (fd->action & FD_CLOSE)
-		close(fd->second);
-	else if (fd->first != fd->second)
-	{
-		dup2(fd->first, fd->second);
-	}
-}
-
-void		get_blt_fd(void *data)
-{
-	t_filedesc *fd;
-
-	fd = data;
-	if (fd->second == 0)
-		g_shell->cur_fd.in = (fd->action & FD_CLOSE) ? -1 : fd->first;
-	else if (fd->second == 2)
-		g_shell->cur_fd.err = (fd->action & FD_CLOSE) ? -1 : fd->first;
-	else
-		g_shell->cur_fd.out = (fd->action & FD_CLOSE) ? -1 : fd->first;
-}
-
-static char	**str_lst_to_tab(t_list *alst)
+static char		**str_lst_to_tab(t_list *alst)
 {
 	uint32_t	i;
 	size_t		size;
@@ -53,7 +27,7 @@ static char	**str_lst_to_tab(t_list *alst)
 
 	i = 0;
 	size = ft_lstlen(alst);
-	if ((tabs = (char **)malloc(sizeof(char *) * (size + 1))) == NULL)
+	if ((tabs = (char **)ft_malloc(sizeof(char *) * (size + 1))) == NULL)
 		return (NULL);
 	while (alst != NULL)
 	{
@@ -68,7 +42,8 @@ static char	**str_lst_to_tab(t_list *alst)
 	return (tabs);
 }
 
-static void	execute_process(t_process *process, t_registry *shell, char **env)
+static void		execute_process(t_process *process,
+					t_registry *shell, char **env)
 {
 	define_execution_signals();
 	ft_lstiter(process->fd, redirect);
@@ -84,12 +59,12 @@ static void	execute_process(t_process *process, t_registry *shell, char **env)
 	exit(FAILURE);
 }
 
-int			launch_builtin(t_registry *shell, t_process *process)
+static int8_t	launch_builtin(t_registry *shell, t_process *process)
 {
 	t_builtin		f;
 
 	if (!(f = ft_hmap_getdata(&shell->blt_hashmap, process->av[0])))
-		return (FALSE);
+		return (FAILURE);
 	shell->cur_fd.in = 0;
 	shell->cur_fd.out = 1;
 	shell->cur_fd.err = 2;
@@ -98,17 +73,19 @@ int			launch_builtin(t_registry *shell, t_process *process)
 	shell->cur_fd.in = 0;
 	shell->cur_fd.out = 1;
 	shell->cur_fd.err = 2;
-	return (TRUE);
+	return (SUCCESS);
 }
 
-int8_t		launch_process(t_job *job, t_process *process, t_registry *shell)
+int8_t			launch_process(t_job *job, t_process *process,
+						t_registry *shell)
 {
 	pid_t		pid;
 	char		**env;
 
 	if (process->av == NULL)
 		return (SUCCESS);
-	if (job->process_list->next == NULL && launch_builtin(shell, process))
+	if (job->process_list->next == NULL
+			&& launch_builtin(shell, process) == SUCCESS)
 		return (SUCCESS);
 	env = str_lst_to_tab(shell->env);
 	if ((pid = fork()) == SUCCESS)

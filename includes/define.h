@@ -42,6 +42,10 @@
 # define HELP_OPT					0x001
 # define COMMAND_OPT				0x002
 # define DEBUG_OPT					0x004
+# define HMAP_BIN_SIZE				4096
+# define HMAP_BLT_SIZE				32
+# define SET_TERM					0
+# define RESTORE_TERM				1
 
 /*
 *****************************************************
@@ -60,11 +64,11 @@
 # define ERROR_OPT					0x800
 # define CD_USAGE 					"cd: usage: cd [-L|-P] [dir]\n"
 # define CD_ERROR_OLDPWD_NOTSET		"21sh: cd: OLDPWD not set\n"
+# define NOFI 						"No such file or directory\n"
 # define ENV_USAGE_1 				"env: usage: env [-i] [name=value]... "
 # define ENV_USAGE_2 				"[utility [argument]...]\n"
 # define SETENV_USAGE 				"setenv: usage: setenv [name [value]]\n"
 # define UNSETENV_USAGE 			"unsetenv: usage: unsetenv name\n"
-# define TYPE_USAGE 				"type: usage: type [-afptP] name [name ...]\n"
 # define EXPORT_USAGE 				"type: usage: export name[=value] ...\n"
 # define UNSET_USAGE 				"type: usage: unset name\n"
 
@@ -108,7 +112,7 @@
 # define BUFFER						131071
 # define SINGLE_SIGNS				16
 # define SPECIAL_SIGNS				14
-# define SIGNS 						(SPECIAL_SIGNS + SINGLE_SIGNS)
+# define SIGNS 						(SPECIAL_SIGNS + SINGLE_SIGNS) // MACRO
 # define ALLCHAR					"\"|()><;`&{}[]#%\n"
 # define SIGN_DETECT				" \t<>|;&!=\n"
 # define LETTER_TO_QUOTE			"\"\'$"
@@ -120,7 +124,7 @@
 ** 42sh
 ** # define LETTER_INTERUPT			" \t<>|;\'\"`()$&!?{}[]*%\\"
 ** # define SIGN_DETECT				" \t<>|;\'\"`()$&!?{}[]*%\\="
-**/
+*/
 # define QUOTE_INTERUPT				"\\\"`$"
 # define EXP_INTERUPT				" \t\'\"`$/"
 # define DOUBLE_SIGN				"&|;=!"

@@ -25,8 +25,7 @@ int8_t				unsetenv_blt(t_registry *shell, char **av)
 		free_lst(&shell->env);
 	else if (shell->env != NULL)
 		free_node(&shell->env, *av);
-	if (ft_strequ(*av, "PATH") == TRUE
-		|| ft_strequ(*av, "*") == TRUE)
+	if (ft_strequ(*av, "PATH") == TRUE || ft_strequ(*av, "*") == TRUE)
 		hash_blt(shell, NULL);
 	return (SUCCESS);
 }

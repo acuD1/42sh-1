@@ -33,6 +33,16 @@ t_option			get_option_export(char *s, t_option option)
 	return (option);
 }
 
+static void			add_var_and_rehash(t_registry *shell,
+						t_variable *variable, char **av)
+{
+	if (variable->data)
+		add_env(shell, variable->name, variable->data);
+	if (variable && variable->name && ft_strequ(variable->name, "PATH"))
+		hash_blt(shell, av);
+	clear_node((void **)&variable);
+}
+
 int8_t				export_blt(t_registry *shell, char **av)
 {
 	t_variable	*variable;
@@ -41,7 +51,6 @@ int8_t				export_blt(t_registry *shell, char **av)
 
 	av++;
 	option = 0;
-	//////////////// implement option -p
 	if (((option |= set_options(&av, get_option_export)) == ERROR_OPT))
 		return (FAILURE);
 	while (*av != NULL)
@@ -57,13 +66,8 @@ int8_t				export_blt(t_registry *shell, char **av)
 		}
 		else
 			variable->data = ft_strdup(get_intern_var(shell, variable->name));
-		if (variable->data)
-			add_env(shell, variable->name, variable->data);
-		if (variable && variable->name && ft_strequ(variable->name, "PATH"))
-			hash_blt(shell, av);
-		clear_node((void **)&variable);
+		add_var_and_rehash(shell, variable, av++);
 		ft_free(variable);
-		av++;
 	}
 	return (SUCCESS);
 }

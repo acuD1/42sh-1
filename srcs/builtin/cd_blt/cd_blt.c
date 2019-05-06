@@ -112,9 +112,8 @@ int8_t				cd_blt(t_registry *shell, char **av)
 				return (FAILURE);
 		if ((curpath = make_curpath_simple(curpath)) == NULL)
 		{
-			ft_dprintf(shell->cur_fd.err,
-					"21sh: cd: %s: No such file or directory\n",
-				ft_strequ(*av, "-") ? get_env_var(shell, "OLDPWD") : *av);
+			ft_dprintf(shell->cur_fd.err, "21sh: cd: %s: %s",
+				ft_strequ(*av, "-") ? get_env_var(shell, "OLDPWD") : *av, NOFI);
 			return (FAILURE);
 		}
 		else if (ft_strlen(curpath) + 1 >= PATH_MAX)

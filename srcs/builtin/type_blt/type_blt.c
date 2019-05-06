@@ -11,46 +11,14 @@
 /* ************************************************************************** */
 
 #include "builtin.h"
-/*
-t_option		get_option_type(char *s, t_option option)
-{
-	option = 0;
-	while (*s)
-	{
-		if (*s == 'a')
-			option |= A_OPT;
-		else if (*s == 'f')
-			option |= F_OPT;
-		else if (*s == 'p')
-			option |= P_LOW_OPT;
-		else if (*s == 't')
-			option |= T_OPT;
-		else if (*s == 'P')
-			option |= P_OPT;
-		else
-		{
-			ft_dprintf(2, "21sh: type: -%c: invalid option\n", *s);
-			ft_dprintf(2, TYPE_USAGE);
-			return (ERROR_OPT);
-		}
-		s++;
-	}
-	return (option);
-}
-*/
+
 int8_t				type_blt(t_registry *shell, char **av)
 {
 	char		*path_bin;
 	int8_t		error;
-	//t_option	option;
 
-	///////// IMPLEMENT OPT
 	av++;
 	error = SUCCESS;
-	///////// implement for absolute path binary : ex: /bin/ls
-/*	if (*av == NULL
-		|| (option = set_options(&av, get_option_type)) == ERROR_OPT)
-		return (FAILURE);*/
 	while (*av != NULL)
 	{
 		if (ft_hmap_getdata(&shell->blt_hashmap, *av) != NULL)

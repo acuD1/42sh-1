@@ -41,7 +41,6 @@ static int8_t	update_process_status(const pid_t pid, const int status)
 
 	if (pid <= 0)
 		return (FAILURE);
-	// global job
 	job = g_job_head;
 	while (job != NULL)
 	{

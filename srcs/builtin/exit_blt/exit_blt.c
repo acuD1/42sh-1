@@ -1,4 +1,5 @@
 /* ************************************************************************** */
+
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exit_blt.c                                         :+:      :+:    :+:   */
@@ -16,8 +17,6 @@
 static void		free_opt(t_opt option)
 {
 	ft_strdel(&option.command_str);
-//	ft_free(option.path);
-//	option.path = NULL;
 }
 
 static void		free_hash(t_hash hashmap, void (*del)(void *))
@@ -47,7 +46,7 @@ int8_t			exit_blt(t_registry *shell, char **av)
 		{
 			ft_dprintf(shell->cur_fd.err,
 					"21sh: exit: %s: numeric argument required\n", *av);
-		//	free_registry(shell);
+			//free_registry(shell);
 			ft_flush_memory();
 			exit(FAILURE);
 		}
@@ -58,7 +57,7 @@ int8_t			exit_blt(t_registry *shell, char **av)
 		}
 	}
 	ret = *av == NULL ? SUCCESS : ft_atoi(*av);
-//	free_registry(shell);
+	//free_registry(shell);
 	ft_flush_memory();
 	exit(ret);
 }

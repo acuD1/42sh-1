@@ -50,6 +50,7 @@ static uint8_t	manage_error_and_subprompt(enum e_type state, enum e_type type,
 	return (FALSE);
 }
 
+/*
 static void		token_reduction(t_list **lst)
 {
 	t_token	*token;
@@ -79,7 +80,7 @@ static void		token_reduction(t_list **lst)
 			return ;
 		}
 	}
-}
+}*/
 
 static uint8_t	state_is_ok(enum e_type to_find, enum e_type *current,
 							enum e_type possible_state[])
@@ -120,7 +121,7 @@ int8_t			parser(t_graph *graph, t_list *lst)
 		}
 		else
 		{
-			token_reduction(&lst);
+			//token_reduction(&lst);
 			tmp = lst;
 		}
 		lst = lst->next;

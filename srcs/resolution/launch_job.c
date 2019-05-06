@@ -94,12 +94,8 @@ void			launch_job(t_registry *shell, t_list *job_lst)
 
 	if (check_job(job_lst))
 		return ;
-	if (shell->is_interactive == TRUE)
-	{
-		restore_term_behavior(shell);
-		define_execution_signals();
-	}
 	g_job_head = job_lst;
+	shell_is_interactive(shell, RESTORE_TERM);
 	current_job = ((t_job *)job_lst->data);
 	process_lst = current_job->process_list;
 	while (process_lst != NULL)
@@ -111,9 +107,5 @@ void			launch_job(t_registry *shell, t_list *job_lst)
 	}
 	wait_for_job(current_job);
 	update_last_bin(current_job->process_list, shell);
-	if (shell->is_interactive == TRUE)
-	{
-		set_term_behavior(shell);
-		define_ign_signals();
-	}
+	shell_is_interactive(shell, SET_TERM);
 }

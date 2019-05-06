@@ -29,6 +29,7 @@ void			init_lexinfo(t_registry *shell);
 int8_t			shell_usage(void);
 void			shell_exit_routine(t_registry *shell);
 void			init_parsing(t_pstate parsing);
+int8_t			parse_arg(char **av, t_opt *option);
 
 /*
 *****************************************************
@@ -77,6 +78,8 @@ int				find_variable(void *data, void *to_find);
 
 void			close_fd(void *data);
 void			clear_node(void **data);
+void			free_anode(t_list *ptr);
+int8_t			del_node(t_list *ptr, const char *name);
 int8_t			free_node(t_list **alst, char *var);
 int8_t			free_lst(t_list **alst);
 void			delete_variable(void *data);
@@ -101,5 +104,16 @@ void	        print_opt(t_registry *shell);
 */
 
 char	       	*ft_strjoinfree(char *s1, const char *s2, const short todel);
+void			delete_job(void *data);
+void			del_token(void *token);
+
+/*
+*****************************************************
+********************** DEBUG ************************
+*****************************************************
+*/
+
+void		parser_print_debug(t_registry *shell, t_parser *parse);
+void		lexer_print_debug(t_registry *shell, t_list *token_list);
 
 #endif

@@ -23,5 +23,8 @@ int8_t		launch_process(t_job *job, t_process *process, t_registry *shell);
 void		wait_for_job(t_job *job);
 uint8_t		job_is_stopped(t_job *job);
 uint8_t		job_is_completed(t_job *job);
+void		shell_is_interactive(t_registry *shell, uint8_t term);
+void		redirect(void *data);
+void		get_blt_fd(void *data);
 
 #endif

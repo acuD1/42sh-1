@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   free_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffoissey <ffoissey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/20 14:23:48 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/30 20:56:30 by cempassi         ###   ########.fr       */
+/*   Created: 2019/05/06 14:23:48 by ffoissey          #+#    #+#             */
+/*   Updated: 2019/05/06 20:56:30 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void			clear_node(void **data)
 	ft_free(ptr->data);
 }
 
-static void		free_anode(t_list *ptr)
+void			free_anode(t_list *ptr)
 {
 	clear_node(&ptr->data);
 	ft_free(ptr->data);
 }
 
-static int8_t	del_node(t_list *ptr, const char *name)
+int8_t			del_node(t_list *ptr, const char *name)
 {
 	t_list	*tmp;
 
@@ -65,24 +65,6 @@ int8_t			free_node(t_list **alst, const char *name)
 	return (del_node(ptr, name));
 }
 
-int8_t			free_lst(t_list **alst)
-{
-	t_list	*ptr;
-	t_list	*tmp;
-
-	tmp = NULL;
-	ptr = *alst;
-	while (ptr != NULL)
-	{
-		free_anode(ptr);
-		tmp = ptr;
-		ptr = ptr->next;
-		ft_free(tmp);
-	}
-	*alst = NULL;
-	return (SUCCESS);
-}
-
 void			free_one_node_token(t_list **token_lst)
 {
 	t_token	*token;
@@ -92,13 +74,4 @@ void			free_one_node_token(t_list **token_lst)
 	ft_free(token);
 	ft_free(*token_lst);
 	*token_lst = NULL;
-}
-
-void			free_token_list(t_list *token_list)
-{
-	if (token_list != NULL)
-	{
-		free_token_list(token_list->next);
-		free_one_node_token(&token_list);
-	}
 }

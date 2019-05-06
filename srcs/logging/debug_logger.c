@@ -15,7 +15,7 @@
 #include "21sh.h"
 
 void	log_print(t_registry *shell, const char *importance,
-						const char *message, ...)
+					const char *message, ...)
 {
 	va_list args;
 	int		fd;
@@ -44,39 +44,45 @@ void	log_print(t_registry *shell, const char *importance,
 	va_end(args);
 }
 
-void	init_debug_logger(t_registry *shell)
+
+static void	debug_logger_extend(t_registry *shell,
+					char *home_path, char *log_path)
 {
+	char *tmp;
 	int  debug_fd;
+
+	debug_fd = -1;
+	if ((home_path = get_data(shell->env, "HOME")) == NULL)
+	{
+		home_path = ft_itoa(-1);
+		add_internal(shell, INT_DBG_FD, home_path);
+		ft_strdel(&home_path);
+		ft_dprintf(2, "[ERROR] - Could not fetch home variable.\n");
+		return ;
+	}
+	ft_asprintf(&log_path, "%s/%s", home_path, INT_DBG_FILE);
+	debug_fd = open(log_path, O_RDWR | O_APPEND | O_CREAT, 0644);
+	if (debug_fd < 0)
+		return ;
+	tmp = ft_itoa(debug_fd);
+	if (add_internal(shell, INT_DBG_FD, tmp) == FAILURE)
+	{
+		ft_strdel(&tmp);
+		return ;
+	}
+	ft_strdel(&tmp);
+	ft_strdel(&log_path);
+}
+
+void		init_debug_logger(t_registry *shell)
+{
 	char *home_path;
 	char *log_path;
-	char *tmp;
 
 	home_path = NULL;
 	log_path = NULL;
-	debug_fd = -1;
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
-	{
-		if ((home_path = get_data(shell->env, "HOME")) == NULL)
-		{
-			home_path = ft_itoa(-1);
-			add_internal(shell, INT_DBG_FD, home_path);
-			ft_strdel(&home_path);
-			ft_dprintf(2, "[ERROR] - Could not fetch home variable.\n");
-			return ;
-		}
-		ft_asprintf(&log_path, "%s/%s", home_path, INT_DBG_FILE);
-		debug_fd = open(log_path, O_RDWR | O_APPEND | O_CREAT, 0644);
-		if (debug_fd < 0)
-			return ;
-		tmp = ft_itoa(debug_fd);
-		if (add_internal(shell, INT_DBG_FD, tmp) == FAILURE)
-		{
-			ft_strdel(&tmp);
-			return ;
-		}
-		ft_strdel(&tmp);
-		ft_strdel(&log_path);
-	}
+		debug_logger_extend(shell, home_path, log_path);
 	else
 	{
 		home_path = ft_itoa(-1);

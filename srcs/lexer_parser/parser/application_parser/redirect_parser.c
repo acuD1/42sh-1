@@ -99,28 +99,3 @@ void	redirect_parser(t_parser *parse)
 	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
 	get_token(parse);
 }
-
-void	pipe_parser(t_parser *parse)
-{
-	t_list		*node;
-	int			fd[2];
-	int			stdo;
-
-	stdo = 1;
-	parse->state = pipe(fd) ? P_ERROR : P_PIPE;
-	if (parse->state == P_ERROR)
-		return ;
-	if (parse->special_case & NO_PIPE)
-		close(fd[1]);
-	else
-	{
-		generate_filedesc(parse, STDIN_FILENO, fd[0], FD_CLOSE);
-		generate_filedesc(parse, fd[1], STDOUT_FILENO, FD_DUP | FD_WRITE | FD_PIPE);
-	}
-	node = ft_lstnew(&parse->process, sizeof(t_process));
-	ft_lstaddback(&parse->job.process_list, node);
-	init_process(&parse->process);
-	generate_filedesc(parse, STDOUT_FILENO, fd[1], FD_CLOSE);
-	generate_filedesc(parse, fd[0], STDIN_FILENO, FD_DUP | FD_WRITE | FD_PIPE);
-	get_token(parse);
-}

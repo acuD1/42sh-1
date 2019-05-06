@@ -19,7 +19,7 @@ NAMEDB = 21shdb
 NAMET = unit
 LIBFT = libft.a
 LIBFTDB = libftdb.a
-SRCS = $(LINE) $(LEXER) $(PARSER) $(BUILTIN) $(TOOLS) $(EXPANSION) $(INIT)
+SRCS = $(LINE) $(LEXER) $(PARSER) $(BUILTIN) $(TOOLS) $(EXPANSION) $(INIT) $(STARTUP)
 OBJM = $(patsubst %.c, $(OPATH)%.o, $(LINEM))
 OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS))
 OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM))
@@ -77,6 +77,7 @@ IPATH += libft/includes/
 TPATH += unit-tests/
 TPATH += unit-tests/interface/
 TPATH += unit-tests/lexer/
+P_STARTUP = startup/
 P_LINE += interface/
 P_LINE += interface/prompt
 P_LINE += interface/action_keys/
@@ -91,9 +92,9 @@ P_LINE += resolution/
 P_LINE += logging/
 P_LINE += signals/
 P_LINE += ./
-P_LEXER += lexer/
-P_PARSER += parser/grammar_parser
-P_PARSER += parser/application_parser
+P_LEXER += lexer_parser/lexer/
+P_PARSER += lexer_parser/parser/grammar_parser
+P_PARSER += lexer_parser/parser/application_parser
 P_BUILTIN += builtin/
 P_BUILTIN += builtin/cd_blt
 P_BUILTIN += builtin/echo_blt
@@ -110,10 +111,11 @@ P_BUILTIN += builtin/unset_blt
 P_BUILTIN += builtin/unsetenv_blt
 P_EXPANSION += expansion/
 P_TOOLS += tools/
-P_INIT += init/
-P_INIT += init/parser/
+P_INIT += lexer_parser/init/app_parser/
+P_INIT += lexer_parser/init/grammar_parser/
+P_INIT += lexer_parser/init/lexer/
 _SPATH += $(P_LINE) $(P_LEXER) $(P_PARSER) $(P_BUILTIN) $(P_TOOLS) $(P_EXPANSION)
-_SPATH += $(P_INIT)
+_SPATH += $(P_INIT) $(P_STARTUP)
 SPATH += $(addprefix srcs/, $(_SPATH)) 
 
 # ---------------------------------------------------------------------------- #
@@ -159,7 +161,7 @@ INCS += enum.h
 #									Sources                                    #
 # ---------------------------------------------------------------------------- #
 
-#							- - - - - Main - - - - -                           #
+#							- - - - - Unit - - - - -                           #
 
 UNITM = unit.c
 LINEM = main.c
@@ -174,17 +176,14 @@ UNIT += clipboard_paste.c
 
 #						- - - - -   Startup   - - - - -						   #
 
-LINE += launch.c
-LINE += free.c
-LINE += utils.c
-LINE += internals.c
-LINE += routines.c
-LINE += read_filedesc.c
+STARTUP += launch.c
+STARTUP += options.c
+STARTUP += routines.c
 
 #						- - - - -  Debug Log  - - - - -						   #
 
 LINE += debug_logger.c
-LINE += print_opt.c
+LINE += print_debug.c
 
 #						- - - - -  Built-in   - - - - -                        #
 
@@ -286,10 +285,22 @@ LINE += execute_word_jumping_ak.c
 LINE += execute_ctrl_ak.c
 LINE += execute_special_ak.c
 
-#						   - - - - - Lexer - - - - -                           #
+#			 		   - - - - - Lexer - Parser - - - - -                      #
 
+#Init
+INIT += init_parser.c
+INIT += init_io_parser.c
+INIT += init_io_redirect_parser.c
+INIT += init_string_parser.c
+INIT += init_start_parser.c
+INIT += init_heredoc_parser.c
+INIT += generate_graph.c
+INIT += ways_graph.c
+INIT += ways_graph_word.c
+INIT += init_lexer.c
+
+#Lexer
 LEXER += lexer.c
-LEXER += init_lexer.c
 LEXER += machine_interface.c
 LEXER += states.c
 LEXER += generate_token.c
@@ -298,11 +309,7 @@ LEXER += sign_states.c
 LEXER += tmp_display.c
 LEXER += redirect_states.c
 
-#						   - - - - - Parser - - - - -                          #
-
 #Grammar Parser
-PARSER += generate_graph.c
-PARSER += ways_graph.c
 PARSER += grammar_parser.c
 PARSER += parser_debug.c
 
@@ -311,18 +318,11 @@ PARSER += parser_state.c
 PARSER += parser_interface.c
 PARSER += string_parser.c
 PARSER += redirect_parser.c
+PARSER += pipe_parser.c
 PARSER += io_redirect_parser.c
 PARSER += filename_parser.c
 PARSER += heredoc_parser.c
 PARSER += parser_tools.c
-
-#Init Parser
-INIT += init_parser.c
-INIT += init_io_parser.c
-INIT += init_io_redirect_parser.c
-INIT += init_string_parser.c
-INIT += init_start_parser.c
-INIT += init_heredoc_parser.c
 
 #						   - - - - Expansion - - - -                           #
 EXPANSION += expansion.c
@@ -333,6 +333,13 @@ EXPANSION += quoting.c
 #						   - - - -    Tool    - - - -                          #
 						   
 TOOLS += list_functions.c
+TOOLS += list_functions2.c
+TOOLS += free.c
+TOOLS += free_node.c
+TOOLS += utils.c
+TOOLS += print_opt.c
+TOOLS += read_filedesc.c
+TOOLS += internals.c
 
 #						   - - - - Resolution - - - -                          #
 

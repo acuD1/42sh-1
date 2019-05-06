@@ -94,7 +94,7 @@ typedef struct			s_process
 
 typedef struct			s_job
 {
-	char				*command; /* just for debug */
+	char				*command;
 	t_list				*process_list;
 	struct termios		*term_modes;
 	pid_t				pgid;
@@ -194,7 +194,6 @@ typedef struct 			s_opt
 {
 	char				*command_str;
 	t_option			option;
-//	char				*rc_path;
 }						t_opt;
 
 typedef struct			s_variable
