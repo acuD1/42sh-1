@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:05:16 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 17:36:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 21:19:23 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	init_dup_move(t_pstate parsing)
 	parsing[P_DUP_MOVE][E_LESSAND] = flush_redirect_and;
 	parsing[P_DUP_MOVE][E_DGREAT] = flush_redirect_and;
 	parsing[P_DUP_MOVE][E_ANDDGREAT] = flush_redirect_and;
+	parsing[P_DUP_MOVE][E_IO_NUMBER] = flush_redirect_and;
 	parsing[P_DUP_MOVE][E_PIPE] = flush_redirect_and;
 	parsing[P_DUP_MOVE][E_SEMICOLON] = flush_redirect_and;
 	parsing[P_DUP_MOVE][E_NEWLINE] = flush_redirect_and;
