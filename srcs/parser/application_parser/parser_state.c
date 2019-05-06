@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 18:11:41 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 19:44:05 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ void	generate_filedesc(t_parser *parse, int first, int second, int action)
 	fd.first = first;
 	fd.second = second;
 	node = ft_lstnew(&fd, sizeof(t_filedesc));
-	ft_lstaddback(&parse->process.fd, node);
+	if (action & FD_PIPE)
+		ft_lstadd(&parse->process.fd, node);
+	else
+		ft_lstaddback(&parse->process.fd, node);
 }
 
 void	get_token(t_parser *parse)

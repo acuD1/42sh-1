@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:51 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/04 23:35:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 20:58:09 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void			launch_job(t_registry *shell, t_list *job_lst)
 	{
 		launch_process(current_job, ((t_process*)process_lst->data), shell);
 		if (((t_process *)process_lst->data)->fd)
-			ft_lstiter(((t_process *)process_lst->data)->fd, close_fd);
+			ft_lstdelfirst(&((t_process *)process_lst->data)->fd, close_fd);
 		process_lst = process_lst->next;
 	}
 	wait_for_job(current_job);

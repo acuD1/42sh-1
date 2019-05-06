@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/06 18:09:57 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 21:02:28 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ void		redirect(void *data)
 	fd = data;
 	if (fd->action & FD_CLOSE)
 		close(fd->second);
-	ft_printf("new fd = %d | old fd %d \n", fd->first, fd->second);
-	dup2(fd->first, fd->second);
-	close(fd->first);
+	else
+	{
+		dup2(fd->first, fd->second);
+		close(fd->first);
+	}
 }
 
 void		get_blt_fd(void *data)
@@ -52,7 +54,7 @@ static char	**str_lst_to_tab(t_list *alst)
 
 	i = 0;
 	size = ft_lstlen(alst);
-	if ((tabs = (char **)ft_malloc(sizeof(char *) * (size + 1))) == NULL)
+	if ((tabs = (char **)malloc(sizeof(char *) * (size + 1))) == NULL)
 		return (NULL);
 	while (alst != NULL)
 	{
@@ -69,7 +71,6 @@ static char	**str_lst_to_tab(t_list *alst)
 
 static void	execute_process(t_process *process, t_registry *shell, char **env)
 {
-
 	define_execution_signals();
 	ft_lstiter(process->fd, redirect);
 	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL)
