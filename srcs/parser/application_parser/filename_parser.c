@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:47:14 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 18:33:36 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 18:51:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,17 @@ void	filename_parser(t_parser *parse)
 
 void	dup_move_parser(t_parser *parse)
 {
+	t_token *token;
+
 	if ((parse->token.data = string_expansion(parse, parse->token.data)))
 	{
 		if(is_ionumber(parse, parse->token.data))
 			ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
+		else if ((token = ft_stcktop(&parse->stack))->type == E_LESSAND)
+		{
+			ft_dprintf(2, "21sh: %s: ambigous redirect", parse->token.data);
+			error_parser(parse);
+		}
 		else
 		{
 			parse->state = P_FILENAME;
