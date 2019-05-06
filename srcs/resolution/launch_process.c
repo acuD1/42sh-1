@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/06 17:48:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 18:09:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,9 @@ void		redirect(void *data)
 	fd = data;
 	if (fd->action & FD_CLOSE)
 		close(fd->second);
-	else if (fd->action & FD_WRITE || fd->action & FD_WRITE)
-	{
-		dup2(fd->first, fd->second);
-		close(fd->first);
-	}
+	ft_printf("new fd = %d | old fd %d \n", fd->first, fd->second);
+	dup2(fd->first, fd->second);
+	close(fd->first);
 }
 
 void		get_blt_fd(void *data)

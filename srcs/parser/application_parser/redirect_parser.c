@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 17:17:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 18:35:14 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	flush_redirect(t_parser *parse)
 		ft_dprintf(2, "21sh: %s: No such file\n", filename);
 		error_parser(parse);
 	}
-	else if (type == E_LESS)
+	else if (type == E_LESS || type == E_LESSAND)
 		generate_filedesc(parse, fd, STDIN_FILENO, FD_DUP | FD_WRITE);
 	else
 	{
@@ -120,6 +120,6 @@ void	pipe_parser(t_parser *parse)
 	node = ft_lstnew(&parse->process, sizeof(t_process));
 	ft_lstaddback(&parse->job.process_list, node);
 	init_process(&parse->process);
-	generate_filedesc(parse, fd[0], STDIN_FILENO, FD_DUP | FD_READ);
+	generate_filedesc(parse, fd[0], STDIN_FILENO, FD_DUP | FD_WRITE);
 	get_token(parse);
 }
