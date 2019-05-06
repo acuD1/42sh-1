@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 18:39:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 14:47:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,25 @@ void	flush_redirect(t_parser *parse)
 			generate_filedesc(parse, fd, STDERR_FILENO, FD_DUP | FD_WRITE);
 		generate_filedesc(parse, fd, STDOUT_FILENO, FD_DUP | FD_WRITE);
 	}
+	parse->special_case ^= NO_PIPE;
 	ft_strdel(&filename);
+}
+
+void	redirect_and_parser(t_parser *parse)
+{
+	parse->state = P_REDIRECT_AND;
+	if (parse->token.type == E_GREATAND)
+		parse->oflags = O_RDWR + O_CREAT + O_TRUNC;
+	else if (parse->token.type == E_LESSAND)
+		parse->oflags = O_RDONLY;
+	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
+	get_token(parse);
 }
 
 void	redirect_parser(t_parser *parse)
 {
 	parse->state = P_REDIRECT;
 	if (parse->token.type == E_GREAT)
-		parse->oflags = O_RDWR + O_CREAT + O_TRUNC;
-	if (parse->token.type == E_GREATAND || parse->token.type == E_ANDGREAT)
 		parse->oflags = O_RDWR + O_CREAT + O_TRUNC;
 	else if (parse->token.type == E_DGREAT || parse->token.type == E_ANDDGREAT)
 		parse->oflags = O_RDWR + O_CREAT + O_APPEND;
@@ -79,7 +89,7 @@ void	pipe_parser(t_parser *parse)
 	parse->state = pipe(fd) ? P_ERROR : P_PIPE;
 	if (parse->state == P_ERROR)
 		return ;
-	if (ft_lstfind(parse->process.fd, &stdo, find_stdout_redirect))
+	if (parse->special_case & NO_PIPE)
 		close(fd[1]);
 	else
 		generate_filedesc(parse, fd[1], STDOUT_FILENO, FD_DUP | FD_WRITE);

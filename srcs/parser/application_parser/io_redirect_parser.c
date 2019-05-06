@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:42:30 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 05:59:52 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 14:07:32 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	io_and_redirect_flush(t_parser *parse)
 	fd = pop_token_data(&parse->stack);
 	pop_token_type(&parse->stack);
 	io = pop_token_data(&parse->stack);
-	action |= ft_strequ(fd, "-") ? FD_CLOSE : FD_DUP;
+	action |= parse->special_case & TO_CLOSE ? FD_CLOSE : FD_DUP;
 	generate_filedesc(parse, ft_atoi(fd), ft_atoi(io), action | FD_WRITE);
 	ft_strdel(&fd);
 	ft_strdel(&io);

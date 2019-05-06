@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/05/05 16:45:32 by skuppers         ###   ########.fr        #
+#    Updated: 2019/05/06 14:46:57 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -314,13 +314,14 @@ PARSER += redirect_parser.c
 PARSER += io_redirect_parser.c
 PARSER += filename_parser.c
 PARSER += heredoc_parser.c
+PARSER += parser_tools.c
 
 #Init Parser
 INIT += init_parser.c
 INIT += init_io_parser.c
 INIT += init_io_redirect_parser.c
 INIT += init_string_parser.c
-INIT += init_redirection_parser.c
+INIT += init_start_parser.c
 INIT += init_heredoc_parser.c
 
 #						   - - - - Expansion - - - -                           #

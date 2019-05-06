@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:56:47 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 00:51:17 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 14:44:37 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,36 +34,20 @@ void	init_pipe(t_pstate parsing)
 	parsing[P_PIPE][E_IO_NUMBER] = io_parser;
 }
 
-void	init_io_move(t_pstate parsing)
+void	init_io_dup_move(t_pstate parsing)
 {
-	parsing[P_IO_MOVE][E_STRING] = io_and_redirect_flush;
-	parsing[P_IO_MOVE][E_SPSTRING] = io_and_redirect_flush;
-	parsing[P_IO_MOVE][E_GREAT] = io_and_redirect_flush;
-	parsing[P_IO_MOVE][E_GREATAND] = io_and_redirect_flush;
-	parsing[P_IO_MOVE][E_LESS] = io_and_redirect_flush;
-	parsing[P_IO_MOVE][E_LESSAND] = io_and_redirect_flush;
-	parsing[P_IO_MOVE][E_DGREAT] = io_and_redirect_flush;
-	parsing[P_IO_MOVE][E_ANDDGREAT] = io_and_redirect_flush;
-	parsing[P_IO_MOVE][E_PIPE] = io_and_redirect_flush;
-	parsing[P_IO_MOVE][E_SEMICOLON] = io_and_redirect_flush;
-	parsing[P_IO_MOVE][E_NEWLINE] = io_and_redirect_flush;
-	parsing[P_IO_MOVE][E_END] = io_and_redirect_flush;
-}
-
-void	init_io_dup(t_pstate parsing)
-{
-	parsing[P_IO_DUP][E_STRING] = io_and_redirect_flush;
-	parsing[P_IO_DUP][E_SPSTRING] = io_and_redirect_flush;
-	parsing[P_IO_DUP][E_GREAT] = io_and_redirect_flush;
-	parsing[P_IO_DUP][E_GREATAND] = io_and_redirect_flush;
-	parsing[P_IO_DUP][E_LESS] = io_and_redirect_flush;
-	parsing[P_IO_DUP][E_LESSAND] = io_and_redirect_flush;
-	parsing[P_IO_DUP][E_DGREAT] = io_and_redirect_flush;
-	parsing[P_IO_DUP][E_ANDDGREAT] = io_and_redirect_flush;
-	parsing[P_IO_DUP][E_PIPE] = io_and_redirect_flush;
-	parsing[P_IO_DUP][E_SEMICOLON] = io_and_redirect_flush;
-	parsing[P_IO_DUP][E_NEWLINE] = io_and_redirect_flush;
-	parsing[P_IO_DUP][E_END] = io_and_redirect_flush;
+	parsing[P_IO_DUP_MOVE][E_STRING] = io_and_redirect_flush;
+	parsing[P_IO_DUP_MOVE][E_SPSTRING] = io_and_redirect_flush;
+	parsing[P_IO_DUP_MOVE][E_GREAT] = io_and_redirect_flush;
+	parsing[P_IO_DUP_MOVE][E_GREATAND] = io_and_redirect_flush;
+	parsing[P_IO_DUP_MOVE][E_LESS] = io_and_redirect_flush;
+	parsing[P_IO_DUP_MOVE][E_LESSAND] = io_and_redirect_flush;
+	parsing[P_IO_DUP_MOVE][E_DGREAT] = io_and_redirect_flush;
+	parsing[P_IO_DUP_MOVE][E_ANDDGREAT] = io_and_redirect_flush;
+	parsing[P_IO_DUP_MOVE][E_PIPE] = io_and_redirect_flush;
+	parsing[P_IO_DUP_MOVE][E_SEMICOLON] = io_and_redirect_flush;
+	parsing[P_IO_DUP_MOVE][E_NEWLINE] = io_and_redirect_flush;
+	parsing[P_IO_DUP_MOVE][E_END] = io_and_redirect_flush;
 }
 
 void	init_io_heredoc_redirect(t_pstate parsing)

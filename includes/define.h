@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/05 19:35:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/06 14:05:18 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,13 +131,16 @@
 *****************************************************
 */
 
-# define PARSE_STATES				27
+# define PARSE_STATES				30
 # define FD_DUP						0x01
 # define FD_CLOSE					0x02
 # define FD_WRITE					0x04
 # define FD_READ					0x08
+
 # define QUOTING					0x01
 # define HERETRIM					0x02
+# define TO_CLOSE					0x04
+# define NO_PIPE					0x08
 
 # define REDIR						E_GREAT, E_LESS
 # define REDIR_AND					E_GREATAND, E_LESSAND, E_ANDGREAT

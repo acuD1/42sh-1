@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/04 01:05:04 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 14:37:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,15 +130,17 @@ enum	e_parser_state
 		P_STRING_FLUSH,
 		P_SEPARATOR,
 		P_REDIRECT,
+		P_REDIRECT_AND,
+		P_DUP_MOVE,
 		P_REDIRECT_FLUSH,
+		P_REDIRECT_FLUSH_AND,
 		P_FILENAME,
 		P_SPFILENAME,
 		P_IO,
 		P_IO_REDIRECT,
 		P_IO_REDIRECT_AND,
 		P_IO_FILENAME,
-		P_IO_DUP,
-		P_IO_MOVE,
+		P_IO_DUP_MOVE,
 		P_IO_FLUSH,
 		P_IO_FLUSH_AND,
 		P_PIPE,

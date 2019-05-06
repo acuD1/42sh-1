@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:05:16 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 22:25:58 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 14:50:23 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	init_start(t_pstate parsing)
 	parsing[P_START][E_STRING] = string_parser;
 	parsing[P_START][E_SPSTRING] = special_string_parser;
 	parsing[P_START][E_GREAT] = redirect_parser;
-	parsing[P_START][E_GREATAND] = redirect_parser;
+	parsing[P_START][E_GREATAND] = redirect_and_parser;
 	parsing[P_START][E_LESS] = redirect_parser;
-	parsing[P_START][E_LESSAND] = redirect_parser;
+	parsing[P_START][E_LESSAND] = redirect_and_parser;
 	parsing[P_START][E_DGREAT] = redirect_parser;
 	parsing[P_START][E_DLESS] = redirect_parser;
 	parsing[P_START][E_DLESSDASH] = redirect_parser;
@@ -51,7 +51,9 @@ void	init_separator(t_pstate parsing)
 void	init_redirect(t_pstate parsing)
 {
 	parsing[P_REDIRECT][E_STRING] = filename_parser;
-	parsing[P_REDIRECT][E_SPSTRING] = special_filename_parser;
+	parsing[P_REDIRECT][E_SPSTRING] = filename_parser;
+	parsing[P_REDIRECT_AND][E_SPSTRING] = dup_move_parser;
+	parsing[P_REDIRECT_AND][E_STRING] = dup_move_parser;
 }
 
 void	init_flush_redirect(t_pstate parsing)

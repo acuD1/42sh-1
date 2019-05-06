@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:03:32 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/04 22:04:02 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 14:34:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	init_string(t_pstate parsing)
 	parsing[P_STRING][E_STRING] = string_parser;
 	parsing[P_STRING][E_SPSTRING] = special_string_parser;
 	parsing[P_STRING][E_GREAT] = redirect_parser;
-	parsing[P_STRING][E_GREATAND] = redirect_parser;
+	parsing[P_STRING][E_GREATAND] = redirect_and_parser;
 	parsing[P_STRING][E_LESS] = redirect_parser;
-	parsing[P_STRING][E_LESSAND] = redirect_parser;
+	parsing[P_STRING][E_LESSAND] = redirect_and_parser;
 	parsing[P_STRING][E_DGREAT] = redirect_parser;
 	parsing[P_STRING][E_DLESS] = redirect_parser;
 	parsing[P_STRING][E_DLESSDASH] = redirect_parser;
@@ -37,9 +37,9 @@ void	init_special_string(t_pstate parsing)
 	parsing[P_SPSTRING][E_STRING] = string_parser;
 	parsing[P_SPSTRING][E_SPSTRING] = special_string_parser;
 	parsing[P_SPSTRING][E_GREAT] = redirect_parser;
-	parsing[P_SPSTRING][E_GREATAND] = redirect_parser;
+	parsing[P_SPSTRING][E_GREATAND] = redirect_and_parser;
 	parsing[P_SPSTRING][E_LESS] = redirect_parser;
-	parsing[P_SPSTRING][E_LESSAND] = redirect_parser;
+	parsing[P_SPSTRING][E_LESSAND] = redirect_and_parser;
 	parsing[P_SPSTRING][E_ANDGREAT] = redirect_parser;
 	parsing[P_SPSTRING][E_DLESS] = redirect_parser;
 	parsing[P_SPSTRING][E_DGREAT] = redirect_parser;

@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:18:11 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 18:58:29 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 14:44:23 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	init_io_flush(t_pstate parsing);
 void	init_io_flush_and(t_pstate parsing);
 void	init_io_redirect(t_pstate parsing);
 void	init_pipe(t_pstate parsing);
-void	init_io_move(t_pstate parsing);
-void	init_io_dup(t_pstate parsing);
+void	init_io_dup_move(t_pstate parsing);
 void	init_io_redirect(t_pstate parsing);
 void	init_io_move(t_pstate parsing);
 void	init_io_dup(t_pstate parsing);
