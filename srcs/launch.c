@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/04 21:02:31 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 12:15:16 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,15 @@ static t_list	*get_env(t_list **alst, char **env)
 	variable.name = ft_strsub(*env, 0, pos);
 	variable.data = ft_strdup(*env + pos + 1);
 	if (variable.name == NULL || variable.data == NULL)
+	{
+		ft_dprintf(2, "[ERROR] - Env malloc failed.\n");
 		return (NULL);
+	}
 	if (!(node = ft_lstnew(&variable, sizeof(t_variable))))
+	{
+		ft_dprintf(2, "[ERROR] - Env malloc error.\n");
 		return (NULL);
+	}
 	ft_lstaddback(alst, node);
 	return (get_env(alst, ++env));
 }
@@ -124,7 +130,6 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 		if (parse_arg(av, &shell->option) == FAILURE)
 		{
 			ft_strdel(&(shell->option.command_str));
-			//ft_strdel(&(shell->option.path));
 			return (FAILURE);
 		}
 	}
@@ -133,8 +138,7 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 		shell_usage();
 		exit(0);
 	}
-	if (get_env(&shell->env, env) == NULL)
-		return (FAILURE);
+	get_env(&shell->env, env);
 	shell->bin_hashmap = ft_hmap_init(4096);
 	shell->blt_hashmap = ft_hmap_init(32);
 	shell->cur_fd.in = 0;
@@ -142,7 +146,6 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 	shell->cur_fd.err = 2;
 	if (set_shlvl(shell) == FAILURE)
 		return (FAILURE);
-	//wtf
 	return (hash_blt(shell, NULL));
 }
 
