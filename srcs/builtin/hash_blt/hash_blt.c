@@ -32,10 +32,10 @@ static void	hash_bin(t_registry *reg, const char *bin)
 				{
 					if (ft_hmap_insert(&(reg->bin_hashmap)
 							, dit->d_name, asp) == FALSE)
-						free(asp);
+						ft_free(asp);
 				}
 				else
-					free(asp);
+					ft_free(asp);
 			}
 		}
 		if (closedir(dip) == SUCCESS)
@@ -68,7 +68,7 @@ int8_t			hash_blt(t_registry *reg, char **av)
 
 	(void)av;
 	if (reg->bin_hashmap.used > 0)
-		ft_hmap_free_content(&(reg->bin_hashmap), free);
+		ft_hmap_free_content(&(reg->bin_hashmap), ft_free);
 	if (get_data(reg->env, "PATH") != NULL)
 	{
 		tabs = ft_strsplit(get_data(reg->env, "PATH"), ":");

@@ -50,7 +50,7 @@ int8_t			restore_term_behavior(t_registry *shell)
 		log_print(shell, LOG_ERROR, "Tcsetattr failed setting params.\n");
 		return (FAILURE);
 	}
-	free(shell->interface.term_mode);
-	free(shell->interface.orig_mode);
+	ft_free(shell->interface.term_mode);
+	ft_free(shell->interface.orig_mode);
 	return (SUCCESS);
 }

@@ -136,6 +136,7 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 	if ((shell->option.option & HELP_OPT) != FALSE)
 	{
 		shell_usage();
+		ft_flush_memory();
 		exit(0);
 	}
 	get_env(&shell->env, env);

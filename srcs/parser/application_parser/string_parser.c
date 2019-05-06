@@ -21,7 +21,7 @@ void	flush_string(t_parser *parse)
 	if (ft_stcksize(&parse->stack) == 0)
 		return ;
 	index = ft_stcksize(&parse->stack);
-	parse->process.av = (char **)malloc(sizeof(char *) * (index + 1));
+	parse->process.av = (char **)ft_malloc(sizeof(char *) * (index + 1));
 	if (parse->process.av == NULL)
 		return ;
 	parse->process.av[index] = NULL;
@@ -29,7 +29,7 @@ void	flush_string(t_parser *parse)
 	{
 		token = ft_stckpop(&parse->stack);
 		parse->process.av[index] = token->data;
-		free(token);
+		ft_free(token);
 	}
 }
 

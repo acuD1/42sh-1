@@ -31,14 +31,14 @@ void	unload_interface(t_interface *itf)
 	{
 		ft_strdel(&(ptr->command));
 		del = ptr->next;
-		free(ptr);
+		ft_free(ptr);
 		ptr = del;
 	}
 	ft_strdel(&(itf->current_line));
 	ft_strdel(&(itf->clip->buffer));
 	ft_strdel(&(itf->line->buffer));
-	free(itf->clip);
-	free(itf->line);
+	ft_free(itf->clip);
+	ft_free(itf->line);
 	ft_strdel(&(itf->termcaps.clear));
 	ft_strdel(&(itf->termcaps.cs_down));
 	ft_strdel(&(itf->termcaps.cs_up));

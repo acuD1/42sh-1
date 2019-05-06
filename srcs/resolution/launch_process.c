@@ -52,7 +52,7 @@ static char	**str_lst_to_tab(t_list *alst)
 
 	i = 0;
 	size = ft_lstlen(alst);
-	if ((tabs = (char **)malloc(sizeof(char *) * (size + 1))) == NULL)
+	if ((tabs = (char **)ft_malloc(sizeof(char *) * (size + 1))) == NULL)
 		return (NULL);
 	while (alst != NULL)
 	{

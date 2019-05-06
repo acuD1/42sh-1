@@ -20,7 +20,7 @@ char	*pop_token_data(t_stack *stack)
 
 	token = ft_stckpop(stack);
 	data = token->data;
-	free(token);
+	ft_free(token);
 	return (data);
 }
 
@@ -31,7 +31,7 @@ t_type	pop_token_type(t_stack *stack)
 
 	token = ft_stckpop(stack);
 	type = token->type;
-	free(token);
+	ft_free(token);
 	return (type);
 }
 

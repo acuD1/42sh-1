@@ -53,7 +53,7 @@ t_history		*create_history_entry(const char *command)
 	t_history	*new;
 
 	new = NULL;
-	if ((new = malloc(sizeof(t_history))) == NULL)
+	if ((new = ft_malloc(sizeof(t_history))) == NULL)
 		return (NULL);
 	new->command = apply_history_filter(command);
 	new->next = NULL;
