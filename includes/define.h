@@ -105,7 +105,7 @@
 # define STATENBR					17
 # define TOKEN_WITH_DATA			5
 # define NB_OF_TOKENS				50
-# define BUFFER						1024
+# define BUFFER						131071
 # define SINGLE_SIGNS				16
 # define SPECIAL_SIGNS				14
 # define SIGNS 						(SPECIAL_SIGNS + SINGLE_SIGNS)

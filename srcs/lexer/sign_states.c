@@ -76,7 +76,8 @@ void			and_machine(t_lexer *machine)
 	}
 	else
 	{
-		create_token_data(machine);
+		if (create_token_data(machine) == FAILURE)
+			return ;
 		++machine->input;
 	}
 	machine->state = L_OUT;
@@ -94,10 +95,14 @@ void			sign_machine(t_lexer *machine)
 		return ;
 	}
 	else if (double_dispatcher(machine) != FALSE)
-		create_token_data(machine);
+	{
+		if (create_token_data(machine) == FAILURE)
+			return ;
+	}
 	else
 	{
-		create_token_data(machine);
+		if (create_token_data(machine) == FAILURE)
+			return ;
 		machine->state = L_OUT;
 	}
 	++machine->input;

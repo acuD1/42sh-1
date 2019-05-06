@@ -23,7 +23,8 @@ void	single_quote_machine(t_lexer *machine)
 		machine->state = L_STRING;
 	if (*machine->input != '\0')
 	{
-		create_token_data(machine);
+		if (create_token_data(machine) == FAILURE)
+			return ;
 		++machine->input;
 	}
 	else
@@ -41,7 +42,8 @@ void	double_quote_machine(t_lexer *machine)
 		machine->state = L_STRING;
 	if (*machine->input != '\0')
 	{
-		create_token_data(machine);
+		if (create_token_data(machine) == FAILURE)
+			return ;
 		++machine->input;
 	}
 	else
