@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 16:31:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 17:17:43 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,33 @@
 #include "21sh.h"
 #include "parser.h"
 
-int		find_stdout_redirect(void *data, void *to_find)
+void	activate_piping(void *data)
 {
 	t_filedesc *fd;
 
 	fd = data;
-	return (fd->second == *(int *)to_find ? 1 : 0);
+	fd->action |= FD_PIPE;
+}
+
+void	flush_redirect_and(t_parser *parse)
+{
+	char			*filedesc;
+	int				fd;
+	unsigned int	action;
+	t_type			type;
+
+	parse->state = P_REDIRECT_FLUSH_AND;
+	action = 0;
+	filedesc = pop_token_data(&parse->stack);
+	fd = ft_atoi(filedesc);
+	ft_strdel(&filedesc);
+	type = pop_token_type(&parse->stack);
+	action |= parse->special_case & TO_CLOSE ? FD_CLOSE : FD_DUP;
+	parse->special_case ^= TO_CLOSE;
+	if (type == E_LESSAND)
+		generate_filedesc(parse, fd, STDIN_FILENO, action | FD_WRITE);
+	else
+		generate_filedesc(parse, fd, STDOUT_FILENO, action | FD_WRITE);
 }
 
 void	flush_redirect(t_parser *parse)
@@ -92,7 +113,10 @@ void	pipe_parser(t_parser *parse)
 	if (parse->special_case & NO_PIPE)
 		close(fd[1]);
 	else
+	{
+		ft_lstiter(parse->process.fd, activate_piping);
 		generate_filedesc(parse, fd[1], STDOUT_FILENO, FD_DUP | FD_WRITE);
+	}
 	node = ft_lstnew(&parse->process, sizeof(t_process));
 	ft_lstaddback(&parse->job.process_list, node);
 	init_process(&parse->process);

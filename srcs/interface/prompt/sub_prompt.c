@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:22:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 17:36:26 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/06 16:50:00 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int8_t		sub_prompt_loop(t_registry *shell, t_interface *itf)
 		}
 		handle_input_key(shell, character);
 		if (is_eof(itf->line->buffer) == TRUE)
-			return (FAILURE);
+			return (SUCCESS);
 	}
 	return (SUCCESS);
 }

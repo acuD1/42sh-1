@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:48:28 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 15:38:31 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 16:49:34 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	write_heredoc(char **line, int fd, t_parser *parse)
 
 static int	check_delimiter(char **delimiter, char **line, int fd, t_parser *p)
 {
-	if (ft_strequ(*line, *delimiter) == TRUE)
+	if (ft_strequ(*line, *delimiter) == TRUE || *line[0] == 4)
 	{
 		close(fd);
 		ft_putchar('\n');
