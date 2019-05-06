@@ -57,7 +57,8 @@ int8_t				export_blt(t_registry *shell, char **av)
 		}
 		else
 			variable->data = ft_strdup(get_intern_var(shell, variable->name));
-		add_env(shell, variable->name, variable->data);
+		if (variable->data)
+			add_env(shell, variable->name, variable->data);
 		if (variable && variable->name && ft_strequ(variable->name, "PATH"))
 			hash_blt(shell, av);
 		clear_node((void **)&variable);
