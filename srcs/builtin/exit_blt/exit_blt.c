@@ -47,7 +47,7 @@ int8_t			exit_blt(t_registry *shell, char **av)
 		{
 			ft_dprintf(shell->cur_fd.err,
 					"21sh: exit: %s: numeric argument required\n", *av);
-			free_registry(shell);
+		//	free_registry(shell);
 			ft_flush_memory();
 			exit(FAILURE);
 		}

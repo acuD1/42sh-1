@@ -85,6 +85,7 @@ int			main(int ac, char **av, char **env)
 		return (FAILURE);
 	define_ign_signals();
 	launch_shell(&shell);
-	shell_exit_routine(&shell);
+	//shell_exit_routine(&shell);
+	ft_flush_memory();
 	return (SUCCESS);
 }
