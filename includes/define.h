@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/06 14:05:18 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 17:10:10 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@
 # define FD_CLOSE					0x02
 # define FD_WRITE					0x04
 # define FD_READ					0x08
+# define FD_PIPE					0x10
 
 # define QUOTING					0x01
 # define HERETRIM					0x02
