@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:01:44 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 19:12:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/06 21:52:20 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,29 @@
 #include "parser.h"
 #include "lexer.h"
 
+int		check_token(t_parser *parse)
+{
+	if(parse->token.type == E_SEMICOLON)
+		return (0);
+	if(parse->token.type == E_PIPE)
+		return (0);
+	if(parse->token.type == E_END)
+		return (0);
+	if (parse->token.type == E_NEWLINE)
+		return (0);
+	return (1);
+}
+
 void	error_parser(t_parser *parse)
 {
-	t_token		*token;
-
 	parse->state = P_ERROR;
 	parse->token.type = E_DEFAULT;
 	parse->valid = -1;
-	if (parse->token_list && (token = (t_token *)(parse->token_list->data)))
+	ft_strdel(&parse->token.data);
+	while (check_token(parse))
 	{
-		while (token->type != E_SEMICOLON && token->type != E_PIPE
-				&& token->type != E_END)
-		{
-			ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-			get_token(parse);
-			token = (t_token *)(parse->token_list->data);
-			if (token == NULL)
-				break ;
-		}
-	}
-	if (parse->token_list && token != NULL && (token->type == E_SEMICOLON
-			|| token->type == E_PIPE))
-	{
-		ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
 		get_token(parse);
+		ft_strdel(&parse->token.data);
 	}
 	ft_lstdel(&parse->process.fd, close_fd);
 }
