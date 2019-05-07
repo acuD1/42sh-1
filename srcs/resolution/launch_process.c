@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 16:33:01 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/07 16:51:38 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,26 @@ static int8_t	launch_builtin(t_registry *shell, t_process *process)
 	return (SUCCESS);
 }
 
+static int8_t	is_exec(t_registry *shell, t_process *process)
+{
+	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) == NULL
+			&& ft_hmap_getdata(&shell->bin_hashmap, process->av[0]) == NULL
+			&& !(process->av[0][0] == '.' || process->av[0][0] == '/'))
+	{
+		ft_dprintf(2, "21sh: command not found: %s\n", process->av[0]);
+		return (FALSE);
+	}
+	return (TRUE);
+}
+
 int8_t			launch_process(t_job *job, t_process *process,
 						t_registry *shell)
 {
 	pid_t		pid;
 	char		**env;
 
-	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) == NULL
-			&& ft_hmap_getdata(&shell->bin_hashmap, process->av[0]) == NULL
-			&& !(process->av[0][0] == '.' || process->av[0][0] == '/'))
-	{
-		ft_dprintf(2, "21sh: command not found: %s\n", process->av[0]);
+	if (is_exec(shell, process) == FALSE)
 		return (SUCCESS);
-	}
 	if (process->av == NULL)
 		return (SUCCESS);
 	if (job->process_list->next == NULL
