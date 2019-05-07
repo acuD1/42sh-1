@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ways_graph.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:42:24 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/03 16:42:54 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 12:43:40 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		set_start_token(t_graph *tab_tokens)
 {
-	static enum	e_type tab_good_type[] = {WORD, ALL_REDIRECT, E_ASSIGN,
+	static enum e_type tab_good_type[] = {WORD, ALL_REDIRECT, E_ASSIGN,
 										E_IO_NUMBER, E_END, E_START, E_ERROR};
 
 	tab_tokens[E_START].good_type = tab_good_type;
@@ -24,7 +24,7 @@ void		set_start_token(t_graph *tab_tokens)
 
 void		set_redirect_token(t_graph *tab_tokens)
 {
-	static enum	e_type tab_good_type[] = {WORD, E_ERROR};
+	static enum e_type tab_good_type[] = {WORD, E_ERROR};
 
 	tab_tokens[E_GREAT].good_type = tab_good_type;
 	tab_tokens[E_DGREAT].good_type = tab_good_type;
@@ -39,14 +39,14 @@ void		set_redirect_token(t_graph *tab_tokens)
 
 void		set_assign_token(t_graph *tab_tokens)
 {
-	static enum	e_type tab_good_type[] = {WORD, E_ERROR};
+	static enum e_type tab_good_type[] = {WORD, E_ERROR};
 
 	tab_tokens[E_ASSIGN].good_type = tab_good_type;
 }
 
 void		set_pipe_token(t_graph *tab_tokens)
 {
-	static enum	e_type tab_good_type[] = {WORD, ALL_REDIRECT, E_ASSIGN,
+	static enum e_type tab_good_type[] = {WORD, ALL_REDIRECT, E_ASSIGN,
 										E_IO_NUMBER, E_ERROR};
 
 	tab_tokens[E_PIPE].good_type = tab_good_type;
@@ -54,7 +54,7 @@ void		set_pipe_token(t_graph *tab_tokens)
 
 void		set_ionumber_token(t_graph *tab_tokens)
 {
-	static enum	e_type tab_good_type[] = {ALL_REDIRECT, E_ERROR};
+	static enum e_type tab_good_type[] = {ALL_REDIRECT, E_ERROR};
 
 	tab_tokens[E_IO_NUMBER].good_type = tab_good_type;
 }

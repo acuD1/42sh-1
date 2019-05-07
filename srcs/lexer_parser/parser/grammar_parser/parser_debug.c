@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_debug.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:42:18 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/01 01:18:42 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 12:53:49 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_registry	*g_shell;
 void		print_token_debug(t_token *token)
 {
 	ft_printf("\033[37m         --------\n         |   ");
-	if (token->type == E_STRING || token->type == E_SPSTRING )
+	if (token->type == E_STRING || token->type == E_SPSTRING)
 		ft_printf("%5s   | data [%s]\n         --------\033[0m\n",
 				g_shell->grammar[token->type], token->data);
 	else

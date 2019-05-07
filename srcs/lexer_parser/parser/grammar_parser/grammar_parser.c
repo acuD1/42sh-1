@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   grammar_parser.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/02 03:22:01 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 12:54:20 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static uint8_t	state_is_ok(enum e_type to_find, enum e_type *current,
 
 int8_t			parser(t_graph *graph, t_list *lst)
 {
-	t_token 	*token;
+	t_token		*token;
 	t_list		*tmp;
 	enum e_type	state;
 

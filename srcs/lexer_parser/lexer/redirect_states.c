@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_states.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:23:05 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 04:02:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 12:52:12 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ void	lesser_machine(t_lexer *machine)
 		if (machine->last_lexer != E_DLESS)
 		{
 			machine->last_lexer = E_DLESS;
-			if (create_token_data(machine) == FAILURE)
-				return ;
-			++machine->input;
+			if (create_token_data(machine) != FAILURE)
+				++machine->input;
 			return ;
 		}
 	}

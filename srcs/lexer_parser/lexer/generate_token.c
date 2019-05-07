@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generate_token.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 20:19:38 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 04:32:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 12:46:18 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ char				*assign_token_data(t_lexer *machine, t_token *token)
 		if (token->type == machine->lexinfo->duplicate[i++] && *machine->buffer)
 		{
 			if (machine->data != NULL)
-				ft_asprintf(&token->data, "%s%s", machine->data, machine->buffer);
+				ft_asprintf(&token->data, "%s%s", machine->data
+						, machine->buffer);
 			else
 				token->data = ft_strdup(machine->buffer);
 			ft_strdel(&machine->data);
@@ -90,7 +91,7 @@ t_token				generate_token(t_lexer *machine)
 
 	token.type = define_type(machine);
 	token.data = NULL;
-	assign_token_data(machine, &token) ; //Gestion d'erreur ici
+	assign_token_data(machine, &token);
 	if (machine->last_lexer != E_END)
 	{
 		ft_bzero(machine->buffer, BUFFER);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <ffoissey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 14:57:46 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/06 21:01:18 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/07 12:53:17 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	pipe_parser(t_parser *parse)
 	else
 	{
 		generate_filedesc(parse, STDIN_FILENO, fd[0], FD_CLOSE);
-		generate_filedesc(parse, fd[1], STDOUT_FILENO, FD_DUP | FD_WRITE | FD_PIPE);
+		generate_filedesc(parse, fd[1], STDOUT_FILENO
+				, FD_DUP | FD_WRITE | FD_PIPE);
 	}
 	node = ft_lstnew(&parse->process, sizeof(t_process));
 	ft_lstaddback(&parse->job.process_list, node);

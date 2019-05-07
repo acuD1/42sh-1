@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_interface.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:01:44 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 21:52:20 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 12:52:59 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 
 int		check_token(t_parser *parse)
 {
-	if(parse->token.type == E_SEMICOLON)
+	if (parse->token.type == E_SEMICOLON)
 		return (0);
-	if(parse->token.type == E_PIPE)
+	if (parse->token.type == E_PIPE)
 		return (0);
-	if(parse->token.type == E_END)
+	if (parse->token.type == E_END)
 		return (0);
 	if (parse->token.type == E_NEWLINE)
 		return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ways_graph_word.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:42:24 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/03 16:42:54 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 12:43:01 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		set_word_token(t_graph *tab_tokens)
 {
-	static enum	e_type tab_good_type[] = {WORD, ALL_REDIRECT, E_ASSIGN,
+	static enum e_type tab_good_type[] = {WORD, ALL_REDIRECT, E_ASSIGN,
 										E_IO_NUMBER, E_PIPE, END_CMD, E_ERROR};
 
 	tab_tokens[E_STRING].good_type = tab_good_type;
