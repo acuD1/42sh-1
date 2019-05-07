@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   job_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:18:25 by skuppers          #+#    #+#             */
 /*   Updated: 2019/05/07 16:30:43 by skuppers         ###   ########.fr       */

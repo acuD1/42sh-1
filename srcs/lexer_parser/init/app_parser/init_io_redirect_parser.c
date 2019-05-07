@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_io_redirect_parser.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffoissey <ffoissey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 21:56:47 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 21:24:51 by cempassi         ###   ########.fr       */
+/*   Created: 2019/05/04 21:56:47 by ffoissey          #+#    #+#             */
+/*   Updated: 2019/05/06 21:24:51 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

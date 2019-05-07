@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   setenv_blt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
 /*   Updated: 2019/05/07 17:20:02 by ffoissey         ###   ########.fr       */

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
+#    By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/05/07 15:03:04 by nrechati         ###   ########.fr        #
+#    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
+#    Updated: 2019/05/07 15:03:04 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

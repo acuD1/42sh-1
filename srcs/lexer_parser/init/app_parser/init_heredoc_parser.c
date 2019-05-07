@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_heredoc_parser.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffoissey <ffoissey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 22:07:01 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 14:29:09 by cempassi         ###   ########.fr       */
+/*   Created: 2019/05/04 22:07:01 by ffoissey          #+#    #+#             */
+/*   Updated: 2019/05/06 14:29:09 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
