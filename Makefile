@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/05/07 05:01:54 by cempassi         ###   ########.fr        #
+#    Updated: 2019/05/07 14:24:58 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ NAMEDB = 21shdb
 NAMET = unit
 LIBFT = libft.a
 LIBFTDB = libftdb.a
-SRCS = $(LINE) $(LEXER) $(PARSER) $(BUILTIN) $(TOOLS) $(EXPANSION) $(INIT) $(STARTUP)
+SRCS += $(LINE) $(LEXER) $(PARSER) $(BUILTIN) $(TOOLS) $(EXPANSION)
+SRCS +=  $(INIT) $(STARTUP) $(EXEC)
 OBJM = $(patsubst %.c, $(OPATH)%.o, $(LINEM))
 OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS))
 OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM))
@@ -341,7 +342,6 @@ TOOLS += utils.c
 TOOLS += print_opt.c
 TOOLS += read_filedesc.c
 TOOLS += internals.c
-TOOLS += exec.c
 
 #						   - - - - Resolution - - - -                          #
 
@@ -350,6 +350,10 @@ LINE += launch_job.c
 LINE += launch_process.c
 LINE += waitjob.c
 
+EXEC += exec.c
+EXEC += job_management.c
+EXEC += launcher.c
+EXEC += signals.c
 
 
 # ---------------------------------------------------------------------------- #

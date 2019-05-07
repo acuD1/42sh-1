@@ -6,14 +6,15 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:02:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 11:49:47 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 12:54:53 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SIG_H
 # define SIG_H
-void	signal_parser(t_parser *parser);
+# include "parser.h"
 
+void	signal_parser(t_parser *parser);
 void	stop_parsing(const int signo);
 void	kill_process(const int signo);
 void	loop_signals(void (*func)(int));
