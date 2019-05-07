@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:35:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/04 23:33:56 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 13:24:40 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ char		*is_cdpath_env(t_registry *shell, const char *to_find);
 char		*get_relative_path(char **curpath);
 char		*make_curpath_simple(char *curpath);
 uint8_t		one_only_arg(t_registry *shell, char **arg);
-uint8_t 	check_path(t_registry *shell, char *curpath,
-						const char *path_give_by_user);
+uint8_t		check_path(t_registry *shell, char *curpath,
+					const char *path_give_by_user);
 int8_t		exit_cd(t_registry *shell, char **old_pwd,
-						char **curpath, int8_t ret);
+					char **curpath, int8_t ret);
 
 /*
 *****************************************************
@@ -66,8 +66,8 @@ int8_t		exit_cd(t_registry *shell, char **old_pwd,
 *****************************************************
 */
 
-int8_t				env_blt(t_registry *shell, char **av);
-t_option			get_option_env(char *s, t_option option);
+int8_t		env_blt(t_registry *shell, char **av);
+t_option	get_option_env(char *s, t_option option);
 
 /*
 *****************************************************
@@ -75,7 +75,7 @@ t_option			get_option_env(char *s, t_option option);
 *****************************************************
 */
 
-int8_t				setenv_blt(t_registry *shell, char **av);
+int8_t		setenv_blt(t_registry *shell, char **av);
 
 /*
 *****************************************************
@@ -83,7 +83,7 @@ int8_t				setenv_blt(t_registry *shell, char **av);
 *****************************************************
 */
 
-int8_t				unsetenv_blt(t_registry *shell, char **av);
+int8_t		unsetenv_blt(t_registry *shell, char **av);
 
 /*
 *****************************************************
@@ -91,7 +91,7 @@ int8_t				unsetenv_blt(t_registry *shell, char **av);
 *****************************************************
 */
 
-int8_t				intern_blt(t_registry *shell, char **av);
+int8_t		intern_blt(t_registry *shell, char **av);
 
 /*
 *****************************************************
@@ -99,7 +99,7 @@ int8_t				intern_blt(t_registry *shell, char **av);
 *****************************************************
 */
 
-int8_t				exit_blt(t_registry *reg, char **av);
+int8_t		exit_blt(t_registry *reg, char **av);
 
 /*
 *****************************************************
@@ -107,8 +107,8 @@ int8_t				exit_blt(t_registry *reg, char **av);
 *****************************************************
 */
 
-int8_t				type_blt(t_registry *shell, char **av);
-t_option			get_option_type(char *s, t_option option);
+int8_t		type_blt(t_registry *shell, char **av);
+t_option	get_option_type(char *s, t_option option);
 
 /*
 *****************************************************
@@ -116,7 +116,7 @@ t_option			get_option_type(char *s, t_option option);
 *****************************************************
 */
 
-int8_t				hash_blt(t_registry *reg, char **av);
+int8_t		hash_blt(t_registry *reg, char **av);
 
 /*
 *****************************************************
@@ -124,7 +124,7 @@ int8_t				hash_blt(t_registry *reg, char **av);
 *****************************************************
 */
 
-int8_t				export_blt(t_registry *shell, char **av);
+int8_t		export_blt(t_registry *shell, char **av);
 
 /*
 *****************************************************
@@ -132,7 +132,7 @@ int8_t				export_blt(t_registry *shell, char **av);
 *****************************************************
 */
 
-int8_t				set_blt(t_registry *reg, char **av);
+int8_t		set_blt(t_registry *reg, char **av);
 
 /*
 *****************************************************
@@ -140,6 +140,6 @@ int8_t				set_blt(t_registry *reg, char **av);
 *****************************************************
 */
 
-int8_t				unset_blt(t_registry *reg, char **av);
+int8_t		unset_blt(t_registry *reg, char **av);
 
 #endif

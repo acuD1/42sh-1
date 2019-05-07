@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/04 22:48:00 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 13:23:08 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 */
 void			free_registry(t_registry *shell);
 int8_t			init_shell(t_registry *shell);
-int8_t			set_environment( t_registry *shell, char **av, char **env);
+int8_t			set_environment(t_registry *shell, char **av, char **env);
 void			init_lexinfo(t_registry *shell);
 int8_t			shell_usage(void);
 void			shell_exit_routine(t_registry *shell);
@@ -37,11 +37,10 @@ int8_t			parse_arg(char **av, t_opt *option);
 *****************************************************
 */
 
-char	        *read_input(const int fd);
+char			*read_input(const int fd);
 void			launch_interface(t_registry *shell);
-int8_t		    execution_pipeline(t_registry *shell, t_list *token_list);
+int8_t			execution_pipeline(t_registry *shell, t_list *token_list);
 void			get_prompt_ps1(t_registry *shell);
-
 
 /*
 *****************************************************
@@ -49,13 +48,13 @@ void			get_prompt_ps1(t_registry *shell);
 *****************************************************
 */
 
-char			*get_env_var(t_registry  *shell,  char *name);
-char			*get_intern_var(t_registry  *shell,  char *name);
-int8_t			add_env(t_registry *shell,  char *name,  char *data);
-int8_t			add_internal(t_registry *shell,  char *name,
-					 char *data);
-int8_t			add_internal_nbr(t_registry *shell,  char *name,
-					 int data);
+char			*get_env_var(t_registry *shell, char *name);
+char			*get_intern_var(t_registry *shell, char *name);
+int8_t			add_env(t_registry *shell, char *name, char *data);
+int8_t			add_internal(t_registry *shell, char *name,
+						char *data);
+int8_t			add_internal_nbr(t_registry *shell, char *name,
+						int data);
 
 /*
 *****************************************************
@@ -95,7 +94,7 @@ void			free_one_node_token(t_list **token_lst);
 *****************************************************
 */
 
-void	        print_opt(t_registry *shell);
+void			print_opt(t_registry *shell);
 
 /*
 *****************************************************
@@ -103,7 +102,7 @@ void	        print_opt(t_registry *shell);
 *****************************************************
 */
 
-char	       	*ft_strjoinfree(char *s1, const char *s2, const short todel);
+char			*ft_strjoinfree(char *s1, const char *s2, const short todel);
 void			delete_job(void *data);
 void			del_token(void *token);
 
@@ -113,7 +112,7 @@ void			del_token(void *token);
 *****************************************************
 */
 
-void		parser_print_debug(t_registry *shell, t_parser *parse);
-void		lexer_print_debug(t_registry *shell, t_list *token_list);
+void			parser_print_debug(t_registry *shell, t_parser *parse);
+void			lexer_print_debug(t_registry *shell, t_list *token_list);
 
 #endif

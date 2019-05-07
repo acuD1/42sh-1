@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/06 20:11:52 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 13:18:20 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@
 # define BUFFER						131071
 # define SINGLE_SIGNS				16
 # define SPECIAL_SIGNS				14
-# define SIGNS 						(SPECIAL_SIGNS + SINGLE_SIGNS) // MACRO
+# define SIGNS 						30
 # define ALLCHAR					"\"|()><;`&{}[]#%\n"
 # define SIGN_DETECT				" \t<>|;&!=\n"
 # define LETTER_TO_QUOTE			"\"\'$"
