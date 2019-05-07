@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 12:54:20 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/07 14:29:06 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,38 +50,6 @@ static uint8_t	manage_error_and_subprompt(enum e_type state, enum e_type type,
 	return (FALSE);
 }
 
-/*
-static void		token_reduction(t_list **lst)
-{
-	t_token	*token;
-	t_token	*next_token;
-	t_list	*tmp;
-
-	token = (t_token *)((*lst)->data);
-	while (token->type == E_NEWLINE)
-	{
-		next_token = (t_token *)((*lst)->next->data);
-		if (next_token->type == E_NEWLINE || next_token->type == E_END)
-		{
-			tmp = (*lst)->next->next;
-			free_one_node_token(&(*lst)->next);
-			(*lst)->next = tmp;
-			if (tmp == NULL)
-			{
-				token = (t_token *)((*lst)->data);
-				token->type = E_END;
-				return ;
-			}
-		}
-		else
-		{
-			token = (t_token *)((*lst)->data);
-			token->type = E_SEMICOLON;
-			return ;
-		}
-	}
-}*/
-
 static uint8_t	state_is_ok(enum e_type to_find, enum e_type *current,
 							enum e_type possible_state[])
 {
@@ -120,10 +88,7 @@ int8_t			parser(t_graph *graph, t_list *lst)
 			lst = tmp;
 		}
 		else
-		{
-			//token_reduction(&lst);
 			tmp = lst;
-		}
 		lst = lst->next;
 	}
 	return (SUCCESS);

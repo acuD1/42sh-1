@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 11:59:35 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/07 11:59:37 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/07 14:37:06 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int8_t			exit_blt(t_registry *shell, char **av)
 		{
 			ft_dprintf(shell->cur_fd.err,
 					"21sh: exit: %s: numeric argument required\n", *av);
-			//free_registry(shell);
+			free_registry(shell);
 			ft_flush_memory();
 			exit(FAILURE);
 		}
@@ -56,7 +56,7 @@ int8_t			exit_blt(t_registry *shell, char **av)
 		}
 	}
 	ret = *av == NULL ? SUCCESS : ft_atoi(*av);
-	//free_registry(shell);
+	free_registry(shell);
 	ft_flush_memory();
 	exit(ret);
 }

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/05 01:17:18 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 14:37:09 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int			main(int ac, char **av, char **env)
 		return (FAILURE);
 	define_ign_signals();
 	launch_shell(&shell);
-	//shell_exit_routine(&shell);
+	shell_exit_routine(&shell);
 	ft_flush_memory();
 	return (SUCCESS);
 }

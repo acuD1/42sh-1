@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 13:27:06 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/07 14:38:25 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ enum	e_event
 *****************************************************
 */
 
-enum	action_keys
+enum	e_action_keys
 {
 	AK_ARROW_RIGHT,
 	AK_ARROW_LEFT,
