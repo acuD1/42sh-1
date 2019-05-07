@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_blt_cdpath.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:35:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/05 06:56:29 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 11:59:00 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static char		*is_valid_path(char *path, const char *to_find)
 		return (complete_path);
 	ft_strdel(&complete_path);
 	return (NULL);
-
 }
 
 static uint8_t	add_end_slash(char **path)
@@ -74,8 +73,8 @@ char			*is_cdpath_env(t_registry *shell, const char *to_find)
 	return (NULL);
 }
 
-uint8_t 		check_path(t_registry *shell, char *curpath,
-							const char *path_give_by_user)
+uint8_t			check_path(t_registry *shell, char *curpath,
+						const char *path_give_by_user)
 {
 	char		*oldpwd;
 	struct stat	stat;
