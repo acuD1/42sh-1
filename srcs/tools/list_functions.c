@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 22:07:09 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 20:45:59 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 13:06:33 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	print_process(void *data)
 
 int		find_variable(void *data, void *to_find)
 {
-	t_variable *variable;
+	t_variable	*variable;
 	char		*name;
 
 	name = to_find;
