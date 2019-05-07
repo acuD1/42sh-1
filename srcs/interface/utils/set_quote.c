@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:14:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:52:20 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:24:49 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	set_quote(char c)
+char	set_quote(const char c)
 {
-	if (c == '\'' || c == '\"' || c == '`')
+	if (c == '\'' || c == '\"')
 		return (c);
-	return (0);
+	return ('\0');
 }

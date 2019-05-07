@@ -6,13 +6,11 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:14:28 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:45:51 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/05 16:26:20 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interface_functions.h"
-#include "ft_printf.h"
-#include "log.h"
 
 int8_t		tc_ak_hightab(t_registry *shell)
 {
@@ -22,7 +20,7 @@ int8_t		tc_ak_hightab(t_registry *shell)
 
 int8_t		tc_ak_delete(t_registry *shell)
 {
-	if (validate_interface_content(&shell->interface) != 0)
+	if (validate_interface_content(&shell->interface) == FAILURE)
 		return (FAILURE);
 	shift_content_left_once(shell->interface.line,
 			shell->interface.cursor.index);
@@ -35,7 +33,7 @@ int8_t		tc_ak_backspace(t_registry *shell)
 	t_interface	*itf;
 
 	itf = &shell->interface;
-	if (validate_interface_content(itf) != 0)
+	if (validate_interface_content(itf) == FAILURE)
 		return (FAILURE);
 	if (itf->cursor.index == 0)
 		return (SUCCESS);

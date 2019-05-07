@@ -6,14 +6,17 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:02:11 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 13:56:35 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/04 14:29:49 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+////// LINUX
+#include <sys/wait.h>
+////////////
 #include "resolve.h"
 
-int8_t		set_process_status(t_process *process, pid_t pid, int status)
+static int8_t	set_process_status(t_process *process, const pid_t pid,
+										const int status)
 {
 	process->status = status;
 	if (WIFSTOPPED(status) != FALSE)
@@ -27,19 +30,17 @@ int8_t		set_process_status(t_process *process, pid_t pid, int status)
 							, pid, WTERMSIG(process->status));
 			return (FAILURE);
 		}
-
 	}
 	return (SUCCESS);
 }
 
-int8_t		update_process_status(pid_t pid, int status)
+static int8_t	update_process_status(const pid_t pid, const int status)
 {
 	t_list		*job;
 	t_list		*process;
 
 	if (pid <= 0)
 		return (FAILURE);
-	// global job
 	job = g_job_head;
 	while (job != NULL)
 	{
@@ -48,16 +49,16 @@ int8_t		update_process_status(pid_t pid, int status)
 		{
 			if (((t_process*)process->data)->pid == pid)
 				return (set_process_status(((t_process*)process->data)
-							, pid, status));
+						, pid, status));
 			process = process->next;
 		}
 		job = job->next;
 	}
-	ft_dprintf(2, "[WARNING]: No child process %d.\n", (int)pid);
+	ft_dprintf(2, "[WARNING]: No child process %d.\n", (const int)pid);
 	return (FAILURE);
 }
 
-void		wait_for_job(t_job *job)
+void			wait_for_job(t_job *job)
 {
 	int		status;
 	pid_t	pid;

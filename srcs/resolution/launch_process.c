@@ -6,31 +6,34 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 14:05:14 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/06 22:00:35 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
 #include "log.h"
+#include "sig.h"
 #include "resolve.h"
+#include <unistd.h>
 
-char		**str_lst_to_tab(t_list *alst)
+t_registry	*g_shell;
+
+static char		**str_lst_to_tab(t_list *alst)
 {
-	int		i;
-	size_t	size;
-	t_node	*data;
-	char	*env;
-	char	**tabs;
+	uint32_t	i;
+	size_t		size;
+	t_variable	*variable;
+	char		*env;
+	char		**tabs;
 
 	i = 0;
 	size = ft_lstlen(alst);
-	if ((tabs = (char **)malloc(sizeof(char *) * (size + 1))) == NULL)
+	if ((tabs = (char **)ft_malloc(sizeof(char *) * (size + 1))) == NULL)
 		return (NULL);
 	while (alst != NULL)
 	{
-		data = (t_node *)alst->data;
+		variable = (t_variable *)alst->data;
 		env = NULL;
-		ft_asprintf(&env, "%s=%s", data->var, data->data);
+		ft_asprintf(&env, "%s=%s", variable->name, variable->data);
 		tabs[i] = env;
 		alst = alst->next;
 		i++;
@@ -39,89 +42,62 @@ char		**str_lst_to_tab(t_list *alst)
 	return (tabs);
 }
 
-static void	el_redirector(t_filedesc *fd)
+static void		execute_process(t_process *process,
+					t_registry *shell, char **env)
 {
-	if (fd->in != STDIN_FILENO)
-	{
-		if (fd->in != -1 || close(STDIN_FILENO))
-			dup2(fd->in, STDIN_FILENO);
-	}
-	if (fd->out != STDOUT_FILENO && fd->out != STDIN_FILENO)
-	{
-		if (fd->out != -1 || close(STDOUT_FILENO))
-			dup2(fd->out, STDOUT_FILENO);
-	}
-	if (fd->err != STDERR_FILENO && fd->err != STDIN_FILENO)
-	{
-		if (fd->err != -1 || close(STDERR_FILENO))
-			dup2(fd->err, STDERR_FILENO);
-	}
-}
-
-static void	execute_process(t_process *process, t_registry *shell)
-{
-	char			**environ;
-	t_filedesc		fd;
-
-	define_execution_signals(shell);
-
-	fd = process->fd;
-
-	////////////////////// DEBUG EXEC ///////////////////////
-	if ((shell->option.option & DEBUG_OPT) != FALSE)
-	{
-		ft_dprintf(2, "\n\x1b[32m[CMD LAUNCH] %s | IN: %d OUT: %d ERR: %d\n\x1b[0m",
-				process->av[0], fd.in, fd.out, fd.err);
-		ft_dprintf(2, "\x1b[35m[OUTPUT]: _______________________\n\x1b[0m\n");
-	}
-	/////////////////////////////////////////////////////////
-
-	el_redirector(&fd);
-	environ = str_lst_to_tab(shell->env);
-	/*	Exec the new process	*/
+	define_execution_signals();
+	ft_lstiter(process->fd, redirect);
 	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL)
 		exit(((t_builtin)ft_hmap_getdata(&shell->blt_hashmap /* HOTFIX */
-									, process->av[0]))(shell, process->av));
+						, process->av[0]))(shell, process->av));
 	else if (ft_hmap_getdata(&shell->bin_hashmap, process->av[0]) != NULL)
 		execve(ft_hmap_getdata(&shell->bin_hashmap, process->av[0])
-									, process->av, environ);
+				, process->av, env);
 	else if (process->av[0][0] == '.' || process->av[0][0] == '/')
-		execve(process->av[0], process->av, environ);
-	////////////////////// DEBUG ERROR ///////////////////////
+		execve(process->av[0], process->av, env);
 	ft_dprintf(2, "21sh: command not found: %s\n", process->av[0]);
-	//////////////////////////////////////////////////////////
-
 	exit(FAILURE);
 }
 
-int		launch_process(t_job *job, t_process *process, t_registry *shell)
+static int8_t	launch_builtin(t_registry *shell, t_process *process)
+{
+	t_builtin		f;
+
+	if (!(f = ft_hmap_getdata(&shell->blt_hashmap, process->av[0])))
+		return (FAILURE);
+	shell->cur_fd.in = 0;
+	shell->cur_fd.out = 1;
+	shell->cur_fd.err = 2;
+	ft_lstiter(process->fd, get_blt_fd);
+	f(shell, process->av);
+	shell->cur_fd.in = 0;
+	shell->cur_fd.out = 1;
+	shell->cur_fd.err = 2;
+	return (SUCCESS);
+}
+
+int8_t			launch_process(t_job *job, t_process *process,
+						t_registry *shell)
 {
 	pid_t		pid;
+	char		**env;
 
-
-	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL
-			&& job->process_list->next == NULL)
+	if (process->av == NULL)
+		return (SUCCESS);
+	if (job->process_list->next == NULL
+			&& launch_builtin(shell, process) == SUCCESS)
+		return (SUCCESS);
+	env = str_lst_to_tab(shell->env);
+	if ((pid = fork()) == SUCCESS)
+		execute_process(process, shell, env);
+	else if (pid < 0)
 	{
-		((t_builtin)ft_hmap_getdata(&shell->blt_hashmap, process->av[0]))
-													(shell, process->av);
+		ft_dprintf(2, "[ERROR]: Fork() failed.\n");
+		ft_freetab(&env);
 		return (FAILURE);
 	}
-	else
-	{
-		pid = fork();
-		if (pid == 0)
-			execute_process(process, shell);
-		else if (pid < 0)
-		{
-			ft_dprintf(2, "[ERROR]: Fork() failed.\n");
-			exit(FAILURE);
-		}
-		else
-		{
-			process->pid = pid;
-			if (job->pgid == 0)
-				job->pgid = pid;
-		}
-	}
+	ft_freetab(&env);
+	process->pid = pid;
+	job->pgid = job->pgid ? job->pgid  :pid;
 	return (SUCCESS);
 }

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "interface_functions.h"
-#include "ft_printf.h"
+#include <termcap.h>
 
 int8_t		tc_ak_ctrl_d(t_registry *shell)
 {
@@ -29,7 +29,7 @@ int8_t		tc_ak_clear_screen(t_registry *shell)
 {
 	size_t initial_cursor_pos;
 
-	if (validate_interface_content(&shell->interface) != 0)
+	if (validate_interface_content(&shell->interface) == FAILURE)
 		return (FAILURE);
 	initial_cursor_pos = shell->interface.cursor.index;
 	tc_ak_end(shell);

@@ -6,13 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:10:32 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/29 14:07:45 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:03:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "resolve.h"
-#include "21sh.h"
+#include "sh21.h"
 #include "reso.h"
 /*
 int 	launch_job(t_list *joblst, t_registry *shell)

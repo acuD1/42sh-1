@@ -11,18 +11,17 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "interface_functions.h"
 
-static void	ft_strshift(char *str, uint32_t index, int shift)
+static void	ft_strshift(char *str, ssize_t index, const int shift)
 {
-	int32_t last;
+	ssize_t last;
 
 	last = ft_strlen(str);
 	if (shift == 0)
 		return ;
 	if (shift > 0)
 	{
-		while (last >= 0 && last >= (int)index)
+		while (last >= 0 && last >= index)
 		{
 			str[last + 1] = str[last];
 			--last;
@@ -30,7 +29,7 @@ static void	ft_strshift(char *str, uint32_t index, int shift)
 	}
 	else
 	{
-		while ((int)index < last)
+		while (index < last)
 		{
 			str[index] = str[index + 1];
 			++index;
@@ -39,7 +38,7 @@ static void	ft_strshift(char *str, uint32_t index, int shift)
 	}
 }
 
-void		shift_content_right_once(t_vector *vector, uint32_t idx)
+void		shift_content_right_once(t_vector *vector, const uint32_t idx)
 {
 	if (idx >= (vector->size - 2)
 					|| ft_strlen(vector->buffer) >= vector->size - 2)
@@ -47,7 +46,7 @@ void		shift_content_right_once(t_vector *vector, uint32_t idx)
 	ft_strshift(vector->buffer, idx, 1);
 }
 
-void		shift_content_left_once(t_vector *vector, uint32_t idx)
+void		shift_content_left_once(t_vector *vector, const uint32_t idx)
 {
 	ft_strshift(vector->buffer, idx, -1);
 }

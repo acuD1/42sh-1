@@ -3,15 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/29 13:46:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 13:18:20 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINE_H
 # define DEFINE_H
+
+/*
+*****************************************************
+******** -------------- SIGNAL -------------- *******
+*****************************************************
+*/
+
+# define SSIG_KILL                  9
+# define SSIG_INT                   2
+# define SSIG_QUIT                  3
+# define SSIG_STOP                  19
 
 /*
 *****************************************************
@@ -23,16 +34,18 @@
 # define FAILURE					-1
 # define FALSE						0
 # define TRUE						1
-# define SH21_USAGE_1				"Usage: 21sh [long option] [-dhv] "
-# define SH21_USAGE_2				"[--rcfile PATH] [-c CMD]\n"
-# define SH21_USAGE_LONG_OPTION		"\n\t--help\n\t--norc\n\t"
-# define SH21_USAGE_LONG_OPTION_2	"--version\n\t--debug\n"
+# define SH21_USAGE_1				"Usage: 21sh [long option] [-dh] "
+# define SH21_USAGE_2				"[-c CMD]\n"
+# define SH21_USAGE_LONG_OPTION		"\n\t--help\n\t"
+# define SH21_USAGE_LONG_OPTION_2	"--debug\n"
+# define NO_OPT						0x000
 # define HELP_OPT					0x001
 # define COMMAND_OPT				0x002
 # define DEBUG_OPT					0x004
-# define VERSION_OPT				0x008
-# define NORC_OPT					0x010
-# define RCFILE_OPT					0x020
+# define HMAP_BIN_SIZE				4096
+# define HMAP_BLT_SIZE				32
+# define SET_TERM					0
+# define RESTORE_TERM				1
 
 /*
 *****************************************************
@@ -51,11 +64,11 @@
 # define ERROR_OPT					0x800
 # define CD_USAGE 					"cd: usage: cd [-L|-P] [dir]\n"
 # define CD_ERROR_OLDPWD_NOTSET		"21sh: cd: OLDPWD not set\n"
+# define NOFI 						"No such file or directory\n"
 # define ENV_USAGE_1 				"env: usage: env [-i] [name=value]... "
 # define ENV_USAGE_2 				"[utility [argument]...]\n"
 # define SETENV_USAGE 				"setenv: usage: setenv [name [value]]\n"
 # define UNSETENV_USAGE 			"unsetenv: usage: unsetenv name\n"
-# define TYPE_USAGE 				"type: usage: type [-afptP] name [name ...]\n"
 # define EXPORT_USAGE 				"type: usage: export name[=value] ...\n"
 # define UNSET_USAGE 				"type: usage: unset name\n"
 
@@ -80,7 +93,7 @@
 # define INT_PS4					"PS4"
 # define INT_PS5					"PS5"
 # define INT_ESCAPE_SEQ				"ESC"
-# define INT_PS1_VALUE				"[21sh] -> "
+# define INT_PS1_VALUE				"[ 21sh ]-> "
 # define INT_PS2_VALUE				"quote> "
 # define INT_PS3_VALUE				"script> "
 # define INT_PS4_VALUE				"heredoc> "
@@ -93,40 +106,28 @@
 *****************************************************
 */
 
-# define STATENBR					18
-# define TOKEN_WITH_DATA			9
-# define NB_OF_TOKENS				54
-# define BUFFER						1024
-# define SINGLE_SIGNS				23
-# define SPECIAL_SIGNS				12
-# define SIGNS 						(SPECIAL_SIGNS + SINGLE_SIGNS)
-# define ALLCHAR					"$\\\'\"|()><;`&~{}[]*?!#%N"
-# define SIGN_DETECT				" \t<>|;\'\"$&~\\"
+# define STATENBR					17
+# define TOKEN_WITH_DATA			5
+# define NB_OF_TOKENS				50
+# define BUFFER						131071
+# define SINGLE_SIGNS				16
+# define SPECIAL_SIGNS				14
+# define SIGNS 						30
+# define ALLCHAR					"\"|()><;`&{}[]#%\n"
+# define SIGN_DETECT				" \t<>|;&!=\n"
 # define LETTER_TO_QUOTE			"\"\'$"
-# define LETTER_INTERUPT			" \t<>|;\'\"&\\"
+# define LETTER_INTERUPT			" \t<>|;&\n"
+# define LETTER_SPECIAL				"\"\'\\$~*?"
 # define TILDE_INTERUPT				" /$"
 # define QSP_INT					" \"\'"
 /*
 ** 42sh
 ** # define LETTER_INTERUPT			" \t<>|;\'\"`()$&!?{}[]*%\\"
 ** # define SIGN_DETECT				" \t<>|;\'\"`()$&!?{}[]*%\\="
-**/
+*/
 # define QUOTE_INTERUPT				"\\\"`$"
-# define EXP_INTERUPT				" \t\'\"`"
+# define EXP_INTERUPT				" \t\'\"`$/"
 # define DOUBLE_SIGN				"&|;=!"
-# define CASE						"case"
-# define DO							"do"
-# define DONE						"done"
-# define ELIF						"elif"
-# define ELSE						"else"
-# define ESAC						"esac"
-# define FI							"fi"
-# define FOR						"for"
-# define IF							"if"
-# define IN							"in"
-# define THEN						"then"
-# define UNTIL						"until"
-# define WHILE						"while"
 
 /*
 *****************************************************
@@ -134,21 +135,77 @@
 *****************************************************
 */
 
-# define PARSE_STATES				14
-# define STARTING					14
-# define STRING_TOKENS				16
-# define BACKSLASH 					E_BACKSLASH
-# define STRING_WORD 				E_STRING, E_EXP, E_QUOTE, E_DB_QUOTE
-# define IO							E_IO_NUMBER
-# define PIPELINE					E_PIPE
-# define BASE_REDIRECT				E_GREAT, E_LESS, E_DLESS, E_DGREAT
-# define AND_REDIRECT				E_GREATAND, E_LESSAND
-# define END_CMD					E_SEMICOLON, E_END
-# define REDIRECT					AND_REDIRECT, BASE_REDIRECT
-# define WORD						STRING_WORD, BACKSLASH
-# define ALL						WORD, BASE_REDIRECT, IO
-# define ALL_END					ALL, END_CMD
+# define PARSE_STATES				30
+# define FD_DUP						0x01
+# define FD_CLOSE					0x02
+# define FD_WRITE					0x04
+# define FD_READ					0x08
+# define FD_PIPE					0x10
+# define FD_CLOED					0x20
+
+# define QUOTING					0x01
+# define HERETRIM					0x02
+# define TO_CLOSE					0x04
+# define NO_PIPE					0x08
+
+# define REDIR						E_GREAT, E_LESS
+# define REDIR_AND					E_GREATAND, E_LESSAND, E_ANDGREAT
+# define REDIR_DB					E_DGREAT, E_DLESS, E_DLESSDASH, E_ANDDGREAT
+# define ALL_REDIRECT				REDIR, REDIR_DB, REDIR_AND
+# define WORD						E_STRING, E_SPSTRING, E_DB_QUOTE
+# define END_CMD					E_NEWLINE, E_END, E_SEMICOLON
 # define E_START					E_DEFAULT
+
+# define N_DB_QUOTE					"\""
+# define N_PIPE						"|"
+# define N_PARENT_OPEN				"("
+# define N_PARENT_CLOSE				")"
+# define N_GREAT					">"
+# define N_LESS						"<"
+# define N_SEMICOLON				";"
+# define N_BACKQUOTE				"`"
+# define N_AND						"&"
+# define N_HOOK_OPEN				"{"
+# define N_HOOK_CLOSE				"}"
+# define N_BRACKET_OPEN				"["
+# define N_BRACKET_CLOSE			"]"
+# define N_HASH						"#"
+# define N_PERCENT					"%"
+# define N_NEWLINE					"\\n"
+# define N_DAND						"&&"
+# define N_OR						"||"
+# define N_DSEMI					";;"
+# define N_DLESS					"<<"
+# define N_DGREAT					">>"
+# define N_LESSAND					"<&"
+# define N_GREATAND					">&"
+# define N_LESSGREAT				"<>"
+# define N_ANDDGREAT				"&>>"
+# define N_ANDGREAT					"&>"
+# define N_DLESSDASH				"<<-"
+# define N_CLOBBER					">|"
+# define N_DEQ						"=="
+# define N_NOTEQ					"!="
+# define N_CASE						"case"
+# define N_DO						"do"
+# define N_DONE						"done"
+# define N_ELIF						"elif"
+# define N_ELSE						"else"
+# define N_ESAC						"esac"
+# define N_FI						"fi"
+# define N_FOR						"for"
+# define N_IF						"if"
+# define N_IN						"in"
+# define N_THEN						"then"
+# define N_UNTIL					"until"
+# define N_WHILE					"while"
+# define N_IO_NUMBER				"IO number"
+# define N_ASSIGN					"assign (=)"
+# define N_STRING					"word"
+# define N_SPSTRING					"spword"
+# define N_END						"end"
+# define N_ERROR					"ERROR"
+# define N_START					"START"
 
 /*
 *****************************************************
@@ -156,6 +213,7 @@
 *****************************************************
 */
 
+# define FAIL_EOF					42
 # define AK_AMOUNT					24
 # define AK_ARROW_UP_MASK			0x1b5b410000000000
 # define AK_ARROW_DOWN_MASK 		0x1b5b420000000000

@@ -6,14 +6,14 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:49:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 07:04:47 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/05 16:24:57 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interface_functions.h"
-#include "log.h"
+#include <termcap.h>
 
-int8_t 			init_termcap_calls(t_termcaps *termcp)
+int8_t			init_termcap_calls(t_termcaps *termcp)
 {
 	ft_memset(termcp, 0, sizeof(t_termcaps));
 	termcp->cs_down = ft_strdup(tgetstr("do", NULL));

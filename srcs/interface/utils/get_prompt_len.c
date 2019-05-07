@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_prompt_len.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:12:15 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:50:32 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:03:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
+#include "sh21.h"
 
 uint32_t	get_prompt_len(t_registry *shell)
 {

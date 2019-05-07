@@ -6,16 +6,15 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/30 13:55:41 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:03:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "21sh.h"
-#include "log.h"
+#include "sh21.h"
 #include "interface_functions.h"
-#include "parser.h"
-#include "resolve.h"
+#include "lexer.h"
+#include "sig.h"
+#include <unistd.h>
 
 int8_t		shell_usage(void)
 {
@@ -29,30 +28,37 @@ int8_t		shell_usage(void)
 
 static int	stdin_build_cmd(t_registry *shell, char *command)
 {
-	int		i;
-	char	*non_interactive_cmd;
-	char	**tab;
-
-	i = 1;
-	non_interactive_cmd = NULL;
-	if ((tab = ft_strsplit(command, "\n")) == FALSE)
-		return (FAILURE);
-	ft_asprintf(&non_interactive_cmd, "%s", tab[0]);
-	while (tab[i] != FALSE)
-		ft_asprintf(&non_interactive_cmd, " ; %s", tab[i++]);
-	if (non_interactive_cmd == FALSE)
-		return (FAILURE);
-	execution_pipeline(shell, lexer(non_interactive_cmd));
-	free(non_interactive_cmd);
+	execution_pipeline(shell, lexer(&shell->lexinfo, command));
 	return (SUCCESS);
+}
+
+static void	batch_mode(t_registry *shell)
+{
+	char	*command;
+
+	shell->is_interactive = FALSE;
+	command = ((shell->option.option & COMMAND_OPT) != FALSE
+			? shell->option.command_str : read_input(STDIN_FILENO));
+	if (ft_strcheck(command, ft_isprint) == FALSE)
+	{
+		shell->option.command_str = NULL;
+		ft_strdel(&command);
+	}
+	if (command != NULL && quoting_is_valid(command) == TRUE)
+	{
+		if (stdin_build_cmd(shell, command) == FAILURE)
+			ft_dprintf(2, "[CRITICAL] - Malloc error.\n");
+	}
+	else
+		ft_dprintf(2, "21sh: No valid input.\n");
+	if ((shell->option.option & COMMAND_OPT) == FALSE && command != NULL)
+		ft_strdel(&command);
 }
 
 static void	launch_shell(t_registry *shell)
 {
-	char	*command;
-
 	if ((shell->option.option & COMMAND_OPT) == FALSE
-		&& isatty(STDIN_FILENO) != 0)
+			&& isatty(STDIN_FILENO) != 0)
 	{
 		shell->is_interactive = TRUE;
 		if ((load_interface(shell)) == SUCCESS)
@@ -62,18 +68,7 @@ static void	launch_shell(t_registry *shell)
 		unload_interface(&shell->interface);
 	}
 	else
-	{
-		shell->is_interactive = FALSE;
-		command = ((shell->option.option & COMMAND_OPT) != FALSE
-				? shell->option.command_str : read_input(STDIN_FILENO));
-		if (command != NULL)
-		{
-			if (stdin_build_cmd(shell, command) == FAILURE)
-				ft_dprintf(2, "[CRITICAL] - Malloc error.\n");
-		}
-		else
-			ft_dprintf(2, "[CRITICAL] - No valid input to execute.\n");
-	}
+		batch_mode(shell);
 }
 
 int			main(int ac, char **av, char **env)
@@ -87,9 +82,9 @@ int			main(int ac, char **av, char **env)
 		return (FAILURE);
 	if (init_shell(&shell) == FAILURE)
 		return (FAILURE);
+	define_ign_signals();
 	launch_shell(&shell);
-	// Clean all intern variables
-	// Clean all environment variables
 	shell_exit_routine(&shell);
+	ft_flush_memory();
 	return (SUCCESS);
 }

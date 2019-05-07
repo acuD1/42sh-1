@@ -6,22 +6,21 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 10:45:51 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:54:06 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:51:44 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
-#include "ft_printf.h"
 #include "log.h"
+#include "interface_functions.h"
 
-uint8_t		is_too_long(t_vector *a, t_vector *b, uint32_t max)
+static uint8_t		is_too_long(t_vector *a, t_vector *b, const uint32_t max)
 {
 	if (ft_vctlen(a) + ft_vctlen(b) >= max)
-		return (1);
-	return (0);
+		return (TRUE);
+	return (FALSE);
 }
 
-int			insert_clipboard(t_registry *shell)
+static uint32_t		insert_clipboard(t_registry *shell)
 {
 	t_interface		*itf;
 	uint32_t		length;
@@ -49,7 +48,7 @@ int			insert_clipboard(t_registry *shell)
 	return (length);
 }
 
-static void				append_clipboard(t_registry *shell)
+static void			append_clipboard(t_registry *shell)
 {
 	t_interface *itf;
 
@@ -68,9 +67,9 @@ int8_t				tc_ak_paste_clipboard(t_registry *shell)
 	uint32_t			go_front;
 
 	itf = &shell->interface;
-	if (validate_interface_content(itf) != 0)
+	if (validate_interface_content(itf) == FAILURE)
 		return (FAILURE);
-	if (is_too_long(itf->line, itf->clip, itf->window.max_chars))
+	if (is_too_long(itf->line, itf->clip, itf->window.max_chars) == TRUE)
 		return (FAILURE);
 	while (itf->line->size < (ft_vctlen(itf->line) + ft_vctlen(itf->clip) + 2))
 		ft_vctrescale(itf->line);

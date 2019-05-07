@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   load_interface_config.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 16:58:01 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:03:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "interface_functions.h"
+#include "sh21.h"
+#include <termcap.h>
 
-int8_t				fill_interface_data(t_registry *shell)
+static int8_t		fill_interface_data(t_registry *shell)
 {
 	if ((shell->interface.line = ft_vctnew(0)) == NULL)
 		return (FAILURE);
@@ -28,10 +30,13 @@ static int8_t		fetch_terminal_info(t_registry *shell)
 	char			*term_name;
 
 	if ((term_name = getenv("TERM")) == NULL)
+	{
+		term_name = INT_TERM_DFLT_VALUE;
 		add_internal(shell, INT_TERM, INT_TERM_DFLT_VALUE);
+	}
 	else
 		add_internal(shell, INT_TERM, term_name);
-	if (term_name == NULL || (tgetent(NULL, term_name)) == -1)
+	if (term_name == NULL || (tgetent(NULL, term_name)) == FAILURE)
 	{
 		log_print(shell, LOG_ERROR, "Tgetent failed.\n");
 		return (FAILURE);
@@ -41,20 +46,19 @@ static int8_t		fetch_terminal_info(t_registry *shell)
 	return (SUCCESS);
 }
 
-static int8_t		fill_interface_related_internals(t_registry *reg)
+int8_t				fill_interface_related_internals(t_registry *shell)
 {
-	if (add_internal(reg, INT_PS1, INT_PS1_VALUE) == FAILURE)
+	get_prompt_ps1(shell);
+	if (add_internal(shell, INT_PS2, INT_PS2_VALUE) == FAILURE)
 		return (FAILURE);
-	if (add_internal(reg, INT_PS2, INT_PS2_VALUE) == FAILURE)
+	if (add_internal(shell, INT_PS3, INT_PS3_VALUE) == FAILURE)
 		return (FAILURE);
-	if (add_internal(reg, INT_PS3, INT_PS3_VALUE) == FAILURE)
-		return (FAILURE);
-	if (add_internal(reg, INT_PS4, INT_PS4_VALUE) == FAILURE)
+	if (add_internal(shell, INT_PS4, INT_PS4_VALUE) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
 }
 
-int8_t load_interface(t_registry *shell)
+int8_t				load_interface(t_registry *shell)
 {
 	if (fetch_terminal_info(shell) == FAILURE)
 		return (FAILURE);

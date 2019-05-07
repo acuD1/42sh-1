@@ -6,14 +6,14 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:54:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:47:52 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:24:51 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interface_functions.h"
-#include "log.h"
 
-static int32_t	goto_next_quote(char *string, char quote, uint32_t index)
+static int64_t	goto_next_quote(const char *string,
+									const char quote, uint32_t index)
 {
 	uint32_t		found_match;
 
@@ -27,8 +27,8 @@ static int32_t	goto_next_quote(char *string, char quote, uint32_t index)
 
 int8_t			quoting_is_valid(char *str)
 {
-	int32_t		length;
-	int32_t		index;
+	uint32_t	length;
+	uint32_t	index;
 	char		quote;
 
 	quote = 0;

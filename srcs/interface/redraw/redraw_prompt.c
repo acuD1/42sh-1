@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "log.h"
 #include "interface_functions.h"
 
 uint32_t		redraw_input_line(t_registry *shell)
@@ -49,7 +48,7 @@ uint32_t		redraw_after_cursor(t_registry *shell)
 	return (itf->cursor.index);
 }
 
-uint32_t		replace_input_line(t_registry *shell, char *string)
+uint32_t		replace_input_line(t_registry *shell, const char *string)
 {
 	t_interface	*itf;
 

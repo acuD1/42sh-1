@@ -6,14 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:46:52 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/05 17:34:51 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interface_functions.h"
-#include "log.h"
 
-static void			handle_printable_char(t_registry *shell, char c)
+static void		handle_printable_char(t_registry *shell, const char c)
 {
 	t_interface *itf;
 
@@ -35,12 +34,12 @@ static void			handle_printable_char(t_registry *shell, char c)
 	tc_ak_arrow_right(shell);
 }
 
-void				handle_input_key(t_registry *shell, char c[READ_SIZE])
+void			handle_input_key(t_registry *shell, char c[READ_SIZE])
 {
-	uint32_t		index;
-	unsigned long	value;
+	uint32_t	index;
+	uint64_t	value;
 
-	if (is_printable(c) == TRUE)
+	if (is_printable(c) == TRUE && c[0] != IFS_CHAR)
 		handle_printable_char(shell, c[0]);
 	else
 	{
@@ -49,7 +48,7 @@ void				handle_input_key(t_registry *shell, char c[READ_SIZE])
 		while (index < AK_AMOUNT)
 		{
 			if (value == shell->interface.ak_masks[index])
-				(shell->interface.tc_call)[index](shell);
+				shell->interface.tc_call[index](shell);
 			++index;
 		}
 	}

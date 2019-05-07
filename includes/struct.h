@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 13:38:17 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:26:16 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
 # include "define.h"
-# include "libft.h"
 # include "enum.h"
+# include "libft.h"
 
 /*
 *****************************************************
@@ -25,7 +26,6 @@
 typedef uint16_t		t_option;
 typedef t_option		(*t_get_option)(char *s, t_option option);
 
-
 /*
 *****************************************************
 *********************** LEXER ***********************
@@ -33,26 +33,34 @@ typedef t_option		(*t_get_option)(char *s, t_option option);
 */
 
 typedef struct s_lexer	t_lexer;
-typedef void 			(*t_lexing)(t_lexer *);
+typedef void			(*t_lexing)(t_lexer *);
 typedef enum e_type		t_type;
 
 typedef struct			s_token
 {
-	enum e_type			type;
 	char				*data;
+	enum e_type			type;
 }						t_token;
+
+typedef struct			s_lexinfo
+{
+	t_lexing			lexing[STATENBR];
+	enum e_type			duplicate[TOKEN_WITH_DATA];
+	enum e_type			special_signs[SPECIAL_SIGNS];
+}						t_lexinfo;
 
 struct					s_lexer
 {
 	char				*input;
 	char				buffer[BUFFER];
-	t_lexing			process[STATENBR];
-	enum e_type			duplicate[TOKEN_WITH_DATA];
-	enum e_type			special_signs[SPECIAL_SIGNS];
+	char				*data;
+	unsigned int		buffer_index;
+	t_lexinfo			*lexinfo;
 	t_list				*tokens;
 	enum e_lexer_state	state;
 	enum e_quote		quote;
 	enum e_type			last_lexer;
+	int					io_detect;
 };
 
 /*
@@ -68,51 +76,51 @@ typedef t_parsing		t_pstate[PARSE_STATES][NB_OF_TOKENS];
 
 typedef struct			s_filedesc
 {
-	int32_t				in;
-	int32_t				out;
-	int32_t				err;
+	unsigned int		action;
+	int32_t				first;
+	int32_t				second;
 }						t_filedesc;
 
 typedef struct			s_process
 {
-	t_filedesc			fd;
+	t_list				*fd;
 	char				**av;
 	char				**env;
 	uint8_t				completed;
 	uint8_t				stopped;
-	int					status;
 	pid_t				pid;
+	int					status;
 }						t_process;
 
 typedef struct			s_job
 {
-	char				*command; /* just for debug */
+	char				*command;
 	t_list				*process_list;
-	pid_t				pgid;
 	struct termios		*term_modes;
+	pid_t				pgid;
 	t_filedesc			fd;
 }						t_job;
 
 struct					s_parser
 {
-	t_process			process;
-	t_job				job;
 	t_list				*token_list;
 	t_list				*env;
 	t_list				*tmp_env;
 	t_list				*job_list;
+	t_process			process;
+	t_job				job;
 	t_stack				stack;
 	t_token				token;
-	int					oflags;
-	int					valid;
+	unsigned int		special_case;
 	enum e_parser_state	last_state;
 	enum e_parser_state	state;
+	int					oflags;
+	int					valid;
 };
 
 struct					s_graph
 {
 	enum e_type			*good_type;
-	int					nb_of_good_type;
 };
 
 /*
@@ -124,8 +132,8 @@ struct					s_graph
 typedef struct			s_history
 {
 	char				*command;
-	struct s_history 	*next;
-	struct s_history 	*prev;
+	struct s_history	*next;
+	struct s_history	*prev;
 }						t_history;
 
 /*
@@ -134,7 +142,7 @@ typedef struct			s_history
 *****************************************************
 */
 
-typedef struct			s_registry t_registry;
+typedef struct s_registry	t_registry;
 
 typedef struct			s_termcaps
 {
@@ -146,7 +154,7 @@ typedef struct			s_termcaps
 }						t_termcaps;
 
 typedef struct			s_cursor
- {
+{
 	uint32_t			index;
 	uint32_t			x;
 	uint32_t			y;
@@ -165,14 +173,14 @@ typedef struct			s_interface
 	struct termios		*orig_mode;
 	t_vector			*line;
 	t_vector			*clip;
-	t_cursor			cursor;
-	t_window			window;
-	t_termcaps			termcaps;
 	t_history			*history_head;
 	t_history			*hist_ptr;
 	char				*current_line;
 	char				*state;
-	unsigned long		ak_masks[AK_AMOUNT];
+	t_cursor			cursor;
+	t_window			window;
+	t_termcaps			termcaps;
+	uint64_t			ak_masks[AK_AMOUNT];
 	int8_t				(*tc_call[AK_AMOUNT])(struct s_registry *shell);
 }						t_interface;
 
@@ -182,36 +190,46 @@ typedef struct			s_interface
 *****************************************************
 */
 
-typedef struct 			s_opt
+typedef struct			s_opt
 {
-	t_option			option;
 	char				*command_str;
-//	char				*rc_path;
+	t_option			option;
 }						t_opt;
 
-typedef struct			s_node
+typedef struct			s_variable
 {
-	char				*var;
+	char				*name;
 	char				*data;
-}						t_node;
+}						t_variable;
+
+typedef struct			s_fd
+{
+	int					in;
+	int					out;
+	int					err;
+}						t_fd;
 
 struct					s_registry
 {
-	uint8_t				is_interactive;
-	t_opt				option;
+	const char			**grammar;
+	t_graph				graph[NB_OF_TOKENS];
+	t_lexinfo			lexinfo;
+	t_pstate			parsing;
 	t_list				*env;
 	t_list				*intern;
+	t_list				*current_job;
 	t_hash				bin_hashmap;
 	t_hash				blt_hashmap;
-	t_graph				graph[NB_OF_TOKENS];
-	t_pstate			parsing;
-	t_list				*current_job;
 	struct s_interface	interface;
+	uint8_t				is_interactive;
+	uint8_t				parse_signal;
+	t_opt				option;
+	t_fd				cur_fd;
 };
 
-typedef int 			(*t_builtin)(t_registry *, char **);
+typedef int				(*t_builtin) (t_registry *, char **);
 
-extern t_registry	*g_shell;
+extern t_registry		*g_shell;
 
 /*
 *****************************************************
@@ -219,7 +237,6 @@ extern t_registry	*g_shell;
 *****************************************************
 */
 
-extern t_list		*g_job_head;
+extern t_list			*g_job_head;
 
 #endif
-
