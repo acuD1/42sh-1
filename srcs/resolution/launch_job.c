@@ -6,11 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:51 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/06 20:58:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:03:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh21.h"
 #include "resolve.h"
 #include "sig.h"
 #include "interface_functions.h"

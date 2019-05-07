@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/05/06 14:46:57 by cempassi         ###   ########.fr        #
+#    Updated: 2019/05/07 15:03:04 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -116,7 +116,7 @@ P_INIT += lexer_parser/init/grammar_parser/
 P_INIT += lexer_parser/init/lexer/
 _SPATH += $(P_LINE) $(P_LEXER) $(P_PARSER) $(P_BUILTIN) $(P_TOOLS) $(P_EXPANSION)
 _SPATH += $(P_INIT) $(P_STARTUP)
-SPATH += $(addprefix srcs/, $(_SPATH)) 
+SPATH += $(addprefix srcs/, $(_SPATH))
 
 # ---------------------------------------------------------------------------- #
 #									 vpath                                     #
@@ -136,7 +136,7 @@ LDFLAGS = -L $(LPATH)
 CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
-CFLAGS += $(IFLAGS) 
+CFLAGS += $(IFLAGS)
 DFLAGS = $(CFLAGS) -fsanitize=address,undefined
 LFLAGS = -ltermcap
 
@@ -144,7 +144,7 @@ LFLAGS = -ltermcap
 #									Includes                                   #
 # ---------------------------------------------------------------------------- #
 
-INCS += 21sh.h
+INCS += sh21.h
 INCS += log.h
 INCS += interface_functions.h
 INCS += unit.h
@@ -331,7 +331,7 @@ EXPANSION += variable.c
 EXPANSION += quoting.c
 
 #						   - - - -    Tool    - - - -                          #
-						   
+
 TOOLS += list_functions.c
 TOOLS += list_functions2.c
 TOOLS += free.c

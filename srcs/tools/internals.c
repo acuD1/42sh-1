@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   internals.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:15:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 16:33:04 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:03:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh21.h"
 
 char		*get_intern_var(t_registry *shell, char *name)
 {

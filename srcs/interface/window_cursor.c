@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   window_cursor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 11:38:46 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/03 18:42:13 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:03:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "interface_functions.h"
-#include "21sh.h"
+#include "sh21.h"
 #include <unistd.h>
 #include <sys/ioctl.h>
 

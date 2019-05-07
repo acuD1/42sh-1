@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   00-machine.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:39:20 by cempassi          #+#    #+#             */
-/*   Updated: 2019/04/15 17:08:41 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:03:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh21.h"
 
 int				lexer_cmp(void *data1, void *data2)
 {

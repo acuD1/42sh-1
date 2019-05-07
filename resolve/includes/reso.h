@@ -6,14 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 09:10:39 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/29 17:31:01 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:03:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RESOLVE_H
 # define RESOLVE_H
 # include <stdlib.h>
-# include "21sh.h"
+# include "sh21.h"
 
 			/*		Test bench 		*/
 int		add_to_test(t_list **test, void *fct);

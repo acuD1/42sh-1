@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   unit.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 13:27:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 16:22:33 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:03:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UNIT_21_SH
 # define UNIT_21_SH
 
-# include "21sh.h"
+# include "sh21.h"
 # include "log.h"
 # include "interface_functions.h"
 # include <stdlib.h>

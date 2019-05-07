@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   io_redirect_parser.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:42:30 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 19:26:00 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:03:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
-#include "21sh.h"
+#include "sh21.h"
 #include "parser.h"
 
 void	io_redirect_flush(t_parser *parse)
