@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tilde.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 12:57:21 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/05 05:45:46 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 12:39:50 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*user_home(const char *str)
 	char	*path;
 
 	path = NULL;
-	ft_asprintf(&path,"/Users/%s", str);
+	ft_asprintf(&path, "/Users/%s", str);
 	if (access(path, F_OK) != SUCCESS)
 	{
 		ft_strdel(&path);

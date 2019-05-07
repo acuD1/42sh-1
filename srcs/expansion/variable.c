@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 13:26:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 12:40:12 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	check_expansion(t_parser *parse, char **str, int i, t_quote quote)
 	{
 		if (ft_strchr(EXP_INTERUPT, (*str)[i + 1]))
 			check = 0;
-		else if (quote != QUOTE_SINGLE )
+		else if (quote != QUOTE_SINGLE)
 		{
 			*str = variable_concat(parse->env, str, i);
 			check = 1;
@@ -74,7 +74,7 @@ char		*variable_expansion(t_parser *parse, char *str)
 
 	i = 0;
 	quote = 0;
-	len = ft_strlen(str);;
+	len = ft_strlen(str);
 	while (i < len)
 	{
 		if (ft_strchr("\'\"", str[i]) && (parse->special_case & QUOTING))
