@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/06 22:00:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 16:33:01 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,13 @@ int8_t			launch_process(t_job *job, t_process *process,
 	pid_t		pid;
 	char		**env;
 
+	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) == NULL
+			&& ft_hmap_getdata(&shell->bin_hashmap, process->av[0]) == NULL
+			&& !(process->av[0][0] == '.' || process->av[0][0] == '/'))
+	{
+		ft_dprintf(2, "21sh: command not found: %s\n", process->av[0]);
+		return (SUCCESS);
+	}
 	if (process->av == NULL)
 		return (SUCCESS);
 	if (job->process_list->next == NULL
