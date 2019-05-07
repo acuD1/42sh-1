@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 18:28:46 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:22:31 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void		print_token_debug(t_token *token);
 void		print_arrow_debug(int which);
 void		print_error_debug(enum e_type type, int which);
 void		print_result_debug(int which);
-
 
 /*
 *****************************************************
@@ -88,13 +87,11 @@ char		*variable_expansion(t_parser *parse, char *str);
 void		quote_removal(char *str);
 char		character_swap(char swapped);
 t_quote		select_quoting(t_quote quote, char c);
-
-
 int			is_ionumber(t_parser *parse, char *str);
 void		check_filename(t_parser *parse);
 t_type		pop_token_type(t_stack *stack);
 char		*pop_token_data(t_stack *stack);
 void		get_token(t_parser *parse);
-void		generate_filedesc(t_parser *parse, int first, int second\
-			,int action);
+void		generate_filedesc(t_parser *parse, int first, int second
+					, int action);
 #endif

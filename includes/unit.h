@@ -6,12 +6,12 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 13:27:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 15:03:04 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:23:25 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UNIT_21_SH
-# define UNIT_21_SH
+#ifndef UNIT_H
+# define UNIT_H
 
 # include "sh21.h"
 # include "log.h"

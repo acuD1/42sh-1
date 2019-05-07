@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interface_functions.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 16:39:39 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:21:11 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 *****************************************************
 */
 
-int8_t	 	init_window(t_registry *shell);
+int8_t		init_window(t_registry *shell);
 int8_t		init_cursor(t_registry *shell);
 int8_t		init_termcap_calls(t_termcaps *termcp);
 void		define_interface_signal_behavior(t_registry *shell);
@@ -44,9 +44,9 @@ void		move_buffer(char *dest, t_vector *source);
 void		validate_input_quoting(t_registry *shell, t_interface *itf);
 int8_t		fill_interface_related_internals(t_registry *shell);
 t_vector	*allocate_clipboard(t_registry *shell);
-void		handle_input_key(t_registry *shell , char c[]);
-uint32_t	get_next_char(const char *str, uint32_t index,
-				const char direction);
+void		handle_input_key(t_registry *shell, char c[]);
+uint32_t	get_next_char(const char *str, uint32_t index
+					, const char direction);
 void		shift_content_right_once(t_vector *vect, unsigned int cursor);
 void		shift_content_left_once(t_vector *vect, unsigned int cursor);
 int			ft_putc(const int c);

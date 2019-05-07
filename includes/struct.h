@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/05 18:59:58 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:26:16 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef t_option		(*t_get_option)(char *s, t_option option);
 */
 
 typedef struct s_lexer	t_lexer;
-typedef void 			(*t_lexing)(t_lexer *);
+typedef void			(*t_lexing)(t_lexer *);
 typedef enum e_type		t_type;
 
 typedef struct			s_token
@@ -132,8 +132,8 @@ struct					s_graph
 typedef struct			s_history
 {
 	char				*command;
-	struct s_history 	*next;
-	struct s_history 	*prev;
+	struct s_history	*next;
+	struct s_history	*prev;
 }						t_history;
 
 /*
@@ -142,7 +142,7 @@ typedef struct			s_history
 *****************************************************
 */
 
-typedef struct			s_registry t_registry;
+typedef struct s_registry	t_registry;
 
 typedef struct			s_termcaps
 {
@@ -154,7 +154,7 @@ typedef struct			s_termcaps
 }						t_termcaps;
 
 typedef struct			s_cursor
- {
+{
 	uint32_t			index;
 	uint32_t			x;
 	uint32_t			y;
@@ -190,7 +190,7 @@ typedef struct			s_interface
 *****************************************************
 */
 
-typedef struct 			s_opt
+typedef struct			s_opt
 {
 	char				*command_str;
 	t_option			option;
@@ -204,9 +204,9 @@ typedef struct			s_variable
 
 typedef struct			s_fd
 {
-		int				in;
-		int				out;
-		int				err;
+	int					in;
+	int					out;
+	int					err;
 }						t_fd;
 
 struct					s_registry
@@ -227,7 +227,7 @@ struct					s_registry
 	t_fd				cur_fd;
 };
 
-typedef int 			(*t_builtin)(t_registry *, char **);
+typedef int				(*t_builtin) (t_registry *, char **);
 
 extern t_registry		*g_shell;
 
@@ -240,4 +240,3 @@ extern t_registry		*g_shell;
 extern t_list			*g_job_head;
 
 #endif
-
