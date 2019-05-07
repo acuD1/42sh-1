@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 19:21:36 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 13:05:47 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 	ft_bzero(&parse, sizeof(t_parser));
 	parse.token_list = token_list;
 	parse.token.type = E_DEFAULT;
-	lexer_print_debug(shell, parse.token_list); //
+	lexer_print_debug(shell, parse.token_list);
 	while (parse.token_list)
 	{
 		if (parser(shell->graph, parse.token_list) == FAILURE)
@@ -65,7 +65,7 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 		}
 		init_parser(shell, &parse);
 		shell->current_job = parser_state(shell->parsing, &parse);
-		parser_print_debug(shell, &parse); //
+		parser_print_debug(shell, &parse);
 		if (parse.valid == 1)
 			launch_job(shell, parse.job_list);
 		delete_parser(&parse);
