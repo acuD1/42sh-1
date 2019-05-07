@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/05/07 04:01:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 08:44:51 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@
 # include "define.h"
 # include "struct.h"
 
+
 int			run_job(t_registry *shell);
+void		exit_program(const int signo);
+
 /*
 *****************************************************
 ******************** INIT / EXIT ********************

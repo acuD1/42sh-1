@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 16:28:22 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 10:24:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int8_t		fetch_terminal_info(t_registry *shell)
 	}
 	else
 		add_internal(shell, INT_TERM, term_name);
+	ft_printf("Term :%s\n", term_name);
 	if (term_name == NULL || (tgetent(NULL, term_name)) == FAILURE)
 	{
 		log_print(shell, LOG_ERROR, "Tgetent failed.\n");

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 17:36:58 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 08:33:07 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "builtin.h"
 #include "21sh.h"
 #include "log.h"
+#include "interface_functions.h"
+#include "sig.h"
 #include <unistd.h>
 
 static char		*get_last_directory_of_pwd(char **pwd)
@@ -70,6 +72,7 @@ char			*prompt(t_registry *shell)
 	char			character[READ_SIZE + 1];
 	t_interface		*itf;
 
+	define_interface_signals();
 	itf = &shell->interface;
 	ft_bzero(character, READ_SIZE);
 	ft_dprintf(STDOUT_FILENO, "%s", get_intern_var(shell, itf->state));
@@ -88,5 +91,6 @@ char			*prompt(t_registry *shell)
 	}
 	tc_ak_end(shell);
 	validate_input_quoting(shell, itf);
+	define_ign_signals();
 	return (itf->line->buffer);
 }

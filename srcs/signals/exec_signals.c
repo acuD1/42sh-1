@@ -6,12 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 16:41:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 05:45:22 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 09:56:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include <signal.h>
+#include "interface_functions.h"
 #include "lexer.h"
 
 void		stop_parsing(const int signo)
@@ -40,6 +41,13 @@ void		kill_process(const int signo)
 		kill(((t_process*)(proc->data))->pid, SIGINT);
 		proc = proc->next;
 	}
+}
+
+void		exit_program(const int signo)
+{
+	ft_printf("Je suis ici, recieved signal number : %d\n", signo);
+	restore_term_behavior(g_shell);
+	exit(1);
 }
 
 void		loop_signals(void (*func)(int))

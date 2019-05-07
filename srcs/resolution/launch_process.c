@@ -6,11 +6,12 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/06 22:00:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 12:16:55 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
+#include "21sh.h"
 #include "sig.h"
 #include "resolve.h"
 #include <unistd.h>

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:02:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 19:11:59 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 11:49:47 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	signal_parser(t_parser *parser);
 void	stop_parsing(const int signo);
 void	kill_process(const int signo);
 void	loop_signals(void (*func)(int));
+void	signal_ignore(void);
 void	define_ign_signals(void);
 void	define_parser_signals(void);
 void	define_execution_signals(void);

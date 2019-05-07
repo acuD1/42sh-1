@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 02:19:00 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/07 07:04:34 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 12:12:24 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int				check_completed(t_list *lst)
 	process = lst->data;
 	if (process->completed == 0)
 		return (1);
+	else
+		ft_lstiter(process->fd, close_fd);
 	return(check_completed(lst->next));
 }
 
@@ -51,6 +53,16 @@ int				check_to_close(void *data, void *to_test)
 		return (0);
 	}
 	return (1);
+}
+
+void			signal_ignore(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGCHLD, SIG_IGN);
+	signal(SIGSEGV, SIG_IGN);
+	signal(SIGABRT, SIG_IGN);
+	signal(SIGBUS, SIG_IGN);
 }
 
 void			signal_execution(void)
@@ -73,6 +85,7 @@ int				find_process(void *data, void *to_find)
 	return (*pid == process->pid ? 1 : 0);
 }
 
+//void			signal_handler(t_process *process, int status)
 void			delete_finished(t_process *process, int status)
 {
 	if (WIFEXITED(status))
@@ -84,9 +97,18 @@ void			delete_finished(t_process *process, int status)
 	}
 	else if (WIFSIGNALED(status))
 	{
+		ft_printf("On est la! Status :%d\n", WTERMSIG(status));
 		process->completed = 1;
-		ft_dprintf(2, "Kill by %d\n", WTERMSIG(status));
-		kill(process->pid, SIGINT);
+		if (WTERMSIG(status) == SIGPIPE)
+		{
+			ft_dprintf(2, "Pipe broken, kill %s\n", process->av[0]);
+			kill(process->pid, SIGQUIT);
+		}
+		else if (WTERMSIG(status) == SIGQUIT)
+		{
+			ft_dprintf(2, "21sh : %d quit  %s\n", process->pid, process->av[0]);
+			kill(process->pid, SIGQUIT);
+		}
 		ft_lstdel(&process->fd, close_fd);
 	}
 }
@@ -111,10 +133,20 @@ void			wait_job(const int signo)
 	}
 }
 
+void			kill_one_process(int signo)
+{
+	int		pid;
+	int		status;
+
+	ft_printf("Je suis ici! Signo : %s\n", signo);
+	pid = wait(&status);
+	kill(pid, SIGQUIT);
+}
+
 void			signal_job(void)
 {
+	signal(SIGQUIT, exit_program);
 	signal(SIGINT, kill_process);
-	signal(SIGQUIT, kill_process);
 	signal(SIGCHLD, wait_job);
 	signal(SIGPIPE, kill_process);
 }
@@ -156,6 +188,7 @@ void		fork_process(void *data)
 	{
 		ft_freetab(&process->env_tab);
 		ft_lstremove_if(&process->fd, NULL, check_to_close, close_fd);
+		restore_term_behavior(g_shell);
 	}
 }
 
@@ -163,6 +196,8 @@ int			run_builtin(t_process *process)
 {
 	t_builtin	builtin;
 
+	if (process->av == NULL)
+		return (1);
 	if((builtin = ft_hmap_getdata(&g_shell->blt_hashmap, process->av[0])))
 	{
 		g_shell->cur_fd.in = 0;
@@ -183,19 +218,21 @@ int			run_job(t_registry *shell)
 	t_job	*job;
 	int		job_status;
 
-	signal_job();
 	job_status = 1;
-	restore_term_behavior(shell);
 	if (shell->current_job == NULL)
 		return (FAILURE);
+	set_term_behavior(shell);
+	signal_job();
 	job = shell->current_job->data;
 	if (job->process_list->next == NULL && run_builtin(job->process_list->data))
-		return(SUCCESS);
-	else
+		ft_lstdel(&job->process_list, close_fd);
+	else if (((t_process *)job->process_list->data)->av != NULL)
 		ft_lstiter(job->process_list, fork_process);
-	set_term_behavior(shell);
+	else
+		ft_lstdel(&job->process_list, close_fd);
 	while (check_completed(job->process_list))
 		;
-	//define_ign_signals();
+	signal_ignore();
+	define_interface_signals();
 	return (0);
 }

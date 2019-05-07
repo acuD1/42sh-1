@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 02:45:17 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 10:41:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "define.h"
 # include "enum.h"
 # include "libft.h"
+# include <termios.h>
 
 /*
 *****************************************************
@@ -143,7 +144,8 @@ typedef struct			s_history
 *****************************************************
 */
 
-typedef struct			s_registry t_registry;
+typedef struct s_registry	t_registry;
+typedef struct termios		t_termios;
 
 typedef struct			s_termcaps
 {
@@ -170,8 +172,8 @@ typedef struct			s_window
 
 typedef struct			s_interface
 {
-	struct termios		*term_mode;
-	struct termios		*orig_mode;
+	t_termios			term_mode;
+	t_termios			orig_mode;
 	t_vector			*line;
 	t_vector			*clip;
 	t_history			*history_head;

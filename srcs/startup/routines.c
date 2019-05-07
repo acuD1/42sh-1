@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 05:06:17 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 12:13:27 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 	t_parser	parse;
 
 	shell->parse_signal = FALSE;
-	define_parser_signals();
+	signal_ignore();
 	ft_bzero(&parse, sizeof(t_parser));
 	parse.token_list = token_list;
 	parse.token.type = E_DEFAULT;
@@ -70,7 +70,7 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 			run_job(shell);
 		delete_parser(&parse);
 	}
-	define_ign_signals();
+//	define_ign_signals();
 	return (SUCCESS);
 }
 
