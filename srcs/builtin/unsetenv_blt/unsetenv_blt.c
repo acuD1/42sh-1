@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unsetenv_blt.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/04/30 17:32:57 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/07 12:31:29 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int8_t				unsetenv_blt(t_registry *shell, char **av)
 {
 	av++;
 	if (*av == NULL)
-	{	
+	{
 		ft_dprintf(shell->cur_fd.err, UNSETENV_USAGE);
 		return (FAILURE);
 	}

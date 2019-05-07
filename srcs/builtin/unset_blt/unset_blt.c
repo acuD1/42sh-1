@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_blt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/02 11:21:41 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 12:37:50 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void			reset_prompt(t_registry *shell, char **av)
 	else if (ft_strequ(*av, "PS4") == TRUE)
 		add_internal(shell, INT_PS4, INT_PS4_VALUE);
 }
+
 int8_t				unset_blt(t_registry *shell, char **av)
 {
 	++av;
