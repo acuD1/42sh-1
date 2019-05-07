@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 19:21:36 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 05:06:17 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 		shell->current_job = parser_state(shell->parsing, &parse);
 		parser_print_debug(shell, &parse); //
 		if (parse.valid == 1)
-			launch_job(shell, parse.job_list);
+			run_job(shell);
 		delete_parser(&parse);
 	}
 	define_ign_signals();

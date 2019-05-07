@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by cempassi          #+#    #+#              #
-#    Updated: 2019/05/06 14:46:57 by cempassi         ###   ########.fr        #
+#    Updated: 2019/05/07 05:01:54 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,8 +114,9 @@ P_TOOLS += tools/
 P_INIT += lexer_parser/init/app_parser/
 P_INIT += lexer_parser/init/grammar_parser/
 P_INIT += lexer_parser/init/lexer/
+P_EXEC += exec/
 _SPATH += $(P_LINE) $(P_LEXER) $(P_PARSER) $(P_BUILTIN) $(P_TOOLS) $(P_EXPANSION)
-_SPATH += $(P_INIT) $(P_STARTUP)
+_SPATH += $(P_INIT) $(P_STARTUP) $(P_EXEC)
 SPATH += $(addprefix srcs/, $(_SPATH)) 
 
 # ---------------------------------------------------------------------------- #
@@ -340,6 +341,7 @@ TOOLS += utils.c
 TOOLS += print_opt.c
 TOOLS += read_filedesc.c
 TOOLS += internals.c
+TOOLS += exec.c
 
 #						   - - - - Resolution - - - -                          #
 
