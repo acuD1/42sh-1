@@ -30,7 +30,6 @@ int		check_token(t_parser *parse)
 void	error_parser(t_parser *parse)
 {
 	parse->state = P_ERROR;
-	parse->token.type = E_DEFAULT;
 	parse->valid = -1;
 	ft_strdel(&parse->token.data);
 	while (check_token(parse))
@@ -38,6 +37,7 @@ void	error_parser(t_parser *parse)
 		get_token(parse);
 		ft_strdel(&parse->token.data);
 	}
+	parse->token.type = E_DEFAULT;
 	ft_lstdel(&parse->process.fd, close_fd);
 }
 
