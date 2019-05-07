@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:18:25 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 16:15:52 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 16:30:43 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 t_list	*g_job_head;
 
-uint8_t	job_is_stopped(t_job *job)
+uint8_t		job_is_stopped(t_job *job)
 {
 	t_list		*process;
 
@@ -32,7 +32,7 @@ uint8_t	job_is_stopped(t_job *job)
 	return (TRUE);
 }
 
-uint8_t	job_is_completed(t_job *job)
+uint8_t		job_is_completed(t_job *job)
 {
 	t_list		*process;
 
@@ -46,7 +46,7 @@ uint8_t	job_is_completed(t_job *job)
 	return (TRUE);
 }
 
-void	shell_is_interactive(t_registry *shell, uint8_t term)
+void		shell_is_interactive(t_registry *shell, uint8_t term)
 {
 	if (shell->is_interactive == TRUE)
 	{

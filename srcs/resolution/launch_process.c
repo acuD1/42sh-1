@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/06 22:00:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 16:32:33 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void		execute_process(t_process *process,
 	define_execution_signals();
 	ft_lstiter(process->fd, redirect);
 	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL)
-		exit(((t_builtin)ft_hmap_getdata(&shell->blt_hashmap /* HOTFIX */
+		exit(((t_builtin)ft_hmap_getdata(&shell->blt_hashmap
 						, process->av[0]))(shell, process->av));
 	else if (ft_hmap_getdata(&shell->bin_hashmap, process->av[0]) != NULL)
 		execve(ft_hmap_getdata(&shell->bin_hashmap, process->av[0])
@@ -98,6 +98,6 @@ int8_t			launch_process(t_job *job, t_process *process,
 	}
 	ft_freetab(&env);
 	process->pid = pid;
-	job->pgid = job->pgid ? job->pgid  :pid;
+	job->pgid = job->pgid ? job->pgid : pid;
 	return (SUCCESS);
 }

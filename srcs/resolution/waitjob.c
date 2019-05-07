@@ -6,13 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:02:11 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/04 14:29:49 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/07 16:36:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-////// LINUX
 #include <sys/wait.h>
-////////////
 #include "resolve.h"
 
 static int8_t	set_process_status(t_process *process, const pid_t pid,
@@ -48,8 +46,10 @@ static int8_t	update_process_status(const pid_t pid, const int status)
 		while (process != NULL)
 		{
 			if (((t_process*)process->data)->pid == pid)
-				return (set_process_status(((t_process*)process->data)
-						, pid, status));
+			{
+				return (set_process_status(
+					((t_process*)process->data), pid, status));
+			}
 			process = process->next;
 		}
 		job = job->next;
