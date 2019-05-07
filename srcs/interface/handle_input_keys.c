@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 17:34:51 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 19:46:13 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void			handle_input_key(t_registry *shell, char c[READ_SIZE])
 	uint32_t	index;
 	uint64_t	value;
 
+	if (shell->interface.allow_input == FALSE)
+		return ;
 	if (is_printable(c) == TRUE && c[0] != IFS_CHAR)
 		handle_printable_char(shell, c[0]);
 	else

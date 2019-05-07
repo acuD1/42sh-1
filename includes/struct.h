@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 15:26:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 19:44:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ typedef struct			s_interface
 	t_termcaps			termcaps;
 	uint64_t			ak_masks[AK_AMOUNT];
 	int8_t				(*tc_call[AK_AMOUNT])(struct s_registry *shell);
+	uint8_t				allow_input;
 }						t_interface;
 
 /*

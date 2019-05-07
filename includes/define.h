@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 13:18:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 19:23:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define SSIG_INT                   2
 # define SSIG_QUIT                  3
 # define SSIG_STOP                  19
+# define SSIG_SEGV					11
+# define SSIG_ABT					6
 
 /*
 *****************************************************

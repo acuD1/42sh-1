@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 15:03:04 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 19:44:46 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int8_t		fetch_terminal_info(t_registry *shell)
 {
 	char			*term_name;
 
-	if ((term_name = getenv("TERM")) == NULL)
+	if ((term_name = getenv("TERM")) == NULL || ft_strequ(term_name, ""))
 	{
 		term_name = INT_TERM_DFLT_VALUE;
 		add_internal(shell, INT_TERM, INT_TERM_DFLT_VALUE);
@@ -77,5 +77,6 @@ int8_t				load_interface(t_registry *shell)
 	if (fill_interface_data(shell) == FAILURE)
 		return (FAILURE);
 	log_print(shell, LOG_OK, "Line edition initialized.\n");
+	shell->interface.allow_input = TRUE;
 	return (SUCCESS);
 }

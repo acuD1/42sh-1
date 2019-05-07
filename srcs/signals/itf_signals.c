@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 16:36:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 15:03:04 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 19:54:29 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,10 @@ void			interface_resize_handler(const int signo)
 			< (uint32_t)(ft_strlen(get_intern_var(g_shell, INT_PS1)) * 2)
 		|| itf->window.rows < 3)
 		|| ft_vctlen(itf->line) > (uint32_t)itf->window.max_chars)
-		print_words(itf, "Terminal window size too small :-(");
+		g_shell->interface.allow_input = FALSE;
 	else
 	{
+		g_shell->interface.allow_input = TRUE;
 		redraw_prompt(ft_atoi(INT_MAGIC_NUMBER));
 		redraw_input_line(g_shell);
 		tc_ak_end(g_shell);
