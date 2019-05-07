@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_logger.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 23:38:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/05 17:14:06 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 13:02:11 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include "21sh.h"
 
-void	log_print(t_registry *shell, const char *importance,
+void			log_print(t_registry *shell, const char *importance,
 					const char *message, ...)
 {
 	va_list args;
@@ -44,12 +44,11 @@ void	log_print(t_registry *shell, const char *importance,
 	va_end(args);
 }
 
-
-static void	debug_logger_extend(t_registry *shell,
+static void		debug_logger_extend(t_registry *shell,
 					char *home_path, char *log_path)
 {
-	char *tmp;
-	int  debug_fd;
+	char	*tmp;
+	int		debug_fd;
 
 	debug_fd = -1;
 	if ((home_path = get_data(shell->env, "HOME")) == NULL)
@@ -74,7 +73,7 @@ static void	debug_logger_extend(t_registry *shell,
 	ft_strdel(&log_path);
 }
 
-void		init_debug_logger(t_registry *shell)
+void			init_debug_logger(t_registry *shell)
 {
 	char *home_path;
 	char *log_path;
