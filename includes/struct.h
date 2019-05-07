@@ -6,7 +6,7 @@
 /*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/05 18:59:58 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 02:45:17 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ typedef struct			s_process
 {
 	t_list				*fd;
 	char				**av;
-	char				**env;
+	char				**env_tab;
+	t_list				*env;
 	uint8_t				completed;
 	uint8_t				stopped;
 	pid_t				pid;
@@ -190,6 +191,8 @@ typedef struct			s_interface
 *****************************************************
 */
 
+typedef int 			(*t_builtin)(t_registry *, char **);
+
 typedef struct 			s_opt
 {
 	char				*command_str;
@@ -227,7 +230,6 @@ struct					s_registry
 	t_fd				cur_fd;
 };
 
-typedef int 			(*t_builtin)(t_registry *, char **);
 
 extern t_registry		*g_shell;
 

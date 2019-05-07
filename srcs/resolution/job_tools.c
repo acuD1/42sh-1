@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:18:25 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/29 16:15:52 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/07 03:20:17 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	shell_is_interactive(t_registry *shell, uint8_t term)
 	}
 }
 
-void		redirect(void *data)
+void	redirect(void *data)
 {
 	t_filedesc *fd;
 
@@ -74,7 +74,7 @@ void		redirect(void *data)
 		dup2(fd->first, fd->second);
 }
 
-void		get_blt_fd(void *data)
+void	get_blt_fd(void *data)
 {
 	t_filedesc *fd;
 
