@@ -72,7 +72,7 @@ char			*prompt(t_registry *shell)
 
 	itf = &shell->interface;
 	ft_bzero(character, READ_SIZE);
-	ft_dprintf(STDOUT_FILENO, "\n%s", get_intern_var(shell, itf->state));
+	ft_dprintf(STDOUT_FILENO, "%s", get_intern_var(shell, itf->state));
 	itf->hist_ptr = NULL;
 	while (character[0] != IFS_CHAR)
 	{

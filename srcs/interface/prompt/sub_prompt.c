@@ -21,7 +21,7 @@ static void			print_sub_prompt(t_registry *shell)
 	ps = get_intern_var(shell, shell->interface.state);
 	shell->interface.cursor.x = 0;
 	shell->interface.cursor.y = 0;
-	ft_printf("\n");
+	ft_putchar('\n');
 	if (ps == NULL)
 		ps = "sub> ";
 	print_words(&shell->interface, ps);

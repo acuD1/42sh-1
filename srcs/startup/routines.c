@@ -68,7 +68,6 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 		parser_print_debug(shell, &parse); //
 		if (parse.valid == 1)
 			launch_job(shell, parse.job_list);
-		lexer_print_debug(shell, parse.token_list); //
 		delete_parser(&parse);
 	}
 	define_ign_signals();
