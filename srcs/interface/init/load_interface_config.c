@@ -57,9 +57,27 @@ int8_t				fill_interface_related_internals(t_registry *shell)
 		return (FAILURE);
 	return (SUCCESS);
 }
-
+//int64_t				setup_interface(t_registry *shell)
 int8_t				load_interface(t_registry *shell)
 {
+	//
+	// Change entirely 
+	// init_interface();
+	// 	-> term_info
+	// 	-> term_mode
+	// 	-> termcaps
+	// 	->
+
+	// load_interface();
+	// 	-> Set internals
+	// 	-> Set window, prompt, cursor, line
+	//	-> set keybinds
+
+	// load_interface_modules();
+	//	-> load clipboard 
+	//	-> load history
+	//	-> load autoc
+
 	if (fetch_terminal_info(shell) == FAILURE)
 		return (FAILURE);
 	if ((init_termcap_calls(&shell->interface.termcaps)) == FAILURE)

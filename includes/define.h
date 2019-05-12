@@ -215,8 +215,36 @@
 *****************************************************
 */
 
+# define RD_NONE        75001
+# define RD_ALL         75002
+# define RD_LINE        75003
+# define RD_PROMPT      75004
+# define RD_FPTP        75005
+# define RD_FCTE        75006
+# define RD_FSTC        75007
+
+# define RD_CMOVE       75057
+
+
+# define CRITICAL_ERROR     -1
+# define SUCCESS            0
+# define INVALID_TERM       1
+# define INTERNAL_FAIL      2
+# define TGETSTR_FAIL       4
+# define TERMMDE_FAIL       8
+# define INTERNAL_FAIL2     16
+# define WINDOW_FAIL        32
+# define PRMPT_FAIL         64
+# define CURSIR_FAIL        128
+# define CLIPB_FAIL         256
+# define HIST_FAIL          512
+# define SUBP_FAIL          1024
+# define AUTOC_FAIL         2048
+# define KEYBDS_FAIL        4096
+
 # define FAIL_EOF					42
 # define AK_AMOUNT					24
+
 # define AK_ARROW_UP_MASK			0x1b5b410000000000
 # define AK_ARROW_DOWN_MASK 		0x1b5b420000000000
 # define AK_ARROW_RIGHT_MASK		0x1b5b430000000000

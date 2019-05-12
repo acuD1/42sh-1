@@ -144,8 +144,25 @@ typedef struct			s_history
 
 typedef struct s_registry	t_registry;
 
+
+
+typedef struct			s_coord
+{
+	uint64_t			x;
+	uint64_t			y;
+}						t_coord;
+
+typedef struct			s_prompt
+{
+	//char				
+}						t_prompt;
+
+
+
+
 typedef struct			s_termcaps
 {
+	// add reverse-video mode for selection (clipboard)
 	char				*clear;
 	char				*cs_down;
 	char				*cs_right;
@@ -155,33 +172,51 @@ typedef struct			s_termcaps
 
 typedef struct			s_cursor
 {
-	uint32_t			index;
-	uint32_t			x;
-	uint32_t			y;
+	uint64_t			index;
+	uint64_t			x;
+	uint64_t			y;
 }						t_cursor;
 
 typedef struct			s_window
 {
 	uint32_t			rows;
 	uint32_t			cols;
-	uint32_t			max_chars;
+	uint64_t			max_chars;
+
+	t_vector			*displayed_line;
+	struct s_prompt		prompt;
+	struct s_cursor		cursor;
 }						t_window;
 
 typedef struct			s_interface
 {
+	// Term mode
 	struct termios		*term_mode;
 	struct termios		*orig_mode;
+
+	// Line vector
 	t_vector			*line;
+
+	// Clipboard
 	t_vector			*clip;
+
+	// History
 	t_history			*history_head;
 	t_history			*hist_ptr;
 	char				*current_line;
-	char				*state;
-	t_cursor			cursor;
+
+	char				*state; // ???
+
+	// Structs
+//	t_cursor			cursor;
 	t_window			window;
 	t_termcaps			termcaps;
+
+	// Keybinds & masks
 	uint64_t			ak_masks[AK_AMOUNT];
 	int8_t				(*tc_call[AK_AMOUNT])(struct s_registry *shell);
+	
+	// FLAGS
 	uint8_t				allow_input;
 }						t_interface;
 

@@ -44,6 +44,7 @@ static int8_t		launch_shell_prompt(t_registry *shell)
 	char		*input;
 
 	define_interface_signals();
+	
 	completed = get_input(shell, &input);
 	if (completed == FAILURE || completed == FAIL_EOF)
 	{
@@ -57,10 +58,12 @@ static int8_t		launch_shell_prompt(t_registry *shell)
 			return (FAILURE);
 		}
 	}
+	
 	ft_putchar('\n');
 	update_history(shell, input);
 	define_ign_signals();
-	execution_pipeline(shell, lexer(&shell->lexinfo, input));
+
+//	execution_pipeline(shell, lexer(&shell->lexinfo, input));
 	return (SUCCESS);
 }
 
