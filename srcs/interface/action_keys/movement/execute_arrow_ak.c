@@ -71,9 +71,9 @@ int8_t				tc_ak_arrow_left(t_registry *shell)
 	return (SUCCESS);
 }
 
-int8_t				tc_ak_arrow_up(t_registry *shell)
+int8_t				tc_ak_arrow_up(__unused t_registry *shell)
 {
-	if (shell->interface.hist_ptr == NULL)
+/*	if (shell->interface.hist_ptr == NULL)
 	{
 		shell->interface.hist_ptr = shell->interface.history_head;
 		if (shell->interface.current_line != NULL)
@@ -87,13 +87,13 @@ int8_t				tc_ak_arrow_up(t_registry *shell)
 		return (FAILURE);
 	if (ft_strlen(shell->interface.hist_ptr->command)
 			< shell->interface.window.max_chars)
-		replace_input_line(shell, shell->interface.hist_ptr->command);
+		replace_input_line(shell, shell->interface.hist_ptr->command);*/
 	return (SUCCESS);
 }
 
-int8_t				tc_ak_arrow_down(t_registry *shell)
+int8_t				tc_ak_arrow_down(__unused t_registry *shell)
 {
-	if (shell->interface.hist_ptr == NULL)
+/*	if (shell->interface.hist_ptr == NULL)
 		return (FAILURE);
 	if (shell->interface.hist_ptr->prev == NULL)
 	{
@@ -108,6 +108,6 @@ int8_t				tc_ak_arrow_down(t_registry *shell)
 		if (ft_strlen(shell->interface.hist_ptr->command)
 				< shell->interface.window.max_chars)
 			replace_input_line(shell, shell->interface.hist_ptr->command);
-	}
+	}*/
 	return (SUCCESS);
 }

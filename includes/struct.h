@@ -144,7 +144,28 @@ typedef struct			s_history
 
 typedef struct s_registry	t_registry;
 
+typedef struct			s_termcaps
+{
+	// add reverse-video mode for selection (clipboard)
+	char				*clear;
+	char				*down;
+	char				*right;
+	char				*left;
+	char				*up;
+}						t_termcaps;
 
+typedef struct			s_prompt
+{	
+	t_vector			*text;
+	char				*state;
+}						t_prompt;
+
+typedef struct			s_cursor
+{
+	uint64_t			x;
+	uint64_t			y;
+	uint64_t			index;
+}						t_cursor;
 
 typedef struct			s_coord
 {
@@ -152,40 +173,18 @@ typedef struct			s_coord
 	uint64_t			y;
 }						t_coord;
 
-typedef struct			s_prompt
-{
-	//char				
-}						t_prompt;
-
-
-
-
-typedef struct			s_termcaps
-{
-	// add reverse-video mode for selection (clipboard)
-	char				*clear;
-	char				*cs_down;
-	char				*cs_right;
-	char				*cs_left;
-	char				*cs_up;
-}						t_termcaps;
-
-typedef struct			s_cursor
-{
-	uint64_t			index;
-	uint64_t			x;
-	uint64_t			y;
-}						t_cursor;
-
 typedef struct			s_window
 {
 	uint32_t			rows;
 	uint32_t			cols;
 	uint64_t			max_chars;
 
+	uint32_t			rd_flag;
 	t_vector			*displayed_line;
-	struct s_prompt		prompt;
-	struct s_cursor		cursor;
+	
+	uint64_t			point_cursor;
+	uint64_t			point1;
+	uint64_t			point2;
 }						t_window;
 
 typedef struct			s_interface
@@ -194,8 +193,19 @@ typedef struct			s_interface
 	struct termios		*term_mode;
 	struct termios		*orig_mode;
 
-	// Line vector
+	t_termcaps			termcaps;
+	t_window			window;
+	t_prompt			prompt;
+	t_cursor			cursor;
+
+	uint64_t			ak_masks[AK_AMOUNT];
+	int8_t				(*tc_call[AK_AMOUNT])(struct s_registry *shell);
+
+
 	t_vector			*line;
+	t_vector			*sub_line;
+
+
 
 	// Clipboard
 	t_vector			*clip;
@@ -209,12 +219,12 @@ typedef struct			s_interface
 
 	// Structs
 //	t_cursor			cursor;
-	t_window			window;
-	t_termcaps			termcaps;
+	
+	
+	
 
 	// Keybinds & masks
-	uint64_t			ak_masks[AK_AMOUNT];
-	int8_t				(*tc_call[AK_AMOUNT])(struct s_registry *shell);
+	
 	
 	// FLAGS
 	uint8_t				allow_input;

@@ -83,22 +83,28 @@
 # define IFS_CHAR					10
 # define READ_SIZE					8
 # define CLIPBOARD_SZ				32
+
 # define INT_TERM					"TERM"
 # define INT_TERM_DFLT_VALUE		"xterm-256color"
+
 # define INT_DBG_FD					"DEBUG_FD"
 # define INT_DBG_FILE				".42sh.log"
+
 # define INT_ROWS					"ROWS"
 # define INT_COLS					"COLS"
+
 # define INT_PS1					"PS1"
 # define INT_PS2					"PS2"
 # define INT_PS3					"PS3"
 # define INT_PS4					"PS4"
-# define INT_PS5					"PS5"
+
 # define INT_ESCAPE_SEQ				"ESC"
-# define INT_PS1_VALUE				"[ 21sh ]-> "
-# define INT_PS2_VALUE				"quote> "
+
+# define INT_PS1_VALUE				"[ \w ]-> "
+# define INT_PS2_VALUE				"\s> "
 # define INT_PS3_VALUE				"script> "
 # define INT_PS4_VALUE				"heredoc> "
+
 # define INT_ESCAPE_SEQ_VALUE		"\\"
 # define INT_MAGIC_NUMBER			"4242"
 
@@ -215,32 +221,40 @@
 *****************************************************
 */
 
-# define RD_NONE        75001
-# define RD_ALL         75002
-# define RD_LINE        75003
-# define RD_PROMPT      75004
-# define RD_FPTP        75005
-# define RD_FCTE        75006
-# define RD_FSTC        75007
+# define RD_NONE        75000 /* No redraw at all*/
+# define RD_ALL         75001 /* Redraw th entire window*/
+# define RD_LINE        75002 /* Redraw entire line */
+# define RD_LAST        75003 /* redraw only last char of line vect */
 
-# define RD_CMOVE       75057
+# define RD_FPTP        75419 /* From point to point (index / t_coord) */
+# define RD_FPTE        75420 /* From point to end */
+# define RD_FSTP        75421 /* From start to point */
 
+# define RD_CEND        75041 /* Put cursor at end */
+# define RD_CHOME       75042 /* Put cursor at home */
+# define RD_CMOVE       75043 /* Put cursor to point / index */
 
-# define CRITICAL_ERROR     -1
+// resize the uint64_t to needs
 # define SUCCESS            0
-# define INVALID_TERM       1
-# define INTERNAL_FAIL      2
-# define TGETSTR_FAIL       4
-# define TERMMDE_FAIL       8
-# define INTERNAL_FAIL2     16
-# define WINDOW_FAIL        32
-# define PRMPT_FAIL         64
-# define CURSIR_FAIL        128
-# define CLIPB_FAIL         256
-# define HIST_FAIL          512
-# define SUBP_FAIL          1024
-# define AUTOC_FAIL         2048
-# define KEYBDS_FAIL        4096
+# define CRITICAL_ERROR     1
+# define MALLOC_FAIL        2
+# define VCT_FAIL           4
+# define INVALID_TERM       8
+# define TERMMDE_FAIL       16
+# define TGETSTR_FAIL       32
+# define INTERNAL_FAIL      64
+# define LINE_FAIL          128
+# define WINDOW_FAIL        256
+# define CURSOR_FAIL        512
+# define PRMPT_FAIL         1024
+
+# define INTERNAL_FAIL2     999
+# define CLIPB_FAIL         999
+# define HIST_FAIL          999
+# define SUBP_FAIL          2048
+# define AUTOC_FAIL         4096
+# define KEYBDS_FAIL        8192
+
 
 # define FAIL_EOF					42
 # define AK_AMOUNT					24

@@ -61,11 +61,16 @@ static void	launch_shell(t_registry *shell)
 			&& isatty(STDIN_FILENO) != 0)
 	{
 		shell->is_interactive = TRUE;
-		if ((load_interface(shell)) == SUCCESS)
-			launch_interface(shell);
-		else
-			ft_dprintf(2, "[CRITICAL] - Interface setup failed. See logs.\n");
-		unload_interface(&shell->interface);
+/////////////////
+		uint64_t setup_flag;
+	
+		setup_flag = setup_interface(shell);
+
+		if ((setup_flag & CRITICAL_ERROR) == FALSE)
+			interactive_mode(shell);
+		
+		teardown_interface(shell);
+/////////////////
 	}
 	else
 		batch_mode(shell);
@@ -76,14 +81,20 @@ int			main(int ac, char **av, char **env)
 	t_registry		shell;
 
 	(void)ac;
+
+	
 	ft_bzero(&shell, sizeof(t_registry));
 	g_shell = &shell;
+
 	if (set_environment(&shell, av + 1, env) == FAILURE)
 		return (FAILURE);
 	if (init_shell(&shell) == FAILURE)
 		return (FAILURE);
+
 	define_ign_signals();
+
 	launch_shell(&shell);
+
 	shell_exit_routine(&shell);
 	ft_flush_memory();
 	return (SUCCESS);

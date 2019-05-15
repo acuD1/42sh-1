@@ -15,24 +15,43 @@
 
 # include "struct.h"
 
+uint64_t				setup_interface(t_registry *shell);
+
 /*
 *****************************************************
 ************** INIT / SETTING / FREE ****************
 *****************************************************
 */
 
-int8_t		init_window(t_registry *shell);
-int8_t		init_cursor(t_registry *shell);
-int8_t		init_termcap_calls(t_termcaps *termcp);
+uint64_t	get_terminal_info(t_registry *shell);
+uint64_t    set_terminal_mode(t_registry *shell);
+uint64_t	init_termcaps(t_termcaps *termcp);
+
+uint64_t	assign_keycodes(t_interface *itf);
+uint64_t    link_keys_functions(int8_t (*tc_call[AK_AMOUNT])(t_registry *shell));
+uint64_t    set_interface_internals(t_registry *shell);
+uint64_t    init_line(t_interface *interface);
+
+uint64_t    init_window(t_registry *shell);
+uint64_t    init_cursor(t_interface *interface);
+uint64_t    init_prompt(t_interface *interface);
+
+
+t_vector	*prompt(t_registry *shell, char *p_state);
+t_vector	*sub_prompt(t_registry *shell, char *s, char *m);
+
+void		update_window(t_registry *shell);
+
+void		handle_input_key(t_registry *shell, char c[READ_SIZE ]);
+
+int			ft_putc(const int c);
+uint8_t		is_eof(const char *buffer);
+
+
+
+
 void		define_interface_signal_behavior(t_registry *shell);
-void		setup_keycodes(t_interface *itf);
-short		set_term_behavior(t_registry *shell);
-char		set_quote(const char c);
-int8_t		load_interface(t_registry *shell);
-void		unload_interface(t_interface *itf);
 short		restore_term_behavior(t_registry *shell);
-void		cleanup_interface(t_registry *shell);
-int8_t		update_window(t_registry *shell);
 
 /*
 *****************************************************
@@ -40,26 +59,12 @@ int8_t		update_window(t_registry *shell);
 *****************************************************
 */
 
-void		move_buffer(char *dest, t_vector *source);
-void		validate_input_quoting(t_registry *shell, t_interface *itf);
-int8_t		fill_interface_related_internals(t_registry *shell);
-t_vector	*allocate_clipboard(t_registry *shell);
-void		handle_input_key(t_registry *shell, char c[]);
-uint32_t	get_next_char(const char *str, uint32_t index
-					, const char direction);
-void		shift_content_right_once(t_vector *vect, unsigned int cursor);
-void		shift_content_left_once(t_vector *vect, unsigned int cursor);
-int			ft_putc(const int c);
-int8_t		validate_interface_content(t_interface *itf);
-uint8_t		is_printable(char c[READ_SIZE]);
-uint8_t		is_eof(const char *buffer);
-uint32_t	get_prompt_len(t_registry *itf);
+
+
 uint64_t	compute_mask(char c[READ_SIZE]);
-void		reset_vector(t_vector *vect);
-void		realloc_vector(t_vector *dest, t_vector *source);
+
 void		link_actions_to_keys(int8_t (*tc_call[AK_AMOUNT])
 				(struct s_registry *shell));
-int8_t		quoting_is_valid(char *string);
 
 /*
 *****************************************************
@@ -68,13 +73,7 @@ int8_t		quoting_is_valid(char *string);
 */
 
 void		interface_resize_handler(const int signo);
-void		print_char(t_interface *itf, const char d);
-void		print_words(t_interface *itf, const char *str);
-void		redraw_prompt(const int signo);
-uint32_t	clean_screen(t_registry *shell);
-uint32_t	replace_input_line(t_registry *shell, const char *string);
-uint32_t	redraw_input_line(t_registry *shell);
-uint32_t	redraw_after_cursor(t_registry *shell);
+
 
 /*
 *****************************************************
@@ -82,10 +81,6 @@ uint32_t	redraw_after_cursor(t_registry *shell);
 *****************************************************
 */
 
-char		*prompt(t_registry *shell);
-void		prompt_read_failed(t_registry *shell, t_vector *vect);
-int8_t		invoke_sub_prompt(t_registry *shell, char **line,
-				char *prompt_state);
 
 /*
 *****************************************************
