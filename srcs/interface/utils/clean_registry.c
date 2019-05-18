@@ -1,21 +1,21 @@
 #include "interface_functions.h"
 
-//	unload_itf_internals(shell);
 void	teardown_interface(t_registry *shell)
 {
+	(void)shell;
 //	unload_autocomp();
 //	unload_history();
 //	unload_clipboard();
 
-	unload_prompt();
-	unload_cursor();
-	unload_window();
+//	unload_prompt();
+//	unload_cursor();
+//	unload_window();
 
-	unload_line();
+//	unload_line();
 
-	unload_termcaps();
+//	unload_termcaps();
 
-	unset_terminal_mode(shell);
+/*	unset_terminal_mode(shell);
 	{
 	if (shell->interface.orig_mode != NULL)
 		free(shell->interface.orig_mode);
@@ -23,7 +23,7 @@ void	teardown_interface(t_registry *shell)
 		free(shell->interface.term_mode);
 	}
 
-/*
+
 	t_history	*del;
 	t_history	*ptr;
 

@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 15:21:11 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/18 13:18:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "struct.h"
 
 uint64_t				setup_interface(t_registry *shell);
-
+void					teardown_interface(t_registry *shell);
 /*
 *****************************************************
 ************** INIT / SETTING / FREE ****************
@@ -48,10 +48,21 @@ int			ft_putc(const int c);
 uint8_t		is_eof(const char *buffer);
 
 
+void		set_redraw_flags(t_interface *itf, uint32_t rd_flag);
+void		set_redraw_bounds(t_interface *itf, uint64_t s, uint64_t e);
+void		set_cursor_pos(t_interface *itf, uint64_t index);
 
+void		redraw(t_registry *shell);
+
+void		print_char(t_interface *itf, char c);
+void		print_loop(t_interface *itf, char *str);
+void		print_prompt(t_registry *shell, char *state);
 
 void		define_interface_signal_behavior(t_registry *shell);
 short		restore_term_behavior(t_registry *shell);
+
+t_coord		*index_to_coord(t_window *window, uint64_t indx);
+uint64_t	get_prompt_length(t_prompt *prompt);
 
 /*
 *****************************************************

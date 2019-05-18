@@ -5,32 +5,23 @@
 
 static uint8_t		get_input(t_registry *shell, t_vector **in)
 {
-	t_vector	*input;
+	*in = prompt(shell, INT_PS1);
 
-	// itf signals
-
-	input = prompt(shell, INT_PS1);
-
-	// ign signals
-
-	if (input == NULL)
+	if (*in == NULL)
 		return (FAILURE); // read fail / Malloc fail
 
-	if (ft_strequ(vct_get_string(input), "\0"))
+	if (ft_strequ(vct_get_string(*in), "\0"))
 		return (LINE_FAIL);
 
-	if (is_eof(input))
-		return (FAILURE);
+//	if (is_eof(vct_get_string(input)))
+//		return (FAILURE);
 
-	if ((*in = vct_dup(input)) == NULL)
-		return (FAILURE);
+//	if ((*in = vct_dup(input)) == NULL)
+//		return (FAILURE);
 
 	return (SUCCESS);
 }
 
-/*
-**
-*/
 void				interactive_mode(t_registry *shell)
 {
 	uint8_t			valid;
@@ -44,11 +35,11 @@ void				interactive_mode(t_registry *shell)
 
 		if (valid != SUCCESS && valid != LINE_FAIL)
 			return ;
-
-		execution_pipeline(shell,
-				lexer(&shell->lexinfo, vct_get_string(input)));
+		ft_dprintf(2, "\nSLE sending: |%s|\n", vct_get_string(input));
+//		execution_pipeline(shell,
+//				lexer(&shell->lexinfo, vct_get_string(input)));
 	}
 
 // default signals
-//restore_term_behavior(shell);
+	restore_term_behavior(shell);
 }

@@ -30,9 +30,9 @@ uint64_t    assign_keycodes(t_interface *itf)
     return (SUCCESS);
 }
 
-uint64_t    link_keys_functions(int8_t (*tc_call[AK_AMOUNT])(t_registry *shell))
+uint64_t    link_keys_functions(__unused int8_t (*tc_call[AK_AMOUNT])(t_registry *shell))
 {
-    tc_call[AK_ARROW_LEFT] = &tc_ak_arrow_left;
+/*    tc_call[AK_ARROW_LEFT] = &tc_ak_arrow_left;
 	tc_call[AK_ARROW_RIGHT] = &tc_ak_arrow_right;
 	tc_call[AK_ARROW_UP] = &tc_ak_arrow_up;
 	tc_call[AK_ARROW_DOWN] = &tc_ak_arrow_down;
@@ -55,7 +55,7 @@ uint64_t    link_keys_functions(int8_t (*tc_call[AK_AMOUNT])(t_registry *shell))
 	tc_call[AK_CTRL_RIGHT] = &tc_ak_next_word;
 	tc_call[AK_TABULATION] = &tc_ak_hightab;
 	tc_call[AK_CTRL_UP] = &tc_ak_ctrl_up;
-	tc_call[AK_CTRL_DOWN] = &tc_ak_ctrl_down;
+	tc_call[AK_CTRL_DOWN] = &tc_ak_ctrl_down;*/
     return (SUCCESS);
 }
 

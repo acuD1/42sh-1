@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   load_interface_struct.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/18 10:14:02 by skuppers          #+#    #+#             */
+/*   Updated: 2019/05/18 15:20:44 by skuppers         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sh21.h"
 #include <sys/ioctl.h>
 
@@ -30,7 +42,7 @@ uint64_t    init_cursor(t_interface *interface)
 {
     t_cursor    *cursor;
 
-    cursor = &interface->window.cursor;
+    cursor = &interface->cursor;
     cursor->x = 0;
     cursor->y = 0;
     cursor->index = 0;
@@ -41,7 +53,7 @@ uint64_t    init_prompt(t_interface *interface)
 {
     t_prompt    *prompt;
 
-    prompt = &interface->window.prompt;
+    prompt = &interface->prompt;
     if ((prompt->text = vct_new(0)) == NULL)
         return (PRMPT_FAIL | VCT_FAIL);
     return (SUCCESS);

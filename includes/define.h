@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 19:23:17 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/18 15:45:07 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@
 
 # define INT_ESCAPE_SEQ				"ESC"
 
-# define INT_PS1_VALUE				"[ \w ]-> "
-# define INT_PS2_VALUE				"\s> "
+# define INT_PS1_VALUE				"[ prompt ]-> "
+# define INT_PS2_VALUE				"\\w> "
 # define INT_PS3_VALUE				"script> "
 # define INT_PS4_VALUE				"heredoc> "
 
@@ -221,32 +221,32 @@
 *****************************************************
 */
 
-# define RD_NONE        75000 /* No redraw at all*/
-# define RD_ALL         75001 /* Redraw th entire window*/
-# define RD_LINE        75002 /* Redraw entire line */
-# define RD_LAST        75003 /* redraw only last char of line vect */
+# define RD_NONE        0x01 /* No redraw at all*/
+# define RD_ALL         0x02 /* Redraw th entire window*/
+# define RD_LINE      	0x04 /* Redraw entire line */
+# define RD_LAST        0x08 /* redraw only last char of line vect */
 
-# define RD_FPTP        75419 /* From point to point (index / t_coord) */
-# define RD_FPTE        75420 /* From point to end */
-# define RD_FSTP        75421 /* From start to point */
+# define RD_FPTP        0x10 /* From point to point (index / t_coord) */
+# define RD_FPTE        0x20 /* From point to end */
+# define RD_FSTP        0x40 /* From start to point */
 
-# define RD_CEND        75041 /* Put cursor at end */
-# define RD_CHOME       75042 /* Put cursor at home */
-# define RD_CMOVE       75043 /* Put cursor to point / index */
+# define RD_CEND        0x80 /* Put cursor at end */
+# define RD_CHOME       0x100 /* Put cursor at home */
+# define RD_CMOVE       0x200 /* Put cursor to point / index */
 
 // resize the uint64_t to needs
 # define SUCCESS            0
-# define CRITICAL_ERROR     1
-# define MALLOC_FAIL        2
-# define VCT_FAIL           4
-# define INVALID_TERM       8
-# define TERMMDE_FAIL       16
-# define TGETSTR_FAIL       32
-# define INTERNAL_FAIL      64
-# define LINE_FAIL          128
-# define WINDOW_FAIL        256
-# define CURSOR_FAIL        512
-# define PRMPT_FAIL         1024
+# define CRITICAL_ERROR     0x001
+# define MALLOC_FAIL        0x002
+# define VCT_FAIL           0x004
+# define INVALID_TERM       0x008
+# define TERMMDE_FAIL       0x010
+# define TGETSTR_FAIL       0x020
+# define INTERNAL_FAIL      0x040
+# define LINE_FAIL          0x080
+# define WINDOW_FAIL        0x100
+# define CURSOR_FAIL        0x200
+# define PRMPT_FAIL         0x400
 
 # define INTERNAL_FAIL2     999
 # define CLIPB_FAIL         999

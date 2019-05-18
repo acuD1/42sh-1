@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 16:36:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 19:54:29 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/18 14:45:49 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <sys/ioctl.h>
 #include <termcap.h>
 #include "interface_functions.h"
-
+/*
 void			redraw_prompt(const int signo)
 {
 	t_interface *itf;
@@ -60,4 +60,4 @@ void			interface_resize_handler(const int signo)
 		redraw_input_line(g_shell);
 		tc_ak_end(g_shell);
 	}
-}
+}*/

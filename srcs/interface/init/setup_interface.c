@@ -1,5 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   setup_interface.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/18 14:43:27 by skuppers          #+#    #+#             */
+/*   Updated: 2019/05/18 15:45:18 by skuppers         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sh21.h"
 #include "interface_functions.h"
+
+void						interface_error(uint64_t report)
+{
+	(void)report;
+//	ft_dprintf(2, "|--> Interface setup report: |%lu|\n", report);
+}
 
 static uint64_t				init_interface(t_registry *shell)
 {
@@ -39,6 +57,7 @@ static uint64_t				load_interface_modules(t_interface *interface)
 	uint64_t		report;
 
 	report = 0;
+	(void)interface;
 //	report |= load_clipboard();
 //	report |= load_history();
 //	report |= load_autocomp();

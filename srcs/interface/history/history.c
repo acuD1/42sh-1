@@ -6,12 +6,12 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 09:42:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/03 17:47:46 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/18 14:48:39 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
-
+/*
 static char		*apply_history_filter(const char *command)
 {
 	char	*ptr;
@@ -59,4 +59,4 @@ t_history		*create_history_entry(const char *command)
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
-}
+}*/

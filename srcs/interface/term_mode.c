@@ -6,11 +6,11 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:05:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/30 10:53:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/18 14:46:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "log.h"
+#include "sh21.h"
 #include <termios.h>
 #include <unistd.h>
 
@@ -59,10 +59,7 @@ uint64_t    set_terminal_mode(t_registry *shell)
 int8_t			restore_term_behavior(t_registry *shell)
 {
 	if (tcsetattr(STDIN_FILENO, TCSANOW, shell->interface.orig_mode) == FAILURE)
-	{
-		log_print(shell, LOG_ERROR, "Tcsetattr failed setting params.\n");
 		return (FAILURE);
-	}
 	ft_free(shell->interface.term_mode);
 	ft_free(shell->interface.orig_mode);
 	return (SUCCESS);

@@ -6,11 +6,6 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 15:03:04 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/18 14:48:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-uint64_t    assign_readline_keycodes(t_interface *interface)
-{
-    
-}

@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:18:25 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 16:30:43 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/18 14:59:31 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		shell_is_interactive(t_registry *shell, uint8_t term)
 		}
 		else if (term == SET_TERM)
 		{
-			set_term_behavior(shell);
+//			set_term_behavior(shell);
 			define_ign_signals();
 		}
 	}

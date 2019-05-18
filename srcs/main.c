@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 15:03:04 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/18 15:43:19 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int8_t		shell_usage(void)
 					SH21_USAGE_LONG_OPTION_2);
 	return (FAILURE);
 }
-
+/*
 static int	stdin_build_cmd(t_registry *shell, char *command)
 {
 	execution_pipeline(shell, lexer(&shell->lexinfo, command));
@@ -54,26 +54,22 @@ static void	batch_mode(t_registry *shell)
 	if ((shell->option.option & COMMAND_OPT) == FALSE && command != NULL)
 		ft_strdel(&command);
 }
-
+*/
 static void	launch_shell(t_registry *shell)
 {
 	if ((shell->option.option & COMMAND_OPT) == FALSE
 			&& isatty(STDIN_FILENO) != 0)
 	{
 		shell->is_interactive = TRUE;
-/////////////////
-		uint64_t setup_flag;
-	
-		setup_flag = setup_interface(shell);
 
+		uint64_t setup_flag;
+		setup_flag = setup_interface(shell);
 		if ((setup_flag & CRITICAL_ERROR) == FALSE)
 			interactive_mode(shell);
-		
 		teardown_interface(shell);
-/////////////////
 	}
-	else
-		batch_mode(shell);
+//	else
+//		batch_mode(shell);
 }
 
 int			main(int ac, char **av, char **env)
@@ -82,7 +78,7 @@ int			main(int ac, char **av, char **env)
 
 	(void)ac;
 
-	
+
 	ft_bzero(&shell, sizeof(t_registry));
 	g_shell = &shell;
 

@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 19:44:09 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/18 15:26:24 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ typedef struct			s_termcaps
 }						t_termcaps;
 
 typedef struct			s_prompt
-{	
+{
 	t_vector			*text;
 	char				*state;
 }						t_prompt;
@@ -181,7 +181,7 @@ typedef struct			s_window
 
 	uint32_t			rd_flag;
 	t_vector			*displayed_line;
-	
+
 	uint64_t			point_cursor;
 	uint64_t			point1;
 	uint64_t			point2;
@@ -219,13 +219,13 @@ typedef struct			s_interface
 
 	// Structs
 //	t_cursor			cursor;
-	
-	
-	
+
+
+
 
 	// Keybinds & masks
-	
-	
+
+
 	// FLAGS
 	uint8_t				allow_input;
 }						t_interface;
