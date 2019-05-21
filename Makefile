@@ -6,7 +6,7 @@
 #    By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/05/18 16:48:29 by skuppers         ###   ########.fr        #
+#    Updated: 2019/05/21 09:37:48 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ P_LINE += interface/prompt
 #P_LINE += interface/action_keys/
 #P_LINE += interface/history/
 #P_LINE += interface/action_keys/clipboard/
-#P_LINE += interface/action_keys/movement/
+P_LINE += interface/action_keys/movement/
 P_LINE += interface/core/
 P_LINE += interface/init/
 P_LINE += interface/redraw/
@@ -234,7 +234,6 @@ BUILTIN += unsetenv_blt.c
 #						- - - - - Line edtion - - - - -                        #
 
 #History
-#LINE += history.c
 
 #Signals
 LINE += signal_handler.c
@@ -242,41 +241,30 @@ LINE += itf_signals.c
 LINE += exec_signals.c
 
 #Utilities
-#LINE += validate_interface.c
-#LINE += get_prompt_len.c
 LINE += input_tools.c
-#LINE += shift_tools.c
 #LINE += move_tools.c
-#LINE += realloc_vector.c
 LINE += clean_registry.c
-#LINE += set_quote.c
 LINE += ft_putc.c
 LINE += is_eof.c
-#LINE += print.c
 
 #Redraw
-#LINE += clean_screen.c
 LINE += redraw.c
 
 #Initialization
-#LINE += load_interface_config.c
-#LINE += load_termcap_strings.c
 LINE += setup_interface.c
+LINE += init_interface.c
+LINE += load_interface.c
 LINE += load_interface_struct.c
 LINE += load_interface_modules.c
-LINE += load_interface.c
-LINE += init_interface.c
 
 #Core
-#LINE += window_cursor.c
 LINE += term_mode.c
 LINE += launch_interface.c
-#LINE += validate_quoting.c
 LINE += handle_input_keys.c
+LINE += cursor.c
 
 #Prompt
 LINE += prompt.c
-#LINE += sub_prompt.c
 
 #Action keys
 #LINE += init_clipboard.c
@@ -284,7 +272,7 @@ LINE += prompt.c
 #LINE += execute_clipboard_copy_ak.c
 #LINE += execute_clipboard_cut_ak.c
 #LINE += execute_clipboard_paste.c
-#LINE += execute_arrow_ak.c
+LINE += execute_arrow_ak.c
 #LINE += execute_he_ak.c
 #LINE += execute_word_jumping_ak.c
 #LINE += execute_ctrl_ak.c

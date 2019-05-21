@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   launch_interface.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/20 06:48:39 by skuppers          #+#    #+#             */
+/*   Updated: 2019/05/20 07:09:54 by skuppers         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sh21.h"
 #include "interface_functions.h"
 #include <termcap.h>
@@ -29,6 +41,10 @@ void				interactive_mode(t_registry *shell)
 
 	valid = 0;
 	input = NULL;
+	if (set_term_mode(shell) == FAILURE)
+		ft_printf("Failed to set term mode.\n");
+	else
+		ft_printf("Term mode set.\n");
 	while (1)
 	{
 		valid = get_input(shell, &input);
@@ -41,5 +57,6 @@ void				interactive_mode(t_registry *shell)
 	}
 
 // default signals
-	restore_term_behavior(shell);
+	if (unset_term_mode(shell) == FAILURE)
+		ft_printf("Failed to unset term mode.\n");
 }

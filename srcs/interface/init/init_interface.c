@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 14:47:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/18 15:23:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/20 08:33:49 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "interface_functions.h"
 #include <termios.h>
 #include <termcap.h>
+#include "log.h"
 
 uint64_t    get_terminal_info(t_registry *shell)
 {
@@ -41,5 +42,7 @@ uint64_t    init_termcaps(t_termcaps *termcap)
     termcap->down = ft_strdup(tgetstr("do", NULL));
     termcap->left = ft_strdup(tgetstr("le", NULL));
     termcap->right = ft_strdup(tgetstr("nd", NULL));
+	if (termcap->left == NULL || termcap->right == NULL)
+		log_print(g_shell, LOG_INFO, "problem.\n");
     return (SUCCESS);
 }

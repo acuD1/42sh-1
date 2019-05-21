@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/18 15:50:42 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/20 10:25:38 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void		print_char(t_interface *itf, char c)
 		itf->cursor.y++;
 		itf->cursor.x = 0;
 	}
+	itf->cursor.index++;
 }
 
 
@@ -83,20 +84,32 @@ void		print_loop(t_interface *itf, char *str)
 			itf->cursor.y++;
 			itf->cursor.x = 0;
 		}
+		itf->cursor.index++;
 	}
 }
 
 void	print_to_window(t_interface *itf, t_vector *text)
 {
-	if (vct_len(text) < itf->window.max_chars)
-		print_loop(itf, vct_get_string(text));
-	else if (itf->window.max_chars > 1)
-		print_loop(itf, "> ");
+	char *str;
+
+	str = vct_get_string(text);
+	while (*str != '\0')
+	{
+		write(1, str, 1);
+		++str;
+		itf->cursor.x++;
+		if (itf->cursor.x == itf->window.cols)
+		{
+			itf->cursor.y++;
+			itf->cursor.x = 0;
+		}
+	}
+
+//	if (vct_len(text) < itf->window.max_chars)
+//		write(1, vct_get_string(text), vct_len(text));
+//	else if (itf->window.max_chars > 1)
+//		write(1, "> ", 2);
 }
-
-
-
-
 
 
 ////////////////////////////////////////////
@@ -106,6 +119,8 @@ t_coord		*index_to_coord(t_window *win, uint64_t index)
 {
 	t_coord	*co;
 
+	if (win->cols == 0)
+		return (NULL);
 	if (!(co = malloc(sizeof(t_coord))))
 		return (NULL);
 	co->x = (index % win->cols);
@@ -177,6 +192,7 @@ t_vector	*prompt(t_registry *shell, char *prompt_state)
 
 	ft_bzero(character, READ_SIZE + 1);
 	vct_reset(shell->interface.line);
+	vct_reset(shell->interface.window.displayed_line);
 
 	while (!is_separator(character))
 	{

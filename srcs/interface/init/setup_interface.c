@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 14:43:27 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/18 15:45:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/20 06:49:24 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static uint64_t				init_interface(t_registry *shell)
 	report = 0;
 	ft_memset(&shell->interface, 0, sizeof(t_interface));
 	report |= get_terminal_info(shell);
-	report |= set_terminal_mode(shell);
+	report |= load_terminal_mode(shell);
 	report |= init_termcaps(&shell->interface.termcaps);
 	return (report);
 }

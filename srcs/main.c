@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/18 15:43:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/20 07:03:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static void	launch_shell(t_registry *shell)
 
 		uint64_t setup_flag;
 		setup_flag = setup_interface(shell);
+		ft_dprintf(2, "|--> interface setup returned %lu\n", setup_flag);
 		if ((setup_flag & CRITICAL_ERROR) == FALSE)
 			interactive_mode(shell);
 		teardown_interface(shell);

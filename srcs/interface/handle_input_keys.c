@@ -6,12 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/18 15:49:42 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/21 09:56:18 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include "interface_functions.h"
+#include "log.h"
 
 static uint8_t		is_printable(char c[READ_SIZE])
 {
@@ -28,21 +29,17 @@ static void		handle_printable_char(t_registry *shell, const char c)
 	line = shell->interface.line;
 	cursor = &shell->interface.cursor;
 
-	if (cursor->index == vct_len(line))
-	{
-		vct_add(line, c);
-		set_redraw_flags(&shell->interface, RD_LAST | RD_CEND);
-		set_redraw_bounds(&shell->interface, 0, 0);
-		set_cursor_pos(&shell->interface, 0);
-	}
-	else if (cursor->index == 0)
+	if (cursor->index == 0)
 	{
 		vct_push(line, c);
 		set_redraw_flags(&shell->interface, RD_LINE | RD_CMOVE);
-		set_redraw_bounds(&shell->interface, 0, 0);
 		set_cursor_pos(&shell->interface, 1);
 	}
-
+	else if (cursor->index == vct_len(line))
+	{
+		vct_add(line, c);
+		set_redraw_flags(&shell->interface, RD_LAST | RD_CEND);
+	}
 	else
 	{
 		vct_insert_char(line, c, cursor->index);
@@ -64,8 +61,8 @@ static void		handle_actionkey(t_registry *shell, char c[READ_SIZE])
 	(void)shell;
 	while (index < AK_AMOUNT)
 	{
-//		if (value == shell->interface.ak_masks[index])
-//			shell->interface.tc_call[index](shell);
+		if (value == shell->interface.ak_masks[index])
+			shell->interface.tc_call[index](shell);
 		++index;
 	}
 }
