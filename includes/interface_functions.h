@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/21 09:37:02 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/21 13:18:44 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,27 +104,27 @@ void		interface_resize_handler(const int signo);
 *****************************************************
 */
 
-int8_t		tc_ak_arrow_left(t_registry *shell);
-int8_t		tc_ak_arrow_right(t_registry *shell);
+int8_t		ak_arrow_left(t_registry *shell);
+int8_t		ak_arrow_right(t_registry *shell);
+int8_t		ak_home(t_registry *shell);
+int8_t		ak_end(t_registry *shell);
+int8_t		ak_delete(t_registry *shell);
+int8_t		ak_backspace(t_registry *shell);
 /*
-int8_t		tc_ak_ctrl_d(t_registry *shell);
-int8_t		tc_ak_next_word(t_registry *shell);
-int8_t		tc_ak_prev_word(t_registry *shell);
-int8_t		tc_ak_cut_before_cursor(t_registry *shell);
-int8_t		tc_ak_cut_after_cursor(t_registry *shell);
-int8_t		tc_ak_copy_before_cursor(t_registry *shell);
-int8_t		tc_ak_copy_after_cursor(t_registry *shell);
-int8_t		tc_ak_cut_line(t_registry *shell);
-int8_t		tc_ak_copy_line(t_registry *shell);
-int8_t		tc_ak_paste_clipboard(t_registry *shell);
-int8_t		tc_ak_clear_screen(t_registry *shell);
-int8_t		tc_ak_home(t_registry *shell);
-int8_t		tc_ak_end(t_registry *shell);
-int8_t		tc_ak_delete(t_registry *shell);
-int8_t		tc_ak_backspace(t_registry *shell);
-int8_t		tc_ak_arrow_up(t_registry *shell);
-int8_t		tc_ak_arrow_down(t_registry *shell);
-int8_t		tc_ak_hightab(t_registry *shell);
-int8_t		tc_ak_ctrl_down(t_registry *shell);
-int8_t		tc_ak_ctrl_up(t_registry *shell);*/
+int8_t		ak_ctrl_d(t_registry *shell);
+int8_t		ak_next_word(t_registry *shell);
+int8_t		ak_prev_word(t_registry *shell);
+int8_t		ak_cut_before_cursor(t_registry *shell);
+int8_t		ak_cut_after_cursor(t_registry *shell);
+int8_t		ak_copy_before_cursor(t_registry *shell);
+int8_t		ak_copy_after_cursor(t_registry *shell);
+int8_t		ak_cut_line(t_registry *shell);
+int8_t		ak_copy_line(t_registry *shell);
+int8_t		ak_paste_clipboard(t_registry *shell);
+int8_t		ak_clear_screen(t_registry *shell);
+int8_t		ak_arrow_up(t_registry *shell);
+int8_t		ak_arrow_down(t_registry *shell);
+int8_t		ak_hightab(t_registry *shell);
+int8_t		ak_ctrl_down(t_registry *shell);
+int8_t		ak_ctrl_up(t_registry *shell);*/
 #endif

@@ -6,26 +6,21 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 11:32:21 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:54:57 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/21 13:18:33 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <termcap.h>
 #include "interface_functions.h"
 
-int8_t	tc_ak_home(t_registry *shell)
+int8_t	ak_home(t_registry *shell)
 {
-	if (validate_interface_content(&shell->interface) == FAILURE)
-		return (FAILURE);
-	while (shell->interface.cursor.index > 0)
-		tc_ak_arrow_left(shell);
+	set_redraw_flags(&shell->interface, RD_NONE | RD_CHOME);
 	return (SUCCESS);
 }
 
-int8_t	tc_ak_end(t_registry *shell)
+int8_t	ak_end(t_registry *shell)
 {
-	if (validate_interface_content(&shell->interface) == FAILURE)
-		return (FAILURE);
-	while (shell->interface.cursor.index < ft_vctlen(shell->interface.line))
-		tc_ak_arrow_right(shell);
+	set_redraw_flags(&shell->interface, RD_NONE | RD_CEND);
 	return (SUCCESS);
 }

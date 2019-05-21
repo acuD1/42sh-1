@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 14:43:27 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/20 06:49:24 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/21 13:10:33 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 void						interface_error(uint64_t report)
 {
 	(void)report;
-//	ft_dprintf(2, "|--> Interface setup report: |%lu|\n", report);
 }
 
 static uint64_t				init_interface(t_registry *shell)

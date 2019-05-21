@@ -32,14 +32,15 @@ uint64_t    assign_keycodes(t_interface *itf)
 
 uint64_t    link_keys_functions(__unused int8_t (*tc_call[AK_AMOUNT])(t_registry *shell))
 {
-    tc_call[AK_ARROW_LEFT] = &tc_ak_arrow_left;
-	tc_call[AK_ARROW_RIGHT] = &tc_ak_arrow_right;
+    tc_call[AK_ARROW_LEFT] = &ak_arrow_left;
+	tc_call[AK_ARROW_RIGHT] = &ak_arrow_right;
+	tc_call[AK_HOME] = &ak_home;
+	tc_call[AK_END] = &ak_end;
+	tc_call[AK_BACKSPACE] = &ak_backspace;
+	tc_call[AK_DELETE] = &ak_delete;
+
 /*	tc_call[AK_ARROW_UP] = &tc_ak_arrow_up;
 	tc_call[AK_ARROW_DOWN] = &tc_ak_arrow_down;
-	tc_call[AK_HOME] = &tc_ak_home;
-	tc_call[AK_END] = &tc_ak_end;
-	tc_call[AK_BACKSPACE] = &tc_ak_backspace;
-	tc_call[AK_DELETE] = &tc_ak_delete;
 	tc_call[AK_CTRL_A] = &tc_ak_home;
 	tc_call[AK_CTRL_D] = &tc_ak_ctrl_d;
 	tc_call[AK_CTRL_E] = &tc_ak_end;

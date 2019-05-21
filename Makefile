@@ -6,7 +6,7 @@
 #    By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/05/21 09:37:48 by skuppers         ###   ########.fr        #
+#    Updated: 2019/05/21 16:46:40 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ TPATH += unit-tests/lexer/
 P_STARTUP = startup/
 P_LINE += interface/
 P_LINE += interface/prompt
-#P_LINE += interface/action_keys/
+P_LINE += interface/action_keys/
 #P_LINE += interface/history/
 #P_LINE += interface/action_keys/clipboard/
 P_LINE += interface/action_keys/movement/
@@ -273,10 +273,10 @@ LINE += prompt.c
 #LINE += execute_clipboard_cut_ak.c
 #LINE += execute_clipboard_paste.c
 LINE += execute_arrow_ak.c
-#LINE += execute_he_ak.c
+LINE += execute_he_ak.c
 #LINE += execute_word_jumping_ak.c
 #LINE += execute_ctrl_ak.c
-#LINE += execute_special_ak.c
+LINE += execute_special_ak.c
 
 #			 		   - - - - - Lexer - Parser - - - - -                      #
 

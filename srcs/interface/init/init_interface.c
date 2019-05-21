@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 14:47:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/20 08:33:49 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/21 11:43:08 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ uint64_t    init_termcaps(t_termcaps *termcap)
     termcap->down = ft_strdup(tgetstr("do", NULL));
     termcap->left = ft_strdup(tgetstr("le", NULL));
     termcap->right = ft_strdup(tgetstr("nd", NULL));
-	if (termcap->left == NULL || termcap->right == NULL)
+	if (termcap->up == NULL || termcap->down == NULL)
 		log_print(g_shell, LOG_INFO, "problem.\n");
     return (SUCCESS);
 }
