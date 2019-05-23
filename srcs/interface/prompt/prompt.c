@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 08:33:07 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/23 15:28:45 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ char			*prompt(t_registry *shell)
 		if (is_eof(itf->line->buffer) == TRUE)
 			return (itf->line->buffer);
 	}
+	if (itf->line->buffer == NULL || ft_strequ(itf->line->buffer, "\0") == TRUE)
+        ft_putchar('\n');
 	tc_ak_end(shell);
 	validate_input_quoting(shell, itf);
 	define_ign_signals();
