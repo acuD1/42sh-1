@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 12:38:03 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/07 14:25:15 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/23 16:35:28 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,17 @@
 #include "resolve.h"
 #include "exec.h"
 
+void			signal_test(const int signo)
+{
+	(void)signo;
+	g_shell->signal = 1;
+}
+
 void			signal_job(void)
 {
 	signal(SIGQUIT, exit_program);
 	signal(SIGINT, kill_process);
-	signal(SIGCHLD, wait_job);
+	signal(SIGCHLD, signal_test);
 	signal(SIGPIPE, kill_process);
 }
 

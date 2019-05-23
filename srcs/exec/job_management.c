@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   job_management.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 12:38:05 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/13 11:56:50 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/23 16:34:40 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void			delete_finished(t_process *process, int status)
 	}
 }
 
-void			wait_job(const int signo)
+void			wait_job(t_registry *shell)
 {
 	t_job		*job;
 	int			status;
@@ -64,8 +64,8 @@ void			wait_job(const int signo)
 	t_list		*node;
 	t_process	*process;
 
-	(void)signo;
-	job = g_shell->current_job->data;
+	job = shell->current_job->data;
+	shell->signal = 0;
 	//ft_printf("SIGCHLD (%d) Handeling\n", signo);
 	if ((pid = waitpid(WAIT_ANY, &status, WUNTRACED)))
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launcher.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 12:38:04 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/07 14:24:45 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/23 16:32:51 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,10 @@ int			run_job(t_registry *shell)
 	else
 		ft_lstdel(&job->process_list, close_fd);
 	while (check_completed(job->process_list))
-		;
+	{
+		if (shell->signal == 1)
+			wait_job(shell);
+	}
 	signal_ignore();
 	define_interface_signals();
 	return (0);

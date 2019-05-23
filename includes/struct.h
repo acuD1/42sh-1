@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 10:41:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/23 16:31:09 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,7 @@ typedef struct			s_fd
 
 struct					s_registry
 {
+	uint				signal;
 	const char			**grammar;
 	t_graph				graph[NB_OF_TOKENS];
 	t_lexinfo			lexinfo;
