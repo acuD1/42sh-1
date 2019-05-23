@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 12:38:05 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/07 14:24:18 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/13 11:56:50 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,21 @@ void			delete_finished(t_process *process, int status)
 	{
 		process->completed = 1;
 		process->status = WEXITSTATUS(status);
-		ft_printf("EXITED ! Je suis ici | Status : %d\n", process->status);
+		//ft_printf("EXITED ! Je suis ici | Status : %d\n", process->status);
 		ft_lstdel(&process->fd, close_fd);
 	}
 	else if (WIFSIGNALED(status))
 	{
-		ft_printf("On est la! Status :%d\n", WTERMSIG(status));
+		//ft_printf("On est la! Status :%d\n", WTERMSIG(status));
 		process->completed = 1;
 		if (WTERMSIG(status) == SIGPIPE)
 		{
-			ft_dprintf(2, "Pipe broken, kill %s\n", process->av[0]);
+			//ft_dprintf(2, "Pipe broken, kill %s\n", process->av[0]);
 			kill(process->pid, SIGQUIT);
 		}
 		else if (WTERMSIG(status) == SIGQUIT)
 		{
-			ft_dprintf(2, "21sh : %d quit  %s\n", process->pid, process->av[0]);
+			//ft_dprintf(2, "21sh : %d quit  %s\n", process->pid, process->av[0]);
 			kill(process->pid, SIGQUIT);
 		}
 		ft_lstdel(&process->fd, close_fd);
@@ -64,8 +64,9 @@ void			wait_job(const int signo)
 	t_list		*node;
 	t_process	*process;
 
+	(void)signo;
 	job = g_shell->current_job->data;
-	ft_printf("SIGCHLD (%d) Handeling\n", signo);
+	//ft_printf("SIGCHLD (%d) Handeling\n", signo);
 	if ((pid = waitpid(WAIT_ANY, &status, WUNTRACED)))
 	{
 		if ((node = ft_lstfind(job->process_list, &pid, find_process)))

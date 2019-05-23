@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 02:19:00 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/07 12:39:56 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/13 11:56:47 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,6 @@ void			process_status(void *data)
 	process = data;
 	ft_printf("Process : %s | Status : %d | PID : %d\n", process->av[0],
 			process->completed, process->pid);
-}
-
-int				check_completed(t_list *lst)
-{
-	t_process	*process;
-
-	if (lst == NULL)
-		return (0);
-	process = lst->data;
-	if (process->completed == 0)
-		return (1);
-	else
-		ft_lstiter(process->fd, close_fd);
-	return(check_completed(lst->next));
 }
 
 int				check_to_close(void *data, void *to_test)
