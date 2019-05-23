@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_heredoc_parser.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:07:01 by cempassi          #+#    #+#             */
-/*   Updated: 2019/05/06 14:29:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/05/23 15:50:30 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_heredoc_delimiter(t_pstate parsing)
 	parsing[P_HEREDOC_DELIMITER][E_SEMICOLON] = heredoc_parser;
 	parsing[P_HEREDOC_DELIMITER][E_NEWLINE] = heredoc_parser;
 	parsing[P_HEREDOC_DELIMITER][E_END] = heredoc_parser;
+	parsing[P_HEREDOC_DELIMITER][E_DLESS] = heredoc_parser;
 }
 
 void	init_heredoc_redirect(t_pstate parsing)
@@ -76,6 +77,7 @@ void	init_heredoc(t_pstate parsing)
 	parsing[P_HEREDOC][E_GREATAND] = redirect_parser;
 	parsing[P_HEREDOC][E_LESS] = redirect_parser;
 	parsing[P_HEREDOC][E_LESSAND] = redirect_parser;
+	parsing[P_HEREDOC][E_DLESS] = redirect_parser;
 	parsing[P_HEREDOC][E_DGREAT] = redirect_parser;
 	parsing[P_HEREDOC][E_ANDDGREAT] = redirect_parser;
 	parsing[P_HEREDOC][E_PIPE] = flush_string;
