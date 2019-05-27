@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:34:43 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/21 12:56:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/27 16:23:15 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void     move_cursor_to_coord(t_interface *itf, uint64_t x, uint64_t y)
     int64_t y_moves;
 
 //	log_print(g_shell, LOG_INFO, "\n|-----------move----------|\n");
-//	log_print(g_shell, LOG_INFO, "GOTO coord x:%lu y:%lu.\n", x, y);
+	log_print(g_shell, LOG_INFO, "GOTO coord x:%lu y:%lu.\n", x, y);
 
 	y_moves =  (y - itf->cursor.y);
 //	log_print(g_shell, LOG_INFO, "NEED to move y:%ld times.\n", y_moves);
@@ -66,12 +66,13 @@ void     move_cursor(t_registry *shell)
 
 	coord = NULL;
     rd_flag = shell->interface.window.rd_flag;
+
+
     if (rd_flag & RD_CEND)
     {
 		coord = index_to_coord(&shell->interface.window,
 								get_prompt_length(&shell->interface.prompt)
 								+ vct_len(shell->interface.line));
-//log_print(shell, LOG_INFO, "|---> Move cursor to end x:%d y:%d\n", coord->x, coord->y);
 		move_cursor_to_coord(&shell->interface, coord->x, coord->y);
 
 		shell->interface.cursor.index = vct_len(shell->interface.line);
@@ -91,7 +92,6 @@ void     move_cursor(t_registry *shell)
 		coord = index_to_coord(&shell->interface.window,
 								get_prompt_length(&shell->interface.prompt)
 								+ shell->interface.window.point_cursor);
-//log_print(shell, LOG_INFO, "|-> Move cursor to x:%d y:%d\n", coord->x, coord->y);
 		move_cursor_to_coord(&shell->interface, coord->x, coord->y);
 		shell->interface.cursor.index = shell->interface.window.point_cursor;
     }

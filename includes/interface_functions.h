@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/21 13:18:44 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/27 11:58:18 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,11 @@ uint64_t    init_cursor(t_interface *interface);
 uint64_t    init_prompt(t_interface *interface);
 
 t_vector	*prompt(t_registry *shell, char *p_state);
-t_vector	*sub_prompt(t_registry *shell, char *s, char *m);
-
-void		update_window(t_registry *shell);
+t_vector	*invoke_ps2prompt(t_registry *shell, char *missing);
 
 void		handle_input_key(t_registry *shell, char c[READ_SIZE ]);
 
-int			ft_putc(const int c);
-uint8_t		is_eof(const char *buffer);
-
+void		add_redraw_flags(t_interface *itf, uint32_t flag);
 void		set_redraw_flags(t_interface *itf, uint32_t rd_flag);
 void		set_redraw_bounds(t_interface *itf, uint64_t s, uint64_t e);
 void		set_cursor_pos(t_interface *itf, uint64_t index);
@@ -56,28 +52,59 @@ void		move_cursor(t_registry *shell);
 void		move_cursor_to_coord(t_interface *itf, uint64_t x, uint64_t y);
 
 
+void		update_window(t_registry *shell);
+
 void		redraw(t_registry *shell);
+void		redrawmode_clear(t_registry *shell);
+void		redrawmode_line(t_registry *shell);
+void		redrawmode_last(t_registry *shell);
+void		redrawmode_fptp(t_registry *shell);
+void		redrawmode_visual(t_registry *shell);
+//void		redrawmode_visual_off(t_registry *shell);
+
+void		define_interface_signals(void);
+void		interface_resize_handler(const int signo);
+
 
 void		print_char(t_interface *itf, char c);
 void		print_loop(t_interface *itf, char *str);
 void		print_prompt(t_registry *shell, char *state);
+void		print_to_window(t_interface *itf, t_vector *text);
 
 
 
-void		define_interface_signal_behavior(t_registry *shell);
 
-t_coord		*index_to_coord(t_window *window, uint64_t indx);
 uint64_t	get_prompt_length(t_prompt *prompt);
+t_coord		*index_to_coord(t_window *window, uint64_t indx);
+
+
+void		p_insert_name(t_vector *text, uint64_t index);
+void		p_insert_username(t_registry *shell, t_vector *text, uint64_t index);
+void		p_insert_cwd(t_registry *shell, t_vector *text, uint64_t index);
+void		p_insert_host(t_registry *shell, t_vector *text, uint64_t index);
+void		p_insert_color(t_vector *text, uint64_t index);
 
 /*
 *****************************************************
-********** UNIT TESTING / BUFFER / UTILS ************
+********************  UTILS *************************
 *****************************************************
 */
 
 
-
+int			ft_putc(const int c);
+uint8_t		is_eof(const char *buffer);
+uint8_t		is_separator(char[READ_SIZE + 1]);
+uint8_t		is_printable(char c[READ_SIZE + 1]);
 uint64_t	compute_mask(char c[READ_SIZE]);
+
+uint32_t	get_next_char(const char *str, uint32_t index, const char direction);
+
+
+
+
+
+
+
 
 void		link_actions_to_keys(int8_t (*tc_call[AK_AMOUNT])
 				(struct s_registry *shell));
@@ -88,7 +115,6 @@ void		link_actions_to_keys(int8_t (*tc_call[AK_AMOUNT])
 *****************************************************
 */
 
-void		interface_resize_handler(const int signo);
 
 
 /*
@@ -110,10 +136,20 @@ int8_t		ak_home(t_registry *shell);
 int8_t		ak_end(t_registry *shell);
 int8_t		ak_delete(t_registry *shell);
 int8_t		ak_backspace(t_registry *shell);
-/*
+
 int8_t		ak_ctrl_d(t_registry *shell);
-int8_t		ak_next_word(t_registry *shell);
-int8_t		ak_prev_word(t_registry *shell);
+int8_t		ak_ctrl_l(t_registry *shell);
+
+int8_t		ak_ctrl_left(t_registry *shell);
+int8_t		ak_ctrl_right(t_registry *shell);
+int8_t		ak_ctrl_up(t_registry *shell);
+int8_t		ak_ctrl_down(t_registry *shell);
+
+int8_t		ak_enter_visual_mode(t_registry *shell);
+int8_t		ak_exit_visual_mode(t_registry *shell);
+
+/*
+
 int8_t		ak_cut_before_cursor(t_registry *shell);
 int8_t		ak_cut_after_cursor(t_registry *shell);
 int8_t		ak_copy_before_cursor(t_registry *shell);
@@ -121,10 +157,10 @@ int8_t		ak_copy_after_cursor(t_registry *shell);
 int8_t		ak_cut_line(t_registry *shell);
 int8_t		ak_copy_line(t_registry *shell);
 int8_t		ak_paste_clipboard(t_registry *shell);
-int8_t		ak_clear_screen(t_registry *shell);
+
 int8_t		ak_arrow_up(t_registry *shell);
 int8_t		ak_arrow_down(t_registry *shell);
+
 int8_t		ak_hightab(t_registry *shell);
-int8_t		ak_ctrl_down(t_registry *shell);
-int8_t		ak_ctrl_up(t_registry *shell);*/
+*/
 #endif

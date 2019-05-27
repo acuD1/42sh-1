@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 14:47:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/21 11:43:08 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/27 11:33:20 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ uint64_t    get_terminal_info(t_registry *shell)
 //add more error handling around the dup TGETSTR_FAIL
 uint64_t    init_termcaps(t_termcaps *termcap)
 {
+    termcap->standout_on = ft_strdup(tgetstr("so", NULL));
+    termcap->standout_off = ft_strdup(tgetstr("se", NULL));
     termcap->clear = ft_strdup(tgetstr("cl", NULL));
     termcap->up = ft_strdup(tgetstr("up", NULL));
     termcap->down = ft_strdup(tgetstr("do", NULL));

@@ -6,20 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/21 14:13:44 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/27 10:00:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include "interface_functions.h"
 #include "log.h"
-
-static uint8_t		is_printable(char c[READ_SIZE])
-{
-	if (c[1] == 0 && ft_isprint(c[0]))
-		return (TRUE);
-	return (FALSE);
-}
 
 static void		handle_printable_char(t_registry *shell, const char c)
 {
@@ -43,8 +36,8 @@ static void		handle_printable_char(t_registry *shell, const char c)
 	else
 	{
 		vct_insert_char(line, c, cursor->index);
-		set_redraw_flags(&shell->interface, RD_FPTE | RD_CMOVE);
-		set_redraw_bounds(&shell->interface, cursor->index, 0);
+		set_redraw_flags(&shell->interface, RD_LINE | RD_CMOVE);
+//		set_redraw_bounds(&shell->interface, cursor->index, 0);
 		set_cursor_pos(&shell->interface, cursor->index + 1);
 	}
 }

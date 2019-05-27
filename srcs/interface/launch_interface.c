@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 06:48:39 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/20 07:09:54 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/27 16:01:53 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static uint8_t		get_input(t_registry *shell, t_vector **in)
 	if (ft_strequ(vct_get_string(*in), "\0"))
 		return (LINE_FAIL);
 
-//	if (is_eof(vct_get_string(input)))
-//		return (FAILURE);
+	if (is_eof(vct_get_string(*in)))
+		return (FAILURE);
 
 //	if ((*in = vct_dup(input)) == NULL)
 //		return (FAILURE);
@@ -43,8 +43,8 @@ void				interactive_mode(t_registry *shell)
 	input = NULL;
 	if (set_term_mode(shell) == FAILURE)
 		ft_printf("Failed to set term mode.\n");
-	else
-		ft_printf("Term mode set.\n");
+
+	define_interface_signals();
 	while (1)
 	{
 		valid = get_input(shell, &input);

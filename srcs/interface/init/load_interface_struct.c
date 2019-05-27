@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 10:14:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/18 15:20:44 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/27 09:42:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ uint64_t    init_prompt(t_interface *interface)
     t_prompt    *prompt;
 
     prompt = &interface->prompt;
+	prompt->state = INT_PS1;
     if ((prompt->text = vct_new(0)) == NULL)
         return (PRMPT_FAIL | VCT_FAIL);
     return (SUCCESS);

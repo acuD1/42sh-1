@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/20 07:09:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/27 16:02:15 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,8 @@ typedef struct s_registry	t_registry;
 
 typedef struct			s_termcaps
 {
-	// add reverse-video mode for selection (clipboard)
+	char				*standout_on;
+	char				*standout_off;
 	char				*clear;
 	char				*down;
 	char				*right;
@@ -158,6 +159,8 @@ typedef struct			s_prompt
 {
 	t_vector			*text;
 	char				*state;
+	char				*missing_char;
+
 }						t_prompt;
 
 typedef struct			s_cursor
@@ -177,19 +180,16 @@ typedef struct			s_window
 {
 	uint32_t			rows;
 	uint32_t			cols;
-	uint64_t			max_chars;
-
 	uint32_t			rd_flag;
-	t_vector			*displayed_line;
-
+	uint64_t			max_chars;
 	uint64_t			point_cursor;
 	uint64_t			point1;
 	uint64_t			point2;
+	t_vector			*displayed_line;
 }						t_window;
 
 typedef struct			s_interface
 {
-	// Term mode
 	struct termios		*term_mode;
 	struct termios		*orig_mode;
 
@@ -201,27 +201,24 @@ typedef struct			s_interface
 	uint64_t			ak_masks[AK_AMOUNT];
 	int8_t				(*tc_call[AK_AMOUNT])(struct s_registry *shell);
 
-
 	t_vector			*line;
 	t_vector			*sub_line;
 
+	//visual mode
+	uint8_t				visual_mode;
+	int64_t				vis_start;
+	int64_t				vis_stop;
 
 
 	// Clipboard
 	t_vector			*clip;
 
+
+
 	// History
 	t_history			*history_head;
 	t_history			*hist_ptr;
 	char				*current_line;
-
-	char				*state; // ???
-
-	// Structs
-//	t_cursor			cursor;
-
-
-
 
 	// Keybinds & masks
 

@@ -6,7 +6,7 @@
 #    By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/05/21 16:46:40 by skuppers         ###   ########.fr        #
+#    Updated: 2019/05/27 16:40:06 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -242,13 +242,15 @@ LINE += exec_signals.c
 
 #Utilities
 LINE += input_tools.c
-#LINE += move_tools.c
+LINE += move_tools.c
 LINE += clean_registry.c
 LINE += ft_putc.c
 LINE += is_eof.c
 
 #Redraw
 LINE += redraw.c
+LINE += redraw_tools.c
+LINE += redraw_modes.c
 
 #Initialization
 LINE += setup_interface.c
@@ -262,9 +264,12 @@ LINE += term_mode.c
 LINE += launch_interface.c
 LINE += handle_input_keys.c
 LINE += cursor.c
+LINE += window.c
 
 #Prompt
 LINE += prompt.c
+LINE += prompt_expansion.c
+LINE += prompt_tools.c
 
 #Action keys
 #LINE += init_clipboard.c
@@ -274,9 +279,10 @@ LINE += prompt.c
 #LINE += execute_clipboard_paste.c
 LINE += execute_arrow_ak.c
 LINE += execute_he_ak.c
-#LINE += execute_word_jumping_ak.c
+LINE += execute_word_jumping_ak.c
 #LINE += execute_ctrl_ak.c
 LINE += execute_special_ak.c
+LINE += visual_mode.c
 
 #			 		   - - - - - Lexer - Parser - - - - -                      #
 

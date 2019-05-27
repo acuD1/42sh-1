@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/20 11:06:24 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/27 16:38:23 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@
 
 # define INT_ESCAPE_SEQ				"ESC"
 
-# define INT_PS1_VALUE				"[ prompt ]-> "
+# define INT_PS1_VALUE				"[\\cg\\u\\cn@\\cb\\h\\cn][\\cr\\w\\cn][\\cy\\s\\cn]-> "
 # define INT_PS2_VALUE				"\\w> "
 # define INT_PS3_VALUE				"script> "
 # define INT_PS4_VALUE				"heredoc> "
@@ -221,18 +221,27 @@
 *****************************************************
 */
 
-# define RD_NONE        0x01 /* No redraw at all*/
-# define RD_ALL         0x02 /* Redraw th entire window*/
-# define RD_LINE      	0x04 /* Redraw entire line */
-# define RD_LAST        0x08 /* redraw only last char of line vect */
+# define ESC_COLOR_NO		"\033[0m"
+# define ESC_COLOR_RED		"\033[0;31m"
+# define ESC_COLOR_GREEN	"\033[0;32m"
+# define ESC_COLOR_BLUE 	"\033[0;34m"
+# define ESC_COLOR_YELLOW	"\033[0;33m"
+# define ESC_COLOR_PURPLE	"\033[0;35m"
 
-# define RD_FPTP        0x10 /* From point to point (index / t_coord) */
-# define RD_FPTE        0x20 /* From point to end */
-# define RD_FSTP        0x40 /* From start to point */
+# define RD_NONE        0x001 /* No redraw at all*/
+# define RD_CLEAR       0x002 /* Redraw th entire window*/
+# define RD_LINE      	0x004 /* Redraw entire line */
+# define RD_LAST        0x008 /* redraw only last char of line vect */
 
-# define RD_CEND        0x80 /* Put cursor at end */
+# define RD_FPTP        0x010 /* From point to point (index / t_coord) */
+# define RD_FPTE        0x020 /* From point to end */
+# define RD_FSTP        0x040 /* From start to point */
+
+# define RD_CEND        0x080 /* Put cursor at end */
 # define RD_CHOME       0x100 /* Put cursor at home */
 # define RD_CMOVE       0x200 /* Put cursor to point / index */
+
+# define RD_VISUAL		0x400
 
 // resize the uint64_t to needs
 # define SUCCESS            0
@@ -255,6 +264,13 @@
 # define AUTOC_FAIL         4096
 # define KEYBDS_FAIL        8192
 
+# define P_DATE				'd'
+# define P_NAME				's'
+# define P_USER				'u'
+# define P_CWD				'w'
+# define P_HOST				'h'
+# define P_MISS				'm'
+# define P_COLOR			'c'
 
 # define FAIL_EOF					42
 # define AK_AMOUNT					24

@@ -6,14 +6,10 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 11:50:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/04/27 15:50:19 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/05/27 09:47:39 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-int	ft_putc(const int c)
-{
-	write(1, &c, 1);
-	return (42);
-}
+
