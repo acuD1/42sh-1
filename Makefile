@@ -6,7 +6,7 @@
 #    By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/05/27 16:40:06 by skuppers         ###   ########.fr        #
+#    Updated: 2019/05/28 10:20:48 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ P_LINE += interface/
 P_LINE += interface/prompt
 P_LINE += interface/action_keys/
 #P_LINE += interface/history/
-#P_LINE += interface/action_keys/clipboard/
+P_LINE += interface/action_keys/clipboard/
 P_LINE += interface/action_keys/movement/
 P_LINE += interface/core/
 P_LINE += interface/init/
@@ -275,7 +275,7 @@ LINE += prompt_tools.c
 #LINE += init_clipboard.c
 #LINE += init_ak_keycodes.c
 #LINE += execute_clipboard_copy_ak.c
-#LINE += execute_clipboard_cut_ak.c
+LINE += execute_clipboard_cut_ak.c
 #LINE += execute_clipboard_paste.c
 LINE += execute_arrow_ak.c
 LINE += execute_he_ak.c

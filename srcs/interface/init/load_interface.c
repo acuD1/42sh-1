@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   load_interface.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/28 10:09:57 by skuppers          #+#    #+#             */
+/*   Updated: 2019/05/28 10:10:00 by skuppers         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sh21.h"
 #include "interface_functions.h"
 
@@ -55,9 +67,11 @@ uint64_t    link_keys_functions(__unused int8_t (*tc_call[AK_AMOUNT])(t_registry
 
 	tc_call[AK_CTRL_F] = &ak_enter_visual_mode;
 	tc_call[AK_CTRL_B] = &ak_exit_visual_mode;
+	tc_call[AK_CTRL_X] = &ak_cut_selection;
 
+	tc_call[AK_ARROW_UP] = &ak_arrow_up;
+	tc_call[AK_ARROW_DOWN] = &ak_arrow_down;
 /*
-	tc_call[AK_CTRL_X] = &tc_ak_cut_line;
 	tc_call[AK_CTRL_B] = &tc_ak_copy_line;
 
 	tc_call[AK_CTRL_P] = &tc_ak_paste_clipboard;
@@ -66,8 +80,6 @@ uint64_t    link_keys_functions(__unused int8_t (*tc_call[AK_AMOUNT])(t_registry
 	tc_call[AK_CTRL_RB] = &tc_ak_copy_after_cursor;
 	tc_call[AK_CTRL_LB] = &tc_ak_copy_before_cursor;
 
-	tc_call[AK_ARROW_UP] = &ak_arrow_up;
-	tc_call[AK_ARROW_DOWN] = &ak_arrow_down;
 
 	tc_call[AK_TABULATION] = &tc_ak_hightab;
 */
@@ -93,5 +105,7 @@ uint64_t    init_line(t_interface *interface)
 		return (CRITICAL_ERROR | LINE_FAIL);
 	if ((interface->sub_line = vct_new(0)) == NULL)
 		return (CRITICAL_ERROR | LINE_FAIL);
-    return (SUCCESS);
+ 	if ((interface->clip = vct_new(0)) == NULL)
+		return (CRITICAL_ERROR | LINE_FAIL);
+   return (SUCCESS);
 }

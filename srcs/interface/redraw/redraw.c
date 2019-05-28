@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 10:14:06 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/27 13:31:55 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/28 09:30:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,8 @@
 
 static void    redraw_line(t_registry *shell)
 {
-//	uint64_t 	line_len = vct_len(shell->interface.line);
-//	uint64_t 	disp_len = vct_len(shell->interface.window.displayed_line);
-
-
-//	log_print(shell, LOG_INFO, "LL:%lu DL:%lu\n", line_len, disp_len);
-//	log_print(shell, LOG_WARNING, "Shell plen:%d\n", prompt_len);
-
-
-
 	if (shell->interface.window.rd_flag & RD_NONE)
         return;
-
 
 	if (shell->interface.window.rd_flag & RD_CLEAR)
 	{
@@ -61,16 +51,12 @@ static void    redraw_line(t_registry *shell)
 
 void    redraw(t_registry *shell)
 {
-//	ft_dprintf(3, "\n|---|\n");
 	redraw_line(shell);
-
 
 	if (shell->interface.visual_mode == TRUE)
 		redrawmode_visual(shell);
 
 	move_cursor(shell);
-
-
 
 	vct_reset(shell->interface.window.displayed_line);
 	vct_ncpy(shell->interface.window.displayed_line, shell->interface.line,

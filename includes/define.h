@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/27 16:38:23 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/28 09:45:08 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@
 
 # define INT_ESCAPE_SEQ				"ESC"
 
-# define INT_PS1_VALUE				"[\\cg\\u\\cn@\\cb\\h\\cn][\\cr\\w\\cn][\\cy\\s\\cn]-> "
+# define INT_PS1_VALUE				"[\\u@\\h][\\w][\\s]-> "
 # define INT_PS2_VALUE				"\\w> "
 # define INT_PS3_VALUE				"script> "
 # define INT_PS4_VALUE				"heredoc> "
@@ -222,11 +222,11 @@
 */
 
 # define ESC_COLOR_NO		"\033[0m"
-# define ESC_COLOR_RED		"\033[0;31m"
-# define ESC_COLOR_GREEN	"\033[0;32m"
-# define ESC_COLOR_BLUE 	"\033[0;34m"
-# define ESC_COLOR_YELLOW	"\033[0;33m"
-# define ESC_COLOR_PURPLE	"\033[0;35m"
+# define ESC_COLOR_RED		"\033[31m"
+# define ESC_COLOR_GREEN	"\033[32m"
+# define ESC_COLOR_BLUE 	"\033[34m"
+# define ESC_COLOR_YELLOW	"\033[33m"
+# define ESC_COLOR_PURPLE	"\033[35m"
 
 # define RD_NONE        0x001 /* No redraw at all*/
 # define RD_CLEAR       0x002 /* Redraw th entire window*/
