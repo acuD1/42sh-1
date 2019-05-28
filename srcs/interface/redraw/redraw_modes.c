@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:26:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/28 10:15:14 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/28 11:00:45 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	redrawmode_fptp(t_registry *shell)
 	length -= shell->interface.window.point1;
 
 	uint64_t tmp = shell->interface.window.point1;
-	log_print(shell, LOG_INFO, "|--> FPTP Redrawing from %lu len %lu.\n", tmp, length);
+	//log_print(shell, LOG_INFO, "|--> FPTP Redrawing from %lu len %lu.\n", tmp, length);
 
 	while (length > 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 11:32:21 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/27 16:14:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/28 14:24:46 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int8_t	ak_end(t_registry *shell)
 	{
 		x = 0;
 		while ((shell->interface.cursor.index + x)
-					< vct_len(shell->interface.line) - 1)
+					< vct_len(shell->interface.line))
 			shell->interface.vis_stop = (shell->interface.cursor.index + ++x);
 	}
 

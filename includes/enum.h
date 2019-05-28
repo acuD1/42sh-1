@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/27 11:38:34 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/28 11:30:48 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,9 @@ enum	e_action_keys
 
 //clipboard
 	AK_ESCAPE,
+
 	AK_CTRL_V,
+
 	AK_CTRL_X,
 	AK_CTRL_P,
 

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:12:56 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/28 10:14:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/28 11:41:57 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int8_t				ak_arrow_up(__unused t_registry *shell)
 int8_t				ak_arrow_down(__unused t_registry *shell)
 {
 //	char *position = ft_strnew(9);
-
-	ft_dprintf(STDOUT_FILENO, "%c[6n", 0x1B);
+	ft_printf("|len:%d|\n", vct_len(shell->interface.line));
+//	ft_dprintf(STDOUT_FILENO, "%c[6n", 0x1B);
 //	read(STDOUT_FILENO, position, 8);
 //	ft_printf("Position response: |%s|\n", position);
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/27 10:00:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/28 11:21:59 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void		handle_printable_char(t_registry *shell, const char c)
 
 // May rework to put the computed masks into a hashmap
 // assiocated with the function pointers
+#include <stdio.h>
 static void		handle_actionkey(t_registry *shell, char c[READ_SIZE])
 {
 	uint32_t	index;
@@ -51,6 +52,7 @@ static void		handle_actionkey(t_registry *shell, char c[READ_SIZE])
 
 	index = 0;
 	value = compute_mask(c);
+//	printf("Mask:%llu\n", value);
 	(void)shell;
 	while (index < AK_AMOUNT)
 	{

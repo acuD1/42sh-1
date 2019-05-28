@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:44:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/28 10:20:42 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/28 14:18:39 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,38 +25,38 @@ int8_t	ak_enter_visual_mode(t_registry *shell)
 int8_t	ak_exit_visual_mode(t_registry *shell)
 {
 	shell->interface.visual_mode = FALSE;
-	set_redraw_flags(&shell->interface, RD_LINE);
+	set_redraw_flags(&shell->interface, RD_LINE | RD_CMOVE);
+	set_cursor_pos(&shell->interface, shell->interface.cursor.index);
 	return (SUCCESS);
 }
 
-void	visual_decrease(t_interface *itf, uint64_t index)
-{
-
-}
-
-
 void	redrawmode_visual(__unused t_registry *shell)
 {
-	int64_t	swap;
-
 	if (shell->interface.vis_start < 0
 		|| shell->interface.vis_stop < 0
-		|| (uint64_t)shell->interface.vis_start > vct_len(shell->interface.line) +1
-		|| (uint64_t)shell->interface.vis_stop > vct_len(shell->interface.line) +1)
+		|| (uint64_t)shell->interface.vis_start > vct_len(shell->interface.line)
+		|| (uint64_t)shell->interface.vis_stop > vct_len(shell->interface.line))
 		return ;
+
+	ft_dprintf(3, "|---> VISUAL MODE::Start:%d stop:%d\n",
+					shell->interface.vis_start,
+					shell->interface.vis_stop);
 
 	if (shell->interface.vis_stop < shell->interface.vis_start)
 	{
-		swap = shell->interface.vis_start;
-		shell->interface.vis_start = shell->interface.vis_stop;
-		shell->interface.vis_stop = swap;
+		set_redraw_bounds(&shell->interface, shell->interface.vis_stop,
+											shell->interface.vis_start + 1);
+//		shell->interface.window.point1 = shell->interface.vis_stop;
+//		shell->interface.window.point2 = shell->interface.vis_start + 1;
 	}
-	shell->interface.window.point1 = shell->interface.vis_start;
-	shell->interface.window.point2 = shell->interface.vis_stop;
+	else
+	{
+		set_redraw_bounds(&shell->interface, shell->interface.vis_start,
+											shell->interface.vis_stop);
+//		shell->interface.window.point1 = shell->interface.vis_start;
+//		shell->interface.window.point2 = shell->interface.vis_stop;
+	}
 
-	ft_dprintf(3, "|---> VISUAL MODE::Start:%d end:%d\n",
-					shell->interface.window.point1,
-					shell->interface.window.point2);
 
 	redrawmode_line(shell);
 	tputs(shell->interface.termcaps.standout_on, 1, &ft_putc);
