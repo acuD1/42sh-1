@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:48:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/27 13:32:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/29 14:12:57 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,26 +64,77 @@ void		print_loop(t_interface *itf, char *str)
 	}
 }
 
+int8_t		parse_effect_number(__unused char *str,__unused uint32_t index)
+{
+	//at most 3 digits
+	uint32_t len = 0;
+	while (ft_isdigit(str[index + len]))
+		++len;
+
+	char *tmp = ft_strsub(str, index, len);
+	if (ft_strlen(tmp) == 0)
+		return (-1);
+	int32_t nbr = ft_atoi(tmp);
+	ft_dprintf(3, "|-> Parsed nbr: %d\n", nbr);
+	if (nbr >= 0 && nbr <= 255)
+		return (0);
+	return (-1);
+}
+
+uint32_t	write_esc_sequence(char *str, uint32_t index)
+{
+	char		*esc;
+	uint32_t	length;
+
+	esc = NULL;
+	length = 2;
+	ft_dprintf(3, "Sequencing %c\n", str[index + length]);
+	if (str[index + length] != '[')
+		return (length - 1);
+	while (str[++length + index] != '\0')
+	{
+
+		if (str[length + index] != ';'
+				&& str[length + index] != 'm'
+				&& parse_effect_number(str, length + index) == -1)
+			return (length);
+
+
+		if (str[index + length] == 'm')
+		{
+			esc = ft_strsub(str, index + 1, length);
+			esc[0] = 27;
+			ft_printf("%s", esc);
+//			ft_dprintf(3, "Seq is:|%s|\n", esc);
+			ft_strdel(&esc);
+			break ;
+		}
+
+	}
+	return (length + 1);
+}
+
 void	print_to_window(t_interface *itf, t_vector *text)
 {
-	char *str;
+	uint32_t	index;
+	char		*str;
 
+	index = 0;
 	str = vct_get_string(text);
-	while (*str != '\0')
+	while (str[index] != '\0')
 	{
-		write(1, str, 1);
-		++str;
+		if (str[index] == '\\' && str[index + 1] == 'e')
+			index += write_esc_sequence(str, index);
+
+		write(1, &str[index], 1);
+		++index;
 		itf->cursor.x++;
+
 		if (itf->cursor.x == itf->window.cols)
 		{
 			itf->cursor.y++;
 			itf->cursor.x = 0;
 		}
 	}
-
-//	if (vct_len(text) < itf->window.max_chars)
-//		write(1, vct_get_string(text), vct_len(text));
-//	else if (itf->window.max_chars > 1)
-//		write(1, "> ", 2);
 }
 

@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/28 11:30:25 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/29 08:32:52 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void		p_insert_name(t_vector *text, uint64_t index);
 void		p_insert_username(t_registry *shell, t_vector *text, uint64_t index);
 void		p_insert_cwd(t_registry *shell, t_vector *text, uint64_t index);
 void		p_insert_host(t_registry *shell, t_vector *text, uint64_t index);
-void		p_insert_color(t_vector *text, uint64_t index);
+void		p_insert_escape(t_vector *text, uint64_t index);
 
 /*
 *****************************************************

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 11:32:21 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/28 14:24:46 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/29 07:02:23 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int8_t	ak_home(t_registry *shell)
 	if (shell->interface.visual_mode == TRUE)
 	{
 		x = 0;
-		while ((shell->interface.cursor.index + x) > 1)
+		while ((shell->interface.cursor.index + x) >= 1)
 			shell->interface.vis_stop = (shell->interface.cursor.index + --x);
 	}
 

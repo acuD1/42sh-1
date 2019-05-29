@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:44:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/28 14:18:39 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/29 07:02:52 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,20 @@ void	redrawmode_visual(__unused t_registry *shell)
 {
 	if (shell->interface.vis_start < 0
 		|| shell->interface.vis_stop < 0
-		|| (uint64_t)shell->interface.vis_start > vct_len(shell->interface.line)
-		|| (uint64_t)shell->interface.vis_stop > vct_len(shell->interface.line))
+		|| (uint64_t)shell->interface.vis_start > vct_len(shell->interface.line) + 1
+		|| (uint64_t)shell->interface.vis_stop > vct_len(shell->interface.line) + 1)
 		return ;
 
-	ft_dprintf(3, "|---> VISUAL MODE::Start:%d stop:%d\n",
-					shell->interface.vis_start,
-					shell->interface.vis_stop);
+//	ft_dprintf(3, "|---> VISUAL MODE::Start:%d stop:%d\n",
+//					shell->interface.vis_start,
+//					shell->interface.vis_stop);
 
 	if (shell->interface.vis_stop < shell->interface.vis_start)
-	{
 		set_redraw_bounds(&shell->interface, shell->interface.vis_stop,
-											shell->interface.vis_start + 1);
-//		shell->interface.window.point1 = shell->interface.vis_stop;
-//		shell->interface.window.point2 = shell->interface.vis_start + 1;
-	}
+											shell->interface.vis_start + 2);
 	else
-	{
 		set_redraw_bounds(&shell->interface, shell->interface.vis_start,
-											shell->interface.vis_stop);
-//		shell->interface.window.point1 = shell->interface.vis_start;
-//		shell->interface.window.point2 = shell->interface.vis_stop;
-	}
-
+											shell->interface.vis_stop + 2);
 
 	redrawmode_line(shell);
 	tputs(shell->interface.termcaps.standout_on, 1, &ft_putc);

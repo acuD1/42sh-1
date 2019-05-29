@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 10:14:06 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/28 11:41:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/29 06:41:08 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ static void    redraw_line(t_registry *shell)
 
 	else if (shell->interface.window.rd_flag & RD_FPTE)
     {
-//		rd_flag &= ~RD_FPTE;
-//		rd_flag |= RD_FPTP;
+		shell->interface.window.rd_flag &= ~RD_FPTE;
+		shell->interface.window.rd_flag |= RD_FPTP;
+
 //		shell->interface.window.point2 =
 //				(line_len >= disp_len) ? line_len + 1 : disp_len + 1;
     }

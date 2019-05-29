@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/28 11:21:59 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/29 07:26:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,14 @@ static void		handle_printable_char(t_registry *shell, const char c)
 	else
 	{
 		vct_insert_char(line, c, cursor->index);
-		set_redraw_flags(&shell->interface, RD_LINE | RD_CMOVE);
-//		set_redraw_bounds(&shell->interface, cursor->index, 0);
+		set_redraw_flags(&shell->interface, RD_FPTP | RD_CMOVE);
+		set_redraw_bounds(&shell->interface, cursor->index,
+						vct_len(shell->interface.line));
+
 		set_cursor_pos(&shell->interface, cursor->index + 1);
 	}
 }
 
-// May rework to put the computed masks into a hashmap
-// assiocated with the function pointers
-#include <stdio.h>
 static void		handle_actionkey(t_registry *shell, char c[READ_SIZE])
 {
 	uint32_t	index;

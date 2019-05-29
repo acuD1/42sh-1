@@ -6,7 +6,7 @@
 #    By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/05/28 11:31:06 by skuppers         ###   ########.fr        #
+#    Updated: 2019/05/29 16:44:42 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -244,8 +244,6 @@ LINE += exec_signals.c
 LINE += input_tools.c
 LINE += move_tools.c
 LINE += clean_registry.c
-LINE += ft_putc.c
-LINE += is_eof.c
 
 #Redraw
 LINE += redraw.c
@@ -272,15 +270,14 @@ LINE += prompt_expansion.c
 LINE += prompt_tools.c
 
 #Action keys
-#LINE += init_clipboard.c
-#LINE += init_ak_keycodes.c
 LINE += execute_clipboard_copy_ak.c
 LINE += execute_clipboard_cut_ak.c
 LINE += execute_clipboard_paste.c
+
 LINE += execute_arrow_ak.c
 LINE += execute_he_ak.c
 LINE += execute_word_jumping_ak.c
-#LINE += execute_ctrl_ak.c
+
 LINE += execute_special_ak.c
 LINE += visual_mode.c
 

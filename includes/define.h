@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/28 11:40:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/29 14:15:28 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@
 
 # define INT_ESCAPE_SEQ				"ESC"
 
-# define INT_PS1_VALUE				"[\\u@\\h][\\w][\\s]-> "
+//# define INT_PS1_VALUE				"[\\u@\\h][\\w][\\s]-> "
+# define INT_PS1_VALUE				"[\\e[38;2;155;102;0;48;2;55;0;0m42sh\\e[0m][\\e[1;31m\\u\\e[0m@\\e[2;33m\\h\\e[0m][\\w]->> "
 # define INT_PS2_VALUE				"\\w> "
 # define INT_PS3_VALUE				"script> "
 # define INT_PS4_VALUE				"heredoc> "
@@ -270,7 +271,7 @@
 # define P_CWD				'w'
 # define P_HOST				'h'
 # define P_MISS				'm'
-# define P_COLOR			'c'
+# define P_ESCAPE			'e'
 
 # define FAIL_EOF					42
 # define AK_AMOUNT					25

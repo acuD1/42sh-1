@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:12:56 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/28 11:41:57 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/29 16:31:21 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@ int8_t				ak_arrow_right(t_registry *shell)
 	offset = 1;
 	if (shell->interface.cursor.index >= vct_len(shell->interface.line))
 			offset = 0;
-
 	if (shell->interface.visual_mode == TRUE)
 		shell->interface.vis_stop = shell->interface.cursor.index + offset;
 
 	set_cursor_pos(&shell->interface, shell->interface.cursor.index + offset);
-
 	return (SUCCESS);
 }
 
@@ -50,16 +48,16 @@ int8_t				ak_arrow_left(t_registry *shell)
 
 int8_t				ak_arrow_up(__unused t_registry *shell)
 {
-	ft_printf("%c[%d;%df",0x1B, 0, 0);
-	return (SUCCESS);
+//	ft_printf("%c[%d;%df",0x1B, 0, 0);
+	return (FAILURE);
 }
 
 int8_t				ak_arrow_down(__unused t_registry *shell)
 {
 //	char *position = ft_strnew(9);
-	ft_printf("|len:%d|\n", vct_len(shell->interface.line));
+//	ft_printf("|len:%d|\n", vct_len(shell->interface.line));
 //	ft_dprintf(STDOUT_FILENO, "%c[6n", 0x1B);
 //	read(STDOUT_FILENO, position, 8);
 //	ft_printf("Position response: |%s|\n", position);
-	return (SUCCESS);
+	return (FAILURE);
 }

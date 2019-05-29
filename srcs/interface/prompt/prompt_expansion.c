@@ -6,27 +6,16 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/27 09:37:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/29 08:41:50 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include "interface_functions.h"
 
-void		p_insert_color(t_vector *text, uint64_t index)
+void		p_insert_escape(__unused t_vector *text,__unused  uint64_t index)
 {
-	if (vct_charat(text, index + 1) == 'n')
-		vct_replace_string(text, index - 1, index + 2, ESC_COLOR_NO);
-	else if (vct_charat(text, index + 1) == 'r')
-		vct_replace_string(text, index - 1, index + 2, ESC_COLOR_RED);
-	else if (vct_charat(text, index + 1) == 'g')
-		vct_replace_string(text, index - 1, index + 2, ESC_COLOR_GREEN);
-	else if (vct_charat(text, index + 1) == 'b')
-		vct_replace_string(text, index - 1, index + 2, ESC_COLOR_BLUE);
-	else if (vct_charat(text, index + 1) == 'y')
-		vct_replace_string(text, index - 1, index + 2, ESC_COLOR_YELLOW);
-	else if (vct_charat(text, index + 1) == 'p')
-		vct_replace_string(text, index - 1, index + 2, ESC_COLOR_PURPLE);
+
 }
 
 void		p_insert_name(t_vector *text, uint64_t index)
